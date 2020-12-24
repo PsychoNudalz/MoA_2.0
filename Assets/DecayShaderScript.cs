@@ -18,7 +18,7 @@ public class DecayShaderScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (currentRatio > 0.1f)
+        if (currentRatio > 0)
         {
             currentRatio -= (1/decayTime) * Time.deltaTime;
             material.SetFloat("_Ratio",currentRatio);
