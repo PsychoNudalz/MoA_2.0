@@ -26,7 +26,11 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
-        Play(themeSong);
+        if (themeSong != null)
+        {
+
+            Play(themeSong);
+        }
         //print("Play " + themeSong.name);
     }
 
@@ -72,11 +76,12 @@ public class SoundManager : MonoBehaviour
                     s.source.minDistance = s.minDistance;
                     s.source.maxDistance = s.maxDistance;
                     s.source.outputAudioMixerGroup = mixerGroup;
-                } catch (System.Exception e)
+                }
+                catch (System.Exception e)
                 {
                     Debug.LogWarning(name + " " + e);
                 }
-                
+
             }
 
 
@@ -116,7 +121,8 @@ public class SoundManager : MonoBehaviour
         {
             Sound s = sounds.Find(t => t.soundName.Equals(sound));
             return s;
-        } catch (System.Exception _)
+        }
+        catch (System.Exception _)
         {
             Debug.Log("Could not find sound " + sound);
             return null;
@@ -184,7 +190,7 @@ public class SoundManager : MonoBehaviour
     {
         if (!Play(s.soundName))
         {
-            print("Sound " + s.soundName+" Not found, Force playing");
+            print("Sound " + s.soundName + " Not found, Force playing");
             sounds.Add(s);
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
