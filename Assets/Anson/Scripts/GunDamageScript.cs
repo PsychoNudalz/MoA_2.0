@@ -55,10 +55,12 @@ public class GunDamageScript : DamageScript
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
+    public AnsonTempUIScript ansonTempUIScript;
 
 
     private void Awake()
     {
+        ansonTempUIScript = FindObjectOfType<AnsonTempUIScript>();
     }
 
     private void Update()
@@ -138,6 +140,9 @@ public class GunDamageScript : DamageScript
 
         sightOffset = sightLocation.position - gunPosition.position;
         mainGunStatsScript.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
+
+        updateAmmoCount();
 
     }
 
@@ -362,6 +367,7 @@ public class GunDamageScript : DamageScript
         currentProjectile -= 1;
         currentMag -= 1;
         bulletParticle.Play();
+        updateAmmoCount();
         if (!isFullAuto)
         {
             isFiring = false;
@@ -434,6 +440,18 @@ public class GunDamageScript : DamageScript
         camera.transform.rotation = transform.rotation;
     }
 
+    void updateAmmoCount()
+    {
+        try
+        {
+        ansonTempUIScript.SetText(currentMag.ToString());
+
+        } catch (System.Exception e)
+        {
+
+        }
+    }
+
 
     IEnumerator BurstFire()
     {
@@ -458,6 +476,7 @@ public class GunDamageScript : DamageScript
         mainGunStatsScript.Play_EndReload();
         currentMag = magazineSize;
         isReloading = false;
+        updateAmmoCount();
     }
 
 
