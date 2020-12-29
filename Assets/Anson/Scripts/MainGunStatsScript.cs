@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainGunStatsScript : GunStatsScript
 {
     [Header("Gun Property")]
-    [SerializeField] GunTypes gunType = GunTypes.MID;
+    [SerializeField] GunTypes gunType = GunTypes.RIFLE;
     [SerializeField] ElementTypes elementType = ElementTypes.PHYSICAL;
     [SerializeField] bool isFullAuto = true;
     [SerializeField] int projectilePerShot;
@@ -60,6 +60,7 @@ public class MainGunStatsScript : GunStatsScript
     {
         soundManager = FindObjectOfType<SoundManager>();
         gunComponent_Body = b;
+        gunType = b.GTypes[0];
         recoilPattern_X = b.RecoilPattern_X;
         recoilPattern_Y = b.RecoilPattern_Y;
         timeToRecenter = b.TimeToRecenter;

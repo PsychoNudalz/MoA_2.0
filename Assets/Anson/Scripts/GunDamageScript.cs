@@ -14,7 +14,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] protected float magazineSize = 0;
     [SerializeField] protected int projectilePerShot;
     [SerializeField] protected float timeBetweenProjectile = 0f;
-    [SerializeField] GunTypes gunType = GunTypes.MID;
+    [SerializeField] GunTypes gunType = GunTypes.RIFLE;
     [SerializeField] protected ElementTypes elementType = ElementTypes.PHYSICAL;
     [SerializeField] bool isFullAuto = true;
 
@@ -106,6 +106,7 @@ public class GunDamageScript : DamageScript
             Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
         }
         mainGunStatsScript = g;
+        gunType = g.GunType;
         damagePerProjectile = g.DamagePerProjectile;
         RPM = g.RPM_Get;
         reloadSpeed = g.ReloadSpeed;
@@ -285,7 +286,7 @@ public class GunDamageScript : DamageScript
             mainGunStatsScript.PlayAnimationTrigger("Shoot");
             HandleWeapon();
 
-            if (currentProjectile > 0 && currentMag > 1)
+            if (currentProjectile > 0 && currentMag > 1 && timeBetweenProjectile > 0)
             {
                 StartCoroutine(BurstFire());
             }
@@ -310,32 +311,33 @@ public class GunDamageScript : DamageScript
     bool Raycast_HipFire()
     {
         RaycastHit hit;
+        bool hitTarget = false;
         randomFireDir = new Vector2(Random.Range(0, currentRecoil.x*.5f), Random.Range(-180f, 180f));
         fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
 
         //Vector3 fireDir = firePoint.transform.forward;
-        if (Physics.Raycast(firePoint.transform.position, fireDir, out hit, range * 1.5f, layerMask))
-        {
-            Instantiate(impactEffect, hit.point, Quaternion.Euler(hit.normal));
-            if (tagList.Contains(hit.collider.tag) && hit.collider.TryGetComponent(out LifeSystemScript ls))
-            {
-                dealDamageToTarget(ls, damagePerProjectile, 1, elementType);
-                return true;
-            }
-        }
+        hitTarget = RayCastDealDamage(fireDir,hitTarget);
 
 
-        if (gunType == GunTypes.HIGH && projectilePerShot > 1)
+        if (gunType == GunTypes.SHOTGUN && projectilePerShot > 1)
         {
             //Shotgun Raycast
+            for (int i = 0; i < projectilePerShot-1; i++)
+            {
+                randomFireDir = new Vector2(Random.Range(0, recoil.x), (360f/ projectilePerShot - 1) *i);
+                fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
+                hitTarget = RayCastDealDamage(fireDir, hitTarget);
+                Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
+            }
         }
-        return false;
+        return hitTarget;
     }
 
     bool Raycast_ADS()
     {
         RaycastHit hit;
+        bool hitTarget = false;
         //Vector3 fireDir = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0) * firePoint.transform.forward;
         fireDir = firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.red, 1f);
@@ -346,18 +348,41 @@ public class GunDamageScript : DamageScript
             if (tagList.Contains(hit.collider.tag) && hit.collider.TryGetComponent(out LifeSystemScript ls))
             {
                 dealDamageToTarget(ls, damagePerProjectile, 1, elementType);
-                return true;
+                hitTarget = true;
+
             }
         }
 
 
 
-        if (gunType == GunTypes.HIGH && projectilePerShot > 1)
+        if (gunType == GunTypes.SHOTGUN && projectilePerShot > 1)
         {
             //Shotgun Raycast
+            for (int i = 0; i < projectilePerShot - 1; i++)
+            {
+                randomFireDir = new Vector2(Random.Range(0, recoil.y), (360f / projectilePerShot - 1) * i);
+                fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
+                hitTarget = RayCastDealDamage(fireDir, hitTarget);
+                Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
+            }
         }
-        return false;
+        return hitTarget;
 
+    }
+
+    bool RayCastDealDamage(Vector3 dir, bool hitTarget)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(firePoint.transform.position, dir, out hit, range * 1.5f, layerMask))
+        {
+            Instantiate(impactEffect, hit.point, Quaternion.Euler(hit.normal));
+            if (tagList.Contains(hit.collider.tag) && hit.collider.TryGetComponent(out LifeSystemScript ls))
+            {
+                dealDamageToTarget(ls, damagePerProjectile, 1, elementType);
+                hitTarget = true;
+            }
+        }
+        return hitTarget;
     }
 
     void HandleWeapon()
@@ -423,7 +448,7 @@ public class GunDamageScript : DamageScript
         firePoint.transform.rotation = Quaternion.Euler(firePoint.transform.rotation.eulerAngles.x, firePoint.transform.rotation.eulerAngles.y, 0f);
 
         camera.transform.position = sightLocation.position;
-        camera.transform.forward = sightLocation.forward;
+        //camera.transform.forward = sightLocation.forward;
         camera.transform.rotation = Quaternion.Euler(mainGunStatsScript.transform.rotation.eulerAngles.x, mainGunStatsScript.transform.rotation.eulerAngles.y, 0f);
 
     }

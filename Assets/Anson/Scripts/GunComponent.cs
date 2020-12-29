@@ -10,8 +10,8 @@ public abstract class GunComponent : MonoBehaviour
     [SerializeField] protected List<GunConnectionPoint> gunConnectionPoints;
     [SerializeField] protected ComponentGunStatsScript componentGunStatsScript;
 
-    protected GunComponents ComponentType { get => componentType;}
-    protected List<GunTypes> GTypes { get => gunTypes;}
+    public GunComponents ComponentType { get => componentType;}
+    public List<GunTypes> GTypes { get => gunTypes;}
 
 
     private void Awake()

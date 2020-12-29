@@ -16,10 +16,11 @@ public enum GunComponents
 
 public enum GunTypes
 {
-    LOW,        //Pistol
-    MID,        //Rifle
-    HIGH,       //Shotgun, Sniper
-    EXPLOSIVE   //Rocket, Grenade Launcher
+    SMALL,        //Pistol
+    RIFLE,        //Rifle
+    SHOTGUN,       //Shotgun, Sniper
+    EXPLOSIVE,   //Rocket, Grenade Launcher
+    SNIPER
 }
 
 
