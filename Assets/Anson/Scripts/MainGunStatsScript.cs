@@ -10,6 +10,8 @@ public class MainGunStatsScript : GunStatsScript
     [SerializeField] bool isFullAuto = true;
     [SerializeField] int projectilePerShot;
     [SerializeField] float timeBetweenProjectile = 0f;
+    [SerializeField] bool isFullReload = true;
+    [SerializeField] int amountPerReload = 1;
 
     [SerializeField] AnimationCurve recoilPattern_X;
     [SerializeField] AnimationCurve recoilPattern_Y;
@@ -46,6 +48,8 @@ public class MainGunStatsScript : GunStatsScript
     public ElementTypes ElementType { get => elementType;}
     public GunTypes GunType { get => gunType;}
     public bool IsFullAuto { get => isFullAuto; set => isFullAuto = value; }
+    public int AmountPerReload { get => amountPerReload; }
+    public bool IsFullReload { get => isFullReload; }
 
     public ParticleSystem BulletParticle { get => bulletParticle; }
     public GameObject MuzzleEffect { get => muzzleEffect; set => muzzleEffect = value; }
@@ -76,6 +80,8 @@ public class MainGunStatsScript : GunStatsScript
         sound_Fire = b.Sound_Fire;
         sound_StartReload = b.Sound_StartReload;
         sound_EndReload = b.Sound_EndReload;
+        isFullReload = b.IsFullReload;
+        amountPerReload = b.AmountPerReload;
         //b.transform.rotation = Quaternion.Euler(0, -90, 0) * transform.rotation;
     }
 

@@ -17,6 +17,8 @@ public class GunDamageScript : DamageScript
     [SerializeField] GunTypes gunType = GunTypes.RIFLE;
     [SerializeField] protected ElementTypes elementType = ElementTypes.PHYSICAL;
     [SerializeField] bool isFullAuto = true;
+    [SerializeField] bool isFullReload = true;
+    [SerializeField] int amountPerReload = 1;
 
     [SerializeField] AnimationCurve recoilPattern_X;
     [SerializeField] AnimationCurve recoilPattern_Y;
@@ -52,6 +54,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] Vector3 fireDir;
     [SerializeField] Vector3 randomFireDir;
     [SerializeField] Vector3 sightOffset;
+    [SerializeField] Coroutine currentReloadCoroutine;
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
@@ -122,6 +125,10 @@ public class GunDamageScript : DamageScript
         gunType = g.GunType;
         elementType = g.ElementType;
         isFullAuto = g.IsFullAuto;
+        isFullReload = g.IsFullReload;
+        amountPerReload = g.AmountPerReload;
+
+
         currentMag = g.CurrentMag;
 
         bulletParticle = g.BulletParticle;
@@ -161,15 +168,29 @@ public class GunDamageScript : DamageScript
 
     bool canFire()
     {
-        if (currentMag < 1 || isReloading)
+        if (currentMag < 1 || (isReloading && isFullReload))
         {
             isFiring = false;
+            if (currentMag < 1 && !isReloading)
+            {
+                Reload();
+            }
             return false;
         }
 
         if (timeNow_TimeUnitlFire <= 0)
         {
             timeNow_TimeUnitlFire = timeUntilFire;
+            if (!isFullReload)
+            {
+                isReloading = false;
+                if (currentReloadCoroutine != null)
+                {
+                    StopCoroutine(currentReloadCoroutine);
+                    currentReloadCoroutine = null;
+
+                }
+            }
             return true;
         }
         return false;
@@ -227,7 +248,8 @@ public class GunDamageScript : DamageScript
             else if (currentRecoil.y < recoil.y * -.2f)
             {
                 currentRecoil.y += Mathf.Abs(currentRecoil.y) * Time.deltaTime * 2 / timeToRecenter;
-            } else if (currentRecoil.y > 0.05f)
+            }
+            else if (currentRecoil.y > 0.05f)
             {
                 currentRecoil.y -= recoil.y * Time.deltaTime * 2 / timeToRecenter;
             }
@@ -271,7 +293,7 @@ public class GunDamageScript : DamageScript
         if (currentMag < magazineSize && !isReloading)
         {
             isReloading = true;
-            StartCoroutine(DelayReload());
+            currentReloadCoroutine = StartCoroutine(DelayReload());
 
         }
     }
@@ -312,20 +334,20 @@ public class GunDamageScript : DamageScript
     {
         RaycastHit hit;
         bool hitTarget = false;
-        randomFireDir = new Vector2(Random.Range(0, currentRecoil.x*.5f), Random.Range(-180f, 180f));
+        randomFireDir = new Vector2(Random.Range(0, currentRecoil.x * .5f), Random.Range(-180f, 180f));
         fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
 
         //Vector3 fireDir = firePoint.transform.forward;
-        hitTarget = RayCastDealDamage(fireDir,hitTarget);
+        hitTarget = RayCastDealDamage(fireDir, hitTarget);
 
 
         if (gunType == GunTypes.SHOTGUN && projectilePerShot > 1)
         {
             //Shotgun Raycast
-            for (int i = 0; i < projectilePerShot-1; i++)
+            for (int i = 0; i < projectilePerShot - 1; i++)
             {
-                randomFireDir = new Vector2(Random.Range(0, recoil.x), (360f/ projectilePerShot - 1) *i);
+                randomFireDir = new Vector2(Random.Range(recoil.x*0.35f, recoil.x), (360f / (projectilePerShot - 1)) * i);
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
@@ -360,7 +382,7 @@ public class GunDamageScript : DamageScript
             //Shotgun Raycast
             for (int i = 0; i < projectilePerShot - 1; i++)
             {
-                randomFireDir = new Vector2(Random.Range(0, recoil.y), (360f / projectilePerShot - 1) * i);
+                randomFireDir = new Vector2(Random.Range(0, recoil.y), (360f / (projectilePerShot - 1)) * i);
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
@@ -404,7 +426,11 @@ public class GunDamageScript : DamageScript
 
         currentRecoilTime += 0.1f;
         currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
+        if (gunType.Equals(GunTypes.SHOTGUN))
+        {
+            currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y)*projectilePerShot/5f;
 
+        }
         /*
         if (isADS)
         {
@@ -427,7 +453,7 @@ public class GunDamageScript : DamageScript
         if (isADS)
         {
 
-            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0),10f*Time.deltaTime);
+            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0), 10f * Time.deltaTime);
             ADS_On();
         }
         else
@@ -441,7 +467,6 @@ public class GunDamageScript : DamageScript
 
     public void ADS_On()
     {
-        isADS = true;
         mainGunStatsScript.transform.position = transform.position - transform.rotation * sightOffset;
         firePoint.transform.position = sightLocation.position;
         firePoint.transform.forward = sightLocation.forward;
@@ -450,6 +475,11 @@ public class GunDamageScript : DamageScript
         camera.transform.position = sightLocation.position;
         //camera.transform.forward = sightLocation.forward;
         camera.transform.rotation = Quaternion.Euler(mainGunStatsScript.transform.rotation.eulerAngles.x, mainGunStatsScript.transform.rotation.eulerAngles.y, 0f);
+        if (isReloading)
+        {
+            ADS_Off();
+        }
+        isADS = true;
 
     }
 
@@ -469,9 +499,10 @@ public class GunDamageScript : DamageScript
     {
         try
         {
-        ansonTempUIScript.SetText(currentMag.ToString());
+            ansonTempUIScript.SetText(currentMag.ToString());
 
-        } catch (System.Exception e)
+        }
+        catch (System.Exception e)
         {
 
         }
@@ -491,16 +522,36 @@ public class GunDamageScript : DamageScript
         }
     }
 
-    IEnumerator DelayReload()
+    IEnumerator DelayReload(float offset = 0)
     {
         isFiring = false;
         mainGunStatsScript.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
         mainGunStatsScript.Play_StartReload();
         currentRecoilTime = 0f;
-        yield return new WaitForSeconds(reloadSpeed);
-        mainGunStatsScript.Play_EndReload();
-        currentMag = magazineSize;
-        isReloading = false;
+        yield return new WaitForSeconds(reloadSpeed - offset);
+        if (isFullReload)
+        {
+            mainGunStatsScript.Play_EndReload();
+            currentMag = magazineSize;
+            isReloading = false;
+
+
+        }
+        else
+        {
+            currentMag += amountPerReload;
+            mainGunStatsScript.Play_StartReload();
+            if (currentMag < magazineSize)
+            {
+                currentReloadCoroutine = StartCoroutine(DelayReload(0.05f));
+            }
+            else
+            {
+                isReloading = false;
+                mainGunStatsScript.Play_EndReload();
+                currentReloadCoroutine = null;
+            }
+        }
         updateAmmoCount();
     }
 
