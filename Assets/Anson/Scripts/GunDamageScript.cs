@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class GunDamageScript : DamageScript
 {
@@ -27,7 +28,7 @@ public class GunDamageScript : DamageScript
 
     [SerializeField] ParticleSystem bulletParticle;
     [SerializeField] GameObject impactEffect;
-    [SerializeField] GameObject muzzleEffect;
+    [SerializeField] VisualEffect muzzleEffect;
 
     [SerializeField] Transform sightLocation;
 
@@ -55,6 +56,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] Vector3 randomFireDir;
     [SerializeField] Vector3 sightOffset;
     [SerializeField] Coroutine currentReloadCoroutine;
+    [SerializeField] Look lookScript;
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
@@ -64,6 +66,7 @@ public class GunDamageScript : DamageScript
     private void Awake()
     {
         ansonTempUIScript = FindObjectOfType<AnsonTempUIScript>();
+        lookScript = FindObjectOfType<Look>();
     }
 
     private void Update()
@@ -83,7 +86,7 @@ public class GunDamageScript : DamageScript
         if (mainGunStatsScript != null)
         {
             SetWeaponRecoil();
-
+            SetWeaponLocation();
         }
 
         if (displayFireRaycast)
@@ -91,6 +94,7 @@ public class GunDamageScript : DamageScript
             Vector3 fireDir = firePoint.transform.forward;
             Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.green, 0f);
         }
+
 
     }
 
@@ -150,7 +154,10 @@ public class GunDamageScript : DamageScript
         mainGunStatsScript.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
 
-        updateAmmoCount();
+        UpdateAmmoCount();
+        UpdateGunStatText();
+
+
 
     }
 
@@ -159,6 +166,10 @@ public class GunDamageScript : DamageScript
     public void Fire(bool b)
     {
         isFiring = b;
+        if (!isFiring)
+        {
+            currentRecoilTime = currentRecoilTime / 2;
+        }
     }
 
     public void SetFirePoint(Transform t)
@@ -305,7 +316,7 @@ public class GunDamageScript : DamageScript
             currentProjectile = projectilePerShot;
 
             RaycastDamage();
-            mainGunStatsScript.PlayAnimationTrigger("Shoot");
+            mainGunStatsScript.PlayAnimationTrigger("Shoot", 1 / timeUntilFire);
             HandleWeapon();
 
             if (currentProjectile > 0 && currentMag > 1 && timeBetweenProjectile > 0)
@@ -347,7 +358,7 @@ public class GunDamageScript : DamageScript
             //Shotgun Raycast
             for (int i = 0; i < projectilePerShot - 1; i++)
             {
-                randomFireDir = new Vector2(Random.Range(recoil.x*0.35f, recoil.x), (360f / (projectilePerShot - 1)) * i);
+                randomFireDir = new Vector2(Random.Range(recoil.x * 0.35f, recoil.x), (360f / (projectilePerShot - 1)) * i);
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
@@ -414,7 +425,8 @@ public class GunDamageScript : DamageScript
         currentProjectile -= 1;
         currentMag -= 1;
         bulletParticle.Play();
-        updateAmmoCount();
+        muzzleEffect.Play();
+        UpdateAmmoCount();
         if (!isFullAuto)
         {
             isFiring = false;
@@ -428,7 +440,7 @@ public class GunDamageScript : DamageScript
         currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
         if (gunType.Equals(GunTypes.SHOTGUN))
         {
-            currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y)*projectilePerShot/5f;
+            currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y) * projectilePerShot / 5f;
 
         }
         /*
@@ -453,53 +465,97 @@ public class GunDamageScript : DamageScript
         if (isADS)
         {
 
-            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0), 10f * Time.deltaTime);
-            ADS_On();
+            //mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0), 10f * Time.deltaTime);
+            mainGunStatsScript.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+            if (firePoint.transform.rotation.eulerAngles.x > 180f && firePoint.transform.rotation.eulerAngles.x - currentRecoil.x < 275f)
+            {
+                currentRecoil.x = firePoint.transform.rotation.eulerAngles.x - 275f;
+                currentRecoil.y = 0f;
+            }
+
+            Quaternion targetPoint = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
+
+            firePoint.transform.localRotation = Quaternion.Lerp(firePoint.transform.localRotation, targetPoint, 10f * Time.deltaTime);
+            UpdateSights();
         }
         else
         {
-            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x * .4f, currentRecoil.y * .2f, 0), Time.deltaTime);
+            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0), Time.deltaTime);
 
 
         }
 
     }
 
+    void SetWeaponLocation()
+    {
+        if (isADS)
+        {
+            Vector3 targetPos = firePoint.transform.position - firePoint.transform.rotation * sightOffset;
+            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, targetPos, 35 * Time.deltaTime);
+
+        }
+        else
+        {
+            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, gunPosition.transform.position, 35 * Time.deltaTime);
+
+        }
+    }
+
     public void ADS_On()
     {
-        mainGunStatsScript.transform.position = transform.position - transform.rotation * sightOffset;
-        firePoint.transform.position = sightLocation.position;
-        firePoint.transform.forward = sightLocation.forward;
-        firePoint.transform.rotation = Quaternion.Euler(firePoint.transform.rotation.eulerAngles.x, firePoint.transform.rotation.eulerAngles.y, 0f);
 
-        camera.transform.position = sightLocation.position;
-        //camera.transform.forward = sightLocation.forward;
-        camera.transform.rotation = Quaternion.Euler(mainGunStatsScript.transform.rotation.eulerAngles.x, mainGunStatsScript.transform.rotation.eulerAngles.y, 0f);
-        if (isReloading)
-        {
-            ADS_Off();
-        }
+        UpdateSights();
+        currentRecoil = new Vector2(0, 0);
+
         isADS = true;
+        lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
 
     }
 
     public void ADS_Off()
     {
         isADS = false;
+        //transform.rotation = Quaternion.Euler(currentRecoil.x, currentRecoil.y, 0f) * transform.rotation;
+        transform.rotation = mainGunStatsScript.transform.rotation;
         firePoint.transform.position = transform.position;
         firePoint.transform.rotation = transform.rotation;
-        mainGunStatsScript.transform.position = gunPosition.transform.position;
+
+
         mainGunStatsScript.transform.rotation = gunPosition.transform.rotation;
 
         camera.transform.position = transform.position;
         camera.transform.rotation = transform.rotation;
+
+
+        lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
     }
 
-    void updateAmmoCount()
+    void UpdateSights()
+    {
+        mainGunStatsScript.transform.forward = firePoint.forward;
+        firePoint.transform.rotation = Quaternion.Euler(firePoint.transform.rotation.eulerAngles.x, firePoint.transform.rotation.eulerAngles.y, 0f);
+        mainGunStatsScript.transform.rotation = Quaternion.Euler(mainGunStatsScript.transform.rotation.eulerAngles.x, mainGunStatsScript.transform.rotation.eulerAngles.y, 0f);
+
+
+
+        camera.transform.position = firePoint.position;
+        float rot_X = firePoint.transform.rotation.eulerAngles.x;
+        float rot_Y = firePoint.transform.rotation.eulerAngles.y;
+        camera.transform.rotation = Quaternion.Euler(rot_X, rot_Y, 0f);
+
+        if (isReloading)
+        {
+            ADS_Off();
+        }
+    }
+
+    void UpdateAmmoCount()
     {
         try
         {
-            ansonTempUIScript.SetText(currentMag.ToString());
+            ansonTempUIScript.SetAmmoText(currentMag.ToString());
 
         }
         catch (System.Exception e)
@@ -516,7 +572,7 @@ public class GunDamageScript : DamageScript
 
         RaycastDamage();
         HandleWeapon();
-        if (currentProjectile >= 1 && currentMag > 1)
+        if (currentProjectile > 0 && currentMag > 0)
         {
             StartCoroutine(BurstFire());
         }
@@ -552,9 +608,15 @@ public class GunDamageScript : DamageScript
                 currentReloadCoroutine = null;
             }
         }
-        updateAmmoCount();
+        UpdateAmmoCount();
     }
 
+
+
+    void UpdateGunStatText()
+    {
+        ansonTempUIScript.SetGunText(mainGunStatsScript.ToString());
+    }
 
 
 }

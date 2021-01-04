@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: EndReload
-  isUnique: 0
+  isUnique: 1
   clip: {fileID: 8300000, guid: 251292a782f1ad64084c6ad8630697a4, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: StartReload
-  isUnique: 0
+  isUnique: 1
   clip: {fileID: 8300000, guid: 533956f2962532e478fcca2ba77822f9, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -205,11 +205,10 @@ MonoBehaviour:
   - {fileID: 7300954622804112565}
   componentGunStatsScript: {fileID: 0}
   elementTypes: 
-  isFullAuto: 1
   bulletParticle: {fileID: 560305773039583058}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
-  muzzleEffect: {fileID: 0}
+  muzzleEffect: {fileID: 4589221839770525666}
   recoilPattern_X:
     serializedVersion: 2
     m_Curve:
@@ -285,10 +284,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 1
     m_RotationOrder: 4
-  timeToRecenter: 1.2
+  timeToRecenter: 0.3
   projectilePerShot: 1
   timeBetweenProjectile: 0
+  isFullAuto: 1
+  isFullReload: 1
+  amountPerReload: 1
+  component_Sight: {fileID: 0}
   sightLocation: {fileID: 0}
+  muzzleLocation: {fileID: 0}
   animator: {fileID: 3827348968520578419}
   sound_Fire: {fileID: 2436130776634274953}
   sound_StartReload: {fileID: 1193680549545741363}
@@ -304,8 +308,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.677182, y: 0.39568305, z: 0.14161763}
-  m_Center: {x: -0.08043802, y: -0.045530915, z: 0}
+  m_Size: {x: 0.7922418, y: 0.17201936, z: 0.14161763}
+  m_Center: {x: 0.09357551, y: 0.06630093, z: 4.4160973e-16}
 --- !u!114 &1150553886547896638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,7 +325,7 @@ MonoBehaviour:
   damagePerProjectile: 1
   RPM: 360
   reloadSpeed: 2
-  recoil: {x: 2.5, y: 1.2}
+  recoil: {x: 1.5, y: 1}
   range: 150
   magazineSize: 0
   damagePerProjectileM: 1
@@ -393,7 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: GunShot
-  isUnique: 0
+  isUnique: 1
   clip: {fileID: 8300000, guid: 037510c5d6edf9843a81b0e865c4f1af, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -440,6 +444,7 @@ Transform:
   - {fileID: 4312734010183490823}
   - {fileID: 9071689015445742594}
   - {fileID: 1396795324668738607}
+  - {fileID: 8166736683132523055}
   m_Father: {fileID: 5738499307827236700}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -932,6 +937,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7630670293317359754, guid: f2e389ace7780b4458e9d0ecf0c5ac7d,
+        type: 3}
+      propertyPath: compatableTypes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630670293317359754, guid: f2e389ace7780b4458e9d0ecf0c5ac7d,
+        type: 3}
+      propertyPath: compatableTypes.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8165792103994378301, guid: f2e389ace7780b4458e9d0ecf0c5ac7d,
         type: 3}
       propertyPath: m_RootOrder
@@ -1103,4 +1118,95 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6446745910454273785, guid: fa1380926f39ab544baf960f4afc1858,
     type: 3}
   m_PrefabInstance: {fileID: 7596410532115869510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8105155522013028587
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1812736467095820857}
+    m_Modifications:
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451333, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Name
+      value: vfx_Muzzle_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4cdcaabd41925d44eb7720f80c3a3aa7, type: 3}
+--- !u!2083052967 &4589221839770525666 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 5749826735744843529, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8105155522013028587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8166736683132523055 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8105155522013028587}
   m_PrefabAsset: {fileID: 0}

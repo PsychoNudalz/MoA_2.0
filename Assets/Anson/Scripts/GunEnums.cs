@@ -21,6 +21,7 @@ public enum GunTypes
     SHOTGUN,       //Shotgun, Sniper
     EXPLOSIVE,   //Rocket, Grenade Launcher
     SNIPER
+
 }
 
 

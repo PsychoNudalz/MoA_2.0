@@ -36,6 +36,9 @@ public class GunGeneratorScript : MonoBehaviour
 
         newEmptyGun.name = newGun.name;
 
+        Cursor.visible = false;
+
+
         return newEmptyGun;
 
 
@@ -91,8 +94,9 @@ public class GunGeneratorScript : MonoBehaviour
             if (possibleComponents.Count > 0)
             {
                 GunComponent currentRandomComponent = possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
-                while (currentConnection.SetComponent(currentRandomComponent) && possibleComponents.Count > 1)
+                while (!currentConnection.SetComponent(currentRandomComponent) && possibleComponents.Count > 1)
                 {
+                    print(currentRandomComponent.name + "  incompatable");
                     possibleComponents.Remove(currentRandomComponent);
                     currentRandomComponent = possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
                 }
@@ -101,6 +105,9 @@ public class GunGeneratorScript : MonoBehaviour
                 if (newComponent.GetGunComponentType().Equals(GunComponents.SIGHT))
                 {
                     SetSight(newComponent.GetComponent<GunComponent_Sight>());
+                } else if (newComponent.GetGunComponentType().Equals(GunComponents.MUZZLE))
+                {
+                    SetMuzzle(newComponent.GetComponent<GunComponent_Muzzle>());
                 }
                 AddRandomComponents(newComponent);
             }
@@ -110,8 +117,19 @@ public class GunGeneratorScript : MonoBehaviour
     void SetSight(GunComponent_Sight s)
     {
         print("Detect sight");
-        if (s == null) { Debug.LogError("failed to find sight"); }
-        if (newGun == null) { Debug.LogError("failed to newGun"); }
-        newGun.SetSight(s.SightLocation);
+        newGun.SetSight(s);
+    }
+
+    void SetMuzzle(GunComponent_Muzzle m)
+    {
+        print("Detect muzzle");
+        if (m.MuzzleLocation != null)
+        {
+            newGun.SetMuzzle(m.MuzzleLocation);
+        }
+        else
+        {
+            newGun.SetMuzzle(m.transform);
+        }
     }
 }

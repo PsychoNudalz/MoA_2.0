@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: EndReload
-  isUnique: 0
+  isUnique: 1
   clip: {fileID: 8300000, guid: 251292a782f1ad64084c6ad8630697a4, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: StartReload
-  isUnique: 0
+  isUnique: 1
   clip: {fileID: 8300000, guid: 533956f2962532e478fcca2ba77822f9, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -180,6 +180,7 @@ Transform:
   - {fileID: 8185730100991503587}
   - {fileID: 5870549426964615081}
   - {fileID: 4278092953544962232}
+  - {fileID: 7324069774924924226}
   m_Father: {fileID: 1791489949727822734}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -240,11 +241,10 @@ MonoBehaviour:
   - {fileID: 5318556605649887006}
   componentGunStatsScript: {fileID: 0}
   elementTypes: 
-  isFullAuto: 0
   bulletParticle: {fileID: 3457115299083957189}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
-  muzzleEffect: {fileID: 0}
+  muzzleEffect: {fileID: 3117179148140529807}
   recoilPattern_X:
     serializedVersion: 2
     m_Curve:
@@ -296,7 +296,12 @@ MonoBehaviour:
   timeToRecenter: 1
   projectilePerShot: 1
   timeBetweenProjectile: 0
+  isFullAuto: 0
+  isFullReload: 1
+  amountPerReload: 1
+  component_Sight: {fileID: 0}
   sightLocation: {fileID: 0}
+  muzzleLocation: {fileID: 0}
   animator: {fileID: 7750028220628084576}
   sound_Fire: {fileID: 8031064580571832858}
   sound_StartReload: {fileID: 1678552660097965465}
@@ -329,7 +334,7 @@ MonoBehaviour:
   damagePerProjectile: 2
   RPM: 160
   reloadSpeed: 1
-  recoil: {x: 8, y: 1}
+  recoil: {x: 2, y: 0.25}
   range: 35
   magazineSize: 7
   damagePerProjectileM: 1
@@ -401,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: GunShot
-  isUnique: 0
+  isUnique: 1
   clip: {fileID: 8300000, guid: 739e3066d6b086243a1ff7bf0f49ee3f, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -886,6 +891,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aed2c6f2b93f3745b990e44238da0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &7244335875456677766
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3205354158845571916}
+    m_Modifications:
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 84829243655451333, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Name
+      value: vfx_Muzzle_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4cdcaabd41925d44eb7720f80c3a3aa7, type: 3}
+--- !u!4 &7324069774924924226 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7244335875456677766}
+  m_PrefabAsset: {fileID: 0}
+--- !u!2083052967 &3117179148140529807 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 5749826735744843529, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7244335875456677766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8114313837243711676
 PrefabInstance:
   m_ObjectHideFlags: 0

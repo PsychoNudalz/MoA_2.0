@@ -5,5 +5,4 @@ using UnityEngine;
 public class GunComponent_Barrel : GunComponent
 {
 
-
 }
