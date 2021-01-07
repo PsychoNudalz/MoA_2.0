@@ -138,6 +138,12 @@ public class MainGunStatsScript : GunStatsScript
     }
 
 
+    public void PlayGunShootEffect()
+    {
+        bulletParticle.Play();
+        muzzleEffect.Play();
+    }
+
     public override string ToString()
     {
         string returnString = string.Concat(

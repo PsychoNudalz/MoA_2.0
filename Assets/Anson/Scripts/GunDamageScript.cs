@@ -57,6 +57,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] Vector3 sightOffset;
     [SerializeField] Coroutine currentReloadCoroutine;
     [SerializeField] Look lookScript;
+    [SerializeField] float originalFireDirection_X;
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
@@ -166,10 +167,16 @@ public class GunDamageScript : DamageScript
     public void Fire(bool b)
     {
         isFiring = b;
-        if (!isFiring)
+        if (isFiring)
+        {
+            originalFireDirection_X = lookScript.YRotation_adjusted();
+        }
+        else
         {
             currentRecoilTime = currentRecoilTime / 2;
+            AdjustRecoil();
         }
+
     }
 
     public void SetFirePoint(Transform t)
@@ -235,6 +242,9 @@ public class GunDamageScript : DamageScript
     {
         if (!isFiring)
         {
+            currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0,0), Time.deltaTime * 2 / timeToRecenter);
+
+            /*
             //x
             if (currentRecoil.x > recoil.x * .2f)
             {
@@ -272,6 +282,7 @@ public class GunDamageScript : DamageScript
             {
                 currentRecoil.y = 0;
             }
+            */
 
         }
 
@@ -298,6 +309,45 @@ public class GunDamageScript : DamageScript
             currentRecoilTime = 0;
         }
     }
+
+
+    public void AdjustRecoil()
+    {
+        print("Adjusting recoil ");
+        float NewAimDir = (firePoint.transform.rotation.eulerAngles.x + 90) % 360;
+        Vector3 localEular = transform.localRotation.eulerAngles;
+        if (NewAimDir> originalFireDirection_X)
+        {
+            transform.rotation = Quaternion.AngleAxis(firePoint.localRotation.eulerAngles.x, transform.right) * transform.rotation;
+            firePoint.localRotation = Quaternion.identity;
+            currentRecoil.x = currentRecoil.x*0.01f;
+            currentRecoil.y = currentRecoil.y * 0.2f;
+
+            //currentRecoil.x = 0f;
+            print("Remove recoil: ");
+
+        }
+
+        else if (lookScript.YRotation_adjusted()> originalFireDirection_X)
+        {
+            float differenceInAim = lookScript.YRotation_adjusted() - originalFireDirection_X;
+            transform.rotation = Quaternion.AngleAxis(-differenceInAim, transform.right) * transform.rotation;
+            firePoint.rotation = Quaternion.AngleAxis(differenceInAim, firePoint.right) * firePoint.rotation;
+            //firePoint.localRotation = Quaternion.identity;
+
+
+            currentRecoil.x -= differenceInAim;
+            print("Reduce recoil: "+ differenceInAim);
+
+        }
+        else
+        {
+            print("None");
+        }
+    }
+
+
+
 
     public void Reload()
     {
@@ -424,12 +474,11 @@ public class GunDamageScript : DamageScript
         RecoilWeapon();
         currentProjectile -= 1;
         currentMag -= 1;
-        bulletParticle.Play();
-        muzzleEffect.Play();
+
         UpdateAmmoCount();
         if (!isFullAuto)
         {
-            isFiring = false;
+            Fire(false);
         }
     }
 
@@ -481,8 +530,19 @@ public class GunDamageScript : DamageScript
         }
         else
         {
+            if (firePoint.transform.rotation.eulerAngles.x > 180f && firePoint.transform.rotation.eulerAngles.x - currentRecoil.x < 275f)
+            {
+                currentRecoil.x = firePoint.transform.rotation.eulerAngles.x - 275f;
+                currentRecoil.y = 0f;
+            }
+
+            Quaternion targetPoint = Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0);
             mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0), Time.deltaTime);
 
+
+
+            firePoint.transform.localRotation = Quaternion.Lerp(firePoint.transform.localRotation, targetPoint, 10f * Time.deltaTime);
+            //UpdateSights();
 
         }
 
@@ -493,12 +553,20 @@ public class GunDamageScript : DamageScript
         if (isADS)
         {
             Vector3 targetPos = firePoint.transform.position - firePoint.transform.rotation * sightOffset;
-            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, targetPos, 35 * Time.deltaTime);
+            if (isFiring)
+            {
+                mainGunStatsScript.transform.position = targetPos;
+
+            }
+            else
+            {
+                mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, targetPos, 20 * Time.deltaTime);
+            }
 
         }
         else
         {
-            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, gunPosition.transform.position, 35 * Time.deltaTime);
+            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, gunPosition.transform.position, 20 * Time.deltaTime);
 
         }
     }

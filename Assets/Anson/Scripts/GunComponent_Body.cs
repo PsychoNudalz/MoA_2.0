@@ -13,6 +13,7 @@ public class GunComponent_Body : GunComponent
     [SerializeField] ParticleSystem bulletParticle;
     [SerializeField] GameObject impactEffect;
     [SerializeField] VisualEffect muzzleEffect;
+    [SerializeField] ParticleSystem bulletCaseParticle;
 
     [Header("Recoil")]
     [SerializeField] AnimationCurve recoilPattern_X;
@@ -61,7 +62,7 @@ public class GunComponent_Body : GunComponent
     public Sound Sound_EndReload { get => sound_EndReload; }
     public int AmountPerReload { get => amountPerReload; }
     public bool IsFullReload { get => isFullReload; }
-    public GunComponent_Sight Component_Sight { get => component_Sight;}
+    public GunComponent_Sight Component_Sight { get => component_Sight; }
 
     private void Awake()
     {
@@ -80,6 +81,35 @@ public class GunComponent_Body : GunComponent
         muzzleEffect.transform.position = muzzleLocation.position;
     }
 
+    public void PlayGunShootEffect()
+    {
+        try
+        {
 
+            bulletParticle.Play();
+            muzzleEffect.Play();
+            if (GTypes[0] != GunTypes.SHOTGUN)
+            {
+                bulletCaseParticle.Play();
+            }
+        }
+        catch (System.NullReferenceException e)
+        {
+            Debug.LogWarning(name + " Missing shoot effect");
+        }
+    }
+
+    public void PlayBulletCaseEffect()
+    {
+        try
+        {
+
+            bulletCaseParticle.Play();
+        }
+        catch (System.NullReferenceException e)
+        {
+            Debug.LogWarning(name + " Missing shoot effect");
+        }
+    }
 
 }

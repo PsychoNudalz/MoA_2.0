@@ -28,6 +28,8 @@ public class Look : MonoBehaviour
 
     private Camera camera;
 
+    public float YRotation { get => yRotation; set => yRotation = value; }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -128,5 +130,10 @@ public class Look : MonoBehaviour
                 camera.fieldOfView = FOV;
             }
         }
+    }
+
+    public float YRotation_adjusted()
+    {
+        return (YRotation + 90) % 180;
     }
 }
