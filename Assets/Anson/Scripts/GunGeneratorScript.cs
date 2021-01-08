@@ -21,7 +21,6 @@ public class GunGeneratorScript : MonoBehaviour
     [SerializeField] MainGunStatsScript currentMainGunStatsScript;
 
 
-
     public GameObject GenerateGun()
     {
         GameObject newEmptyGun = Instantiate(emptyGunGO, transform.position, transform.rotation);

@@ -82,6 +82,7 @@ public class GunDamageScript : DamageScript
         }
         else
         {
+            //AdjustRecoil();
             CorrectRecoil();
         }
         if (mainGunStatsScript != null)
@@ -313,22 +314,28 @@ public class GunDamageScript : DamageScript
 
     public void AdjustRecoil()
     {
+        
+
         print("Adjusting recoil ");
         float NewAimDir = (firePoint.transform.rotation.eulerAngles.x + 90) % 360;
         Vector3 localEular = transform.localRotation.eulerAngles;
-        if (NewAimDir> originalFireDirection_X)
+        if (NewAimDir> originalFireDirection_X && isADS)
         {
-            transform.rotation = Quaternion.AngleAxis(firePoint.localRotation.eulerAngles.x, transform.right) * transform.rotation;
-            firePoint.localRotation = Quaternion.identity;
-            currentRecoil.x = currentRecoil.x*0.01f;
-            currentRecoil.y = currentRecoil.y * 0.2f;
+            currentRecoil.x = currentRecoil.x*0.05f;
+            //currentRecoil.y = currentRecoil.y * 0.005f;
 
-            //currentRecoil.x = 0f;
+            transform.rotation = Quaternion.AngleAxis(firePoint.localEulerAngles.x+currentRecoil.x, transform.right) * transform.rotation;
+
+            firePoint.localRotation =  Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
+
+            UpdateSights();
+            SetWeaponLocation(true);
+
             print("Remove recoil: ");
 
         }
 
-        else if (lookScript.YRotation_adjusted()> originalFireDirection_X)
+        else if (lookScript.YRotation_adjusted()> originalFireDirection_X && isADS)
         {
             float differenceInAim = lookScript.YRotation_adjusted() - originalFireDirection_X;
             transform.rotation = Quaternion.AngleAxis(-differenceInAim, transform.right) * transform.rotation;
@@ -542,18 +549,18 @@ public class GunDamageScript : DamageScript
 
 
             firePoint.transform.localRotation = Quaternion.Lerp(firePoint.transform.localRotation, targetPoint, 10f * Time.deltaTime);
-            //UpdateSights();
+            UpdateSights();
 
         }
 
     }
 
-    void SetWeaponLocation()
+    void SetWeaponLocation(bool forced = false)
     {
         if (isADS)
         {
             Vector3 targetPos = firePoint.transform.position - firePoint.transform.rotation * sightOffset;
-            if (isFiring)
+            if (isFiring || forced)
             {
                 mainGunStatsScript.transform.position = targetPos;
 
@@ -615,7 +622,7 @@ public class GunDamageScript : DamageScript
 
         if (isReloading)
         {
-            ADS_Off();
+            // ADS_Off();
         }
     }
 
@@ -652,6 +659,7 @@ public class GunDamageScript : DamageScript
         mainGunStatsScript.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
         mainGunStatsScript.Play_StartReload();
         currentRecoilTime = 0f;
+        AdjustRecoil();
         yield return new WaitForSeconds(reloadSpeed - offset);
         if (isFullReload)
         {

@@ -7,6 +7,7 @@ public class TestScript : MonoBehaviour
 {
     public GunGeneratorScript generatorScript;
     public GunDamageScript gunDamageScript;
+    public PlayerController playerController;
     Mouse mouse;
     Keyboard keyboard;
 
@@ -20,6 +21,7 @@ public class TestScript : MonoBehaviour
         {
             gunDamageScript = FindObjectOfType<GunDamageScript>();
         }
+        playerController = FindObjectOfType<PlayerController>();
     }
 
 
@@ -59,9 +61,23 @@ public class TestScript : MonoBehaviour
         }
     }
 
+    public void MovePlayer(InputAction.CallbackContext callbackContext)
+    {
+        playerController.Move(callbackContext);
+    }
+
     public void Reload()
     {
         gunDamageScript.Reload();
+    }
+
+    public void RemoveAllGuns()
+    {
+        MainGunStatsScript[] AllGuns = FindObjectsOfType<MainGunStatsScript>();
+        foreach(MainGunStatsScript m in AllGuns)
+        {
+            Destroy(m.gameObject);
+        }
     }
 
 
