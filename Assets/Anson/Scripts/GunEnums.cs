@@ -32,3 +32,9 @@ public enum ElementTypes
     ICE,
     EARTH
 }
+
+public enum FireTypes
+{
+    HitScan,
+    Projectile
+}

@@ -33,7 +33,7 @@ public class GunGeneratorScript : MonoBehaviour
         currentMainGunStatsScript.SetBody(newGun);
         currentMainGunStatsScript.FinishAssemply();
 
-        newEmptyGun.name = newGun.name;
+        //newEmptyGun.name = newGun.name;
 
         Cursor.visible = false;
 
@@ -108,6 +108,10 @@ public class GunGeneratorScript : MonoBehaviour
                 {
                     SetMuzzle(newComponent.GetComponent<GunComponent_Muzzle>());
                 }
+                else if (newComponent.GetGunComponentType().Equals(GunComponents.MAGAZINE))
+                {
+                    SetProjectile(newComponent.GetComponent<GunComponent_Magazine>().Projectile);
+                }
                 AddRandomComponents(newComponent);
             }
         }
@@ -130,5 +134,10 @@ public class GunGeneratorScript : MonoBehaviour
         {
             newGun.SetMuzzle(m.transform);
         }
+    }
+
+    void SetProjectile(GameObject g)
+    {
+        newGun.SetProjectile(g);
     }
 }

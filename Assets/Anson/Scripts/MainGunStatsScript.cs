@@ -9,6 +9,9 @@ public class MainGunStatsScript : GunStatsScript
     [Header("Gun Property")]
     [SerializeField] GunTypes gunType = GunTypes.RIFLE;
     [SerializeField] ElementTypes elementType = ElementTypes.PHYSICAL;
+    [SerializeField] FireTypes fireType = FireTypes.HitScan;
+    [SerializeField] GameObject projectileGO;
+
     [SerializeField] bool isFullAuto = true;
     [SerializeField] int projectilePerShot;
     [SerializeField] float timeBetweenProjectile = 0f;
@@ -64,10 +67,12 @@ public class MainGunStatsScript : GunStatsScript
     public Transform SightLocation { get => sightLocation; set => sightLocation = value; }
 
     public GunComponent_Sight Component_Sight { get => component_Sight; }
-
+    public FireTypes FireType { get => fireType; set => fireType = value; }
+    public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
 
     public void SetBody(GunComponent_Body b)
     {
+        name = b.name.Substring(0, b.name.IndexOf("_"));
         soundManager = FindObjectOfType<SoundManager>();
         gunComponent_Body = b;
         gunType = b.GTypes[0];
@@ -89,6 +94,8 @@ public class MainGunStatsScript : GunStatsScript
         isFullReload = b.IsFullReload;
         amountPerReload = b.AmountPerReload;
         component_Sight = b.Component_Sight;
+        fireType = b.FireType;
+        projectileGO = b.ProjectileGO;
         //b.transform.rotation = Quaternion.Euler(0, -90, 0) * transform.rotation;
     }
 
@@ -147,7 +154,8 @@ public class MainGunStatsScript : GunStatsScript
     public override string ToString()
     {
         string returnString = string.Concat(
-            gunType.ToString(), elementType.ToString(), "\n",
+            name, "\n",
+            gunType.ToString()," ", elementType.ToString(), "\n",
             "Damage: ",damagePerProjectile, " x ", projectilePerShot, "\n",
             "RPM: ", RPM, " Recoil: ", recoil.ToString(), "\n",
             "Mag: ", magazineSize, " Reload Speed: ", ReloadSpeed

@@ -146,7 +146,7 @@ public class SoundManager : MonoBehaviour
 
             }
         }
-        if (s.source.isPlaying)
+        if (s.source != null && s.source.isPlaying)
         {
             print("Sound Stopping: " + sound);
             s.source.Stop();

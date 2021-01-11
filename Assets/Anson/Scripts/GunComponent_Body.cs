@@ -21,6 +21,8 @@ public class GunComponent_Body : GunComponent
     [SerializeField] float timeToRecenter = 3f;
 
     [Header("Fire Type")]
+    [SerializeField] FireTypes fireType = FireTypes.HitScan;
+    [SerializeField] GameObject projectileGO;
     [SerializeField] int projectilePerShot = 1;
     [SerializeField] float timeBetweenProjectile = 0f;
     [SerializeField] bool isFullAuto = true;
@@ -63,6 +65,8 @@ public class GunComponent_Body : GunComponent
     public int AmountPerReload { get => amountPerReload; }
     public bool IsFullReload { get => isFullReload; }
     public GunComponent_Sight Component_Sight { get => component_Sight; }
+    public FireTypes FireType { get => fireType; set => fireType = value; }
+    public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
 
     private void Awake()
     {
@@ -79,6 +83,14 @@ public class GunComponent_Body : GunComponent
     {
         muzzleLocation = m;
         muzzleEffect.transform.position = muzzleLocation.position;
+    }
+
+    public void SetProjectile(GameObject g)
+    {
+        if (fireType == FireTypes.Projectile)
+        {
+            projectileGO = g;
+        }
     }
 
     public void PlayGunShootEffect()

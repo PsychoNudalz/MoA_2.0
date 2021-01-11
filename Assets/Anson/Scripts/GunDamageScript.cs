@@ -17,6 +17,8 @@ public class GunDamageScript : DamageScript
     [SerializeField] protected float timeBetweenProjectile = 0f;
     [SerializeField] GunTypes gunType = GunTypes.RIFLE;
     [SerializeField] protected ElementTypes elementType = ElementTypes.PHYSICAL;
+    [SerializeField] FireTypes fireType = FireTypes.HitScan;
+    [SerializeField] GameObject projectileGO;
     [SerializeField] bool isFullAuto = true;
     [SerializeField] bool isFullReload = true;
     [SerializeField] int amountPerReload = 1;
@@ -134,6 +136,8 @@ public class GunDamageScript : DamageScript
         isFullReload = g.IsFullReload;
         amountPerReload = g.AmountPerReload;
 
+        fireType = g.FireType;
+        projectileGO = g.ProjectileGO;
 
         currentMag = g.CurrentMag;
 
@@ -243,7 +247,7 @@ public class GunDamageScript : DamageScript
     {
         if (!isFiring)
         {
-            currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0,0), Time.deltaTime * 2 / timeToRecenter);
+            currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenter);
 
             /*
             //x
@@ -314,19 +318,19 @@ public class GunDamageScript : DamageScript
 
     public void AdjustRecoil()
     {
-        
+
 
         print("Adjusting recoil ");
         float NewAimDir = (firePoint.transform.rotation.eulerAngles.x + 90) % 360;
         Vector3 localEular = transform.localRotation.eulerAngles;
-        if (NewAimDir> originalFireDirection_X && isADS)
+        if (NewAimDir > originalFireDirection_X && isADS && isFullAuto)
         {
-            currentRecoil.x = currentRecoil.x*0.05f;
+            currentRecoil.x = currentRecoil.x * 0.05f;
             //currentRecoil.y = currentRecoil.y * 0.005f;
 
-            transform.rotation = Quaternion.AngleAxis(firePoint.localEulerAngles.x+currentRecoil.x, transform.right) * transform.rotation;
+            transform.rotation = Quaternion.AngleAxis(firePoint.localEulerAngles.x + currentRecoil.x, transform.right) * transform.rotation;
 
-            firePoint.localRotation =  Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
+            firePoint.localRotation = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
 
             UpdateSights();
             SetWeaponLocation(true);
@@ -335,7 +339,7 @@ public class GunDamageScript : DamageScript
 
         }
 
-        else if (lookScript.YRotation_adjusted()> originalFireDirection_X && isADS)
+        else if (lookScript.YRotation_adjusted() > originalFireDirection_X && isADS)
         {
             float differenceInAim = lookScript.YRotation_adjusted() - originalFireDirection_X;
             transform.rotation = Quaternion.AngleAxis(-differenceInAim, transform.right) * transform.rotation;
@@ -344,7 +348,7 @@ public class GunDamageScript : DamageScript
 
 
             currentRecoil.x -= differenceInAim;
-            print("Reduce recoil: "+ differenceInAim);
+            print("Reduce recoil: " + differenceInAim);
 
         }
         else
@@ -372,11 +376,19 @@ public class GunDamageScript : DamageScript
         {
             currentProjectile = projectilePerShot;
 
-            RaycastDamage();
+            switch (fireType)
+            {
+                case (FireTypes.HitScan):
+                    RaycastDamage();
+                    break;
+                case (FireTypes.Projectile):
+                    LaunchProjectile();
+                    break;
+            }
             mainGunStatsScript.PlayAnimationTrigger("Shoot", 1 / timeUntilFire);
             HandleWeapon();
 
-            if (currentProjectile > 0 && currentMag > 1 && timeBetweenProjectile > 0)
+            if (currentProjectile > 0 && currentMag > 0 && timeBetweenProjectile > 0)
             {
                 StartCoroutine(BurstFire());
             }
@@ -473,6 +485,30 @@ public class GunDamageScript : DamageScript
             }
         }
         return hitTarget;
+    }
+
+    void LaunchProjectile()
+    {
+        if (projectileGO.TryGetComponent(out ProjectileScript projectileScript))
+        {
+            RaycastHit hit;
+            for (int i = 0; i < projectilePerShot; i++)
+            {
+                projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
+                Vector3 fireDir = firePoint.forward;
+                if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
+                {
+                    fireDir = hit.point - mainGunStatsScript.transform.position;
+                }
+
+                projectileScript.Launch(1, elementType, fireDir.normalized);
+            }
+        }
+        else
+        {
+            Debug.LogError("Failed to get Projectile " + projectileGO.name + " script");
+        }
+
     }
 
     void HandleWeapon()
@@ -645,7 +681,15 @@ public class GunDamageScript : DamageScript
         print("Bursting");
         yield return new WaitForSeconds(timeBetweenProjectile);
 
-        RaycastDamage();
+        switch (fireType)
+        {
+            case (FireTypes.HitScan):
+                RaycastDamage();
+                break;
+            case (FireTypes.Projectile):
+                LaunchProjectile();
+                break;
+        }
         HandleWeapon();
         if (currentProjectile > 0 && currentMag > 0)
         {
