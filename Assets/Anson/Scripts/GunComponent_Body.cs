@@ -7,6 +7,7 @@ public class GunComponent_Body : GunComponent
 {
     [Header("Extra")]
     [SerializeField] protected List<ElementTypes> elementTypes;
+    [SerializeField] protected AnimationCurve rangeCurve;
 
 
     [Header("Effects")]
@@ -67,6 +68,10 @@ public class GunComponent_Body : GunComponent
     public GunComponent_Sight Component_Sight { get => component_Sight; }
     public FireTypes FireType { get => fireType; set => fireType = value; }
     public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
+    public AnimationCurve RangeCurve { get => rangeCurve; }
+
+
+
 
     private void Awake()
     {

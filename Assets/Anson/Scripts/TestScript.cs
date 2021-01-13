@@ -6,8 +6,12 @@ using UnityEngine.InputSystem;
 public class TestScript : MonoBehaviour
 {
     public GunGeneratorScript generatorScript;
+    public GunGeneratorScript generatorScript2;
+    public GunGeneratorScript generatorScript3;
+    public ShootingRangeScript shootingRangeScript1;
+    public ShootingRangeScript shootingRangeScript2;
+
     public GunDamageScript gunDamageScript;
-    public PlayerController playerController;
     Mouse mouse;
     Keyboard keyboard;
 
@@ -21,7 +25,6 @@ public class TestScript : MonoBehaviour
         {
             gunDamageScript = FindObjectOfType<GunDamageScript>();
         }
-        playerController = FindObjectOfType<PlayerController>();
     }
 
 
@@ -63,7 +66,6 @@ public class TestScript : MonoBehaviour
 
     public void MovePlayer(InputAction.CallbackContext callbackContext)
     {
-        playerController.Move(callbackContext);
     }
 
     public void Reload()
@@ -74,11 +76,27 @@ public class TestScript : MonoBehaviour
     public void RemoveAllGuns()
     {
         MainGunStatsScript[] AllGuns = FindObjectsOfType<MainGunStatsScript>();
-        foreach(MainGunStatsScript m in AllGuns)
+        foreach (MainGunStatsScript m in AllGuns)
         {
             Destroy(m.gameObject);
         }
     }
 
+    public void StartShootingRange1(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            shootingRangeScript1.StartShootCourse();
 
+        }
+    }
+
+    public void StartShootingRange2(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            shootingRangeScript2.StartShootCourse();
+
+        }
+    }
 }

@@ -19,6 +19,8 @@ public class GunDamageScript : DamageScript
     [SerializeField] protected ElementTypes elementType = ElementTypes.PHYSICAL;
     [SerializeField] FireTypes fireType = FireTypes.HitScan;
     [SerializeField] GameObject projectileGO;
+
+    [SerializeField] protected AnimationCurve rangeCurve;
     [SerializeField] bool isFullAuto = true;
     [SerializeField] bool isFullReload = true;
     [SerializeField] int amountPerReload = 1;
@@ -150,6 +152,9 @@ public class GunDamageScript : DamageScript
         timeToRecenter = g.TimeToRecenter;
 
         sightLocation = g.SightLocation;
+
+        rangeCurve = g.RangeCurve;
+
 
         g.GetComponentInChildren<Rigidbody>().isKinematic = true;
         g.gameObject.transform.position = gunPosition.transform.position;
@@ -320,7 +325,7 @@ public class GunDamageScript : DamageScript
     {
 
 
-        print("Adjusting recoil ");
+        //print("Adjusting recoil ");
         float NewAimDir = (firePoint.transform.rotation.eulerAngles.x + 90) % 360;
         Vector3 localEular = transform.localRotation.eulerAngles;
         if (NewAimDir > originalFireDirection_X && isADS && isFullAuto)
@@ -335,7 +340,7 @@ public class GunDamageScript : DamageScript
             UpdateSights();
             SetWeaponLocation(true);
 
-            print("Remove recoil: ");
+            //print("Remove recoil: ");
 
         }
 
@@ -348,12 +353,13 @@ public class GunDamageScript : DamageScript
 
 
             currentRecoil.x -= differenceInAim;
-            print("Reduce recoil: " + differenceInAim);
+            //print("Reduce recoil: " + differenceInAim);
 
         }
         else
         {
-            print("None");
+            //print("None");
+            //print("None");
         }
     }
 
@@ -414,7 +420,7 @@ public class GunDamageScript : DamageScript
     {
         RaycastHit hit;
         bool hitTarget = false;
-        randomFireDir = new Vector2(Random.Range(0, currentRecoil.x * .5f), Random.Range(-180f, 180f));
+        randomFireDir = new Vector2(Random.Range(0, currentRecoil.x), Random.Range(-180f, 180f));
         fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
 
@@ -443,18 +449,7 @@ public class GunDamageScript : DamageScript
         //Vector3 fireDir = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0) * firePoint.transform.forward;
         fireDir = firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.red, 1f);
-
-        if (Physics.Raycast(firePoint.transform.position, fireDir, out hit, range * 1.5f, layerMask))
-        {
-            Instantiate(impactEffect, hit.point, Quaternion.Euler(hit.normal));
-            if (tagList.Contains(hit.collider.tag) && hit.collider.TryGetComponent(out LifeSystemScript ls))
-            {
-                dealDamageToTarget(ls, damagePerProjectile, 1, elementType);
-                hitTarget = true;
-
-            }
-        }
-
+        hitTarget = RayCastDealDamage(fireDir, hitTarget);
 
 
         if (gunType == GunTypes.SHOTGUN && projectilePerShot > 1)
@@ -480,7 +475,8 @@ public class GunDamageScript : DamageScript
             Instantiate(impactEffect, hit.point, Quaternion.Euler(hit.normal));
             if (tagList.Contains(hit.collider.tag) && hit.collider.TryGetComponent(out LifeSystemScript ls))
             {
-                dealDamageToTarget(ls, damagePerProjectile, 1, elementType);
+                float dropOff = rangeCurve.Evaluate((firePoint.transform.position - hit.point).magnitude / range);
+                dealDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType);
                 hitTarget = true;
             }
         }

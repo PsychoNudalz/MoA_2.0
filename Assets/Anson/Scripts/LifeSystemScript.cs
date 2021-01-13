@@ -20,6 +20,10 @@ public class LifeSystemScript : MonoBehaviour
     public bool destroyOnDeath;
     public float delayDeath = 0;
     public bool detatchPopUps = true;
+    public bool reatatchPopUps = true;
+
+    Vector3 popUpLocation;
+    Vector3 particleLocation;
 
     [Header("Components")]
     public DamagePopScript damagePopScript;
@@ -32,7 +36,22 @@ public class LifeSystemScript : MonoBehaviour
     private void Awake()
     {
         health_Current = health_Max;
-       // updateHealthBar();
+        // updateHealthBar();
+        popUpLocation = damagePopScript.transform.position - transform.position;
+        particleLocation = groupParticleSystemScript.transform.position - transform.position;
+    }
+
+
+    public void OverrideHealth(int hp)
+    {
+        health_Current = hp;
+        health_Max = hp;
+    }
+
+    public void ResetSystem()
+    {
+        health_Current = health_Max;
+        isDead = false;
     }
 
     /// <summary>
@@ -142,12 +161,28 @@ public class LifeSystemScript : MonoBehaviour
         {
             if (detatchPopUps)
             {
-                StartCoroutine(reattach());
+                damagePopScript.transform.SetParent(null);
+                groupParticleSystemScript.transform.SetParent(null);
+                //damagePopScript.transform.position = transform.position;
+                //groupParticleSystemScript.transform.position = transform.position;
+                if (reatatchPopUps)
+                {
+                    StartCoroutine(reattach());
+                }
             }
             gameObject.SetActive(false);
         }
         else if (destroyOnDeath)
         {
+            if (detatchPopUps)
+            {
+                damagePopScript.transform.SetParent(null);
+                groupParticleSystemScript.transform.SetParent(null);
+                if (reatatchPopUps)
+                {
+                    StartCoroutine(reattach());
+                }
+            }
             Destroy(gameObject);
         }
 
@@ -166,10 +201,23 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual IEnumerator reattach()
     {
-        damagePopScript.transform.SetParent(null);
-        groupParticleSystemScript.transform.SetParent(null);
+
         yield return new WaitForSeconds(3f);
         damagePopScript.transform.SetParent(transform);
         groupParticleSystemScript.transform.SetParent(transform);
-    } 
+        damagePopScript.transform.position = transform.position+popUpLocation;
+        groupParticleSystemScript.transform.position = transform.position+particleLocation;
+
+    }
+
+    private void OnEnable()
+    {
+        if (reatatchPopUps)
+        {
+            damagePopScript.transform.SetParent(transform);
+            groupParticleSystemScript.transform.SetParent(transform);
+            damagePopScript.transform.position = transform.position + popUpLocation;
+            groupParticleSystemScript.transform.position = transform.position + particleLocation;
+        }
+    }
 }

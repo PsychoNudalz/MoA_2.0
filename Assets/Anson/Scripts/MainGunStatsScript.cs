@@ -12,6 +12,8 @@ public class MainGunStatsScript : GunStatsScript
     [SerializeField] FireTypes fireType = FireTypes.HitScan;
     [SerializeField] GameObject projectileGO;
 
+    [SerializeField] protected AnimationCurve rangeCurve;
+
     [SerializeField] bool isFullAuto = true;
     [SerializeField] int projectilePerShot;
     [SerializeField] float timeBetweenProjectile = 0f;
@@ -70,6 +72,9 @@ public class MainGunStatsScript : GunStatsScript
     public FireTypes FireType { get => fireType; set => fireType = value; }
     public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
 
+    public AnimationCurve RangeCurve { get => rangeCurve; }
+
+
     public void SetBody(GunComponent_Body b)
     {
         name = b.name.Substring(0, b.name.IndexOf("_"));
@@ -96,6 +101,7 @@ public class MainGunStatsScript : GunStatsScript
         component_Sight = b.Component_Sight;
         fireType = b.FireType;
         projectileGO = b.ProjectileGO;
+        rangeCurve = b.RangeCurve;
         //b.transform.rotation = Quaternion.Euler(0, -90, 0) * transform.rotation;
     }
 
@@ -158,7 +164,9 @@ public class MainGunStatsScript : GunStatsScript
             gunType.ToString()," ", elementType.ToString(), "\n",
             "Damage: ",damagePerProjectile, " x ", projectilePerShot, "\n",
             "RPM: ", RPM, " Recoil: ", recoil.ToString(), "\n",
-            "Mag: ", magazineSize, " Reload Speed: ", ReloadSpeed
+            "Mag: ", magazineSize, " Reload Speed: ", ReloadSpeed, "\n",
+            "Range: ", range, "\n",
+            " Drop Offs: ", Mathf.Round(rangeCurve.Evaluate(0) * damagePerProjectile),", " , Mathf.Round(rangeCurve.Evaluate(0.5f) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(1) * damagePerProjectile)
 
             );
         return returnString;
