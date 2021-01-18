@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class TestScript : MonoBehaviour
 {
-    public GunGeneratorScript generatorScript;
+    public GunGeneratorScript generatorScript1;
     public GunGeneratorScript generatorScript2;
     public GunGeneratorScript generatorScript3;
     public ShootingRangeScript shootingRangeScript1;
@@ -17,9 +17,9 @@ public class TestScript : MonoBehaviour
 
     private void Awake()
     {
-        if (generatorScript == null)
+        if (generatorScript1 == null)
         {
-            generatorScript = FindObjectOfType<GunGeneratorScript>();
+            generatorScript1 = FindObjectOfType<GunGeneratorScript>();
         }
         if (gunDamageScript == null)
         {
@@ -28,12 +28,30 @@ public class TestScript : MonoBehaviour
     }
 
 
-    public void GenerateGun(InputAction.CallbackContext callbackContext)
+    public void GenerateGun_Single(InputAction.CallbackContext callbackContext)
     {
         if (callbackContext.performed)
         {
 
-            GameObject newGun = generatorScript.GenerateGun();
+            GameObject newGun = generatorScript1.GenerateGun();
+            gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
+        }
+    }
+    public void GenerateGun_Group(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+
+            GameObject newGun = generatorScript2.GenerateGun();
+            gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
+        }
+    }
+    public void GenerateGun_All(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+
+            GameObject newGun = generatorScript3.GenerateGun();
             gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
         }
     }

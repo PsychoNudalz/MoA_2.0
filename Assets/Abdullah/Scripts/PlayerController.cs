@@ -33,10 +33,12 @@ public class PlayerController : MonoBehaviour
     float lookX;
     float lookY;
 
-   [SerializeField] Camera cam1;
+    [SerializeField] Camera cam1;
     bool moving;
     Vector2 isMoving;
     bool tilted;
+
+    [SerializeField] Look lookScript;
 
 
 
@@ -47,27 +49,37 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
         player = transform;
-        cam = Camera.main.transform;
+        cam = cam1.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //moveDirection = transform.TransformDirection(moveDirection);
+
         Move();
-        Look();
+        if (lookScript == null)
+        {
+            Look();
+
+        }
         CameraTilt();
         jumped.y -= gravity * Time.deltaTime;
     }
 
-    void Jump() {
+    void Jump()
+    {
 
-        if (controller.isGrounded) {
-            jumped = new Vector3(0f,jumpSpeed,0f);
-        }       
-        
+        if (controller.isGrounded)
+        {
+            jumped = new Vector3(0f, jumpSpeed, 0f);
+        }
+
     }
 
-    void CameraTilt() {
+    void CameraTilt()
+    {
         if (isMoving.x == 0)
         {
             Vector3 eulerRotation = transform.rotation.eulerAngles;
@@ -75,10 +87,10 @@ public class PlayerController : MonoBehaviour
             tilted = false;
         }
 
-       
+
 
     }
-  
+
     void Look()
     {
         lookY = Mathf.Clamp(lookY, minY, maxY);
@@ -98,18 +110,18 @@ public class PlayerController : MonoBehaviour
             moveSpeed = walkSpeed;
         }
 
-        controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+        controller.Move(Quaternion.AngleAxis(transform.eulerAngles.y,transform.up)* moveDirection * moveSpeed * Time.deltaTime);
         controller.Move(jumped * Time.deltaTime);
-        
+
     }
 
-    
-    
+
+
     public void OnMove(InputAction.CallbackContext context)
     {
         isMoving = context.ReadValue<Vector2>();
         moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
-        moveDirection = transform.TransformDirection(moveDirection);
+        //moveDirection = transform.TransformDirection(moveDirection);
         if (isMoving.x != 0)
         {
             if (isMoving.x < 0 && tilted == false)
@@ -128,7 +140,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
+
 
     public void OnLook(InputAction.CallbackContext context)
     {

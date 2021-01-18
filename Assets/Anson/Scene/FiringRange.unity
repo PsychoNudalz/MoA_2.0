@@ -1436,6 +1436,8 @@ GameObject:
   - component: {fileID: 721127707}
   - component: {fileID: 721127709}
   - component: {fileID: 721127708}
+  - component: {fileID: 721127711}
+  - component: {fileID: 721127710}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -1468,7 +1470,7 @@ CharacterController:
   m_GameObject: {fileID: 721127705}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
@@ -1534,6 +1536,109 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   timeNow_Aim: 0
+--- !u!114 &721127710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721127705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 0b76dd4272069014583e21c7be36848e,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 721127711}
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b8228302-1c86-4e08-af05-88241b1a8e9c
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 721127711}
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5c517d44-8d6f-45b3-957f-cd56c7320f5a
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b7a6a53f-82ed-4471-a414-771b8e7b1c5b
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 721127711}
+        m_MethodName: OnRun
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 919c190c-3357-40cf-9ef0-b6d59b807e0d
+    m_ActionName: Player/Rin[/Keyboard/shift]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &721127711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721127705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4440c12464cc42a48b02139ac062a026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 30
+  jumpSpeed: 10
+  walkSpeed: 10
+  runSpeed: 20
+  sensitivityX: 1
+  sensitivityY: 1
+  minY: -85
+  maxY: 85
+  tilt: 20
+  cam1: {fileID: 817733033}
+  lookScript: {fileID: 721127709}
 --- !u!1 &817733029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,7 +1938,7 @@ Transform:
   m_LocalScale: {x: 10, y: 50, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &891470403
 GameObject:
@@ -1958,7 +2063,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &948712236
 GameObject:
@@ -2007,7 +2112,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &967070628
 PrefabInstance:
@@ -2445,7 +2550,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1248889313}
-        m_MethodName: GenerateGun
+        m_MethodName: GenerateGun_Single
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2539,7 +2644,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1248889313}
-        m_MethodName: GenerateGun2
+        m_MethodName: GenerateGun_Group
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2554,7 +2659,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1248889313}
-        m_MethodName: GenerateGun3
+        m_MethodName: GenerateGun_All
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2627,7 +2732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b4a8c9d02557f4595a72912815b75f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generatorScript: {fileID: 1010181043}
+  generatorScript1: {fileID: 1010181043}
   generatorScript2: {fileID: 2097665928}
   generatorScript3: {fileID: 988472639}
   shootingRangeScript1: {fileID: 627296252}
@@ -3161,7 +3266,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1403033457
 MonoBehaviour:
