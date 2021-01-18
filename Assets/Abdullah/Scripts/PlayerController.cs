@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float minY = -60f;
     [SerializeField] public float maxY = 60f;
 
+    [SerializeField] public float tilt = 20;
+
     Vector3 jumped;
 
     int moveSpeed;
@@ -31,12 +33,17 @@ public class PlayerController : MonoBehaviour
     float lookX;
     float lookY;
 
+   [SerializeField] Camera cam1;
+    bool moving;
+    Vector2 isMoving;
+    bool tilted;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        tilted = false;
         Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
         player = transform;
@@ -48,6 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Look();
+        CameraTilt();
         jumped.y -= gravity * Time.deltaTime;
     }
 
@@ -59,7 +67,18 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    void CameraTilt() {
+        if (isMoving.x == 0)
+        {
+            Vector3 eulerRotation = transform.rotation.eulerAngles;
+            cam1.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
+            tilted = false;
+        }
 
+       
+
+    }
+  
     void Look()
     {
         lookY = Mathf.Clamp(lookY, minY, maxY);
@@ -81,15 +100,32 @@ public class PlayerController : MonoBehaviour
 
         controller.Move(moveDirection * moveSpeed * Time.deltaTime);
         controller.Move(jumped * Time.deltaTime);
+        
     }
 
     
     
     public void OnMove(InputAction.CallbackContext context)
     {
+        isMoving = context.ReadValue<Vector2>();
         moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
         moveDirection = transform.TransformDirection(moveDirection);
-        
+        if (isMoving.x != 0)
+        {
+            if (isMoving.x < 0 && tilted == false)
+            {
+                cam1.transform.Rotate(new Vector3(0, 0, tilt) * Time.deltaTime);
+                tilted = true;
+
+            }
+            else if (isMoving.x > 0 && tilted == false)
+            {
+                cam1.transform.Rotate(new Vector3(0, 0, -tilt) * Time.deltaTime);
+                tilted = true;
+            }
+        }
+
+
     }
 
     
