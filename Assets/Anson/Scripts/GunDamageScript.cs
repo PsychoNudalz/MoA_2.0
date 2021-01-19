@@ -473,10 +473,18 @@ public class GunDamageScript : DamageScript
         if (Physics.Raycast(firePoint.transform.position, dir, out hit, range * 1.5f, layerMask))
         {
             Instantiate(impactEffect, hit.point, Quaternion.Euler(hit.normal));
-            if (tagList.Contains(hit.collider.tag) && hit.collider.TryGetComponent(out LifeSystemScript ls))
+            if (tagList.Contains(hit.collider.tag) && (hit.collider.TryGetComponent(out LifeSystemScript ls)|| hit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
             {
                 float dropOff = rangeCurve.Evaluate((firePoint.transform.position - hit.point).magnitude / range);
-                dealDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType);
+                if (hit.collider.TryGetComponent(out WeakPointScript wps))
+                {
+                    dealCriticalDamageToTarget(wps.Ls, damagePerProjectile * dropOff, 1, elementType, 2f);
+                }
+                else
+                {
+                    dealDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType);
+
+                }
                 hitTarget = true;
             }
         }

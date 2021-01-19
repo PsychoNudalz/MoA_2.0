@@ -77,6 +77,30 @@ public class LifeSystemScript : MonoBehaviour
         return health_Current;
 
     }
+
+    /// <summary>
+    /// deal critical damage to the gameobject
+    /// damage rounded to the closest integer
+    /// triggers death event if health reaches 0
+    /// </summary>
+    /// <param name="dmg"></param>
+    /// <returns> health remaining </returns>
+    public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1)
+    {
+
+        if (!isDead)
+        {
+            health_Current -= Mathf.RoundToInt(dmg * multiplier);
+            print(name + " take damage: " + dmg * multiplier);
+            //updateHealthBar();
+            displayDamageCritical(dmg * multiplier);
+            playDamageParticles();
+        }
+
+        CheckDead();
+        return health_Current;
+
+    }
     /// <summary>
     /// heal gameobject
     /// amount rounded to the closest integer
@@ -126,6 +150,17 @@ public class LifeSystemScript : MonoBehaviour
         }
         damagePopScript.displayDamage(dmg);
     }
+
+    void displayDamageCritical(float dmg)
+    {
+        if (damagePopScript == null)
+        {
+            Debug.LogWarning(name + " missing damage numbers");
+            return;
+        }
+        damagePopScript.displayCriticalDamage(dmg);
+    }
+
     void playDamageParticles()
     {
         if (groupParticleSystemScript == null)

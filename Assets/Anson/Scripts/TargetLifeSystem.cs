@@ -12,4 +12,10 @@ public class TargetLifeSystem : LifeSystemScript
         decayShaderScript.StartDecay();
         return base.takeDamage(dmg, level, element);
     }
+
+    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier)
+    {
+        decayShaderScript.StartDecay();
+        return base.takeDamageCritical(dmg, level, element, multiplier);
+    }
 }
