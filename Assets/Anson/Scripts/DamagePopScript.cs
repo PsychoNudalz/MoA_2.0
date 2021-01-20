@@ -19,6 +19,9 @@ public class DamagePopScript : MonoBehaviour
     [Header("Text colours")]
     [SerializeField] Color normalColour = Color.white;
     [SerializeField] Color critColour = Color.yellow;
+    [SerializeField] Color fireColour = Color.red;
+    [SerializeField] Color iceColour = Color.cyan;
+    [SerializeField] Color shockColour = Color.yellow;
 
 
     private void FixedUpdate()
@@ -42,18 +45,23 @@ public class DamagePopScript : MonoBehaviour
     /// the total damage value stacks up until it disappears
     /// </summary>
     /// <param name="dmg"></param>
-    public void displayDamage(float dmg)
+    public void displayDamage(float dmg,ElementTypes e = ElementTypes.PHYSICAL)
     {
-        if (!checkText())
+        switch (e)
         {
-            value = 0;
+            case (ElementTypes.PHYSICAL):
+                displayDamage(dmg,normalColour);
+                break;
+            case (ElementTypes.FIRE):
+                displayDamage(dmg, fireColour);
+                break;
+            case (ElementTypes.ICE):
+                displayDamage(dmg, iceColour);
+                break;
+            case (ElementTypes.SHOCK):
+                displayDamage(dmg, shockColour);
+                break;
         }
-        text.gameObject.SetActive(true);
-        animator.SetTrigger("Play");
-        value += dmg;
-        displayText = Mathf.RoundToInt(value).ToString();
-        text.text = displayText;
-        text.color = normalColour;
     }
 
 

@@ -60,8 +60,8 @@ GameObject:
   - component: {fileID: 6116433702882484041}
   - component: {fileID: 6116433702882484040}
   - component: {fileID: 9018174599830638687}
-  - component: {fileID: 462018505862565508}
   - component: {fileID: 8447128565851752525}
+  - component: {fileID: 9036135735124460807}
   m_Layer: 10
   m_Name: TestFLYINGTargetBEAN!!!
   m_TagString: Enemy
@@ -182,25 +182,11 @@ MonoBehaviour:
   destroyOnDeath: 0
   delayDeath: 0
   detatchPopUps: 1
+  reatatchPopUps: 1
+  debuffList: []
   damagePopScript: {fileID: 6116433703193844446}
   groupParticleSystemScript: {fileID: 6116433702690264051}
-  decayShaderScript: {fileID: 462018505862565508}
---- !u!114 &462018505862565508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6116433702882484042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b238c744e1d3f8540be0d92b08601817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ms: {fileID: 6116433702882484054}
-  material: {fileID: 0}
-  currentRatio: 0
-  decayTime: 0
+  targetMaterialHandler: {fileID: 0}
 --- !u!114 &8447128565851752525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +200,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 10
+--- !u!114 &9036135735124460807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6116433702882484042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d07bd638e5aa7f945a70ff6f246aea5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ms: {fileID: 0}
+  material: {fileID: 0}
+  currentRatio: 0
+  decayTime: 1
 --- !u!1001 &3753670697718491790
 PrefabInstance:
   m_ObjectHideFlags: 0

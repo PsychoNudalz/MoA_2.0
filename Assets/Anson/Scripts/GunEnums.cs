@@ -30,7 +30,7 @@ public enum ElementTypes
     PHYSICAL,
     FIRE,
     ICE,
-    EARTH
+    SHOCK
 }
 
 public enum FireTypes

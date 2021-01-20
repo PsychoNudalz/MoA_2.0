@@ -17,6 +17,9 @@ public class GunDamageScript : DamageScript
     [SerializeField] protected float timeBetweenProjectile = 0f;
     [SerializeField] GunTypes gunType = GunTypes.RIFLE;
     [SerializeField] protected ElementTypes elementType = ElementTypes.PHYSICAL;
+    [SerializeField] protected float elementDamage = 0;
+    [SerializeField] protected float elementPotency = 0; //effect duration or range
+    [SerializeField] protected float elementChance = 0;
     [SerializeField] FireTypes fireType = FireTypes.HitScan;
     [SerializeField] GameObject projectileGO;
 
@@ -163,6 +166,12 @@ public class GunDamageScript : DamageScript
 
         sightOffset = sightLocation.position - gunPosition.position;
         mainGunStatsScript.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
+        //HANDLE ELEMENTS.  Reduce main damage, change element damage
+        elementDamage = Mathf.RoundToInt(g.ElementDamage * damagePerProjectile);
+        damagePerProjectile = damagePerProjectile*0.85f;
+        elementPotency = g.ElementPotency;
+        elementChance = g.ElementChance;
 
 
         UpdateAmmoCount();
@@ -473,16 +482,22 @@ public class GunDamageScript : DamageScript
         if (Physics.Raycast(firePoint.transform.position, dir, out hit, range * 1.5f, layerMask))
         {
             Instantiate(impactEffect, hit.point, Quaternion.Euler(hit.normal));
-            if (tagList.Contains(hit.collider.tag) && (hit.collider.TryGetComponent(out LifeSystemScript ls)|| hit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
+            if (tagList.Contains(hit.collider.tag) && (hit.collider.TryGetComponent(out LifeSystemScript ls) || hit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
             {
                 float dropOff = rangeCurve.Evaluate((firePoint.transform.position - hit.point).magnitude / range);
                 if (hit.collider.TryGetComponent(out WeakPointScript wps))
                 {
-                    dealCriticalDamageToTarget(wps.Ls, damagePerProjectile * dropOff, 1, elementType, 2f);
+                    ls = wps.Ls;
+                    dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, 2f);
                 }
                 else
                 {
                     dealDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType);
+
+                }
+                if (Random.Range(0, 1f) <= elementChance)
+                {
+                    ApplyElementEffect(ls);
 
                 }
                 hitTarget = true;
@@ -646,6 +661,27 @@ public class GunDamageScript : DamageScript
 
         lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
     }
+
+
+
+    void ApplyElementEffect(LifeSystemScript ls)
+    {
+        ElementDebuffScript newDebuff;
+        switch (elementType)
+        {
+            case (ElementTypes.PHYSICAL):
+                break;
+            case (ElementTypes.FIRE):
+                newDebuff = new FireEffectScript(elementDamage, elementPotency);
+                ls.ApplyDebuff(newDebuff as FireEffectScript);
+                break;
+            case (ElementTypes.ICE):
+                break;
+            case (ElementTypes.SHOCK):
+                break;
+        }
+    }
+
 
     void UpdateSights()
     {

@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 4108090729370341992}
   - component: {fileID: 4108090729370341993}
   - component: {fileID: 1208601666604195198}
-  - component: {fileID: 7749082702139098021}
+  - component: {fileID: -5655237144525258051}
   m_Layer: 10
   m_Name: TestTargetBEAN!!!!
   m_TagString: Enemy
@@ -181,10 +181,12 @@ MonoBehaviour:
   destroyOnDeath: 0
   delayDeath: 0
   detatchPopUps: 1
+  reatatchPopUps: 1
+  debuffList: []
   damagePopScript: {fileID: 4108090729125959679}
   groupParticleSystemScript: {fileID: 4108090728489213650}
-  decayShaderScript: {fileID: 7749082702139098021}
---- !u!114 &7749082702139098021
+  targetMaterialHandler: {fileID: -5655237144525258051}
+--- !u!114 &-5655237144525258051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,11 +195,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4108090729370341995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b238c744e1d3f8540be0d92b08601817, type: 3}
+  m_Script: {fileID: 11500000, guid: d07bd638e5aa7f945a70ff6f246aea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ms: {fileID: 4108090729370342007}
   material: {fileID: 0}
+  currentRatio: 0
+  decayTime: 1
 --- !u!1001 &4108090729932436038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -379,6 +383,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamagePopUp
       objectReference: {fileID: 0}
+    - target: {fileID: 6986850587776514198, guid: 9c8c74defd873b14abc39f181ea691bb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ba452894e980a01409c882dff26d9de0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c8c74defd873b14abc39f181ea691bb, type: 3}
 --- !u!4 &4108090729125959678 stripped

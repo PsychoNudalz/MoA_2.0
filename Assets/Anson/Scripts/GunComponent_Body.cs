@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 public class GunComponent_Body : GunComponent
 {
     [Header("Extra")]
-    [SerializeField] protected List<ElementTypes> elementTypes;
+    [SerializeField] protected ElementTypes elementType;
     [SerializeField] protected AnimationCurve rangeCurve;
 
 
@@ -69,7 +69,7 @@ public class GunComponent_Body : GunComponent
     public FireTypes FireType { get => fireType; set => fireType = value; }
     public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
     public AnimationCurve RangeCurve { get => rangeCurve; }
-
+    public ElementTypes ElementType { get => elementType; }
 
 
 

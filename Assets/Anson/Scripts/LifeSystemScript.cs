@@ -25,6 +25,9 @@ public class LifeSystemScript : MonoBehaviour
     Vector3 popUpLocation;
     Vector3 particleLocation;
 
+    [Header("Debuffs")]
+    [SerializeField] List<DebuffScript> debuffList = new List<DebuffScript>();
+
     [Header("Components")]
     public DamagePopScript damagePopScript;
     public GroupParticleSystemScript groupParticleSystemScript;
@@ -41,6 +44,17 @@ public class LifeSystemScript : MonoBehaviour
         particleLocation = groupParticleSystemScript.transform.position - transform.position;
     }
 
+    private void FixedUpdate()
+    {
+        for (int i = 0; i < debuffList.Count; i++)
+        {
+            if (debuffList[i].TickEffect(Time.deltaTime))
+            {
+                i--;
+            }
+        }
+    }
+
 
     public void OverrideHealth(int hp)
     {
@@ -48,9 +62,10 @@ public class LifeSystemScript : MonoBehaviour
         health_Max = hp;
     }
 
-    public void ResetSystem()
+    public virtual void ResetSystem()
     {
         health_Current = health_Max;
+        debuffList = new List<DebuffScript>();
         isDead = false;
     }
 
@@ -69,7 +84,7 @@ public class LifeSystemScript : MonoBehaviour
             health_Current -= Mathf.RoundToInt(dmg);
             print(name + " take damage: " + dmg);
             //updateHealthBar();
-            displayDamage(dmg);
+            displayDamage(dmg,element);
             playDamageParticles();
         }
 
@@ -91,7 +106,7 @@ public class LifeSystemScript : MonoBehaviour
         if (!isDead)
         {
             health_Current -= Mathf.RoundToInt(dmg * multiplier);
-            print(name + " take damage: " + dmg * multiplier);
+            print(name + " take " + element+" damage: " + dmg * multiplier);
             //updateHealthBar();
             displayDamageCritical(dmg * multiplier);
             playDamageParticles();
@@ -141,14 +156,15 @@ public class LifeSystemScript : MonoBehaviour
         return isDead;
     }
 
-    void displayDamage(float dmg)
+    void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
     {
         if (damagePopScript == null)
         {
             Debug.LogWarning(name + " missing damage numbers");
             return;
         }
-        damagePopScript.displayDamage(dmg);
+        damagePopScript.displayDamage(dmg, e);
+
     }
 
     void displayDamageCritical(float dmg)
@@ -240,10 +256,51 @@ public class LifeSystemScript : MonoBehaviour
         yield return new WaitForSeconds(3f);
         damagePopScript.transform.SetParent(transform);
         groupParticleSystemScript.transform.SetParent(transform);
-        damagePopScript.transform.position = transform.position+popUpLocation;
-        groupParticleSystemScript.transform.position = transform.position+particleLocation;
+        damagePopScript.transform.position = transform.position + popUpLocation;
+        groupParticleSystemScript.transform.position = transform.position + particleLocation;
 
     }
+
+
+    public virtual void ApplyDebuff(DebuffScript debuff)
+    {
+        if (debuffList.Count <= 100)
+        {
+            debuffList.Add(debuff);
+            debuff.ApplyEffect(this);
+        }
+        else
+        {
+            Debug.LogError(name + " debuff overload");
+        }
+    }
+
+    public virtual void ApplyDebuff(FireEffectScript debuff)
+    {
+        ApplyDebuff(debuff as FireEffectScript);
+    }
+
+    public virtual void RemoveDebuff(FireEffectScript debuff = null)
+    {
+        RemoveDebuff(debuff);
+        
+    }
+    public virtual void RemoveDebuff(DebuffScript debuff = null)
+    {
+        debuffList.Remove(debuff);
+
+    }
+
+
+    void TickDebuffs()
+    {
+        foreach (DebuffScript d in debuffList)
+        {
+            d.TickEffect(Time.deltaTime);
+        }
+    }
+
+
 
     private void OnEnable()
     {

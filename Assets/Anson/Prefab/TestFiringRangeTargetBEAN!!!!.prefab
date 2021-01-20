@@ -118,9 +118,8 @@ GameObject:
   - component: {fileID: 5240306055128977251}
   - component: {fileID: 5240306055128977279}
   - component: {fileID: 7025123492531535976}
-  - component: {fileID: 1887525006604983987}
+  - component: {fileID: 1049960754190752969}
   - component: {fileID: 45024186506538858}
-  - component: {fileID: 184646276366656097}
   m_Layer: 10
   m_Name: TestFiringRangeTargetBEAN!!!!
   m_TagString: Enemy
@@ -183,10 +182,11 @@ MonoBehaviour:
   delayDeath: 0
   detatchPopUps: 1
   reatatchPopUps: 1
+  debuffList: []
   damagePopScript: {fileID: 5240306055390137065}
   groupParticleSystemScript: {fileID: 5240306056027407300}
-  decayShaderScript: {fileID: 1887525006604983987}
---- !u!114 &1887525006604983987
+  targetMaterialHandler: {fileID: 1049960754190752969}
+--- !u!114 &1049960754190752969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,13 +195,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5240306055128977277}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b238c744e1d3f8540be0d92b08601817, type: 3}
+  m_Script: {fileID: 11500000, guid: d07bd638e5aa7f945a70ff6f246aea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ms: {fileID: 5656265946689750492}
   material: {fileID: 0}
   currentRatio: 0
-  decayTime: 0.5
+  decayTime: 1
 --- !u!65 &45024186506538858
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -215,19 +215,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.3713875, z: 0.10151467}
   m_Center: {x: 0, y: -0.32609916, z: 0}
---- !u!65 &184646276366656097
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5240306055128977277}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5202659, y: 0.46003413, z: 0.1015147}
-  m_Center: {x: 0, y: 0.60255563, z: 0}
 --- !u!1 &5240306056027407301
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +537,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c41481ca44fc2b842a1f2ddb212698ab, type: 2}
+      objectReference: {fileID: 2100000, guid: ba452894e980a01409c882dff26d9de0, type: 2}
     - target: {fileID: 919132149155446097, guid: 638a885564ff61f45be2d1a4b4b028c5,
         type: 3}
       propertyPath: m_Name

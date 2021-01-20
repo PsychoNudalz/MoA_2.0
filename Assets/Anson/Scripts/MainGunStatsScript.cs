@@ -80,6 +80,7 @@ public class MainGunStatsScript : GunStatsScript
         name = b.name.Substring(0, b.name.IndexOf("_"));
         soundManager = FindObjectOfType<SoundManager>();
         gunComponent_Body = b;
+
         gunType = b.GTypes[0];
         recoilPattern_X = b.RecoilPattern_X;
         recoilPattern_Y = b.RecoilPattern_Y;
@@ -100,6 +101,7 @@ public class MainGunStatsScript : GunStatsScript
         amountPerReload = b.AmountPerReload;
         component_Sight = b.Component_Sight;
         fireType = b.FireType;
+        elementType = b.ElementType;
         projectileGO = b.ProjectileGO;
         rangeCurve = b.RangeCurve;
         //b.transform.rotation = Quaternion.Euler(0, -90, 0) * transform.rotation;
