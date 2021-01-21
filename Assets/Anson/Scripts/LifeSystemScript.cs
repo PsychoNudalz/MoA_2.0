@@ -26,7 +26,7 @@ public class LifeSystemScript : MonoBehaviour
     Vector3 particleLocation;
 
     [Header("Debuffs")]
-    [SerializeField] List<DebuffScript> debuffList = new List<DebuffScript>();
+    [SerializeField] protected List<DebuffScript> debuffList = new List<DebuffScript>();
 
     [Header("Components")]
     public DamagePopScript damagePopScript;

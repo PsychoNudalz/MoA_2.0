@@ -10,11 +10,6 @@ public class TargetLifeSystem : LifeSystemScript
     public override int takeDamage(float dmg, int level, ElementTypes element)
     {
         targetMaterialHandler.StartDecay();
-        switch (element)
-        {
-            case (ElementTypes.FIRE):
-                break;
-        }
         return base.takeDamage(dmg, level, element);
     }
 
@@ -25,8 +20,8 @@ public class TargetLifeSystem : LifeSystemScript
     }
     public override void RemoveDebuff(FireEffectScript debuff = null)
     {
-        targetMaterialHandler.SetFire(false);
         base.RemoveDebuff(debuff as DebuffScript);
+        targetMaterialHandler.SetFire(CheckIsStillOnFire());
     }
     public override void ApplyDebuff(FireEffectScript debuff)
     {
@@ -39,5 +34,18 @@ public class TargetLifeSystem : LifeSystemScript
     {
         base.ResetSystem();
         targetMaterialHandler.SetFire(false);
+    }
+
+    bool CheckIsStillOnFire()
+    {
+        foreach (DebuffScript d in debuffList)
+        {
+            if (d is FireEffectScript)
+            {
+                return true;
+            }
+        }
+        return false;
+
     }
 }

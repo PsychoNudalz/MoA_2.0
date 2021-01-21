@@ -8,7 +8,7 @@ public class FireEffectScript : ElementDebuffScript
 {
     float currentTime;
     float fireDamage = 0;
-    float tickTime = 0.2f;
+    float tickTime = 0.5f;
     public FireEffectScript(float effectDamage, float effectPotency) : base(effectDamage, effectPotency)
     {
         this.effectDamage = effectDamage;

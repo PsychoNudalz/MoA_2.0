@@ -45,7 +45,7 @@ public class DamagePopScript : MonoBehaviour
     /// the total damage value stacks up until it disappears
     /// </summary>
     /// <param name="dmg"></param>
-    public void displayDamage(float dmg,ElementTypes e = ElementTypes.PHYSICAL)
+    public virtual void displayDamage(float dmg,ElementTypes e = ElementTypes.PHYSICAL)
     {
         switch (e)
         {
@@ -71,7 +71,7 @@ public class DamagePopScript : MonoBehaviour
     /// text colour change depending on colour
     /// </summary>
     /// <param name="dmg"></param>
-    public void displayDamage(float dmg,Color colour)
+    public virtual void displayDamage(float dmg,Color colour)
     {
         if (!checkText())
         {
@@ -90,7 +90,7 @@ public class DamagePopScript : MonoBehaviour
     /// display the critical damage dealt to the target
     /// </summary>
     /// <param name="dmg"></param>
-    public void displayCriticalDamage(float dmg)
+    public virtual void displayCriticalDamage(float dmg)
     {
         if (!checkText())
         {
@@ -104,7 +104,7 @@ public class DamagePopScript : MonoBehaviour
         text.color = critColour;
     }
 
-    bool checkText()
+    public bool checkText()
     {
         return text.gameObject.activeSelf;
     }
