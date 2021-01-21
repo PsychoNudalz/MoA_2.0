@@ -14,6 +14,22 @@
                     "interactions": ""
                 },
                 {
+                    "name": "GenerateGun2",
+                    "type": "Button",
+                    "id": "3704bffb-ba50-4bc5-b92c-d2bac07cfe1e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GenerateGun3",
+                    "type": "Button",
+                    "id": "c4f8cbb2-b7a2-409e-9a17-b035bfc2c918",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Shoot",
                     "type": "Button",
                     "id": "8d127cf0-d445-48e0-bcde-f17b359bf949",
@@ -42,6 +58,38 @@
                     "type": "PassThrough",
                     "id": "fa36c57e-91a0-4ca4-b8cb-d141d42dc4ad",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "1f7fe740-383f-4c87-8547-c8578dceabed",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DespawnAllGuns",
+                    "type": "Button",
+                    "id": "86564bc4-b276-429c-afe8-a1ed7a4f2e4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TestButton1",
+                    "type": "Button",
+                    "id": "16f96f6f-acc5-4277-b8c9-d3853cf8693b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TestButton2",
+                    "type": "Button",
+                    "id": "027a5351-f04b-4581-beef-50405774e5db",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -99,6 +147,116 @@
                     "processors": "",
                     "groups": "",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "30e1ff6f-549a-4dc9-b1f4-997a8c6493ed",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "462241ed-04e0-4893-bdd2-9218c364aafd",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "bb517f40-76d3-445a-a32e-45646f6142cd",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "60d691f4-8308-49af-ac6a-3a58288742e3",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "3ff0a14c-0dd0-4afb-95f5-a47734e79972",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "8eae481f-0bdc-4986-aabf-3cab8c5aafc7",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DespawnAllGuns",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae0ac7a1-8733-44fa-85c6-f20058d24f2e",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GenerateGun2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e1500b6-e74a-449a-a388-d31e2a9e45c3",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GenerateGun3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70064002-a07c-487c-9145-34a08f5a548e",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestButton1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "645f09aa-b481-4891-9815-bab7330599f2",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestButton2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

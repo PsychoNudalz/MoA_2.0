@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentType: 2
-  gunTypes: 00000000010000000200000003000000
+  gunTypes: 01000000
   gunConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!65 &9173491119124881971
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -79,11 +80,15 @@ MonoBehaviour:
   RPM: 0
   reloadSpeed: 0
   recoil: {x: 0, y: 0}
+  recoil_HipFire: {x: 0, y: 0}
   range: 0
   magazineSize: 20
+  elementDamage: 0
+  elementPotency: 0
+  elementChance: 0
   damagePerProjectileM: 1
   RPMM: 1
-  reloadSpeedM: 1.2
+  reloadSpeedM: 0.8
   recoilM: {x: 1, y: 1}
   rangeM: 1
   magazineSizeM: 1

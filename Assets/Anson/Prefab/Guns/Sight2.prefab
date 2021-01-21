@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4192594633468491298}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.276, y: 0.08, z: -0}
+  m_LocalPosition: {x: -0.3, y: 0.08, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5500820777514156574}
@@ -77,10 +77,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentType: 5
-  gunTypes: 00000000010000000200000002000000
+  gunTypes: 0000000001000000020000000300000004000000
   gunConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
   sightLocation: {fileID: 3222218601902993143}
+  zoomMultiplier: 1.05
+  sightMaterial: {fileID: 0}
+  aimSprite: {fileID: 0}
 --- !u!114 &-6187806465411891654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,8 +100,12 @@ MonoBehaviour:
   RPM: 0
   reloadSpeed: 0
   recoil: {x: 0, y: 0}
+  recoil_HipFire: {x: 0, y: 0}
   range: 0
   magazineSize: 0
+  elementDamage: 0
+  elementPotency: 0
+  elementChance: 0
   damagePerProjectileM: 1
   RPMM: 1
   reloadSpeedM: 1
@@ -121,6 +128,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764640969955945021, guid: ddb93efe74bade049bccef0ed5f14890,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6369998434251613987, guid: ddb93efe74bade049bccef0ed5f14890,
         type: 3}

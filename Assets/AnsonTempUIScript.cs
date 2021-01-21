@@ -5,9 +5,18 @@ using TMPro;
 
 public class AnsonTempUIScript : MonoBehaviour
 {
-    public TextMeshProUGUI text;
-    public void SetText(string s)
+    public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI gunText;
+
+
+    public void SetAmmoText(string s)
     {
-        text.text = "Ammo:" + s;
+        ammoText.text = "Ammo:" + s;
     }
+
+    public void SetGunText(string s)
+    {
+        gunText.text = s;
+    }
+
 }

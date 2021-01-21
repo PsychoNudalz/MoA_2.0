@@ -22,18 +22,21 @@ public class GunConnectionPoint : MonoBehaviour
 
     public bool IsCompatable(GunComponent g)
     {
+        bool compatable = false;
         if (compatableComponents.Contains(g.GetGunComponentType()))
         {
+            print(g.name + " Compatable component");
             foreach(GunTypes gt in g.GetGunTypes())
             {
                 if (compatableTypes.Contains(gt))
                 {
-                    return true;
+                    compatable = true;
+                    print(g.name + " Compatable type");
                 }
             }
         }
 
-        return false;
+        return compatable;
     }
 
     public bool SetComponent(GunComponent g)

@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6910238313146057006}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.4, y: 0.05, z: 0}
+  m_LocalPosition: {x: -0.4, y: 0.045, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7530522929959162020}
@@ -77,10 +77,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentType: 5
-  gunTypes: 00000000010000000200000003000000
+  gunTypes: 0000000001000000020000000300000004000000
   gunConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
   sightLocation: {fileID: 14424739301855986}
+  zoomMultiplier: 1
+  sightMaterial: {fileID: 0}
+  aimSprite: {fileID: 0}
 --- !u!65 &3761376709622357346
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110,8 +113,12 @@ MonoBehaviour:
   RPM: 0
   reloadSpeed: 0
   recoil: {x: 0, y: 0}
+  recoil_HipFire: {x: 0, y: 0}
   range: 0
   magazineSize: 0
+  elementDamage: 0
+  elementPotency: 0
+  elementChance: 0
   damagePerProjectileM: 1
   RPMM: 1
   reloadSpeedM: 1

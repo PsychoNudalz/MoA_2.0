@@ -38,7 +38,16 @@ public class DamageScript : MonoBehaviour
         ls.takeDamage(dmg, level, element);
     }
 
-    
+    /// <summary>
+    /// deals damage to a single target that has a LifeSystemScript
+    /// </summary>
+    /// <param name="ls"></param>
+    public virtual void dealCriticalDamageToTarget(LifeSystemScript ls, float dmg, int level, ElementTypes element, float multiplier)
+    {
+        ls.takeDamageCritical(dmg, level, element,multiplier);
+    }
+
+
 
 
 }

@@ -20,6 +20,13 @@ public class LifeSystemScript : MonoBehaviour
     public bool destroyOnDeath;
     public float delayDeath = 0;
     public bool detatchPopUps = true;
+    public bool reatatchPopUps = true;
+
+    Vector3 popUpLocation;
+    Vector3 particleLocation;
+
+    [Header("Debuffs")]
+    [SerializeField] List<DebuffScript> debuffList = new List<DebuffScript>();
 
     [Header("Components")]
     public DamagePopScript damagePopScript;
@@ -32,7 +39,34 @@ public class LifeSystemScript : MonoBehaviour
     private void Awake()
     {
         health_Current = health_Max;
-       // updateHealthBar();
+        // updateHealthBar();
+        popUpLocation = damagePopScript.transform.position - transform.position;
+        particleLocation = groupParticleSystemScript.transform.position - transform.position;
+    }
+
+    private void FixedUpdate()
+    {
+        for (int i = 0; i < debuffList.Count; i++)
+        {
+            if (debuffList[i].TickEffect(Time.deltaTime))
+            {
+                i--;
+            }
+        }
+    }
+
+
+    public void OverrideHealth(int hp)
+    {
+        health_Current = hp;
+        health_Max = hp;
+    }
+
+    public virtual void ResetSystem()
+    {
+        health_Current = health_Max;
+        debuffList = new List<DebuffScript>();
+        isDead = false;
     }
 
     /// <summary>
@@ -50,7 +84,31 @@ public class LifeSystemScript : MonoBehaviour
             health_Current -= Mathf.RoundToInt(dmg);
             print(name + " take damage: " + dmg);
             //updateHealthBar();
-            displayDamage(dmg);
+            displayDamage(dmg,element);
+            playDamageParticles();
+        }
+
+        CheckDead();
+        return health_Current;
+
+    }
+
+    /// <summary>
+    /// deal critical damage to the gameobject
+    /// damage rounded to the closest integer
+    /// triggers death event if health reaches 0
+    /// </summary>
+    /// <param name="dmg"></param>
+    /// <returns> health remaining </returns>
+    public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1)
+    {
+
+        if (!isDead)
+        {
+            health_Current -= Mathf.RoundToInt(dmg * multiplier);
+            print(name + " take " + element+" damage: " + dmg * multiplier);
+            //updateHealthBar();
+            displayDamageCritical(dmg * multiplier);
             playDamageParticles();
         }
 
@@ -98,15 +156,27 @@ public class LifeSystemScript : MonoBehaviour
         return isDead;
     }
 
-    void displayDamage(float dmg)
+    void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
     {
         if (damagePopScript == null)
         {
             Debug.LogWarning(name + " missing damage numbers");
             return;
         }
-        damagePopScript.displayDamage(dmg);
+        damagePopScript.displayDamage(dmg, e);
+
     }
+
+    void displayDamageCritical(float dmg)
+    {
+        if (damagePopScript == null)
+        {
+            Debug.LogWarning(name + " missing damage numbers");
+            return;
+        }
+        damagePopScript.displayCriticalDamage(dmg);
+    }
+
     void playDamageParticles()
     {
         if (groupParticleSystemScript == null)
@@ -142,12 +212,28 @@ public class LifeSystemScript : MonoBehaviour
         {
             if (detatchPopUps)
             {
-                StartCoroutine(reattach());
+                damagePopScript.transform.SetParent(null);
+                groupParticleSystemScript.transform.SetParent(null);
+                //damagePopScript.transform.position = transform.position;
+                //groupParticleSystemScript.transform.position = transform.position;
+                if (reatatchPopUps)
+                {
+                    StartCoroutine(reattach());
+                }
             }
             gameObject.SetActive(false);
         }
         else if (destroyOnDeath)
         {
+            if (detatchPopUps)
+            {
+                damagePopScript.transform.SetParent(null);
+                groupParticleSystemScript.transform.SetParent(null);
+                if (reatatchPopUps)
+                {
+                    StartCoroutine(reattach());
+                }
+            }
             Destroy(gameObject);
         }
 
@@ -166,10 +252,64 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual IEnumerator reattach()
     {
-        damagePopScript.transform.SetParent(null);
-        groupParticleSystemScript.transform.SetParent(null);
+
         yield return new WaitForSeconds(3f);
         damagePopScript.transform.SetParent(transform);
         groupParticleSystemScript.transform.SetParent(transform);
-    } 
+        damagePopScript.transform.position = transform.position + popUpLocation;
+        groupParticleSystemScript.transform.position = transform.position + particleLocation;
+
+    }
+
+
+    public virtual void ApplyDebuff(DebuffScript debuff)
+    {
+        if (debuffList.Count <= 100)
+        {
+            debuffList.Add(debuff);
+            debuff.ApplyEffect(this);
+        }
+        else
+        {
+            Debug.LogError(name + " debuff overload");
+        }
+    }
+
+    public virtual void ApplyDebuff(FireEffectScript debuff)
+    {
+        ApplyDebuff(debuff as FireEffectScript);
+    }
+
+    public virtual void RemoveDebuff(FireEffectScript debuff = null)
+    {
+        RemoveDebuff(debuff);
+        
+    }
+    public virtual void RemoveDebuff(DebuffScript debuff = null)
+    {
+        debuffList.Remove(debuff);
+
+    }
+
+
+    void TickDebuffs()
+    {
+        foreach (DebuffScript d in debuffList)
+        {
+            d.TickEffect(Time.deltaTime);
+        }
+    }
+
+
+
+    private void OnEnable()
+    {
+        if (reatatchPopUps)
+        {
+            damagePopScript.transform.SetParent(transform);
+            groupParticleSystemScript.transform.SetParent(transform);
+            damagePopScript.transform.position = transform.position + popUpLocation;
+            groupParticleSystemScript.transform.position = transform.position + particleLocation;
+        }
+    }
 }

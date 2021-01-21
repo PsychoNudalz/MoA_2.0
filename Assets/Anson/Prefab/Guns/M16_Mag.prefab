@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentType: 2
-  gunTypes: 00000000010000000200000003000000
+  gunTypes: 01000000
   gunConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!65 &4668767970319187246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -79,8 +80,12 @@ MonoBehaviour:
   RPM: 0
   reloadSpeed: 0
   recoil: {x: 0, y: 0}
+  recoil_HipFire: {x: 0, y: 0}
   range: 0
   magazineSize: 25
+  elementDamage: 0
+  elementPotency: 0
+  elementChance: 0
   damagePerProjectileM: 1
   RPMM: 1
   reloadSpeedM: 1
@@ -127,7 +132,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 04939be000694cd4c9c1bd19455ed092,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.0043
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04939be000694cd4c9c1bd19455ed092,
         type: 3}

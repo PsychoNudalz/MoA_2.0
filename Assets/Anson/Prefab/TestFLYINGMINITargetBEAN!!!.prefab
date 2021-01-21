@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 800444160139661751}
   - component: {fileID: 800444160139661750}
   - component: {fileID: 2512078088523456161}
-  - component: {fileID: 6454543170796044410}
   - component: {fileID: 3080590925026985651}
+  - component: {fileID: -68115849245951409}
   m_Layer: 10
   m_Name: TestFLYINGMINITargetBEAN!!!
   m_TagString: Enemy
@@ -136,25 +136,11 @@ MonoBehaviour:
   destroyOnDeath: 0
   delayDeath: 0
   detatchPopUps: 1
+  reatatchPopUps: 1
+  debuffList: []
   damagePopScript: {fileID: 800444160350360608}
   groupParticleSystemScript: {fileID: 800444160987634957}
-  decayShaderScript: {fileID: 6454543170796044410}
---- !u!114 &6454543170796044410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800444160139661748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b238c744e1d3f8540be0d92b08601817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ms: {fileID: 800444160139661736}
-  material: {fileID: 0}
-  currentRatio: 0
-  decayTime: 0
+  targetMaterialHandler: {fileID: -68115849245951409}
 --- !u!114 &3080590925026985651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +153,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d0f882345d3a54e93891c20ccc412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 5
+  duration: 10
+--- !u!114 &-68115849245951409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800444160139661748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d07bd638e5aa7f945a70ff6f246aea5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ms: {fileID: 0}
+  material: {fileID: 0}
+  currentRatio: 0
+  decayTime: 1
 --- !u!1 &800444160987634956
 GameObject:
   m_ObjectHideFlags: 0

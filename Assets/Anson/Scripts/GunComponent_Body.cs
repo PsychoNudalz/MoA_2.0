@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class GunComponent_Body : GunComponent
 {
     [Header("Extra")]
-    [SerializeField] protected List<ElementTypes> elementTypes;
+    [SerializeField] protected ElementTypes elementType;
+    [SerializeField] protected AnimationCurve rangeCurve;
 
 
     [Header("Effects")]
     [SerializeField] ParticleSystem bulletParticle;
     [SerializeField] GameObject impactEffect;
-    [SerializeField] GameObject muzzleEffect;
+    [SerializeField] VisualEffect muzzleEffect;
+    [SerializeField] ParticleSystem bulletCaseParticle;
 
     [Header("Recoil")]
     [SerializeField] AnimationCurve recoilPattern_X;
@@ -19,14 +22,18 @@ public class GunComponent_Body : GunComponent
     [SerializeField] float timeToRecenter = 3f;
 
     [Header("Fire Type")]
+    [SerializeField] FireTypes fireType = FireTypes.HitScan;
+    [SerializeField] GameObject projectileGO;
     [SerializeField] int projectilePerShot = 1;
     [SerializeField] float timeBetweenProjectile = 0f;
     [SerializeField] bool isFullAuto = true;
     [SerializeField] bool isFullReload = true;
     [SerializeField] int amountPerReload = 1;
 
-    [Header("Sight Location")]
+    [Header("Component")]
+    [SerializeField] GunComponent_Sight component_Sight;
     [SerializeField] Transform sightLocation;
+    [SerializeField] Transform muzzleLocation;
 
     [Header("Animator")]
     [SerializeField] Animator animator;
@@ -50,7 +57,7 @@ public class GunComponent_Body : GunComponent
     public float TimeToRecenter { get => timeToRecenter; }
     public Transform SightLocation { get => sightLocation; }
     public ParticleSystem BulletParticle1 { get => bulletParticle; }
-    public GameObject MuzzleEffect { get => muzzleEffect; }
+    public VisualEffect MuzzleEffect { get => muzzleEffect; }
     public GameObject ImpactEffect { get => impactEffect; }
     public Animator GetAnimator { get => animator; }
     public Sound Sound_Fire { get => sound_Fire; }
@@ -58,15 +65,68 @@ public class GunComponent_Body : GunComponent
     public Sound Sound_EndReload { get => sound_EndReload; }
     public int AmountPerReload { get => amountPerReload; }
     public bool IsFullReload { get => isFullReload; }
+    public GunComponent_Sight Component_Sight { get => component_Sight; }
+    public FireTypes FireType { get => fireType; set => fireType = value; }
+    public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
+    public AnimationCurve RangeCurve { get => rangeCurve; }
+    public ElementTypes ElementType { get => elementType; }
+
+
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    public void SetSight(Transform s)
+    public void SetSight(GunComponent_Sight s)
     {
-        sightLocation = s;
+        component_Sight = s;
+        sightLocation = s.SightLocation;
+    }
+
+    public void SetMuzzle(Transform m)
+    {
+        muzzleLocation = m;
+        muzzleEffect.transform.position = muzzleLocation.position;
+    }
+
+    public void SetProjectile(GameObject g)
+    {
+        if (fireType == FireTypes.Projectile)
+        {
+            projectileGO = g;
+        }
+    }
+
+    public void PlayGunShootEffect()
+    {
+        try
+        {
+
+            bulletParticle.Play();
+            muzzleEffect.Play();
+            if (GTypes[0] != GunTypes.SHOTGUN)
+            {
+                bulletCaseParticle.Play();
+            }
+        }
+        catch (System.NullReferenceException e)
+        {
+            Debug.LogWarning(name + " Missing shoot effect");
+        }
+    }
+
+    public void PlayBulletCaseEffect()
+    {
+        try
+        {
+
+            bulletCaseParticle.Play();
+        }
+        catch (System.NullReferenceException e)
+        {
+            Debug.LogWarning(name + " Missing shoot effect");
+        }
     }
 
 }

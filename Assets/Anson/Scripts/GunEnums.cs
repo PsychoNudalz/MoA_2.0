@@ -21,6 +21,7 @@ public enum GunTypes
     SHOTGUN,       //Shotgun, Sniper
     EXPLOSIVE,   //Rocket, Grenade Launcher
     SNIPER
+
 }
 
 
@@ -29,5 +30,11 @@ public enum ElementTypes
     PHYSICAL,
     FIRE,
     ICE,
-    EARTH
+    SHOCK
+}
+
+public enum FireTypes
+{
+    HitScan,
+    Projectile
 }
