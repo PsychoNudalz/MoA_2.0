@@ -678,6 +678,8 @@ public class GunDamageScript : DamageScript
             case (ElementTypes.ICE):
                 break;
             case (ElementTypes.SHOCK):
+                newDebuff = new ShockEffectScript(elementDamage, elementPotency, tagList, layerMask);
+                ls.ApplyDebuff(newDebuff as ShockEffectScript);
                 break;
         }
     }

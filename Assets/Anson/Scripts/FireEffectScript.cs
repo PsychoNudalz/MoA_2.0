@@ -13,8 +13,8 @@ public class FireEffectScript : ElementDebuffScript
     {
         this.effectDamage = effectDamage;
         this.effectPotency = effectPotency;
-        fireDamage = effectDamage / (1/tickTime * duration);
         duration = effectPotency;
+        fireDamage = effectDamage / (1/tickTime * duration);
     }
 
     public override bool TickEffect(float deltaTime)

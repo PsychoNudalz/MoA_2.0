@@ -62,9 +62,9 @@ public class PlayerController : MonoBehaviour
         if (lookScript == null)
         {
             Look();
+        CameraTilt();
 
         }
-        CameraTilt();
         jumped.y -= gravity * Time.deltaTime;
     }
 

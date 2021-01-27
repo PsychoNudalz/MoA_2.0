@@ -29,6 +29,11 @@ public class TargetLifeSystem : LifeSystemScript
         targetMaterialHandler.SetFire(true);
 
     }
+    public override void ApplyDebuff(ShockEffectScript debuff)
+    {
+        base.ApplyDebuff(debuff as DebuffScript);
+
+    }
 
     public override void ResetSystem()
     {
