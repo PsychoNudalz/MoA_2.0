@@ -20,25 +20,11 @@ public class ToggleAnimations : MonoBehaviour
 
     private void Update()
     {
-        if (kb.wKey.wasPressedThisFrame)
-        {
-            IsWalking = !IsWalking;
-            animator.SetBool("IsWalking", IsWalking);
-        }
-
-        if (kb.dKey.wasPressedThisFrame)
-        {
-            animator.SetBool("IsDead", true);
-        }
-
+        
         if (kb.hKey.wasPressedThisFrame)
         {
-            animator.SetTrigger("Hit");
+            GetComponent<StoneEnemyLifeSystem>().takeDamage(1, 1, ElementTypes.PHYSICAL);
         }
 
-        if (kb.aKey.wasPressedThisFrame)
-        {
-            animator.SetTrigger("Attack");
-        }
     }
 }

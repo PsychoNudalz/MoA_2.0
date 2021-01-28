@@ -10,10 +10,18 @@ public class StoneEnemyAgent : MonoBehaviour
     private float walkSpeed = 1f;
     [SerializeField]
     private float attackPlayerDistance = 5;
+    [SerializeField]
+    private AnimationCurve attackDropOff;
+    [SerializeField]
+    private float attackTimeInitial;
     private NavMeshAgent enemyAgent;
     private Animator animator;
     private Transform target;
-    public Vector3 initialPosition;
+    private Vector3 initialPosition;
+    private SphereCastDamageScript sphereDamageScript;
+    
+    private float attackTimeNow;
+
 
     private void Awake()
     {
@@ -22,11 +30,13 @@ public class StoneEnemyAgent : MonoBehaviour
 
     private void ResetEnemy()
     {
+        attackTimeNow = attackTimeInitial;
         initialPosition = transform.position;
         animator = GetComponentInChildren<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
         animator.SetBool("IsWalking", true);
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        sphereDamageScript = GetComponent<SphereCastDamageScript>();
     }
 
     // Start is called before the first frame update
@@ -40,13 +50,24 @@ public class StoneEnemyAgent : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (attackTimeNow > 0)
+        {
+            attackTimeNow -= Time.deltaTime;
+        }
         
-       
+        /*
+         * If player is in range then attack
+         * If not then follow navmesh toward players location
+         */
         if(Vector3.Distance(transform.position, target.position) < attackPlayerDistance)
         {
-            Attack();
+            if(attackTimeNow <= 0)
+            {
+                Attack();
+            }
+            
         }
         else
         {
@@ -57,6 +78,9 @@ public class StoneEnemyAgent : MonoBehaviour
 
     private void WalkTowardsPlayer()
     {
+        /*
+         * Set walking animation, nav agent speed and target.
+         */
         GetComponent<Rigidbody>().freezeRotation = false;
         enemyAgent.speed = walkSpeed;
         animator.SetBool("IsWalking", true);
@@ -64,15 +88,23 @@ public class StoneEnemyAgent : MonoBehaviour
         enemyAgent.SetDestination(target.position);
     }
 
+    internal void Stagger()
+    {
+        animator.SetTrigger("Hit");
+    }
+
     private void Attack()
     {
+        /*
+         * Stop nav agent moving and start attack animation
+         * then damage player if in radius.
+         */
         GetComponent<Rigidbody>().freezeRotation = true;
         enemyAgent.speed = 0;
         animator.SetBool("IsWalking", false);
         animator.SetBool("IsAttacking", true);
         enemyAgent.SetDestination(target.position);
-        //transform.LookAt(target);
-        print("attack");
-        
+        sphereDamageScript.SphereCastDamageArea(1, 0.5f, attackDropOff , 1, ElementTypes.PHYSICAL);
+        attackTimeNow = attackTimeInitial;
     }
 }

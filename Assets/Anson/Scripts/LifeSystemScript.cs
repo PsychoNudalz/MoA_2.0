@@ -38,10 +38,19 @@ public class LifeSystemScript : MonoBehaviour
 
     private void Awake()
     {
-        health_Current = health_Max;
-        // updateHealthBar();
-        popUpLocation = damagePopScript.transform.position - transform.position;
-        particleLocation = groupParticleSystemScript.transform.position - transform.position;
+        
+        try
+        {
+            health_Current = health_Max;
+            // updateHealthBar();
+            popUpLocation = damagePopScript.transform.position - transform.position;
+            particleLocation = groupParticleSystemScript.transform.position - transform.position;
+        }
+        catch (System.Exception)
+        {
+            print("LifeSystemScript error - ");
+        }
+        
     }
 
     private void FixedUpdate()
@@ -309,12 +318,20 @@ public class LifeSystemScript : MonoBehaviour
 
     private void OnEnable()
     {
-        if (reatatchPopUps)
+        try
         {
-            damagePopScript.transform.SetParent(transform);
-            groupParticleSystemScript.transform.SetParent(transform);
-            damagePopScript.transform.position = transform.position + popUpLocation;
-            groupParticleSystemScript.transform.position = transform.position + particleLocation;
+            if (reatatchPopUps)
+            {
+                damagePopScript.transform.SetParent(transform);
+                groupParticleSystemScript.transform.SetParent(transform);
+                damagePopScript.transform.position = transform.position + popUpLocation;
+                groupParticleSystemScript.transform.position = transform.position + particleLocation;
+            }
         }
+        catch (System.Exception)
+        {
+
+        }
+        
     }
 }

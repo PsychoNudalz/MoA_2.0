@@ -492,13 +492,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605467973548327362}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3838707476962126206}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!137 &6892425318256844459
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -1433,10 +1433,13 @@ GameObject:
   - component: {fileID: 6476210389312894348}
   - component: {fileID: 8142100125483109497}
   - component: {fileID: 45373589}
-  - component: {fileID: 1953358707311283325}
+  - component: {fileID: 45373594}
+  - component: {fileID: 1543398872940902675}
+  - component: {fileID: 45373597}
+  - component: {fileID: 45373598}
   m_Layer: 0
   m_Name: StoneEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1464,7 +1467,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4471516634829747140}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0424f448a8c99c4eb09d3cfa4aea18c, type: 3}
   m_Name: 
@@ -1498,16 +1501,16 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.7
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 240
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 3.4
-  m_BaseOffset: 0
+  m_Height: 3
+  m_BaseOffset: -0.15
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &8142100125483109497
@@ -1524,7 +1527,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &45373589
 MonoBehaviour:
@@ -1538,11 +1541,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5526a272095eb44dbd17190f62791ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 1
-  attackPlayerDistance: 0.5
-  initialPosition: {x: 0, y: 0, z: 0}
---- !u!64 &1953358707311283325
-MeshCollider:
+  walkSpeed: 5
+  attackPlayerDistance: 3
+  attackDropOff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attackTimeInitial: 1
+--- !u!136 &45373594
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1551,10 +1578,72 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3057924127030509338, guid: 493b501d9c6bb754eaa399df1a921d2c, type: 3}
+  m_Radius: 0.8
+  m_Height: 3.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.6, z: 0}
+--- !u!114 &1543398872940902675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4471516634829747140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1b69689a169ce4a920c5a5913f9a51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_Current: 0
+  health_Max: 1000
+  isDead: 0
+  deathGameObject: {fileID: 0}
+  disableOnDeath: 1
+  destroyOnDeath: 0
+  delayDeath: 0
+  detatchPopUps: 1
+  reatatchPopUps: 1
+  debuffList: []
+  damagePopScript: {fileID: 0}
+  groupParticleSystemScript: {fileID: 0}
+  stoneEnemyMaterialHandler: {fileID: 45373598}
+--- !u!114 &45373597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4471516634829747140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2d612a174fe9d448c4cddf15c79089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  tagList:
+  - Player
+  attackedTargets: []
+  timeBetweenAttack_TimeNow: 0
+--- !u!114 &45373598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4471516634829747140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ac4f4bbdfbd97418b8ad29ba771202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ms: {fileID: 6892425318256844459}
+  material: {fileID: 2100000, guid: 54e745b366b99104ba0f25cb43c13196, type: 2}
+  currentRatio: 0
+  decayTime: 0
+  shockEffect: {fileID: 0}
+  shock_vfx: {fileID: 0}
 --- !u!1 &4486876891299117586
 GameObject:
   m_ObjectHideFlags: 0

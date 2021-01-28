@@ -5,28 +5,36 @@ using UnityEngine;
 public class StoneEnemyLifeSystem : LifeSystemScript
 {
     [Header("Shader Effects")]
-    [SerializeField] TargetMaterialHandlerScript targetMaterialHandler;
+    [SerializeField] StoneEnemyMaterialHandlerScript stoneEnemyMaterialHandler;
+    StoneEnemyAgent stoneEnemyAgent;
+
+    private void Start()
+    {
+        stoneEnemyAgent = GetComponent<StoneEnemyAgent>();
+    }
 
     public override int takeDamage(float dmg, int level, ElementTypes element)
     {
-        targetMaterialHandler.StartDecay();
+        StaggerAnimation();
+        stoneEnemyMaterialHandler.StartDecay();
         return base.takeDamage(dmg, level, element);
+        
     }
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier)
     {
-        targetMaterialHandler.StartDecay();
+        stoneEnemyMaterialHandler.StartDecay();
         return base.takeDamageCritical(dmg, level, element, multiplier);
     }
     public override void RemoveDebuff(FireEffectScript debuff = null)
     {
         base.RemoveDebuff(debuff as DebuffScript);
-        targetMaterialHandler.SetFire(CheckIsStillOnFire());
+        stoneEnemyMaterialHandler.SetFire(CheckIsStillOnFire());
     }
     public override void ApplyDebuff(FireEffectScript debuff)
     {
         base.ApplyDebuff(debuff as DebuffScript);
-        targetMaterialHandler.SetFire(true);
+        stoneEnemyMaterialHandler.SetFire(true);
 
     }
     public override void ApplyDebuff(ShockEffectScript debuff)
@@ -38,7 +46,7 @@ public class StoneEnemyLifeSystem : LifeSystemScript
     public override void ResetSystem()
     {
         base.ResetSystem();
-        targetMaterialHandler.SetFire(false);
+        stoneEnemyMaterialHandler.SetFire(false);
     }
 
     bool CheckIsStillOnFire()
@@ -52,5 +60,10 @@ public class StoneEnemyLifeSystem : LifeSystemScript
         }
         return false;
 
+    }
+
+    private void StaggerAnimation()
+    {
+        stoneEnemyAgent.Stagger();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 public class StoneEnemyMaterialHandlerScript : MonoBehaviour
 {
     [Header("Target Material")]
-    [SerializeField] MeshRenderer ms;
+    [SerializeField] SkinnedMeshRenderer ms;
     [SerializeField] Material material;
     [Header("Decay State")]
     [SerializeField] float currentRatio;
