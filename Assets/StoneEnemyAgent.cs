@@ -19,7 +19,8 @@ public class StoneEnemyAgent : MonoBehaviour
     private Transform target;
     private Vector3 initialPosition;
     private SphereCastDamageScript sphereDamageScript;
-    
+    private bool IsStaggering;
+    private bool IsDead = false;
     private float attackTimeNow;
 
 
@@ -50,29 +51,33 @@ public class StoneEnemyAgent : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (attackTimeNow > 0)
+        if(!IsStaggering && !IsDead)
         {
-            attackTimeNow -= Time.deltaTime;
+            if (attackTimeNow > 0)
+            {
+                attackTimeNow -= Time.deltaTime;
+            }
+
+            /*
+             * If player is in range then attack
+             * If not then follow navmesh toward players location
+             */
+            if (Vector3.Distance(transform.position, target.position) < attackPlayerDistance)
+            {
+                if (attackTimeNow <= 0)
+                {
+                    Attack();
+                }
+
+            }
+            else
+            {
+                WalkTowardsPlayer();
+            }
         }
         
-        /*
-         * If player is in range then attack
-         * If not then follow navmesh toward players location
-         */
-        if(Vector3.Distance(transform.position, target.position) < attackPlayerDistance)
-        {
-            if(attackTimeNow <= 0)
-            {
-                Attack();
-            }
-            
-        }
-        else
-        {
-            WalkTowardsPlayer();
-        }
 
     }
 
@@ -88,9 +93,29 @@ public class StoneEnemyAgent : MonoBehaviour
         enemyAgent.SetDestination(target.position);
     }
 
-    internal void Stagger()
+    public void Stagger()
     {
+        StartCoroutine(StaggerDelay());
+    }
+
+    public void DeathAnimation()
+    {
+        IsDead = true;
+        enemyAgent.speed = 0f;
+        enemyAgent.velocity = Vector3.zero;
+        GetComponent<Rigidbody>().isKinematic = true;
+        animator.SetBool("IsDead", true);
+    }
+
+    IEnumerator StaggerDelay()
+    {
+        IsStaggering = true;
+        enemyAgent.speed = 0f;
+        enemyAgent.velocity = Vector3.zero;
         animator.SetTrigger("Hit");
+        yield return new WaitForSeconds(0.5f);
+        IsStaggering = false;
+
     }
 
     private void Attack()
@@ -104,7 +129,10 @@ public class StoneEnemyAgent : MonoBehaviour
         animator.SetBool("IsWalking", false);
         animator.SetBool("IsAttacking", true);
         enemyAgent.SetDestination(target.position);
+        transform.LookAt(target.position);
         sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff , 1, ElementTypes.PHYSICAL);
         attackTimeNow = attackTimeInitial;
     }
+
+
 }
