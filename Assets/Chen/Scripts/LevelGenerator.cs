@@ -86,6 +86,11 @@ public class LevelGenerator : MonoBehaviour
             }
             if (placed) break;
         }
+
+        if (!placed) {
+            Destroy (currentRoom.gameObject);
+            ResetLevelGenerator();
+        }
     }
 
     void PlaceRoomAtFoggedDoor(ref Room room, FoggedDoor foggedDoor, FoggedDoor otherFoggedDoor) {
@@ -109,7 +114,9 @@ public class LevelGenerator : MonoBehaviour
         if (colliders.Length > 0) {
             foreach (Collider c in colliders) {
                 if (c.transform.parent.gameObject.Equals(room.gameObject)) continue;
-                else return true;
+                else {
+                    return true;
+                }
             }
         }
         return false;
