@@ -109,11 +109,11 @@ public class LevelGenerator : MonoBehaviour
         Bounds bounds = room.RoomBounds;
         bounds.Expand(-0.1f);
 
-        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
+        RaycastHit[] colliders = Physics.BoxCastAll(bounds.center, bounds.size / 2, room.transform.forward, room.transform.rotation, roomLayerMask);
 
         if (colliders.Length > 0) {
-            foreach (Collider c in colliders) {
-                if (c.transform.parent.gameObject.Equals(room.gameObject)) continue;
+            foreach (RaycastHit c in colliders) {
+                if (c.collider.transform.parent.gameObject.Equals(room.gameObject)) continue;
                 else {
                     return true;
                 }
