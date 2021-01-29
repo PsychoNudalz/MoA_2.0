@@ -7,9 +7,9 @@ using UnityEngine.AI;
 public class StoneEnemyAgent : MonoBehaviour
 {
     [SerializeField]
-    private float walkSpeed = 1f;
+    private float walkSpeed = 5f;
     [SerializeField]
-    private float attackPlayerDistance = 5;
+    private float attackPlayerDistance = 2f;
     [SerializeField]
     private AnimationCurve attackDropOff;
     [SerializeField]
@@ -104,7 +104,7 @@ public class StoneEnemyAgent : MonoBehaviour
         animator.SetBool("IsWalking", false);
         animator.SetBool("IsAttacking", true);
         enemyAgent.SetDestination(target.position);
-        sphereDamageScript.SphereCastDamageArea(1, 0.5f, attackDropOff , 1, ElementTypes.PHYSICAL);
+        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff , 1, ElementTypes.PHYSICAL);
         attackTimeNow = attackTimeInitial;
     }
 }
