@@ -232,6 +232,7 @@ MonoBehaviour:
   debuffList: []
   damagePopScript: {fileID: 8233968565799296956}
   groupParticleSystemScript: {fileID: 5240306056027407300}
+  targetHandler: {fileID: 0}
   targetMaterialHandler: {fileID: 1049960754190752969}
 --- !u!114 &1049960754190752969
 MonoBehaviour:
@@ -250,7 +251,6 @@ MonoBehaviour:
   currentRatio: 0
   decayTime: 1
   shockEffect: {fileID: 4927565496008247032}
-  shock_vfx: {fileID: 4927565496008247034}
 --- !u!65 &45024186506538858
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -526,16 +526,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: vfx_ShockLine
       objectReference: {fileID: 0}
-    - target: {fileID: 3299089696888418465, guid: 68ad62c034b2f1244adc2a05691b01c3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3299089696888418466, guid: 68ad62c034b2f1244adc2a05691b01c3,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3299089696888418466, guid: 68ad62c034b2f1244adc2a05691b01c3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -550,21 +540,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3299089696888418467, guid: 68ad62c034b2f1244adc2a05691b01c3,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3299089696888418467, guid: 68ad62c034b2f1244adc2a05691b01c3,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Value
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3299089696888418467, guid: 68ad62c034b2f1244adc2a05691b01c3,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3299089696888418468, guid: 68ad62c034b2f1244adc2a05691b01c3,
         type: 3}
@@ -635,12 +610,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7614041260749518425}
   m_PrefabAsset: {fileID: 0}
---- !u!2083052967 &4927565496008247034 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 3299089696888418467, guid: 68ad62c034b2f1244adc2a05691b01c3,
-    type: 3}
-  m_PrefabInstance: {fileID: 7614041260749518425}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8957597629999542210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -666,7 +635,7 @@ PrefabInstance:
     - target: {fileID: 8104760110964861478, guid: 5603d6a2369fef649b61f300b6c34645,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.081
+      value: 0.471
       objectReference: {fileID: 0}
     - target: {fileID: 8104760110964861478, guid: 5603d6a2369fef649b61f300b6c34645,
         type: 3}

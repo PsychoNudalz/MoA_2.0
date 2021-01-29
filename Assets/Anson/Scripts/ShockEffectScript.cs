@@ -6,19 +6,19 @@ public class ShockEffectScript : ElementDebuffScript
 {
     float currentTime;
     float shockDamage = 0;
-    float tickTime = 0.5f;
+    float tickTime = .2f;
     List<LifeSystemScript> lsList;
     bool ignorePlayer = true;
     public LayerMask layerMask = new LayerMask();
     public List<string> tagList = new List<string>();
 
 
-    public ShockEffectScript(float effectDamage, float effectPotency,List<string> tagList, LayerMask layerMask, bool ignorePlayer = true) : base(effectDamage, effectPotency)
+    public ShockEffectScript(float effectDamage, float effectPotency, List<string> tagList, LayerMask layerMask, bool ignorePlayer = true) : base(effectDamage, effectPotency)
     {
         this.effectDamage = effectDamage;
         this.effectPotency = effectPotency;
-        duration = 1;
-        shockDamage = effectDamage;
+        duration = .6f;
+        shockDamage = effectDamage/2f;
         this.ignorePlayer = ignorePlayer;
         this.tagList = tagList;
         this.layerMask = layerMask;
@@ -27,6 +27,11 @@ public class ShockEffectScript : ElementDebuffScript
     public override bool TickEffect(float deltaTime)
     {
         currentTime += deltaTime;
+        if (currentTime > tickTime)
+        {
+            ActiveShockOnTarget(targetLS);
+            currentTime = 0;
+        }
         return base.TickEffect(deltaTime);
     }
 
@@ -40,6 +45,9 @@ public class ShockEffectScript : ElementDebuffScript
 
     public override bool DeactivateEffect()
     {
+        lsList = new List<LifeSystemScript>();
+        lsList.Add(targetLS);
+        ShockCainEffect(targetLS);
         targetLS.RemoveDebuff(this as ShockEffectScript);
         return true;
     }
@@ -58,14 +66,11 @@ public class ShockEffectScript : ElementDebuffScript
                 {
                     lsList.Add(lss);
                     ActiveShockOnTarget(currentTarget, lss.transform);
-;                    ShockCainEffect(lss);
+                    ; ShockCainEffect(lss);
                 }
             }
         }
-        if(hits.Length == 0)
-        {
-            ActiveShockOnTarget(currentTarget);
-        }
+        ActiveShockOnTarget(currentTarget);
 
     }
 
@@ -75,19 +80,10 @@ public class ShockEffectScript : ElementDebuffScript
         {
             if (currentTarget.TryGetComponent(out TargetHandlerScript targetHandler))
             {
-                targetHandler.TargetMaterialHandler.SetShock(true,nextTarget);
+                targetHandler.TargetMaterialHandler.SetShock(true, nextTarget);
             }
         }
     }
 
-    void DeactivateShockOnTarget(LifeSystemScript currentTarget)
-    {
-        if (currentTarget is TargetLifeSystem)
-        {
-            if (currentTarget.TryGetComponent(out TargetHandlerScript targetHandler))
-            {
-                targetHandler.TargetMaterialHandler.SetShock(false);
-            }
-        }
-    }
+   
 }

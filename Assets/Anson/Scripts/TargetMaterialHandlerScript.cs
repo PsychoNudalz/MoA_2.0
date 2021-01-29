@@ -13,7 +13,8 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     [SerializeField] float decayTime;
     [Header("Shock Effect")]
     [SerializeField] GameObject shockEffect;
-    [SerializeField] VisualEffect shock_vfx;
+    VisualEffect currentShock_vfx;
+    List<VisualEffect> shockList = new List<VisualEffect>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -52,20 +53,29 @@ public class TargetMaterialHandlerScript : MonoBehaviour
 
     public void SetShock(bool b, Transform shockTarget = null)
     {
-        shockEffect.SetActive(false);
         if (b)
         {
-            shockEffect.SetActive(true);
-            if (shockTarget == null)
+            currentShock_vfx = Instantiate(shockEffect, shockEffect.transform.position, Quaternion.identity, transform).GetComponent<VisualEffect>();
+            currentShock_vfx.gameObject.SetActive(true);
+            currentShock_vfx.SendEvent("ShockSelf");
+            Destroy(currentShock_vfx.gameObject, currentShock_vfx.GetFloat("Lifetime") * 1.1f);
+
+            //shockEffect.SetActive(true);
+            if (shockTarget != null)
             {
-                shock_vfx.SetFloat("ChainLength", 0);
-            }
-            else
-            {
-                shock_vfx.SetFloat("ChainLength", (shockTarget.position - transform.position).magnitude);
-                shockEffect.transform.forward = shockTarget.position - transform.position;
+                shockList.Add(currentShock_vfx);
+                currentShock_vfx.SetFloat("ChainLength", (shockTarget.position - transform.position).magnitude);
+                currentShock_vfx.transform.forward = shockTarget.position - transform.position;
+                currentShock_vfx.SendEvent("ShockChain");
             }
 
         }
+    }
+
+
+
+    public void ResetShockList()
+    {
+        shockList = new List<VisualEffect>();
     }
 }
