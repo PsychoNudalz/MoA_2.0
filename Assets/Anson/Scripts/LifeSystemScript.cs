@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class LifeSystemScript : MonoBehaviour
 {
+
     [Header("States")]
     [SerializeField] protected int health_Current;
     [SerializeField] int health_Max = 10;
@@ -36,12 +37,20 @@ public class LifeSystemScript : MonoBehaviour
     public int Health_Max { get => health_Max; }
     public bool IsDead { get => isDead; }
 
-    private void Awake()
+    protected void Awake()
     {
         health_Current = health_Max;
-        // updateHealthBar();
-        popUpLocation = damagePopScript.transform.position - transform.position;
-        particleLocation = groupParticleSystemScript.transform.position - transform.position;
+        try
+        {
+            // updateHealthBar();
+            popUpLocation = damagePopScript.transform.position - transform.position;
+            particleLocation = groupParticleSystemScript.transform.position - transform.position;
+        }
+        catch (System.Exception)
+        {
+            print("LifeSystemScript error - ");
+        }
+        
     }
 
     private void FixedUpdate()
@@ -280,6 +289,11 @@ public class LifeSystemScript : MonoBehaviour
         ApplyDebuff(debuff as FireEffectScript);
     }
 
+    public virtual void ApplyDebuff(ShockEffectScript debuff)
+    {
+        ApplyDebuff(debuff as ShockEffectScript);
+    }
+
     public virtual void RemoveDebuff(FireEffectScript debuff = null)
     {
         RemoveDebuff(debuff);
@@ -287,6 +301,7 @@ public class LifeSystemScript : MonoBehaviour
     }
     public virtual void RemoveDebuff(DebuffScript debuff = null)
     {
+        
         debuffList.Remove(debuff);
 
     }
@@ -304,12 +319,20 @@ public class LifeSystemScript : MonoBehaviour
 
     private void OnEnable()
     {
-        if (reatatchPopUps)
+        try
         {
-            damagePopScript.transform.SetParent(transform);
-            groupParticleSystemScript.transform.SetParent(transform);
-            damagePopScript.transform.position = transform.position + popUpLocation;
-            groupParticleSystemScript.transform.position = transform.position + particleLocation;
+            if (reatatchPopUps)
+            {
+                damagePopScript.transform.SetParent(transform);
+                groupParticleSystemScript.transform.SetParent(transform);
+                damagePopScript.transform.position = transform.position + popUpLocation;
+                groupParticleSystemScript.transform.position = transform.position + particleLocation;
+            }
         }
+        catch (System.Exception)
+        {
+
+        }
+        
     }
 }

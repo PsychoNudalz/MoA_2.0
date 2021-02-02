@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class TargetLifeSystem : LifeSystemScript
 {
+    [Header("Target Handler")]
+    [SerializeField] TargetHandlerScript targetHandler;
     [Header("Shader Effects")]
     [SerializeField] TargetMaterialHandlerScript targetMaterialHandler;
+
+    private void Start()
+    {
+        targetHandler = GetComponent<TargetHandlerScript>();
+        targetMaterialHandler = targetHandler.TargetMaterialHandler;
+    }
 
     public override int takeDamage(float dmg, int level, ElementTypes element)
     {
@@ -27,6 +35,11 @@ public class TargetLifeSystem : LifeSystemScript
     {
         base.ApplyDebuff(debuff as DebuffScript);
         targetMaterialHandler.SetFire(true);
+
+    }
+    public override void ApplyDebuff(ShockEffectScript debuff)
+    {
+        base.ApplyDebuff(debuff as DebuffScript);
 
     }
 

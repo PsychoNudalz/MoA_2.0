@@ -18,8 +18,8 @@ public class DamagePopScript : MonoBehaviour
 
     [Header("Text colours")]
     [SerializeField] Color normalColour = Color.white;
-    [SerializeField] Color critColour = Color.yellow;
-    [SerializeField] Color fireColour = Color.red;
+    [SerializeField] Color critColour = Color.red;
+    [SerializeField] Color fireColour = new Color(255,235,0);
     [SerializeField] Color iceColour = Color.cyan;
     [SerializeField] Color shockColour = Color.yellow;
 
