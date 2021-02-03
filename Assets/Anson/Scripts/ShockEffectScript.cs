@@ -6,8 +6,10 @@ public class ShockEffectScript : ElementDebuffScript
 {
     float currentTime;
     float shockDamage = 0;
-    float tickTime = .1f;
+    float tickTime = .2f;
+    int maxShocks = 10;
     List<LifeSystemScript> lsList;
+    int lsListPointer = 0;
     bool ignorePlayer = true;
     public LayerMask layerMask = new LayerMask();
     public List<string> tagList = new List<string>();
@@ -24,9 +26,10 @@ public class ShockEffectScript : ElementDebuffScript
         this.layerMask = layerMask;
     }
 
-    public void SetLsList(List<LifeSystemScript> lsList)
+    public void SetLsList(List<LifeSystemScript> lsList, int ptr)
     {
         this.lsList = lsList;
+        lsListPointer = ptr;
     }
 
     public override bool TickEffect(float deltaTime)
@@ -34,7 +37,7 @@ public class ShockEffectScript : ElementDebuffScript
         currentTime += deltaTime;
         if (currentTime > tickTime)
         {
-            foreach(LifeSystemScript l in lsList)
+            foreach (LifeSystemScript l in lsList)
             {
                 UpdateShock(l);
             }
@@ -50,6 +53,7 @@ public class ShockEffectScript : ElementDebuffScript
             lsList = new List<LifeSystemScript>();
         }
         lsList.Add(target);
+        Debug.Log(target.name + " apply Shock");
         ShockCainEffect(target);
     }
 
@@ -71,18 +75,38 @@ public class ShockEffectScript : ElementDebuffScript
     void ShockCainEffect(LifeSystemScript currentTarget)
     {
         currentTarget.takeDamage(shockDamage, 1, ElementTypes.SHOCK);
+        LifeSystemScript lss;
         RaycastHit[] hits = Physics.SphereCastAll(currentTarget.transform.position, effectPotency, currentTarget.transform.forward, effectPotency, layerMask);
-        LifeSystemScript lss = GetClosestTarget(hits);
-        if (lss != null)
-        {
 
-            lsList.Add(lss);
-            ActiveShockOnTarget(currentTarget, lss.transform);
-            ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
-            newShock.SetLsList(this.lsList);
-            lss.ApplyDebuff(newShock);
+        foreach (RaycastHit h in hits)
+        {
+            Debug.Log(lsList.Count);
+            Collider c = h.collider;
+            if (tagList.Contains(c.tag) && c.GetComponentInParent<LifeSystemScript>() != null)
+            {
+                lss = c.GetComponentInParent<LifeSystemScript>();
+                if (!lsList.Contains(lss))
+                {
+                    lsList.Add(lss);
+                    ActiveShockOnTarget(currentTarget, lss.transform);
+                    
+                }
+            }
         }
+        
+        if (lsListPointer + 1 < lsList.Count)
+        {
+            Debug.LogError("Chaining to: " + lsList[lsListPointer]);
+            lsListPointer++;
+            ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
+            newShock.SetLsList(lsList, lsListPointer);
+            lsList[lsListPointer].ApplyDebuff(newShock);
+
+        }
+        
         ActiveShockOnTarget(currentTarget);
+
+
 
     }
 
@@ -108,26 +132,56 @@ public class ShockEffectScript : ElementDebuffScript
         }
     }
 
-    LifeSystemScript GetClosestTarget(RaycastHit[] hits)
+    LifeSystemScript GetClosestTarget(Transform currentTarget)
+    {
+        LifeSystemScript currentHit = null;
+        float minDist = Mathf.Infinity;
+        LifeSystemScript lss;
+        RaycastHit[] hits = Physics.SphereCastAll(currentTarget.position, effectPotency, currentTarget.forward, effectPotency, layerMask);
+
+        foreach (RaycastHit h in hits)
+        {
+            Debug.Log(lsList.Count);
+            Collider c = h.collider;
+            if (tagList.Contains(c.tag) && c.GetComponentInParent<LifeSystemScript>() != null)
+            {
+                lss = c.GetComponentInParent<LifeSystemScript>();
+                if (!lsList.Contains(lss))
+                {
+                    lsList.Add(lss);
+                    if (minDist > (targetLS.transform.position - h.transform.position).magnitude)
+                    {
+                        currentHit = lss;
+                        minDist = (targetLS.transform.position - h.transform.position).magnitude;
+
+                    }
+                }
+            }
+        }
+        return currentHit;
+
+    }
+
+    LifeSystemScript GetClosestTarget(RaycastHit hit)
     {
         LifeSystemScript currentHit = null;
         float minDist = Mathf.Infinity;
         LifeSystemScript lss;
 
-        foreach (RaycastHit h in hits)
+        //foreach (RaycastHit h in hits)
+        //{
+        Collider c = hit.collider;
+        if (tagList.Contains(c.tag) && c.GetComponentInParent<LifeSystemScript>() != null)
         {
-            Collider c = h.collider;
-            if (tagList.Contains(c.tag) && c.GetComponentInParent<LifeSystemScript>() != null)
+            lss = c.GetComponentInParent<LifeSystemScript>();
+            if (!lsList.Contains(lss) && minDist > (targetLS.transform.position - hit.transform.position).magnitude)
             {
-                lss = c.GetComponentInParent<LifeSystemScript>();
-                if (!lsList.Contains(lss) && minDist > (targetLS.transform.position - h.transform.position).magnitude)
-                {
-                    currentHit = lss;
-                    minDist = (targetLS.transform.position - h.transform.position).magnitude;
+                currentHit = lss;
+                minDist = (targetLS.transform.position - hit.transform.position).magnitude;
 
-                }
             }
         }
+        //}
         return currentHit;
 
     }

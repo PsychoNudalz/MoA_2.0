@@ -164,7 +164,10 @@ MonoBehaviour:
   maxY: 85
   tilt: 20
   cam1: {fileID: 4112174735984912498}
+  dashDistance: 0
   lookScript: {fileID: 4112174735619620038}
+  doubleJumpSpeed: 0
+  dashCooldown: 0
 --- !u!114 &4112174735619620037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +254,21 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 919c190c-3357-40cf-9ef0-b6d59b807e0d
     m_ActionName: Player/Rin[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a74d4b5e-5a26-4ed1-b139-bbaf72c783a4
+    m_ActionName: Player/Dash[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
