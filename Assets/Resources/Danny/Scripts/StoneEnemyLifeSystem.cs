@@ -62,6 +62,16 @@ public class StoneEnemyLifeSystem : LifeSystemScript
 
     }
 
+    public override bool CheckDead()
+    {
+        bool retValue = base.CheckDead();
+        if (retValue)
+        {
+            stoneEnemyAgent.DeathAnimation();
+        }
+        return retValue;
+    }
+
     private void StaggerAnimation()
     {
         stoneEnemyAgent.Stagger();
