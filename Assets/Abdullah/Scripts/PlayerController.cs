@@ -38,7 +38,12 @@ public class PlayerController : MonoBehaviour
     Vector2 isMoving;
     bool tilted;
 
+    Vector3 dashRange;
+
     [SerializeField] Look lookScript;
+
+    bool canDoubleJumped;
+   [SerializeField]float doubleJumpSpeed;
 
 
 
@@ -50,6 +55,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         player = transform;
         cam = cam1.transform;
+        canDoubleJumped = false;
     }
 
     // Update is called once per frame
@@ -68,15 +74,7 @@ public class PlayerController : MonoBehaviour
         jumped.y -= gravity * Time.deltaTime;
     }
 
-    void Jump()
-    {
-
-        if (controller.isGrounded)
-        {
-            jumped = new Vector3(0f, jumpSpeed, 0f);
-        }
-
-    }
+    
 
     void CameraTilt()
     {
@@ -111,10 +109,13 @@ public class PlayerController : MonoBehaviour
         }
 
         controller.Move(Quaternion.AngleAxis(transform.eulerAngles.y,transform.up)* moveDirection * moveSpeed * Time.deltaTime);
-        controller.Move(jumped * Time.deltaTime);
+            controller.Move(jumped * Time.deltaTime);
+        
 
+        
     }
 
+   
 
 
     public void OnMove(InputAction.CallbackContext context)
@@ -148,16 +149,39 @@ public class PlayerController : MonoBehaviour
         lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
     }
 
+    
     public void OnJump(InputAction.CallbackContext context)
     {
         jump = context.performed;
-        if (jump)
+        if (context.performed)
         {
-            Jump();
+            if (controller.isGrounded)
+            {
+                canDoubleJumped = true;
+                jumped = new Vector3(0f, jumpSpeed, 0f);
+            }
+            else
+            {
+                if (canDoubleJumped)
+                {
+                    jumped = new Vector3(0f, doubleJumpSpeed, 0f);
+                    canDoubleJumped = false;
+                }
+            }
         }
     }
 
-    public void OnRun(InputAction.CallbackContext context)
+    
+
+    public void OnDash (InputAction.CallbackContext context) {
+        if (context.performed) {
+            dashRange = transform.TransformDirection(Vector3.forward) * 300;
+            controller.Move(dashRange * Time.deltaTime);
+        }
+    
+    }
+
+    public void OnRun (InputAction.CallbackContext context)
     {
         run = context.performed;
     }
