@@ -39,11 +39,15 @@ public class PlayerController : MonoBehaviour
     bool tilted;
 
     Vector3 dashRange;
+    [SerializeField]float dashDistance;
 
     [SerializeField] Look lookScript;
 
     bool canDoubleJumped;
    [SerializeField]float doubleJumpSpeed;
+
+    float dashStart = 0f;
+    [SerializeField]float dashCooldown;
 
 
 
@@ -174,11 +178,17 @@ public class PlayerController : MonoBehaviour
     
 
     public void OnDash (InputAction.CallbackContext context) {
-        if (context.performed) {
-            dashRange = transform.TransformDirection(Vector3.forward) * 300;
-            controller.Move(dashRange * Time.deltaTime);
-        }
-    
+        
+            if (context.performed)
+            {
+                if (Time.time > dashStart + dashCooldown)
+                {
+                    dashStart = Time.time;
+                    dashRange = transform.TransformDirection(Vector3.forward) * (dashDistance * 100);
+                    controller.Move(dashRange * Time.deltaTime);
+                }
+            }
+
     }
 
     public void OnRun (InputAction.CallbackContext context)

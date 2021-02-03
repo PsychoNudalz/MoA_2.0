@@ -864,14 +864,16 @@ MonoBehaviour:
   jumpSpeed: 10
   walkSpeed: 10
   runSpeed: 20
-  sensitivityX: 0.5
-  sensitivityY: 0.5
+  sensitivityX: 3
+  sensitivityY: 3
   minY: -60
   maxY: 60
   tilt: 2
   cam1: {fileID: 2072950244}
+  dashDistance: 10
   lookScript: {fileID: 1743451137}
   doubleJumpSpeed: 10
+  dashCooldown: 2
 --- !u!114 &1743451137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,7 +881,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743451132}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9881f4b1c8e666741a63d5473e4d5c6f, type: 3}
   m_Name: 
@@ -887,7 +889,7 @@ MonoBehaviour:
   rotateSpeed: 500
   rotateSpeed_Current: 0
   CharacterBody: {fileID: 1743451134}
-  UpDown: {fileID: 0}
+  UpDown: {fileID: 1743451134}
   mouseValue: {x: 0, y: 0}
   maxRotationDown: 40
   yRotation: 0
