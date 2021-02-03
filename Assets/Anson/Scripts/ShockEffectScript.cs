@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class ShockEffectScript : ElementDebuffScript
 {
-    float currentTime;
+    float currentTime = 0;
     float shockDamage = 0;
-    float tickTime = .2f;
+    float tickTime = .5f;
     int maxShocks = 10;
     List<LifeSystemScript> lsList;
+    Queue<LifeSystemScript> toShockQueue;
     int lsListPointer = 0;
     bool ignorePlayer = true;
     public LayerMask layerMask = new LayerMask();
     public List<string> tagList = new List<string>();
 
+    public Queue<LifeSystemScript> ToShockQueue { get => toShockQueue; set => toShockQueue = value; }
 
     public ShockEffectScript(float effectDamage, float effectPotency, List<string> tagList, LayerMask layerMask, bool ignorePlayer = true) : base(effectDamage, effectPotency)
     {
         this.effectDamage = effectDamage;
         this.effectPotency = effectPotency;
-        duration = .8f;
+        duration = .25f;
         shockDamage = effectDamage;
         this.ignorePlayer = ignorePlayer;
         this.tagList = tagList;
@@ -35,12 +37,22 @@ public class ShockEffectScript : ElementDebuffScript
     public override bool TickEffect(float deltaTime)
     {
         currentTime += deltaTime;
+        float currentCount = lsList.Count;
         if (currentTime > tickTime)
         {
-            foreach (LifeSystemScript l in lsList)
+                /*
+            for (int i = lsListPointer; i < currentCount; i++)
             {
-                UpdateShock(l);
+                UpdateShock(lsList[i]);
+                if (i > lsListPointer)
+                {
+                    Debug.Log(targetLS.name + " Tick Shock " + lsList[i]);
+                    ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
+                    newShock.SetLsList(lsList, lsListPointer);
+
+                }
             }
+                */
         }
         return base.TickEffect(deltaTime);
     }
@@ -54,7 +66,11 @@ public class ShockEffectScript : ElementDebuffScript
         }
         lsList.Add(target);
         Debug.Log(target.name + " apply Shock");
-        ShockCainEffect(target);
+        if (effectPotency > 0)
+        {
+            ShockCainEffect(target);
+        }
+
     }
 
     public override bool DeactivateEffect()
@@ -63,10 +79,17 @@ public class ShockEffectScript : ElementDebuffScript
         lsList = new List<LifeSystemScript>();
         lsList.Add(targetLS);
         ShockCainEffect(targetLS);
-        */
-        foreach (LifeSystemScript l in lsList)
+        for (int i = 0; i <lsList.Count; i++)
         {
-            UpdateShock(l);
+            UpdateShock(lsList[i]);
+        }
+        */
+        while (toShockQueue.Count != 0)
+        {
+            ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
+            newShock.SetLsList(lsList, lsListPointer);
+            toShockQueue.Dequeue().ApplyDebuff(newShock);
+            Debug.Log("Current Queue size: " + toShockQueue.Count);
         }
         targetLS.RemoveDebuff(this as ShockEffectScript);
         return true;
@@ -75,38 +98,12 @@ public class ShockEffectScript : ElementDebuffScript
     void ShockCainEffect(LifeSystemScript currentTarget)
     {
         currentTarget.takeDamage(shockDamage, 1, ElementTypes.SHOCK);
-        LifeSystemScript lss;
-        RaycastHit[] hits = Physics.SphereCastAll(currentTarget.transform.position, effectPotency, currentTarget.transform.forward, effectPotency, layerMask);
 
-        foreach (RaycastHit h in hits)
-        {
-            Debug.Log(lsList.Count);
-            Collider c = h.collider;
-            if (tagList.Contains(c.tag) && c.GetComponentInParent<LifeSystemScript>() != null)
-            {
-                lss = c.GetComponentInParent<LifeSystemScript>();
-                if (!lsList.Contains(lss))
-                {
-                    lsList.Add(lss);
-                    ActiveShockOnTarget(currentTarget, lss.transform);
-                    
-                }
-            }
-        }
-        
-        if (lsListPointer + 1 < lsList.Count)
-        {
-            Debug.LogError("Chaining to: " + lsList[lsListPointer]);
-            lsListPointer++;
-            ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
-            newShock.SetLsList(lsList, lsListPointer);
-            lsList[lsListPointer].ApplyDebuff(newShock);
+        toShockQueue = SphereCastShock(currentTarget);
 
-        }
-        
         ActiveShockOnTarget(currentTarget);
 
-
+        Debug.Log("initial Queue size: " + toShockQueue.Count);
 
     }
 
@@ -184,7 +181,31 @@ public class ShockEffectScript : ElementDebuffScript
         //}
         return currentHit;
 
+
     }
 
+    Queue<LifeSystemScript> SphereCastShock(LifeSystemScript currentTarget)
+    {
+
+        Queue<LifeSystemScript> lsQueue = new Queue<LifeSystemScript>();
+        LifeSystemScript lss;
+        RaycastHit[] hits = Physics.SphereCastAll(currentTarget.transform.position, effectPotency - 1, currentTarget.transform.forward, effectPotency, layerMask);
+        foreach (RaycastHit h in hits)
+        {
+            Collider c = h.collider;
+            if (tagList.Contains(c.tag) && c.GetComponentInParent<LifeSystemScript>() != null)
+            {
+                lss = c.GetComponentInParent<LifeSystemScript>();
+                if (!lsList.Contains(lss))
+                {
+                    lsList.Add(lss);
+                    lsQueue.Enqueue(lss);
+                    ActiveShockOnTarget(currentTarget, lss.transform);
+
+                }
+            }
+        }
+        return lsQueue;
+    }
 
 }

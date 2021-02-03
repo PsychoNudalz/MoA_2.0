@@ -59,7 +59,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
             currentShock_vfx = Instantiate(shockEffect, shockEffect.transform.position, Quaternion.identity, transform).GetComponent<VisualEffect>();
             currentShock_vfx.gameObject.SetActive(true);
             currentShock_vfx.SendEvent("ShockSelf");
-            Destroy(currentShock_vfx.gameObject, currentShock_vfx.GetFloat("Lifetime") * 2f+1f);
+            Destroy(currentShock_vfx.gameObject, currentShock_vfx.GetFloat("Lifetime")*1.5f);
 
             //shockEffect.SetActive(true);
             if (shockTarget != null)
@@ -91,6 +91,12 @@ public class TargetMaterialHandlerScript : MonoBehaviour
 
     public void ResetShockList()
     {
+        /*
+        foreach(VisualEffect v in shockList)
+        {
+            Destroy(v.gameObject);
+        }
+        */
         shockList = new List<VisualEffect>();
         shockTargets = new List<Transform>();
     }
