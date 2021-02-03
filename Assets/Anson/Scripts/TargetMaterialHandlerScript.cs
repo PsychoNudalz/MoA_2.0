@@ -15,6 +15,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     [SerializeField] GameObject shockEffect;
     VisualEffect currentShock_vfx;
     List<VisualEffect> shockList = new List<VisualEffect>();
+    List<Transform> shockTargets = new List<Transform>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -58,12 +59,13 @@ public class TargetMaterialHandlerScript : MonoBehaviour
             currentShock_vfx = Instantiate(shockEffect, shockEffect.transform.position, Quaternion.identity, transform).GetComponent<VisualEffect>();
             currentShock_vfx.gameObject.SetActive(true);
             currentShock_vfx.SendEvent("ShockSelf");
-            Destroy(currentShock_vfx.gameObject, currentShock_vfx.GetFloat("Lifetime") * 1.1f);
+            Destroy(currentShock_vfx.gameObject, currentShock_vfx.GetFloat("Lifetime") * 2f+1f);
 
             //shockEffect.SetActive(true);
             if (shockTarget != null)
             {
                 shockList.Add(currentShock_vfx);
+                shockTargets.Add(shockTarget.transform);
                 currentShock_vfx.SetFloat("ChainLength", (shockTarget.position - transform.position).magnitude);
                 currentShock_vfx.transform.forward = shockTarget.position - transform.position;
                 currentShock_vfx.SendEvent("ShockChain");
@@ -72,10 +74,24 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         }
     }
 
+    public void UpdateShock()
+    {
+        for (int i = 0; i < shockList.Count && i < shockTargets.Count; i++)
+        {
+            if (shockTargets[i] != null && shockList[i] != null)
+            {
+                shockList[i].SetFloat("ChainLength", (shockTargets[i].position - transform.position).magnitude);
+                shockList[i].transform.forward = shockTargets[i].position - transform.position;
+                shockList[i].SendEvent("ShockChain");
+            }
+        }
+    }
+
 
 
     public void ResetShockList()
     {
         shockList = new List<VisualEffect>();
+        shockTargets = new List<Transform>();
     }
 }

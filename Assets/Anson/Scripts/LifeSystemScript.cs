@@ -299,6 +299,10 @@ public class LifeSystemScript : MonoBehaviour
         RemoveDebuff(debuff);
         
     }
+    public virtual void RemoveDebuff(ShockEffectScript debuff)
+    {
+        RemoveDebuff(debuff as DebuffScript);
+    }
     public virtual void RemoveDebuff(DebuffScript debuff = null)
     {
         
