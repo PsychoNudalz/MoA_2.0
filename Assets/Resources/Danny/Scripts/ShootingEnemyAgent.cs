@@ -12,11 +12,13 @@ public class ShootingEnemyAgent : MonoBehaviour
     [SerializeField] private Transform waypointsToFollow;
     [SerializeField] private float minAttackDelay = 1f;
     [SerializeField] private float maxAttackDelay = 5f;
+    [SerializeField] private Transform firePoint;
     private Transform[] waypoints;
     private NavMeshAgent shootingEnemyAgent;
     private Animator shootingEnemyAnimator;
     private float attackDelay;
     private float currentAttackTimer;
+    private Transform lastTarget; 
     private Transform target;
     private int currentWaypoint;
     private GameObject player;
@@ -27,6 +29,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lastTarget = transform;
         player = GameObject.FindGameObjectWithTag("Player");
         shootingEnemyAnimator = GetComponent<Animator>();
         shootingEnemyAgent = GetComponent<NavMeshAgent>();
@@ -46,7 +49,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentAttackTimer <= 0)
+        if(currentAttackTimer <= 0 && !(Vector3.Distance(transform.position, target.position) <= 3f) && !(Vector3.Distance(transform.position, lastTarget.position) <= 3f))
         {
             StartCoroutine(Shoot(3f));
         }
@@ -93,6 +96,7 @@ public class ShootingEnemyAgent : MonoBehaviour
         {
             currentWaypoint++;
         }
+        lastTarget = target;
         target = waypoints[currentWaypoint];
         if (shootingEnemyAgent.isActiveAndEnabled)
         {
@@ -130,6 +134,6 @@ public class ShootingEnemyAgent : MonoBehaviour
 
     public void Fire()
     {
-        print("fired");
+        Instantiate((GameObject)Resources.Load("Danny/Prefabs/Fireball"),firePoint.position, Quaternion.identity ,this.transform);
     }
 }
