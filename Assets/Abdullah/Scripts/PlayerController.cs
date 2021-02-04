@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     Vector3 jumped;
 
-   [SerializeField] int moveSpeed;
+    [SerializeField] int moveSpeed;
 
     CharacterController controller;
     Vector3 moveDirection;
@@ -37,15 +37,20 @@ public class PlayerController : MonoBehaviour
     bool tilted;
 
     Vector3 dashRange;
-    [SerializeField]float dashDistance;
+    [SerializeField] float dashDistance;
 
     [SerializeField] Look lookScript;
 
     bool canDoubleJumped;
-   [SerializeField]float doubleJumpSpeed;
+    [SerializeField] float doubleJumpSpeed;
 
     float dashStart = 0f;
-    [SerializeField]float dashCooldown;
+    [SerializeField] float dashCooldown;
+
+
+    [Space]
+    [Header("Gun Control")]
+    [SerializeField] GunDamageScript gunDamageScript;
 
 
 
@@ -64,14 +69,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        moveDirection = transform.TransformDirection(moveDirection);
+        //moveDirection = transform.TransformDirection(moveDirection);
 
         Move();
         if (lookScript == null)
         {
             Look();
-        CameraTilt();
+            CameraTilt();
 
+        }
+        if (!controller.isGrounded)
+        {
+            print("Adding gravity");
+            controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
         }
         jumped.y -= gravity * Time.deltaTime;
     }
@@ -98,19 +108,19 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-       
-        controller.Move(Quaternion.AngleAxis(transform.eulerAngles.y,transform.up)* moveDirection * moveSpeed * Time.deltaTime);
-            controller.Move(jumped * Time.deltaTime);
-        
 
-        
+        controller.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection * moveSpeed * Time.deltaTime);
+        controller.Move(jumped * Time.deltaTime);
+
+
+
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         isMoving = context.ReadValue<Vector2>();
         moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
-        moveDirection = transform.TransformDirection(moveDirection);
+        //moveDirection = transform.TransformDirection(moveDirection);
         if (isMoving.x != 0)
         {
             if (isMoving.x < 0 && tilted == false)
@@ -156,18 +166,50 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnDash (InputAction.CallbackContext context) {
-        
-            if (context.performed)
-            {
-                if (Time.time > dashStart + dashCooldown)
-                {
-                    dashStart = Time.time;
-                    dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
-                    controller.Move(dashRange * Time.deltaTime);
-                }
-            }
+    public void OnDash(InputAction.CallbackContext context)
+    {
 
+        if (context.performed)
+        {
+            if (Time.time > dashStart + dashCooldown)
+            {
+                dashStart = Time.time;
+                dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
+                controller.Move(dashRange * Time.deltaTime);
+            }
+        }
+
+    }
+
+    public void Shoot(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            gunDamageScript.Fire(true);
+        }
+        else if (callbackContext.canceled)
+        {
+            gunDamageScript.Fire(false);
+        }
+    }
+
+
+    public void Aim(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            gunDamageScript.ADS_On();
+        }
+        else if (callbackContext.canceled)
+        {
+            gunDamageScript.ADS_Off();
+
+        }
+    }
+
+    public void Reload()
+    {
+        gunDamageScript.Reload();
     }
 
 
