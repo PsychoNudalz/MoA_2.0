@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
-public class DebuffScript
+public class DebuffScript:MonoBehaviour
 {
     protected float duration;
     protected LifeSystemScript targetLS;

@@ -14,12 +14,17 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     [Header("Shock Effect")]
     [SerializeField] GameObject shockEffect;
     VisualEffect currentShock_vfx;
+    Transform EffectsParent;
+    List<VisualEffect> allShockList = new List<VisualEffect>();
+    int allShockListPTR = 0;
     List<VisualEffect> shockList = new List<VisualEffect>();
+    List<Transform> shockTargets = new List<Transform>();
     // Start is called before the first frame update
     void Awake()
     {
         material = ms.material;
         decayTime = material.GetFloat("_DecayTime");
+        ExpandAllShock();
     }
 
     // Update is called once per frame
@@ -55,15 +60,16 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     {
         if (b)
         {
-            currentShock_vfx = Instantiate(shockEffect, shockEffect.transform.position, Quaternion.identity, transform).GetComponent<VisualEffect>();
+            currentShock_vfx = GetNextShock();
             currentShock_vfx.gameObject.SetActive(true);
             currentShock_vfx.SendEvent("ShockSelf");
-            Destroy(currentShock_vfx.gameObject, currentShock_vfx.GetFloat("Lifetime") * 1.1f);
+            //Destroy(currentShock_vfx.gameObject, currentShock_vfx.GetFloat("Lifetime")*1.5f);
 
             //shockEffect.SetActive(true);
             if (shockTarget != null)
             {
                 shockList.Add(currentShock_vfx);
+                shockTargets.Add(shockTarget.transform);
                 currentShock_vfx.SetFloat("ChainLength", (shockTarget.position - transform.position).magnitude);
                 currentShock_vfx.transform.forward = shockTarget.position - transform.position;
                 currentShock_vfx.SendEvent("ShockChain");
@@ -72,10 +78,73 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         }
     }
 
+    public void UpdateShock()
+    {
+        for (int i = 0; i < shockList.Count && i < shockTargets.Count; i++)
+        {
+            if (shockTargets[i] != null && shockList[i] != null)
+            {
+                shockList[i].SetFloat("ChainLength", (shockTargets[i].position - transform.position).magnitude);
+                shockList[i].transform.forward = shockTargets[i].position - transform.position;
+                shockList[i].SendEvent("ShockChain");
+            }
+        }
+    }
+
 
 
     public void ResetShockList()
     {
+
         shockList = new List<VisualEffect>();
+        shockTargets = new List<Transform>();
+    }
+
+    VisualEffect GetNextShock()
+    {
+        int PTR = (allShockListPTR + 1) % allShockList.Count;
+        VisualEffect current = allShockList[PTR];
+        while (PTR != allShockListPTR && current.gameObject.activeSelf)
+        {
+            PTR = (PTR + 1) % allShockList.Count;
+            current = allShockList[PTR];
+        }
+        if (PTR == allShockListPTR)
+        {
+            ExpandAllShock();
+            allShockListPTR++;
+        }
+        else
+        {
+            allShockListPTR = PTR;
+
+        }
+
+        current = allShockList[allShockListPTR];
+        current.gameObject.SetActive(true);
+        StartCoroutine(DisableShockDelay(current));
+        return current;
+    }
+
+    void ExpandAllShock()
+    {
+        if (allShockList.Count != 0)
+        {
+        allShockListPTR = (allShockList.Count - 1) % allShockList.Count;
+
+        }
+        VisualEffect current;
+        for (int i = 0; i < 5; i++)
+        {
+            current = Instantiate(shockEffect, shockEffect.transform.position, Quaternion.identity, EffectsParent).GetComponent<VisualEffect>();
+            allShockList.Add(current);
+            current.gameObject.SetActive(false);
+        }
+    }
+    IEnumerator DisableShockDelay(VisualEffect v)
+    {
+        yield return new WaitForSeconds(v.GetFloat("Lifetime") * 1.5f);
+        v.gameObject.SetActive(false);
+
     }
 }

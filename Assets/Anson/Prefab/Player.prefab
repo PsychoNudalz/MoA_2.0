@@ -44,9 +44,10 @@ GameObject:
   - component: {fileID: 4112174735619620039}
   - component: {fileID: 4112174735619620036}
   - component: {fileID: 4112174735619620037}
+  - component: {fileID: 111666207402980044}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,17 +155,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4440c12464cc42a48b02139ac062a026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 30
-  jumpSpeed: 10
-  walkSpeed: 7
-  runSpeed: 15
-  sensitivityX: 1
-  sensitivityY: 1
+  gravity: 9.81
+  jumpSpeed: 30
+  sensitivityX: 0.5
+  sensitivityY: 0.5
   minY: -85
   maxY: 85
   tilt: 20
+  moveSpeed: 12
   cam1: {fileID: 4112174735984912498}
+  dashDistance: 5
   lookScript: {fileID: 4112174735619620038}
+  doubleJumpSpeed: 15
+  dashCooldown: 1
+  gunDamageScript: {fileID: 4112174736969628676}
 --- !u!114 &4112174735619620037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,7 +243,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4112174735619620036}
-        m_MethodName: OnRun
+        m_MethodName: OnDash
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -251,11 +255,106 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 919c190c-3357-40cf-9ef0-b6d59b807e0d
     m_ActionName: Player/Rin[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 57bc4b99-5690-4585-bedd-a50e14320292
+    m_ActionName: Player/TestButton2[/Keyboard/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f8d11d9b-a054-4998-b3d1-7c211656a5db
+    m_ActionName: Player/TestButton1[/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e797ec15-e36e-45b4-ba7a-78a36d7be230
+    m_ActionName: Player/DespawnAllGuns[/Keyboard/v]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 60c165a2-b5f1-403f-9c80-7a594ae7f534
+    m_ActionName: Player/GenerateGun2
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 25cd3158-9f23-4c28-93e0-e5f1513384a5
+    m_ActionName: Player/GenerateGun[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 63245073-fff7-438c-ab10-8b9c87ee2cb4
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: Reload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 75f03887-38b3-493a-b7d0-2c5d314f0299
+    m_ActionName: Player/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: Aim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4e404d22-2e26-4e55-be7d-10f27e2f20a8
+    m_ActionName: Player/Aim[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: Shoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 535c80b3-6be2-4576-b092-5219091c8d8b
+    m_ActionName: Player/Shoot[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &111666207402980044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112174735619620034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330de48794794de408f6a2dd228fd556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_Current: 0
+  health_Max: 1000000000
+  isDead: 0
+  deathGameObject: {fileID: 0}
+  disableOnDeath: 1
+  destroyOnDeath: 0
+  delayDeath: 0
+  detatchPopUps: 1
+  reatatchPopUps: 1
+  debuffList: []
+  damagePopScript: {fileID: 0}
+  groupParticleSystemScript: {fileID: 0}
+  animator: {fileID: 0}
+  deathTriggerName: Death
 --- !u!1 &4112174735984912510
 GameObject:
   m_ObjectHideFlags: 0

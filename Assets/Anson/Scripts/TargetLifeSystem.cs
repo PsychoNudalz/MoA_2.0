@@ -9,6 +9,8 @@ public class TargetLifeSystem : LifeSystemScript
     [Header("Shader Effects")]
     [SerializeField] TargetMaterialHandlerScript targetMaterialHandler;
 
+    public TargetMaterialHandlerScript TargetMaterialHandler { get => targetMaterialHandler;}
+
     private void Start()
     {
         targetHandler = GetComponent<TargetHandlerScript>();
@@ -41,6 +43,12 @@ public class TargetLifeSystem : LifeSystemScript
     {
         base.ApplyDebuff(debuff as DebuffScript);
 
+    }
+
+    public override void RemoveDebuff(ShockEffectScript debuff)
+    {
+        base.RemoveDebuff(debuff);
+        targetMaterialHandler.ResetShockList();
     }
 
     public override void ResetSystem()
