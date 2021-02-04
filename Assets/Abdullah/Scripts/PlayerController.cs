@@ -7,8 +7,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float gravity = -9.81f;
     [SerializeField] public float jumpSpeed;
 
-    [SerializeField] public int walkSpeed;
-    [SerializeField] public int runSpeed;
 
     [SerializeField] public float sensitivityX;
     [SerializeField] public float sensitivityY;
@@ -20,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     Vector3 jumped;
 
-    int moveSpeed;
+   [SerializeField] int moveSpeed;
 
     CharacterController controller;
     Vector3 moveDirection;
@@ -66,7 +64,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        //moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = transform.TransformDirection(moveDirection);
 
         Move();
         if (lookScript == null)
@@ -77,8 +75,6 @@ public class PlayerController : MonoBehaviour
         }
         jumped.y -= gravity * Time.deltaTime;
     }
-
-    
 
     void CameraTilt()
     {
@@ -102,16 +98,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        if (run)
-        {
-            moveSpeed = runSpeed;
-        }
-
-        if (!run)
-        {
-            moveSpeed = walkSpeed;
-        }
-
+       
         controller.Move(Quaternion.AngleAxis(transform.eulerAngles.y,transform.up)* moveDirection * moveSpeed * Time.deltaTime);
             controller.Move(jumped * Time.deltaTime);
         
@@ -119,14 +106,11 @@ public class PlayerController : MonoBehaviour
         
     }
 
-   
-
-
     public void OnMove(InputAction.CallbackContext context)
     {
         isMoving = context.ReadValue<Vector2>();
         moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
-        //moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = transform.TransformDirection(moveDirection);
         if (isMoving.x != 0)
         {
             if (isMoving.x < 0 && tilted == false)
@@ -145,15 +129,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
     public void OnLook(InputAction.CallbackContext context)
     {
         lookX += context.ReadValue<Vector2>().x * sensitivityX * Time.deltaTime;
         lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
     }
 
-    
     public void OnJump(InputAction.CallbackContext context)
     {
         jump = context.performed;
@@ -175,8 +156,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
-
     public void OnDash (InputAction.CallbackContext context) {
         
             if (context.performed)
@@ -184,16 +163,12 @@ public class PlayerController : MonoBehaviour
                 if (Time.time > dashStart + dashCooldown)
                 {
                     dashStart = Time.time;
-                    dashRange = transform.TransformDirection(Vector3.forward) * (dashDistance * 100);
+                    dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
                     controller.Move(dashRange * Time.deltaTime);
                 }
             }
 
     }
 
-    public void OnRun (InputAction.CallbackContext context)
-    {
-        run = context.performed;
-    }
 
 }
