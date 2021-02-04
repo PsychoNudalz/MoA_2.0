@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4112174735619620039}
   - component: {fileID: 4112174735619620036}
   - component: {fileID: 4112174735619620037}
+  - component: {fileID: 111666207402980044}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -274,6 +275,32 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &111666207402980044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112174735619620034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330de48794794de408f6a2dd228fd556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_Current: 0
+  health_Max: 10
+  isDead: 0
+  deathGameObject: {fileID: 0}
+  disableOnDeath: 1
+  destroyOnDeath: 0
+  delayDeath: 0
+  detatchPopUps: 1
+  reatatchPopUps: 1
+  debuffList: []
+  damagePopScript: {fileID: 0}
+  groupParticleSystemScript: {fileID: 0}
+  animator: {fileID: 0}
+  deathTriggerName: Death
 --- !u!1 &4112174735984912510
 GameObject:
   m_ObjectHideFlags: 0
