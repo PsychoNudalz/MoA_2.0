@@ -59,6 +59,11 @@ public class ShockEffectScript : ElementDebuffScript
 
     public override void ApplyEffect(LifeSystemScript target)
     {
+        if (target == null)
+        {
+            return;
+        }
+
         base.ApplyEffect(target);
         if (lsList == null)
         {

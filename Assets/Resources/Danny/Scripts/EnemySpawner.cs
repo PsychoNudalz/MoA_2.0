@@ -24,7 +24,10 @@ public class EnemySpawner : MonoBehaviour
         switch (enemyType)
         {
             case EnemyType.StoneEnemy:
-                enemyToSpawn = (GameObject)Resources.Load("Danny/Prefabs/StoneEnemy");
+                //enemyToSpawn = (GameObject)Resources.Load("Danny/Prefabs/StoneEnemy");
+                //Anson: made a copy of the stone enemy
+                enemyToSpawn = (GameObject)Resources.Load("Danny/Prefabs/StoneEnemy2");
+
                 break;
             default:
                 Debug.LogError("Failed to load " + enemyType.ToString() + " prefab");
