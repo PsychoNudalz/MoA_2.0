@@ -2,65 +2,81 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-enum EnemyType {StoneEnemy,ShootingEnemy};
+enum EnemyType {StoneEnemy,ShootingEnemy,RandomEnemies};
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField]
-    private EnemyType enemyType;
-    [SerializeField]
-    private int numberOfEnemies;
-    [SerializeField]
-    private float delayBetweenSpawns;
-
+    [SerializeField] private EnemyType enemyType;
+    [SerializeField] private int numberOfEnemies;
+    [SerializeField] private float delayBetweenSpawns;
+    [Space]
+    [Header("Enemy Prefabs")]
+    [SerializeField] private GameObject stoneEnemy;
+    [SerializeField] private GameObject shootingEnemy;
+    [SerializeField] private bool isSpawning;
+    private GameObject[] enemyPrefabs;
     private GameObject enemyToSpawn;
     private int enemiesSpawned;
     private float spawnCountdown;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyPrefabs = new GameObject[2];
+        enemyPrefabs[0] = stoneEnemy;
+        enemyPrefabs[1] = shootingEnemy;
         spawnCountdown = delayBetweenSpawns;
-        switch (enemyType)
-        {
-            case EnemyType.StoneEnemy:
-                //enemyToSpawn = (GameObject)Resources.Load("Danny/Prefabs/StoneEnemy");
-                //Anson: made a copy of the stone enemy
-                enemyToSpawn = (GameObject)Resources.Load("Danny/Prefabs/StoneEnemy2");
-
-                break;
-            default:
-                Debug.LogError("Failed to load " + enemyType.ToString() + " prefab");
-                break;
-        }
-        if(numberOfEnemies > 0)
-        {
-            SpawnEnemy();
-        }
+        isSpawning = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(enemiesSpawned < numberOfEnemies && enemyToSpawn != null)
+        if (isSpawning)
         {
-            spawnCountdown -= Time.deltaTime;
-            if (spawnCountdown <= 0)
+            if (enemiesSpawned < numberOfEnemies)
             {
-                SpawnEnemy();
+                spawnCountdown -= Time.deltaTime;
+                if (spawnCountdown <= 0)
+                {
+                    SpawnEnemy();
+                }
+            }
+            else
+            {
+                GameObject.Destroy(this.gameObject);
             }
         }
-        else
-        {
-            GameObject.Destroy(this.gameObject);
-        }
-        
     }
 
     private void SpawnEnemy()
     {
-        GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation);
+        enemyToSpawn = GetEnemyToSpawn();
+        GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, this.transform.parent);
         enemiesSpawned++;
         spawnCountdown = delayBetweenSpawns;
+    }
+
+    private GameObject GetEnemyToSpawn()
+    {
+        switch (enemyType)
+        {
+            case EnemyType.StoneEnemy:
+                return enemyPrefabs[0];
+            case EnemyType.ShootingEnemy:
+                return enemyPrefabs[1];
+            default:
+                int index = Random.Range(0, enemyPrefabs.Length);
+                print(index);
+                return enemyPrefabs[index];
+        }
+        
+    }
+
+    public void StartSpawning()
+    {
+        isSpawning = true;
     }
 }
