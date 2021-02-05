@@ -1,18 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyWaypoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool isValid = false;
+
+    public bool IsValid()
     {
-        
+        return isValid;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetIsValid(bool isValid)
     {
-        
+        this.isValid = isValid;
     }
 }

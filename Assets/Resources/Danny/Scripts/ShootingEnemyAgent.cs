@@ -9,11 +9,10 @@ public class ShootingEnemyAgent : MonoBehaviour
 {
 
     [SerializeField] private float walkSpeed = 1f;
-    [SerializeField] private Transform waypointsToFollow;
     [SerializeField] private float minAttackDelay = 1f;
     [SerializeField] private float maxAttackDelay = 5f;
     [SerializeField] private Transform firePoint;
-    private Transform[] waypoints;
+    private EnemyWaypoint[] waypointstofollow;
     private NavMeshAgent shootingEnemyAgent;
     private Animator shootingEnemyAnimator;
     private float attackDelay;
@@ -29,11 +28,13 @@ public class ShootingEnemyAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastTarget = transform;
+        currentWaypoint = 0;
         player = GameObject.FindGameObjectWithTag("Player");
         shootingEnemyAnimator = GetComponent<Animator>();
         shootingEnemyAgent = GetComponent<NavMeshAgent>();
-        SetWaypoints();
+        GetWaypoints();
+        target = waypointstofollow[currentWaypoint].transform;
+        GetNextWaypoint();
         shootingEnemyAgent.speed = walkSpeed;
         shootingEnemyAnimator.SetBool("IsWalking", true);
         isCrouching = false;
@@ -66,44 +67,30 @@ public class ShootingEnemyAgent : MonoBehaviour
         
     }
 
-    public void SetWaypoints()
+    public void GetWaypoints()
     {
-        try
-        {
-            waypoints = new Transform[waypointsToFollow.childCount];
-            for (int i = 0; i < waypoints.Length; i++)
-            {
-                waypoints[i] = waypointsToFollow.GetChild(i);
-            }
-            target = waypoints[0];
-        }
-        catch (System.Exception e)
-        {
-
-        }
-        if (target != null)
-            shootingEnemyAgent.destination = target.position;
+        waypointstofollow = transform.parent.GetComponentInChildren<EnemyWaypoints>().GetWaypointsToFollow();
     }
 
     //Get next waypoint and reset to first if last waypoint reached.
     private void GetNextWaypoint()
     {
-        if (currentWaypoint >= waypoints.Length - 1)
-        {
-            currentWaypoint = 0;
-        }
-        else
-        {
-            currentWaypoint++;
-        }
         lastTarget = target;
-        target = waypoints[currentWaypoint];
+        EnemyWaypoint nextTarget = null;
+        while (nextTarget.Equals(null))
+        {
+            EnemyWaypoint targetToSet = waypointstofollow[Random.Range(0, waypointstofollow.Length)];
+            if (targetToSet.IsValid())
+            {
+                nextTarget = targetToSet;
+            }
+        }
+        lastTarget.GetComponent<EnemyWaypoint>().SetIsValid(true);
+        target = nextTarget.transform;
         if (shootingEnemyAgent.isActiveAndEnabled)
         {
             shootingEnemyAgent.destination = target.position;
         }
-        
-        
     }
 
     IEnumerator Crouch(float delay)
