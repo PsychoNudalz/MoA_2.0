@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneEnemyLifeSystem : TargetLifeSystem
+public class ShootingEnemyLifeSystem : TargetLifeSystem
 {
-    [Header("Stone Enemy Agent")]
-    StoneEnemyAgent stoneEnemyAgent;
+    [Header("Shooting Enemy Agent")]
+    ShootingEnemyAgent shootingEnemyAgent;
 
     private void Start()
     {
-        stoneEnemyAgent = GetComponent<StoneEnemyAgent>();
+        shootingEnemyAgent = GetComponent<ShootingEnemyAgent>();
     }
 
-    public override int takeDamageCritical(float dmg, int level, ElementTypes element,float multiplier)
+    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier)
     {
         StaggerAnimation();
         return base.takeDamageCritical(dmg, level, element, multiplier);
@@ -23,13 +23,13 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
         bool retValue = base.CheckDead();
         if (retValue)
         {
-            stoneEnemyAgent.DeathAnimation();
+            shootingEnemyAgent.DeathAnimation();
         }
         return retValue;
     }
 
     private void StaggerAnimation()
     {
-        stoneEnemyAgent.Stagger();
+        shootingEnemyAgent.Stagger();
     }
 }

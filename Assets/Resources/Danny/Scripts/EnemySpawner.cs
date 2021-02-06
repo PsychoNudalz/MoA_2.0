@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Enemy Prefabs")]
     [SerializeField] private GameObject stoneEnemy;
     [SerializeField] private GameObject shootingEnemy;
-    [SerializeField] private bool isSpawning;
+    [SerializeField] private bool isSpawning = false;
     private GameObject[] enemyPrefabs;
     private GameObject enemyToSpawn;
     private int enemiesSpawned;
@@ -28,7 +28,10 @@ public class EnemySpawner : MonoBehaviour
         enemyPrefabs[0] = stoneEnemy;
         enemyPrefabs[1] = shootingEnemy;
         spawnCountdown = delayBetweenSpawns;
-        isSpawning = false;
+        if (isSpawning)
+        {
+            SpawnEnemy();
+        }
     }
 
     // Update is called once per frame
@@ -44,17 +47,18 @@ public class EnemySpawner : MonoBehaviour
                     SpawnEnemy();
                 }
             }
+            /*
             else
             {
                 GameObject.Destroy(this.gameObject);
-            }
+            }*/
         }
     }
 
     private void SpawnEnemy()
     {
         enemyToSpawn = GetEnemyToSpawn();
-        GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, this.transform.parent);
+        GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
         enemiesSpawned++;
         spawnCountdown = delayBetweenSpawns;
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyWaypoint : MonoBehaviour
 {
-    private bool isValid = false;
+    private bool isValid = true;
 
     public bool IsValid()
     {
