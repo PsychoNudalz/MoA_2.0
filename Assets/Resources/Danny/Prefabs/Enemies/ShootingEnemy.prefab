@@ -1202,8 +1202,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 3
-  minAttackDelay: 1
-  maxAttackDelay: 3
+  minAttackDelay: 3
+  maxAttackDelay: 10
+  minCoverDelay: 2
+  maxCoverDelay: 10
   fireballPrefab: {fileID: 8308004918000503253, guid: 1a0fa7171b60d214088603fd4ea836fc,
     type: 3}
   firePoint: {fileID: 6744772841950439597}
@@ -1238,7 +1240,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4773728303952143426}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.4
   m_Height: 2
@@ -2660,6 +2662,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408516457485592987, guid: f5cfe4db31c410f46832dc6f64a10b24,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8132271092815947163, guid: f5cfe4db31c410f46832dc6f64a10b24,
         type: 3}
