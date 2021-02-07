@@ -27,6 +27,9 @@ public class ShootingEnemyAgent : MonoBehaviour
     private bool IsDead = false;
     Vector3 aimTarget;
 
+    [Header("SHooting")]
+    [SerializeField] GunDamageScript gunDamageScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -181,7 +184,9 @@ public class ShootingEnemyAgent : MonoBehaviour
 
     public void Fire()
     {
-        GameObject newFireBall = Instantiate(fireballPrefab,firePoint.position, Quaternion.identity ,this.transform);
-        newFireBall.GetComponent<Fireball>().SetTarget(aimTarget);
+        //GameObject newFireBall = Instantiate(fireballPrefab,firePoint.position, Quaternion.identity ,this.transform);
+        //newFireBall.GetComponent<Fireball>().SetTarget(aimTarget);
+        gunDamageScript.Shoot();
+        print("Shoot");
     }
 }

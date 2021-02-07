@@ -68,6 +68,7 @@ public class GunDamageScript : DamageScript
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
+    public bool isAI = false;
     public AnsonTempUIScript ansonTempUIScript;
 
 
@@ -96,7 +97,7 @@ public class GunDamageScript : DamageScript
             //AdjustRecoil();
             CorrectRecoil();
         }
-        if (mainGunStatsScript != null)
+        if (mainGunStatsScript != null && !isAI)
         {
             SetWeaponRecoil();
             SetWeaponLocation();
@@ -216,6 +217,11 @@ public class GunDamageScript : DamageScript
 
     bool canFire()
     {
+        if (isAI)
+        {
+            return true;
+        }
+
         if (currentMag < 1 || (isReloading && isFullReload))
         {
             isFiring = false;

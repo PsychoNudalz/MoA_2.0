@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 819984192438887480}
   - component: {fileID: 4402967919918463271}
   - component: {fileID: 856303293805654957}
+  - component: {fileID: 8367082077529908160}
   m_Layer: 8
-  m_Name: EmptyGun
+  m_Name: EnemyGun
   m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,11 +159,11 @@ MonoBehaviour:
   gunComponent_Body: {fileID: 0}
   component_Sight: {fileID: 0}
   components: []
-  animator: {fileID: 0}
+  animator: {fileID: 8367082077529908160}
   sound_Fire: {fileID: 0}
   sound_StartReload: {fileID: 0}
   sound_EndReload: {fileID: 0}
-  currentMag: Infinity
+  currentMag: 5000
 --- !u!54 &856303293805654957
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -179,6 +180,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &8367082077529908160
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173696654448604075}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f9fbb35ef601c2846933585445eee6bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1077458394628910458
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +457,7 @@ MonoBehaviour:
   lookScript: {fileID: 0}
   originalFireDirection_X: 0
   displayFireRaycast: 1
+  isAI: 0
   ansonTempUIScript: {fileID: 0}
 --- !u!1 &6015416015015157880
 GameObject:
