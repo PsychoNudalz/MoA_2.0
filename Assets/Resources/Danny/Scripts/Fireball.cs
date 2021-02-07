@@ -7,31 +7,29 @@ public class Fireball : MonoBehaviour
 {
     [SerializeField] private float lifeTimeDuration = 10f;
     private Vector3 target;
-    //private GameObject player;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        /*
-        player = GameObject.FindGameObjectWithTag("Player");
-        Vector3 playerDirection = player.transform.position - transform.position;
-        Vector3 shootDirection = (new Vector3(playerDirection.x, 0f, playerDirection.z));
-        //Debug.DrawRay(transform.position, shootDirection, Color.red);
-        target = transform.position + shootDirection * 5f;
-        //Debug.DrawRay(transform.position, target * 10f, Color.red);
-        */
+        //Set object to destroy if no collision is made within lifetime
         GameObject.Destroy(this.gameObject, lifeTimeDuration);
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
+         * Move towards target
+         */
         transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision other)
     {
+        /*
+         * If collision with player do damage and destroy itself, if other object just destroy.
+         */
         print("collision - " + other.gameObject.ToString());
         switch (other.gameObject.tag)
         {
@@ -47,7 +45,9 @@ public class Fireball : MonoBehaviour
 
     internal void SetTarget(Vector3 aimTarget)
     {
+        /*
+         * Set target to move towards
+         */
         target = aimTarget;
-        Debug.DrawLine(transform.position, target, Color.red, 5f);
     }
 }

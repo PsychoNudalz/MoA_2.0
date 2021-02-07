@@ -104,8 +104,12 @@ public class StoneEnemyAgent : MonoBehaviour
         animator.SetBool("IsDead", true);
     }
 
+    
     IEnumerator StaggerDelay()
     {
+        /*
+         * Stop enemy, trigger stagger animation, wait 0.5 seconds then restart enemy
+         */
         IsStaggering = true;
         stoneEnemyAgent.speed = 0f;
         stoneEnemyAgent.velocity = Vector3.zero;
@@ -118,8 +122,7 @@ public class StoneEnemyAgent : MonoBehaviour
     private void Attack()
     {
         /*
-         * Stop nav agent moving and start attack animation
-         * then damage player if in radius.
+         * Stop nav agent moving and start attack animation.
          */
         GetComponent<Rigidbody>().freezeRotation = true;
         stoneEnemyAgent.speed = 0;
@@ -127,9 +130,14 @@ public class StoneEnemyAgent : MonoBehaviour
         animator.SetBool("IsAttacking", true);
         stoneEnemyAgent.SetDestination(target.position);
         transform.LookAt(target.position);
-        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff , 1, ElementTypes.PHYSICAL);
         attackTimeNow = attackTimeInitial;
     }
 
-
+    public void DamagePlayer()
+    {
+        /*
+         * Damage player if in range (triggered from attack animation
+         */
+        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff , 1, ElementTypes.PHYSICAL);
+    }
 }
