@@ -20,7 +20,6 @@ public class ShootingEnemyAgent : MonoBehaviour
     private float currentAttackTimer;
     private Transform lastTarget; 
     private Transform target;
-    private int currentWaypoint;
     private GameObject player;
     private bool isCrouching;
     private bool isShooting;
@@ -31,11 +30,16 @@ public class ShootingEnemyAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ResetEnemy();
+    }
+
+    private void ResetEnemy()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
         shootingEnemyAnimator = GetComponent<Animator>();
         shootingEnemyAgent = GetComponent<NavMeshAgent>();
         GetWaypoints();
-        target = waypointstofollow[0].transform;
+        //target = waypointstofollow[0].transform;
         GetNextWaypoint();
         shootingEnemyAgent.speed = walkSpeed;
         shootingEnemyAnimator.SetBool("IsWalking", true);
@@ -43,10 +47,12 @@ public class ShootingEnemyAgent : MonoBehaviour
         ResetAttackTimer();
     }
 
+    /*
+     * Set next attack timer to random value between min and max values set
+     */
     private void ResetAttackTimer()
     {
-        attackDelay = Random.Range(minAttackDelay, maxAttackDelay);
-        currentAttackTimer = attackDelay;
+        currentAttackTimer = Random.Range(minAttackDelay, maxAttackDelay);
     }
 
     // Update is called once per frame
@@ -95,22 +101,27 @@ public class ShootingEnemyAgent : MonoBehaviour
     //Get next waypoint and reset to first if last waypoint reached.
     private void GetNextWaypoint()
     {
-        lastTarget = target;
+        if(target != null)
+        {
+            lastTarget = target;
+            lastTarget.GetComponent<EnemyWaypoint>().SetIsValid(true);
+        }
         EnemyWaypoint nextTarget = null;
         while (nextTarget == null)
         {
             int point = Random.Range(0, waypointstofollow.Length);
             EnemyWaypoint targetToSet = waypointstofollow[point];
-            print("point - " + point);
-            if (targetToSet.IsValid())
+            if (targetToSet.GetIsValid())
             {
                 nextTarget = targetToSet;
             }
         }
         target = nextTarget.transform;
         target.GetComponent<EnemyWaypoint>().SetIsValid(false);
-        lastTarget.GetComponent<EnemyWaypoint>().SetIsValid(true);
-        shootingEnemyAgent.destination = target.position;
+        if (shootingEnemyAgent.isActiveAndEnabled)
+        {
+            shootingEnemyAgent.destination = target.position;
+        }
      }
 
     IEnumerator Crouch(float delay)

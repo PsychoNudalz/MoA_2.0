@@ -19,15 +19,29 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemyToSpawn;
     private int enemiesSpawned;
     private float spawnCountdown;
+    private int numberOfWaypoints;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        /*
+         * Set number of waypoints
+         */
+        numberOfWaypoints = transform.parent.GetComponentsInChildren<EnemyWaypoint>().Length;
+        /*
+         * Save enemy prefabs to spawn in array
+         */
         enemyPrefabs = new GameObject[2];
         enemyPrefabs[0] = stoneEnemy;
         enemyPrefabs[1] = shootingEnemy;
+        /*
+         * Set spawn countdown
+         */
         spawnCountdown = delayBetweenSpawns;
+        /*
+         * If spawning on start spawn first enemy
+         */
         if (isSpawning)
         {
             SpawnEnemy();
@@ -37,8 +51,15 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
+         * If spawning started...
+         */
         if (isSpawning)
         {
+            /*
+             * If enemies left to spawn and delay time reached
+             * spawn another enemy
+             */
             if (enemiesSpawned < numberOfEnemies)
             {
                 spawnCountdown -= Time.deltaTime;
@@ -47,22 +68,49 @@ public class EnemySpawner : MonoBehaviour
                     SpawnEnemy();
                 }
             }
-            /*
             else
             {
-                GameObject.Destroy(this.gameObject);
-            }*/
+                /*
+                 * If all enemies spawned and been killed
+                 * remove spawner
+                 */
+                if(transform.childCount == 0)
+                {
+                    GameObject.Destroy(this.gameObject);
+                }
+            }
         }
     }
 
+    /*
+     * Get an enemy prefab to spawn, spawn it, 
+     * increment spawn count and reset delay countdown
+     */
     private void SpawnEnemy()
     {
         enemyToSpawn = GetEnemyToSpawn();
-        GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
-        enemiesSpawned++;
-        spawnCountdown = delayBetweenSpawns;
+        if (enemyToSpawn.gameObject.name.Equals("ShootingEnemy"))
+        {
+            print("Waypoints - " + numberOfWaypoints
+                 + "Shooting Enemies - " + GetComponentsInChildren<ShootingEnemyAgent>().Length);
+            if(GetComponentsInChildren<ShootingEnemyAgent>().Length +1 < numberOfWaypoints)
+            {
+                GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
+                enemiesSpawned++;
+                spawnCountdown = delayBetweenSpawns;
+            }
+        }
+        else
+        {
+            GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
+            enemiesSpawned++;
+            spawnCountdown = delayBetweenSpawns;
+        }
     }
 
+    /*
+     * Return the set enemy prefab or random one if random selected
+     */
     private GameObject GetEnemyToSpawn()
     {
         switch (enemyType)
@@ -73,14 +121,20 @@ public class EnemySpawner : MonoBehaviour
                 return enemyPrefabs[1];
             default:
                 int index = Random.Range(0, enemyPrefabs.Length);
-                print(index);
                 return enemyPrefabs[index];
         }
         
     }
 
+    /*
+     * Start spawning enemies instantly if enemies left to spawn
+     */
     public void StartSpawning()
     {
         isSpawning = true;
+        if(numberOfEnemies > 0)
+        {
+            SpawnEnemy();
+        }
     }
 }

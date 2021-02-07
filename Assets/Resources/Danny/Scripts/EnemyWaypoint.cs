@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class EnemyWaypoint : MonoBehaviour
 {
+    /*
+     * Represents if waypoint is already assigned to an enemy
+     */
     private bool isValid = true;
 
-    public bool IsValid()
+    public bool GetIsValid()
     {
         return isValid;
     }
