@@ -75,6 +75,10 @@ public class GunDamageScript : DamageScript
     {
         ansonTempUIScript = FindObjectOfType<AnsonTempUIScript>();
         lookScript = FindObjectOfType<Look>();
+        if (mainGunStatsScript != null)
+        {
+            UpdateGunScript(mainGunStatsScript);
+        }
     }
 
     private void Update()

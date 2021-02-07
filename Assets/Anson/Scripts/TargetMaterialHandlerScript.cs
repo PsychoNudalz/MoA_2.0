@@ -22,7 +22,6 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        print(render == null);
         material = render.materials[0];
         decayTime = material.GetFloat("_DecayTime");
         ExpandAllShock();

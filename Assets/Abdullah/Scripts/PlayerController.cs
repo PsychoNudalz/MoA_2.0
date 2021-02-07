@@ -81,9 +81,9 @@ public class PlayerController : MonoBehaviour
         if (!controller.isGrounded)
         {
             print("Adding gravity");
-            controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
+            //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
+            jumped.y -= gravity * Time.deltaTime;
         }
-        jumped.y -= gravity * Time.deltaTime;
     }
 
     void CameraTilt()
