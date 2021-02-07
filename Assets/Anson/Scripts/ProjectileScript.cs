@@ -59,10 +59,8 @@ public abstract class ProjectileScript : MonoBehaviour
         if (tagList.Contains(collision.collider.tag))
         {
             print(collision.collider.name);
-            if (collision.collider.tag.Equals("Enemy"))
+            if (collision.collider.tag.Equals("Enemy") || collision.collider.tag.Equals("Player"))
             {
-                print("collided");
-
                 Explode();
             }
             else
