@@ -164,10 +164,17 @@ public class GunDamageScript : DamageScript
 
 
         g.GetComponentInChildren<Rigidbody>().isKinematic = true;
-        g.gameObject.transform.position = gunPosition.transform.position;
+        if (gunPosition == null)
+        {
+            gunPosition = transform;
+        }
+        g.gameObject.transform.position = gunPosition.position;
         g.gameObject.transform.parent = transform;
         //g.transform.right = firePoint.forward;
-
+        if (sightLocation == null)
+        {
+            sightLocation = transform;
+        }
         sightOffset = sightLocation.position - gunPosition.position;
         mainGunStatsScript.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
