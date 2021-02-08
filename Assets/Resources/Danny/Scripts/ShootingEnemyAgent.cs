@@ -9,102 +9,124 @@ public class ShootingEnemyAgent : MonoBehaviour
 {
 
     [SerializeField] private float walkSpeed = 1f;
-    [SerializeField] private Transform waypointsToFollow;
     [SerializeField] private float minAttackDelay = 1f;
     [SerializeField] private float maxAttackDelay = 5f;
+    [SerializeField] private float minCoverDelay = 1f;
+    [SerializeField] private float maxCoverDelay = 5f;
+    [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private Transform firePoint;
-    private Transform[] waypoints;
+
     private NavMeshAgent shootingEnemyAgent;
     private Animator shootingEnemyAnimator;
-    private float attackDelay;
     private float currentAttackTimer;
     private Transform lastTarget; 
     private Transform target;
-    private int currentWaypoint;
     private GameObject player;
     private bool isCrouching;
     private bool isShooting;
+    private bool IsStaggering;
+    private bool IsDead = false;
 
+    [Header("SHooting")]
+    [SerializeField] GunDamageScript gunDamageScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        lastTarget = transform;
+        ResetEnemy();
+    }
+
+    private void ResetEnemy()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
         shootingEnemyAnimator = GetComponent<Animator>();
         shootingEnemyAgent = GetComponent<NavMeshAgent>();
-        SetWaypoints();
+        GetWaypoints();
+        //target = waypointstofollow[0].transform;
+        GetNextWaypoint();
         shootingEnemyAgent.speed = walkSpeed;
         shootingEnemyAnimator.SetBool("IsWalking", true);
         isCrouching = false;
         ResetAttackTimer();
     }
 
+    /*
+     * Set next attack timer to random value between min and max values set
+     */
     private void ResetAttackTimer()
     {
-        attackDelay = Random.Range(minAttackDelay, maxAttackDelay);
-        currentAttackTimer = attackDelay;
+        currentAttackTimer = Mathf.Clamp(Random.Range(minAttackDelay, maxAttackDelay),4f,maxAttackDelay);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(currentAttackTimer <= 0 && !(Vector3.Distance(transform.position, target.position) <= 3f) && !(Vector3.Distance(transform.position, lastTarget.position) <= 3f))
+        if (!IsStaggering && !IsDead && !isCrouching)
         {
-            StartCoroutine(Shoot(3f));
+            if (currentAttackTimer <= 0 && !isShooting)
+            {
+                RaycastHit hit;
+                Vector3 playerDirection = player.transform.position - transform.position;
+                Vector3 shootDirection = (new Vector3(playerDirection.x, 0f, playerDirection.z));
+                //Debug.DrawRay(transform.position, shootDirection, Color.red,2f);
+                if (Physics.Raycast(transform.position, shootDirection, out hit, Mathf.Infinity))
+                {
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        Debug.DrawRay(transform.position, shootDirection * hit.distance, Color.red,5f);
+                        StartCoroutine(Shoot(3.5f));
+                    }
+                }
+                //Debug.DrawRay(transform.position, target * 10f, Color.red);
+            }
+            if (!isShooting)
+            {
+                currentAttackTimer -= Time.deltaTime;
+            }
+            if (Vector3.Distance(transform.position, target.position) <= 0.2f && !isShooting)
+            {
+                StartCoroutine(Crouch(Random.Range(minCoverDelay,maxCoverDelay)));
+            }
         }
-        if (!isShooting && !isCrouching)
+        if (IsDead)
         {
-            currentAttackTimer -= Time.deltaTime;
+            GameObject.Destroy(this.transform.gameObject, 5f);
         }
-        if(Vector3.Distance(transform.position, target.position) <= 0.5f && !isCrouching && !isShooting)
-        {
-            StartCoroutine(Crouch(3.5f));
-            GetNextWaypoint();
-        }
-
-        
     }
 
-    public void SetWaypoints()
+    public void GetWaypoints()
     {
-        try
-        {
-            waypoints = new Transform[waypointsToFollow.childCount];
-            for (int i = 0; i < waypoints.Length; i++)
-            {
-                waypoints[i] = waypointsToFollow.GetChild(i);
-            }
-            target = waypoints[0];
-        }
-        catch (System.Exception e)
-        {
-
-        }
-        if (target != null)
-            shootingEnemyAgent.destination = target.position;
+        waypointstofollow = transform.parent.parent.GetComponentInChildren<EnemyWaypoints>().GetWaypointsToFollow();
     }
 
     //Get next waypoint and reset to first if last waypoint reached.
     private void GetNextWaypoint()
     {
-        if (currentWaypoint >= waypoints.Length - 1)
+        if(target != null)
         {
-            currentWaypoint = 0;
+            lastTarget = target;
         }
         else
         {
-            currentWaypoint++;
+            lastTarget = waypointstofollow[0].transform;
         }
-        lastTarget = target;
-        target = waypoints[currentWaypoint];
-        if (shootingEnemyAgent.isActiveAndEnabled)
+        EnemyWaypoint nextTarget = null;
+        while (nextTarget == null || nextTarget.Equals(lastTarget))
         {
-            shootingEnemyAgent.destination = target.position;
+            int point = Random.Range(0, waypointstofollow.Length);
+            EnemyWaypoint targetToSet = waypointstofollow[point];
+            if (targetToSet.GetIsValid())
+            {
+                nextTarget = targetToSet;
+            }
         }
-        
-        
-    }
+        lastTarget.GetComponent<EnemyWaypoint>().SetIsValid(true);
+        target = nextTarget.transform;
+        target.GetComponent<EnemyWaypoint>().SetIsValid(false);
+        shootingEnemyAgent.destination = target.position;
+                
+     }
 
     IEnumerator Crouch(float delay)
     {
@@ -115,25 +137,56 @@ public class ShootingEnemyAgent : MonoBehaviour
         yield return new WaitForSeconds(delay);
         shootingEnemyAnimator.SetBool("IsCrouching", false);
         shootingEnemyAgent.enabled = true;
-        shootingEnemyAgent.destination = target.position;
+        GetNextWaypoint();
+        //shootingEnemyAgent.SetDestination(target.position);
         isCrouching = false;
     }
 
     IEnumerator Shoot(float delay)
     {
         isShooting = true;
-        ResetAttackTimer();
-        shootingEnemyAnimator.SetTrigger("Shoot");
+        //yield return new WaitForSeconds(0.5f);
         shootingEnemyAgent.enabled = false;
         transform.LookAt(player.transform);
+        shootingEnemyAnimator.SetTrigger("Shoot");
         yield return new WaitForSeconds(delay);
         shootingEnemyAgent.enabled = true;
         shootingEnemyAgent.destination = target.position;
+        ResetAttackTimer();
         isShooting = false;
+    }
+
+    public void DeathAnimation()
+    {
+        shootingEnemyAgent.speed = 0f;
+        shootingEnemyAgent.velocity = Vector3.zero;
+        GetComponent<Rigidbody>().isKinematic = true;
+        IsDead = true;
+        shootingEnemyAnimator.SetBool("IsDead", true);
+
+    }
+
+    private EnemyWaypoint[] waypointstofollow;
+
+    public void Stagger()
+    {
+        StartCoroutine(StaggerDelay());
+    }
+
+    IEnumerator StaggerDelay()
+    {
+        IsStaggering = true;
+        shootingEnemyAgent.enabled = false;
+        shootingEnemyAnimator.SetTrigger("Hit");
+        yield return new WaitForSeconds(0.5f);
+        shootingEnemyAgent.enabled = true;
+        IsStaggering = false;
+
     }
 
     public void Fire()
     {
-        Instantiate((GameObject)Resources.Load("Danny/Prefabs/Fireball"),firePoint.position, Quaternion.identity ,this.transform);
+        gunDamageScript.Shoot();
+        print("Shoot");
     }
 }

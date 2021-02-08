@@ -6,15 +6,15 @@ using UnityEngine.VFX;
 public class TargetMaterialHandlerScript : MonoBehaviour
 {
     [Header("Target Material")]
-    [SerializeField] MeshRenderer ms;
+    [SerializeField] Renderer render;
     [SerializeField] Material material;
     [Header("Decay State")]
     [SerializeField] float currentRatio;
-    [SerializeField] float decayTime;
+    [SerializeField] float decayTime = 1;
     [Header("Shock Effect")]
     [SerializeField] GameObject shockEffect;
     VisualEffect currentShock_vfx;
-    Transform EffectsParent;
+    [SerializeField] Transform EffectsParent;
     List<VisualEffect> allShockList = new List<VisualEffect>();
     int allShockListPTR = 0;
     List<VisualEffect> shockList = new List<VisualEffect>();
@@ -22,7 +22,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        material = ms.material;
+        material = render.materials[0];
         decayTime = material.GetFloat("_DecayTime");
         ExpandAllShock();
     }

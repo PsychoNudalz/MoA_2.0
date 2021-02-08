@@ -165,7 +165,7 @@ public class LifeSystemScript : MonoBehaviour
         return isDead;
     }
 
-    void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
+    protected virtual void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
     {
         if (damagePopScript == null)
         {

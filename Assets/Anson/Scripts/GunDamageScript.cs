@@ -68,6 +68,7 @@ public class GunDamageScript : DamageScript
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
+    public bool isAI = false;
     public AnsonTempUIScript ansonTempUIScript;
 
 
@@ -75,6 +76,10 @@ public class GunDamageScript : DamageScript
     {
         ansonTempUIScript = FindObjectOfType<AnsonTempUIScript>();
         lookScript = FindObjectOfType<Look>();
+        if (mainGunStatsScript != null)
+        {
+            UpdateGunScript(mainGunStatsScript);
+        }
     }
 
     private void Update()
@@ -92,7 +97,7 @@ public class GunDamageScript : DamageScript
             //AdjustRecoil();
             CorrectRecoil();
         }
-        if (mainGunStatsScript != null)
+        if (mainGunStatsScript != null && !isAI)
         {
             SetWeaponRecoil();
             SetWeaponLocation();
@@ -160,10 +165,17 @@ public class GunDamageScript : DamageScript
 
 
         g.GetComponentInChildren<Rigidbody>().isKinematic = true;
-        g.gameObject.transform.position = gunPosition.transform.position;
+        if (gunPosition == null)
+        {
+            gunPosition = transform;
+        }
+        g.gameObject.transform.position = gunPosition.position;
         g.gameObject.transform.parent = transform;
         //g.transform.right = firePoint.forward;
-
+        if (sightLocation == null)
+        {
+            sightLocation = transform;
+        }
         sightOffset = sightLocation.position - gunPosition.position;
         mainGunStatsScript.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
@@ -205,6 +217,11 @@ public class GunDamageScript : DamageScript
 
     bool canFire()
     {
+        if (isAI)
+        {
+            return true;
+        }
+
         if (currentMag < 1 || (isReloading && isFullReload))
         {
             isFiring = false;
@@ -777,7 +794,10 @@ public class GunDamageScript : DamageScript
 
     void UpdateGunStatText()
     {
-        ansonTempUIScript.SetGunText(mainGunStatsScript.ToString());
+        if(ansonTempUIScript != null)
+        {
+            ansonTempUIScript.SetGunText(mainGunStatsScript.ToString());
+        }
     }
 
 

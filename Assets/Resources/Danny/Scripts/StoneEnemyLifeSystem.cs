@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneEnemyLifeSystem : LifeSystemScript
+public class StoneEnemyLifeSystem : TargetLifeSystem
 {
-    [Header("Shader Effects")]
-    [SerializeField] StoneEnemyMaterialHandlerScript stoneEnemyMaterialHandler;
+    [Header("Stone Enemy Agent")]
     StoneEnemyAgent stoneEnemyAgent;
 
     private void Start()
@@ -13,53 +12,10 @@ public class StoneEnemyLifeSystem : LifeSystemScript
         stoneEnemyAgent = GetComponent<StoneEnemyAgent>();
     }
 
-    public override int takeDamage(float dmg, int level, ElementTypes element)
+    public override int takeDamageCritical(float dmg, int level, ElementTypes element,float multiplier)
     {
         StaggerAnimation();
-        stoneEnemyMaterialHandler.StartDecay();
-        return base.takeDamage(dmg, level, element);
-        
-    }
-
-    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier)
-    {
-        stoneEnemyMaterialHandler.StartDecay();
         return base.takeDamageCritical(dmg, level, element, multiplier);
-    }
-    public override void RemoveDebuff(FireEffectScript debuff = null)
-    {
-        base.RemoveDebuff(debuff as DebuffScript);
-        stoneEnemyMaterialHandler.SetFire(CheckIsStillOnFire());
-    }
-    public override void ApplyDebuff(FireEffectScript debuff)
-    {
-        base.ApplyDebuff(debuff as DebuffScript);
-        stoneEnemyMaterialHandler.SetFire(true);
-
-    }
-    public override void ApplyDebuff(ShockEffectScript debuff)
-    {
-        base.ApplyDebuff(debuff as DebuffScript);
-
-    }
-
-    public override void ResetSystem()
-    {
-        base.ResetSystem();
-        stoneEnemyMaterialHandler.SetFire(false);
-    }
-
-    bool CheckIsStillOnFire()
-    {
-        foreach (DebuffScript d in debuffList)
-        {
-            if (d is FireEffectScript)
-            {
-                return true;
-            }
-        }
-        return false;
-
     }
 
     public override bool CheckDead()

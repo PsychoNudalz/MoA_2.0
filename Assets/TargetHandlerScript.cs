@@ -18,7 +18,7 @@ public class TargetHandlerScript : MonoBehaviour
         }
         if (targetMaterialHandler == null)
         {
-            targetMaterialHandler = GetComponent<TargetMaterialHandlerScript>();
+            targetMaterialHandler = GetComponentInChildren<TargetMaterialHandlerScript>();
         }
     }
 

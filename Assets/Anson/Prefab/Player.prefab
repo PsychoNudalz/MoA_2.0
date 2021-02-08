@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 4112174735619620036}
   - component: {fileID: 4112174735619620037}
   - component: {fileID: 111666207402980044}
+  - component: {fileID: 3344884982066278628}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -155,18 +156,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4440c12464cc42a48b02139ac062a026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 9.81
-  jumpSpeed: 30
-  sensitivityX: 0.5
-  sensitivityY: 0.5
+  gravity: 15
+  jumpSpeed: 8
+  sensitivityX: 0.05
+  sensitivityY: 0.05
   minY: -85
   maxY: 85
   tilt: 20
-  moveSpeed: 12
+  moveSpeed: 10
   cam1: {fileID: 4112174735984912498}
   dashDistance: 5
   lookScript: {fileID: 4112174735619620038}
-  doubleJumpSpeed: 15
+  doubleJumpSpeed: 10
   dashCooldown: 1
   gunDamageScript: {fileID: 4112174736969628676}
 --- !u!114 &4112174735619620037
@@ -269,10 +270,6 @@ MonoBehaviour:
     m_ActionName: Player/DespawnAllGuns[/Keyboard/v]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 60c165a2-b5f1-403f-9c80-7a594ae7f534
-    m_ActionName: Player/GenerateGun2
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 25cd3158-9f23-4c28-93e0-e5f1513384a5
     m_ActionName: Player/GenerateGun[/Keyboard/c]
   - m_PersistentCalls:
@@ -355,6 +352,20 @@ MonoBehaviour:
   groupParticleSystemScript: {fileID: 0}
   animator: {fileID: 0}
   deathTriggerName: Death
+--- !u!136 &3344884982066278628
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112174735619620034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4112174735984912510
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,4 +718,5 @@ MonoBehaviour:
   lookScript: {fileID: 0}
   originalFireDirection_X: 0
   displayFireRaycast: 1
+  isAI: 0
   ansonTempUIScript: {fileID: 0}

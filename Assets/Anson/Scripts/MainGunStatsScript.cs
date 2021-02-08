@@ -140,35 +140,50 @@ public class MainGunStatsScript : GunStatsScript
 
     public void Play_Fire()
     {
-        soundManager.Play(sound_Fire);
+        if (sound_Fire != null)
+        {
+            soundManager.Play(sound_Fire);
+        }
     }
 
     public void Play_StartReload()
     {
-        soundManager.Play(sound_StartReload);
+        if (sound_StartReload != null)
+        {
+            soundManager.Play(sound_StartReload);
+        }
     }
     public void Play_EndReload()
     {
-        soundManager.Play(sound_EndReload);
+        if (sound_EndReload != null)
+        {
+            soundManager.Play(sound_EndReload);
+        }
     }
 
 
     public void PlayGunShootEffect()
     {
-        bulletParticle.Play();
-        muzzleEffect.Play();
+        if (bulletParticle != null)
+        {
+            bulletParticle.Play();
+        }
+        if (muzzleEffect != null)
+        {
+            muzzleEffect.Play();
+        }
     }
 
     public override string ToString()
     {
         string returnString = string.Concat(
             name, "\n",
-            gunType.ToString()," ", elementType.ToString(), "\n",
-            "Damage: ",damagePerProjectile, " x ", projectilePerShot, "\n",
+            gunType.ToString(), " ", elementType.ToString(), "\n",
+            "Damage: ", damagePerProjectile, " x ", projectilePerShot, "\n",
             "RPM: ", RPM, " Recoil: ", recoil.ToString(), "\n",
             "Mag: ", magazineSize, " Reload Speed: ", ReloadSpeed, "\n",
             "Range: ", range, "\n",
-            " Drop Offs: ", Mathf.Round(rangeCurve.Evaluate(0) * damagePerProjectile),", " , Mathf.Round(rangeCurve.Evaluate(0.5f) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(1) * damagePerProjectile)
+            " Drop Offs: ", Mathf.Round(rangeCurve.Evaluate(0) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(0.5f) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(1) * damagePerProjectile)
 
             );
         return returnString;

@@ -47,6 +47,10 @@ public class PlayerLifeSystemScript : LifeSystemScript
     }
 
 
+    protected override void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
+    {
+    }
+
 
 
 }
