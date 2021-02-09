@@ -34,6 +34,10 @@ public class TestScript : MonoBehaviour
         {
 
             GameObject newGun = generatorScript1.GenerateGun();
+            if (gunDamageScript == null)
+            {
+                gunDamageScript = FindObjectOfType<GunDamageScript>();
+            }
             gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
         }
     }
@@ -43,6 +47,10 @@ public class TestScript : MonoBehaviour
         {
 
             GameObject newGun = generatorScript2.GenerateGun();
+            if (gunDamageScript == null)
+            {
+                gunDamageScript = FindObjectOfType<GunDamageScript>();
+            }
             gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
         }
     }
@@ -52,6 +60,10 @@ public class TestScript : MonoBehaviour
         {
 
             GameObject newGun = generatorScript3.GenerateGun();
+            if (gunDamageScript == null)
+            {
+                gunDamageScript = FindObjectOfType<GunDamageScript>();
+            }
             gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
         }
     }

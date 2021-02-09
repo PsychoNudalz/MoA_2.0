@@ -15,7 +15,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     [SerializeField] private float maxCoverDelay = 5f;
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private Transform firePoint;
-
+    private EnemyWaypoint[] waypointstofollow;
     private NavMeshAgent shootingEnemyAgent;
     private Animator shootingEnemyAnimator;
     private float currentAttackTimer;
@@ -55,7 +55,7 @@ public class ShootingEnemyAgent : MonoBehaviour
      */
     private void ResetAttackTimer()
     {
-        currentAttackTimer = Mathf.Clamp(Random.Range(minAttackDelay, maxAttackDelay),4f,maxAttackDelay);
+        currentAttackTimer = Mathf.Clamp(Random.Range(minAttackDelay, maxAttackDelay),1.5f,maxAttackDelay);
         
     }
 
@@ -80,7 +80,7 @@ public class ShootingEnemyAgent : MonoBehaviour
                 }
                 //Debug.DrawRay(transform.position, target * 10f, Color.red);
             }
-            if (!isShooting)
+            if (!isShooting && !isCrouching)
             {
                 currentAttackTimer -= Time.deltaTime;
             }
@@ -158,6 +158,7 @@ public class ShootingEnemyAgent : MonoBehaviour
 
     public void DeathAnimation()
     {
+        target.GetComponent<EnemyWaypoint>().SetIsValid(true);
         shootingEnemyAgent.speed = 0f;
         shootingEnemyAgent.velocity = Vector3.zero;
         GetComponent<Rigidbody>().isKinematic = true;
@@ -166,7 +167,7 @@ public class ShootingEnemyAgent : MonoBehaviour
 
     }
 
-    private EnemyWaypoint[] waypointstofollow;
+    
 
     public void Stagger()
     {
@@ -187,6 +188,5 @@ public class ShootingEnemyAgent : MonoBehaviour
     public void Fire()
     {
         gunDamageScript.Shoot();
-        print("Shoot");
     }
 }
