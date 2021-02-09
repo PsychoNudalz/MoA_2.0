@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
         /*
          * Set number of waypoints
          */
-        numberOfWaypoints = transform.parent.GetComponentsInChildren<EnemyWaypoint>().Length;
+        numberOfWaypoints = transform.parent.GetComponentsInChildren<EnemyWaypoint>().Length -1;
         /*
          * Save enemy prefabs to spawn in array
          */
@@ -61,13 +61,13 @@ public class EnemySpawner : MonoBehaviour
              * If enemies left to spawn and delay time reached
              * spawn another enemy
              */
-            if (enemiesSpawned < numberOfEnemies)
+            if (spawnCountdown <= 0)
+            {
+                SpawnEnemy();
+            }
+            else if (enemiesSpawned < numberOfEnemies)
             {
                 spawnCountdown -= Time.deltaTime;
-                if (spawnCountdown <= 0)
-                {
-                    SpawnEnemy();
-                }
             }
             else
             {
@@ -92,16 +92,16 @@ public class EnemySpawner : MonoBehaviour
         enemyToSpawn = GetEnemyToSpawn();
         if (enemyToSpawn.gameObject.name.Equals("ShootingEnemy"))
         {
-            if(transform.parent.GetComponentsInChildren<ShootingEnemyAgent>().Length +1 < numberOfWaypoints)
+            if (SufficientWaypoints())
             {
-                GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
                 enemiesSpawned++;
+                GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
                 spawnCountdown = delayBetweenSpawns;
             }
             else
             {
                 Debug.LogWarning("Insufficeient waypoints for shooting enemy spawn");
-                spawnCountdown = delayBetweenSpawns;
+                spawnCountdown = Random.Range(0f,1f);
             }
         }
         else
@@ -110,6 +110,11 @@ public class EnemySpawner : MonoBehaviour
             enemiesSpawned++;
             spawnCountdown = delayBetweenSpawns;
         }
+
+        bool SufficientWaypoints()
+        {
+            return transform.parent.GetComponentsInChildren<ShootingEnemyAgent>().Length + 1 < numberOfWaypoints;
+        }
     }
 
     /*
@@ -117,6 +122,7 @@ public class EnemySpawner : MonoBehaviour
      */
     private GameObject GetEnemyToSpawn()
     {
+        print("getting enemy prefab to spawn");
         switch (enemyType)
         {
             case EnemyType.StoneEnemy:
