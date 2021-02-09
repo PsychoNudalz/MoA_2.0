@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -41,6 +42,14 @@ public class LevelGenerator : MonoBehaviour
         yield return interval;
 
         Debug.Log("Level Generated!");
+
+        NavMeshSurface[] navSurfaces = GameObject.FindObjectsOfType<NavMeshSurface>();
+
+        foreach (NavMeshSurface navSurface in navSurfaces) {
+            Debug.Log("Baking Navmesh for " + navSurface);
+            navSurface.BuildNavMesh();
+        }
+
     }
 
     void AddFoggedDoorToList (Room room, ref List<FoggedDoor> list) {
@@ -77,9 +86,11 @@ public class LevelGenerator : MonoBehaviour
                 placed = true;
 
                 generatedRooms.Add(currentRoom);
-                //currentFoggedDoor.gameObject.SetActive(false);
+                //currentFoggedDoor.gameObject.GetComponent<MeshCollider>().enabled = false;
+                currentFoggedDoor.gameObject.SetActive(false);
                 idleFoggedDoors.Remove(currentFoggedDoor);
-                //idleFoggedDoor.gameObject.SetActive(false);
+                //idleFoggedDoor.gameObject.GetComponent<MeshCollider>().enabled = false;
+                idleFoggedDoor.gameObject.SetActive(false);
                 idleFoggedDoors.Remove(idleFoggedDoor);
 
                 break;
@@ -138,9 +149,11 @@ public class LevelGenerator : MonoBehaviour
 
             placed = true;
 
-            //foggedDoor.gameObject.SetActive(false);
+            //foggedDoor.gameObject.GetComponent<MeshCollider>().enabled = false;
+            foggedDoor.gameObject.SetActive(false);
             idleFoggedDoors.Remove(foggedDoor);
-            //idleFoggedDoor.gameObject.SetActive(false);
+            //idleFoggedDoor.gameObject.GetComponent<MeshCollider>().enabled = false;
+            idleFoggedDoor.gameObject.SetActive(false);
             idleFoggedDoors.Remove(idleFoggedDoor);
 
             break;
