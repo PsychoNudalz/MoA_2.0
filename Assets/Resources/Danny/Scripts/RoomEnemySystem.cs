@@ -11,13 +11,14 @@ public class RoomEnemySystem : MonoBehaviour
 
     private void Awake()
     {
-        kb = InputSystem.GetDevice<Keyboard>();
+        //kb = InputSystem.GetDevice<Keyboard>();
         roomSpawners = GetComponentsInChildren<EnemySpawner>();
     }
 
     private void Update()
     {
         
+        /*
         //For testing start spawning
         if (kb.numpadMinusKey.wasPressedThisFrame)
         {
@@ -27,6 +28,7 @@ public class RoomEnemySystem : MonoBehaviour
         {
             print("Room Clear = " + IsRoomClear());
         }
+        */
         
     }
 
@@ -50,7 +52,7 @@ public class RoomEnemySystem : MonoBehaviour
         int spawnersLeft = GetComponentsInChildren<EnemySpawner>().Length;
         if(spawnersLeft > 0)
         {
-            print(spawnersLeft + " Spawners left");
+            //print(spawnersLeft + " Spawners left");
         }
         return spawnersLeft == 0;
     }

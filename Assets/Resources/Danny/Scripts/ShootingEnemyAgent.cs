@@ -55,7 +55,7 @@ public class ShootingEnemyAgent : MonoBehaviour
      */
     private void ResetAttackTimer()
     {
-        currentAttackTimer = Mathf.Clamp(Random.Range(minAttackDelay, maxAttackDelay),4f,maxAttackDelay);
+        currentAttackTimer = Mathf.Clamp(Random.Range(minAttackDelay, maxAttackDelay),1.5f,maxAttackDelay);
         
     }
 

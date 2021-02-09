@@ -794,7 +794,12 @@ public class GunDamageScript : DamageScript
 
     void UpdateGunStatText()
     {
-        if(ansonTempUIScript != null && !isAI)
+        if (isAI)
+        {
+            return;
+        }
+
+        if(ansonTempUIScript != null)
         {
             ansonTempUIScript.SetGunText(mainGunStatsScript.ToString());
         }

@@ -9,6 +9,8 @@ public class Room : MonoBehaviour
     List<FoggedDoor> availableDoors;
     public MeshCollider meshCollider;
     public RoomEnemySystem roomEnemySystem;
+    [SerializeField] bool ignoreSpawner = false;
+    [SerializeField] bool isRoomClear = false;
 
     Keyboard keyboard;
 
@@ -16,7 +18,7 @@ public class Room : MonoBehaviour
         get { return meshCollider.bounds; }
     }
 
-    private void Awake() {
+    private void Start() {
         keyboard = InputSystem.GetDevice<Keyboard>();
         availableDoors = new List<FoggedDoor>();
     }
@@ -34,13 +36,14 @@ public class Room : MonoBehaviour
         }
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         // need to detect if player cleared the room
         // using NumPad + for replacement for now
-        if (keyboard.numpadPlusKey.wasPressedThisFrame) {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in enemies) Destroy(enemy);
+        if (!ignoreSpawner && roomEnemySystem.IsRoomClear()) {
+            //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            //foreach (GameObject enemy in enemies) Destroy(enemy);
             foreach (FoggedDoor door in availableDoors) door.gameObject.SetActive(false);
+            isRoomClear = true;
         }
     }
 }
