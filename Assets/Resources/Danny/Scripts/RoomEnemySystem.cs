@@ -17,7 +17,7 @@ public class RoomEnemySystem : MonoBehaviour
 
     private void Update()
     {
-        /*
+        
         //For testing start spawning
         if (kb.numpadMinusKey.wasPressedThisFrame)
         {
@@ -27,7 +27,7 @@ public class RoomEnemySystem : MonoBehaviour
         {
             print("Room Clear = " + IsRoomClear());
         }
-        */
+        
     }
 
     public void StartRoomSpawners()

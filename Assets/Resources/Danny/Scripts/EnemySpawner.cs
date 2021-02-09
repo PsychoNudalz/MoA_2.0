@@ -49,8 +49,9 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
+    
         /*
          * If spawning started...
          */
@@ -91,12 +92,15 @@ public class EnemySpawner : MonoBehaviour
         enemyToSpawn = GetEnemyToSpawn();
         if (enemyToSpawn.gameObject.name.Equals("ShootingEnemy"))
         {
-            print("Waypoints - " + numberOfWaypoints
-                 + "Shooting Enemies - " + GetComponentsInChildren<ShootingEnemyAgent>().Length);
-            if(GetComponentsInChildren<ShootingEnemyAgent>().Length +1 < numberOfWaypoints)
+            if(transform.parent.GetComponentsInChildren<ShootingEnemyAgent>().Length +1 < numberOfWaypoints)
             {
                 GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
                 enemiesSpawned++;
+                spawnCountdown = delayBetweenSpawns;
+            }
+            else
+            {
+                Debug.LogWarning("Insufficeient waypoints for shooting enemy spawn");
                 spawnCountdown = delayBetweenSpawns;
             }
         }
