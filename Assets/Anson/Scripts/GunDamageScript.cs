@@ -723,6 +723,11 @@ public class GunDamageScript : DamageScript
 
     void UpdateAmmoCount()
     {
+        if (isAI)
+        {
+            return;
+        }
+
         try
         {
             ansonTempUIScript.SetAmmoText(currentMag.ToString());
