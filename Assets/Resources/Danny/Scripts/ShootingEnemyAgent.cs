@@ -67,14 +67,14 @@ public class ShootingEnemyAgent : MonoBehaviour
             if (currentAttackTimer <= 0 && !isShooting)
             {
                 RaycastHit hit;
-                Vector3 playerDirection = player.transform.position - transform.position;
+                Vector3 playerDirection = player.transform.position - firePoint.transform.position;
                 Vector3 shootDirection = (new Vector3(playerDirection.x, 0f, playerDirection.z));
-                //Debug.DrawRay(transform.position, shootDirection, Color.red,2f);
-                if (Physics.Raycast(transform.position, shootDirection, out hit, Mathf.Infinity))
+                Debug.DrawRay(transform.position, playerDirection, Color.red,2f);
+                if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, Mathf.Infinity))
                 {
                     if (hit.collider.CompareTag("Player"))
                     {
-                        Debug.DrawRay(transform.position, shootDirection * hit.distance, Color.red,5f);
+                        Debug.DrawRay(firePoint.transform.position, shootDirection * hit.distance, Color.red,5f);
                         StartCoroutine(Shoot(3.5f));
                     }
                 }
@@ -84,7 +84,7 @@ public class ShootingEnemyAgent : MonoBehaviour
             {
                 currentAttackTimer -= Time.deltaTime;
             }
-            if (Vector3.Distance(transform.position, target.position) <= 0.2f && !isShooting)
+            if (Vector3.Distance(transform.position, target.position) <= 1f && !isShooting)
             {
                 StartCoroutine(Crouch(Random.Range(minCoverDelay,maxCoverDelay)));
             }
