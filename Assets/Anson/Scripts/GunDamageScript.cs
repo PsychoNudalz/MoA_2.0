@@ -11,6 +11,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] protected float RPM = 0;
     [SerializeField] protected float reloadSpeed = 0;
     [SerializeField] protected Vector2 recoil = new Vector2(0, 0);
+    [SerializeField] protected Vector2 recoil_HipFire = new Vector2(0, 0);
     [SerializeField] protected float range = 0;
     [SerializeField] protected float magazineSize = 0;
     [SerializeField] protected int projectilePerShot;
@@ -132,6 +133,7 @@ public class GunDamageScript : DamageScript
         RPM = g.RPM_Get;
         reloadSpeed = g.ReloadSpeed;
         recoil = g.Recoil;
+        recoil_HipFire = g.Recoil_HipFire;
         range = g.Range;
         magazineSize = g.MagazineSize;
         projectilePerShot = g.ProjectilePerShot;
@@ -446,7 +448,10 @@ public class GunDamageScript : DamageScript
     {
         RaycastHit hit;
         bool hitTarget = false;
-        randomFireDir = new Vector2(Random.Range(0, currentRecoil.x), Random.Range(-180f, 180f));
+        float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x*.5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
+
+        randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
+
         fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
 
@@ -459,7 +464,7 @@ public class GunDamageScript : DamageScript
             //Shotgun Raycast
             for (int i = 0; i < projectilePerShot - 1; i++)
             {
-                randomFireDir = new Vector2(Random.Range(recoil.x * 0.35f, recoil.x), (360f / (projectilePerShot - 1)) * i);
+                randomFireDir = new Vector2(Random.Range(recoil_HipFire.x * 0.35f, recoil_HipFire.x), (360f / (projectilePerShot - 1)) * i);
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
@@ -483,7 +488,7 @@ public class GunDamageScript : DamageScript
             //Shotgun Raycast
             for (int i = 0; i < projectilePerShot - 1; i++)
             {
-                randomFireDir = new Vector2(Random.Range(0, recoil.y), (360f / (projectilePerShot - 1)) * i);
+                randomFireDir = new Vector2(Random.Range(0, recoil_HipFire.y), (360f / (projectilePerShot - 1)) * i);
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
