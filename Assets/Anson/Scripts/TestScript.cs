@@ -11,7 +11,8 @@ public class TestScript : MonoBehaviour
     public ShootingRangeScript shootingRangeScript1;
     public ShootingRangeScript shootingRangeScript2;
 
-    public GunDamageScript gunDamageScript;
+    public PlayerInventorySystemScript playerInventorySystemScript;
+    //public GunDamageScript gunDamageScript;
     Mouse mouse;
     Keyboard keyboard;
 
@@ -21,10 +22,13 @@ public class TestScript : MonoBehaviour
         {
             generatorScript1 = FindObjectOfType<GunGeneratorScript>();
         }
+        /*
         if (gunDamageScript == null)
         {
             gunDamageScript = FindObjectOfType<GunDamageScript>();
         }
+        */
+        playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
     }
 
 
@@ -34,11 +38,15 @@ public class TestScript : MonoBehaviour
         {
 
             GameObject newGun = generatorScript1.GenerateGun();
+            /*
             if (gunDamageScript == null)
             {
                 gunDamageScript = FindObjectOfType<GunDamageScript>();
             }
             gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
+            */
+            playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
+
         }
     }
     public void GenerateGun_Group(InputAction.CallbackContext callbackContext)
@@ -47,11 +55,8 @@ public class TestScript : MonoBehaviour
         {
 
             GameObject newGun = generatorScript2.GenerateGun();
-            if (gunDamageScript == null)
-            {
-                gunDamageScript = FindObjectOfType<GunDamageScript>();
-            }
-            gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
+            playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
+
         }
     }
     public void GenerateGun_All(InputAction.CallbackContext callbackContext)
@@ -60,48 +65,12 @@ public class TestScript : MonoBehaviour
         {
 
             GameObject newGun = generatorScript3.GenerateGun();
-            if (gunDamageScript == null)
-            {
-                gunDamageScript = FindObjectOfType<GunDamageScript>();
-            }
-            gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
-        }
-    }
-
-    public void Shoot(InputAction.CallbackContext callbackContext)
-    {
-        if (callbackContext.performed)
-        {
-            gunDamageScript.Fire(true);
-        }
-        else if (callbackContext.canceled)
-        {
-            gunDamageScript.Fire(false);
-        }
-    }
-
-
-    public void Aim(InputAction.CallbackContext callbackContext)
-    {
-        if (callbackContext.performed)
-        {
-            gunDamageScript.ADS_On();
-        }
-        else if (callbackContext.canceled)
-        {
-            gunDamageScript.ADS_Off();
+            playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
 
         }
     }
 
-    public void MovePlayer(InputAction.CallbackContext callbackContext)
-    {
-    }
-
-    public void Reload()
-    {
-        gunDamageScript.Reload();
-    }
+    
 
     public void RemoveAllGuns()
     {

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1529284002967190719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7892161585610838363}
+  m_Layer: 9
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7892161585610838363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529284002967190719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4112174735619620033}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4112174735616063626
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,13 +69,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4112174735619620033}
-  - component: {fileID: 4112174735619620032}
-  - component: {fileID: 4112174735619620038}
-  - component: {fileID: 4112174735619620039}
-  - component: {fileID: 4112174735619620036}
+  - component: {fileID: 1198423547983658473}
   - component: {fileID: 4112174735619620037}
-  - component: {fileID: 111666207402980044}
+  - component: {fileID: 4112174735619620032}
   - component: {fileID: 3344884982066278628}
+  - component: {fileID: 4112174735619620038}
+  - component: {fileID: 4112174735619620036}
+  - component: {fileID: 111666207402980044}
+  - component: {fileID: 4011440769745659725}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -66,28 +97,11 @@ Transform:
   m_Children:
   - {fileID: 4112174736439931460}
   - {fileID: 4112174736969628677}
+  - {fileID: 7892161585610838363}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &4112174735619620032
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4112174735619620034}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &4112174735619620038
+--- !u!114 &1198423547983658473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,80 +110,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4112174735619620034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9881f4b1c8e666741a63d5473e4d5c6f, type: 3}
+  m_Script: {fileID: 11500000, guid: ddcdd393d16923f43bb48e6557ac0fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 10
-  rotateSpeed_Current: 0
-  CharacterBody: {fileID: 4112174735619620033}
-  UpDown: {fileID: 4112174736969628677}
-  mouseValue: {x: 0, y: 0}
-  maxRotationDown: 85
-  yRotation: 0
-  FOV: 0
-  aimCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  timeNow_Aim: 0
---- !u!114 &4112174735619620039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4112174735619620034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbdaef251c1d3214194a2c8db517cea7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4112174735619620036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4112174735619620034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4440c12464cc42a48b02139ac062a026, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: 15
-  jumpSpeed: 8
-  sensitivityX: 1
-  sensitivityY: 1
-  minY: -85
-  maxY: 85
-  tilt: 20
-  moveSpeed: 10
-  cam1: {fileID: 4112174735984912498}
-  dashDistance: 5
-  lookScript: {fileID: 4112174735619620038}
-  doubleJumpSpeed: 10
-  dashCooldown: 1
-  gunDamageScript: {fileID: 4112174736969628676}
+  playerLifeSystemScript: {fileID: 0}
+  playerGunDamageScript: {fileID: 0}
+  playerInventorySystemScript: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!114 &4112174735619620037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,8 +175,8 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4112174735619620038}
-        m_MethodName: LookMouse
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -321,11 +268,164 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 535c80b3-6be2-4576-b092-5219091c8d8b
     m_ActionName: Player/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: SwapToWeapon1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eb5ad711-53d4-4bd9-b8e9-3690807e52a7
+    m_ActionName: Player/Gun1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: SwapToWeapon2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 79f66fee-a87c-41bf-b744-573456157e79
+    m_ActionName: Player/Gun2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: SwapToWeapon3
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 87814599-2987-4f65-b398-fc9e3cf42212
+    m_ActionName: Player/Gun3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4fa00674-e281-4224-b4a0-bd18f29d7f49
+    m_ActionName: Player/WeaponWheel[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!143 &4112174735619620032
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112174735619620034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!136 &3344884982066278628
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112174735619620034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4112174735619620038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112174735619620034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9881f4b1c8e666741a63d5473e4d5c6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 10
+  rotateSpeed_Current: 0
+  CharacterBody: {fileID: 4112174735619620033}
+  UpDown: {fileID: 4112174736969628677}
+  mouseValue: {x: 0, y: 0}
+  maxRotationDown: 85
+  yRotation: 0
+  FOV: 0
+  aimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  timeNow_Aim: 0
+--- !u!114 &4112174735619620036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112174735619620034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4440c12464cc42a48b02139ac062a026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 15
+  jumpSpeed: 8
+  sensitivityX: 1
+  sensitivityY: 1
+  minY: -85
+  maxY: 85
+  tilt: 20
+  moveSpeed: 10
+  cam1: {fileID: 4112174735984912498}
+  dashDistance: 5
+  lookScript: {fileID: 4112174735619620038}
+  doubleJumpSpeed: 10
+  dashCooldown: 1
+  gunDamageScript: {fileID: 4112174736969628676}
+  playerInventorySystemScript: {fileID: 0}
 --- !u!114 &111666207402980044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,20 +452,26 @@ MonoBehaviour:
   groupParticleSystemScript: {fileID: 0}
   animator: {fileID: 0}
   deathTriggerName: Death
---- !u!136 &3344884982066278628
-CapsuleCollider:
+--- !u!114 &4011440769745659725
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4112174735619620034}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad76a6801288b548ba5623e3e03c220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMasterScript: {fileID: 0}
+  Weapons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  pointer: 0
+  inventoryTransform: {fileID: 7892161585610838363}
+  gunDamageScript: {fileID: 0}
 --- !u!1 &4112174735984912510
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +768,7 @@ MonoBehaviour:
   RPM: 0
   reloadSpeed: 0
   recoil: {x: 0, y: 0}
+  recoil_HipFire: {x: 0, y: 0}
   range: 0
   magazineSize: 0
   projectilePerShot: 0

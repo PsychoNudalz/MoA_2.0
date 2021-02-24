@@ -49,8 +49,12 @@ public class PlayerController : MonoBehaviour
 
 
     [Space]
-    [Header("Gun Control")]
+    [Header("Other Components")]
     [SerializeField] GunDamageScript gunDamageScript;
+    [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
+
+    public GunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
+    public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
 
 
 
@@ -94,9 +98,6 @@ public class PlayerController : MonoBehaviour
             cam1.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
             tilted = false;
         }
-
-
-
     }
 
     void Look()
@@ -111,9 +112,6 @@ public class PlayerController : MonoBehaviour
 
         controller.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection * moveSpeed * Time.deltaTime);
         controller.Move(jumped * Time.deltaTime);
-
-
-
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -141,8 +139,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        lookX += context.ReadValue<Vector2>().x * sensitivityX * Time.deltaTime;
-        lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
+        //lookX += context.ReadValue<Vector2>().x * sensitivityX * Time.deltaTime;
+        //lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
+        lookScript.LookMouse(context);
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -204,6 +203,27 @@ public class PlayerController : MonoBehaviour
         {
             gunDamageScript.ADS_Off();
 
+        }
+    }
+    public void SwapToWeapon1(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            playerInventorySystemScript.SwapToWeapon(0);
+        }
+    }
+    public void SwapToWeapon2(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            playerInventorySystemScript.SwapToWeapon(1);
+        }
+    }
+    public void SwapToWeapon3(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            playerInventorySystemScript.SwapToWeapon(2);
         }
     }
 

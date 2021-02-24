@@ -114,19 +114,25 @@ public class GunDamageScript : DamageScript
     }
 
 
-
-    public void UpdateGunScript(MainGunStatsScript g)
+    public MainGunStatsScript TidyOldGun()
     {
-        isFiring = false;
         if (mainGunStatsScript != null)
         {
             mainGunStatsScript.CurrentMag = currentMag;
-            mainGunStatsScript.transform.position += transform.right;
-            mainGunStatsScript.GetComponentInChildren<Rigidbody>().isKinematic = false;
-            mainGunStatsScript.GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
-            mainGunStatsScript.gameObject.transform.parent = null;
-            Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
+            return mainGunStatsScript;
         }
+        else
+        {
+            return null;
+        }
+    }
+
+    public MainGunStatsScript UpdateGunScript(MainGunStatsScript g)
+    {
+        isFiring = false;
+        MainGunStatsScript oldGunScript = TidyOldGun();
+        //Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
+
         mainGunStatsScript = g;
         gunType = g.GunType;
         damagePerProjectile = g.DamagePerProjectile;
@@ -172,7 +178,8 @@ public class GunDamageScript : DamageScript
             gunPosition = transform;
         }
         g.gameObject.transform.position = gunPosition.position;
-        g.gameObject.transform.parent = transform;
+        g.gameObject.transform.SetParent(transform);
+        g.gameObject.SetActive(true);
         //g.transform.right = firePoint.forward;
         if (sightLocation == null)
         {
@@ -183,15 +190,14 @@ public class GunDamageScript : DamageScript
 
         //HANDLE ELEMENTS.  Reduce main damage, change element damage
         elementDamage = Mathf.RoundToInt(g.ElementDamage * damagePerProjectile);
-        damagePerProjectile = damagePerProjectile*0.85f;
+        damagePerProjectile = damagePerProjectile * 0.85f;
         elementPotency = g.ElementPotency;
         elementChance = g.ElementChance;
 
 
         UpdateAmmoCount();
         UpdateGunStatText();
-
-
+        return oldGunScript;
 
     }
 
@@ -448,7 +454,7 @@ public class GunDamageScript : DamageScript
     {
         RaycastHit hit;
         bool hitTarget = false;
-        float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x*.5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
+        float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
 
         randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
 
@@ -694,7 +700,7 @@ public class GunDamageScript : DamageScript
                 break;
             case (ElementTypes.FIRE):
                 FireEffectScript newFireDebuff = new FireEffectScript();
-                newFireDebuff.init(elementDamage, elementPotency, tagList,layerMask);
+                newFireDebuff.init(elementDamage, elementPotency, tagList, layerMask);
                 ls.ApplyDebuff(newFireDebuff);
                 break;
             case (ElementTypes.ICE):
@@ -810,7 +816,7 @@ public class GunDamageScript : DamageScript
             return;
         }
 
-        if(ansonTempUIScript != null)
+        if (ansonTempUIScript != null)
         {
             ansonTempUIScript.SetGunText(mainGunStatsScript.ToString());
         }

@@ -113,6 +113,38 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Gun1"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb5ad711-53d4-4bd9-b8e9-3690807e52a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Gun2"",
+                    ""type"": ""Button"",
+                    ""id"": ""79f66fee-a87c-41bf-b744-573456157e79"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Gun3"",
+                    ""type"": ""Button"",
+                    ""id"": ""87814599-2987-4f65-b398-fc9e3cf42212"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""WeaponWheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""4fa00674-e281-4224-b4a0-bd18f29d7f49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -346,11 +378,72 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""action"": """",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5904da9-fd76-44ca-9bde-c0011ff550f8"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gun1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92fc7e32-31d9-43cc-9eb7-39cbd31792c1"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gun2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24625dc5-3f49-47d9-9de0-813dda84359e"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gun3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ae088d5-e3b5-4355-b16d-de2989c281fc"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""M&K"",
+                    ""action"": ""WeaponWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""M&K"",
+            ""bindingGroup"": ""M&K"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
@@ -366,6 +459,10 @@ public class @Controller : IInputActionCollection, IDisposable
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_Gun1 = m_Player.FindAction("Gun1", throwIfNotFound: true);
+        m_Player_Gun2 = m_Player.FindAction("Gun2", throwIfNotFound: true);
+        m_Player_Gun3 = m_Player.FindAction("Gun3", throwIfNotFound: true);
+        m_Player_WeaponWheel = m_Player.FindAction("WeaponWheel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -427,6 +524,10 @@ public class @Controller : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_Gun1;
+    private readonly InputAction m_Player_Gun2;
+    private readonly InputAction m_Player_Gun3;
+    private readonly InputAction m_Player_WeaponWheel;
     public struct PlayerActions
     {
         private @Controller m_Wrapper;
@@ -443,6 +544,10 @@ public class @Controller : IInputActionCollection, IDisposable
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @Gun1 => m_Wrapper.m_Player_Gun1;
+        public InputAction @Gun2 => m_Wrapper.m_Player_Gun2;
+        public InputAction @Gun3 => m_Wrapper.m_Player_Gun3;
+        public InputAction @WeaponWheel => m_Wrapper.m_Player_WeaponWheel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -488,6 +593,18 @@ public class @Controller : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Gun1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
+                @Gun1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
+                @Gun1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
+                @Gun2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun2;
+                @Gun2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun2;
+                @Gun2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun2;
+                @Gun3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun3;
+                @Gun3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun3;
+                @Gun3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun3;
+                @WeaponWheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponWheel;
+                @WeaponWheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponWheel;
+                @WeaponWheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponWheel;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -528,10 +645,31 @@ public class @Controller : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Gun1.started += instance.OnGun1;
+                @Gun1.performed += instance.OnGun1;
+                @Gun1.canceled += instance.OnGun1;
+                @Gun2.started += instance.OnGun2;
+                @Gun2.performed += instance.OnGun2;
+                @Gun2.canceled += instance.OnGun2;
+                @Gun3.started += instance.OnGun3;
+                @Gun3.performed += instance.OnGun3;
+                @Gun3.canceled += instance.OnGun3;
+                @WeaponWheel.started += instance.OnWeaponWheel;
+                @WeaponWheel.performed += instance.OnWeaponWheel;
+                @WeaponWheel.canceled += instance.OnWeaponWheel;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+    private int m_MKSchemeIndex = -1;
+    public InputControlScheme MKScheme
+    {
+        get
+        {
+            if (m_MKSchemeIndex == -1) m_MKSchemeIndex = asset.FindControlSchemeIndex("M&K");
+            return asset.controlSchemes[m_MKSchemeIndex];
+        }
+    }
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -546,5 +684,9 @@ public class @Controller : IInputActionCollection, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnGun1(InputAction.CallbackContext context);
+        void OnGun2(InputAction.CallbackContext context);
+        void OnGun3(InputAction.CallbackContext context);
+        void OnWeaponWheel(InputAction.CallbackContext context);
     }
 }
