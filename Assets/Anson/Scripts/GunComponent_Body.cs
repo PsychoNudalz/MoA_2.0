@@ -33,6 +33,7 @@ public class GunComponent_Body : GunComponent
     [Header("Component")]
     [SerializeField] GunComponent_Sight component_Sight;
     [SerializeField] Transform sightLocation;
+    [SerializeField] Vector3 sightOffset;
     [SerializeField] Transform muzzleLocation;
 
     [Header("Animator")]
@@ -70,8 +71,7 @@ public class GunComponent_Body : GunComponent
     public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
     public AnimationCurve RangeCurve { get => rangeCurve; }
     public ElementTypes ElementType { get => elementType; }
-
-
+    public Vector3 SightOffset { get => sightOffset; set => sightOffset = value; }
 
     private void Awake()
     {
@@ -82,6 +82,7 @@ public class GunComponent_Body : GunComponent
     {
         component_Sight = s;
         sightLocation = s.SightLocation;
+        sightOffset = sightLocation.position - transform.position;
     }
 
     public void SetMuzzle(Transform m)

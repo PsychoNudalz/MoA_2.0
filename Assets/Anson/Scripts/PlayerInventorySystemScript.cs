@@ -12,6 +12,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
     [SerializeField] GunDamageScript gunDamageScript;
 
     public GunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
+    public int Pointer { get => pointer; set => pointer = value; }
 
     //[SerializeField] MainGunStatsScript currentGun;
 
@@ -19,6 +20,8 @@ public class PlayerInventorySystemScript : MonoBehaviour
     public void SwapWeapon(MainGunStatsScript newGun, bool isNew = false)
     {
         MainGunStatsScript currentGun = Weapons[pointer];
+        gunDamageScript.TidyOldGun();
+
         if (isNew)
         {
             throwOldWeapon();
@@ -29,7 +32,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
             if (currentGun != null)
             {
 
-                currentGun.gameObject.transform.SetParent(inventoryTransform);
+                //currentGun.gameObject.transform.SetParent(inventoryTransform);
                 currentGun.gameObject.SetActive(false);
             }
         }

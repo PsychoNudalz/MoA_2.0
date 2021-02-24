@@ -119,6 +119,7 @@ public class GunDamageScript : DamageScript
         if (mainGunStatsScript != null)
         {
             mainGunStatsScript.CurrentMag = currentMag;
+            
             return mainGunStatsScript;
         }
         else
@@ -177,16 +178,23 @@ public class GunDamageScript : DamageScript
         {
             gunPosition = transform;
         }
+
         g.gameObject.transform.position = gunPosition.position;
         g.gameObject.transform.SetParent(transform);
         g.gameObject.SetActive(true);
+
         //g.transform.right = firePoint.forward;
         if (sightLocation == null)
         {
             sightLocation = transform;
         }
+        /*
+        mainGunStatsScript.transform.rotation = Quaternion.identity;
         sightOffset = sightLocation.position - gunPosition.position;
         mainGunStatsScript.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        */
+        sightOffset = mainGunStatsScript.SightOffset;
+
 
         //HANDLE ELEMENTS.  Reduce main damage, change element damage
         elementDamage = Mathf.RoundToInt(g.ElementDamage * damagePerProjectile);
@@ -742,7 +750,7 @@ public class GunDamageScript : DamageScript
 
         try
         {
-            ansonTempUIScript.SetAmmoText(currentMag.ToString());
+            ansonTempUIScript.SetAmmoText(string.Concat(currentMag.ToString(),"/",magazineSize.ToString()));
 
         }
         catch (System.Exception e)
