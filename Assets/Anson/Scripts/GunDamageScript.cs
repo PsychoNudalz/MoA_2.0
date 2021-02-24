@@ -119,13 +119,14 @@ public class GunDamageScript : DamageScript
         if (mainGunStatsScript != null)
         {
             mainGunStatsScript.CurrentMag = currentMag;
-            
-            return mainGunStatsScript;
+            mainGunStatsScript.PlayAnimationTrigger("Reset");
+
         }
-        else
-        {
-            return null;
-        }
+        EndReload();
+        isFiring = false;
+        //currentRecoil = new Vector2(0, 0);
+        currentRecoilTime = 0f;
+        return mainGunStatsScript;
     }
 
     public MainGunStatsScript UpdateGunScript(MainGunStatsScript g)
@@ -750,7 +751,7 @@ public class GunDamageScript : DamageScript
 
         try
         {
-            ansonTempUIScript.SetAmmoText(string.Concat(currentMag.ToString(),"/",magazineSize.ToString()));
+            ansonTempUIScript.SetAmmoText(string.Concat(currentMag.ToString(), "/", magazineSize.ToString()));
 
         }
         catch (System.Exception e)
@@ -794,7 +795,7 @@ public class GunDamageScript : DamageScript
             mainGunStatsScript.Play_EndReload();
             currentMag = magazineSize;
             isReloading = false;
-
+            EndReload();
 
         }
         else
@@ -804,15 +805,29 @@ public class GunDamageScript : DamageScript
             if (currentMag < magazineSize)
             {
                 currentReloadCoroutine = StartCoroutine(DelayReload(0.05f));
+                UpdateAmmoCount();
+
             }
             else
             {
                 isReloading = false;
                 mainGunStatsScript.Play_EndReload();
-                currentReloadCoroutine = null;
+                EndReload();
+
             }
         }
+    }
+
+    void EndReload()
+    {
+        if (currentReloadCoroutine != null)
+        {
+            StopCoroutine(currentReloadCoroutine);
+            currentReloadCoroutine = null;
+        }
+        isReloading = false;
         UpdateAmmoCount();
+
     }
 
 

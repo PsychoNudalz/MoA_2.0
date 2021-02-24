@@ -51,6 +51,10 @@ public class TestScript : MonoBehaviour
             }
             gunDamageScript.UpdateGunScript(newGun.GetComponent<MainGunStatsScript>());
             */
+            if (playerInventorySystemScript == null)
+            {
+                playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
+            }
             playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
 
         }
@@ -61,6 +65,10 @@ public class TestScript : MonoBehaviour
         {
 
             GameObject newGun = generatorScript2.GenerateGun();
+            if (playerInventorySystemScript == null)
+            {
+                playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
+            }
             playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
 
         }
@@ -71,6 +79,10 @@ public class TestScript : MonoBehaviour
         {
 
             GameObject newGun = generatorScript3.GenerateGun();
+            if (playerInventorySystemScript == null)
+            {
+                playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
+            }
             playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
 
         }
