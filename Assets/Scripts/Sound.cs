@@ -23,6 +23,8 @@ public class Sound : MonoBehaviour
     public float spatialBlend = 1f;
     [Range(0f, 1.1f)]
     public float reverbZoneMix = 0f;
+    [Range(0f, 1f)]
+    public float dopplerLevel = 0f;
 
     public float minDistance = 10f;
     public float maxDistance = 20f;

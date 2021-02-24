@@ -62,6 +62,7 @@ public class LifeSystemScript : MonoBehaviour
                 i--;
             }
         }
+        //StartCoroutine(TickDebuffs());
     }
 
 
@@ -311,16 +312,6 @@ public class LifeSystemScript : MonoBehaviour
     }
 
 
-    void TickDebuffs()
-    {
-        foreach (DebuffScript d in debuffList)
-        {
-            d.TickEffect(Time.deltaTime);
-        }
-    }
-
-
-
     private void OnEnable()
     {
         try
@@ -338,5 +329,17 @@ public class LifeSystemScript : MonoBehaviour
 
         }
         
+    }
+
+    IEnumerator TickDebuffs()
+    {
+        yield return new WaitForEndOfFrame(); 
+        for (int i = 0; i < debuffList.Count; i++)
+        {
+            if (debuffList[i].TickEffect(Time.deltaTime))
+            {
+                i--;
+            }
+        }
     }
 }

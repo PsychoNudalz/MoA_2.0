@@ -76,6 +76,7 @@ public class SoundManager : MonoBehaviour
                     s.source.minDistance = s.minDistance;
                     s.source.maxDistance = s.maxDistance;
                     s.source.outputAudioMixerGroup = mixerGroup;
+                    s.source.dopplerLevel = s.dopplerLevel;
                 }
                 catch (System.Exception e)
                 {

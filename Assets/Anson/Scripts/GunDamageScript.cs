@@ -683,20 +683,21 @@ public class GunDamageScript : DamageScript
 
     void ApplyElementEffect(LifeSystemScript ls)
     {
-        ElementDebuffScript newDebuff;
         switch (elementType)
         {
             case (ElementTypes.PHYSICAL):
                 break;
             case (ElementTypes.FIRE):
-                newDebuff = new FireEffectScript(elementDamage, elementPotency);
-                ls.ApplyDebuff(newDebuff as FireEffectScript);
+                FireEffectScript newFireDebuff = new FireEffectScript();
+                newFireDebuff.init(elementDamage, elementPotency, tagList,layerMask);
+                ls.ApplyDebuff(newFireDebuff);
                 break;
             case (ElementTypes.ICE):
                 break;
             case (ElementTypes.SHOCK):
-                newDebuff = new ShockEffectScript(elementDamage, elementPotency, tagList, layerMask);
-                ls.ApplyDebuff(newDebuff as ShockEffectScript);
+                ShockEffectScript newShockDebuff = new ShockEffectScript();
+                newShockDebuff.init(elementDamage, elementPotency, tagList, layerMask);
+                ls.ApplyDebuff(newShockDebuff);
                 break;
         }
     }
