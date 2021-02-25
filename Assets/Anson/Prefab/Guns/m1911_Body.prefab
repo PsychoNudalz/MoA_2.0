@@ -85,6 +85,7 @@ MonoBehaviour:
   pitchVariance: 0.1
   spatialBlend: 1
   reverbZoneMix: 0
+  dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
   loop: 0
@@ -142,6 +143,7 @@ MonoBehaviour:
   pitchVariance: 0.1
   spatialBlend: 1
   reverbZoneMix: 0
+  dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
   loop: 0
@@ -241,7 +243,7 @@ MonoBehaviour:
   - {fileID: 7579171953632279636}
   - {fileID: 5318556605649887006}
   componentGunStatsScript: {fileID: 0}
-  elementType: 3
+  elementType: 1
   rangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -338,6 +340,7 @@ MonoBehaviour:
   amountPerReload: 1
   component_Sight: {fileID: 0}
   sightLocation: {fileID: 0}
+  sightOffset: {x: 0, y: 0, z: 0}
   muzzleLocation: {fileID: 0}
   animator: {fileID: 7750028220628084576}
   sound_Fire: {fileID: 8031064580571832858}
@@ -372,7 +375,7 @@ MonoBehaviour:
   RPM: 160
   reloadSpeed: 1
   recoil: {x: 2, y: 0.25}
-  recoil_HipFire: {x: 0, y: 0}
+  recoil_HipFire: {x: 1, y: 15}
   range: 35
   magazineSize: 7
   elementDamage: 0.5
@@ -455,6 +458,7 @@ MonoBehaviour:
   pitchVariance: 0.1
   spatialBlend: 1
   reverbZoneMix: 0
+  dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
   loop: 0

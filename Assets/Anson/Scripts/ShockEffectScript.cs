@@ -17,7 +17,12 @@ public class ShockEffectScript : ElementDebuffScript
 
     public Queue<LifeSystemScript> ToShockQueue { get => toShockQueue; set => toShockQueue = value; }
 
-    public ShockEffectScript(float effectDamage, float effectPotency, List<string> tagList, LayerMask layerMask, bool ignorePlayer = true) : base(effectDamage, effectPotency)
+    public ShockEffectScript()
+    {
+
+    }
+
+    public void init(float effectDamage, float effectPotency, List<string> tagList, LayerMask layerMask, bool ignorePlayer = true)
     {
         this.effectDamage = effectDamage;
         this.effectPotency = effectPotency;
@@ -38,24 +43,9 @@ public class ShockEffectScript : ElementDebuffScript
     {
         currentTime += deltaTime;
         float currentCount = lsList.Count;
-        if (currentTime > tickTime)
-        {
-                /*
-            for (int i = lsListPointer; i < currentCount; i++)
-            {
-                UpdateShock(lsList[i]);
-                if (i > lsListPointer)
-                {
-                    Debug.Log(targetLS.name + " Tick Shock " + lsList[i]);
-                    ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
-                    newShock.SetLsList(lsList, lsListPointer);
-
-                }
-            }
-                */
-        }
         return base.TickEffect(deltaTime);
     }
+
 
     public override void ApplyEffect(LifeSystemScript target)
     {
@@ -91,7 +81,10 @@ public class ShockEffectScript : ElementDebuffScript
         */
         while (toShockQueue.Count != 0)
         {
-            ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
+            //ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
+            ShockEffectScript newShock = new ShockEffectScript();
+            newShock.init(effectDamage, effectPotency, tagList, layerMask);
+
             newShock.SetLsList(lsList, lsListPointer);
             toShockQueue.Dequeue().ApplyDebuff(newShock);
             Debug.Log("Current Queue size: " + toShockQueue.Count);

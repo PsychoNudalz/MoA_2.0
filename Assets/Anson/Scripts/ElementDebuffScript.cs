@@ -7,12 +7,22 @@ public class ElementDebuffScript : DebuffScript
 {
     protected float effectDamage;
     protected float effectPotency;
+    public LayerMask layerMask = new LayerMask();
+    public List<string> tagList = new List<string>();
 
-    public ElementDebuffScript(float effectDamage, float effectPotency)
+    public ElementDebuffScript()
+    {
+
+    }
+
+    public virtual void init(float effectDamage, float effectPotency, List<string> tagList, LayerMask layerMask)
     {
         this.effectDamage = effectDamage;
         this.effectPotency = effectPotency;
         duration = effectPotency;
-        Debug.Log("new element: " + effectDamage + "  "+ effectPotency);
+        Debug.Log("new element: " + effectDamage + "  " + effectPotency);
+        this.tagList = tagList;
+        this.layerMask = layerMask;
+
     }
 }

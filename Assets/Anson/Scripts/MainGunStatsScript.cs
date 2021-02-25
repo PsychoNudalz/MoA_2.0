@@ -25,6 +25,7 @@ public class MainGunStatsScript : GunStatsScript
     [SerializeField] float timeToRecenter = 3f;
 
     [SerializeField] Transform sightLocation;
+    [SerializeField] Vector3 sightOffset;
 
 
 
@@ -67,6 +68,7 @@ public class MainGunStatsScript : GunStatsScript
     public AnimationCurve RecoilPattern_Y { get => recoilPattern_Y; }
     public float TimeToRecenter { get => timeToRecenter; set => timeToRecenter = value; }
     public Transform SightLocation { get => sightLocation; set => sightLocation = value; }
+    public Vector3 SightOffset { get => sightOffset; set => sightOffset = value; }
 
     public GunComponent_Sight Component_Sight { get => component_Sight; }
     public FireTypes FireType { get => fireType; set => fireType = value; }
@@ -93,6 +95,7 @@ public class MainGunStatsScript : GunStatsScript
         timeBetweenProjectile = b.TimeBetweenProjectile;
         currentMag = magazineSize;
         sightLocation = b.SightLocation;
+        sightOffset = b.SightOffset;
         animator = b.GetAnimator;
         sound_Fire = b.Sound_Fire;
         sound_StartReload = b.Sound_StartReload;
@@ -159,6 +162,11 @@ public class MainGunStatsScript : GunStatsScript
         {
             soundManager.Play(sound_EndReload);
         }
+    }
+
+    public void StopAnimation()
+    {
+        animator.StopPlayback();
     }
 
 

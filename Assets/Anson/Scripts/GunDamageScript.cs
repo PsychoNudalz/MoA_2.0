@@ -11,6 +11,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] protected float RPM = 0;
     [SerializeField] protected float reloadSpeed = 0;
     [SerializeField] protected Vector2 recoil = new Vector2(0, 0);
+    [SerializeField] protected Vector2 recoil_HipFire = new Vector2(0, 0);
     [SerializeField] protected float range = 0;
     [SerializeField] protected float magazineSize = 0;
     [SerializeField] protected int projectilePerShot;
@@ -113,25 +114,34 @@ public class GunDamageScript : DamageScript
     }
 
 
-
-    public void UpdateGunScript(MainGunStatsScript g)
+    public MainGunStatsScript TidyOldGun()
     {
-        isFiring = false;
         if (mainGunStatsScript != null)
         {
             mainGunStatsScript.CurrentMag = currentMag;
-            mainGunStatsScript.transform.position += transform.right;
-            mainGunStatsScript.GetComponentInChildren<Rigidbody>().isKinematic = false;
-            mainGunStatsScript.GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
-            mainGunStatsScript.gameObject.transform.parent = null;
-            Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
+            mainGunStatsScript.PlayAnimationTrigger("Reset");
+
         }
+        EndReload();
+        isFiring = false;
+        //currentRecoil = new Vector2(0, 0);
+        currentRecoilTime = 0f;
+        return mainGunStatsScript;
+    }
+
+    public MainGunStatsScript UpdateGunScript(MainGunStatsScript g)
+    {
+        isFiring = false;
+        MainGunStatsScript oldGunScript = TidyOldGun();
+        //Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
+
         mainGunStatsScript = g;
         gunType = g.GunType;
         damagePerProjectile = g.DamagePerProjectile;
         RPM = g.RPM_Get;
         reloadSpeed = g.ReloadSpeed;
         recoil = g.Recoil;
+        recoil_HipFire = g.Recoil_HipFire;
         range = g.Range;
         magazineSize = g.MagazineSize;
         projectilePerShot = g.ProjectilePerShot;
@@ -169,27 +179,34 @@ public class GunDamageScript : DamageScript
         {
             gunPosition = transform;
         }
+
         g.gameObject.transform.position = gunPosition.position;
-        g.gameObject.transform.parent = transform;
+        g.gameObject.transform.SetParent(transform);
+        g.gameObject.SetActive(true);
+
         //g.transform.right = firePoint.forward;
         if (sightLocation == null)
         {
             sightLocation = transform;
         }
+        /*
+        mainGunStatsScript.transform.rotation = Quaternion.identity;
         sightOffset = sightLocation.position - gunPosition.position;
         mainGunStatsScript.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        */
+        sightOffset = mainGunStatsScript.SightOffset;
+
 
         //HANDLE ELEMENTS.  Reduce main damage, change element damage
         elementDamage = Mathf.RoundToInt(g.ElementDamage * damagePerProjectile);
-        damagePerProjectile = damagePerProjectile*0.85f;
+        damagePerProjectile = damagePerProjectile * 0.85f;
         elementPotency = g.ElementPotency;
         elementChance = g.ElementChance;
 
 
         UpdateAmmoCount();
         UpdateGunStatText();
-
-
+        return oldGunScript;
 
     }
 
@@ -446,7 +463,10 @@ public class GunDamageScript : DamageScript
     {
         RaycastHit hit;
         bool hitTarget = false;
-        randomFireDir = new Vector2(Random.Range(0, currentRecoil.x), Random.Range(-180f, 180f));
+        float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
+
+        randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
+
         fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
 
@@ -459,7 +479,7 @@ public class GunDamageScript : DamageScript
             //Shotgun Raycast
             for (int i = 0; i < projectilePerShot - 1; i++)
             {
-                randomFireDir = new Vector2(Random.Range(recoil.x * 0.35f, recoil.x), (360f / (projectilePerShot - 1)) * i);
+                randomFireDir = new Vector2(Random.Range(recoil_HipFire.x * 0.35f, recoil_HipFire.x), (360f / (projectilePerShot - 1)) * i);
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
@@ -483,7 +503,7 @@ public class GunDamageScript : DamageScript
             //Shotgun Raycast
             for (int i = 0; i < projectilePerShot - 1; i++)
             {
-                randomFireDir = new Vector2(Random.Range(0, recoil.y), (360f / (projectilePerShot - 1)) * i);
+                randomFireDir = new Vector2(Random.Range(0, recoil_HipFire.y), (360f / (projectilePerShot - 1)) * i);
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
@@ -683,20 +703,21 @@ public class GunDamageScript : DamageScript
 
     void ApplyElementEffect(LifeSystemScript ls)
     {
-        ElementDebuffScript newDebuff;
         switch (elementType)
         {
             case (ElementTypes.PHYSICAL):
                 break;
             case (ElementTypes.FIRE):
-                newDebuff = new FireEffectScript(elementDamage, elementPotency);
-                ls.ApplyDebuff(newDebuff as FireEffectScript);
+                FireEffectScript newFireDebuff = new FireEffectScript();
+                newFireDebuff.init(elementDamage, elementPotency, tagList, layerMask);
+                ls.ApplyDebuff(newFireDebuff);
                 break;
             case (ElementTypes.ICE):
                 break;
             case (ElementTypes.SHOCK):
-                newDebuff = new ShockEffectScript(elementDamage, elementPotency, tagList, layerMask);
-                ls.ApplyDebuff(newDebuff as ShockEffectScript);
+                ShockEffectScript newShockDebuff = new ShockEffectScript();
+                newShockDebuff.init(elementDamage, elementPotency, tagList, layerMask);
+                ls.ApplyDebuff(newShockDebuff);
                 break;
         }
     }
@@ -723,9 +744,14 @@ public class GunDamageScript : DamageScript
 
     void UpdateAmmoCount()
     {
+        if (isAI)
+        {
+            return;
+        }
+
         try
         {
-            ansonTempUIScript.SetAmmoText(currentMag.ToString());
+            ansonTempUIScript.SetAmmoText(string.Concat(currentMag.ToString(), "/", magazineSize.ToString()));
 
         }
         catch (System.Exception e)
@@ -769,7 +795,7 @@ public class GunDamageScript : DamageScript
             mainGunStatsScript.Play_EndReload();
             currentMag = magazineSize;
             isReloading = false;
-
+            EndReload();
 
         }
         else
@@ -779,15 +805,29 @@ public class GunDamageScript : DamageScript
             if (currentMag < magazineSize)
             {
                 currentReloadCoroutine = StartCoroutine(DelayReload(0.05f));
+                UpdateAmmoCount();
+
             }
             else
             {
                 isReloading = false;
                 mainGunStatsScript.Play_EndReload();
-                currentReloadCoroutine = null;
+                EndReload();
+
             }
         }
+    }
+
+    void EndReload()
+    {
+        if (currentReloadCoroutine != null)
+        {
+            StopCoroutine(currentReloadCoroutine);
+            currentReloadCoroutine = null;
+        }
+        isReloading = false;
         UpdateAmmoCount();
+
     }
 
 
@@ -799,7 +839,7 @@ public class GunDamageScript : DamageScript
             return;
         }
 
-        if(ansonTempUIScript != null)
+        if (ansonTempUIScript != null)
         {
             ansonTempUIScript.SetGunText(mainGunStatsScript.ToString());
         }
