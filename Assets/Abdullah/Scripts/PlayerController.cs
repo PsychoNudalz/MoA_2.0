@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] public float gravity = -9.81f;
-    [SerializeField] public float jumpSpeed;
+    public float jumpSpeed = 8f;
 
 
     [SerializeField] public float sensitivityX;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     bool tilted;
 
     Vector3 dashRange;
-    [SerializeField] float dashDistance;
+    float dashDistance = 5;
 
     [SerializeField] Look lookScript;
 
