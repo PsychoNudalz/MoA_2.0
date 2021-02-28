@@ -14,6 +14,8 @@ public class GunGeneratorScript : MonoBehaviour
     [SerializeField] List<GunComponent_Sight> components_Sight;
     [SerializeField] List<GunComponent_Muzzle> components_Muzzle;
     [SerializeField] List<GunComponent_Attachment> components_Attachment;
+    [SerializeField] List<GunComponent_StatBoost> components_StatBoost;
+    
 
     [Header("Other Components")]
     [SerializeField] GunComponent_Body newGun;
@@ -72,6 +74,9 @@ public class GunGeneratorScript : MonoBehaviour
                 break;
             case (GunComponents.MUZZLE):
                 returnList = new List<GunComponent>(components_Muzzle);
+                break;
+            case (GunComponents.STATBOOST):
+                returnList = new List<GunComponent>(components_StatBoost);
                 break;
 
 

@@ -11,7 +11,8 @@ public enum GunComponents
     STOCK,
     SIGHT,
     ATTACHMENT,
-    MUZZLE
+    MUZZLE,
+    STATBOOST
 }
 
 public enum GunTypes
