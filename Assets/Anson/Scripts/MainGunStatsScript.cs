@@ -197,4 +197,9 @@ public class MainGunStatsScript : GunStatsScript
         return returnString;
     }
 
+    public string GetName()
+    {
+        return name;
+    }
+
 }

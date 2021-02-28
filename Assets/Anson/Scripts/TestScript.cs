@@ -16,6 +16,8 @@ public class TestScript : MonoBehaviour
     Mouse mouse;
     Keyboard keyboard;
 
+    public bool autoGenWeaponsOnAwake = true;
+
     private void Awake()
     {
         if (generatorScript1 == null)
@@ -29,12 +31,20 @@ public class TestScript : MonoBehaviour
         }
         */
         playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
-
+        
         //AUTOPFULL Player inventory
         GameObject newGun;
 
 
 
+    }
+
+    private void Start()
+    {
+        if (autoGenWeaponsOnAwake)
+        {
+            InitializePlayerInventory();
+        }
     }
 
 
@@ -88,7 +98,7 @@ public class TestScript : MonoBehaviour
         }
     }
 
-    
+
 
     public void RemoveAllGuns()
     {
@@ -114,6 +124,21 @@ public class TestScript : MonoBehaviour
         {
             shootingRangeScript2.StartShootCourse();
 
+        }
+    }
+
+    public void InitializePlayerInventory()
+    {
+        if (playerInventorySystemScript == null)
+        {
+            playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject newGun = generatorScript3.GenerateGun();
+            
+            playerInventorySystemScript.SwapToWeapon(i);
+            playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
         }
     }
 }

@@ -71,6 +71,7 @@ public class GunDamageScript : DamageScript
     public bool displayFireRaycast = true;
     public bool isAI = false;
     public AnsonTempUIScript ansonTempUIScript;
+    public int currentSlot = 0;
 
 
     private void Awake()
@@ -129,8 +130,9 @@ public class GunDamageScript : DamageScript
         return mainGunStatsScript;
     }
 
-    public MainGunStatsScript UpdateGunScript(MainGunStatsScript g)
+    public MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
     {
+        currentSlot = slot;
         isFiring = false;
         MainGunStatsScript oldGunScript = TidyOldGun();
         //Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
@@ -206,6 +208,8 @@ public class GunDamageScript : DamageScript
 
         UpdateAmmoCount();
         UpdateGunStatText();
+        ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
+
         return oldGunScript;
 
     }
@@ -751,7 +755,7 @@ public class GunDamageScript : DamageScript
 
         try
         {
-            ansonTempUIScript.SetAmmoText(string.Concat(currentMag.ToString(), "/", magazineSize.ToString()));
+            ansonTempUIScript.SetAmmoText(string.Concat(currentMag.ToString(), "/", magazineSize.ToString()), currentSlot);
 
         }
         catch (System.Exception e)
