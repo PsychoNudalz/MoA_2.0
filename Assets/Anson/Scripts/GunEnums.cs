@@ -39,3 +39,12 @@ public enum FireTypes
     HitScan,
     Projectile
 }
+
+public enum Rarity
+{
+    COMMON,
+    UNCOMMON,
+    RARE,
+    LEGENDARY,
+    EXOTIC
+}

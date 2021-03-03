@@ -6,7 +6,9 @@ using UnityEngine.VFX;
 public class GunComponent_Body : GunComponent
 {
     [Header("Extra")]
+
     [SerializeField] protected ElementTypes elementType;
+    [SerializeField] protected Rarity rarity;
     [SerializeField] protected AnimationCurve rangeCurve;
 
 
@@ -72,6 +74,7 @@ public class GunComponent_Body : GunComponent
     public AnimationCurve RangeCurve { get => rangeCurve; }
     public ElementTypes ElementType { get => elementType; }
     public Vector3 SightOffset { get => sightOffset; set => sightOffset = value; }
+    public Rarity Rarity { get => rarity; set => rarity = value; }
 
     private void Awake()
     {

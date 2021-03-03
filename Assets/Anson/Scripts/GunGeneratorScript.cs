@@ -15,7 +15,7 @@ public class GunGeneratorScript : MonoBehaviour
     [SerializeField] List<GunComponent_Muzzle> components_Muzzle;
     [SerializeField] List<GunComponent_Attachment> components_Attachment;
     [SerializeField] List<GunComponent_StatBoost> components_StatBoost;
-    
+
 
     [Header("Other Components")]
     [SerializeField] GunComponent_Body newGun;
@@ -30,7 +30,9 @@ public class GunGeneratorScript : MonoBehaviour
 
         newGun = Instantiate(components_Body[Mathf.RoundToInt(Random.Range(0, components_Body.Count))], transform.position, Quaternion.Euler(0, -90, 0) * newEmptyGun.transform.rotation, newEmptyGun.transform);
         currentMainGunStatsScript.AddStats(newGun.GetComponent<ComponentGunStatsScript>());
-        AddRandomComponents(newGun);
+
+        AddRandomEssentialComponents(newGun);
+        AddRandomExtraComponents(newGun);
 
         currentMainGunStatsScript.SetBody(newGun);
         currentMainGunStatsScript.FinishAssemply();
@@ -85,16 +87,16 @@ public class GunGeneratorScript : MonoBehaviour
         return returnList;
     }
 
-    void AddRandomComponents(GunComponent gunComponent)
+    void AddRandomComponents(List<GunConnectionPoint> connectionList, bool isExtra = false)
     {
-        foreach (GunConnectionPoint currentConnection in gunComponent.GetGunConnectionPoints())
+        foreach (GunConnectionPoint currentConnection in connectionList)
         {
             List<GunComponent> possibleComponents = new List<GunComponent>();
             foreach (GunComponents compatableComp in currentConnection.GetGunComponents())
             {
                 possibleComponents.AddRange(GetComponentList(compatableComp));
             }
-            Debug.Log("Found " + possibleComponents.Count + " possible components for " + gunComponent.name + " " + currentConnection.name);
+            Debug.Log("Found " + possibleComponents.Count + " possible components for " + currentConnection.name);
             if (possibleComponents.Count > 0)
             {
                 GunComponent currentRandomComponent = possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
@@ -109,7 +111,8 @@ public class GunGeneratorScript : MonoBehaviour
                 if (newComponent.GetGunComponentType().Equals(GunComponents.SIGHT))
                 {
                     SetSight(newComponent.GetComponent<GunComponent_Sight>());
-                } else if (newComponent.GetGunComponentType().Equals(GunComponents.MUZZLE))
+                }
+                else if (newComponent.GetGunComponentType().Equals(GunComponents.MUZZLE))
                 {
                     SetMuzzle(newComponent.GetComponent<GunComponent_Muzzle>());
                 }
@@ -117,9 +120,70 @@ public class GunGeneratorScript : MonoBehaviour
                 {
                     SetProjectile(newComponent.GetComponent<GunComponent_Magazine>().Projectile);
                 }
-                AddRandomComponents(newComponent);
+                if (!isExtra)
+                {
+
+                    AddRandomComponents(newComponent.EssentialConnectionPoints);
+                }
             }
         }
+    }
+
+    void AddRandomEssentialComponents(GunComponent gunComponent)
+    {
+        AddRandomComponents(newGun.EssentialConnectionPoints);
+
+    }
+
+
+    void AddRandomExtraComponents(GunComponent_Body gunComponent)
+    {
+        List<GunConnectionPoint> allConnections = GetExtraConnections(gunComponent);
+        int numberOfExtras = RarityAmount(gunComponent.Rarity, allConnections.Count);
+        List<GunConnectionPoint> connections = new List<GunConnectionPoint>();
+        int pointer;
+        for (int i = 0; i < numberOfExtras && allConnections.Count>0; i++)
+        {
+            pointer = Random.Range(0, allConnections.Count);
+            connections.Add(allConnections[pointer]);
+            allConnections.Remove(allConnections[pointer]);
+        }
+        print("Found " + allConnections.Count + " extra connections on " + gunComponent.name);
+        print("Pass " + connections.Count + " extra connections on " + gunComponent.name);
+        AddRandomComponents(connections, true);
+    }
+
+
+    int RarityAmount(Rarity rarity, float amount)
+    {
+        float maxAmount = 0;
+        switch (rarity)
+        {
+            case Rarity.UNCOMMON:
+                maxAmount = 2;
+                break;
+            case Rarity.RARE:
+                maxAmount = 3;
+                break;
+            case Rarity.LEGENDARY:
+                maxAmount = 5;
+                break;
+            case Rarity.EXOTIC:
+                maxAmount = amount;
+                break;
+        }
+        return Mathf.RoundToInt(Mathf.Clamp(amount * ((int)rarity / 4f), 0, maxAmount));
+    }
+
+    List<GunConnectionPoint> GetExtraConnections(GunComponent gunComponent)
+    {
+        List<GunConnectionPoint> returnList = new List<GunConnectionPoint>();
+        foreach (GunConnectionPoint cp in gunComponent.EssentialConnectionPoints)
+        {
+            returnList.AddRange(GetExtraConnections(cp.ConnectedComponent));
+        }
+        returnList.AddRange(gunComponent.ExtraConnectionPoints);
+        return returnList;
     }
 
     void SetSight(GunComponent_Sight s)

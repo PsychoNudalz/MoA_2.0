@@ -9,6 +9,7 @@ public class GunConnectionPoint : MonoBehaviour
     [SerializeField] List<GunComponents> compatableComponents;
     [SerializeField] List<GunTypes> compatableTypes;
 
+    public GunComponent ConnectedComponent { get => connectedComponent; set => connectedComponent = value; }
 
     public Vector3 GetPosition()
     {
