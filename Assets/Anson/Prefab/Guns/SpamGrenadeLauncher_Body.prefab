@@ -842,7 +842,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentType: 5
   gunTypes: 00000000010000000200000003000000
-  gunConnectionPoints: []
+  essentialConnectionPoints: []
+  extraConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
   sightLocation: {fileID: 6050567460617298475}
   zoomMultiplier: 1.5
@@ -1624,10 +1625,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentType: 0
   gunTypes: 03000000
-  gunConnectionPoints:
-  - {fileID: 6988058681309630164}
+  essentialConnectionPoints: []
+  extraConnectionPoints:
+  - {fileID: 2557101291567746879}
   componentGunStatsScript: {fileID: 0}
   elementType: 0
+  rarity: 0
   rangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -2633,18 +2636,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2394452595593123994}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6988058681309630164 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4737891998971500110, guid: fa1380926f39ab544baf960f4afc1858,
-    type: 3}
-  m_PrefabInstance: {fileID: 2394452595593123994}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aed2c6f2b93f3745b990e44238da0bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3066643871494449529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3192,3 +3183,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8955516387668992700}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2557101291567746879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6860324355300502915, guid: 5822b039baca4e34ba0d4fb89b5c0080,
+    type: 3}
+  m_PrefabInstance: {fileID: 8955516387668992700}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aed2c6f2b93f3745b990e44238da0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

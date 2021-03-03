@@ -7,8 +7,8 @@ public abstract class GunComponent : MonoBehaviour
     [SerializeField] private GunComponents componentType = GunComponents.ATTACHMENT;
     [SerializeField] private List<GunTypes> gunTypes;
     //[SerializeField] protected List<GunComponent> connectedComponents;
-    [SerializeField] protected List<GunConnectionPoint> essentialConnectionPoints;
-    [SerializeField] protected List<GunConnectionPoint> extraConnectionPoints;
+    [SerializeField] protected List<GunConnectionPoint> essentialConnectionPoints = new List<GunConnectionPoint>();
+    [SerializeField] protected List<GunConnectionPoint> extraConnectionPoints = new List<GunConnectionPoint>();
     [SerializeField] protected ComponentGunStatsScript componentGunStatsScript;
 
     public GunComponents ComponentType { get => componentType;}

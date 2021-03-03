@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GunGeneratorScript : MonoBehaviour
 {
+    [Header("Generator controls")]
+    [SerializeField] bool randomRarity = false;
+
     [Header("Component Lists")]
     //public List<GunComponent> allGunComponents;
     [SerializeField] List<GunComponent_Body> components_Body;
@@ -30,6 +33,11 @@ public class GunGeneratorScript : MonoBehaviour
 
         newGun = Instantiate(components_Body[Mathf.RoundToInt(Random.Range(0, components_Body.Count))], transform.position, Quaternion.Euler(0, -90, 0) * newEmptyGun.transform.rotation, newEmptyGun.transform);
         currentMainGunStatsScript.AddStats(newGun.GetComponent<ComponentGunStatsScript>());
+
+        if (randomRarity)
+        {
+            newGun.Rarity = RandomiseRarity();
+        }
 
         AddRandomEssentialComponents(newGun);
         AddRandomExtraComponents(newGun);
@@ -91,30 +99,45 @@ public class GunGeneratorScript : MonoBehaviour
     {
         foreach (GunConnectionPoint currentConnection in connectionList)
         {
+            //Getting all compatable components
             List<GunComponent> possibleComponents = new List<GunComponent>();
             foreach (GunComponents compatableComp in currentConnection.GetGunComponents())
             {
                 possibleComponents.AddRange(GetComponentList(compatableComp));
             }
             Debug.Log("Found " + possibleComponents.Count + " possible components for " + currentConnection.name);
+
+            //Start assigning if possible
             if (possibleComponents.Count > 0)
             {
                 GunComponent currentRandomComponent = possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
-                while (!currentConnection.SetComponent(currentRandomComponent) && possibleComponents.Count > 1)
+                while (!currentConnection.IsCompatable(currentRandomComponent) && possibleComponents.Count > 1)
                 {
                     print(currentRandomComponent.name + "  incompatable");
                     possibleComponents.Remove(currentRandomComponent);
                     currentRandomComponent = possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
                 }
-                GunComponent newComponent = Instantiate(currentRandomComponent, currentConnection.GetPosition(), currentConnection.GetQuaternion(), currentConnection.transform);
+                GunComponent newComponent;
+                newComponent = Instantiate(currentRandomComponent);
+                currentConnection.SetComponent(newComponent);
+                newComponent.transform.SetParent(currentConnection.transform);
+                newComponent.transform.position = currentConnection.GetPosition();
+                newComponent.transform.rotation = currentConnection.GetQuaternion();
+
+
+                Debug.Log("Happened with: " + currentConnection + " and " + currentRandomComponent);
                 currentMainGunStatsScript.AddStats(newComponent.GetComponent<ComponentGunStatsScript>());
                 if (newComponent.GetGunComponentType().Equals(GunComponents.SIGHT))
                 {
                     SetSight(newComponent.GetComponent<GunComponent_Sight>());
                 }
+                else if (newComponent.GetGunComponentType().Equals(GunComponents.BARREL))
+                {
+                    SetMuzzlePoint(newComponent.GetComponent<GunComponent_Barrel>());
+                }
                 else if (newComponent.GetGunComponentType().Equals(GunComponents.MUZZLE))
                 {
-                    SetMuzzle(newComponent.GetComponent<GunComponent_Muzzle>());
+                    SetMuzzlePoint(newComponent.GetComponent<GunComponent_Muzzle>());
                 }
                 else if (newComponent.GetGunComponentType().Equals(GunComponents.MAGAZINE))
                 {
@@ -142,7 +165,7 @@ public class GunGeneratorScript : MonoBehaviour
         int numberOfExtras = RarityAmount(gunComponent.Rarity, allConnections.Count);
         List<GunConnectionPoint> connections = new List<GunConnectionPoint>();
         int pointer;
-        for (int i = 0; i < numberOfExtras && allConnections.Count>0; i++)
+        for (int i = 0; i < numberOfExtras && allConnections.Count > 0; i++)
         {
             pointer = Random.Range(0, allConnections.Count);
             connections.Add(allConnections[pointer]);
@@ -175,9 +198,26 @@ public class GunGeneratorScript : MonoBehaviour
         return Mathf.RoundToInt(Mathf.Clamp(amount * ((int)rarity / 4f), 0, maxAmount));
     }
 
+    Rarity RandomiseRarity()
+    {
+        return (Rarity)Random.Range(0, 4);
+    }
+
     List<GunConnectionPoint> GetExtraConnections(GunComponent gunComponent)
     {
         List<GunConnectionPoint> returnList = new List<GunConnectionPoint>();
+        try
+        {
+            if (gunComponent.EssentialConnectionPoints == null)
+            {
+                return returnList;
+            }
+        }
+        catch (System.NullReferenceException)
+        {
+            return returnList;
+
+        }
         foreach (GunConnectionPoint cp in gunComponent.EssentialConnectionPoints)
         {
             returnList.AddRange(GetExtraConnections(cp.ConnectedComponent));
@@ -192,11 +232,26 @@ public class GunGeneratorScript : MonoBehaviour
         newGun.SetSight(s);
     }
 
-    void SetMuzzle(GunComponent_Muzzle m)
+    void SetMuzzlePoint(GunComponent_Muzzle m)
     {
         print("Detect muzzle");
         if (m.MuzzleLocation != null)
         {
+            print("Found Muzzle Location");
+            newGun.SetMuzzle(m.MuzzleLocation);
+        }
+        else
+        {
+            newGun.SetMuzzle(m.transform);
+        }
+    }
+
+    void SetMuzzlePoint(GunComponent_Barrel m)
+    {
+        print("Detect muzzle");
+        if (m.MuzzleLocation != null)
+        {
+            print("Found Muzzle Location");
             newGun.SetMuzzle(m.MuzzleLocation);
         }
         else

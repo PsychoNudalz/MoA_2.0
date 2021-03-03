@@ -17,6 +17,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] protected int projectilePerShot;
     [SerializeField] protected float timeBetweenProjectile = 0f;
     [SerializeField] GunTypes gunType = GunTypes.RIFLE;
+    [SerializeField] Rarity rarity;
     [SerializeField] protected ElementTypes elementType = ElementTypes.PHYSICAL;
     [SerializeField] protected float elementDamage = 0;
     [SerializeField] protected float elementPotency = 0; //effect duration or range
@@ -139,6 +140,7 @@ public class GunDamageScript : DamageScript
 
         mainGunStatsScript = g;
         gunType = g.GunType;
+        rarity = g.Rarity;
         damagePerProjectile = g.DamagePerProjectile;
         RPM = g.RPM_Get;
         reloadSpeed = g.ReloadSpeed;

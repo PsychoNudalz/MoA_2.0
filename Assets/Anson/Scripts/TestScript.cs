@@ -31,9 +31,6 @@ public class TestScript : MonoBehaviour
         }
         */
         playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
-        
-        //AUTOPFULL Player inventory
-        GameObject newGun;
 
 
 
