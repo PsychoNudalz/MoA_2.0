@@ -7,6 +7,7 @@ public class GunComponent_Body : GunComponent
 {
     [Header("Extra")]
 
+    [SerializeField] protected bool isSetElement = false;
     [SerializeField] protected ElementTypes elementType;
     [SerializeField] protected Rarity rarity;
     [SerializeField] protected AnimationCurve rangeCurve;
@@ -130,6 +131,15 @@ public class GunComponent_Body : GunComponent
         catch (System.NullReferenceException e)
         {
             Debug.LogWarning(name + " Missing shoot effect");
+        }
+    }
+
+    public void SetElement(ElementTypes e)
+    {
+        if (!isSetElement)
+        {
+            elementType = e;
+
         }
     }
 

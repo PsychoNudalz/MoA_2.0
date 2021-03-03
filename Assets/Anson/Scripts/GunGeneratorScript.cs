@@ -6,6 +6,7 @@ public class GunGeneratorScript : MonoBehaviour
 {
     [Header("Generator controls")]
     [SerializeField] bool randomRarity = false;
+    [SerializeField] bool randomElement = false;
 
     [Header("Component Lists")]
     //public List<GunComponent> allGunComponents;
@@ -31,12 +32,16 @@ public class GunGeneratorScript : MonoBehaviour
         GameObject newEmptyGun = Instantiate(emptyGunGO, transform.position, transform.rotation);
         currentMainGunStatsScript = newEmptyGun.GetComponent<MainGunStatsScript>();
 
-        newGun = Instantiate(components_Body[Mathf.RoundToInt(Random.Range(0, components_Body.Count))], transform.position, Quaternion.Euler(0, -90, 0) * newEmptyGun.transform.rotation, newEmptyGun.transform);
+        newGun = Instantiate(components_Body[Mathf.RoundToInt(Random.Range(0, components_Body.Count+1)%components_Body.Count)], transform.position, Quaternion.Euler(0, -90, 0) * newEmptyGun.transform.rotation, newEmptyGun.transform);
         currentMainGunStatsScript.AddStats(newGun.GetComponent<ComponentGunStatsScript>());
 
         if (randomRarity)
         {
             newGun.Rarity = RandomiseRarity();
+        }
+        if (randomElement)
+        {
+            newGun.SetElement(RandomiseElement());
         }
 
         AddRandomEssentialComponents(newGun);
@@ -167,7 +172,7 @@ public class GunGeneratorScript : MonoBehaviour
         int pointer;
         for (int i = 0; i < numberOfExtras && allConnections.Count > 0; i++)
         {
-            pointer = Random.Range(0, allConnections.Count);
+            pointer = Random.Range(0, allConnections.Count+1)% allConnections.Count;
             connections.Add(allConnections[pointer]);
             allConnections.Remove(allConnections[pointer]);
         }
@@ -200,7 +205,12 @@ public class GunGeneratorScript : MonoBehaviour
 
     Rarity RandomiseRarity()
     {
-        return (Rarity)Random.Range(0, 4);
+        return (Rarity)(Random.Range(0, 5)%5);
+    }
+
+    ElementTypes RandomiseElement()
+    {
+        return (ElementTypes)(Random.Range(0, 4)%4);
     }
 
     List<GunConnectionPoint> GetExtraConnections(GunComponent gunComponent)

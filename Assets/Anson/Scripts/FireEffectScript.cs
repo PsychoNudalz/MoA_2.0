@@ -54,7 +54,7 @@ public class FireEffectScript : ElementDebuffScript
     public override void ApplyEffect(LifeSystemScript target)
     {
         base.ApplyEffect(target);
-        currentTime = startTime;
+        currentTime = 0;
     }
 
     public override bool DeactivateEffect()

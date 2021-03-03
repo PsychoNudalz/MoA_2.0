@@ -116,7 +116,7 @@ public class LifeSystemScript : MonoBehaviour
         if (!isDead)
         {
             health_Current -= Mathf.RoundToInt(dmg * multiplier);
-            print(name + " take " + element+" damage: " + dmg * multiplier);
+            print(name + " take " + element+" damage: " + dmg +" x "+multiplier);
             //updateHealthBar();
             displayDamageCritical(dmg * multiplier);
             playDamageParticles();

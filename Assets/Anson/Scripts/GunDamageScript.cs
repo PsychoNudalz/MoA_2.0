@@ -712,6 +712,7 @@ public class GunDamageScript : DamageScript
         switch (elementType)
         {
             case (ElementTypes.PHYSICAL):
+                dealCriticalDamageToTarget(ls, elementDamage, 1, elementType, 1);
                 break;
             case (ElementTypes.FIRE):
                 FireEffectScript newFireDebuff = new FireEffectScript();
