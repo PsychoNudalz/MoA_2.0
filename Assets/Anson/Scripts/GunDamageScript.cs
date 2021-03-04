@@ -554,17 +554,17 @@ public class GunDamageScript : DamageScript
         if (projectileGO.TryGetComponent(out ProjectileScript projectileScript))
         {
             RaycastHit hit;
-            for (int i = 0; i < projectilePerShot; i++)
+            //for (int i = 0; i < projectilePerShot; i++)
+            //{
+            projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
+            Vector3 fireDir = firePoint.forward;
+            if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
             {
-                projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
-                Vector3 fireDir = firePoint.forward;
-                if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
-                {
-                    fireDir = hit.point - mainGunStatsScript.transform.position;
-                }
-
-                projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized);
+                fireDir = hit.point - mainGunStatsScript.transform.position;
             }
+
+            projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized);
+            //}
         }
         else
         {

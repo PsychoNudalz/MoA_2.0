@@ -115,6 +115,8 @@ public class GunGeneratorScript : MonoBehaviour
             //Start assigning if possible
             if (possibleComponents.Count > 0)
             {
+                GunComponent newComponent;
+
                 GunComponent currentRandomComponent = possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
                 while (!currentConnection.IsCompatable(currentRandomComponent) && possibleComponents.Count > 1)
                 {
@@ -122,7 +124,6 @@ public class GunGeneratorScript : MonoBehaviour
                     possibleComponents.Remove(currentRandomComponent);
                     currentRandomComponent = possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
                 }
-                GunComponent newComponent;
                 newComponent = Instantiate(currentRandomComponent);
                 currentConnection.SetComponent(newComponent);
                 newComponent.transform.SetParent(currentConnection.transform);
