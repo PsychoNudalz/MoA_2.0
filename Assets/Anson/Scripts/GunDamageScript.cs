@@ -563,7 +563,7 @@ public class GunDamageScript : DamageScript
                     fireDir = hit.point - mainGunStatsScript.transform.position;
                 }
 
-                projectileScript.Launch(1, elementType, fireDir.normalized);
+                projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized);
             }
         }
         else
@@ -709,24 +709,7 @@ public class GunDamageScript : DamageScript
 
     void ApplyElementEffect(LifeSystemScript ls)
     {
-        switch (elementType)
-        {
-            case (ElementTypes.PHYSICAL):
-                dealCriticalDamageToTarget(ls, elementDamage, 1, elementType, 1);
-                break;
-            case (ElementTypes.FIRE):
-                FireEffectScript newFireDebuff = new FireEffectScript();
-                newFireDebuff.init(elementDamage, elementPotency, tagList, layerMask);
-                ls.ApplyDebuff(newFireDebuff);
-                break;
-            case (ElementTypes.ICE):
-                break;
-            case (ElementTypes.SHOCK):
-                ShockEffectScript newShockDebuff = new ShockEffectScript();
-                newShockDebuff.init(elementDamage, elementPotency, tagList, layerMask);
-                ls.ApplyDebuff(newShockDebuff);
-                break;
-        }
+        base.ApplyElementEffect(ls, elementDamage, elementPotency, elementType);
     }
 
 

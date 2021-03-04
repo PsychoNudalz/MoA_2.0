@@ -138,7 +138,7 @@ public class ShockEffectScript : ElementDebuffScript
         {
             Debug.Log(lsList.Count);
             Collider c = h.collider;
-            if (tagList.Contains(c.tag) && c.GetComponentInParent<LifeSystemScript>() != null)
+            if (tagList.Contains(c.tag) && c.GetComponentInParent<LifeSystemScript>() != null && (c.GetComponentInParent<PlayerLifeSystemScript>() == null)==ignorePlayer)
             {
                 lss = c.GetComponentInParent<LifeSystemScript>();
                 if (!lsList.Contains(lss))

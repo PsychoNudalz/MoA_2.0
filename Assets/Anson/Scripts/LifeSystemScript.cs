@@ -287,12 +287,12 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual void ApplyDebuff(FireEffectScript debuff)
     {
-        ApplyDebuff(debuff as FireEffectScript);
+        ApplyDebuff(debuff as DebuffScript);
     }
 
     public virtual void ApplyDebuff(ShockEffectScript debuff)
     {
-        ApplyDebuff(debuff as ShockEffectScript);
+        ApplyDebuff(debuff as DebuffScript);
     }
 
     public virtual void RemoveDebuff(FireEffectScript debuff = null)
