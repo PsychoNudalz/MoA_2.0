@@ -411,7 +411,7 @@ MonoBehaviour:
   extraConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
   isSetElement: 1
-  elementType: 3
+  elementType: 2
   rarity: 4
   rangeCurve:
     serializedVersion: 2
@@ -457,11 +457,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
+      inSlope: -0.021092163
+      outSlope: -0.021092163
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.25285715
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.25
+      inSlope: -0.06436782
+      outSlope: -0.06436782
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08285713
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -471,24 +489,42 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: -1
-      outSlope: -1
+      value: 0
+      inSlope: 10
+      outSlope: 10
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -1
-      outSlope: -1
+      time: 0.1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.108226515
+    - serializedVersion: 3
+      time: 0.4
+      value: -2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6
+      value: 4.015999
+      inSlope: 30.079992
+      outSlope: 30.079992
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
-    m_PostInfinity: 2
+    m_PostInfinity: 1
     m_RotationOrder: 4
   timeToRecenter: 0.5
   fireType: 1
@@ -535,7 +571,7 @@ MonoBehaviour:
   damagePerProjectile: 50
   RPM: 100
   reloadSpeed: 0.4
-  recoil: {x: 2, y: 0}
+  recoil: {x: 5, y: 10}
   recoil_HipFire: {x: 5, y: 15}
   range: 300
   magazineSize: 27

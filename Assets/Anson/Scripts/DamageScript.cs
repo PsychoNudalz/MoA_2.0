@@ -60,6 +60,9 @@ public class DamageScript : MonoBehaviour
                 ls.ApplyDebuff(newFireDebuff);
                 break;
             case (ElementTypes.ICE):
+                IceEffectScript newIceDebuff = new IceEffectScript();
+                newIceDebuff.init(elementDamage, elementPotency, tagList, layerMask);
+                ls.ApplyDebuff(newIceDebuff);
                 break;
             case (ElementTypes.SHOCK):
                 ShockEffectScript newShockDebuff = new ShockEffectScript();

@@ -56,6 +56,20 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         }
     }
 
+    public void SetIce(bool b)
+    {
+        if (b)
+        {
+            material.SetInt("_SetIce", 1);
+
+        }
+        else
+        {
+            material.SetInt("_SetIce", 0);
+
+        }
+    }
+
     public void SetShock(bool b, Transform shockTarget = null)
     {
         if (b)

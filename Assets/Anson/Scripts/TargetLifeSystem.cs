@@ -11,8 +11,9 @@ public class TargetLifeSystem : LifeSystemScript
 
     public TargetMaterialHandlerScript TargetMaterialHandler { get => targetMaterialHandler;}
 
-    private void Start()
+    private void Awake()
     {
+        base.Awake();
         targetHandler = GetComponent<TargetHandlerScript>();
         targetMaterialHandler = targetHandler.TargetMaterialHandler;
     }
@@ -47,8 +48,20 @@ public class TargetLifeSystem : LifeSystemScript
 
     public override void RemoveDebuff(ShockEffectScript debuff)
     {
-        base.RemoveDebuff(debuff);
+        base.RemoveDebuff(debuff as DebuffScript);
         targetMaterialHandler.ResetShockList();
+    }
+
+    public override void RemoveDebuff(IceEffectScript debuff = null)
+    {
+        base.RemoveDebuff(debuff as DebuffScript);
+        targetMaterialHandler.SetIce(CheckIsStillOnIce());
+    }
+    public override void ApplyDebuff(IceEffectScript debuff)
+    {
+        base.ApplyDebuff(debuff as DebuffScript);
+        targetMaterialHandler.SetIce(true);
+
     }
 
     public override void ResetSystem()
@@ -62,6 +75,19 @@ public class TargetLifeSystem : LifeSystemScript
         foreach (DebuffScript d in debuffList)
         {
             if (d is FireEffectScript)
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    bool CheckIsStillOnIce()
+    {
+        foreach (DebuffScript d in debuffList)
+        {
+            if (d is IceEffectScript)
             {
                 return true;
             }

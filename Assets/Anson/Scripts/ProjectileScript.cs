@@ -61,7 +61,7 @@ public abstract class ProjectileScript : MonoBehaviour
     {
         if (tagList.Contains(collision.collider.tag))
         {
-            print(collision.collider.name);
+            //print(collision.collider.name);
             if (collision.collider.tag.Equals("Enemy") || collision.collider.tag.Equals("Player"))
             {
                 Explode();
@@ -96,7 +96,7 @@ public abstract class ProjectileScript : MonoBehaviour
 
     public virtual void Explode()
     {
-        print(name + " go boom");
+        //print(name + " go boom");
         if (explodeEffect != null)
         {
             explodeEffect = Instantiate(explodeEffect, transform.position, transform.rotation);

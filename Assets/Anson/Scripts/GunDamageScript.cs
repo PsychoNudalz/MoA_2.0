@@ -65,6 +65,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] Vector3 randomFireDir;
     [SerializeField] Vector3 sightOffset;
     [SerializeField] Coroutine currentReloadCoroutine;
+    [SerializeField] Coroutine currentBurstCoroutine;
     [SerializeField] Look lookScript;
     [SerializeField] float originalFireDirection_X;
 
@@ -112,7 +113,7 @@ public class GunDamageScript : DamageScript
             Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.green, 0f);
         }
 
-
+        //print("Recoil Time: " + currentRecoilTime);
     }
 
 
@@ -445,7 +446,7 @@ public class GunDamageScript : DamageScript
 
             if (currentProjectile > 0 && currentMag > 0 && timeBetweenProjectile > 0)
             {
-                StartCoroutine(BurstFire());
+                currentBurstCoroutine = StartCoroutine(BurstFire(currentRecoilTime));
             }
             return true;
         }
@@ -549,6 +550,9 @@ public class GunDamageScript : DamageScript
         return hitTarget;
     }
 
+
+
+
     void LaunchProjectile()
     {
         if (projectileGO.TryGetComponent(out ProjectileScript projectileScript))
@@ -573,10 +577,18 @@ public class GunDamageScript : DamageScript
 
     }
 
-    void HandleWeapon()
+    float HandleWeapon(float newRecoilTime = -1f)
     {
         mainGunStatsScript.Play_Fire();
-        RecoilWeapon();
+        if (newRecoilTime < 0)
+        {
+            newRecoilTime = RecoilWeapon();
+
+        }
+        else
+        {
+            newRecoilTime = RecoilWeapon(newRecoilTime);
+        }
         currentProjectile -= 1;
         currentMag -= 1;
 
@@ -585,9 +597,11 @@ public class GunDamageScript : DamageScript
         {
             Fire(false);
         }
+
+        return newRecoilTime;
     }
 
-    void RecoilWeapon()
+    float RecoilWeapon()
     {
 
         currentRecoilTime += 0.1f;
@@ -597,6 +611,7 @@ public class GunDamageScript : DamageScript
             currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y) * projectilePerShot / 5f;
 
         }
+        print(currentRecoilTime + ", " + new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y));
         /*
         if (isADS)
         {
@@ -612,6 +627,14 @@ public class GunDamageScript : DamageScript
         }
         */
 
+        return currentRecoilTime;
+
+    }
+
+    float RecoilWeapon(float newTime)
+    {
+        currentRecoilTime = newTime;
+        return RecoilWeapon();
     }
 
     void SetWeaponRecoil()
@@ -751,9 +774,9 @@ public class GunDamageScript : DamageScript
     }
 
 
-    IEnumerator BurstFire()
+    IEnumerator BurstFire(float newRecoilTime)
     {
-        print("Bursting");
+        //print("Bursting");
         yield return new WaitForSeconds(timeBetweenProjectile);
 
         switch (fireType)
@@ -765,10 +788,14 @@ public class GunDamageScript : DamageScript
                 LaunchProjectile();
                 break;
         }
-        HandleWeapon();
+        newRecoilTime = HandleWeapon(newRecoilTime);
         if (currentProjectile > 0 && currentMag > 0)
         {
-            StartCoroutine(BurstFire());
+            if (currentBurstCoroutine != null)
+            {
+                StopCoroutine(currentBurstCoroutine);
+            }
+            currentBurstCoroutine = StartCoroutine(BurstFire(newRecoilTime));
         }
     }
 
