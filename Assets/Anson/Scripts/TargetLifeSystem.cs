@@ -43,6 +43,7 @@ public class TargetLifeSystem : LifeSystemScript
     public override void ApplyDebuff(ShockEffectScript debuff)
     {
         base.ApplyDebuff(debuff as DebuffScript);
+        targetMaterialHandler.SetShock(true);
 
     }
 
