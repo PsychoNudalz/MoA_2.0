@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseManager : MonoBehaviour
+public class LoadingHandler : MonoBehaviour
 {
     
 }
