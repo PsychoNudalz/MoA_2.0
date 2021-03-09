@@ -109,9 +109,9 @@ NavMeshSettings:
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
-    ledgeDropHeight: 0
-    maxJumpAcrossDistance: 0
+    agentClimb: 1
+    ledgeDropHeight: 1
+    maxJumpAcrossDistance: 1
     minRegionArea: 2
     manualCellSize: 0
     cellSize: 0.16666667
@@ -642,11 +642,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelGenerator
       objectReference: {fileID: 0}
-    - target: {fileID: 1488097025150943556, guid: 275f2a213b3c9a14fbb6a5d8ca6ebe2a,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enviorment
-      objectReference: {fileID: 0}
     - target: {fileID: 1488097025150943562, guid: 275f2a213b3c9a14fbb6a5d8ca6ebe2a,
         type: 3}
       propertyPath: m_RootOrder
@@ -707,6 +702,11 @@ PrefabInstance:
       propertyPath: loadingHandler
       value: 
       objectReference: {fileID: 2126702037}
+    - target: {fileID: 8021356324830454935, guid: 275f2a213b3c9a14fbb6a5d8ca6ebe2a,
+        type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 264193
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 275f2a213b3c9a14fbb6a5d8ca6ebe2a, type: 3}
 --- !u!1 &1235466536
@@ -903,7 +903,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1482960646}
   - component: {fileID: 1482960645}
-  - component: {fileID: 1482960644}
   - component: {fileID: 1482960643}
   m_Layer: 0
   m_Name: Camera
@@ -943,14 +942,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1482960644
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1482960642}
-  m_Enabled: 1
 --- !u!20 &1482960645
 Camera:
   m_ObjectHideFlags: 0

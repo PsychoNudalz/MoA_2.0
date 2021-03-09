@@ -20,11 +20,14 @@ public class LevelGenerator : MonoBehaviour
     public LoadingHandler loadingHandler;
     Scrollbar bar;
 
+    NavMeshSurface navSurface;
+
     void Start() {
         roomLayerMask = LayerMask.GetMask("Room");
         StartCoroutine("GenerateLevel");
         bar = loadingHandler.gameObject.GetComponent<Scrollbar>();
         bar.size = 0;
+        navSurface = GetComponent<NavMeshSurface>();
     }
 
     IEnumerator GenerateLevel() {
@@ -51,14 +54,23 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log("Level Generated!");
         bar.size = 0.95f;
 
-        NavMeshSurface[] navSurfaces = GameObject.FindObjectsOfType<NavMeshSurface>();
+        //NavMeshSurface[] navSurfaces = GameObject.FindObjectsOfType<NavMeshSurface>();
+        //print("TEST: " + navSurfaces.Length);
+
 
         float barStep = 0.35f / (float)iterations;
+        /*
         foreach (NavMeshSurface navSurface in navSurfaces) {
             Debug.Log("Baking Navmesh for " + navSurface);
             bar.size = bar.size + barStep;
-            navSurface.BuildNavMesh();
+            //navSurface.
+            //navSurface.RemoveData();
+            //navSurface.BuildNavMesh();
         }
+        */
+        //NavMeshBuilder.BuildNavMesh();
+        navSurface.BuildNavMesh();
+
         loadingHandler.transform.parent.parent.gameObject.SetActive(false);
     }
 
