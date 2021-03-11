@@ -44,6 +44,22 @@ public class TestScript : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (!playerInventorySystemScript)
+        {
+            playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
+            if (playerInventorySystemScript)
+            {
+                if (autoGenWeaponsOnAwake)
+                {
+                    InitializePlayerInventory();
+                }
+            }
+
+        }
+    }
+
 
     public void GenerateGun_Single(InputAction.CallbackContext callbackContext)
     {

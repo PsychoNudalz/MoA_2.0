@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     bool tilted;
 
     Vector3 dashRange;
-    float dashDistance = 15f;
+    float dashDistance = 10f;
 
     [SerializeField] Look lookScript;
 
