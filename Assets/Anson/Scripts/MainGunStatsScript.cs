@@ -8,6 +8,7 @@ public class MainGunStatsScript : GunStatsScript
 {
     [Header("Gun Property")]
     [SerializeField] GunTypes gunType = GunTypes.RIFLE;
+    [SerializeField] Rarity rarity;
     [SerializeField] ElementTypes elementType = ElementTypes.PHYSICAL;
     [SerializeField] FireTypes fireType = FireTypes.HitScan;
     [SerializeField] GameObject projectileGO;
@@ -75,7 +76,7 @@ public class MainGunStatsScript : GunStatsScript
     public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
 
     public AnimationCurve RangeCurve { get => rangeCurve; }
-
+    public Rarity Rarity { get => rarity; set => rarity = value; }
 
     public void SetBody(GunComponent_Body b)
     {
@@ -84,6 +85,7 @@ public class MainGunStatsScript : GunStatsScript
         gunComponent_Body = b;
 
         gunType = b.GTypes[0];
+        rarity = b.Rarity;
         recoilPattern_X = b.RecoilPattern_X;
         recoilPattern_Y = b.RecoilPattern_Y;
         timeToRecenter = b.TimeToRecenter;
@@ -187,14 +189,21 @@ public class MainGunStatsScript : GunStatsScript
         string returnString = string.Concat(
             name, "\n",
             gunType.ToString(), " ", elementType.ToString(), "\n",
+            "Rarity: ",rarity.ToString(), "\n",
             "Damage: ", damagePerProjectile, " x ", projectilePerShot, "\n",
             "RPM: ", RPM, " Recoil: ", recoil.ToString(), "\n",
+            "Hip Fire: ", recoil_HipFire.ToString(), "\n",
             "Mag: ", magazineSize, " Reload Speed: ", ReloadSpeed, "\n",
             "Range: ", range, "\n",
             " Drop Offs: ", Mathf.Round(rangeCurve.Evaluate(0) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(0.5f) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(1) * damagePerProjectile)
 
             );
         return returnString;
+    }
+
+    public string GetName()
+    {
+        return name;
     }
 
 }

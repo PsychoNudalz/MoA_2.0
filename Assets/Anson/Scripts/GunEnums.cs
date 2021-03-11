@@ -11,7 +11,8 @@ public enum GunComponents
     STOCK,
     SIGHT,
     ATTACHMENT,
-    MUZZLE
+    MUZZLE,
+    STATBOOST
 }
 
 public enum GunTypes
@@ -37,4 +38,13 @@ public enum FireTypes
 {
     HitScan,
     Projectile
+}
+
+public enum Rarity
+{
+    COMMON,
+    UNCOMMON,
+    RARE,
+    LEGENDARY,
+    EXOTIC
 }

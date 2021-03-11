@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7417197319839373932}
   - component: {fileID: 2041712144437820541}
   - component: {fileID: 954182088563733087}
-  - component: {fileID: 4023685616534302226}
   m_Layer: 8
   m_Name: SpamShotgun_Barrel
   m_TagString: Gun
@@ -51,10 +50,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentType: 3
   gunTypes: 02000000
-  gunConnectionPoints:
-  - {fileID: 5267149391355837073}
+  essentialConnectionPoints: []
+  extraConnectionPoints:
   - {fileID: 1101845767990539396}
+  - {fileID: 5267149391355837073}
   componentGunStatsScript: {fileID: 0}
+  MuzzleLocation: {fileID: 1728718664017847347}
 --- !u!65 &2041712144437820541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96,25 +97,6 @@ MonoBehaviour:
   recoilM: {x: 1, y: 0.6}
   rangeM: 1
   magazineSizeM: 1
---- !u!95 &4023685616534302226
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5578068311563719743}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e46fb8ad5c4435b4489527d619c4c0bf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1597767211765225234
 PrefabInstance:
   m_ObjectHideFlags: 0

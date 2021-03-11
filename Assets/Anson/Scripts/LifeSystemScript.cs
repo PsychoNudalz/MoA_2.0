@@ -116,7 +116,7 @@ public class LifeSystemScript : MonoBehaviour
         if (!isDead)
         {
             health_Current -= Mathf.RoundToInt(dmg * multiplier);
-            print(name + " take " + element+" damage: " + dmg * multiplier);
+            print(name + " take " + element+" damage: " + dmg +" x "+multiplier);
             //updateHealthBar();
             displayDamageCritical(dmg * multiplier);
             playDamageParticles();
@@ -287,12 +287,17 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual void ApplyDebuff(FireEffectScript debuff)
     {
-        ApplyDebuff(debuff as FireEffectScript);
+        ApplyDebuff(debuff as DebuffScript);
     }
 
     public virtual void ApplyDebuff(ShockEffectScript debuff)
     {
-        ApplyDebuff(debuff as ShockEffectScript);
+        ApplyDebuff(debuff as DebuffScript);
+    }
+
+    public virtual void ApplyDebuff(IceEffectScript debuff)
+    {
+        ApplyDebuff(debuff as DebuffScript);
     }
 
     public virtual void RemoveDebuff(FireEffectScript debuff = null)
@@ -301,6 +306,10 @@ public class LifeSystemScript : MonoBehaviour
         
     }
     public virtual void RemoveDebuff(ShockEffectScript debuff)
+    {
+        RemoveDebuff(debuff as DebuffScript);
+    }
+    public virtual void RemoveDebuff(IceEffectScript debuff)
     {
         RemoveDebuff(debuff as DebuffScript);
     }

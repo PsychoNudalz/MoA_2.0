@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -16,10 +17,17 @@ public class LevelGenerator : MonoBehaviour
     List<Room>  generatedRooms = new List<Room>();
 
     LayerMask roomLayerMask;
+    public LoadingHandler loadingHandler;
+    Scrollbar bar;
+
+    NavMeshSurface navSurface;
 
     void Start() {
         roomLayerMask = LayerMask.GetMask("Room");
         StartCoroutine("GenerateLevel");
+        bar = loadingHandler.gameObject.GetComponent<Scrollbar>();
+        bar.size = 0;
+        navSurface = GetComponent<NavMeshSurface>();
     }
 
     IEnumerator GenerateLevel() {
@@ -28,6 +36,7 @@ public class LevelGenerator : MonoBehaviour
 
         yield return startup;
 
+        
         PlaceStartRoom();
         yield return interval;
 
@@ -35,6 +44,7 @@ public class LevelGenerator : MonoBehaviour
 
         for (int i = 0; i < iterations; i++) {
             PlaceRoom();
+            if (bar.size <= 0.9f) bar.size += 0.05f;
             yield return interval;
         }
 
@@ -42,14 +52,26 @@ public class LevelGenerator : MonoBehaviour
         yield return interval;
 
         Debug.Log("Level Generated!");
+        bar.size = 0.95f;
 
-        NavMeshSurface[] navSurfaces = GameObject.FindObjectsOfType<NavMeshSurface>();
+        //NavMeshSurface[] navSurfaces = GameObject.FindObjectsOfType<NavMeshSurface>();
+        //print("TEST: " + navSurfaces.Length);
 
+
+        float barStep = 0.35f / (float)iterations;
+        /*
         foreach (NavMeshSurface navSurface in navSurfaces) {
             Debug.Log("Baking Navmesh for " + navSurface);
-            navSurface.BuildNavMesh();
+            bar.size = bar.size + barStep;
+            //navSurface.
+            //navSurface.RemoveData();
+            //navSurface.BuildNavMesh();
         }
+        */
+        //NavMeshBuilder.BuildNavMesh();
+        navSurface.BuildNavMesh();
 
+        loadingHandler.transform.parent.parent.gameObject.SetActive(false);
     }
 
     void AddFoggedDoorToList (Room room, ref List<FoggedDoor> list) {

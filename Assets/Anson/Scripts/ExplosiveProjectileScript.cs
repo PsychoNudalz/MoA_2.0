@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExplosiveProjectileScript : ProjectileScript
 {
     [Header("Explosive Stats")]
-    [SerializeField] float maxDamage;
+    [SerializeField] float damageMultiplier;
     [SerializeField] float maxRange;
     [SerializeField] AnimationCurve rangeFalloff;
     [SerializeField] SphereCastDamageScript sphereCastDamageScript;
@@ -14,7 +14,7 @@ public class ExplosiveProjectileScript : ProjectileScript
     public override void Explode()
     {
         base.Explode();
-        sphereCastDamageScript.SphereCastDamageArea(maxDamage, maxRange, rangeFalloff, Level, ElementType);
+        sphereCastDamageScript.SphereCastDamageArea(BaseDamage*damageMultiplier, maxRange, rangeFalloff, Level, ElementType);
         Destroy(gameObject);
     }
 }

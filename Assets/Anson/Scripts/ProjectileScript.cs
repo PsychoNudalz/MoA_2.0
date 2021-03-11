@@ -7,6 +7,8 @@ public abstract class ProjectileScript : MonoBehaviour
     [Header("Stats")]
     [SerializeField] float launchForce;
     [SerializeField] float launchSpeed;
+    [SerializeField] float launchSpin;
+    [SerializeField] float baseDamage;
     [SerializeField] private int level;
     [SerializeField] private ElementTypes elementType;
 
@@ -23,6 +25,7 @@ public abstract class ProjectileScript : MonoBehaviour
 
     protected int Level { get => level; set => level = value; }
     protected ElementTypes ElementType { get => elementType; set => elementType = value; }
+    protected float BaseDamage { get => baseDamage; set => baseDamage = value; }
 
 
     // Start is called before the first frame update
@@ -58,7 +61,7 @@ public abstract class ProjectileScript : MonoBehaviour
     {
         if (tagList.Contains(collision.collider.tag))
         {
-            print(collision.collider.name);
+            //print(collision.collider.name);
             if (collision.collider.tag.Equals("Enemy") || collision.collider.tag.Equals("Player"))
             {
                 Explode();
@@ -75,23 +78,25 @@ public abstract class ProjectileScript : MonoBehaviour
         }
     }
 
-    public virtual void Launch(int level, ElementTypes elementType)
+    public virtual void Launch(float damage, int level, ElementTypes elementType)
     {
-        Launch(level, elementType, transform.forward);
+        Launch(damage, level, elementType, transform.forward);
     }
 
-    public virtual void Launch(int level, ElementTypes elementType, Vector3 LaunchDir)
+    public virtual void Launch(float damage, int level, ElementTypes elementType, Vector3 LaunchDir)
     {
+        baseDamage = damage;
         this.level = level;
         this.elementType = elementType;
         transform.forward = LaunchDir;
         rb.velocity = LaunchDir * launchForce;
+        rb.AddTorque(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)) * launchSpin);
         rb.AddForce(LaunchDir * launchForce * rb.mass);
     }
 
     public virtual void Explode()
     {
-        print(name + " go boom");
+        //print(name + " go boom");
         if (explodeEffect != null)
         {
             explodeEffect = Instantiate(explodeEffect, transform.position, transform.rotation);

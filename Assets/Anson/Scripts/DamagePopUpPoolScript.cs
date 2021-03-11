@@ -9,6 +9,7 @@ public class DamagePopUpPoolScript : DamagePopScript
     [SerializeField] int pointer = 0;
     [SerializeField] int initialSize = 10;
     [SerializeField] float spawnRange = .2f;
+    float timeNow = 0;
 
     private void Awake()
     {
@@ -16,6 +17,15 @@ public class DamagePopUpPoolScript : DamagePopScript
         for (int i = 0; i < initialSize; i++)
         {
             DPPool.Add(Instantiate(baseDP, transform));
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Time.time - timeNow > 10f)
+        {
+            CleanUpPool();
+            timeNow = Time.time;
         }
     }
 
@@ -36,6 +46,8 @@ public class DamagePopUpPoolScript : DamagePopScript
     DamagePopScript GetNextDP()
     {
         int i = 0;
+        pointer = (pointer) % DPPool.Count;
+
         DamagePopScript currentDP = DPPool[pointer];
         while (i < DPPool.Count && currentDP.checkText())
         {
@@ -46,8 +58,31 @@ public class DamagePopUpPoolScript : DamagePopScript
         if (currentDP.checkText())
         {
             currentDP = Instantiate(baseDP, transform);
+            DPPool.Add(currentDP);
         }
         return currentDP;
 
+    }
+
+    void CleanUpPool()
+    {
+        if (DPPool.Count > initialSize)
+        {
+            print(this + " loading clean up");
+            int i = 0;
+            DamagePopScript currentDP;
+            while (i < DPPool.Count && DPPool.Count > initialSize)
+            {
+                currentDP = DPPool[i];
+                i++;
+                if (!currentDP.checkText())
+                {
+                    print(this + " clearing " + i);
+                    DPPool.Remove(currentDP);
+                    Destroy(currentDP.gameObject);
+                    i--;
+                }
+            }
+        }
     }
 }

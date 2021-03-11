@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 831329974589103962}
   - component: {fileID: 8157085450278074699}
   - component: {fileID: 6943345641517250409}
-  - component: {fileID: 6535100333300247332}
   m_Layer: 8
   m_Name: PumpShotgun_Barrel
   m_TagString: Gun
@@ -50,11 +49,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentType: 3
-  gunTypes: 02000000
-  gunConnectionPoints:
+  gunTypes: 0200000001000000
+  essentialConnectionPoints: []
+  extraConnectionPoints:
   - {fileID: 2629816206385233831}
   - {fileID: 7074272640861614514}
   componentGunStatsScript: {fileID: 0}
+  MuzzleLocation: {fileID: 8834923272745967877}
 --- !u!65 &8157085450278074699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96,25 +97,6 @@ MonoBehaviour:
   recoilM: {x: 0.8, y: 0.95}
   rangeM: 1
   magazineSizeM: 1
---- !u!95 &6535100333300247332
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2310082779051430153}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e46fb8ad5c4435b4489527d619c4c0bf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5650055513349232959
 PrefabInstance:
   m_ObjectHideFlags: 0

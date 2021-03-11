@@ -9,6 +9,7 @@ public class GunConnectionPoint : MonoBehaviour
     [SerializeField] List<GunComponents> compatableComponents;
     [SerializeField] List<GunTypes> compatableTypes;
 
+    public GunComponent ConnectedComponent { get => connectedComponent; set => connectedComponent = value; }
 
     public Vector3 GetPosition()
     {
@@ -25,13 +26,13 @@ public class GunConnectionPoint : MonoBehaviour
         bool compatable = false;
         if (compatableComponents.Contains(g.GetGunComponentType()))
         {
-            print(g.name + " Compatable component");
+            //print(g.name + " Compatable component");
             foreach(GunTypes gt in g.GetGunTypes())
             {
                 if (compatableTypes.Contains(gt))
                 {
                     compatable = true;
-                    print(g.name + " Compatable type");
+                    //print(g.name + " Compatable type");
                 }
             }
         }

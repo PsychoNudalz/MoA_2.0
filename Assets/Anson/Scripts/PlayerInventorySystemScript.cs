@@ -17,7 +17,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
     //[SerializeField] MainGunStatsScript currentGun;
 
 
-    public void SwapWeapon(MainGunStatsScript newGun, bool isNew = false)
+    public void SwapWeapon(MainGunStatsScript newGun, bool isNew = false, int i = -1)
     {
         MainGunStatsScript currentGun = Weapons[pointer];
         gunDamageScript.TidyOldGun();
@@ -32,13 +32,19 @@ public class PlayerInventorySystemScript : MonoBehaviour
             if (currentGun != null)
             {
 
-                //currentGun.gameObject.transform.SetParent(inventoryTransform);
-                currentGun.gameObject.SetActive(false);
+                currentGun.gameObject.transform.SetParent(inventoryTransform);
+                currentGun.gameObject.transform.localPosition = new Vector3();
+                currentGun.gameObject.transform.localRotation = Quaternion.identity;
+                //currentGun.gameObject.SetActive(false);
             }
         }
         if (newGun != null)
         {
-            gunDamageScript.UpdateGunScript(newGun);
+            if (i == -1)
+            {
+                i = pointer;
+            }
+            gunDamageScript.UpdateGunScript(newGun,i);
 
         }
 
@@ -49,7 +55,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
         if (i < Weapons.Length && i > -1)
         {
 
-            SwapWeapon(Weapons[i]);
+            SwapWeapon(Weapons[i], false, i);
             pointer = i;
         }
         else

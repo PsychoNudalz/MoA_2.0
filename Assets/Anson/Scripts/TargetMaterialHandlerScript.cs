@@ -8,6 +8,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     [Header("Target Material")]
     [SerializeField] Renderer render;
     [SerializeField] Material material;
+    [SerializeField] VisualEffect DebuffEffect; 
     [Header("Decay State")]
     [SerializeField] float currentRatio;
     [SerializeField] float decayTime = 1;
@@ -47,11 +48,41 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         if (b)
         {
             material.SetInt("_SetFire", 1);
+            DebuffEffect.SendEvent("OnFire");
 
         }
         else
         {
             material.SetInt("_SetFire", 0);
+
+        }
+    }
+
+    public void SetIce(bool b)
+    {
+        if (b)
+        {
+            material.SetInt("_SetIce", 1);
+            DebuffEffect.SendEvent("OnIce");
+
+
+        }
+        else
+        {
+            material.SetInt("_SetIce", 0);
+
+        }
+    }
+    public void SetShock(bool b)
+    {
+        if (b)
+        {
+            DebuffEffect.SendEvent("OnShock");
+
+
+        }
+        else
+        {
 
         }
     }

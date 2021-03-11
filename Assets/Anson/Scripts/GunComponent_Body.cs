@@ -6,7 +6,10 @@ using UnityEngine.VFX;
 public class GunComponent_Body : GunComponent
 {
     [Header("Extra")]
+
+    [SerializeField] protected bool isSetElement = false;
     [SerializeField] protected ElementTypes elementType;
+    [SerializeField] protected Rarity rarity;
     [SerializeField] protected AnimationCurve rangeCurve;
 
 
@@ -72,6 +75,7 @@ public class GunComponent_Body : GunComponent
     public AnimationCurve RangeCurve { get => rangeCurve; }
     public ElementTypes ElementType { get => elementType; }
     public Vector3 SightOffset { get => sightOffset; set => sightOffset = value; }
+    public Rarity Rarity { get => rarity; set => rarity = value; }
 
     private void Awake()
     {
@@ -127,6 +131,15 @@ public class GunComponent_Body : GunComponent
         catch (System.NullReferenceException e)
         {
             Debug.LogWarning(name + " Missing shoot effect");
+        }
+    }
+
+    public void SetElement(ElementTypes e)
+    {
+        if (!isSetElement)
+        {
+            elementType = e;
+
         }
     }
 

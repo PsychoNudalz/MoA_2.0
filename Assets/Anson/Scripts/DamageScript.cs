@@ -47,6 +47,30 @@ public class DamageScript : MonoBehaviour
         ls.takeDamageCritical(dmg, level, element,multiplier);
     }
 
+    public virtual void ApplyElementEffect(LifeSystemScript ls, float elementDamage, float elementPotency, ElementTypes elementType)
+    {
+        switch (elementType)
+        {
+            case (ElementTypes.PHYSICAL):
+                dealCriticalDamageToTarget(ls, elementDamage, 1, elementType, 1);
+                break;
+            case (ElementTypes.FIRE):
+                FireEffectScript newFireDebuff = new FireEffectScript();
+                newFireDebuff.init(elementDamage, elementPotency, tagList, layerMask);
+                ls.ApplyDebuff(newFireDebuff);
+                break;
+            case (ElementTypes.ICE):
+                IceEffectScript newIceDebuff = new IceEffectScript();
+                newIceDebuff.init(elementDamage, elementPotency, tagList, layerMask);
+                ls.ApplyDebuff(newIceDebuff);
+                break;
+            case (ElementTypes.SHOCK):
+                ShockEffectScript newShockDebuff = new ShockEffectScript();
+                newShockDebuff.init(elementDamage, elementPotency, tagList, layerMask);
+                ls.ApplyDebuff(newShockDebuff);
+                break;
+        }
+    }
 
 
 

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7662075671685295618}
   - component: {fileID: 3339173929990462754}
   - component: {fileID: 4557450485898089216}
-  - component: {fileID: 420451185680617293}
   m_Layer: 8
   m_Name: SpamShotgun_Grip
   m_TagString: Gun
@@ -49,7 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentType: 1
   gunTypes: 02000000
-  gunConnectionPoints: []
+  essentialConnectionPoints: []
+  extraConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
 --- !u!65 &3339173929990462754
 BoxCollider:
@@ -92,25 +92,6 @@ MonoBehaviour:
   recoilM: {x: 0.98, y: 0.98}
   rangeM: 1
   magazineSizeM: 1
---- !u!95 &420451185680617293
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9181706097560188256}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e46fb8ad5c4435b4489527d619c4c0bf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &3920254149131978329
 PrefabInstance:
   m_ObjectHideFlags: 0

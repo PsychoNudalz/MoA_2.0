@@ -17,6 +17,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] protected int projectilePerShot;
     [SerializeField] protected float timeBetweenProjectile = 0f;
     [SerializeField] GunTypes gunType = GunTypes.RIFLE;
+    [SerializeField] Rarity rarity;
     [SerializeField] protected ElementTypes elementType = ElementTypes.PHYSICAL;
     [SerializeField] protected float elementDamage = 0;
     [SerializeField] protected float elementPotency = 0; //effect duration or range
@@ -64,6 +65,7 @@ public class GunDamageScript : DamageScript
     [SerializeField] Vector3 randomFireDir;
     [SerializeField] Vector3 sightOffset;
     [SerializeField] Coroutine currentReloadCoroutine;
+    [SerializeField] Coroutine currentBurstCoroutine;
     [SerializeField] Look lookScript;
     [SerializeField] float originalFireDirection_X;
 
@@ -71,6 +73,7 @@ public class GunDamageScript : DamageScript
     public bool displayFireRaycast = true;
     public bool isAI = false;
     public AnsonTempUIScript ansonTempUIScript;
+    public int currentSlot = 0;
 
 
     private void Awake()
@@ -110,7 +113,7 @@ public class GunDamageScript : DamageScript
             Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.green, 0f);
         }
 
-
+        //print("Recoil Time: " + currentRecoilTime);
     }
 
 
@@ -129,14 +132,16 @@ public class GunDamageScript : DamageScript
         return mainGunStatsScript;
     }
 
-    public MainGunStatsScript UpdateGunScript(MainGunStatsScript g)
+    public MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
     {
+        currentSlot = slot;
         isFiring = false;
         MainGunStatsScript oldGunScript = TidyOldGun();
         //Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
 
         mainGunStatsScript = g;
         gunType = g.GunType;
+        rarity = g.Rarity;
         damagePerProjectile = g.DamagePerProjectile;
         RPM = g.RPM_Get;
         reloadSpeed = g.ReloadSpeed;
@@ -206,6 +211,8 @@ public class GunDamageScript : DamageScript
 
         UpdateAmmoCount();
         UpdateGunStatText();
+        ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
+
         return oldGunScript;
 
     }
@@ -439,7 +446,7 @@ public class GunDamageScript : DamageScript
 
             if (currentProjectile > 0 && currentMag > 0 && timeBetweenProjectile > 0)
             {
-                StartCoroutine(BurstFire());
+                currentBurstCoroutine = StartCoroutine(BurstFire(currentRecoilTime));
             }
             return true;
         }
@@ -543,22 +550,25 @@ public class GunDamageScript : DamageScript
         return hitTarget;
     }
 
+
+
+
     void LaunchProjectile()
     {
         if (projectileGO.TryGetComponent(out ProjectileScript projectileScript))
         {
             RaycastHit hit;
-            for (int i = 0; i < projectilePerShot; i++)
+            //for (int i = 0; i < projectilePerShot; i++)
+            //{
+            projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
+            Vector3 fireDir = firePoint.forward;
+            if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
             {
-                projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
-                Vector3 fireDir = firePoint.forward;
-                if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
-                {
-                    fireDir = hit.point - mainGunStatsScript.transform.position;
-                }
-
-                projectileScript.Launch(1, elementType, fireDir.normalized);
+                fireDir = hit.point - mainGunStatsScript.transform.position;
             }
+
+            projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized);
+            //}
         }
         else
         {
@@ -567,10 +577,18 @@ public class GunDamageScript : DamageScript
 
     }
 
-    void HandleWeapon()
+    float HandleWeapon(float newRecoilTime = -1f)
     {
         mainGunStatsScript.Play_Fire();
-        RecoilWeapon();
+        if (newRecoilTime < 0)
+        {
+            newRecoilTime = RecoilWeapon();
+
+        }
+        else
+        {
+            newRecoilTime = RecoilWeapon(newRecoilTime);
+        }
         currentProjectile -= 1;
         currentMag -= 1;
 
@@ -579,9 +597,11 @@ public class GunDamageScript : DamageScript
         {
             Fire(false);
         }
+
+        return newRecoilTime;
     }
 
-    void RecoilWeapon()
+    float RecoilWeapon()
     {
 
         currentRecoilTime += 0.1f;
@@ -591,6 +611,7 @@ public class GunDamageScript : DamageScript
             currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y) * projectilePerShot / 5f;
 
         }
+        print(currentRecoilTime + ", " + new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y));
         /*
         if (isADS)
         {
@@ -606,6 +627,14 @@ public class GunDamageScript : DamageScript
         }
         */
 
+        return currentRecoilTime;
+
+    }
+
+    float RecoilWeapon(float newTime)
+    {
+        currentRecoilTime = newTime;
+        return RecoilWeapon();
     }
 
     void SetWeaponRecoil()
@@ -703,23 +732,7 @@ public class GunDamageScript : DamageScript
 
     void ApplyElementEffect(LifeSystemScript ls)
     {
-        switch (elementType)
-        {
-            case (ElementTypes.PHYSICAL):
-                break;
-            case (ElementTypes.FIRE):
-                FireEffectScript newFireDebuff = new FireEffectScript();
-                newFireDebuff.init(elementDamage, elementPotency, tagList, layerMask);
-                ls.ApplyDebuff(newFireDebuff);
-                break;
-            case (ElementTypes.ICE):
-                break;
-            case (ElementTypes.SHOCK):
-                ShockEffectScript newShockDebuff = new ShockEffectScript();
-                newShockDebuff.init(elementDamage, elementPotency, tagList, layerMask);
-                ls.ApplyDebuff(newShockDebuff);
-                break;
-        }
+        base.ApplyElementEffect(ls, elementDamage, elementPotency, elementType);
     }
 
 
@@ -751,7 +764,7 @@ public class GunDamageScript : DamageScript
 
         try
         {
-            ansonTempUIScript.SetAmmoText(string.Concat(currentMag.ToString(), "/", magazineSize.ToString()));
+            ansonTempUIScript.SetAmmoText(string.Concat(currentMag.ToString(), "/", magazineSize.ToString()), currentSlot);
 
         }
         catch (System.Exception e)
@@ -761,9 +774,9 @@ public class GunDamageScript : DamageScript
     }
 
 
-    IEnumerator BurstFire()
+    IEnumerator BurstFire(float newRecoilTime)
     {
-        print("Bursting");
+        //print("Bursting");
         yield return new WaitForSeconds(timeBetweenProjectile);
 
         switch (fireType)
@@ -775,10 +788,14 @@ public class GunDamageScript : DamageScript
                 LaunchProjectile();
                 break;
         }
-        HandleWeapon();
+        newRecoilTime = HandleWeapon(newRecoilTime);
         if (currentProjectile > 0 && currentMag > 0)
         {
-            StartCoroutine(BurstFire());
+            if (currentBurstCoroutine != null)
+            {
+                StopCoroutine(currentBurstCoroutine);
+            }
+            currentBurstCoroutine = StartCoroutine(BurstFire(newRecoilTime));
         }
     }
 
