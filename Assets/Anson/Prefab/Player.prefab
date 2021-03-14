@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1317022060177320813}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Current Gun Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 415930868606484994}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: WeaponSlot (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 1299974341042030423}
   - component: {fileID: 4722235201626257209}
   - component: {fileID: 4319536951760699310}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: AmmoCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 6214230952898908703}
   - component: {fileID: 2565439441026766803}
   - component: {fileID: 8267501107812463126}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Controls Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7892161585610838363}
-  m_Layer: 9
+  m_Layer: 18
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 1690650035649309460}
   - component: {fileID: 143631577819665453}
   - component: {fileID: 1334050930945093967}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: GunName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 7617844998049830630}
   - component: {fileID: 5967677232052685469}
   - component: {fileID: 2815607076834058645}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: GunName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 1230605163243299606}
   - component: {fileID: 6508664082538147613}
   - component: {fileID: 2629453750212697483}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 3674386363393712751}
   - component: {fileID: 8491489689657173531}
   - component: {fileID: 5153161626000784375}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Crossair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +814,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4112174735616063625}
-  m_Layer: 9
+  m_Layer: 18
   m_Name: GunPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -853,7 +853,8 @@ GameObject:
   - component: {fileID: 4112174735619620036}
   - component: {fileID: 111666207402980044}
   - component: {fileID: 4011440769745659725}
-  m_Layer: 9
+  - component: {fileID: -1675315315690588733}
+  m_Layer: 18
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -893,6 +894,7 @@ MonoBehaviour:
   playerGunDamageScript: {fileID: 0}
   playerInventorySystemScript: {fileID: 0}
   playerController: {fileID: 0}
+  playerInterationScript: {fileID: 0}
 --- !u!114 &4112174735619620037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,6 +1095,21 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4fa00674-e281-4224-b4a0-bd18f29d7f49
     m_ActionName: Player/WeaponWheel[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b4e8cf07-bc53-407b-98b5-e84ee06e9275
+    m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1201,6 +1218,7 @@ MonoBehaviour:
   dashCooldown: 1
   gunDamageScript: {fileID: 4112174736969628676}
   playerInventorySystemScript: {fileID: 0}
+  playerInterationScript: {fileID: 0}
 --- !u!114 &111666207402980044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1247,6 +1265,25 @@ MonoBehaviour:
   pointer: 0
   inventoryTransform: {fileID: 7892161585610838363}
   gunDamageScript: {fileID: 0}
+--- !u!114 &-1675315315690588733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112174735619620034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b847d8553e35b46aa1191b5f296a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam1: {fileID: 4112174735984912498}
+  pickUpRange: 10
+  currentFocus: {fileID: 0}
+  useFlage: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 395520
 --- !u!1 &4112174735984912510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,7 +1296,7 @@ GameObject:
   - component: {fileID: 4112174735984912498}
   - component: {fileID: 4112174735984912499}
   - component: {fileID: 4112174735984912508}
-  m_Layer: 9
+  m_Layer: 18
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1372,7 +1409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4112174736059414431}
-  m_Layer: 9
+  m_Layer: 18
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1405,7 +1442,7 @@ GameObject:
   - component: {fileID: 4112174736439931513}
   - component: {fileID: 4112174736439931514}
   - component: {fileID: 4112174736439931515}
-  m_Layer: 9
+  m_Layer: 18
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1496,7 +1533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4112174736969628677}
   - component: {fileID: 4112174736969628676}
-  m_Layer: 9
+  m_Layer: 18
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1614,7 +1651,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2018796082324381278}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1651,7 +1688,7 @@ GameObject:
   - component: {fileID: 8743585679951603890}
   - component: {fileID: 2946630792013530081}
   - component: {fileID: 2883029173808389832}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: GunName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1788,7 +1825,7 @@ GameObject:
   - component: {fileID: 4219806944772729826}
   - component: {fileID: 6240485210936721601}
   - component: {fileID: 1989843971590015142}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1911,7 +1948,7 @@ GameObject:
   - component: {fileID: 3447065905954261430}
   - component: {fileID: 3818759284680321443}
   - component: {fileID: 3049816925046084240}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: GunName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2046,7 +2083,7 @@ GameObject:
   - component: {fileID: 2275819493283405304}
   - component: {fileID: 1708278762850944832}
   - component: {fileID: 5772872939260961916}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: AmmoCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2177,7 +2214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3022086865722704197}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2217,7 +2254,7 @@ GameObject:
   - component: {fileID: 124124883000884245}
   - component: {fileID: 882052699203209028}
   - component: {fileID: 8576934069590475702}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Gun Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2351,7 +2388,7 @@ GameObject:
   - component: {fileID: 7829131705736387438}
   - component: {fileID: 8831963442194943629}
   - component: {fileID: 2338811531415453433}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2425,7 +2462,7 @@ GameObject:
   - component: {fileID: 8299921317414263726}
   - component: {fileID: 2777547625646791194}
   - component: {fileID: 9204871996621362237}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: AmmoCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2556,7 +2593,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8158664970914186310}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: WeaponSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2593,7 +2630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1744063119718246461}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: WeaponSlot (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2630,7 +2667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3963377458544999453}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

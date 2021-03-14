@@ -21,6 +21,6 @@ public class vfx_GetCameraPositionScript : MonoBehaviour
     private void FixedUpdate()
     {
 
-        vfx.SetVector3("Main Camera Position", camera.transform.position-transform.position);
+        vfx.SetVector3("Main Camera Position", transform.InverseTransformPoint(camera.transform.position));
     }
 }

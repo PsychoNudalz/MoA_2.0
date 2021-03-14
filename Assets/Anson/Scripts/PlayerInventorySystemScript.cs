@@ -76,6 +76,16 @@ public class PlayerInventorySystemScript : MonoBehaviour
             currentGun.GetComponentInChildren<Rigidbody>().isKinematic = false;
             currentGun.GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
             currentGun.gameObject.transform.parent = null;
+            
+        }
+    }
+
+    void convertWeaponLayerMask(GameObject currentGun, string layerName)
+    {
+        currentGun.gameObject.layer = LayerMask.NameToLayer(layerName);
+        foreach (Transform child in currentGun.transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer(layerName);
         }
     }
 

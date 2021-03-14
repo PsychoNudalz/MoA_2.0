@@ -51,38 +51,6 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""TestButton2"",
-                    ""type"": ""Button"",
-                    ""id"": ""57bc4b99-5690-4585-bedd-a50e14320292"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""TestButton1"",
-                    ""type"": ""Button"",
-                    ""id"": ""f8d11d9b-a054-4998-b3d1-7c211656a5db"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""DespawnAllGuns"",
-                    ""type"": ""Button"",
-                    ""id"": ""e797ec15-e36e-45b4-ba7a-78a36d7be230"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""GenerateGun"",
-                    ""type"": ""Button"",
-                    ""id"": ""25cd3158-9f23-4c28-93e0-e5f1513384a5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""63245073-fff7-438c-ab10-8b9c87ee2cb4"",
@@ -115,6 +83,14 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4e8cf07-bc53-407b-98b5-e84ee06e9275"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Gun1"",
                     ""type"": ""Button"",
                     ""id"": ""eb5ad711-53d4-4bd9-b8e9-3690807e52a7"",
@@ -142,6 +118,38 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""name"": ""WeaponWheel"",
                     ""type"": ""Button"",
                     ""id"": ""4fa00674-e281-4224-b4a0-bd18f29d7f49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TestButton1"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8d11d9b-a054-4998-b3d1-7c211656a5db"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TestButton2"",
+                    ""type"": ""Button"",
+                    ""id"": ""57bc4b99-5690-4585-bedd-a50e14320292"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DespawnAllGuns"",
+                    ""type"": ""Button"",
+                    ""id"": ""e797ec15-e36e-45b4-ba7a-78a36d7be230"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""GenerateGun"",
+                    ""type"": ""Button"",
+                    ""id"": ""25cd3158-9f23-4c28-93e0-e5f1513384a5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -325,50 +333,6 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""751f7beb-3cd7-464c-8b3b-5b373f83b33c"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DespawnAllGuns"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a015f36c-448f-4d3f-ae58-a009b3d92ed0"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TestButton1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f51a97e9-ae20-4e4a-9cc8-85ef290fb5a3"",
-                    ""path"": ""<Keyboard>/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TestButton2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8cf02ec4-7f4f-422b-8242-26cc9108d59e"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GenerateGun"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""tempName"",
                     ""id"": ""4102c0ab-230d-414f-9833-49020dd52470"",
                     ""path"": """",
@@ -422,6 +386,61 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""action"": ""WeaponWheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c1aef3a-330f-47a4-b37f-25a750456a79"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f51a97e9-ae20-4e4a-9cc8-85ef290fb5a3"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestButton2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a015f36c-448f-4d3f-ae58-a009b3d92ed0"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestButton1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""751f7beb-3cd7-464c-8b3b-5b373f83b33c"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DespawnAllGuns"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8cf02ec4-7f4f-422b-8242-26cc9108d59e"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GenerateGun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -451,18 +470,19 @@ public class @Controller : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_TestButton2 = m_Player.FindAction("TestButton2", throwIfNotFound: true);
-        m_Player_TestButton1 = m_Player.FindAction("TestButton1", throwIfNotFound: true);
-        m_Player_DespawnAllGuns = m_Player.FindAction("DespawnAllGuns", throwIfNotFound: true);
-        m_Player_GenerateGun = m_Player.FindAction("GenerateGun", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Gun1 = m_Player.FindAction("Gun1", throwIfNotFound: true);
         m_Player_Gun2 = m_Player.FindAction("Gun2", throwIfNotFound: true);
         m_Player_Gun3 = m_Player.FindAction("Gun3", throwIfNotFound: true);
         m_Player_WeaponWheel = m_Player.FindAction("WeaponWheel", throwIfNotFound: true);
+        m_Player_TestButton1 = m_Player.FindAction("TestButton1", throwIfNotFound: true);
+        m_Player_TestButton2 = m_Player.FindAction("TestButton2", throwIfNotFound: true);
+        m_Player_DespawnAllGuns = m_Player.FindAction("DespawnAllGuns", throwIfNotFound: true);
+        m_Player_GenerateGun = m_Player.FindAction("GenerateGun", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -516,18 +536,19 @@ public class @Controller : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Dash;
-    private readonly InputAction m_Player_TestButton2;
-    private readonly InputAction m_Player_TestButton1;
-    private readonly InputAction m_Player_DespawnAllGuns;
-    private readonly InputAction m_Player_GenerateGun;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Gun1;
     private readonly InputAction m_Player_Gun2;
     private readonly InputAction m_Player_Gun3;
     private readonly InputAction m_Player_WeaponWheel;
+    private readonly InputAction m_Player_TestButton1;
+    private readonly InputAction m_Player_TestButton2;
+    private readonly InputAction m_Player_DespawnAllGuns;
+    private readonly InputAction m_Player_GenerateGun;
     public struct PlayerActions
     {
         private @Controller m_Wrapper;
@@ -536,18 +557,19 @@ public class @Controller : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
-        public InputAction @TestButton2 => m_Wrapper.m_Player_TestButton2;
-        public InputAction @TestButton1 => m_Wrapper.m_Player_TestButton1;
-        public InputAction @DespawnAllGuns => m_Wrapper.m_Player_DespawnAllGuns;
-        public InputAction @GenerateGun => m_Wrapper.m_Player_GenerateGun;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Gun1 => m_Wrapper.m_Player_Gun1;
         public InputAction @Gun2 => m_Wrapper.m_Player_Gun2;
         public InputAction @Gun3 => m_Wrapper.m_Player_Gun3;
         public InputAction @WeaponWheel => m_Wrapper.m_Player_WeaponWheel;
+        public InputAction @TestButton1 => m_Wrapper.m_Player_TestButton1;
+        public InputAction @TestButton2 => m_Wrapper.m_Player_TestButton2;
+        public InputAction @DespawnAllGuns => m_Wrapper.m_Player_DespawnAllGuns;
+        public InputAction @GenerateGun => m_Wrapper.m_Player_GenerateGun;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -569,18 +591,6 @@ public class @Controller : IInputActionCollection, IDisposable
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
-                @TestButton2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton2;
-                @TestButton2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton2;
-                @TestButton2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton2;
-                @TestButton1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton1;
-                @TestButton1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton1;
-                @TestButton1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton1;
-                @DespawnAllGuns.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDespawnAllGuns;
-                @DespawnAllGuns.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDespawnAllGuns;
-                @DespawnAllGuns.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDespawnAllGuns;
-                @GenerateGun.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
-                @GenerateGun.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
-                @GenerateGun.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
@@ -593,6 +603,9 @@ public class @Controller : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Gun1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
                 @Gun1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
                 @Gun1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
@@ -605,6 +618,18 @@ public class @Controller : IInputActionCollection, IDisposable
                 @WeaponWheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponWheel;
                 @WeaponWheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponWheel;
                 @WeaponWheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponWheel;
+                @TestButton1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton1;
+                @TestButton1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton1;
+                @TestButton1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton1;
+                @TestButton2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton2;
+                @TestButton2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton2;
+                @TestButton2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTestButton2;
+                @DespawnAllGuns.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDespawnAllGuns;
+                @DespawnAllGuns.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDespawnAllGuns;
+                @DespawnAllGuns.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDespawnAllGuns;
+                @GenerateGun.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
+                @GenerateGun.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
+                @GenerateGun.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -621,18 +646,6 @@ public class @Controller : IInputActionCollection, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @TestButton2.started += instance.OnTestButton2;
-                @TestButton2.performed += instance.OnTestButton2;
-                @TestButton2.canceled += instance.OnTestButton2;
-                @TestButton1.started += instance.OnTestButton1;
-                @TestButton1.performed += instance.OnTestButton1;
-                @TestButton1.canceled += instance.OnTestButton1;
-                @DespawnAllGuns.started += instance.OnDespawnAllGuns;
-                @DespawnAllGuns.performed += instance.OnDespawnAllGuns;
-                @DespawnAllGuns.canceled += instance.OnDespawnAllGuns;
-                @GenerateGun.started += instance.OnGenerateGun;
-                @GenerateGun.performed += instance.OnGenerateGun;
-                @GenerateGun.canceled += instance.OnGenerateGun;
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
@@ -645,6 +658,9 @@ public class @Controller : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
                 @Gun1.started += instance.OnGun1;
                 @Gun1.performed += instance.OnGun1;
                 @Gun1.canceled += instance.OnGun1;
@@ -657,6 +673,18 @@ public class @Controller : IInputActionCollection, IDisposable
                 @WeaponWheel.started += instance.OnWeaponWheel;
                 @WeaponWheel.performed += instance.OnWeaponWheel;
                 @WeaponWheel.canceled += instance.OnWeaponWheel;
+                @TestButton1.started += instance.OnTestButton1;
+                @TestButton1.performed += instance.OnTestButton1;
+                @TestButton1.canceled += instance.OnTestButton1;
+                @TestButton2.started += instance.OnTestButton2;
+                @TestButton2.performed += instance.OnTestButton2;
+                @TestButton2.canceled += instance.OnTestButton2;
+                @DespawnAllGuns.started += instance.OnDespawnAllGuns;
+                @DespawnAllGuns.performed += instance.OnDespawnAllGuns;
+                @DespawnAllGuns.canceled += instance.OnDespawnAllGuns;
+                @GenerateGun.started += instance.OnGenerateGun;
+                @GenerateGun.performed += instance.OnGenerateGun;
+                @GenerateGun.canceled += instance.OnGenerateGun;
             }
         }
     }
@@ -676,17 +704,18 @@ public class @Controller : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnTestButton2(InputAction.CallbackContext context);
-        void OnTestButton1(InputAction.CallbackContext context);
-        void OnDespawnAllGuns(InputAction.CallbackContext context);
-        void OnGenerateGun(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         void OnGun1(InputAction.CallbackContext context);
         void OnGun2(InputAction.CallbackContext context);
         void OnGun3(InputAction.CallbackContext context);
         void OnWeaponWheel(InputAction.CallbackContext context);
+        void OnTestButton1(InputAction.CallbackContext context);
+        void OnTestButton2(InputAction.CallbackContext context);
+        void OnDespawnAllGuns(InputAction.CallbackContext context);
+        void OnGenerateGun(InputAction.CallbackContext context);
     }
 }
