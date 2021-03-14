@@ -138,6 +138,14 @@ public class GunDamageScript : DamageScript
         {
             child.gameObject.layer = LayerMask.NameToLayer(layerName);
             convertWeaponLayerMask(child.gameObject, layerName);
+
+            /*
+            if (!child.TryGetComponent(out GunComponent_Sight s))
+            {
+                convertWeaponLayerMask(child.gameObject, layerName);
+
+            }
+            */
         }
     }
 

@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour
             }
             if (interactable is WeaponPickUpInteractableScript)
             {
-                playerInventorySystemScript.SwapWeapon(((WeaponPickUpInteractableScript) interactable).ConnectedGun);
+                playerInventorySystemScript.SwapWeapon(((WeaponPickUpInteractableScript) interactable).ConnectedGun, true);
             }
             else
             {
