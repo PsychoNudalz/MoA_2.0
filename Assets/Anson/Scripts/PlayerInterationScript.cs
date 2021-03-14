@@ -13,10 +13,18 @@ public class PlayerInterationScript : MonoBehaviour
     [SerializeField] InteractableScript currentFocus;
     public bool useFlage = false;
     [SerializeField] LayerMask layerMask;
- 
+    public AnsonTempUIScript ansonTempUIScript;
+
+
     public InteractableScript CurrentFocus { get => currentFocus; set => currentFocus = value; }
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        ansonTempUIScript = FindObjectOfType<AnsonTempUIScript>();
+
+    }
 
     private void FixedUpdate()
     {
@@ -42,13 +50,24 @@ public class PlayerInterationScript : MonoBehaviour
     {
         if (currentFocus != null && currentFocus.TryGetComponent(out InteractableScript b))
         {
-            Debug.Log("Player drop: " + i.name);
+            if (i != null)
+            {
+                Debug.Log("Player drop: " + i.name);
+            }
+            if (b is WeaponPickUpInteractableScript)
+            {
+                DisplayWeaponStats(false);
+            }
 
         }
         currentFocus = i;
         if (currentFocus != null && currentFocus.TryGetComponent(out InteractableScript b2))
         {
             Debug.Log("Player found: " + i.name);
+            if (b2 is WeaponPickUpInteractableScript)
+            {
+                DisplayWeaponStats(true, (b2 as WeaponPickUpInteractableScript).ConnectedGun.ToString());
+            }
         }
     }
 
@@ -56,17 +75,17 @@ public class PlayerInterationScript : MonoBehaviour
     {
         Debug.DrawRay(cam1.transform.position, cam1.transform.forward * pickUpRange, Color.cyan);
         RaycastHit hit;
-        if (Physics.Raycast(cam1.transform.position, cam1.transform.forward,out hit,pickUpRange, layerMask))
+        if (Physics.Raycast(cam1.transform.position, cam1.transform.forward, out hit, pickUpRange, layerMask))
         {
             print("detected");
-            InteractableScript i = GetComponentInParent<InteractableScript>();
+            InteractableScript i = hit.collider.GetComponentInParent<InteractableScript>();
             if (i != null)
             {
                 setFocus(i);
             }
             else
             {
-                print("failed to get script");
+                print("failed to get script on: " + hit.collider.name);
             }
         }
         else
@@ -75,6 +94,18 @@ public class PlayerInterationScript : MonoBehaviour
             {
                 setFocus(null);
             }
+        }
+    }
+
+    void DisplayWeaponStats(bool b, string s = "")
+    {
+        if (b)
+        {
+            ansonTempUIScript.DisplayNewGunText(b, s);
+        }
+        else
+        {
+            ansonTempUIScript.DisplayNewGunText(b);
         }
     }
 }
