@@ -35,7 +35,14 @@ public class DamageScript : MonoBehaviour
     /// <param name="ls"></param>
     public virtual void dealDamageToTarget(LifeSystemScript ls, float dmg, int level, ElementTypes element)
     {
+        try
+        {
         ls.takeDamage(dmg, level, element);
+
+        }catch(System.NullReferenceException e)
+        {
+            Debug.LogError( e.StackTrace);
+        }
     }
 
     /// <summary>

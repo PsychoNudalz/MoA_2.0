@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6953872862494915403}
   - component: {fileID: 6267407867986552404}
   - component: {fileID: -2305272851387257634}
+  - component: {fileID: 1022176115833111699}
   m_Layer: 8
   m_Name: EmptyGun
   m_TagString: Gun
@@ -55,6 +56,7 @@ MonoBehaviour:
   elementPotency: 0
   elementChance: 0
   gunType: 1
+  rarity: 0
   elementType: 0
   fireType: 0
   projectileGO: {fileID: 0}
@@ -119,6 +121,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   timeToRecenter: 3
   sightLocation: {fileID: 0}
+  sightOffset: {x: 0, y: 0, z: 0}
   bulletParticle: {fileID: 0}
   impactEffect: {fileID: 0}
   muzzleEffect: {fileID: 0}
@@ -146,3 +149,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1022176115833111699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604659949824158936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4c077c38d12b74e8e46cf31b7f26bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableActive: 1
+  Sound_active: {fileID: 0}
+  Sound_deactive: {fileID: 0}
+  connectedGun: {fileID: 6267407867986552404}
