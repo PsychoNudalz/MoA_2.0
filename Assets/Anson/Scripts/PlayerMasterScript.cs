@@ -8,8 +8,16 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] GunDamageScript playerGunDamageScript;
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
     [SerializeField] PlayerController playerController;
+    [SerializeField] PlayerInterationScript playerInterationScript;
+
 
     private void Awake()
+    {
+        Initialize();
+
+    }
+
+    void Initialize()
     {
         //Set up
         if (playerLifeSystemScript == null)
@@ -28,6 +36,10 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerController = GetComponent<PlayerController>();
         }
+        if (!playerInterationScript)
+        {
+            playerInterationScript = GetComponent<PlayerInterationScript>();
+        }
 
         if (playerController.GunDamageScript == null)
         {
@@ -39,11 +51,15 @@ public class PlayerMasterScript : MonoBehaviour
             playerController.PlayerInventorySystemScript = playerInventorySystemScript;
         }
 
+        if (!playerController.PlayerInterationScript)
+        {
+            playerController.PlayerInterationScript = playerInterationScript;
+        }
+
         if (playerInventorySystemScript.GunDamageScript == null)
         {
             playerInventorySystemScript.GunDamageScript = playerGunDamageScript;
         }
-
     }
 
 

@@ -52,9 +52,11 @@ public class PlayerController : MonoBehaviour
     [Header("Other Components")]
     [SerializeField] GunDamageScript gunDamageScript;
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
+    [SerializeField] PlayerInterationScript playerInterationScript;
 
     public GunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
+    public PlayerInterationScript PlayerInterationScript { get => playerInterationScript; set => playerInterationScript = value; }
 
 
 
@@ -230,6 +232,26 @@ public class PlayerController : MonoBehaviour
     public void Reload()
     {
         gunDamageScript.Reload();
+    }
+
+    public void Interact(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            InteractableScript interactable = playerInterationScript.CurrentFocus;
+            if (interactable == null)
+            {
+                return;
+            }
+            if (interactable is WeaponPickUpInteractableScript)
+            {
+                playerInventorySystemScript.SwapWeapon(((WeaponPickUpInteractableScript) interactable).ConnectedGun, true);
+            }
+            else
+            {
+                playerInterationScript.useInteractable();
+            }
+        }
     }
 
 

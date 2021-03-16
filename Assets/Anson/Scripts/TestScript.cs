@@ -153,5 +153,7 @@ public class TestScript : MonoBehaviour
             playerInventorySystemScript.SwapToWeapon(i);
             playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
         }
+
+        playerInventorySystemScript.SwapToWeapon(0);
     }
 }

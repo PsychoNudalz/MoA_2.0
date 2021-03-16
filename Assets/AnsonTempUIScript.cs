@@ -13,13 +13,16 @@ public struct WeaponAmmoPair
 
 public class AnsonTempUIScript : MonoBehaviour
 {
-    public TextMeshProUGUI gunText;
+    public GameObject currentGun;
+    public TextMeshProUGUI currentGunText;
+    public GameObject newGun;
+    public TextMeshProUGUI newGunText;
     public WeaponAmmoPair gun1;
     public WeaponAmmoPair gun2;
     public WeaponAmmoPair gun3;
 
 
-    public void SetAmmoText(string s,int i)
+    public void SetAmmoText(string s, int i)
     {
         if (i == 0)
         {
@@ -37,7 +40,18 @@ public class AnsonTempUIScript : MonoBehaviour
 
     public void SetGunText(string s)
     {
-        gunText.text = s;
+        currentGunText.text = s;
+    }
+
+    public void DisplayNewGunText(bool b, string newGunS = "")
+    {
+        currentGun.SetActive(b);
+        newGun.SetActive(b);
+        if (b)
+        {
+            //currentGunText.text = currentGunS;
+            newGunText.text = newGunS;
+        }
     }
 
     public void SetGunName(string n, int i)

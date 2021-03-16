@@ -72,13 +72,12 @@ public class PlayerInventorySystemScript : MonoBehaviour
 
         if (currentGun != null)
         {
-            currentGun.transform.position += transform.right;
+            currentGun.transform.position += transform.forward;
             currentGun.GetComponentInChildren<Rigidbody>().isKinematic = false;
             currentGun.GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
             currentGun.gameObject.transform.parent = null;
+            
         }
     }
-
-
 
 }

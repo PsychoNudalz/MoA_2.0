@@ -123,13 +123,30 @@ public class GunDamageScript : DamageScript
         {
             mainGunStatsScript.CurrentMag = currentMag;
             mainGunStatsScript.PlayAnimationTrigger("Reset");
-
+            convertWeaponLayerMask(mainGunStatsScript.gameObject, "Gun");
         }
         EndReload();
         isFiring = false;
         //currentRecoil = new Vector2(0, 0);
         currentRecoilTime = 0f;
         return mainGunStatsScript;
+    }
+    void convertWeaponLayerMask(GameObject currentGun, string layerName)
+    {
+        currentGun.gameObject.layer = LayerMask.NameToLayer(layerName);
+        foreach (Transform child in currentGun.transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer(layerName);
+            convertWeaponLayerMask(child.gameObject, layerName);
+
+            /*
+            if (!child.TryGetComponent(out GunComponent_Sight s))
+            {
+                convertWeaponLayerMask(child.gameObject, layerName);
+
+            }
+            */
+        }
     }
 
     public MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
@@ -188,6 +205,7 @@ public class GunDamageScript : DamageScript
         g.gameObject.transform.position = gunPosition.position;
         g.gameObject.transform.SetParent(transform);
         g.gameObject.SetActive(true);
+        convertWeaponLayerMask(g.gameObject, "PlayerGun");
 
         //g.transform.right = firePoint.forward;
         if (sightLocation == null)
