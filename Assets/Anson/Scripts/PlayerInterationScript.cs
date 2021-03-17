@@ -11,7 +11,7 @@ public class PlayerInterationScript : MonoBehaviour
     [SerializeField] Camera cam1;
     [SerializeField] float pickUpRange = 1.5f;
     [SerializeField] InteractableScript currentFocus;
-    public bool useFlage = false;
+    //public bool useFlage = false;
     [SerializeField] LayerMask layerMask;
     public AnsonTempUIScript ansonTempUIScript;
 
@@ -32,16 +32,16 @@ public class PlayerInterationScript : MonoBehaviour
     }
     public void useInteractable()
     {
-        if (currentFocus != null && !useFlage)
+        if (currentFocus != null)
         {
             currentFocus.activate();
-            useFlage = true;
+            //useFlage = true;
         }
     }
 
     public void ResetFlag()
     {
-        useFlage = false;
+        //useFlage = false;
     }
 
 
@@ -52,7 +52,7 @@ public class PlayerInterationScript : MonoBehaviour
         {
             if (i != null)
             {
-                Debug.Log("Player drop: " + i.name);
+                //Debug.Log("Player drop: " + i.name);
             }
             if (b is WeaponPickUpInteractableScript)
             {
@@ -63,7 +63,7 @@ public class PlayerInterationScript : MonoBehaviour
         currentFocus = i;
         if (currentFocus != null && currentFocus.TryGetComponent(out InteractableScript b2))
         {
-            Debug.Log("Player found: " + i.name);
+            //Debug.Log("Player found: " + i.name);
             if (b2 is WeaponPickUpInteractableScript)
             {
                 DisplayWeaponStats(true, (b2 as WeaponPickUpInteractableScript).ConnectedGun.ToString());
@@ -77,7 +77,7 @@ public class PlayerInterationScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam1.transform.position, cam1.transform.forward, out hit, pickUpRange, layerMask))
         {
-            print("detected");
+            //print("detected");
             InteractableScript i = hit.collider.GetComponentInParent<InteractableScript>();
             if (i != null)
             {
@@ -85,7 +85,7 @@ public class PlayerInterationScript : MonoBehaviour
             }
             else
             {
-                print("failed to get script on: " + hit.collider.name);
+                //print("failed to get script on: " + hit.collider.name);
             }
         }
         else

@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
     float dashStart = 0f;
     [SerializeField] float dashCooldown;
+    [Space]
+    [SerializeField] bool disableControl = false;
 
 
     [Space]
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
     public GunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
     public PlayerInterationScript PlayerInterationScript { get => playerInterationScript; set => playerInterationScript = value; }
+    public bool DisableControl { get => disableControl; set => disableControl = value; }
 
 
 
@@ -77,18 +80,22 @@ public class PlayerController : MonoBehaviour
 
         //moveDirection = transform.TransformDirection(moveDirection);
 
-        Move();
-        if (lookScript == null)
+        if (!disableControl)
         {
-            Look();
-            CameraTilt();
 
-        }
-        if (!controller.isGrounded)
-        {
-            //print("Adding gravity");
-            //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
-            jumped.y -= gravity * Time.deltaTime;
+            Move();
+            if (lookScript == null)
+            {
+                Look();
+                CameraTilt();
+
+            }
+            if (!controller.isGrounded)
+            {
+                //print("Adding gravity");
+                //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
+                jumped.y -= gravity * Time.deltaTime;
+            }
         }
     }
 
@@ -116,8 +123,21 @@ public class PlayerController : MonoBehaviour
         controller.Move(jumped * Time.deltaTime);
     }
 
+    void SetDisableControl(bool b)
+    {
+        disableControl = b;
+        if (b)
+        {
+
+        }
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (disableControl)
+        {
+            return;
+        }
         isMoving = context.ReadValue<Vector2>();
         moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
         //moveDirection = transform.TransformDirection(moveDirection);
@@ -141,6 +161,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        if (disableControl)
+        {
+            return;
+        }
         //lookX += context.ReadValue<Vector2>().x * sensitivityX * Time.deltaTime;
         //lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
         lookScript.LookMouse(context);
@@ -148,6 +172,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (disableControl)
+        {
+            return;
+        }
         jump = context.performed;
         if (context.performed)
         {
@@ -169,6 +197,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
+        if (disableControl)
+        {
+            return;
+        }
 
         if (context.performed)
         {
@@ -184,6 +216,10 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext callbackContext)
     {
+        if (disableControl)
+        {
+            return;
+        }
         if (callbackContext.performed)
         {
             gunDamageScript.Fire(true);
@@ -197,6 +233,10 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext callbackContext)
     {
+        if (disableControl)
+        {
+            return;
+        }
         if (callbackContext.performed)
         {
             gunDamageScript.ADS_On();
@@ -209,6 +249,10 @@ public class PlayerController : MonoBehaviour
     }
     public void SwapToWeapon1(InputAction.CallbackContext callbackContext)
     {
+        if (disableControl)
+        {
+            return;
+        }
         if (callbackContext.performed)
         {
             playerInventorySystemScript.SwapToWeapon(0);
@@ -216,6 +260,10 @@ public class PlayerController : MonoBehaviour
     }
     public void SwapToWeapon2(InputAction.CallbackContext callbackContext)
     {
+        if (disableControl)
+        {
+            return;
+        }
         if (callbackContext.performed)
         {
             playerInventorySystemScript.SwapToWeapon(1);
@@ -223,6 +271,10 @@ public class PlayerController : MonoBehaviour
     }
     public void SwapToWeapon3(InputAction.CallbackContext callbackContext)
     {
+        if (disableControl)
+        {
+            return;
+        }
         if (callbackContext.performed)
         {
             playerInventorySystemScript.SwapToWeapon(2);
@@ -245,7 +297,7 @@ public class PlayerController : MonoBehaviour
             }
             if (interactable is WeaponPickUpInteractableScript)
             {
-                playerInventorySystemScript.SwapWeapon(((WeaponPickUpInteractableScript) interactable).ConnectedGun, true);
+                playerInventorySystemScript.SwapWeapon(((WeaponPickUpInteractableScript)interactable).ConnectedGun, true);
             }
             else
             {

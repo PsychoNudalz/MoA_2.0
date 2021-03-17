@@ -29,6 +29,7 @@ public class Look : MonoBehaviour
     private Camera camera;
 
     public float YRotation { get => yRotation; set => yRotation = value; }
+    //[SerializeField] bool disableControl = false;
 
     // Start is called before the first frame update
     void Awake()

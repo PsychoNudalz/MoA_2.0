@@ -9,6 +9,7 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
     [SerializeField] PlayerController playerController;
     [SerializeField] PlayerInterationScript playerInterationScript;
+    [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
 
 
     private void Awake()
@@ -62,6 +63,10 @@ public class PlayerMasterScript : MonoBehaviour
         }
     }
 
+    public void SetControls(bool b)
+    {
+        playerController.DisableControl = !b;
+    }
 
     
 }
