@@ -20,10 +20,28 @@ public class GCSelection
         cost = component.ComponentCost;
     }
 
+    public bool IsSameType(GunTypes g)
+    {
+        return component.GTypes.Contains(g);
+    }
+
+    public bool IsSamgeType(List<GunTypes> gs)
+    {
+        foreach (GunTypes g in gs)
+        {
+            if (IsSameType(g))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public GunComponent Component { get => component; }
     public bool IsSelected { get => isSelected; set => isSelected = value; }
     public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
     public int Cost { get => cost; }
+
 }
 
 
@@ -48,7 +66,17 @@ public class GunManager : MonoBehaviour
     [Header("Other Components")]
     [SerializeField] GunGeneratorScript gunGenerator;
 
-    public List<GCSelection> AllGCSelections { get => allGCSelections; set => allGCSelections = value; }
+    public List<GCSelection> AllGCSelections { get => allGCSelections; }
+    public List<GCSelection> Body { get => body; }
+    public List<GCSelection> Grip { get => grip; }
+    public List<GCSelection> Stock { get => stock; }
+    public List<GCSelection> Magazine { get => magazine; }
+    public List<GCSelection> Barrel { get => barrel; }
+    public List<GCSelection> Sight { get => sight; }
+    public List<GCSelection> Muzzle { get => muzzle; }
+    public List<GCSelection> Attachment { get => attachment; }
+    public List<GCSelection> StatBoost { get => statBoost; }
+    public List<GCSelection> AllGCSelections1 { get => allGCSelections; }
 
     private void Awake()
     {

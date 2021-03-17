@@ -13,6 +13,12 @@ public class GunComponentUIButtonScript : MonoBehaviour
     public void SetGCS( GCSelection g)
     {
         gcs = g;
+        if (g == null)
+        {
+            SetButtons(false);
+            buttonText.text = "NULL";
+            return;
+        }
         if (g.IsSelected)
         {
             SetButtons(false);
