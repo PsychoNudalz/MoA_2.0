@@ -133,6 +133,11 @@ public class MainGunStatsScript : GunStatsScript
         {
             recoil.y = 0;
         }
+
+        transform.position += transform.forward;
+        GetComponentInChildren<Rigidbody>().isKinematic = false;
+        GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
+        transform.parent = null;
     }
 
     public void PlayAnimationTrigger(string s, float animationSpeed = 1)

@@ -629,7 +629,7 @@ public class GunDamageScript : DamageScript
             currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y) * projectilePerShot / 5f;
 
         }
-        print(currentRecoilTime + ", " + new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y));
+        //print(currentRecoilTime + ", " + new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y));
         /*
         if (isADS)
         {

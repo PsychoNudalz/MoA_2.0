@@ -29,6 +29,7 @@ public class Look : MonoBehaviour
     private Camera camera;
 
     public float YRotation { get => yRotation; set => yRotation = value; }
+    //[SerializeField] bool disableControl = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,7 +37,7 @@ public class Look : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rotateSpeed_Current = rotateSpeed;
-        camera = FindObjectOfType<Camera>();
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         FOV = camera.fieldOfView;
     }
 
