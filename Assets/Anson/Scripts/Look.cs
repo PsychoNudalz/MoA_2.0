@@ -37,7 +37,7 @@ public class Look : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rotateSpeed_Current = rotateSpeed;
-        camera = FindObjectOfType<Camera>();
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         FOV = camera.fieldOfView;
     }
 

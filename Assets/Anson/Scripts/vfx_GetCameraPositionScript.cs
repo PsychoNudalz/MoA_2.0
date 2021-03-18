@@ -11,7 +11,7 @@ public class vfx_GetCameraPositionScript : MonoBehaviour
     private void Start()
     {
         vfx = GetComponent<VisualEffect>();
-        camera = FindObjectOfType<Camera>();
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         if (!vfx)
         {
             Debug.LogError("Failed to find vfx");
