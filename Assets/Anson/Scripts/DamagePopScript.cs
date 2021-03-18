@@ -33,7 +33,7 @@ public class DamagePopScript : MonoBehaviour
     {
         if (camera == null)
         {
-            camera = FindObjectOfType<Camera>();
+            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         }
         Vector3 dir = camera.transform.position - transform.position;
         transform.forward = -dir;

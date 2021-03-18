@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3092223961374095732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.435, y: 0.506, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8823338699084325776}
@@ -48,8 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentType: 1
   gunTypes: 00000000010000000200000003000000
-  gunConnectionPoints: []
+  essentialConnectionPoints: []
+  extraConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
+  componentCost: 1
 --- !u!65 &42808054709041426
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -177,6 +179,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: m82_Grip
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c7645a0961babe34680381cf0503e109,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7645a0961babe34680381cf0503e109, type: 3}

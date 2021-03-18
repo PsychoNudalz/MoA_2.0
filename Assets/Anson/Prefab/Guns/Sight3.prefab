@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3895083620880488446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.909, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8129703950347978111}
@@ -49,8 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentType: 5
   gunTypes: 0000000001000000020000000300000004000000
-  gunConnectionPoints: []
+  essentialConnectionPoints: []
+  extraConnectionPoints: []
   componentGunStatsScript: {fileID: 0}
+  componentCost: 1
   sightLocation: {fileID: 3486648987687534019}
   zoomMultiplier: 1.05
   sightMaterial: {fileID: 0}
@@ -125,6 +127,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SightPlate_Oct
       objectReference: {fileID: 0}
+    - target: {fileID: 7151627154584122102, guid: 2434c58b6fe932941b0f824f0aecc035,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7151627154584122103, guid: 2434c58b6fe932941b0f824f0aecc035,
         type: 3}
       propertyPath: m_RootOrder
@@ -194,6 +201,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8070106180478357851, guid: 2434c58b6fe932941b0f824f0aecc035,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8430240013194064014, guid: 2434c58b6fe932941b0f824f0aecc035,
         type: 3}
@@ -284,6 +296,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CircleSight
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3b0f0b0644a3dce479e553a78c1004cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0f0b0644a3dce479e553a78c1004cf, type: 3}

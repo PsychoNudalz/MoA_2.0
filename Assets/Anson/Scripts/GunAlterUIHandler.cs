@@ -22,6 +22,9 @@ public class GunAlterUIHandler : MonoBehaviour
     [SerializeField] List<GunTypes> currentGunTypes;
     [Header("UI")]
     [SerializeField] TMPro.TextMeshProUGUI currentTypeText;
+    [Header("Component Preview")]
+    [SerializeField] Transform spawnTransform;
+    [SerializeField] GameObject currentGunGO;
 
     //[SerializeField] GameObject BaseUIButton;
     //[SerializeField] RectTransform scrollArea;
@@ -109,6 +112,18 @@ public class GunAlterUIHandler : MonoBehaviour
     public void SetGunType(int i)
     {
         SetGunType((GunTypes) i);
+    }
+
+
+    public void PreviewComponent(GCSelection gcs)
+    {
+        if (currentGunGO != null)
+        {
+            Destroy(currentGunGO);
+        }
+
+        currentGunGO = Instantiate(gcs.Component.gameObject, spawnTransform.position, spawnTransform.rotation, spawnTransform);
+
     }
 
     /*

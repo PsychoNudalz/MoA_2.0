@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class GunComponentUIButtonScript : MonoBehaviour
+public class GunComponentUIButtonScript : UIToggleButtonScript
 {
     [SerializeField] TextMeshProUGUI buttonText;
-    [SerializeField] GameObject selectButton;
-    [SerializeField] GameObject deselectButton;
     [SerializeField] GCSelection gcs;
+    [SerializeField] GunAlterUIHandler gunAlterUIHandler;
 
-    public void SetGCS( GCSelection g)
+    private void Start()
+    {
+        gunAlterUIHandler = GetComponentInParent<GunAlterUIHandler>();
+    }
+    public void SetGCS(GCSelection g)
     {
         gcs = g;
         if (g == null)
@@ -31,23 +34,27 @@ public class GunComponentUIButtonScript : MonoBehaviour
         buttonText.text = gcs.Component.name;
     }
 
-    public void Select()
+    public override void Select()
     {
         SetButtons(false);
         gcs.IsSelected = true;
+        if (gcs != null)
+        {
+            gunAlterUIHandler.PreviewComponent(gcs);
+
+        }
     }
 
-    public void Deselect()
+    public override void Deselect()
     {
         SetButtons(true);
         gcs.IsSelected = false;
+        if (gcs != null)
+        {
+            gunAlterUIHandler.PreviewComponent(gcs);
 
+        }
     }
 
-    void SetButtons(bool b)
-    {
-        selectButton.SetActive(b);
-        deselectButton.SetActive(!b);
-    }
 
 }
