@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8200252274894715393}
   - component: {fileID: 3369783523671643114}
   - component: {fileID: 5950299115961974244}
-  m_Layer: 13
+  m_Layer: 16
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: 583753934758154867}
   - component: {fileID: 2667038320215456807}
   - component: {fileID: 1352462693945965540}
-  m_Layer: 13
+  m_Layer: 16
   m_Name: FireBall
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -4863,6 +4863,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchForce: 10
   launchSpeed: 10
+  launchSpin: 0
+  baseDamage: 0
   level: 1
   elementType: 0
   rb: {fileID: 2667038320215456807}
@@ -4874,7 +4876,7 @@ MonoBehaviour:
   - Player
   - Enviorment
   explodeEffect: {fileID: 1154600234075092330}
-  maxDamage: 20
+  damageMultiplier: 0
   maxRange: 2
   rangeFalloff:
     serializedVersion: 2
@@ -4897,7 +4899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 2560
+    m_Bits: 264704
   tagList:
   - Player
   attackedTargets: []
@@ -4942,7 +4944,7 @@ GameObject:
   - component: {fileID: 2827191469362273443}
   - component: {fileID: 1154600234075092330}
   - component: {fileID: 8054470832453438611}
-  m_Layer: 13
+  m_Layer: 16
   m_Name: FX_Fireworks_Yellow_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9692,7 +9694,7 @@ GameObject:
   - component: {fileID: 8347527272944301347}
   - component: {fileID: 6220000944449186561}
   - component: {fileID: 6731482427825320697}
-  m_Layer: 13
+  m_Layer: 16
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
