@@ -16,5 +16,17 @@ public class ComponentGunStatsScript : GunStatsScript
     [SerializeField] public float rangeM = 1;
     [SerializeField] public float magazineSizeM = 1;
 
+    public List<string> GetMultiplierStrings()
+    {
+        List<string> returnList = new List<string>();
+        returnList.Add(damagePerProjectileM.ToString());
+        returnList.Add(RPMM.ToString());
+        returnList.Add(reloadSpeedM.ToString());
+        returnList.Add(recoilM.ToString());
+        returnList.Add(rangeM.ToString());
+        returnList.Add(magazineSizeM.ToString());
+        return returnList;
+
+    }
 
 }

@@ -62,5 +62,31 @@ public class GunStatsScript : MonoBehaviour
 
     }
 
+    public List<string> GetStatsStrings()
+    {
+        List<string> returnList = new List<string>();
+        returnList.Add(damagePerProjectile.ToString());
+        returnList.Add(RPM.ToString());
+        returnList.Add(reloadSpeed.ToString());
+        returnList.Add(recoil.ToString());
+        returnList.Add(recoil_HipFire.ToString());
+        returnList.Add(range.ToString());
+        returnList.Add(magazineSize.ToString());
+
+        return returnList;
+
+    }
+
+    public List<string> GetElementalStrings()
+    {
+        List<string> returnList = new List<string>();
+        returnList.Add(elementDamage.ToString());
+        returnList.Add(elementPotency.ToString());
+        returnList.Add(elementChance.ToString());
+
+        return returnList;
+
+    }
+
 
 }
