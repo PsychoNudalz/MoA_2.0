@@ -8,6 +8,17 @@ public class Portal : MonoBehaviour
 
     [SerializeField]
     Transform targetSpawner;
+
+    [SerializeField]
+    RoomEnemySystem currentRoomEnemySystem;
+    [SerializeField]
+    RoomEnemySystem nextRoomEnemySystem;
+    [Header("Debug")]
+    [SerializeField] bool ignoreSpawner = false;
+
+
+    public RoomEnemySystem CurrentRoomEnemySystem { get => currentRoomEnemySystem; }
+
     void Start()
     {
     }
@@ -15,19 +26,40 @@ public class Portal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void Setup() {
+    public void Setup(RoomEnemySystem r)
+    {
         targetSpawner = portalTarget.transform.Find("SpawnPoint");
+        nextRoomEnemySystem = r;
     }
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Player")) {
-            Debug.Log("Ohhhhhhhhhhhhhhhhhhhhhhhhh");
-            GameObject player = GameObject.FindWithTag("Player");
-            player.SetActive(false);
-            player.transform.position = targetSpawner.transform.position;
-            player.SetActive(true);
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (ignoreSpawner || currentRoomEnemySystem.IsRoomClear())
+            {
+                TeleportPlayer();
+            }
+        }
+    }
+
+    void TeleportPlayer()
+    {
+        Debug.Log("Ohhhhhhhhhhhhhhhhhhhhhhhhh");
+        GameObject player = GameObject.FindWithTag("Player");
+        player.SetActive(false);
+        player.transform.position = targetSpawner.transform.position;
+        player.SetActive(true);
+        if (nextRoomEnemySystem != null)
+        {
+
+            nextRoomEnemySystem.StartRoomSpawners();
+        }
+        else
+        {
+            Debug.LogError("Cannot spawn enemy");
         }
     }
 }
