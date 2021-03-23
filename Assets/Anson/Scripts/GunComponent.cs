@@ -33,5 +33,37 @@ public abstract class GunComponent : MonoBehaviour
         return new List<GunTypes>(GTypes);
     }
 
+    public virtual List<List<string>> GetStats()
+    {
+        List<string> statsStrings = new List<string>();
+        List<string> elementalStrings = new List<string>();
+        List<string> multiplierStrings = new List<string>();
+        foreach (string s1 in componentGunStatsScript.GetStatsStrings())
+        {
+                statsStrings.Add(s1);
+
+        }
+        foreach (string s1 in componentGunStatsScript.GetElementalStrings())
+        {
+            if (!(s1.Equals("") || s1.Equals("0")))
+            {
+                elementalStrings.Add(s1);
+            }
+        }
+        foreach (string s1 in componentGunStatsScript.GetMultiplierStrings())
+        {
+            if (!(s1.Equals("") || s1.Equals("0")))
+            {
+                multiplierStrings.Add(s1);
+            }
+        }
+
+        List<List<string>> returnList = new List<List<string>>();
+        returnList.Add(statsStrings);
+        returnList.Add(elementalStrings);
+        returnList.Add(multiplierStrings);
+        return returnList;
+    }
+
 
 }
