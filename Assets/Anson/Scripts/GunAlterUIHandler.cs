@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class GunAlterUIHandler : MonoBehaviour
 {
@@ -22,6 +23,12 @@ public class GunAlterUIHandler : MonoBehaviour
     [SerializeField] List<GunTypes> currentGunTypes;
     [Header("UI")]
     [SerializeField] TMPro.TextMeshProUGUI currentTypeText;
+    [Header("Component Preview UI")]
+    [SerializeField] GameObject textTemplateGO;
+    [SerializeField] TMPro.TextMeshProUGUI currentComponentText;
+    [SerializeField] GridLayoutGroup mainStats;
+    [SerializeField] GridLayoutGroup elementStats;
+    [SerializeField] GridLayoutGroup multiplierStats;
     [Header("Component Preview")]
     [SerializeField] Transform spawnTransform;
     [SerializeField] GameObject currentGunGO;
@@ -41,6 +48,10 @@ public class GunAlterUIHandler : MonoBehaviour
         newButton.SetGCS(gunManager.AllGCSelections[0]);
         */
         //CreateNewButton(0);
+        if (!gunManager)
+        {
+            gunManager = FindObjectOfType<GunManager>();
+        }
         InitialiseAllButtons();
 
     }
@@ -89,7 +100,7 @@ public class GunAlterUIHandler : MonoBehaviour
     {
         if (currentGunTypes.Contains(g))
         {
-            currentGunTypes.Remove(g);
+            currentGunTypes.Remove(g); 
         }
         else
         {
