@@ -48,6 +48,10 @@ public class GunAlterUIHandler : MonoBehaviour
         newButton.SetGCS(gunManager.AllGCSelections[0]);
         */
         //CreateNewButton(0);
+        if (!gunManager)
+        {
+            gunManager = FindObjectOfType<GunManager>();
+        }
         InitialiseAllButtons();
 
     }

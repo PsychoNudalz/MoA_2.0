@@ -13,11 +13,11 @@ public class TeleportManager : MonoBehaviour
         Portal prev = start;
         foreach (Portal pt in portals) {
             prev.portalTarget = pt;
-            prev.Setup();
+            prev.Setup(pt.CurrentRoomEnemySystem);
             prev = pt;
         }
         prev.portalTarget = end;
-        prev.Setup();
+        prev.Setup(null);
         end.GetComponent<BoxCollider>().enabled = false;
     }
 
