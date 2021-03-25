@@ -32,6 +32,7 @@ public class Sound : MonoBehaviour
 
     public bool loop = false;
     public bool playOnAwake = false;
+    public bool doesNotRestartOnPlay = false;
 
 
 

@@ -80,6 +80,10 @@ public class GunComponent_Body : GunComponent
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        if (component_Sight != null)
+        {
+            SetSight(component_Sight);
+        }
     }
 
     public void SetSight(GunComponent_Sight s)
