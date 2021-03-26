@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Look : MonoBehaviour
 {
-    public float rotateSpeed = 500f;
+    public float rotateSpeed = 500f; //MouseSense
     [SerializeField] float rotateSpeed_Current;
 
     public Transform CharacterBody;

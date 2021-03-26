@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +19,8 @@ public class PlayerController : MonoBehaviour
 
     Vector3 jumped;
 
-    [SerializeField] int moveSpeed;
+    [SerializeField] float moveSpeed;
+    [SerializeField] float moveSpeed_Default;
 
     CharacterController controller;
     Vector3 moveDirection;
@@ -38,6 +40,8 @@ public class PlayerController : MonoBehaviour
 
     Vector3 dashRange;
     float dashDistance = 10f;
+    [SerializeField] float dashDuration = 0.4f;
+    [SerializeField] float dashSpeed = 5f;
 
     [SerializeField] Look lookScript;
 
@@ -72,6 +76,7 @@ public class PlayerController : MonoBehaviour
         player = transform;
         cam = cam1.transform;
         canDoubleJumped = false;
+        moveSpeed_Default = moveSpeed;
     }
 
     // Update is called once per frame
@@ -206,9 +211,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Time.time > dashStart + dashCooldown)
             {
+                /*
                 dashStart = Time.time;
                 dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
                 controller.Move(dashRange * Time.deltaTime);
+                */
+                StartCoroutine(DashCoroutine());
             }
         }
 
@@ -304,6 +312,13 @@ public class PlayerController : MonoBehaviour
                 playerInterationScript.useInteractable();
             }
         }
+    }
+
+    IEnumerator DashCoroutine()
+    {
+        moveSpeed = moveSpeed * dashSpeed;
+        yield return new WaitForSeconds(dashDuration);
+        moveSpeed = moveSpeed_Default;
     }
 
 
