@@ -151,12 +151,16 @@ public class GunManager : MonoBehaviour
         }
     }
 
-    public void GenerateGun()
+    public GameObject GenerateGun()
     {
         InitialiseGenerator(AllGCSelections);
-        gunGenerator.GenerateGun().transform.position += new Vector3(0, 2, 0);
+        GameObject newGun = gunGenerator.GenerateGun();
+        newGun.transform.position += new Vector3(0, 2, 0);
+        return newGun;
 
     }
+
+     
 
 
 }

@@ -111,9 +111,12 @@ public class GunComponent_Body : GunComponent
     {
         try
         {
+            Debug.Log(name + " play muzzle");
 
             bulletParticle.Play();
+            muzzleEffect.SetInt("ElementEnum", (int)elementType);
             muzzleEffect.Play();
+            
             if (GTypes[0] != GunTypes.SHOTGUN)
             {
                 bulletCaseParticle.Play();
@@ -129,7 +132,6 @@ public class GunComponent_Body : GunComponent
     {
         try
         {
-
             bulletCaseParticle.Play();
         }
         catch (System.NullReferenceException e)

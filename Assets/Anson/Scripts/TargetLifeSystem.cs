@@ -18,6 +18,11 @@ public class TargetLifeSystem : LifeSystemScript
         targetMaterialHandler = targetHandler.TargetMaterialHandler;
     }
 
+    public override void PlayTakeDamageEffect()
+    {
+        targetMaterialHandler.PlayerTakeDamageEffect();
+    }
+
     public override int takeDamage(float dmg, int level, ElementTypes element)
     {
         targetMaterialHandler.StartDecay();

@@ -8,7 +8,8 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     [Header("Target Material")]
     [SerializeField] Renderer render;
     [SerializeField] Material material;
-    [SerializeField] VisualEffect DebuffEffect; 
+    [SerializeField] VisualEffect DebuffEffect;
+    [SerializeField] VisualEffect takeDamageEffect;
     [Header("Decay State")]
     [SerializeField] float currentRatio;
     [SerializeField] float decayTime = 1;
@@ -35,6 +36,14 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         {
             currentRatio -= (1 / decayTime) * Time.deltaTime;
             material.SetFloat("_Ratio", currentRatio);
+        }
+    }
+
+    public void PlayerTakeDamageEffect()
+    {
+        if (takeDamageEffect != null)
+        {
+            takeDamageEffect.Play();
         }
     }
 
@@ -77,9 +86,13 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     {
         if (b)
         {
+            try
+            {
             DebuffEffect.SendEvent("OnShock");
+            }catch(MissingReferenceException re)
+            {
 
-
+            }
         }
         else
         {

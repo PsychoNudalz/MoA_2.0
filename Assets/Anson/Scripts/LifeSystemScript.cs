@@ -31,7 +31,6 @@ public class LifeSystemScript : MonoBehaviour
 
     [Header("Components")]
     public DamagePopScript damagePopScript;
-    public GroupParticleSystemScript groupParticleSystemScript;
 
     public int Health_Current { get => health_Current; }
     public int Health_Max { get => health_Max; }
@@ -44,7 +43,6 @@ public class LifeSystemScript : MonoBehaviour
         {
             // updateHealthBar();
             popUpLocation = damagePopScript.transform.position - transform.position;
-            particleLocation = groupParticleSystemScript.transform.position - transform.position;
         }
         catch (System.Exception)
         {
@@ -95,7 +93,7 @@ public class LifeSystemScript : MonoBehaviour
             print(name + " take damage: " + dmg);
             //updateHealthBar();
             displayDamage(dmg,element);
-            playDamageParticles();
+            PlayTakeDamageEffect();
         }
 
         CheckDead();
@@ -119,7 +117,7 @@ public class LifeSystemScript : MonoBehaviour
             print(name + " take " + element+" damage: " + dmg +" x "+multiplier);
             //updateHealthBar();
             displayDamageCritical(dmg * multiplier);
-            playDamageParticles();
+            PlayTakeDamageEffect();
         }
 
         CheckDead();
@@ -187,13 +185,9 @@ public class LifeSystemScript : MonoBehaviour
         damagePopScript.displayCriticalDamage(dmg);
     }
 
-    void playDamageParticles()
+    public virtual void PlayTakeDamageEffect()
     {
-        if (groupParticleSystemScript == null)
-        {
-            return;
-        }
-        groupParticleSystemScript.Play();
+        
     }
 
     /*
@@ -223,7 +217,6 @@ public class LifeSystemScript : MonoBehaviour
             if (detatchPopUps)
             {
                 damagePopScript.transform.SetParent(null);
-                groupParticleSystemScript.transform.SetParent(null);
                 //damagePopScript.transform.position = transform.position;
                 //groupParticleSystemScript.transform.position = transform.position;
                 if (reatatchPopUps)
@@ -238,7 +231,6 @@ public class LifeSystemScript : MonoBehaviour
             if (detatchPopUps)
             {
                 damagePopScript.transform.SetParent(null);
-                groupParticleSystemScript.transform.SetParent(null);
                 if (reatatchPopUps)
                 {
                     StartCoroutine(reattach());
@@ -265,9 +257,7 @@ public class LifeSystemScript : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
         damagePopScript.transform.SetParent(transform);
-        groupParticleSystemScript.transform.SetParent(transform);
         damagePopScript.transform.position = transform.position + popUpLocation;
-        groupParticleSystemScript.transform.position = transform.position + particleLocation;
 
     }
 
@@ -328,9 +318,7 @@ public class LifeSystemScript : MonoBehaviour
             if (reatatchPopUps)
             {
                 damagePopScript.transform.SetParent(transform);
-                groupParticleSystemScript.transform.SetParent(transform);
                 damagePopScript.transform.position = transform.position + popUpLocation;
-                groupParticleSystemScript.transform.position = transform.position + particleLocation;
             }
         }
         catch (System.Exception)

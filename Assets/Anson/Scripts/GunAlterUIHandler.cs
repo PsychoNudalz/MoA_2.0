@@ -58,7 +58,8 @@ public class GunAlterUIHandler : MonoBehaviour
 
     public void GenerateGun()
     {
-        gunManager.GenerateGun();
+        GameObject newGun =  gunManager.GenerateGun();
+        newGun.transform.position = spawnTransform.position;
     }
 
     public
