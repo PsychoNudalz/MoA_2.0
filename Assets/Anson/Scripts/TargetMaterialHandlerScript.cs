@@ -24,8 +24,17 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        material = render.materials[0];
-        decayTime = material.GetFloat("_DecayTime");
+        try
+        {
+            material = render.materials[0];
+            decayTime = material.GetFloat("_DecayTime");
+            takeDamageEffect.SetVector4("Colour1", material.GetColor("_ShineColour1"));
+            takeDamageEffect.SetVector4("Colour2", material.GetColor("_ShineColour2"));
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning(this + " failed to initialise target material");
+        }
         ExpandAllShock();
     }
 
@@ -88,8 +97,9 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         {
             try
             {
-            DebuffEffect.SendEvent("OnShock");
-            }catch(MissingReferenceException re)
+                DebuffEffect.SendEvent("OnShock");
+            }
+            catch (MissingReferenceException re)
             {
 
             }
@@ -174,7 +184,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     {
         if (allShockList.Count != 0)
         {
-        allShockListPTR = (allShockList.Count - 1) % allShockList.Count;
+            allShockListPTR = (allShockList.Count - 1) % allShockList.Count;
 
         }
         VisualEffect current;

@@ -84,7 +84,8 @@ public class ShootingEnemyAgent : MonoBehaviour
             {
                 currentAttackTimer -= Time.deltaTime;
             }
-            if (Vector3.Distance(transform.position, target.position) <= 1f && !isShooting)
+
+            if (target != null&& Vector3.Distance(transform.position, target.position) <= 1f && !isShooting)
             {
                 StartCoroutine(Crouch(Random.Range(minCoverDelay,maxCoverDelay)));
             }
