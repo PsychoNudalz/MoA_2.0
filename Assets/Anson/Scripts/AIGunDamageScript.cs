@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGunDamageScript : GunDamageScript
+public class AIGunDamageScript : GunDamageScript
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        isAI = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateBehaviour();
     }
 }

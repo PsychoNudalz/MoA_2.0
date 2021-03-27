@@ -60,6 +60,7 @@ MonoBehaviour:
   elementPotency: 0
   elementChance: 0
   gunType: 3
+  rarity: 0
   elementType: 1
   fireType: 1
   projectileGO: {fileID: 4316305611338047007, guid: 7701d61d2c6693b4d9dba07e65232d5e,
@@ -152,6 +153,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   timeToRecenter: 0
   sightLocation: {fileID: 0}
+  sightOffset: {x: 0, y: 0, z: 0}
   bulletParticle: {fileID: 8892631963476246423}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
@@ -251,10 +253,12 @@ MonoBehaviour:
   pitchVariance: 0.1
   spatialBlend: 1
   reverbZoneMix: 0
+  dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
   loop: 0
   playOnAwake: 0
+  doesNotRestartOnPlay: 0
   source: {fileID: 0}
 --- !u!1 &1503275413091139942
 GameObject:
@@ -341,10 +345,12 @@ MonoBehaviour:
   pitchVariance: 0.1
   spatialBlend: 1
   reverbZoneMix: 0
+  dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
   loop: 0
   playOnAwake: 0
+  doesNotRestartOnPlay: 0
   source: {fileID: 0}
 --- !u!1 &3705747198028320164
 GameObject:
@@ -355,7 +361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 368909174655900538}
-  - component: {fileID: 6552638091310316}
+  - component: {fileID: 4851381496675741153}
   m_Layer: 0
   m_Name: EnemyShooting
   m_TagString: Untagged
@@ -378,7 +384,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6552638091310316
+--- !u!114 &4851381496675741153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,7 +393,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3705747198028320164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06dc67ef344f80c40bef484c143a1f0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 505db53e3855cf34595b5d593c5a4066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerMask:
@@ -396,16 +402,18 @@ MonoBehaviour:
   tagList: []
   attackedTargets: []
   timeBetweenAttack_TimeNow: 0
-  mainGunStatsScript: {fileID: 4402967919918463271}
+  mainGunStatsScript: {fileID: 0}
   damagePerProjectile: 0
   RPM: 0
   reloadSpeed: 0
   recoil: {x: 0, y: 0}
+  recoil_HipFire: {x: 0, y: 0}
   range: 0
   magazineSize: 0
   projectilePerShot: 0
   timeBetweenProjectile: 0
   gunType: 1
+  rarity: 0
   elementType: 0
   elementDamage: 0
   elementPotency: 0
@@ -447,18 +455,16 @@ MonoBehaviour:
   isReloading: 0
   currentRecoil: {x: 0, y: 0}
   currentRecoilTime: 0
-  camera: {fileID: 0}
   firePoint: {fileID: 0}
   gunPosition: {fileID: 0}
   isADS: 0
   fireDir: {x: 0, y: 0, z: 0}
   randomFireDir: {x: 0, y: 0, z: 0}
   sightOffset: {x: 0, y: 0, z: 0}
-  lookScript: {fileID: 0}
-  originalFireDirection_X: 0
   displayFireRaycast: 1
-  isAI: 1
+  isAI: 0
   ansonTempUIScript: {fileID: 0}
+  currentSlot: 0
 --- !u!1 &6015416015015157880
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,10 +517,12 @@ MonoBehaviour:
   pitchVariance: 0.1
   spatialBlend: 1
   reverbZoneMix: 0
+  dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
   loop: 0
   playOnAwake: 0
+  doesNotRestartOnPlay: 0
   source: {fileID: 0}
 --- !u!1 &6524771967960994337
 GameObject:
@@ -615,12 +623,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []

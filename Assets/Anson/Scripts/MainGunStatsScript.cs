@@ -142,6 +142,10 @@ public class MainGunStatsScript : GunStatsScript
 
     public void PlayAnimationTrigger(string s, float animationSpeed = 1)
     {
+        if (animator == null)
+        {
+            return;
+        }
         animator.SetTrigger(s);
         animator.speed = animationSpeed;
 
@@ -194,7 +198,7 @@ public class MainGunStatsScript : GunStatsScript
         string returnString = string.Concat(
             name, "\n",
             gunType.ToString(), " ", elementType.ToString(), "\n",
-            "Rarity: ",rarity.ToString(), "\n",
+            "Rarity: ", rarity.ToString(), "\n",
             "Damage: ", damagePerProjectile, " x ", projectilePerShot, "\n",
             "RPM: ", RPM, " Recoil: ", recoil.ToString(), "\n",
             "Hip Fire: ", recoil_HipFire.ToString(), "\n",

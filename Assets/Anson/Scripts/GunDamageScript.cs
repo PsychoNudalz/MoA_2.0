@@ -68,14 +68,12 @@ public class GunDamageScript : DamageScript
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
-    public bool isAI = false;
-    public AnsonTempUIScript ansonTempUIScript;
-    public int currentSlot = 0;
+    protected bool isAI = false;
+    protected int currentSlot = 0;
 
 
     private void Awake()
     {
-        ansonTempUIScript = FindObjectOfType<AnsonTempUIScript>();
         //lookScript = FindObjectOfType<Look>();
         if (mainGunStatsScript != null)
         {
@@ -97,7 +95,7 @@ public class GunDamageScript : DamageScript
         {
             Shoot();
         }
-        
+
         if (displayFireRaycast)
         {
             Vector3 fireDir = firePoint.transform.forward;
@@ -217,7 +215,6 @@ public class GunDamageScript : DamageScript
         elementChance = g.ElementChance;
 
 
-        ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
 
         return oldGunScript;
 
@@ -239,10 +236,6 @@ public class GunDamageScript : DamageScript
 
     bool canFire()
     {
-        if (isAI)
-        {
-            return true;
-        }
 
         if (currentMag < 1 || (isReloading && isFullReload))
         {
@@ -369,7 +362,7 @@ public class GunDamageScript : DamageScript
     }
 
 
-    
+
 
 
 
@@ -386,6 +379,7 @@ public class GunDamageScript : DamageScript
 
     public bool Shoot()
     {
+        //print("Shooting");
         if (canFire())
         {
             currentProjectile = projectilePerShot;
@@ -655,7 +649,7 @@ public class GunDamageScript : DamageScript
         }
     }
 
-    
+
 
 
 
@@ -665,7 +659,7 @@ public class GunDamageScript : DamageScript
     }
 
 
-   
+
 
 
     IEnumerator BurstFire(float newRecoilTime)

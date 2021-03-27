@@ -21,7 +21,15 @@ public abstract class ProjectileScript : MonoBehaviour
     [SerializeField] float fuseTime = Mathf.Infinity;
     [SerializeField] protected List<string> tagList;
     [SerializeField] ParticleSystem explodeEffect;
+    [SerializeField] bool orientateProjectileToDirection;
 
+    [Header("Swirl Behaciour")]
+    [SerializeField] float swirlAmount;
+    [SerializeField] float swirlFrequency = 1;
+    [SerializeField] Vector3 swirlDirection;
+    [SerializeField] Vector3 originalDir;
+     Vector3 velocityValue;
+    Vector2 seedOffset;
 
     protected int Level { get => level; set => level = value; }
     protected ElementTypes ElementType { get => elementType; set => elementType = value; }
@@ -43,6 +51,11 @@ public abstract class ProjectileScript : MonoBehaviour
         {
             collider.material = physicMateral;
         }
+        seedOffset = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+    }
+
+    private void OnEnable()
+    {
     }
 
     private void Update()
@@ -53,6 +66,16 @@ public abstract class ProjectileScript : MonoBehaviour
         }
 
         fuseTime -= Time.deltaTime;
+
+        if (orientateProjectileToDirection)
+        {
+            PointProjectileToDirection();
+        }
+
+        if (swirlAmount > 0)
+        {
+            SwirlProjectile();
+        }
     }
 
 
@@ -81,6 +104,7 @@ public abstract class ProjectileScript : MonoBehaviour
     public virtual void Launch(float damage, int level, ElementTypes elementType)
     {
         Launch(damage, level, elementType, transform.forward);
+
     }
 
     public virtual void Launch(float damage, int level, ElementTypes elementType, Vector3 LaunchDir)
@@ -92,6 +116,7 @@ public abstract class ProjectileScript : MonoBehaviour
         rb.velocity = LaunchDir * launchForce;
         rb.AddTorque(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)) * launchSpin);
         rb.AddForce(LaunchDir * launchForce * rb.mass);
+        originalDir = LaunchDir;
     }
 
     public virtual void Explode()
@@ -103,6 +128,18 @@ public abstract class ProjectileScript : MonoBehaviour
             explodeEffect.Play();
             Destroy(explodeEffect.gameObject,1f);
         }
+    }
+    public void PointProjectileToDirection()
+    {
+        transform.forward = rb.velocity.normalized;
+    }
+
+    public virtual void SwirlProjectile()
+    {
+        swirlDirection = new Vector3(Mathf.Sin(Time.time * swirlFrequency+seedOffset.x), Mathf.Cos(Time.time * swirlFrequency+seedOffset.y), 1/swirlAmount).normalized;
+        velocityValue = (Quaternion.LookRotation(originalDir)* swirlDirection * launchSpeed);
+        //velocityValue = Quaternion.LookRotation(originalDir) * Quaternion.LookRotation(swirlDirection) * rb.velocity;
+        rb.velocity = velocityValue;
     }
 
 }

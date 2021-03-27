@@ -9,6 +9,8 @@ public class PlayerGunDamageScript : GunDamageScript
     [SerializeField] Look lookScript;
 
     [SerializeField] float originalFireDirection_X;
+    public AnsonTempUIScript ansonTempUIScript;
+
 
     private void Awake()
     {
@@ -58,6 +60,8 @@ public class PlayerGunDamageScript : GunDamageScript
         MainGunStatsScript newGun = base.UpdateGunScript(g, slot);
         UpdateAmmoCount();
         UpdateGunStatText();
+        ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
+
         return newGun;
 
     }
