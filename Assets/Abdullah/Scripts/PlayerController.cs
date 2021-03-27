@@ -56,11 +56,11 @@ public class PlayerController : MonoBehaviour
 
     [Space]
     [Header("Other Components")]
-    [SerializeField] GunDamageScript gunDamageScript;
+    [SerializeField] PlayerGunDamageScript gunDamageScript;
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
     [SerializeField] PlayerInterationScript playerInterationScript;
 
-    public GunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
+    public PlayerGunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
     public PlayerInterationScript PlayerInterationScript { get => playerInterationScript; set => playerInterationScript = value; }
     public bool DisableControl { get => disableControl; set => disableControl = value; }

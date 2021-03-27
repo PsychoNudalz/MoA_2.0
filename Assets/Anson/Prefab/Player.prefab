@@ -1101,7 +1101,7 @@ MonoBehaviour:
   playerInventorySystemScript: {fileID: 0}
   playerController: {fileID: 0}
   playerInterationScript: {fileID: 0}
-  playerInput: {fileID: 0}
+  playerInput: {fileID: 4112174735619620037}
 --- !u!114 &4112174735619620037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1419,12 +1419,15 @@ MonoBehaviour:
   maxY: 85
   tilt: 20
   moveSpeed: 10
+  moveSpeed_Default: 0
   cam1: {fileID: 4112174735984912498}
+  dashDuration: 0.4
+  dashSpeed: 5
   lookScript: {fileID: 4112174735619620038}
   doubleJumpSpeed: 10
   dashCooldown: 1
   disableControl: 0
-  gunDamageScript: {fileID: 4112174736969628676}
+  gunDamageScript: {fileID: 0}
   playerInventorySystemScript: {fileID: 0}
   playerInterationScript: {fileID: 0}
 --- !u!114 &111666207402980044
@@ -1450,7 +1453,6 @@ MonoBehaviour:
   reatatchPopUps: 1
   debuffList: []
   damagePopScript: {fileID: 0}
-  groupParticleSystemScript: {fileID: 0}
   animator: {fileID: 0}
   deathTriggerName: Death
 --- !u!114 &4011440769745659725
@@ -1739,7 +1741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4112174736969628677}
-  - component: {fileID: 4112174736969628676}
+  - component: {fileID: 1232806125}
   m_Layer: 9
   m_Name: Gun
   m_TagString: Untagged
@@ -1764,7 +1766,7 @@ Transform:
   m_Father: {fileID: 4112174735619620033}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4112174736969628676
+--- !u!114 &1232806125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1773,7 +1775,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4112174736969628678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06dc67ef344f80c40bef484c143a1f0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 85bba3a956d4be841836910e6721c565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerMask:

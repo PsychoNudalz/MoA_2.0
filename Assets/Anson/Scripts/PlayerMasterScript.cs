@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMasterScript : MonoBehaviour
 {
     [SerializeField] PlayerLifeSystemScript playerLifeSystemScript;
-    [SerializeField] GunDamageScript playerGunDamageScript;
+    [SerializeField] PlayerGunDamageScript playerGunDamageScript;
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
     [SerializeField] PlayerController playerController;
     [SerializeField] PlayerInterationScript playerInterationScript;
@@ -27,7 +27,7 @@ public class PlayerMasterScript : MonoBehaviour
         }
         if (playerGunDamageScript == null)
         {
-            playerGunDamageScript = GetComponentInChildren<GunDamageScript>();
+            playerGunDamageScript = GetComponentInChildren<PlayerGunDamageScript>();
         }
         if (playerInventorySystemScript == null)
         {
