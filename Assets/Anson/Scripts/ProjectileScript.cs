@@ -16,24 +16,33 @@ public abstract class ProjectileScript : MonoBehaviour
     [Header("Projectile Behaviour")]
     [SerializeField] Rigidbody rb;
     [SerializeField] PhysicMaterial physicMateral;
-    [SerializeField] Collider collider;
+    [SerializeField] Collider mainCollider;
     [SerializeField] int numberOfBounces = 0;
     [SerializeField] float fuseTime = Mathf.Infinity;
     [SerializeField] protected List<string> tagList;
     [SerializeField] ParticleSystem explodeEffect;
     [SerializeField] bool orientateProjectileToDirection;
 
-    [Header("Swirl Behaciour")]
+    [Header("Swirl Behaviour")]
     [SerializeField] float swirlAmount;
     [SerializeField] float swirlFrequency = 1;
     [SerializeField] Vector3 swirlDirection;
     [SerializeField] Vector3 originalDir;
-     Vector3 velocityValue;
+    Vector3 velocityValue;
     Vector2 seedOffset;
+
+    [Header("Homing Behaviour")]
+    [SerializeField] bool isHoming;
+    [SerializeField] bool homingLock;
+    [SerializeField] ProjectileTriggerDetectionScript triggerDetectionScript;
+    [SerializeField] Transform targetTransform;
+    [SerializeField] Vector3 homingDir;
 
     protected int Level { get => level; set => level = value; }
     protected ElementTypes ElementType { get => elementType; set => elementType = value; }
     protected float BaseDamage { get => baseDamage; set => baseDamage = value; }
+    public ProjectileTriggerDetectionScript TriggerDetectionScript { get => triggerDetectionScript; set => triggerDetectionScript = value; }
+    public List<string> TagList { get => tagList; set => tagList = value; }
 
 
     // Start is called before the first frame update
@@ -43,15 +52,15 @@ public abstract class ProjectileScript : MonoBehaviour
         {
             rb = FindObjectOfType<Rigidbody>();
         }
-        if (collider == null)
+        if (mainCollider == null)
         {
-            collider = FindObjectOfType<Collider>();
+            mainCollider = FindObjectOfType<Collider>();
         }
-        if (collider.material == null)
+        if (mainCollider.material == null)
         {
-            collider.material = physicMateral;
+            mainCollider.material = physicMateral;
         }
-        seedOffset = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        seedOffset = new Vector2(Random.Range(-180f, 180f), Random.Range(-180f, 180f));
     }
 
     private void OnEnable()
@@ -72,9 +81,13 @@ public abstract class ProjectileScript : MonoBehaviour
             PointProjectileToDirection();
         }
 
-        if (swirlAmount > 0)
+        if (swirlAmount > 0 && !homingLock)
         {
             SwirlProjectile();
+        }
+        if (homingLock && isHoming)
+        {
+            HomingBehaviour();
         }
     }
 
@@ -126,7 +139,7 @@ public abstract class ProjectileScript : MonoBehaviour
         {
             explodeEffect = Instantiate(explodeEffect, transform.position, transform.rotation);
             explodeEffect.Play();
-            Destroy(explodeEffect.gameObject,1f);
+            Destroy(explodeEffect.gameObject, 1f);
         }
     }
     public void PointProjectileToDirection()
@@ -136,10 +149,35 @@ public abstract class ProjectileScript : MonoBehaviour
 
     public virtual void SwirlProjectile()
     {
-        swirlDirection = new Vector3(Mathf.Sin(Time.time * swirlFrequency+seedOffset.x), Mathf.Cos(Time.time * swirlFrequency+seedOffset.y), 1/swirlAmount).normalized;
-        velocityValue = (Quaternion.LookRotation(originalDir)* swirlDirection * launchSpeed);
+        swirlDirection = new Vector3(Mathf.Sin(Time.time * swirlFrequency + seedOffset.x), Mathf.Cos(Time.time * swirlFrequency + seedOffset.y), 1 / swirlAmount).normalized;
+        velocityValue = (Quaternion.LookRotation(originalDir) * swirlDirection * launchSpeed);
         //velocityValue = Quaternion.LookRotation(originalDir) * Quaternion.LookRotation(swirlDirection) * rb.velocity;
         rb.velocity = velocityValue;
+    }
+
+    public virtual void SetHoming(Transform target)
+    {
+        if (homingLock || !isHoming)
+        {
+            return;
+        }
+        homingLock = true;
+        targetTransform = target;
+    }
+
+    public virtual void HomingBehaviour()
+    {
+        homingDir = (targetTransform.position - transform.position).normalized;
+        float dotResults = Vector3.Dot(homingDir, transform.forward);
+        if (dotResults <= 0f)
+        {
+            homingLock = false;
+            return;
+        }
+        else
+        {
+            rb.velocity = (homingDir * dotResults + rb.velocity).normalized * launchSpeed;
+        }
     }
 
 }

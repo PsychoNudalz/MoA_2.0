@@ -393,7 +393,6 @@ public class GunDamageScript : DamageScript
                     LaunchProjectile();
                     break;
             }
-            mainGunStatsScript.PlayAnimationTrigger("Shoot", 1 / timeUntilFire);
             HandleWeapon();
 
             if (currentProjectile > 0 && currentMag > 0 && timeBetweenProjectile > 0)
@@ -514,10 +513,12 @@ public class GunDamageScript : DamageScript
             //{
             projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
             Vector3 fireDir = firePoint.forward;
+            /*
             if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
             {
                 fireDir = hit.point - mainGunStatsScript.transform.position;
             }
+            */
 
             projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized);
             //}
@@ -531,6 +532,7 @@ public class GunDamageScript : DamageScript
 
     protected virtual float HandleWeapon(float newRecoilTime = -1f)
     {
+        mainGunStatsScript.PlayAnimationTrigger("Shoot", 1 / timeUntilFire);
         mainGunStatsScript.Play_Fire();
         if (newRecoilTime < 0)
         {
@@ -544,7 +546,6 @@ public class GunDamageScript : DamageScript
         currentProjectile -= 1;
         currentMag -= 1;
 
-        //UpdateAmmoCount();
         if (!isFullAuto)
         {
             Fire(false);

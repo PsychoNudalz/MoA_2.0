@@ -124,26 +124,10 @@ public class PlayerGunDamageScript : GunDamageScript
 
     protected override float HandleWeapon(float newRecoilTime = -1)
     {
-        mainGunStatsScript.Play_Fire();
-        if (newRecoilTime < 0)
-        {
-            newRecoilTime = RecoilWeapon();
-
-        }
-        else
-        {
-            newRecoilTime = RecoilWeapon(newRecoilTime);
-        }
-        currentProjectile -= 1;
-        currentMag -= 1;
+        float temp = base.HandleWeapon();
 
         UpdateAmmoCount();
-        if (!isFullAuto)
-        {
-            Fire(false);
-        }
-
-        return newRecoilTime;
+        return temp;
     }
 
     protected override void SetWeaponRecoil()

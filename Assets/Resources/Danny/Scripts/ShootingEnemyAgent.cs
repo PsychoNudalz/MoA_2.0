@@ -155,6 +155,8 @@ public class ShootingEnemyAgent : MonoBehaviour
         shootingEnemyAgent.destination = target.position;
         ResetAttackTimer();
         isShooting = false;
+        EndFire();
+        
     }
 
     public void DeathAnimation()
@@ -188,6 +190,12 @@ public class ShootingEnemyAgent : MonoBehaviour
 
     public void Fire()
     {
-        gunDamageScript.Shoot();
+        gunDamageScript.Fire(true);
+    }
+
+    public void EndFire()
+    {
+        gunDamageScript.Fire(false);
+
     }
 }
