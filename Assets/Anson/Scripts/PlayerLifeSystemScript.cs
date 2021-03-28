@@ -26,9 +26,9 @@ public class PlayerLifeSystemScript : LifeSystemScript
         base.DeathBehaviour();
     }
 
-    public override int takeDamage(float dmg, int level, ElementTypes element)
+    public override int takeDamage(float dmg, int level, ElementTypes element,bool displayTakeDamageEffect = true)
     {
-        int i = base.takeDamage(dmg,  level,  element);
+        int i = base.takeDamage(dmg,  level,  element, displayTakeDamageEffect);
         if (i > 0)
         {
         }

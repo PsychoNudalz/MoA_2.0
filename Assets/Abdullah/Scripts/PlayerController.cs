@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     Vector3 jumped;
 
-    [SerializeField] float moveSpeed;
+    float moveSpeed;
     [SerializeField] float moveSpeed_Default;
 
     CharacterController controller;
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         player = transform;
         cam = cam1.transform;
         canDoubleJumped = false;
-        moveSpeed_Default = moveSpeed;
+        moveSpeed = moveSpeed_Default;
     }
 
     // Update is called once per frame
@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed)
         {
-            if (Time.time > dashStart + dashCooldown)
+            if (Time.time > dashStart + dashCooldown && moveDirection.magnitude>0)
             {
                 /*
                 dashStart = Time.time;
@@ -319,6 +319,11 @@ public class PlayerController : MonoBehaviour
         moveSpeed = moveSpeed * dashSpeed;
         yield return new WaitForSeconds(dashDuration);
         moveSpeed = moveSpeed_Default;
+    }
+    private void OnEnable()
+    {
+        moveSpeed = moveSpeed_Default;
+
     }
 
 

@@ -153,6 +153,7 @@ public class GunManager : MonoBehaviour
 
     public GameObject GenerateGun()
     {
+        gunGenerator.ResetLists();
         InitialiseGenerator(AllGCSelections);
         GameObject newGun = gunGenerator.GenerateGun();
         newGun.transform.position += new Vector3(0, 2, 0);

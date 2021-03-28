@@ -12,10 +12,10 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
         stoneEnemyAgent = GetComponent<StoneEnemyAgent>();
     }
 
-    public override int takeDamageCritical(float dmg, int level, ElementTypes element,float multiplier)
+    public override int takeDamageCritical(float dmg, int level, ElementTypes element,float multiplier, bool displayTakeDamageEffect = true)
     {
         StaggerAnimation();
-        return base.takeDamageCritical(dmg, level, element, multiplier);
+        return base.takeDamageCritical(dmg, level, element, multiplier,displayTakeDamageEffect);
     }
 
     public override bool CheckDead()

@@ -84,7 +84,7 @@ public class LifeSystemScript : MonoBehaviour
     /// </summary>
     /// <param name="dmg"></param>
     /// <returns> health remaining </returns>
-    public virtual int takeDamage(float dmg, int level, ElementTypes element)
+    public virtual int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
 
         if (!isDead)
@@ -93,7 +93,11 @@ public class LifeSystemScript : MonoBehaviour
             print(name + " take damage: " + dmg);
             //updateHealthBar();
             displayDamage(dmg,element);
+            if (displayTakeDamageEffect)
+            {
+
             PlayTakeDamageEffect();
+            }
         }
 
         CheckDead();
@@ -108,7 +112,7 @@ public class LifeSystemScript : MonoBehaviour
     /// </summary>
     /// <param name="dmg"></param>
     /// <returns> health remaining </returns>
-    public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1)
+    public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1, bool displayTakeDamageEffect = true)
     {
 
         if (!isDead)
@@ -117,7 +121,11 @@ public class LifeSystemScript : MonoBehaviour
             print(name + " take " + element+" damage: " + dmg +" x "+multiplier);
             //updateHealthBar();
             displayDamageCritical(dmg * multiplier);
+            if (displayTakeDamageEffect)
+            {
+
             PlayTakeDamageEffect();
+            }
         }
 
         CheckDead();

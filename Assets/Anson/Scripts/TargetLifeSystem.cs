@@ -23,16 +23,16 @@ public class TargetLifeSystem : LifeSystemScript
         targetMaterialHandler.PlayerTakeDamageEffect();
     }
 
-    public override int takeDamage(float dmg, int level, ElementTypes element)
+    public override int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
         targetMaterialHandler.StartDecay();
-        return base.takeDamage(dmg, level, element);
+        return base.takeDamage(dmg, level, element,displayTakeDamageEffect);
     }
 
-    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier)
+    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier,bool displayTakeDamageEffect = true)
     {
         targetMaterialHandler.StartDecay();
-        return base.takeDamageCritical(dmg, level, element, multiplier);
+        return base.takeDamageCritical(dmg, level, element, multiplier,displayTakeDamageEffect);
     }
     public override void RemoveDebuff(FireEffectScript debuff = null)
     {

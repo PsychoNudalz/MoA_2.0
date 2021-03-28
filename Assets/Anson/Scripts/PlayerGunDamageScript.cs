@@ -124,7 +124,7 @@ public class PlayerGunDamageScript : GunDamageScript
 
     protected override float HandleWeapon(float newRecoilTime = -1)
     {
-        float temp = base.HandleWeapon();
+        float temp = base.HandleWeapon(newRecoilTime);
 
         UpdateAmmoCount();
         return temp;
