@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 /// <summary>
 /// Anson:
@@ -28,6 +29,7 @@ public class LifeSystemScript : MonoBehaviour
 
     [Header("Debuffs")]
     [SerializeField] protected List<DebuffScript> debuffList = new List<DebuffScript>();
+    //[SerializeField] 
 
     [Header("Components")]
     public DamagePopScript damagePopScript;
@@ -58,7 +60,7 @@ public class LifeSystemScript : MonoBehaviour
         {
             print("LifeSystemScript error - ");
         }
-        
+
     }
 
     private void FixedUpdate()
@@ -102,11 +104,11 @@ public class LifeSystemScript : MonoBehaviour
             health_Current -= Mathf.RoundToInt(dmg);
             print(name + " take damage: " + dmg);
             //updateHealthBar();
-            displayDamage(dmg,element);
+            displayDamage(dmg, element);
             if (displayTakeDamageEffect)
             {
 
-            PlayTakeDamageEffect();
+                PlayTakeDamageEffect();
             }
         }
 
@@ -128,13 +130,13 @@ public class LifeSystemScript : MonoBehaviour
         if (!isDead)
         {
             health_Current -= Mathf.RoundToInt(dmg * multiplier);
-            print(name + " take " + element+" damage: " + dmg +" x "+multiplier);
+            print(name + " take " + element + " damage: " + dmg + " x " + multiplier);
             //updateHealthBar();
             displayDamageCritical(dmg * multiplier);
             if (displayTakeDamageEffect)
             {
 
-            PlayTakeDamageEffect();
+                PlayTakeDamageEffect();
             }
         }
 
@@ -205,7 +207,7 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual void PlayTakeDamageEffect()
     {
-        
+
     }
 
     /*
@@ -311,7 +313,7 @@ public class LifeSystemScript : MonoBehaviour
     public virtual void RemoveDebuff(FireEffectScript debuff = null)
     {
         RemoveDebuff(debuff);
-        
+
     }
     public virtual void RemoveDebuff(ShockEffectScript debuff)
     {
@@ -323,7 +325,7 @@ public class LifeSystemScript : MonoBehaviour
     }
     public virtual void RemoveDebuff(DebuffScript debuff = null)
     {
-        
+
         debuffList.Remove(debuff);
 
     }
@@ -343,12 +345,12 @@ public class LifeSystemScript : MonoBehaviour
         {
 
         }
-        
+
     }
 
     IEnumerator TickDebuffs()
     {
-        yield return new WaitForEndOfFrame(); 
+        yield return new WaitForEndOfFrame();
         for (int i = 0; i < debuffList.Count; i++)
         {
             if (debuffList[i].TickEffect(Time.deltaTime))
@@ -357,4 +359,38 @@ public class LifeSystemScript : MonoBehaviour
             }
         }
     }
+
+    public FireEffectScript CheckIsStillOnFire()
+    {
+        foreach (DebuffScript d in debuffList)
+        {
+            if (d is FireEffectScript)
+            {
+                return d as FireEffectScript;
+            }
+        }
+        return null;
+
+    }
+    public IceEffectScript CheckIsStillOnIce(IceEffectScript iceComparedTo = null)
+    {
+        foreach (DebuffScript d in debuffList)
+        {
+            if (d is IceEffectScript)
+            {
+                if (iceComparedTo == null)
+                {
+                    return d as IceEffectScript;
+                }
+                if (!d.Equals(iceComparedTo))
+                {
+                    return d as IceEffectScript;
+                }
+            }
+        }
+        return null;
+
+    }
+
+
 }

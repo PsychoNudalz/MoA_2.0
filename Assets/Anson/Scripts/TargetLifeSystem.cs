@@ -37,7 +37,7 @@ public class TargetLifeSystem : LifeSystemScript
     public override void RemoveDebuff(FireEffectScript debuff = null)
     {
         base.RemoveDebuff(debuff as DebuffScript);
-        targetMaterialHandler.SetFire(CheckIsStillOnFire());
+        targetMaterialHandler.SetFire(CheckIsStillOnFire() != null);
     }
     public override void ApplyDebuff(FireEffectScript debuff)
     {
@@ -61,12 +61,13 @@ public class TargetLifeSystem : LifeSystemScript
     public override void RemoveDebuff(IceEffectScript debuff = null)
     {
         base.RemoveDebuff(debuff as DebuffScript);
-        targetMaterialHandler.SetIce(CheckIsStillOnIce());
+        //print(name + " deactivate Ice");
+        targetMaterialHandler.SetIce(false);
     }
     public override void ApplyDebuff(IceEffectScript debuff)
     {
-        base.ApplyDebuff(debuff as DebuffScript);
         targetMaterialHandler.SetIce(true);
+        base.ApplyDebuff(debuff as DebuffScript);
 
     }
 
@@ -76,30 +77,5 @@ public class TargetLifeSystem : LifeSystemScript
         targetMaterialHandler.SetFire(false);
     }
 
-    bool CheckIsStillOnFire()
-    {
-        foreach (DebuffScript d in debuffList)
-        {
-            if (d is FireEffectScript)
-            {
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    bool CheckIsStillOnIce()
-    {
-        foreach (DebuffScript d in debuffList)
-        {
-            if (d is IceEffectScript)
-            {
-                return true;
-            }
-        }
-        return false;
-
-    }
 
 }

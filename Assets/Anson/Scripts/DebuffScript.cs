@@ -16,17 +16,7 @@ public class DebuffScript
         startTime = Time.time;
         manualTick = false;
     }
-
    
-
-    private void FixedUpdate()
-    {
-            TickEffect();
-        //if (!manualTick)
-        //{
-        //}
-    }
-
     public virtual bool DeactivateEffect()
     {
         targetLS.RemoveDebuff(this);

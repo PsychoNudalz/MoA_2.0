@@ -78,6 +78,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
 
     public void SetIce(bool b)
     {
+        print("Set Ice " + b);
         if (b)
         {
             material.SetInt("_SetIce", 1);

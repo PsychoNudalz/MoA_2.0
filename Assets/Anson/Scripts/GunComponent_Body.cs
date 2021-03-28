@@ -111,7 +111,7 @@ public class GunComponent_Body : GunComponent
     {
         try
         {
-            Debug.Log(name + " play muzzle");
+            //Debug.Log(name + " play muzzle");
 
             bulletParticle.Play();
             muzzleEffect.SetInt("ElementEnum", (int)elementType);
