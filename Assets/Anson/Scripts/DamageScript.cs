@@ -15,20 +15,8 @@ public class DamageScript : MonoBehaviour
     [SerializeField] protected List<string> tagList;
     [Header("Debug")]
     [SerializeField] protected List<LifeSystemScript> attackedTargets = new List<LifeSystemScript>();
-    [SerializeField] float timeBetweenAttack_TimeNow = 0;
 
-    private void Awake()
-    {
 
-    }
-
-    private void FixedUpdate()
-    {
-        if (timeBetweenAttack_TimeNow > 0)
-        {
-            timeBetweenAttack_TimeNow -= Time.deltaTime;
-        }
-    }
     /// <summary>
     /// deals damage to a single target that has a LifeSystemScript
     /// </summary>
@@ -78,7 +66,6 @@ public class DamageScript : MonoBehaviour
                 break;
         }
     }
-
 
 
 }

@@ -30,7 +30,7 @@ public class FireEffectScript : ElementDebuffScript
         currentTime += deltaTime;
         if (currentTime >= tickTime)
         {
-            targetLS.takeDamage(fireDamage * (currentTime / tickTime), 1, ElementTypes.FIRE);
+            targetLS.takeDamage(fireDamage * (currentTime / tickTime), 1, ElementTypes.FIRE, false);
             currentTime = 0;
         }
 

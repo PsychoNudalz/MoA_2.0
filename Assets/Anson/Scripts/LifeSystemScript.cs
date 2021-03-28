@@ -36,6 +36,16 @@ public class LifeSystemScript : MonoBehaviour
     public int Health_Max { get => health_Max; }
     public bool IsDead { get => isDead; }
 
+    public static LifeSystemScript GetLifeSystemScript(GameObject go)
+    {
+        LifeSystemScript ls = go.GetComponentInChildren<LifeSystemScript>();
+        if (ls == null)
+        {
+            ls = go.GetComponentInParent<LifeSystemScript>();
+        }
+        return ls;
+    }
+
     protected void Awake()
     {
         health_Current = health_Max;
