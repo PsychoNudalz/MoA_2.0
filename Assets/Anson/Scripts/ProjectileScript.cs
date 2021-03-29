@@ -167,6 +167,11 @@ public abstract class ProjectileScript : MonoBehaviour
 
     public virtual void HomingBehaviour()
     {
+        if (targetTransform == null)
+        {
+            homingLock = false;
+            return;
+        }
         homingDir = (targetTransform.position - transform.position).normalized;
         float dotResults = Vector3.Dot(homingDir, transform.forward);
         if (dotResults <= 0f)

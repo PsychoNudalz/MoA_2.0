@@ -6,6 +6,7 @@ public class IceEffectScript : ElementDebuffScript
 {
 
     float StartDuration;
+    float currentTime = 0;
     bool isShatter;
     
     public IceEffectScript()
@@ -27,6 +28,7 @@ public class IceEffectScript : ElementDebuffScript
         IceBehaviour();
     }
 
+
     public override bool DeactivateEffect()
     {
         targetLS.RemoveDebuff(this as IceEffectScript);
@@ -43,12 +45,15 @@ public class IceEffectScript : ElementDebuffScript
         {
             IceDamage(true);
             currentIce.IceDamage(false);
+            currentIce.ShatterIceOnTarget();
             currentIce.DeactivateEffect();
             DeactivateEffect();
         }
         else
         {
             base.ApplyEffect(targetLS);
+            effectDamage = effectDamage * 2;
+            ActiveIceOnTarget();
 
         }
 
@@ -62,7 +67,29 @@ public class IceEffectScript : ElementDebuffScript
         }
         else
         {
-            targetLS.takeDamage(effectDamage * (1 - (duration / StartDuration)) * 2, 1, ElementTypes.ICE);
+            targetLS.takeDamage(effectDamage * (StartDuration - duration )*2/StartDuration, 1, ElementTypes.ICE);
+        }
+    }
+
+    void ActiveIceOnTarget()
+    {
+        if (targetLS is TargetLifeSystem)
+        {
+            if (targetLS.TryGetComponent(out TargetHandlerScript targetHandler))
+            {
+                targetHandler.TargetMaterialHandler.SetIceShard(effectPotency);
+            }
+        }
+
+    }
+    void ShatterIceOnTarget()
+    {
+        if (targetLS is TargetLifeSystem)
+        {
+            if (targetLS.TryGetComponent(out TargetHandlerScript targetHandler))
+            {
+                targetHandler.TargetMaterialHandler.ShatterIceShards(StartDuration- duration);
+            }
         }
     }
 }

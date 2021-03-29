@@ -644,16 +644,16 @@ VisualEffectResource:
       \n\t\t\t    float _Opacity__ = (float)0;{\n\t\t\t        \n\t\t\t        _Opacity__
       = (float)1;\n\t\t\t    }\n\t\t\t    o._Opacity = _Opacity__;float _Blend__
       = (float)0;{\n\t\t\t        float tmp_bm = Rand(attributes.seed);\n\t\t\t       
-      float tmp_bn = saturate(tmp_bm);\n\t\t\t        \n\t\t\t        _Blend__ =
-      tmp_bn;\n\t\t\t    }\n\t\t\t    o._Blend = _Blend__;float Vector1_7012D389__
-      = (float)0;{\n\t\t\t        \n\t\t\t        Vector1_7012D389__ = (float)0.0500000007;\n\t\t\t   
-      }\n\t\t\t    o.Vector1_7012D389 = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t       
-      float tmp_bm = Rand(attributes.seed);\n\t\t\t        float tmp_bo = tmp_bm
-      * (float)5000;\n\t\t\t        \n\t\t\t        _Seed__ = tmp_bo;\n\t\t\t   
-      }\n\t\t\t    o._Seed = _Seed__;bool Boolean_F4277C12__ = (bool)0;{\n\t\t\t       
-      \n\t\t\t        Boolean_F4277C12__ = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12
-      = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
+      float tmp_bo = max(tmp_bm, (float)0);\n\t\t\t        float tmp_bq = min(tmp_bo,
+      (float)1);\n\t\t\t        \n\t\t\t        _Blend__ = tmp_bq;\n\t\t\t    }\n\t\t\t   
+      o._Blend = _Blend__;float Vector1_7012D389__ = (float)0;{\n\t\t\t        \n\t\t\t       
+      Vector1_7012D389__ = (float)0.0500000007;\n\t\t\t    }\n\t\t\t    o.Vector1_7012D389
+      = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t        float tmp_bm
+      = Rand(attributes.seed);\n\t\t\t        float tmp_bo = tmp_bm * (float)5000;\n\t\t\t       
+      \n\t\t\t        _Seed__ = tmp_bo;\n\t\t\t    }\n\t\t\t    o._Seed = _Seed__;bool
+      Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t        Boolean_F4277C12__
+      = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12 = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn
+      o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl\"\n\t\t\t\t\t#include
@@ -965,16 +965,16 @@ VisualEffectResource:
       \n\t\t\t    float _Opacity__ = (float)0;{\n\t\t\t        \n\t\t\t        _Opacity__
       = (float)1;\n\t\t\t    }\n\t\t\t    o._Opacity = _Opacity__;float _Blend__
       = (float)0;{\n\t\t\t        float tmp_bm = Rand(attributes.seed);\n\t\t\t       
-      float tmp_bn = saturate(tmp_bm);\n\t\t\t        \n\t\t\t        _Blend__ =
-      tmp_bn;\n\t\t\t    }\n\t\t\t    o._Blend = _Blend__;float Vector1_7012D389__
-      = (float)0;{\n\t\t\t        \n\t\t\t        Vector1_7012D389__ = (float)0.0500000007;\n\t\t\t   
-      }\n\t\t\t    o.Vector1_7012D389 = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t       
-      float tmp_bm = Rand(attributes.seed);\n\t\t\t        float tmp_bo = tmp_bm
-      * (float)5000;\n\t\t\t        \n\t\t\t        _Seed__ = tmp_bo;\n\t\t\t   
-      }\n\t\t\t    o._Seed = _Seed__;bool Boolean_F4277C12__ = (bool)0;{\n\t\t\t       
-      \n\t\t\t        Boolean_F4277C12__ = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12
-      = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
+      float tmp_bo = max(tmp_bm, (float)0);\n\t\t\t        float tmp_bq = min(tmp_bo,
+      (float)1);\n\t\t\t        \n\t\t\t        _Blend__ = tmp_bq;\n\t\t\t    }\n\t\t\t   
+      o._Blend = _Blend__;float Vector1_7012D389__ = (float)0;{\n\t\t\t        \n\t\t\t       
+      Vector1_7012D389__ = (float)0.0500000007;\n\t\t\t    }\n\t\t\t    o.Vector1_7012D389
+      = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t        float tmp_bm
+      = Rand(attributes.seed);\n\t\t\t        float tmp_bo = tmp_bm * (float)5000;\n\t\t\t       
+      \n\t\t\t        _Seed__ = tmp_bo;\n\t\t\t    }\n\t\t\t    o._Seed = _Seed__;bool
+      Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t        Boolean_F4277C12__
+      = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12 = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn
+      o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl\"\n\t\t\t\t\t#include
@@ -1636,16 +1636,16 @@ VisualEffectResource:
       float tmp_br = tmp_bn[0];\n\t\t\t        float tmp_bs = tmp_bq + tmp_br;\n\t\t\t       
       float tmp_bu = pow(tmp_bs, (float)0.5);\n\t\t\t        float tmp_bv = tmp_bu
       / uniform_c;\n\t\t\t        float tmp_bw = SampleCurve(uniform_a,tmp_bv);\n\t\t\t       
-      float tmp_bx = saturate(tmp_bw);\n\t\t\t        \n\t\t\t        _Blend__ =
-      tmp_bx;\n\t\t\t    }\n\t\t\t    o._Blend = _Blend__;float Vector1_7012D389__
-      = (float)0;{\n\t\t\t        \n\t\t\t        Vector1_7012D389__ = (float)0.0500000007;\n\t\t\t   
-      }\n\t\t\t    o.Vector1_7012D389 = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t       
-      float tmp_bl = Rand(attributes.seed);\n\t\t\t        float tmp_bn = tmp_bl
-      * (float)5000;\n\t\t\t        \n\t\t\t        _Seed__ = tmp_bn;\n\t\t\t   
-      }\n\t\t\t    o._Seed = _Seed__;bool Boolean_F4277C12__ = (bool)0;{\n\t\t\t       
-      \n\t\t\t        Boolean_F4277C12__ = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12
-      = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
+      float tmp_by = max(tmp_bw, (float)0);\n\t\t\t        float tmp_ca = min(tmp_by,
+      (float)1);\n\t\t\t        \n\t\t\t        _Blend__ = tmp_ca;\n\t\t\t    }\n\t\t\t   
+      o._Blend = _Blend__;float Vector1_7012D389__ = (float)0;{\n\t\t\t        \n\t\t\t       
+      Vector1_7012D389__ = (float)0.0500000007;\n\t\t\t    }\n\t\t\t    o.Vector1_7012D389
+      = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t        float tmp_bl
+      = Rand(attributes.seed);\n\t\t\t        float tmp_bn = tmp_bl * (float)5000;\n\t\t\t       
+      \n\t\t\t        _Seed__ = tmp_bn;\n\t\t\t    }\n\t\t\t    o._Seed = _Seed__;bool
+      Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t        Boolean_F4277C12__
+      = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12 = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn
+      o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl\"\n\t\t\t\t\t#include
@@ -1963,16 +1963,16 @@ VisualEffectResource:
       float tmp_br = tmp_bn[0];\n\t\t\t        float tmp_bs = tmp_bq + tmp_br;\n\t\t\t       
       float tmp_bu = pow(tmp_bs, (float)0.5);\n\t\t\t        float tmp_bv = tmp_bu
       / uniform_c;\n\t\t\t        float tmp_bw = SampleCurve(uniform_a,tmp_bv);\n\t\t\t       
-      float tmp_bx = saturate(tmp_bw);\n\t\t\t        \n\t\t\t        _Blend__ =
-      tmp_bx;\n\t\t\t    }\n\t\t\t    o._Blend = _Blend__;float Vector1_7012D389__
-      = (float)0;{\n\t\t\t        \n\t\t\t        Vector1_7012D389__ = (float)0.0500000007;\n\t\t\t   
-      }\n\t\t\t    o.Vector1_7012D389 = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t       
-      float tmp_bl = Rand(attributes.seed);\n\t\t\t        float tmp_bn = tmp_bl
-      * (float)5000;\n\t\t\t        \n\t\t\t        _Seed__ = tmp_bn;\n\t\t\t   
-      }\n\t\t\t    o._Seed = _Seed__;bool Boolean_F4277C12__ = (bool)0;{\n\t\t\t       
-      \n\t\t\t        Boolean_F4277C12__ = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12
-      = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
+      float tmp_by = max(tmp_bw, (float)0);\n\t\t\t        float tmp_ca = min(tmp_by,
+      (float)1);\n\t\t\t        \n\t\t\t        _Blend__ = tmp_ca;\n\t\t\t    }\n\t\t\t   
+      o._Blend = _Blend__;float Vector1_7012D389__ = (float)0;{\n\t\t\t        \n\t\t\t       
+      Vector1_7012D389__ = (float)0.0500000007;\n\t\t\t    }\n\t\t\t    o.Vector1_7012D389
+      = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t        float tmp_bl
+      = Rand(attributes.seed);\n\t\t\t        float tmp_bn = tmp_bl * (float)5000;\n\t\t\t       
+      \n\t\t\t        _Seed__ = tmp_bn;\n\t\t\t    }\n\t\t\t    o._Seed = _Seed__;bool
+      Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t        Boolean_F4277C12__
+      = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12 = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn
+      o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl\"\n\t\t\t\t\t#include

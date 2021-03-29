@@ -13,6 +13,10 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     [Header("Decay State")]
     [SerializeField] float currentRatio;
     [SerializeField] float decayTime = 1;
+    [Header("Ice Effect")]
+    [SerializeField] VisualEffect iceEffect;
+    Coroutine currentIceCoroutine;
+
     [Header("Shock Effect")]
     [SerializeField] GameObject shockEffect;
     VisualEffect currentShock_vfx;
@@ -78,20 +82,46 @@ public class TargetMaterialHandlerScript : MonoBehaviour
 
     public void SetIce(bool b)
     {
-        print("Set Ice " + b);
+        //print("Set Ice " + b);
         if (b)
         {
             material.SetInt("_SetIce", 1);
             DebuffEffect.SendEvent("OnIce");
 
-
         }
         else
         {
             material.SetInt("_SetIce", 0);
+            iceEffect.SetBool("IsShatter", true);
 
         }
     }
+
+    public void SetIceShard(float duration)
+    {
+        if (iceEffect == null)
+        {
+            return;
+        }
+        iceEffect.SetBool("IsShatter", false);
+        iceEffect.SetFloat("Lifetime", duration);
+        StartCoroutine(DelayIceEvent(duration/2));
+    }
+
+    public void ShatterIceShards(float amount)
+    {
+        if (iceEffect == null)
+        {
+            return;
+        }
+        print("Shatter: " + amount);
+        iceEffect.SendEvent("EndIceShards");
+        iceEffect.SetBool("IsShatter", true);
+        iceEffect.SetFloat("ShatterAmount", amount);
+        iceEffect.SendEvent("OnIceShatter");
+    }
+
+
     public void SetShock(bool b)
     {
         if (b)
@@ -201,5 +231,16 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         yield return new WaitForSeconds(v.GetFloat("Lifetime") * 1.5f);
         v.gameObject.SetActive(false);
 
+    }
+
+    IEnumerator DelayIceEvent(float i)
+    {
+        print("Set ice: " + i);
+        iceEffect.SetFloat("LifetimeOffset", i * 0.5f);
+        iceEffect.SendEvent("StartIceShards");
+        i--;
+        yield return new WaitForSeconds(i);
+        iceEffect.SendEvent("EndIceShards");
+        
     }
 }
