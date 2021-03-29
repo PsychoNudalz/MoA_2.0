@@ -78,7 +78,7 @@ public class TestScript : MonoBehaviour
             {
                 playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
             }
-            playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
+            playerInventorySystemScript.PickUpNewGun(newGun.GetComponent<MainGunStatsScript>());
 
         }
     }
@@ -92,8 +92,7 @@ public class TestScript : MonoBehaviour
             {
                 playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
             }
-            playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
-
+            playerInventorySystemScript.PickUpNewGun(newGun.GetComponent<MainGunStatsScript>());
         }
     }
     public void GenerateGun_All(InputAction.CallbackContext callbackContext)
@@ -106,8 +105,7 @@ public class TestScript : MonoBehaviour
             {
                 playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
             }
-            playerInventorySystemScript.SwapWeapon(newGun.GetComponent<MainGunStatsScript>(), true);
-
+            playerInventorySystemScript.PickUpNewGun(newGun.GetComponent<MainGunStatsScript>());
         }
     }
 

@@ -144,6 +144,12 @@ public class GunDamageScript : DamageScript
         MainGunStatsScript oldGunScript = TidyOldGun();
         //Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
 
+        if (g == null)
+        {
+            mainGunStatsScript = null;
+            return null;
+        }
+
         mainGunStatsScript = g;
         gunType = g.GunType;
         rarity = g.Rarity;
@@ -237,7 +243,7 @@ public class GunDamageScript : DamageScript
     bool canFire()
     {
 
-        if (currentMag < 1 || (isReloading && isFullReload))
+        if (currentMag < 1 || (isReloading && isFullReload)||mainGunStatsScript == null)
         {
             isFiring = false;
             if (currentMag < 1 && !isReloading)
@@ -369,6 +375,8 @@ public class GunDamageScript : DamageScript
 
     public void Reload()
     {
+        if (mainGunStatsScript == null) { return; }
+
         if (currentMag < magazineSize && !isReloading)
         {
             isReloading = true;

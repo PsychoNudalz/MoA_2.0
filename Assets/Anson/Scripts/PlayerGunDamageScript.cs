@@ -58,12 +58,24 @@ public class PlayerGunDamageScript : GunDamageScript
     public override MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
     {
         MainGunStatsScript newGun = base.UpdateGunScript(g, slot);
-        UpdateAmmoCount();
-        UpdateGunStatText();
-        ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
+        if (newGun != null)
+        {
+            print("Updating UI");
+            UpdateAmmoCount();
+            UpdateGunStatText();
+            ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
+        }
 
         return newGun;
 
+    }
+
+    public void UpdateUI()
+    {
+        print("Updating UI");
+        UpdateAmmoCount();
+        UpdateGunStatText();
+        ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
     }
 
     public override void Fire(bool b)
@@ -158,6 +170,7 @@ public class PlayerGunDamageScript : GunDamageScript
 
     public void ADS_On()
     {
+        if (mainGunStatsScript == null) { return; }
 
         UpdateSights();
         currentRecoil = new Vector2(0, 0);
@@ -169,6 +182,8 @@ public class PlayerGunDamageScript : GunDamageScript
 
     public void ADS_Off()
     {
+        if (mainGunStatsScript == null) { return; }
+
         isADS = false;
         //transform.rotation = Quaternion.Euler(currentRecoil.x, currentRecoil.y, 0f) * transform.rotation;
         transform.rotation = mainGunStatsScript.transform.rotation;
@@ -187,6 +202,7 @@ public class PlayerGunDamageScript : GunDamageScript
 
     protected override IEnumerator DelayReload(float offset = 0)
     {
+
         isFiring = false;
         mainGunStatsScript.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
         mainGunStatsScript.Play_StartReload();

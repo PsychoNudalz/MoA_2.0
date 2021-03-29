@@ -68,7 +68,7 @@ public class DamagePopUpPoolScript : DamagePopScript
     {
         if (DPPool.Count > initialSize)
         {
-            print(this + " loading clean up");
+           // print(this + " loading clean up");
             int i = 0;
             DamagePopScript currentDP;
             while (i < DPPool.Count && DPPool.Count > initialSize)
@@ -77,7 +77,7 @@ public class DamagePopUpPoolScript : DamagePopScript
                 i++;
                 if (!currentDP.checkText())
                 {
-                    print(this + " clearing " + i);
+                    //print(this + " clearing " + i);
                     DPPool.Remove(currentDP);
                     Destroy(currentDP.gameObject);
                     i--;
