@@ -37,6 +37,7 @@ public abstract class ProjectileScript : MonoBehaviour
     [SerializeField] ProjectileTriggerDetectionScript triggerDetectionScript;
     [SerializeField] Transform targetTransform;
     [SerializeField] Vector3 homingDir;
+    [SerializeField] float homingStrength = 50f;
 
     protected int Level { get => level; set => level = value; }
     protected ElementTypes ElementType { get => elementType; set => elementType = value; }
@@ -161,6 +162,13 @@ public abstract class ProjectileScript : MonoBehaviour
         {
             return;
         }
+        homingDir = (target.position - transform.position).normalized;
+
+        float dotResults = Vector3.Dot(homingDir, transform.forward);
+        if (dotResults <= 0f)
+        {
+            return;
+        }
         homingLock = true;
         targetTransform = target;
     }
@@ -176,13 +184,19 @@ public abstract class ProjectileScript : MonoBehaviour
         float dotResults = Vector3.Dot(homingDir, transform.forward);
         if (dotResults <= 0f)
         {
-            homingLock = false;
-            return;
+            resetHomingTarget();
         }
         else
         {
-            rb.velocity = (homingDir * dotResults + rb.velocity).normalized * launchSpeed;
+            rb.velocity = ((homingDir * dotResults)*Time.deltaTime*50f + rb.velocity).normalized * launchSpeed;
         }
+    }
+
+    protected virtual void resetHomingTarget()
+    {
+        originalDir = transform.forward;
+        homingLock = false;
+        return;
     }
 
 }

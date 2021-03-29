@@ -83,6 +83,11 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     public void SetIce(bool b)
     {
         //print("Set Ice " + b);
+        if (currentIceCoroutine != null)
+        {
+            StopCoroutine(currentIceCoroutine);
+        }
+
         if (b)
         {
             material.SetInt("_SetIce", 1);
@@ -93,6 +98,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         {
             material.SetInt("_SetIce", 0);
             iceEffect.SetBool("IsShatter", true);
+
 
         }
     }
@@ -105,7 +111,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         }
         iceEffect.SetBool("IsShatter", false);
         iceEffect.SetFloat("Lifetime", duration);
-        StartCoroutine(DelayIceEvent(duration/2));
+        currentIceCoroutine = StartCoroutine(DelayIceEvent(duration / 2));
     }
 
     public void ShatterIceShards(float amount)
@@ -119,6 +125,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         iceEffect.SetBool("IsShatter", true);
         iceEffect.SetFloat("ShatterAmount", amount);
         iceEffect.SendEvent("OnIceShatter");
+        StopCoroutine(currentIceCoroutine);
     }
 
 
@@ -235,12 +242,9 @@ public class TargetMaterialHandlerScript : MonoBehaviour
 
     IEnumerator DelayIceEvent(float i)
     {
-        print("Set ice: " + i);
-        iceEffect.SetFloat("LifetimeOffset", i * 0.5f);
         iceEffect.SendEvent("StartIceShards");
-        i--;
         yield return new WaitForSeconds(i);
         iceEffect.SendEvent("EndIceShards");
-        
+
     }
 }

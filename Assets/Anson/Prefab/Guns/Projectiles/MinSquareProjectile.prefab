@@ -4803,10 +4803,10 @@ MonoBehaviour:
   launchSpin: 0
   baseDamage: 0
   level: 0
-  elementType: 3
+  elementType: 2
   rb: {fileID: 0}
   physicMateral: {fileID: 13400000, guid: d611a62dd81be9a4da06f686b599e616, type: 2}
-  collider: {fileID: 0}
+  mainCollider: {fileID: 0}
   numberOfBounces: 0
   fuseTime: 20
   tagList:
@@ -4818,7 +4818,11 @@ MonoBehaviour:
   swirlFrequency: 4
   swirlDirection: {x: 0, y: 0, z: 0}
   originalDir: {x: 0, y: 0, z: 0}
-  triggerDetectionScript: {fileID: 0}
+  isHoming: 1
+  homingLock: 0
+  triggerDetectionScript: {fileID: 105833013405297262}
+  targetTransform: {fileID: 0}
+  homingDir: {x: 0, y: 0, z: 0}
   damageMultiplier: 1
   maxRange: 2
   rangeFalloff:
@@ -4865,7 +4869,6 @@ MonoBehaviour:
   - Enemy
   - Player
   attackedTargets: []
-  timeBetweenAttack_TimeNow: 0
 --- !u!136 &7183683471440185746
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4940,6 +4943,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1727628cd808a14ba4dffea77413e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  projectileScript: {fileID: 0}
+  triggerArea: {fileID: 6088202927809539530}
+  radius: 15
+  tagList: []
+  canOverrideTarget: 1
 --- !u!135 &6088202927809539530
 SphereCollider:
   m_ObjectHideFlags: 0
