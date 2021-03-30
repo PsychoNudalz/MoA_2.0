@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLifeSystem : MonoBehaviour
+public class BossLifeSystem : TargetLifeSystem
 {
-    [Header("Boss Agent")]
+    [Header("Stone Enemy Agent")]
     BossAgent bossAgent;
 
     private void Start()
