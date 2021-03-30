@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossEnemyAgent : MonoBehaviour
+public class BossAgent : MonoBehaviour
 {
-
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float attackPlayerDistance = 2f;
     [SerializeField] private AnimationCurve attackDropOff;
@@ -47,11 +47,34 @@ public class BossEnemyAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-            
+        if(!IsStaggering && !IsDead)
+        {
+            if (attackTimeNow > 0)
+            {
+                attackTimeNow -= Time.deltaTime;
+            }
+
+            /*
+             * If player is in range then attack
+             * If not then follow navmesh toward players location
+             */
+            if (Vector3.Distance(transform.position, target.position) < attackPlayerDistance)
+            {
+                if (attackTimeNow <= 0)
+                {
+                    Attack();
+                }
+
+            }
+            else
+            {
                 WalkTowardsPlayer();
-            
-        
+            }
+        }
+        if (IsDead)
+        {
+            GameObject.Destroy(this.gameObject, 10f);
+        }
 
     }
 
@@ -81,7 +104,7 @@ public class BossEnemyAgent : MonoBehaviour
         animator.SetBool("IsDead", true);
     }
 
-
+    
     IEnumerator StaggerDelay()
     {
         /*
@@ -115,6 +138,6 @@ public class BossEnemyAgent : MonoBehaviour
         /*
          * Damage player if in range (triggered from attack animation
          */
-        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
+        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff , 1, ElementTypes.PHYSICAL);
     }
 }
