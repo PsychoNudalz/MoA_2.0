@@ -8,6 +8,7 @@ public class GunGeneratorScript : MonoBehaviour
     [SerializeField] bool randomRarity = false;
     [SerializeField] bool randomElement = false;
     [SerializeField] bool debugMode = false;
+    [SerializeField] bool generateGunOnAwake = false;
 
     [Header("Component Lists")]
     //public List<GunComponent> allGunComponents;
@@ -27,6 +28,14 @@ public class GunGeneratorScript : MonoBehaviour
     [SerializeField] GameObject emptyGunGO;
     [SerializeField] MainGunStatsScript currentMainGunStatsScript;
 
+
+    private void Awake()
+    {
+        if (generateGunOnAwake)
+        {
+            GenerateGun().transform.position = transform.position;
+        }
+    }
 
     public GameObject GenerateGun()
     {
