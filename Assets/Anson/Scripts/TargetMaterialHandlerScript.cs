@@ -129,29 +129,12 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     }
 
 
-    public void SetShock(bool b)
-    {
-        if (b)
-        {
-            try
-            {
-                DebuffEffect.SendEvent("OnShock");
-            }
-            catch (MissingReferenceException re)
-            {
-
-            }
-        }
-        else
-        {
-
-        }
-    }
 
     public void SetShock(bool b, Transform shockTarget = null)
     {
         if (b)
         {
+            DebuffEffect.SendEvent("OnShock");
             currentShock_vfx = GetNextShock();
             currentShock_vfx.gameObject.SetActive(true);
             currentShock_vfx.SendEvent("ShockSelf");
