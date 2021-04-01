@@ -65,7 +65,7 @@ public class ShootingRangeScript : MonoBehaviour
         }
     }
 
-    public void StartShootCourse()
+    public void StartShootCourse(string inputSeed = "")
     {
         totalKills = 0;
         totalTargets = 0;
@@ -73,12 +73,25 @@ public class ShootingRangeScript : MonoBehaviour
         timeNow = 0;
         isRoutine = true;
         shootingSequence = new List<string>();
-        StartWave();
+        if (inputSeed.Equals(""))
+        {
+            StartWave();
+        }
+        else
+        {
+            StartWave(inputSeed);
+        }
         //DelayStartWave();
     }
 
     public void StartWave()
     {
+        StartWave(System.Convert.ToString(Mathf.RoundToInt(Random.Range(numberOfTargets.x, Mathf.Pow(2, numberOfTargets.y))), 2));
+    }
+
+    public void StartWave(string inputSeed)
+    {
+        waveSeed = inputSeed;
         waveKills = 0;
         waveTargets = 0;
         timeNow_Wave = 0;
@@ -87,7 +100,6 @@ public class ShootingRangeScript : MonoBehaviour
         {
             return;
         }
-        waveSeed = System.Convert.ToString(Mathf.RoundToInt(Random.Range(numberOfTargets.x, Mathf.Pow(2, numberOfTargets.y))), 2);
         shootingSequence.Add(waveSeed.ToString());
         UpdateKillCounter();
         for (int i = 0; i < spawnPoints.Count && i < waveSeed.Length; i++)

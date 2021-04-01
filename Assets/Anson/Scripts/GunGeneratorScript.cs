@@ -39,10 +39,21 @@ public class GunGeneratorScript : MonoBehaviour
 
     public GameObject GenerateGun()
     {
+        return GenerateGun(Mathf.RoundToInt(Random.Range(0, components_Body.Count + 1) % components_Body.Count));
+    }
+
+    public GameObject GenerateGun(int bodyIndex)
+    {
         GameObject newEmptyGun = Instantiate(emptyGunGO, transform.position, transform.rotation);
         currentMainGunStatsScript = newEmptyGun.GetComponent<MainGunStatsScript>();
 
-        newGun = Instantiate(components_Body[Mathf.RoundToInt(Random.Range(0, components_Body.Count + 1) % components_Body.Count)], transform.position, Quaternion.Euler(0, -90, 0) * newEmptyGun.transform.rotation, newEmptyGun.transform);
+        if (bodyIndex >= components_Body.Count || components_Body.Count == 0)
+        {
+            Debug.LogError(name + " generate gun index out of range");
+            return null;
+        }
+
+        newGun = Instantiate(components_Body[bodyIndex], transform.position, Quaternion.Euler(0, -90, 0) * newEmptyGun.transform.rotation, newEmptyGun.transform);
         currentMainGunStatsScript.AddStats(newGun.GetComponent<ComponentGunStatsScript>());
 
         if (randomRarity)
