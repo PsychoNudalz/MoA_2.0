@@ -19,16 +19,11 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemyToSpawn;
     private int enemiesSpawned;
     private float spawnCountdown;
-    private int numberOfWaypoints;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        /*
-         * Set number of waypoints
-         */
-        numberOfWaypoints = transform.parent.GetComponentsInChildren<EnemyWaypoint>().Length -1;
         /*
          * Save enemy prefabs to spawn in array
          */
@@ -69,16 +64,11 @@ public class EnemySpawner : MonoBehaviour
             {
                 spawnCountdown -= Time.deltaTime;
             }
-            else
+            else if(transform.childCount == 0)
             {
-                /*
-                 * If all enemies spawned and been killed
-                 * remove spawner
-                 */
-                if(transform.childCount == 0)
-                {
-                    GameObject.Destroy(this.gameObject);
-                }
+                //If all enemies from spawner killed destroy spawner
+                GameObject.Destroy(this.gameObject);
+               
             }
         }
     }
@@ -90,31 +80,11 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         enemyToSpawn = GetEnemyToSpawn();
-        if (enemyToSpawn.gameObject.name.Equals("ShootingEnemy"))
-        {
-            if (SufficientWaypoints())
-            {
-                enemiesSpawned++;
-                GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
-                spawnCountdown = delayBetweenSpawns;
-            }
-            else
-            {
-                Debug.LogWarning("Insufficeient waypoints for shooting enemy spawn");
-                spawnCountdown = Random.Range(0f,1f);
-            }
-        }
-        else
-        {
-            GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
-            enemiesSpawned++;
-            spawnCountdown = delayBetweenSpawns;
-        }
-
-        bool SufficientWaypoints()
-        {
-            return transform.parent.GetComponentsInChildren<ShootingEnemyAgent>().Length + 1 < numberOfWaypoints;
-        }
+        
+        GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
+        enemiesSpawned++;
+        spawnCountdown = delayBetweenSpawns;
+        
     }
 
     /*

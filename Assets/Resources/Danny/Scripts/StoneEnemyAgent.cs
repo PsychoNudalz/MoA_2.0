@@ -3,20 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class StoneEnemyAgent : MonoBehaviour
 {
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float attackPlayerDistance = 2f;
+    [SerializeField] private float chasePlayerDistance = 15f;
     [SerializeField] private AnimationCurve attackDropOff;
     [SerializeField] private float attackTimeInitial;
+    [SerializeField] private LayerMask playerMask;
     private NavMeshAgent stoneEnemyAgent;
     private Animator animator;
-    private Transform target;
+    private Transform player;
     private SphereCastDamageScript sphereDamageScript;
     private bool IsStaggering;
     private bool IsDead = false;
     private float attackTimeNow;
+    private bool inChaseRange;
+    private bool inAttackRange;
+    private Vector3 currentWaypoint;
+    private bool waypointSet;
+    private NavMeshPath path;
+    private float walkPointRange = 100f;
+
 
 
     private void Awake()
@@ -30,7 +40,7 @@ public class StoneEnemyAgent : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         stoneEnemyAgent = GetComponent<NavMeshAgent>();
         animator.SetBool("IsWalking", true);
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         sphereDamageScript = GetComponent<SphereCastDamageScript>();
     }
 
@@ -40,8 +50,8 @@ public class StoneEnemyAgent : MonoBehaviour
         /*
          * Set navagent destination to player and set speed
          */
-        stoneEnemyAgent.SetDestination(target.position);
-        stoneEnemyAgent.speed = walkSpeed;
+        //stoneEnemyAgent.SetDestination(target.position);
+        //stoneEnemyAgent.speed = walkSpeed;
     }
 
     // Update is called once per frame
@@ -49,36 +59,96 @@ public class StoneEnemyAgent : MonoBehaviour
     {
         if(!IsStaggering && !IsDead)
         {
-            if (attackTimeNow > 0)
-            {
-                attackTimeNow -= Time.deltaTime;
-            }
+            inChaseRange = Physics.CheckSphere(transform.position, chasePlayerDistance, playerMask);
+            inAttackRange = Physics.CheckSphere(transform.position, attackPlayerDistance, playerMask);
 
-            /*
-             * If player is in range then attack
-             * If not then follow navmesh toward players location
-             */
-            if (Vector3.Distance(transform.position, target.position) < attackPlayerDistance)
+            if (!inAttackRange && !inChaseRange)
             {
-                if (attackTimeNow <= 0)
+                Patrol();
+            }
+            if (inChaseRange && !inAttackRange)
+            {
+                Vector3 walkpoint = player.transform.position;
+                stoneEnemyAgent.CalculatePath(walkpoint, path);
+                if (path.status.Equals(NavMeshPathStatus.PathComplete))
                 {
-                    Attack();
+                    ChasePlayer();
                 }
-
+                else
+                {
+                    waypointSet = false;
+                }
             }
-            else
+            if (inAttackRange && inChaseRange)
             {
-                WalkTowardsPlayer();
+                FaceTarget();
+                AttackPlayer();
             }
+            
         }
+        
         if (IsDead)
         {
-            GameObject.Destroy(this.gameObject, 10f);
+            GameObject.Destroy(this.gameObject, 5f);
         }
 
     }
 
-    private void WalkTowardsPlayer()
+    private void Patrol()
+    {
+        if (!waypointSet)
+        {
+            SearchWaypoint();
+        }
+        if (waypointSet)
+        {
+            stoneEnemyAgent.SetDestination(currentWaypoint);
+        }
+        Vector3 distanceToWaypoint = transform.position - currentWaypoint;
+
+        if(distanceToWaypoint.magnitude < 1f)
+        {
+            waypointSet = false;
+        }
+    }
+
+    private void SearchWaypoint()
+    {
+        bool pathValid = false;
+        path = new NavMeshPath();
+        while (!pathValid)
+        {
+            float randomZ = Random.Range(-walkPointRange, walkPointRange);
+            float randomX = Random.Range(-walkPointRange, walkPointRange);
+
+            Vector3 castPoint = new Vector3(transform.position.x + randomX, transform.position.y + 10f, transform.position.z + randomZ);
+            RaycastHit raycastHit;
+            Physics.Raycast(castPoint, -transform.up, out raycastHit);
+            if(raycastHit.point != null)
+            {
+                Vector3 walkpoint = raycastHit.point;
+                stoneEnemyAgent.CalculatePath(walkpoint, path);
+                if(path.status.Equals(NavMeshPathStatus.PathComplete))
+                {
+                    currentWaypoint = walkpoint;
+                    waypointSet = true;
+                    pathValid = true;
+                }
+            }
+        }
+
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+
+
+    private void ChasePlayer()
     {
         /*
          * Set walking animation, nav agent speed and target.
@@ -87,7 +157,7 @@ public class StoneEnemyAgent : MonoBehaviour
         stoneEnemyAgent.speed = walkSpeed;
         animator.SetBool("IsWalking", true);
         animator.SetBool("IsAttacking", false);
-        stoneEnemyAgent.SetDestination(target.position);
+        stoneEnemyAgent.SetDestination(player.position);
     }
 
     public void Stagger()
@@ -119,7 +189,7 @@ public class StoneEnemyAgent : MonoBehaviour
 
     }
 
-    private void Attack()
+    private void AttackPlayer()
     {
         /*
          * Stop nav agent moving and start attack animation.
@@ -128,8 +198,8 @@ public class StoneEnemyAgent : MonoBehaviour
         stoneEnemyAgent.speed = 0;
         animator.SetBool("IsWalking", false);
         animator.SetBool("IsAttacking", true);
-        stoneEnemyAgent.SetDestination(target.position);
-        transform.LookAt(target.position);
+        stoneEnemyAgent.SetDestination(player.position);
+        //transform.LookAt(player.position);
         attackTimeNow = attackTimeInitial;
     }
 
@@ -139,5 +209,11 @@ public class StoneEnemyAgent : MonoBehaviour
          * Damage player if in range (triggered from attack animation
          */
         sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff , 1, ElementTypes.PHYSICAL);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, chasePlayerDistance);
     }
 }
