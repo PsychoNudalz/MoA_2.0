@@ -79,6 +79,7 @@ public class GunDamageScript : DamageScript
         {
             UpdateGunScript(mainGunStatsScript);
         }
+        Reload();
     }
 
     private void Update()

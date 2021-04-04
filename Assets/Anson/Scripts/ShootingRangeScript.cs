@@ -65,12 +65,31 @@ public class ShootingRangeScript : MonoBehaviour
         }
     }
 
-    public void StartShootCourse(string inputSeed = "")
+    public void ResetRange()
     {
         totalKills = 0;
         totalTargets = 0;
         numberOfWaveNow = 0;
         timeNow = 0;
+        waveKills = 0;
+        waveTargets = 0;
+        timeNow_Wave = 0;
+    }
+
+    public void StartShootCourse(string inputSeed = "0", float waveTime = 0f, int numberOfWave = 1)
+    {
+        totalKills = 0;
+        totalTargets = 0;
+        numberOfWaveNow = 0;
+        timeNow = 0;
+        if (waveTime != 0f)
+        {
+            timeBetweenWavePerTarget = waveTime;
+        }
+        if (numberOfWave != 0)
+        {
+            this.numberOfWave = numberOfWave;
+        }
         isRoutine = true;
         shootingSequence = new List<string>();
         if (inputSeed.Equals(""))
@@ -95,6 +114,7 @@ public class ShootingRangeScript : MonoBehaviour
         waveKills = 0;
         waveTargets = 0;
         timeNow_Wave = 0;
+        
         numberOfWaveNow++;
         if (numberOfWaveNow > numberOfWave)
         {
@@ -144,5 +164,11 @@ public class ShootingRangeScript : MonoBehaviour
         {
             isRoutine = false;
         }
+    }
+
+    public bool IsWaveCleared()
+    {
+        bool returnBool = totalKills >= totalTargets && totalTargets != 0;
+        return returnBool;
     }
 }
