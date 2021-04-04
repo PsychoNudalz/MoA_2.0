@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-enum EnemyType {StoneEnemy,ShootingEnemy,RandomEnemies};
+enum EnemyType {StoneEnemy,ShootingEnemy,TankEnemy,RandomEnemies};
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyType enemyType;
@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Enemy Prefabs")]
     [SerializeField] private GameObject stoneEnemy;
     [SerializeField] private GameObject shootingEnemy;
+    [SerializeField] private GameObject TankEnemy;
     [SerializeField] private bool isSpawning = false;
     private GameObject[] enemyPrefabs;
     private GameObject enemyToSpawn;
@@ -79,11 +80,23 @@ public class EnemySpawner : MonoBehaviour
      */
     private void SpawnEnemy()
     {
-        enemyToSpawn = GetEnemyToSpawn();
         
-        GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
-        enemiesSpawned++;
-        spawnCountdown = delayBetweenSpawns;
+        enemyToSpawn = GetEnemyToSpawn();
+        if (enemyToSpawn.Equals(EnemyType.TankEnemy))
+        {
+            if(transform.childCount == 0)
+            {
+                GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
+                enemiesSpawned++;
+                spawnCountdown = delayBetweenSpawns;
+            }
+        }
+        else
+        {
+            GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
+            enemiesSpawned++;
+            spawnCountdown = delayBetweenSpawns;
+        }
         
     }
 
@@ -99,6 +112,8 @@ public class EnemySpawner : MonoBehaviour
                 return enemyPrefabs[0];
             case EnemyType.ShootingEnemy:
                 return enemyPrefabs[1];
+            case EnemyType.TankEnemy:
+                return TankEnemy;
             default:
                 int index = Random.Range(0, enemyPrefabs.Length);
                 return enemyPrefabs[index];

@@ -44,16 +44,6 @@ public class StoneEnemyAgent : MonoBehaviour
         sphereDamageScript = GetComponent<SphereCastDamageScript>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        /*
-         * Set navagent destination to player and set speed
-         */
-        //stoneEnemyAgent.SetDestination(target.position);
-        //stoneEnemyAgent.speed = walkSpeed;
-    }
-
     // Update is called once per frame
     void Update()
     {

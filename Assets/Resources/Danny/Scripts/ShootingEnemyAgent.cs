@@ -65,7 +65,6 @@ public class ShootingEnemyAgent : MonoBehaviour
             {
                 RaycastHit hit;
                 Vector3 playerDirection = player.transform.position - firePoint.transform.position;
-                Vector3 shootDirection = (new Vector3(playerDirection.x, 0f, playerDirection.z));
                 Debug.DrawRay(transform.position, playerDirection, Color.red,2f);
                 if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, Mathf.Infinity))
                 {
