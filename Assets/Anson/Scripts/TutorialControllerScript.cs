@@ -12,7 +12,7 @@ public class TutorialControllerScript : MonoBehaviour
     [SerializeField] Transform guns;
     [SerializeField] GameObject currentGun;
     [SerializeField] ShootingRangeScript shootingRange;
-    [SerializeField] List<int> pickUpSteps ;
+    [SerializeField] List<int> pickUpSteps;
     [SerializeField] List<int> killSteps;
 
 
@@ -27,7 +27,7 @@ public class TutorialControllerScript : MonoBehaviour
     {
 
         //check for pick up on steps 1, 4
-        if (pickUpSteps.Contains(stepValue)&& currentGun != null)
+        if (pickUpSteps.Contains(stepValue) && currentGun != null)
         {
             if (!currentGun.transform.parent.Equals(guns))
             {
@@ -76,20 +76,31 @@ public class TutorialControllerScript : MonoBehaviour
     }
     public void SpawnShootingRange(string seed, float waveTime, int numberOfWaves)
     {
+        shootingRange.SetLoopMode(1);
+
         shootingRange.StartShootCourse(seed, waveTime, numberOfWaves);
 
     }
 
     public void SpawnShootingRange_Single()
     {
-        shootingRange.StartShootCourse("01", float.PositiveInfinity,1);
+        shootingRange.SetLoopMode(1);
+        shootingRange.StartShootCourse("01", float.PositiveInfinity, 1);
     }
 
 
     public void SpawnShootingRange_Full()
     {
+        shootingRange.SetLoopMode(1);
         shootingRange.StartShootCourse("111111111111", float.PositiveInfinity, 1);
 
+    }
+
+    public void SpawnShootingRange_Cover()
+    {
+        shootingRange.SetLoopMode(0);
+        int[] list = { 6, 7, 8, 9, 10, 11 };
+        shootingRange.StartShootCourse("101101111101", float.PositiveInfinity, 1, new List<int>(list), 50);
     }
 
 
@@ -99,4 +110,6 @@ public class TutorialControllerScript : MonoBehaviour
         currentGun = gunGenerator.GenerateGun(i);
         currentGun.transform.SetParent(guns);
     }
+
+
 }

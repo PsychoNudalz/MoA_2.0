@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShootingRangeScript : MonoBehaviour
 {
     [SerializeField] List<SpawnPointScript> spawnPoints;
+    [SerializeField] Animator animator;
     [SerializeField] int totalKills = 0;
     [SerializeField] int totalTargets = 0;
     [SerializeField] int waveKills = 0;
@@ -37,7 +38,6 @@ public class ShootingRangeScript : MonoBehaviour
         {
             numberOfTargets.y = spawnPoints.Count;
         }
-
     }
 
     private void Update()
@@ -76,7 +76,7 @@ public class ShootingRangeScript : MonoBehaviour
         timeNow_Wave = 0;
     }
 
-    public void StartShootCourse(string inputSeed = "0", float waveTime = 0f, int numberOfWave = 1)
+    public void StartShootCourse(string inputSeed = "0", float waveTime = 0f, int numberOfWave = 1, List<int> healthOverrideTargets = null, int overrideValue = -1)
     {
         totalKills = 0;
         totalTargets = 0;
@@ -98,7 +98,7 @@ public class ShootingRangeScript : MonoBehaviour
         }
         else
         {
-            StartWave(inputSeed);
+            StartWave(inputSeed, healthOverrideTargets,overrideValue);
         }
         //DelayStartWave();
     }
@@ -108,7 +108,7 @@ public class ShootingRangeScript : MonoBehaviour
         StartWave(System.Convert.ToString(Mathf.RoundToInt(Random.Range(numberOfTargets.x, Mathf.Pow(2, numberOfTargets.y))), 2));
     }
 
-    public void StartWave(string inputSeed)
+    public void StartWave(string inputSeed, List<int> healthOverrideTargets = null, int overrideValue = -1)
     {
         waveSeed = inputSeed;
         waveKills = 0;
@@ -127,7 +127,15 @@ public class ShootingRangeScript : MonoBehaviour
             spawnPoints[i].Despawn();
             if (waveSeed[i].ToString().Equals("1"))
             {
+                if (healthOverrideTargets!=null&& healthOverrideTargets.Contains(i))
+                {
+                    spawnPoints[i].Spawn(overrideValue);
+                }
+                else
+                {
                 spawnPoints[i].Spawn();
+
+                }
                 waveTargets++;
                 totalTargets++;
             }
@@ -170,5 +178,14 @@ public class ShootingRangeScript : MonoBehaviour
     {
         bool returnBool = totalKills >= totalTargets && totalTargets != 0;
         return returnBool;
+    }
+
+    public void SetLoopMode(int i)
+    {
+        if (animator == null)
+        {
+            return;
+        }
+        animator.SetInteger("LoopMode", i);
     }
 }

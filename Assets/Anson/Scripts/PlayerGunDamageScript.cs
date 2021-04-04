@@ -35,13 +35,19 @@ public class PlayerGunDamageScript : GunDamageScript
 
         if (isFiring)
         {
-            Shoot();
+            if (!Shoot())
+            {
+                if (!isFullAuto)
+                {
+                    CorrectRecoil();
+                }
+            }
         }
         else
         {
-            //AdjustRecoil();
             CorrectRecoil();
         }
+
         if (mainGunStatsScript != null && !isAI)
         {
             SetWeaponRecoil();

@@ -241,7 +241,7 @@ public class GunDamageScript : DamageScript
         firePoint = t;
     }
 
-    bool canFire()
+    protected bool canFire()
     {
 
         if (currentMag < 1 || (isReloading && isFullReload)||mainGunStatsScript == null)
@@ -296,9 +296,9 @@ public class GunDamageScript : DamageScript
 
     }
 
-    protected void CorrectRecoil()
+    protected void CorrectRecoil(bool b = true)
     {
-        if (!isFiring)
+        if (b)
         {
             currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenter);
 
