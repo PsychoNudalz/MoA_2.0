@@ -72,7 +72,8 @@ public class TankEnemyAgent : MonoBehaviour
         }
         if (IsDead)
         {
-            GameObject.Destroy(this.transform.gameObject, 50f);
+            GameObject.Destroy(this.transform.gameObject, 5f);
+            transform.GetComponentInParent<EnemySpawner>().ResetSpawnCountdown();
         }
     }
 
@@ -97,10 +98,8 @@ public class TankEnemyAgent : MonoBehaviour
 
     public void DeathAnimation()
     {
-        GetComponent<Rigidbody>().isKinematic = true;
         IsDead = true;
         TankEnemyAnimator.SetBool("IsDead", true);
-
     }
 
     public void Stagger()
@@ -112,7 +111,7 @@ public class TankEnemyAgent : MonoBehaviour
     {
         IsStaggering = true;
         TankEnemyAnimator.SetTrigger("Hit");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.75f);
         IsStaggering = false;
 
     }

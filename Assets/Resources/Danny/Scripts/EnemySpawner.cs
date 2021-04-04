@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
         /*
          * Set spawn countdown
          */
-        spawnCountdown = delayBetweenSpawns;
+        ResetSpawnCountdown();
         /*
          * If spawning on start spawn first enemy
          */
@@ -74,30 +74,33 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    internal void ResetSpawnCountdown()
+    {
+        spawnCountdown = delayBetweenSpawns;
+    }
+
     /*
      * Get an enemy prefab to spawn, spawn it, 
      * increment spawn count and reset delay countdown
      */
     private void SpawnEnemy()
     {
-        
         enemyToSpawn = GetEnemyToSpawn();
-        if (enemyToSpawn.Equals(EnemyType.TankEnemy))
+        if (enemyType.Equals(EnemyType.TankEnemy))
         {
-            if(transform.childCount == 0)
+            if(transform.childCount == 0 && enemiesSpawned < numberOfEnemies)
             {
                 GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
                 enemiesSpawned++;
-                spawnCountdown = delayBetweenSpawns;
+                ResetSpawnCountdown();
             }
         }
         else
         {
             GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
             enemiesSpawned++;
-            spawnCountdown = delayBetweenSpawns;
+            ResetSpawnCountdown();
         }
-        
     }
 
     /*
