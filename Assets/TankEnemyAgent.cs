@@ -13,7 +13,8 @@ public class TankEnemyAgent : MonoBehaviour
     private Animator TankEnemyAnimator;
     private float currentAttackTimer;
     private GameObject player;
-    
+    private AIGunDamageScript gun;
+
     private bool isShooting;
     private bool IsStaggering;
     private bool IsDead = false;
@@ -33,6 +34,7 @@ public class TankEnemyAgent : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         TankEnemyAnimator = GetComponent<Animator>();
         ResetAttackTimer();
+        gun = GetComponentInChildren<AIGunDamageScript>();
     }
 
     /*
@@ -47,6 +49,7 @@ public class TankEnemyAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FaceTarget();
         if (!IsStaggering && !IsDead)
         {
 
@@ -54,7 +57,7 @@ public class TankEnemyAgent : MonoBehaviour
             {
                 RaycastHit hit;
                 Vector3 playerDirection = player.transform.position - firePoint.transform.position;
-                Debug.DrawRay(transform.position, playerDirection, Color.red, 2f);
+                Debug.DrawRay(firePoint.transform.position, playerDirection, Color.red, 2f);
                 if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, Mathf.Infinity))
                 {
                     if (hit.collider.CompareTag("Player"))
@@ -66,7 +69,7 @@ public class TankEnemyAgent : MonoBehaviour
             if (!isShooting)
             {
                 currentAttackTimer -= Time.deltaTime;
-                FaceTarget();
+                
             }
 
         }
@@ -82,6 +85,7 @@ public class TankEnemyAgent : MonoBehaviour
         Vector3 direction = (player.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        gun.transform.LookAt(player.transform);
     }
 
     IEnumerator Shoot(float delay)
