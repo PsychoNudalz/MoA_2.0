@@ -25,6 +25,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     private bool waypointSet;
     private NavMeshPath path;
     private float walkPointRange = 100f;
+    private AIGunDamageScript gun;
 
     [Header("Shooting")]
     [SerializeField] GunDamageScript gunDamageScript;
@@ -43,6 +44,7 @@ public class ShootingEnemyAgent : MonoBehaviour
         shootingEnemyAgent.speed = walkSpeed;
         shootingEnemyAnimator.SetBool("IsWalking", true);
         isCrouching = false;
+        gun = GetComponentInChildren<AIGunDamageScript>();
         ResetAttackTimer();
     }
 
@@ -65,8 +67,8 @@ public class ShootingEnemyAgent : MonoBehaviour
             {
                 RaycastHit hit;
                 Vector3 playerDirection = player.transform.position - firePoint.transform.position;
-                Debug.DrawRay(transform.position, playerDirection, Color.red,2f);
-                if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, Mathf.Infinity))
+                Debug.DrawRay(firePoint.position, playerDirection, Color.red,2f);
+                if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, 20f))
                 {
                     if (hit.collider.CompareTag("Player"))
                     {
@@ -85,6 +87,14 @@ public class ShootingEnemyAgent : MonoBehaviour
         {
             GameObject.Destroy(this.transform.gameObject, 5f);
         }
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 40f);
+        gun.transform.LookAt(player.transform);
     }
 
     private void Patrol()
@@ -137,7 +147,7 @@ public class ShootingEnemyAgent : MonoBehaviour
         isCrouching = true;
         shootingEnemyAnimator.SetBool("IsCrouching", true);
         shootingEnemyAgent.enabled = false;
-        transform.LookAt(player.transform);
+        FaceTarget();
         yield return new WaitForSeconds(delay);
         shootingEnemyAgent.enabled = true;
         shootingEnemyAnimator.SetBool("IsCrouching", false);
@@ -148,8 +158,8 @@ public class ShootingEnemyAgent : MonoBehaviour
     {
         isShooting = true;
         shootingEnemyAgent.enabled = false;
-        transform.LookAt(player.transform);
         shootingEnemyAnimator.SetTrigger("Shoot");
+        FaceTarget();
         yield return new WaitForSeconds(delay);
         shootingEnemyAgent.enabled = true;
         ResetAttackTimer();
