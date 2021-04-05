@@ -108,14 +108,17 @@ public class TankEnemyAgent : MonoBehaviour
 
     public void Stagger()
     {
-        StartCoroutine(StaggerDelay());
+        if (!IsStaggering)
+        {
+            StartCoroutine(StaggerDelay());
+        }
     }
 
     IEnumerator StaggerDelay()
     {
         IsStaggering = true;
         TankEnemyAnimator.SetTrigger("Hit");
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.5f);
         IsStaggering = false;
 
     }
