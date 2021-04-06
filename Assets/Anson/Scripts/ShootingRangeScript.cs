@@ -74,10 +74,15 @@ public class ShootingRangeScript : MonoBehaviour
         waveKills = 0;
         waveTargets = 0;
         timeNow_Wave = 0;
+        foreach (SpawnPointScript s in spawnPoints)
+        {
+            s.Despawn();
+        }
     }
 
     public void StartShootCourse(string inputSeed = "0", float waveTime = 0f, int numberOfWave = 1, List<int> healthOverrideTargets = null, int overrideValue = -1)
     {
+        ResetRange();
         totalKills = 0;
         totalTargets = 0;
         numberOfWaveNow = 0;
@@ -178,6 +183,10 @@ public class ShootingRangeScript : MonoBehaviour
     {
         bool returnBool = totalKills >= totalTargets && totalTargets != 0;
         return returnBool;
+    }
+    public bool IsWaveTimedOut()
+    {
+        return timeNow_Wave >= timeBetweenWavePerTarget * waveTargets;
     }
 
     public void SetLoopMode(int i)

@@ -14,6 +14,7 @@ public class TutorialControllerScript : MonoBehaviour
     [SerializeField] ShootingRangeScript shootingRange;
     [SerializeField] List<int> pickUpSteps;
     [SerializeField] List<int> killSteps;
+    [SerializeField] List<int> timedKillSteps;
 
 
     // Start is called before the first frame update
@@ -26,7 +27,7 @@ public class TutorialControllerScript : MonoBehaviour
     void FixedUpdate()
     {
 
-        //check for pick up on steps 1, 4
+        //check for pick up on steps 1, 4, 6, 8
         if (pickUpSteps.Contains(stepValue) && currentGun != null)
         {
             if (!currentGun.transform.parent.Equals(guns))
@@ -38,7 +39,7 @@ public class TutorialControllerScript : MonoBehaviour
         }
 
 
-        //check if player killed targets on steps 2, 3, 5
+        //check if player killed targets on steps 2, 3, 5,7 ,9
         if (killSteps.Contains(stepValue))
         {
             if (shootingRange.IsWaveCleared())
@@ -48,12 +49,31 @@ public class TutorialControllerScript : MonoBehaviour
                 //print("WaveCleared");
             }
         }
+
+        //check if player killed the targets in time on step 10
+        if (timedKillSteps.Contains(stepValue))
+        {
+            if (shootingRange.IsWaveCleared())
+            {
+                NextStep();
+            }
+            else if (!shootingRange.IsWaveCleared() && shootingRange.IsWaveTimedOut())
+            {
+                ResetShootingRange();
+                BackStep();
+            }
+        }
     }
 
     public void NextStep()
     {
         stepValue++;
         animator.SetTrigger("Next");
+    }
+    public void BackStep()
+    {
+        stepValue--;
+        animator.SetTrigger("Back");
     }
 
     public void IncrementStep()
@@ -81,6 +101,11 @@ public class TutorialControllerScript : MonoBehaviour
         shootingRange.StartShootCourse(seed, waveTime, numberOfWaves);
 
     }
+    public void ResetShootingRange()
+    {
+        shootingRange.ResetRange();
+
+    }
 
     public void SpawnShootingRange_Single()
     {
@@ -89,10 +114,14 @@ public class TutorialControllerScript : MonoBehaviour
     }
 
 
+
     public void SpawnShootingRange_Full()
     {
         shootingRange.SetLoopMode(1);
-        shootingRange.StartShootCourse("111111111111", float.PositiveInfinity, 1);
+        //shootingRange.StartShootCourse("111111111111", float.PositiveInfinity, 1);
+        
+        //debug
+        shootingRange.StartShootCourse("1", float.PositiveInfinity, 1);
 
     }
 
@@ -101,6 +130,22 @@ public class TutorialControllerScript : MonoBehaviour
         shootingRange.SetLoopMode(0);
         int[] list = { 6, 7, 8, 9, 10, 11 };
         shootingRange.StartShootCourse("101101111101", float.PositiveInfinity, 1, new List<int>(list), 50);
+    }
+    public void SpawnShootingRange_Timed()
+    {
+        shootingRange.SetLoopMode(0);
+        int[] list = { 0,2,3,5 };
+
+        shootingRange.StartShootCourse("101101000000", 10f/4f, 1, new List<int>(list), 600);
+
+    }
+    public void SpawnShootingRange_TimedStarter()
+    {
+        shootingRange.SetLoopMode(0);
+        int[] list = { 1};
+
+        shootingRange.StartShootCourse("01", float.PositiveInfinity, 1, new List<int>(list), 1);
+
     }
 
 
