@@ -47,7 +47,7 @@ public class StoneEnemyAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!IsStaggering && !IsDead)
+        if (!IsStaggering && !IsDead)
         {
             inChaseRange = Physics.CheckSphere(transform.position, chasePlayerDistance, playerMask);
             inAttackRange = Physics.CheckSphere(transform.position, attackPlayerDistance, playerMask);
@@ -58,15 +58,21 @@ public class StoneEnemyAgent : MonoBehaviour
             }
             if (inChaseRange && !inAttackRange)
             {
-                Vector3 walkpoint = player.transform.position;
-                stoneEnemyAgent.CalculatePath(walkpoint, path);
-                if (path.status.Equals(NavMeshPathStatus.PathComplete))
+                try
                 {
-                    ChasePlayer();
-                }
-                else
-                {
-                    waypointSet = false;
+
+                    Vector3 walkpoint = player.transform.position;
+                    stoneEnemyAgent.CalculatePath(walkpoint, path);
+                    if (path.status.Equals(NavMeshPathStatus.PathComplete))
+                    {
+                        ChasePlayer();
+                    }
+                    else
+                    {
+                        waypointSet = false;
+                    }
+                }catch(NullReferenceException e){
+
                 }
             }
             if (inAttackRange && inChaseRange)
@@ -74,9 +80,9 @@ public class StoneEnemyAgent : MonoBehaviour
                 FaceTarget();
                 AttackPlayer();
             }
-            
+
         }
-        
+
         if (IsDead)
         {
             GameObject.Destroy(this.gameObject, 5f);
@@ -96,7 +102,7 @@ public class StoneEnemyAgent : MonoBehaviour
         }
         Vector3 distanceToWaypoint = transform.position - currentWaypoint;
 
-        if(distanceToWaypoint.magnitude < 1f)
+        if (distanceToWaypoint.magnitude < 1f)
         {
             waypointSet = false;
         }
@@ -114,11 +120,11 @@ public class StoneEnemyAgent : MonoBehaviour
             Vector3 castPoint = new Vector3(transform.position.x + randomX, transform.position.y + 10f, transform.position.z + randomZ);
             RaycastHit raycastHit;
             Physics.Raycast(castPoint, -transform.up, out raycastHit);
-            if(raycastHit.point != null)
+            if (raycastHit.point != null)
             {
                 Vector3 walkpoint = raycastHit.point;
                 stoneEnemyAgent.CalculatePath(walkpoint, path);
-                if(path.status.Equals(NavMeshPathStatus.PathComplete))
+                if (path.status.Equals(NavMeshPathStatus.PathComplete))
                 {
                     currentWaypoint = walkpoint;
                     waypointSet = true;
@@ -164,7 +170,7 @@ public class StoneEnemyAgent : MonoBehaviour
         animator.SetBool("IsDead", true);
     }
 
-    
+
     IEnumerator StaggerDelay()
     {
         /*
@@ -198,7 +204,7 @@ public class StoneEnemyAgent : MonoBehaviour
         /*
          * Damage player if in range (triggered from attack animation
          */
-        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff , 1, ElementTypes.PHYSICAL);
+        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
     }
 
     private void OnDrawGizmosSelected()
