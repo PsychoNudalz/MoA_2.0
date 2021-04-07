@@ -7,23 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private Image pressAnykey;
-    private GameObject mainMenu;
-    private GameObject settingsMenu;
-    private GameObject continueMenu;
-    private GameObject headTitle;
-    private GameObject darken;
+    [SerializeField] private Image pressAnykey;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject continueMenu;
+    [SerializeField] private GameObject headTitle;
+    [SerializeField] private GameObject darken;
 
     [SerializeField] private float factor = -0.004f;
     private Keyboard keyboard;
     private Mouse mouse;
     void Start() {
-        pressAnykey = gameObject.transform.GetChild(4).GetChild(0).gameObject.GetComponent<Image>();
-        mainMenu = gameObject.transform.GetChild(5).gameObject;
-        settingsMenu = gameObject.transform.GetChild(7).gameObject;
-        continueMenu = gameObject.transform.GetChild(6).gameObject;
-        headTitle = gameObject.transform.GetChild(3).gameObject;
-        darken = gameObject.transform.GetChild(2).gameObject;
+        if (pressAnykey == null) pressAnykey = gameObject.transform.GetChild(4).GetChild(0).gameObject.GetComponent<Image>();
+        if (mainMenu == null) mainMenu = gameObject.transform.GetChild(5).gameObject;
+        if (settingsMenu == null) settingsMenu = gameObject.transform.GetChild(7).gameObject;
+        if (continueMenu == null) continueMenu = gameObject.transform.GetChild(6).gameObject;
+        if (headTitle == null) headTitle = gameObject.transform.GetChild(3).gameObject;
+        if (darken == null) darken = gameObject.transform.GetChild(2).gameObject;
         keyboard = Keyboard.current;
         mouse = Mouse.current;
     }
