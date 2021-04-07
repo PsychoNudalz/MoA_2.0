@@ -8,12 +8,15 @@ public class TargetLifeSystem : LifeSystemScript
     [SerializeField] TargetHandlerScript targetHandler;
     [Header("Shader Effects")]
     [SerializeField] TargetMaterialHandlerScript targetMaterialHandler;
+    [Header("Collider")]
+    [SerializeField] Collider[] mainColliders;
 
-    public TargetMaterialHandlerScript TargetMaterialHandler { get => targetMaterialHandler;}
+    public TargetMaterialHandlerScript TargetMaterialHandler { get => targetMaterialHandler; }
 
     private void Awake()
     {
         base.Awake();
+
         targetHandler = GetComponent<TargetHandlerScript>();
         targetMaterialHandler = targetHandler.TargetMaterialHandler;
     }
@@ -26,13 +29,13 @@ public class TargetLifeSystem : LifeSystemScript
     public override int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
         targetMaterialHandler.StartDecay();
-        return base.takeDamage(dmg, level, element,displayTakeDamageEffect);
+        return base.takeDamage(dmg, level, element, displayTakeDamageEffect);
     }
 
-    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier,bool displayTakeDamageEffect = true)
+    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
     {
         targetMaterialHandler.StartDecay();
-        return base.takeDamageCritical(dmg, level, element, multiplier,displayTakeDamageEffect);
+        return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }
     public override void RemoveDebuff(FireEffectScript debuff = null)
     {
@@ -75,6 +78,31 @@ public class TargetLifeSystem : LifeSystemScript
     {
         base.ResetSystem();
         targetMaterialHandler.SetFire(false);
+        foreach (Collider c in mainColliders)
+        {
+            c.enabled = true;
+
+        }
+    }
+
+    public override void DeathBehaviour()
+    {
+        base.DeathBehaviour();
+    }
+
+    public override bool CheckDead()
+    {
+        bool b = base.CheckDead();
+        if (b)
+        {
+            foreach (Collider c in mainColliders)
+            {
+                c.enabled = false;
+
+            }
+
+        }
+        return b;
     }
 
 

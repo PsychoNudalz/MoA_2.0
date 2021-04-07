@@ -8,11 +8,16 @@ public class Portal : MonoBehaviour
 
     [SerializeField]
     Transform targetSpawner;
+    GameObject player;
+
 
     [SerializeField]
     RoomEnemySystem currentRoomEnemySystem;
     [SerializeField]
     RoomEnemySystem nextRoomEnemySystem;
+    [SerializeField] GunGeneratorScript gunGenerator;
+    [SerializeField] int lootAmount = 6;
+    [SerializeField] bool rewardLoot;
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
 
@@ -21,12 +26,25 @@ public class Portal : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
+        if(gunGenerator == null)
+        {
+            gunGenerator = FindObjectOfType<GunGeneratorScript>();
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        if (!ignoreSpawner && currentRoomEnemySystem.IsRoomClear() && !rewardLoot)
+        {
+            rewardLoot = true;
+            for (int i = 0; i < lootAmount; i++)
+            {
+                gunGenerator.GenerateGun().transform.position = player.transform.position+new Vector3(0,1,0);
+            }
+            
+        }
     }
 
     public void Setup(RoomEnemySystem r)
@@ -48,7 +66,6 @@ public class Portal : MonoBehaviour
     void TeleportPlayer()
     {
         Debug.Log("Ohhhhhhhhhhhhhhhhhhhhhhhhh");
-        GameObject player = GameObject.FindWithTag("Player");
         player.SetActive(false);
         player.transform.position = targetSpawner.transform.position;
         player.SetActive(true);

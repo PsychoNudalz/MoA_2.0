@@ -1265,13 +1265,16 @@ MonoBehaviour:
   deathGameObject: {fileID: 0}
   disableOnDeath: 1
   destroyOnDeath: 0
-  delayDeath: 5
+  delayDeath: 1
   detatchPopUps: 1
   reatatchPopUps: 1
   debuffList: []
   damagePopScript: {fileID: 2511962009368432827}
   targetHandler: {fileID: 7789549031433731199}
   targetMaterialHandler: {fileID: 5988185067292597598}
+  mainColliders:
+  - {fileID: 3177964519048324564}
+  - {fileID: 571740236400928981}
 --- !u!114 &7789549031433731199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2942,6 +2945,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5cfe4db31c410f46832dc6f64a10b24, type: 3}
+--- !u!65 &571740236400928981 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7408516457485592987, guid: f5cfe4db31c410f46832dc6f64a10b24,
+    type: 3}
+  m_PrefabInstance: {fileID: 7007439118970503502}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1289381585758528725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8132271092815947163, guid: f5cfe4db31c410f46832dc6f64a10b24,

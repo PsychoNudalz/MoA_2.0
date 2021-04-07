@@ -18,9 +18,11 @@ public class TutorialControllerScript : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
+        Application.targetFrameRate = 200;
+
     }
 
     // Update is called once per frame
@@ -118,10 +120,10 @@ public class TutorialControllerScript : MonoBehaviour
     public void SpawnShootingRange_Full()
     {
         shootingRange.SetLoopMode(1);
-        //shootingRange.StartShootCourse("111111111111", float.PositiveInfinity, 1);
+        shootingRange.StartShootCourse("101101101101", float.PositiveInfinity, 1);
         
         //debug
-        shootingRange.StartShootCourse("1", float.PositiveInfinity, 1);
+        //shootingRange.StartShootCourse("1", float.PositiveInfinity, 1);
 
     }
 

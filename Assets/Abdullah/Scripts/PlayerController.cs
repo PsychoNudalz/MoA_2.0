@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
 
     float dashStart = 0f;
     [SerializeField] float dashCooldown;
+    [SerializeField] int dashCharges_Max;
+    int dashCharges;
     [Space]
     [SerializeField] bool disableControl = false;
 
@@ -101,6 +103,13 @@ public class PlayerController : MonoBehaviour
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
             }
+        }
+
+        if (dashCharges<dashCharges_Max&& Time.time > dashStart + dashCooldown)
+        {
+            dashCharges++;
+            dashStart = Time.time;
+
         }
     }
 
@@ -209,13 +218,14 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed)
         {
-            if (Time.time > dashStart + dashCooldown && moveDirection.magnitude>0)
+            if (dashCharges>0 && moveDirection.magnitude > 0)
             {
                 /*
-                dashStart = Time.time;
                 dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
                 controller.Move(dashRange * Time.deltaTime);
                 */
+                dashCharges--;
+                dashStart = Time.time;
                 StartCoroutine(DashCoroutine());
             }
         }
