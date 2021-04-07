@@ -137,9 +137,10 @@ public class PlayerController : MonoBehaviour
         controller.Move(jumped * Time.deltaTime);
     }
 
-    void SetDisableControl(bool b)
+    public void SetControlLock(bool b)
     {
-        disableControl = b;
+        disableControl = !b;
+        lookScript.LookLock = !b;
         if (b)
         {
 

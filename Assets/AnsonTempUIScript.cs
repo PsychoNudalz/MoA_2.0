@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public struct WeaponAmmoPair
@@ -17,6 +18,8 @@ public class AnsonTempUIScript : MonoBehaviour
     public TextMeshProUGUI currentGunText;
     public GameObject newGun;
     public TextMeshProUGUI newGunText;
+    public TextMeshProUGUI healthText;
+    public GameObject gameOverScreen;
     public WeaponAmmoPair gun1;
     public WeaponAmmoPair gun2;
     public WeaponAmmoPair gun3;
@@ -68,6 +71,28 @@ public class AnsonTempUIScript : MonoBehaviour
         {
             gun3.gunName.text = n;
         }
+    }
+
+    public void SetHealth(float hp, float hp_Max)
+    {
+        healthText.text = "HP:" + hp.ToString("0") + "/" + hp_Max.ToString("0");
+    }
+
+    public void ShowGameOver()
+    {
+        gameOverScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void LoadToBase()
+    {
+        SceneManager.LoadScene("Base");
+
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
 }

@@ -10,19 +10,28 @@ using UnityEngine;
 public class PlayerLifeSystemScript : LifeSystemScript
 {
     [Header("Components+")]
+    [SerializeField] PlayerMasterScript playerMasterScript;
+    [SerializeField] AnsonTempUIScript UIScript;
     [Header("Player Animator")]
     public Animator animator;
     public string deathTriggerName = "Death";
 
+    public PlayerMasterScript PlayerMasterScript { set => playerMasterScript = value; }
+    public AnsonTempUIScript UIScript1 { set => UIScript = value; }
+
     private void Awake()
     {
         base.health_Current = base.Health_Max;
+        UIScript = playerMasterScript.AnsonTempUIScript;
+        UIScript.SetHealth(health_Current, Health_Max);
+
         //updateHealthBar();
 
     }
 
     public override void DeathBehaviour()
     {
+        playerMasterScript.GameOver();
         base.DeathBehaviour();
     }
 
@@ -31,6 +40,7 @@ public class PlayerLifeSystemScript : LifeSystemScript
         int i = base.takeDamage(dmg,  level,  element, displayTakeDamageEffect);
         if (i > 0)
         {
+            UIScript.SetHealth(health_Current, Health_Max);
         }
         return Health_Current;
     }
@@ -41,7 +51,10 @@ public class PlayerLifeSystemScript : LifeSystemScript
     /// <returns></returns>
     public override IEnumerator delayDeathRoutine()
     {
+        if (animator != null)
+        {
         animator.SetBool(deathTriggerName, IsDead);
+        }
         yield return new WaitForSeconds(delayDeath);
         DeathBehaviour();
     }

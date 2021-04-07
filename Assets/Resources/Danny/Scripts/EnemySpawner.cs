@@ -108,7 +108,7 @@ public class EnemySpawner : MonoBehaviour
      */
     private GameObject GetEnemyToSpawn()
     {
-        print("getting enemy prefab to spawn");
+        //print("getting enemy prefab to spawn");
         switch (enemyType)
         {
             case EnemyType.StoneEnemy:
