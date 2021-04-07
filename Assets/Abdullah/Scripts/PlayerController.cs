@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
 
     float dashStart = 0f;
     [SerializeField] float dashCooldown;
+    [SerializeField] int dashCharges_Max;
+    int dashCharges;
     [Space]
     [SerializeField] bool disableControl = false;
 
@@ -102,6 +104,13 @@ public class PlayerController : MonoBehaviour
                 jumped.y -= gravity * Time.deltaTime;
             }
         }
+
+        if (dashCharges<dashCharges_Max&& Time.time > dashStart + dashCooldown)
+        {
+            dashCharges++;
+            dashStart = Time.time;
+
+        }
     }
 
     void CameraTilt()
@@ -128,9 +137,10 @@ public class PlayerController : MonoBehaviour
         controller.Move(jumped * Time.deltaTime);
     }
 
-    void SetDisableControl(bool b)
+    public void SetControlLock(bool b)
     {
-        disableControl = b;
+        disableControl = !b;
+        lookScript.LookLock = !b;
         if (b)
         {
 
@@ -209,13 +219,14 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed)
         {
-            if (Time.time > dashStart + dashCooldown && moveDirection.magnitude>0)
+            if (dashCharges>0 && moveDirection.magnitude > 0)
             {
                 /*
-                dashStart = Time.time;
                 dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
                 controller.Move(dashRange * Time.deltaTime);
                 */
+                dashCharges--;
+                dashStart = Time.time;
                 StartCoroutine(DashCoroutine());
             }
         }

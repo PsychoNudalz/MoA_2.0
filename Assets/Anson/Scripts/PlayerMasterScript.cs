@@ -9,8 +9,10 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
     [SerializeField] PlayerController playerController;
     [SerializeField] PlayerInterationScript playerInterationScript;
+    [SerializeField] AnsonTempUIScript ansonTempUIScript;
     [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
 
+    public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
 
     private void Awake()
     {
@@ -37,6 +39,11 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerController = GetComponent<PlayerController>();
         }
+        if (ansonTempUIScript == null)
+        {
+            ansonTempUIScript = GetComponentInChildren<AnsonTempUIScript>();
+        }
+
         if (!playerInterationScript)
         {
             playerInterationScript = GetComponent<PlayerInterationScript>();
@@ -61,11 +68,20 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerInventorySystemScript.GunDamageScript = playerGunDamageScript;
         }
+        playerLifeSystemScript.PlayerMasterScript = this;
+        playerLifeSystemScript.UIScript1 = ansonTempUIScript;
+
     }
 
     public void SetControls(bool b)
     {
-        playerController.DisableControl = !b;
+        playerController.SetControlLock(b);
+    }
+
+    public void GameOver()
+    {
+        SetControls(false);
+        ansonTempUIScript.ShowGameOver();
     }
 
     

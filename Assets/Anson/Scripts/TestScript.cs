@@ -33,7 +33,6 @@ public class TestScript : MonoBehaviour
         playerInventorySystemScript = FindObjectOfType<PlayerInventorySystemScript>();
 
 
-
     }
 
     private void Start()

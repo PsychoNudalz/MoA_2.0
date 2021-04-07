@@ -16,7 +16,7 @@ public class Look : MonoBehaviour
     public float maxRotationDown = 40f;
 
     [SerializeField] float yRotation = 0f;
-    private bool look = false;
+    [SerializeField] bool lookLock = false;
 
 
     [Header("ADS transition")]
@@ -29,6 +29,8 @@ public class Look : MonoBehaviour
     private Camera camera;
 
     public float YRotation { get => yRotation; set => yRotation = value; }
+    public bool LookLock { get => lookLock; set => lookLock = value; }
+
     //[SerializeField] bool disableControl = false;
 
     // Start is called before the first frame update
@@ -44,7 +46,10 @@ public class Look : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveLook();
+        if (!lookLock)
+        {
+            MoveLook();
+        }
         AdjustAim();
     }
 
@@ -112,10 +117,10 @@ public class Look : MonoBehaviour
         {
             if (timeNow_Aim < 1)
             {
-                timeNow_Aim += 5*Time.deltaTime;
-                camera.fieldOfView = FOV - aimCurve.Evaluate(timeNow_Aim) * (FOV * (1-1/currentMult));
+                timeNow_Aim += 5 * Time.deltaTime;
+                camera.fieldOfView = FOV - aimCurve.Evaluate(timeNow_Aim) * (FOV * (1 - 1 / currentMult));
             }
-            
+
 
         }
         else

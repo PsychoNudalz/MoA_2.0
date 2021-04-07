@@ -6,6 +6,9 @@ using UnityEngine.VFX;
 
 public class MainGunStatsScript : GunStatsScript
 {
+    [Header("Gun Effects")]
+    [SerializeField] VisualEffect rarityEffect;
+
     [Header("Gun Property")]
     [SerializeField] GunTypes gunType = GunTypes.RIFLE;
     [SerializeField] Rarity rarity;
@@ -118,6 +121,11 @@ public class MainGunStatsScript : GunStatsScript
         projectileGO = b.ProjectileGO;
         rangeCurve = b.RangeCurve;
         //b.transform.rotation = Quaternion.Euler(0, -90, 0) * transform.rotation;
+
+        //Rarity effect
+
+        rarityEffect.SetInt("Rarity", (int) rarity);
+        rarityEffect.SetInt("Element", (int) elementType);
     }
 
 
@@ -212,7 +220,7 @@ public class MainGunStatsScript : GunStatsScript
             "Hip Fire: ", recoil_HipFire.ToString(), "\n",
             "Mag: ", magazineSize, " Reload Speed: ", ReloadSpeed, "\n",
             "Range: ", range, "\n",
-            " Drop Offs: ", Mathf.Round(rangeCurve.Evaluate(0) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(0.5f) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(1) * damagePerProjectile)
+            "Range Drop Offs: ", Mathf.Round(rangeCurve.Evaluate(0) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(0.5f) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(1) * damagePerProjectile)
 
             );
         return returnString;
@@ -223,4 +231,8 @@ public class MainGunStatsScript : GunStatsScript
         return name;
     }
 
+    public void SetRarityEffect(bool b)
+    {
+        rarityEffect.gameObject.SetActive(b);
+    }
 }
