@@ -60,6 +60,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
             i = pointer;
         }
         //print("Update Gun to: " + newGun.GetName());
+        newGun.SetRarityEffect(false);
         gunDamageScript.UpdateGunScript(newGun, i);
         gunDamageScript.UpdateUI();
 
@@ -118,7 +119,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
             currentGun.GetComponentInChildren<Rigidbody>().isKinematic = false;
             currentGun.GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
             currentGun.gameObject.transform.parent = null;
-
+            currentGun.SetRarityEffect(true);
         }
     }
     void StowCurrentGun(MainGunStatsScript currentGun)

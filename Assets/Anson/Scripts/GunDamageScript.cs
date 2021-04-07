@@ -113,6 +113,7 @@ public class GunDamageScript : DamageScript
             mainGunStatsScript.CurrentMag = currentMag;
             mainGunStatsScript.PlayAnimationTrigger("Reset");
             convertWeaponLayerMask(mainGunStatsScript.gameObject, "Gun");
+            //mainGunStatsScript.SetRarityEffect(true);
         }
         EndReload();
         isFiring = false;
@@ -221,7 +222,7 @@ public class GunDamageScript : DamageScript
         elementPotency = g.ElementPotency;
         elementChance = g.ElementChance;
 
-
+        //mainGunStatsScript.SetRarityEffect(false);
 
         return oldGunScript;
 
