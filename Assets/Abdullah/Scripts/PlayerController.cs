@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
     public PlayerInterationScript PlayerInterationScript { get => playerInterationScript; set => playerInterationScript = value; }
     public bool DisableControl { get => disableControl; set => disableControl = value; }
+    public int DashCharges { get => dashCharges;}
 
 
 
@@ -336,6 +337,5 @@ public class PlayerController : MonoBehaviour
         moveSpeed = moveSpeed_Default;
 
     }
-
 
 }
