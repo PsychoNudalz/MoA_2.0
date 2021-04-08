@@ -13,7 +13,7 @@ public class LifeSystemScript : MonoBehaviour
 
     [Header("States")]
     [SerializeField] protected int health_Current;
-    [SerializeField] int health_Max = 10;
+    [SerializeField] protected int health_Max = 10;
     [SerializeField] bool isDead = false;
 
     [Header("On Death")]

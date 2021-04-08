@@ -13,7 +13,7 @@ public class OnCollisionDamageScript : DamageScript
     [Header("Collision Behaviour")]
     public bool onTrigger;
     public bool onEnter = true;
-    public bool onStay;
+    //public bool onStay;
     public float tickIntervals = 0.5f;
     float lastDamageTick;
     public float damage;
@@ -26,6 +26,10 @@ public class OnCollisionDamageScript : DamageScript
     private void FixedUpdate()
     {
         if (Time.time- lastDamageTick > tickIntervals)
+        {
+            DealDamageToTargets();
+        }
+        if (tickIntervals == 0)
         {
             DealDamageToTargets();
         }
