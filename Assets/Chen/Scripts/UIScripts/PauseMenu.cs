@@ -1,0 +1,81 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+public class PauseMenu : MonoBehaviour
+{    
+    private Keyboard keyboard;
+    [SerializeField] private GameObject menuBody;
+    [SerializeField] private GameObject popUpGroup;
+    [SerializeField] private GameObject menuPrimary;
+    [SerializeField] private GameObject menuSettings;
+    bool m_paused = false;
+    bool m_popUp = false;
+    bool m_settings = false;
+    void Start()
+    {
+        keyboard = Keyboard.current;
+        if (menuBody == null) menuBody = gameObject.transform.GetChild(0).gameObject;
+        if (popUpGroup == null) popUpGroup = gameObject.transform.GetChild(1).gameObject;
+        if (menuPrimary == null) menuPrimary = menuBody.transform.GetChild(1).gameObject;
+        if (menuSettings == null) menuSettings = menuBody.transform.GetChild(2).gameObject;
+    }
+
+    void Update()
+    {
+        if (keyboard.escapeKey.wasReleasedThisFrame) {
+            TogglePauseMenu();
+        }
+    }
+
+    void TogglePauseMenu() {
+        if (m_popUp) {
+            popUpGroup.SetActive(false);
+            m_popUp = false;
+        } else if (m_settings) {
+            menuSettings.SetActive(false);
+            menuPrimary.SetActive(true);
+            m_settings = false;
+        } else if (m_paused) {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1.0f;
+            // AudioListener.pause = false;
+            menuBody.SetActive(false);
+            m_paused = !m_paused;
+        } else {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            Time.timeScale = 0.0f;
+           // AudioListener.pause = true;
+            menuBody.SetActive(true);
+            m_paused = !m_paused;
+        }
+    }
+
+    public void ContinueOnClick() {
+        TogglePauseMenu();
+    }
+
+    public void SettingsOnClick() {
+        menuPrimary.SetActive(false);
+        menuSettings.SetActive(true);
+        m_settings = true;
+    }
+
+    public void ExitOnClick() {
+        popUpGroup.SetActive(true);
+        m_popUp = true;
+    }
+
+    public void PopUpBackOnClick() {
+        popUpGroup.SetActive(false);
+        m_popUp = false;
+    }
+
+    public void PopUpExitOnClick() {
+        SceneManager.LoadScene("MainEntry");
+    }
+}
