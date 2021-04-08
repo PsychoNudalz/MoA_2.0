@@ -37,11 +37,15 @@ public class GCSelection
         return false;
     }
 
+    public string GetGCName()
+    {
+        return component.name;
+    } 
+
     public GunComponent Component { get => component; }
     public bool IsSelected { get => isSelected; set => isSelected = value; }
     public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
     public int Cost { get => cost; }
-
 }
 
 
@@ -65,6 +69,9 @@ public class GunManager : MonoBehaviour
     [Space]
     [Header("Other Components")]
     [SerializeField] GunGeneratorScript gunGenerator;
+    [Space]
+    [Header("Save")]
+    [SerializeField] GCSSaveCollection gCSSaveCollection;
 
     public List<GCSelection> AllGCSelections { get => allGCSelections; }
     public List<GCSelection> Body { get => body; }
@@ -76,11 +83,15 @@ public class GunManager : MonoBehaviour
     public List<GCSelection> Muzzle { get => muzzle; }
     public List<GCSelection> Attachment { get => attachment; }
     public List<GCSelection> StatBoost { get => statBoost; }
-    public List<GCSelection> AllGCSelections1 { get => allGCSelections; }
+    public GCSSaveCollection GCSSaveCollection { get => gCSSaveCollection; set => gCSSaveCollection = value; }
 
     private void Awake()
     {
         AssignGCSelections();
+        if (gCSSaveCollection != null)
+        {
+            LoadSave(gCSSaveCollection);
+        }
     }
 
 
@@ -159,6 +170,27 @@ public class GunManager : MonoBehaviour
         newGun.transform.position += new Vector3(0, 2, 0);
         return newGun;
 
+    }
+
+    public int LoadSave(GCSSaveCollection gcss)
+    {
+        GCSSave temp;
+        int errorCount = 0;
+        foreach(GCSelection gcs in allGCSelections)
+        {
+            temp = gcss.FindGCSSave(gcs);
+            if (temp != null)
+            {
+                gcs.IsSelected = temp.isSelected;
+                gcs.IsUnlocked = temp.isUnloacked;
+            }
+            else
+            {
+                errorCount++;
+            }
+        }
+
+        return errorCount;
     }
 
      

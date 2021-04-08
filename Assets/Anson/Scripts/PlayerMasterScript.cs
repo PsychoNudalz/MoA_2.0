@@ -11,6 +11,7 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] PlayerInterationScript playerInterationScript;
     [SerializeField] AnsonTempUIScript ansonTempUIScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
+    [SerializeField] PlayerSaveStats playerSaveStats;
     [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
 
     public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
@@ -44,19 +45,23 @@ public class PlayerMasterScript : MonoBehaviour
         {
             ansonTempUIScript = GetComponentInChildren<AnsonTempUIScript>();
         }
+        if (playerVolumeControllerScript == null)
+        {
+            playerVolumeControllerScript = GetComponentInChildren<PlayerVolumeControllerScript>();
+        }
 
         if (!playerInterationScript)
         {
             playerInterationScript = GetComponent<PlayerInterationScript>();
         }
+        if (!playerSaveStats)
+        {
+            playerSaveStats = GetComponent<PlayerSaveStats>();
+        }
 
         if (playerController.GunDamageScript == null)
         {
             playerController.GunDamageScript = playerGunDamageScript;
-        }
-        if (playerVolumeControllerScript == null)
-        {
-            playerVolumeControllerScript = GetComponentInChildren<PlayerVolumeControllerScript>();
         }
 
         if (playerController.PlayerInventorySystemScript == null)
@@ -99,6 +104,9 @@ public class PlayerMasterScript : MonoBehaviour
     {
         playerController.SetSensitivity(amount);
     }
-
+    public int AddCoins(int amount)
+    {
+        return playerSaveStats.AddCoins(amount);
+    }
 
 }
