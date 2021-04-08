@@ -337,5 +337,19 @@ public class PlayerController : MonoBehaviour
         moveSpeed = moveSpeed_Default;
 
     }
+    /// <summary>
+    /// to change mouse sensitivity
+    /// </summary>
+    /// <param name="amount"> new sensitivity amount</param>
+    public void SetSensitivity(float amount)
+    {
+        sensitivityX = amount;
+        sensitivityY = amount;
+        if (lookScript != null)
+        {
+            lookScript.SetRotationSpeed(amount);
+        }
+    }
+
 
 }

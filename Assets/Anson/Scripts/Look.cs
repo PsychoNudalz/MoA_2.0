@@ -142,4 +142,14 @@ public class Look : MonoBehaviour
     {
         return (YRotation + 90) % 180;
     }
+
+    /// <summary>
+    /// to change rotation speed
+    /// </summary>
+    /// <param name="amount"> new rotation amount</param>
+    public void SetRotationSpeed(float amount)
+    {
+        rotateSpeed = amount;
+        rotateSpeed_Current = rotateSpeed;
+    }
 }

@@ -84,5 +84,14 @@ public class PlayerMasterScript : MonoBehaviour
         ansonTempUIScript.ShowGameOver();
     }
 
-    
+    /// <summary>
+    /// to change mouse sensitivity
+    /// </summary>
+    /// <param name="amount"> new sensitivity amount</param>
+    public void SetSensitivity(float amount)
+    {
+        playerController.SetSensitivity(amount);
+    }
+
+
 }
