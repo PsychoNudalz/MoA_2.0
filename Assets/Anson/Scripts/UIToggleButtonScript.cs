@@ -16,7 +16,10 @@ public class UIToggleButtonScript : MonoBehaviour
         SetButtons(true);
 
     }
-
+    /// <summary>
+    /// false if button is selected already
+    /// </summary>
+    /// <param name="b"></param>
     protected virtual void SetButtons(bool b)
     {
         selectButton.SetActive(b);

@@ -12,9 +12,12 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] AnsonTempUIScript ansonTempUIScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
     [SerializeField] PlayerSaveStats playerSaveStats;
+    [SerializeField] PlayerSaveCollection playerSaveCollection;
     [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
 
     public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
+    public PlayerSaveStats PlayerSaveStats { get => playerSaveStats;}
+    public PlayerSaveCollection PlayerSaveCollection {set => playerSaveCollection = value; }
 
     private void Awake()
     {
@@ -82,7 +85,10 @@ public class PlayerMasterScript : MonoBehaviour
         playerLifeSystemScript.UIScript1 = ansonTempUIScript;
         playerLifeSystemScript.PlayerVolumeControllerScript = playerVolumeControllerScript;
         playerController.PlayerVolumeControllerScript = playerVolumeControllerScript;
-    
+        if (playerSaveCollection != null)
+        {
+            LoadSave(playerSaveCollection);
+        }
     }
 
     public void SetControls(bool b)
@@ -107,6 +113,29 @@ public class PlayerMasterScript : MonoBehaviour
     public int AddCoins(int amount)
     {
         return playerSaveStats.AddCoins(amount);
+    }
+
+    /// <summary>
+    /// remove coins from player, returns true player has sufficent Coins
+    /// </summary>
+    /// <param name="amount">amoutn of coins</param>
+    /// <returns>true player has sufficent Coins</returns>
+    public bool RemoveCoins(int amount)
+    {
+        if (playerSaveStats.coins < amount)
+        {
+            return false;
+        }
+        else
+        {
+            playerSaveStats.AddCoins(-amount);
+            return true;
+        }
+    }
+
+    public void LoadSave(PlayerSaveCollection psc)
+    {
+        playerSaveStats.Load(psc);
     }
 
 }

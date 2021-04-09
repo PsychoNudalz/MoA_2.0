@@ -6,6 +6,7 @@ using TMPro;
 public class GunComponentUIButtonScript : UIToggleButtonScript
 {
     [SerializeField] TextMeshProUGUI buttonText;
+    [SerializeField] GameObject lockImage;
     [SerializeField] GCSelection gcs;
     [SerializeField] GunAlterUIHandler gunAlterUIHandler;
 
@@ -22,12 +23,22 @@ public class GunComponentUIButtonScript : UIToggleButtonScript
             buttonText.text = "NULL";
             return;
         }
-        if (g.IsSelected)
+
+        if (g.IsUnlocked)
         {
-            SetButtons(false);
+            lockImage.SetActive(false);
+            if (g.IsSelected)
+            {
+                SetButtons(false);
+            }
+            else
+            {
+                SetButtons(true);
+            }
         }
         else
         {
+            lockImage.SetActive(true);
             SetButtons(true);
         }
 
@@ -36,12 +47,14 @@ public class GunComponentUIButtonScript : UIToggleButtonScript
 
     public override void Select()
     {
-        SetButtons(false);
-        gcs.IsSelected = true;
         if (gcs != null)
         {
-            gunAlterUIHandler.PreviewComponent(gcs);
-
+            gunAlterUIHandler.SelectComponent(gcs);
+        }
+        if (gcs.IsUnlocked)
+        {
+            SetButtons(false);
+            gcs.IsSelected = true;
         }
     }
 
@@ -51,7 +64,7 @@ public class GunComponentUIButtonScript : UIToggleButtonScript
         gcs.IsSelected = false;
         if (gcs != null)
         {
-            gunAlterUIHandler.PreviewComponent(gcs);
+            gunAlterUIHandler.SelectComponent(gcs);
 
         }
     }

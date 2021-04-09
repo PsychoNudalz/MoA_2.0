@@ -15,7 +15,7 @@ public class GCSelection
     public GCSelection(GunComponent component)
     {
         this.component = component;
-        isSelected = true;
+        isSelected = false;
         isUnlocked = false;
         cost = component.ComponentCost;
     }

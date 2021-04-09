@@ -9,6 +9,7 @@ public class GunAlterUIHandler : MonoBehaviour
     [Header("Other Components")]
     [SerializeField] GunManager gunManager;
     [SerializeField] GunGeneratorScript gunGeneratorScript;
+    [SerializeField] PlayerMasterScript playerMasterScript;
     [Header("UI Type Sections")]
     [SerializeField] GunComponentUITypeSectionScript UI_Body;
     [SerializeField] GunComponentUITypeSectionScript UI_Grip;
@@ -23,6 +24,8 @@ public class GunAlterUIHandler : MonoBehaviour
     [SerializeField] List<GunTypes> currentGunTypes;
     [Header("UI")]
     [SerializeField] TMPro.TextMeshProUGUI currentTypeText;
+    [SerializeField] TMPro.TextMeshProUGUI unlockCostText;
+    [SerializeField] GameObject unlockButton;
     [Header("Component Preview UI")]
     [SerializeField] GameObject textTemplateGO;
     [SerializeField] TMPro.TextMeshProUGUI currentComponentText;
@@ -31,6 +34,7 @@ public class GunAlterUIHandler : MonoBehaviour
     [SerializeField] GridLayoutGroup multiplierStats;
     [Header("Component Preview")]
     [SerializeField] Transform spawnTransform;
+    [SerializeField] GCSelection currentGCSelection;
     [SerializeField] GameObject currentGunGO;
 
     //[SerializeField] GameObject BaseUIButton;
@@ -53,12 +57,16 @@ public class GunAlterUIHandler : MonoBehaviour
             gunManager = FindObjectOfType<GunManager>();
         }
         InitialiseAllButtons();
+        if (!playerMasterScript)
+        {
+            playerMasterScript = FindObjectOfType<PlayerMasterScript>();
+        }
 
     }
 
     public void GenerateGun()
     {
-        GameObject newGun =  gunManager.GenerateGun();
+        GameObject newGun = gunManager.GenerateGun();
         newGun.transform.position = spawnTransform.position;
     }
 
@@ -101,7 +109,7 @@ public class GunAlterUIHandler : MonoBehaviour
     {
         if (currentGunTypes.Contains(g))
         {
-            currentGunTypes.Remove(g); 
+            currentGunTypes.Remove(g);
         }
         else
         {
@@ -114,7 +122,7 @@ public class GunAlterUIHandler : MonoBehaviour
     void UpdateEnumText()
     {
         string combineText = "";
-        foreach(GunTypes g in currentGunTypes)
+        foreach (GunTypes g in currentGunTypes)
         {
             combineText += g.ToString() + "\n";
         }
@@ -123,7 +131,19 @@ public class GunAlterUIHandler : MonoBehaviour
 
     public void SetGunType(int i)
     {
-        SetGunType((GunTypes) i);
+        SetGunType((GunTypes)i);
+    }
+
+    public void SelectComponent(GCSelection gcs)
+    {
+        currentGCSelection = gcs;
+        PreviewComponent(gcs);
+        unlockButton.SetActive(false);
+
+        if (!gcs.IsUnlocked)
+        {
+            UpdateComponentCost(currentGCSelection.Cost);
+        }
     }
 
 
@@ -136,6 +156,31 @@ public class GunAlterUIHandler : MonoBehaviour
 
         currentGunGO = Instantiate(gcs.Component.gameObject, spawnTransform.position, spawnTransform.rotation, spawnTransform);
 
+    }
+
+    void UpdateComponentCost(int amount)
+    {
+        unlockButton.SetActive(true);
+        unlockCostText.text = "Cost:" + amount.ToString();
+    }
+
+    public void UnlockComponent()
+    {
+        if (currentGCSelection != null && playerMasterScript != null)
+        {
+            if (!currentGCSelection.IsUnlocked)
+            {
+                if (playerMasterScript.RemoveCoins(currentGCSelection.Cost))
+                {
+                    print(this + " Unlock component: " + currentGCSelection);
+                    currentGCSelection.IsUnlocked = true;
+                    currentGCSelection.IsSelected = true;
+                    unlockButton.SetActive(false);
+                }
+
+            }
+        }
+        UpdateButtons();
     }
 
     /*

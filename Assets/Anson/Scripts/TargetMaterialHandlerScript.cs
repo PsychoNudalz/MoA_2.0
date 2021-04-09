@@ -120,7 +120,6 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         {
             return;
         }
-        print("Shatter: " + amount);
         iceEffect.SendEvent("EndIceShards");
         iceEffect.SetBool("IsShatter", true);
         iceEffect.SetFloat("ShatterAmount", amount);

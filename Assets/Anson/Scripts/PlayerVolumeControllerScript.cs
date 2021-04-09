@@ -10,6 +10,7 @@ public class PlayerVolumeControllerScript : MonoBehaviour
     [SerializeField] Volume volume;
     [Header("Vignette")]
     [SerializeField] Vector2 vignetteRange = new Vector2(0f, 0.55f);
+    [SerializeField] AnimationCurve vignetteCurce;
     Vignette v;
     [Header("ChromaticAberration")]
     [SerializeField] float decayTime_CA = 0.2f;
@@ -45,7 +46,8 @@ public class PlayerVolumeControllerScript : MonoBehaviour
         {
             v.active = b;
             v.intensity.overrideState = b;
-            v.intensity.value = vignetteRange.x + (vignetteRange.y - vignetteRange.x) * intensity;
+            //v.intensity.value = vignetteRange.x + (vignetteRange.y - vignetteRange.x) * intensity;
+            v.intensity.value = vignetteRange.x + (vignetteRange.y - vignetteRange.x) * vignetteCurce.Evaluate(intensity);
         }
     }
 

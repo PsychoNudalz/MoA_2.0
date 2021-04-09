@@ -1313,6 +1313,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: {fileID: 3587861807194775067}
   vignetteRange: {x: 0, y: 0.45}
+  vignetteCurce:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.75
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   decayTime_CA: 0.3
   decayTime_LD: 0.6
   maxDistortion: 0.6
@@ -1437,6 +1461,11 @@ MonoBehaviour:
   playerInterationScript: {fileID: 0}
   ansonTempUIScript: {fileID: 0}
   playerVolumeControllerScript: {fileID: 0}
+  playerSaveStats: {fileID: 0}
+  playerSaveCollection:
+    coins: 0
+    numberOfRuns: 0
+    numberOfBossKills: 0
   playerInput: {fileID: 4112174735619620037}
 --- !u!114 &4112174735619620037
 MonoBehaviour:
@@ -1807,7 +1836,7 @@ MonoBehaviour:
   playerVolumeControllerScript: {fileID: 0}
   animator: {fileID: 0}
   deathTriggerName: Death
-  vignetteThreshold: 0.25
+  vignetteThreshold: 0.5
 --- !u!114 &4011440769745659725
 MonoBehaviour:
   m_ObjectHideFlags: 0

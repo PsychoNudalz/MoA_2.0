@@ -10,8 +10,6 @@ public class DebuffScript
 
     public virtual void ApplyEffect(LifeSystemScript target)
     {
-        Debug.Log(this + " Apply");
-
         targetLS = target;
         startTime = Time.time;
         manualTick = false;

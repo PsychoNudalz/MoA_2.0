@@ -37,7 +37,6 @@ public class IceEffectScript : ElementDebuffScript
 
     void IceBehaviour()
     {
-        Debug.Log("Player Icebehaviour");
         StartDuration = duration;
 
         IceEffectScript currentIce = targetLS.CheckIsStillOnIce(this);
