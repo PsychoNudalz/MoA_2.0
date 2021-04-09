@@ -36,6 +36,10 @@ public class GunAlterUIHandler : MonoBehaviour
     [SerializeField] Transform spawnTransform;
     [SerializeField] GCSelection currentGCSelection;
     [SerializeField] GameObject currentGunGO;
+    [SerializeField] Camera previewCamera;
+    [SerializeField] RawImage previewWindow;
+    [SerializeField] RenderTexture renderTexture;
+
 
     //[SerializeField] GameObject BaseUIButton;
     //[SerializeField] RectTransform scrollArea;
@@ -61,6 +65,7 @@ public class GunAlterUIHandler : MonoBehaviour
         {
             playerMasterScript = FindObjectOfType<PlayerMasterScript>();
         }
+        InitializePreviewCamera();
 
     }
 
@@ -183,6 +188,13 @@ public class GunAlterUIHandler : MonoBehaviour
         UpdateButtons();
     }
 
+
+    void InitializePreviewCamera()
+    {
+        RenderTexture newRenderTexture = new RenderTexture(renderTexture);
+        previewCamera.targetTexture = newRenderTexture;
+        previewWindow.texture = newRenderTexture;
+    }
     /*
     void CreateNewButton(int i)
     {

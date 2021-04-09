@@ -215,6 +215,7 @@ public class MainGunStatsScript : GunStatsScript
             name, "\n",
             gunType.ToString(), " ", elementType.ToString(), "\n",
             "Rarity: ", rarity.ToString(), "\n",
+            "DPS: ", CalculateDPS(),"\n",
             "Damage: ", damagePerProjectile, " x ", projectilePerShot, "\n",
             "RPM: ", RPM, " Recoil: ", recoil.ToString(), "\n",
             "Hip Fire: ", recoil_HipFire.ToString(), "\n",
@@ -234,5 +235,14 @@ public class MainGunStatsScript : GunStatsScript
     public void SetRarityEffect(bool b)
     {
         rarityEffect.gameObject.SetActive(b);
+    }
+
+    public float CalculateDPS()
+    {
+        float dps = (1/((60f/RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
+        //float dps = (60f/((RPM / 60f) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
+        //float dps = damagePerProjectile * projectilePerShot * magazineSize;
+        //dps = dps / 60f;
+        return dps;
     }
 }

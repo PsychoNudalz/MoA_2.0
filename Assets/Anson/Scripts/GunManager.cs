@@ -113,6 +113,10 @@ public class GunManager : MonoBehaviour
         {
             AssignGC(gc);
         }
+        foreach (GunComponent gc in exoticGunComponents)
+        {
+            AssignGC(gc);
+        }
     }
 
     void AssignGC(GunComponent gunComponent)
