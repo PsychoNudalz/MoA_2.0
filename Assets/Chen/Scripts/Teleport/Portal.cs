@@ -15,7 +15,7 @@ public class Portal : MonoBehaviour
     RoomEnemySystem currentRoomEnemySystem;
     [SerializeField]
     RoomEnemySystem nextRoomEnemySystem;
-    [SerializeField] GunGeneratorScript gunGenerator;
+    [SerializeField] GunManager gunManager;
     [SerializeField] int lootAmount = 6;
     [SerializeField] bool rewardLoot;
     [Header("Debug")]
@@ -27,9 +27,9 @@ public class Portal : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        if(gunGenerator == null)
+        if(gunManager == null)
         {
-            gunGenerator = FindObjectOfType<GunGeneratorScript>();
+            gunManager = FindObjectOfType<GunManager>();
         }
     }
 
@@ -41,7 +41,7 @@ public class Portal : MonoBehaviour
             rewardLoot = true;
             for (int i = 0; i < lootAmount; i++)
             {
-                gunGenerator.GenerateGun().transform.position = player.transform.position+new Vector3(0,1,0);
+                gunManager.GenerateGun().transform.position = player.transform.position+new Vector3(0,1,0);
             }
             
         }

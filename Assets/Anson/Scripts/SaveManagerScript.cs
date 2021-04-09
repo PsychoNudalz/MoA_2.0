@@ -80,11 +80,24 @@ public class PlayerSaveCollection
     }
 }
 
+/// <summary>
+/// Anson: need to add values for settings
+/// </summary>
+[Serializable]
+public class SettingsSaveCollection
+{
+    public SettingsSaveCollection()
+    {
+
+    }
+}
+
 [Serializable]
 public class SaveCollection
 {
     public PlayerSaveCollection playerSaveCollection;
     public GCSSaveCollection gCSSaveCollection;
+    public SettingsSaveCollection settingsSaveCollection;
 
     public SaveCollection(PlayerSaveCollection psc, GCSSaveCollection gcssc)
     {
@@ -93,11 +106,57 @@ public class SaveCollection
     }
 }
 
+/*
+public static class SaveManager
+{
+    static void SaveData()
+    {
+        Debug.Log("Start save data");
+        //Save GCS
+        Debug.Log("Start GCS save data");
+
+        List<GCSelection> allGCS = gunManager.AllGCSelections;
+        gCSSaves = new List<GCSSave>();
+        string saveString = "";
+        foreach (GCSelection g in allGCS)
+        {
+            gCSSaves.Add(new GCSSave(g));
+        }
+        gCSSaveCollection = new GCSSaveCollection(gCSSaves.ToArray());
+        //Save Player
+        print("Start player save data");
+
+        playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
+
+
+        print("Write save data");
+        saveString = JsonUtility.ToJson(new SaveCollection(playerSaveCollection, gCSSaveCollection));
+        print(saveString);
+        File.WriteAllText(Application.dataPath + "/SaveFiles/GCSSaves.json", saveString);
+        print("Write save data complete");
+
+    }
+
+    void LoadData()
+    {
+        print("load save data");
+
+        string loadString = File.ReadAllText(Application.dataPath + "/SaveFiles/GCSSaves.json");
+        saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
+        playerSaveCollection = saveCollection.playerSaveCollection;
+        gCSSaveCollection = saveCollection.gCSSaveCollection;
+        print("load save data complete");
+
+    }
+}
+
+*/
 
 public class SaveManagerScript : MonoBehaviour
 {
     [Header("Debug")]
     [SerializeField] bool freshSaveData = false;
+    public static SaveManagerScript instance;
     [Space]
     public GunManager gunManager;
     public PlayerMasterScript playerMasterScript;
@@ -108,24 +167,71 @@ public class SaveManagerScript : MonoBehaviour
 
     private void Awake()
     {
+        if (RemoveDuplicateSaveManager())
+        {
+            return;
+        }
+
+        //DontDestroyOnLoad(gameObject);
+        Initialisation();
+
+    }
+    private void Start()
+    {
+    }
+
+    public void OnEnable()
+    {
+        Initialisation();
+    }
+
+    private void OnDisable()
+    {
+        SaveData();
+    }
+
+    private void OnDestroy()
+    {
+        SaveData();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveData();
+    }
+
+    public void Initialisation()
+    {
         if (!freshSaveData)
         {
+            Debug.Log("Loading data");
             LoadData();
+            if (!gunManager)
+            {
+                gunManager = FindObjectOfType<GunManager>();
+            }
             gunManager.GCSSaveCollection = gCSSaveCollection;
             if (!playerMasterScript)
             {
                 playerMasterScript = FindObjectOfType<PlayerMasterScript>();
             }
             playerMasterScript.PlayerSaveCollection = playerSaveCollection;
+
         }
     }
-    private void Start()
-    {
-    }
 
-    private void OnApplicationQuit()
+    bool RemoveDuplicateSaveManager()
     {
-        SaveData();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return true;
+        }
+        return false;
     }
 
     void SaveData()

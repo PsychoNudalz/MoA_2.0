@@ -24,6 +24,28 @@ public class AnsonTempUIScript : MonoBehaviour
     public WeaponAmmoPair gun2;
     public WeaponAmmoPair gun3;
 
+    [Header("Debug")]
+    [SerializeField] bool debugMode;
+    [SerializeField] TextMeshProUGUI coinText;
+    private void Awake()
+    {
+        if (debugMode)
+        {
+            coinText.gameObject.SetActive(true);
+        }
+        else
+        {
+            coinText.gameObject.SetActive(false);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (debugMode)
+        {
+            SetCoins(FindObjectOfType<PlayerSaveStats>().coins);
+        }
+    }
 
     public void SetAmmoText(string s, int i)
     {
@@ -76,6 +98,11 @@ public class AnsonTempUIScript : MonoBehaviour
     public void SetHealth(float hp, float hp_Max)
     {
         healthText.text = "HP:" + hp.ToString("0") + "/" + hp_Max.ToString("0");
+    }
+
+    public void SetCoins(int amount)
+    {
+        coinText.text = "Coins:" + amount;
     }
 
     public void ShowGameOver()

@@ -74,7 +74,7 @@ public class PlayerLifeSystemScript : LifeSystemScript
         playerVolumeControllerScript.PlayCD();
         if ((health_Current / (float)health_Max) < vignetteThreshold)
         {
-            print("Changing Vignette: " + (health_Current / health_Max));
+            //print("Changing Vignette: " + (health_Current / health_Max));
             playerVolumeControllerScript.SetBloodVignette(true, 1 - (health_Current / (Health_Max * vignetteThreshold)));
         }
     }
