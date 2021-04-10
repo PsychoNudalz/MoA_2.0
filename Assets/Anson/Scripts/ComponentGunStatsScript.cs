@@ -19,12 +19,12 @@ public class ComponentGunStatsScript : GunStatsScript
     public List<string> GetMultiplierStrings()
     {
         List<string> returnList = new List<string>();
-        returnList.Add(damagePerProjectileM.ToString());
-        returnList.Add(RPMM.ToString());
-        returnList.Add(reloadSpeedM.ToString());
-        returnList.Add(recoilM.ToString());
-        returnList.Add(rangeM.ToString());
-        returnList.Add(magazineSizeM.ToString());
+        returnList.Add("DMG: x" + damagePerProjectileM.ToString());
+        returnList.Add("RPM: x" + RPMM.ToString());
+        returnList.Add("Reload: x" + reloadSpeedM.ToString());
+        returnList.Add("Stability: x" + recoilM.ToString());
+        returnList.Add("Range: x" + rangeM.ToString());
+        returnList.Add("Mag Size: x" + magazineSizeM.ToString());
         return returnList;
 
     }

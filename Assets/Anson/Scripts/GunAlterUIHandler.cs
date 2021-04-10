@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
 
 public class GunAlterUIHandler : MonoBehaviour
 {
@@ -23,12 +24,12 @@ public class GunAlterUIHandler : MonoBehaviour
     [Header("Filter Control")]
     [SerializeField] List<GunTypes> currentGunTypes;
     [Header("UI")]
-    [SerializeField] TMPro.TextMeshProUGUI currentTypeText;
-    [SerializeField] TMPro.TextMeshProUGUI unlockCostText;
+    [SerializeField] TextMeshProUGUI currentTypeText;
+    [SerializeField] TextMeshProUGUI unlockCostText;
     [SerializeField] GameObject unlockButton;
     [Header("Component Preview UI")]
     [SerializeField] GameObject textTemplateGO;
-    [SerializeField] TMPro.TextMeshProUGUI currentComponentText;
+    [SerializeField] TextMeshProUGUI currentComponentText;
     [SerializeField] GridLayoutGroup mainStats;
     [SerializeField] GridLayoutGroup elementStats;
     [SerializeField] GridLayoutGroup multiplierStats;
@@ -143,6 +144,7 @@ public class GunAlterUIHandler : MonoBehaviour
     {
         currentGCSelection = gcs;
         PreviewComponent(gcs);
+        DisplayStats();
         unlockButton.SetActive(false);
 
         if (!gcs.IsUnlocked)
@@ -208,4 +210,53 @@ public class GunAlterUIHandler : MonoBehaviour
         newButton.SetGCS(gunManager.AllGCSelections[i]);
     }
     */
+
+
+    TextMeshProUGUI CreateStatsText(GridLayoutGroup currentGrid)
+    {
+        GameObject tempText = Instantiate(textTemplateGO, currentGrid.transform);
+        tempText.SetActive(true);
+        return tempText.GetComponent<TextMeshProUGUI>();
+    }
+
+
+    void DisplayStats()
+    {
+        foreach(Transform g in mainStats.GetComponentsInChildren<Transform>())
+        {
+            if (g != mainStats.transform)
+            {
+                Destroy(g.gameObject);
+            }
+        }
+        foreach (Transform g in elementStats.GetComponentsInChildren<Transform>())
+        {
+            if (g != elementStats.transform)
+            {
+                Destroy(g.gameObject);
+            }
+        }
+        foreach (Transform g in multiplierStats.GetComponentsInChildren<Transform>())
+        {
+            if (g != multiplierStats.transform)
+            {
+                Destroy(g.gameObject);
+            }
+        }
+
+        currentComponentText.text = currentGCSelection.GetGCName();
+        List<List<string>> statsList = currentGCSelection.Component.GetStats();
+        foreach(string s in statsList[0])
+        {
+            CreateStatsText(mainStats).text = s;
+        }
+        foreach (string s in statsList[1])
+        {
+            CreateStatsText(elementStats).text = s;
+        }
+        foreach (string s in statsList[2])
+        {
+            CreateStatsText(multiplierStats).text = s;
+        }
+    }
 }

@@ -12,16 +12,21 @@ public abstract class GunComponent : MonoBehaviour
     [SerializeField] protected List<GunConnectionPoint> extraConnectionPoints = new List<GunConnectionPoint>();
     [SerializeField] protected ComponentGunStatsScript componentGunStatsScript;
     [SerializeField] private int componentCost = 1;
-    public GunComponents ComponentType { get => componentType;}
-    public List<GunTypes> GTypes { get => gunTypes;}
+    public GunComponents ComponentType { get => componentType; }
+    public List<GunTypes> GTypes { get => gunTypes; }
     public List<GunConnectionPoint> EssentialConnectionPoints { get => essentialConnectionPoints; set => essentialConnectionPoints = value; }
     public List<GunConnectionPoint> ExtraConnectionPoints { get => extraConnectionPoints; set => extraConnectionPoints = value; }
     public int ComponentCost { get => componentCost; set => componentCost = value; }
 
     private void Awake()
     {
-        componentGunStatsScript = GetComponent<ComponentGunStatsScript>();
+        if (componentGunStatsScript == null)
+        {
+            componentGunStatsScript = GetComponent<ComponentGunStatsScript>();
+
+        }
     }
+
 
     public GunComponents GetGunComponentType()
     {
@@ -35,28 +40,27 @@ public abstract class GunComponent : MonoBehaviour
 
     public virtual List<List<string>> GetStats()
     {
-        List<string> statsStrings = new List<string>();
-        List<string> elementalStrings = new List<string>();
-        List<string> multiplierStrings = new List<string>();
+        List<string> statsStrings = new List<string>(componentGunStatsScript.GetStatsStrings());
+        List<string> elementalStrings = new List<string>(componentGunStatsScript.GetElementalStrings());
+        List<string> multiplierStrings = new List<string>(componentGunStatsScript.GetMultiplierStrings());
+        /*
         foreach (string s1 in componentGunStatsScript.GetStatsStrings())
         {
-                statsStrings.Add(s1);
+            statsStrings.Add(s1);
 
         }
         foreach (string s1 in componentGunStatsScript.GetElementalStrings())
         {
-            if (!(s1.Equals("") || s1.Equals("0")))
-            {
-                elementalStrings.Add(s1);
-            }
+            elementalStrings.Add(s1);
         }
         foreach (string s1 in componentGunStatsScript.GetMultiplierStrings())
         {
-            if (!(s1.Equals("") || s1.Equals("0")))
+            if (!(s1.Equals("") || s1.Equals("1") || s1.Equals("1,1")))
             {
                 multiplierStrings.Add(s1);
             }
         }
+        */
 
         List<List<string>> returnList = new List<List<string>>();
         returnList.Add(statsStrings);

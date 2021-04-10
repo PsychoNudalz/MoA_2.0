@@ -20,6 +20,8 @@ public class TestScript : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 200;
+
         if (generatorScript1 == null)
         {
             generatorScript1 = FindObjectOfType<GunGeneratorScript>();

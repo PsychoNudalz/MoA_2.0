@@ -65,13 +65,13 @@ public class GunStatsScript : MonoBehaviour
     public List<string> GetStatsStrings()
     {
         List<string> returnList = new List<string>();
-        returnList.Add(damagePerProjectile.ToString());
-        returnList.Add(RPM.ToString());
-        returnList.Add(reloadSpeed.ToString());
-        returnList.Add(recoil.ToString());
-        returnList.Add(recoil_HipFire.ToString());
-        returnList.Add(range.ToString());
-        returnList.Add(magazineSize.ToString());
+        returnList.Add("DMG:"+ damagePerProjectile.ToString());
+        returnList.Add("RPM:" + RPM.ToString());
+        returnList.Add("Reload:" + reloadSpeed.ToString()+"Sec");
+        returnList.Add("Stability:"+recoil.ToString());
+        returnList.Add("Accuracy:"+recoil_HipFire.ToString());
+        returnList.Add("Range:"+range.ToString()+"m");
+        returnList.Add("Mag Size:"+magazineSize.ToString());
 
         return returnList;
 
@@ -80,9 +80,9 @@ public class GunStatsScript : MonoBehaviour
     public List<string> GetElementalStrings()
     {
         List<string> returnList = new List<string>();
-        returnList.Add(elementDamage.ToString());
-        returnList.Add(elementPotency.ToString());
-        returnList.Add(elementChance.ToString());
+        returnList.Add("E. DMG:"+elementDamage.ToString());
+        returnList.Add("E. Potency:" + elementPotency.ToString());
+        returnList.Add("E. Chance:" + elementChance.ToString());
 
         return returnList;
 
