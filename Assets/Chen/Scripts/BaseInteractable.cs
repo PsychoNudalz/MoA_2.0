@@ -27,14 +27,17 @@ public class BaseInteractable : InteractableScript
         if (other.gameObject.CompareTag("Player"))
         {
             toolTip.SetActive(false);
-            linkedUI.SetActive(false);
+            if (linkedUI != null)
+            {
+                linkedUI.SetActive(false);
+            }
             UIExitCallBack();
         }
     }
 
     private void Update()
     {
-        if (keyboard.eKey.wasReleasedThisFrame && toolTip.activeSelf && linkedUI != null&&!linkedUI.activeSelf)
+        if (keyboard.eKey.wasReleasedThisFrame && toolTip.activeSelf && linkedUI != null && !linkedUI.activeSelf)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;

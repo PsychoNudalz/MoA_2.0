@@ -17,7 +17,8 @@ public class Portal : MonoBehaviour
     RoomEnemySystem nextRoomEnemySystem;
     [SerializeField] GunManager gunManager;
     [SerializeField] int lootAmount = 6;
-    [SerializeField] bool rewardLoot;
+    [SerializeField] int CoinAmount = 2;
+    bool rewardLoot;
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
 
@@ -27,7 +28,7 @@ public class Portal : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        if(gunManager == null)
+        if (gunManager == null)
         {
             gunManager = FindObjectOfType<GunManager>();
         }
@@ -36,14 +37,15 @@ public class Portal : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!ignoreSpawner && currentRoomEnemySystem.IsRoomClear() && !rewardLoot)
+        if ((ignoreSpawner || currentRoomEnemySystem.IsRoomClear()) && !rewardLoot)
         {
             rewardLoot = true;
+            player.GetComponent<PlayerMasterScript>().PlayerSaveStats.AddCoins(CoinAmount);
             for (int i = 0; i < lootAmount; i++)
             {
-                gunManager.GenerateGun().transform.position = player.transform.position+new Vector3(0,1,0);
+                gunManager.GenerateGun().transform.position = player.transform.position + new Vector3(i*0.1f, 1, 0);
             }
-            
+
         }
     }
 

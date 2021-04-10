@@ -202,22 +202,22 @@ public class SaveManagerScript : MonoBehaviour
 
     public void Initialisation()
     {
-        if (!freshSaveData)
+        if (!gunManager)
         {
-            Debug.Log("Loading data");
-            LoadData();
-            if (!gunManager)
-            {
-                gunManager = FindObjectOfType<GunManager>();
-            }
-            gunManager.GCSSaveCollection = gCSSaveCollection;
-            if (!playerMasterScript)
-            {
-                playerMasterScript = FindObjectOfType<PlayerMasterScript>();
-            }
-            playerMasterScript.PlayerSaveCollection = playerSaveCollection;
-
+            gunManager = FindObjectOfType<GunManager>();
         }
+        if (!playerMasterScript)
+        {
+            playerMasterScript = FindObjectOfType<PlayerMasterScript>();
+        }
+        if (freshSaveData)
+        {
+            OverrideData();
+        }
+        LoadData();
+        Debug.Log("Loading data");
+        gunManager.GCSSaveCollection = gCSSaveCollection;
+        playerMasterScript.PlayerSaveCollection = playerSaveCollection;
     }
 
     bool RemoveDuplicateSaveManager()
@@ -234,7 +234,7 @@ public class SaveManagerScript : MonoBehaviour
         return false;
     }
 
-    void SaveData()
+    void SaveData(string saveFile = "")
     {
         print("Start save data");
         //Save GCS
@@ -257,20 +257,37 @@ public class SaveManagerScript : MonoBehaviour
         print("Write save data");
         saveString = JsonUtility.ToJson(new SaveCollection(playerSaveCollection, gCSSaveCollection));
         print(saveString);
-        File.WriteAllText(Application.dataPath + "/SaveFiles/GCSSaves.json", saveString);
+        if (saveFile.Equals(""))
+        {
+            saveFile = "GCSSaves.json";
+        }
+        File.WriteAllText(Application.dataPath + "/SaveFiles/" + saveFile, saveString);
         print("Write save data complete");
 
     }
 
-    void LoadData()
+    void LoadData(string saveFile = "")
     {
         print("load save data");
 
-        string loadString = File.ReadAllText(Application.dataPath + "/SaveFiles/GCSSaves.json");
+        if (saveFile.Equals(""))
+        {
+            saveFile = "GCSSaves.json";
+        }
+        string loadString = File.ReadAllText(Application.dataPath + "/SaveFiles/" + saveFile);
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
         playerSaveCollection = saveCollection.playerSaveCollection;
         gCSSaveCollection = saveCollection.gCSSaveCollection;
         print("load save data complete");
 
     }
+
+    void OverrideData()
+    {
+        string loadString = File.ReadAllText(Application.dataPath + "/SaveFiles/GCSSaves_BASE.json");
+        File.WriteAllText(Application.dataPath + "/SaveFiles/GCSSaves.json", loadString);
+
+    }
 }
+
+

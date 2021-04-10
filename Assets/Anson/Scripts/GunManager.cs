@@ -197,7 +197,14 @@ public class GunManager : MonoBehaviour
         return errorCount;
     }
 
-     
+    public void UnlockAll()
+    {
+        foreach(GCSelection g in allGCSelections)
+        {
+            g.IsUnlocked = true;
+            g.IsSelected = true;
+        }
+    }
 
 
 }

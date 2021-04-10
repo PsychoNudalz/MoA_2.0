@@ -88,8 +88,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8009985243808467278}
-  - component: {fileID: 9141042611115784029}
   - component: {fileID: -3762830182510449287}
+  - component: {fileID: 9141042611115784029}
   m_Layer: 14
   m_Name: StatBoost_Main
   m_TagString: Gun
@@ -112,6 +112,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3762830182510449287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8009985243808467277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7551e551b82e4664fb50d61394c1f2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentType: 8
+  gunTypes: 0000000001000000020000000300000004000000
+  essentialConnectionPoints: []
+  extraConnectionPoints: []
+  componentGunStatsScript: {fileID: 9141042611115784029}
+  componentCost: 1
 --- !u!114 &9141042611115784029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,20 +158,3 @@ MonoBehaviour:
   recoilM: {x: 1, y: 1}
   rangeM: 1
   magazineSizeM: 1
---- !u!114 &-3762830182510449287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8009985243808467277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7551e551b82e4664fb50d61394c1f2bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  componentType: 8
-  gunTypes: 0000000001000000020000000300000004000000
-  essentialConnectionPoints: []
-  extraConnectionPoints: []
-  componentGunStatsScript: {fileID: 0}

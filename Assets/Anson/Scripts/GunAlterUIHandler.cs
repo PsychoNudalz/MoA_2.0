@@ -101,6 +101,10 @@ public class GunAlterUIHandler : MonoBehaviour
 
     public void UpdateButtons()
     {
+        //Anson: i know this is bad code
+        UI_Attachment.ResetGridSize();
+
+
         UI_Attachment.UpdateButtons(currentGunTypes);
         UI_Body.UpdateButtons(currentGunTypes);
         UI_Barrel.UpdateButtons(currentGunTypes);
@@ -258,5 +262,42 @@ public class GunAlterUIHandler : MonoBehaviour
         {
             CreateStatsText(multiplierStats).text = s;
         }
+    }
+
+    public void SelectAll()
+    {
+        UI_Attachment.SelectAll(true);
+        UI_Body.SelectAll(true);
+        UI_Barrel.SelectAll(true);
+        UI_Grip.SelectAll(true);
+        UI_Magazine.SelectAll(true);
+        UI_Muzzle.SelectAll(true);
+        UI_Sight.SelectAll(true);
+        UI_StatBoost.SelectAll(true);
+        UI_Stock.SelectAll(true);
+    }
+    public void DeselectAll()
+    {
+        UI_Attachment.SelectAll(false);
+        UI_Body.SelectAll(false);
+        UI_Barrel.SelectAll(false);
+        UI_Grip.SelectAll(false);
+        UI_Magazine.SelectAll(false);
+        UI_Muzzle.SelectAll(false);
+        UI_Sight.SelectAll(false);
+        UI_StatBoost.SelectAll(false);
+        UI_Stock.SelectAll(false);
+    }
+
+    public void GodModeButton()
+    {
+        playerMasterScript.AddCoins(1000);
+        UnlockAll();
+        UpdateButtons();
+    }
+
+    public void UnlockAll()
+    {
+        gunManager.UnlockAll();
     }
 }
