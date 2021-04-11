@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public abstract class ProjectileScript : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public abstract class ProjectileScript : MonoBehaviour
     [SerializeField] private int level;
     [SerializeField] private ElementTypes elementType;
 
+    [Header("Effects")]
+    [SerializeField] ParticleSystem explodeEffect;
+    [SerializeField] GameObject[] delayDistroyGOs;
+    [SerializeField] float delayTime;
 
     [Header("Projectile Behaviour")]
     [SerializeField] Rigidbody rb;
@@ -20,7 +25,6 @@ public abstract class ProjectileScript : MonoBehaviour
     [SerializeField] int numberOfBounces = 0;
     [SerializeField] float fuseTime = Mathf.Infinity;
     [SerializeField] protected List<string> tagList;
-    [SerializeField] ParticleSystem explodeEffect;
     [SerializeField] bool orientateProjectileToDirection;
 
     [Header("Swirl Behaviour")]
@@ -141,7 +145,9 @@ public abstract class ProjectileScript : MonoBehaviour
             explodeEffect = Instantiate(explodeEffect, transform.position, transform.rotation);
             explodeEffect.Play();
             Destroy(explodeEffect.gameObject, 1f);
+            
         }
+        DetattachEffects();
     }
     public void PointProjectileToDirection()
     {
@@ -188,7 +194,7 @@ public abstract class ProjectileScript : MonoBehaviour
         }
         else
         {
-            rb.velocity = ((homingDir * dotResults)*Time.deltaTime*50f + rb.velocity).normalized * launchSpeed;
+            rb.velocity = ((homingDir * dotResults)*Time.deltaTime*homingStrength + rb.velocity).normalized * launchSpeed;
         }
     }
 
@@ -197,6 +203,20 @@ public abstract class ProjectileScript : MonoBehaviour
         originalDir = transform.forward;
         homingLock = false;
         return;
+    }
+
+    protected virtual void DetattachEffects()
+    {
+        VisualEffect v;
+        foreach(GameObject g in delayDistroyGOs)
+        {
+            if (g.TryGetComponent(out v))
+            {
+                v.SendEvent("OnStop");
+            }
+            g.transform.SetParent(null);
+            Destroy(g, delayTime);
+        }
     }
 
 }
