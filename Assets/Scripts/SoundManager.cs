@@ -7,7 +7,7 @@ using System.Linq;
 
 public class SoundManager : MonoBehaviour
 {
-
+    /*//Anson: Old Sound Manager
     public static SoundManager instance;
     public Sound themeSong;
     public AudioMixerGroup mixerGroup;
@@ -82,16 +82,13 @@ public class SoundManager : MonoBehaviour
                 {
                     Debug.LogWarning(name + " " + e);
                 }
-
             }
-
-
         }
 
         ///*
         //removing new sounds
         removeUnused();
-        //*/
+        //
 
     }
 
@@ -109,7 +106,6 @@ public class SoundManager : MonoBehaviour
 
     Sound findSound(string sound)
     {
-        /*
         foreach (Sound s in sounds)
         {
             if (s.soundName.Equals(sound))
@@ -117,7 +113,6 @@ public class SoundManager : MonoBehaviour
                 return s;
             }
         }
-        */
         try
         {
             Sound s = sounds.Find(t => t.soundName.Equals(sound));
@@ -216,5 +211,81 @@ public class SoundManager : MonoBehaviour
     private void OnEnable()
     {
         updateSounds();
+    }
+    */
+
+    [SerializeField] List<Sound> sounds = new List<Sound>();
+    [SerializeField] List<Sound> soundsCache = new List<Sound>();
+    [SerializeField] AudioMixer audioMixer;
+    [SerializeField] Sound bgm;
+
+    private void Start()
+    {
+        UpdateSounds();
+        if (bgm != null)
+        {
+            if (!bgm.IsPlaying())
+            {
+                bgm.Play();
+            }
+        }
+    }
+
+
+    public void UpdateSounds()
+    {
+        List<Sound> newSounds = new List<Sound>(FindObjectsOfType<Sound>());
+        sounds = new List<Sound>();
+        foreach (Sound s in newSounds)
+        {
+            AddSounds(s);
+            s.SoundManager = this;
+        }
+    }
+
+    public void AddSounds(Sound s)
+    {
+        if (!sounds.Contains(s))
+        {
+            if (s.AudioMixer == null)
+            {
+                s.AudioMixer = audioMixer;
+            }
+        }
+    }
+
+    public void PauseAllSounds()
+    {
+        soundsCache = new List<Sound>();
+        foreach (Sound s in sounds)
+        {
+            if (s.IsPlaying())
+            {
+                soundsCache.Add(s);
+                s.Pause();
+            }
+        }
+    }
+
+    public void ResumeSounds()
+    {
+        foreach (Sound s in soundsCache)
+        {
+            s.Resume();
+        }
+    }
+
+
+    public void StopAllSounds()
+    {
+        soundsCache = new List<Sound>();
+        foreach (Sound s in sounds)
+        {
+            if (s.IsPlaying())
+            {
+                soundsCache.Add(s);
+                s.Stop();
+            }
+        }
     }
 }

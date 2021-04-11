@@ -172,7 +172,7 @@ public class MainGunStatsScript : GunStatsScript
     {
         if (sound_Fire != null)
         {
-            soundManager.Play(sound_Fire);
+            sound_Fire.PlayF();
         }
     }
 
@@ -180,14 +180,14 @@ public class MainGunStatsScript : GunStatsScript
     {
         if (sound_StartReload != null)
         {
-            soundManager.Play(sound_StartReload);
+            sound_StartReload.PlayF();
         }
     }
     public void Play_EndReload()
     {
         if (sound_EndReload != null)
         {
-            soundManager.Play(sound_EndReload);
+            sound_EndReload.PlayF();
         }
     }
 

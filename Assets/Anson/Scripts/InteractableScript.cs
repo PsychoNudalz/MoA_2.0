@@ -69,11 +69,11 @@ public class InteractableScript : MonoBehaviour
         }
         if (interactableActive || Sound_deactive == null)
         {
-            soundManager.Play(Sound_active);
+            Sound_active.PlayF();
         }
         else if (!interactableActive)
         {
-            soundManager.Play(Sound_deactive);
+            Sound_deactive.PlayF();
         }
 
     }

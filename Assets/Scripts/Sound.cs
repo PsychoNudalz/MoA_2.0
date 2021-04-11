@@ -4,42 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Sound : MonoBehaviour
 {
-
-    public string soundName;
-    public bool isUnique;
-    public AudioClip clip;
-
-    [Range(0f, 1f)]
-    public float volume = .75f;
-    [Range(0f, 1f)]
-    public float volumeVariance = .1f;
-
-    [Range(.1f, 3f)]
-    public float pitch = 1f;
-    [Range(0f, 1f)]
-    public float pitchVariance = .1f;
-
-    [Range(0f, 1f)]
-    public float spatialBlend = 1f;
-    [Range(0f, 1.1f)]
-    public float reverbZoneMix = 0f;
-    [Range(0f, 1f)]
-    public float dopplerLevel = 0f;
-
-    public float minDistance = 10f;
-    public float maxDistance = 20f;
-
-
-    public bool loop = false;
-    public bool playOnAwake = false;
-    public bool doesNotRestartOnPlay = false;
-
-
-
-    [HideInInspector]
-    public AudioSource source;
-
-
+    /*
     private void Awake()
     {
         if (soundName.Equals(""))
@@ -64,5 +29,115 @@ public class Sound : MonoBehaviour
         }
 
         return true;
+    }
+    */
+
+    public string soundName;
+    public bool isUnique;
+    [SerializeField] AudioClip clip;
+
+    [Range(0f, 1f)]
+    public float volume = .75f;
+    [Range(0f, 1f)]
+    public float volumeVariance = .1f;
+
+    [Range(.1f, 3f)]
+    public float pitch = 1f;
+    [Range(0f, 1f)]
+    public float pitchVariance = .1f;
+
+    [Range(0f, 1f)]
+    public float spatialBlend = 1f;
+    [Range(0f, 1.1f)]
+    public float reverbZoneMix = 0f;
+    [Range(0f, 1f)]
+    public float dopplerLevel = 0f;
+
+    public float minDistance = 10f;
+    public float maxDistance = 20f;
+
+
+    [SerializeField] AudioMixer audioMixer;
+    [SerializeField] SoundManager soundManager;
+
+    float baseVolume;
+    float basePitch;
+    [Header("Convert From Old System")]
+    [SerializeField] bool isOld;
+    [SerializeField] bool isLoop;
+    [SerializeField] bool isPlayOnAwake;
+
+    [HideInInspector]
+    public AudioSource source;
+
+
+
+
+    public AudioMixer AudioMixer { get => audioMixer; set => audioMixer = value; }
+    public SoundManager SoundManager { get => soundManager; set => soundManager = value; }
+
+    private void Awake()
+    {
+        if (source == null && clip != null)
+        {
+            source = gameObject.AddComponent<AudioSource>();
+            source.clip = clip;
+        }
+        else if(source == null && gameObject.TryGetComponent(out source))
+        {
+            print("Auto found audio:" + source.clip);
+        }
+        if (soundManager != null)
+        {
+            soundManager = FindObjectOfType<SoundManager>();
+        }
+        source.clip = clip;
+        baseVolume = source.volume;
+        basePitch = source.pitch;
+
+        if (isOld)
+        {
+            source.loop = isLoop;
+            source.playOnAwake = isPlayOnAwake;
+        }
+    }
+
+    public bool IsPlaying()
+    {
+        return source.isPlaying;
+    }
+
+    public void Pause()
+    {
+        source.Pause();
+    }
+    public void Resume()
+    {
+        source.UnPause();
+    }
+    public void Play()
+    {
+        if (!source.isPlaying)
+        {
+
+            PlayF();
+        }
+    }
+    public void PlayF()
+    {
+
+        source.volume = baseVolume * (1f + UnityEngine.Random.Range(-volumeVariance / 2f, volumeVariance / 2f));
+        source.pitch = basePitch * (1f + UnityEngine.Random.Range(-pitchVariance / 2f, pitchVariance / 2f));
+
+        source.Play();
+    }
+    public void Stop()
+    {
+        source.Stop();
+    }
+
+    public void ModifySource()
+    {
+
     }
 }
