@@ -41,6 +41,8 @@ public class GunComponent_Body : GunComponent
 
     [Header("Animator")]
     [SerializeField] Animator animator;
+    [Range(0f,1f)]
+    [SerializeField] float shootAnimationLerp = 1;
 
 
     [Header("Sound")]
@@ -76,6 +78,7 @@ public class GunComponent_Body : GunComponent
     public ElementTypes ElementType { get => elementType; }
     public Vector3 SightOffset { get => sightOffset; set => sightOffset = value; }
     public Rarity Rarity { get => rarity; set => rarity = value; }
+    public float ShootAnimationLerp { get => shootAnimationLerp; set => shootAnimationLerp = value; }
 
     private void Awake()
     {
@@ -107,7 +110,7 @@ public class GunComponent_Body : GunComponent
         }
     }
 
-    public void PlayGunShootEffect()
+    public void PlayGunShootEffect(int notEjectCase= 0)
     {
         try
         {
@@ -116,10 +119,13 @@ public class GunComponent_Body : GunComponent
             bulletParticle.Play();
             muzzleEffect.SetInt("ElementEnum", (int)elementType);
             muzzleEffect.Play();
-            
+
             if (GTypes[0] != GunTypes.SHOTGUN)
             {
-                bulletCaseParticle.Play();
+                if (notEjectCase == 0)
+                {
+                    bulletCaseParticle.Play();
+                }
             }
         }
         catch (System.NullReferenceException e)

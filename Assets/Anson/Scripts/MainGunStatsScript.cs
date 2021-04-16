@@ -45,6 +45,8 @@ public class MainGunStatsScript : GunStatsScript
 
     [Header("Animator")]
     [SerializeField] Animator animator;
+    [SerializeField] float shootAnimationLerp = 1;
+
 
     [Header("Sound")]
     SoundManager soundManager;
@@ -110,6 +112,7 @@ public class MainGunStatsScript : GunStatsScript
         sightLocation = b.SightLocation;
         sightOffset = b.SightOffset;
         animator = b.GetAnimator;
+        shootAnimationLerp = b.ShootAnimationLerp;
         sound_Fire = b.Sound_Fire;
         sound_StartReload = b.Sound_StartReload;
         sound_EndReload = b.Sound_EndReload;
@@ -124,8 +127,8 @@ public class MainGunStatsScript : GunStatsScript
 
         //Rarity effect
 
-        rarityEffect.SetInt("Rarity", (int) rarity);
-        rarityEffect.SetInt("Element", (int) elementType);
+        rarityEffect.SetInt("Rarity", (int)rarity);
+        rarityEffect.SetInt("Element", (int)elementType);
     }
 
 
@@ -162,8 +165,16 @@ public class MainGunStatsScript : GunStatsScript
         {
             return;
         }
+        if (s.Equals("Shoot"))
+        {
+            animator.speed = Mathf.Lerp(1, animationSpeed, shootAnimationLerp);
+
+        }
+        else
+        {
+            animator.speed = animationSpeed;
+        }
         animator.SetTrigger(s);
-        animator.speed = animationSpeed;
 
     }
 
@@ -215,7 +226,7 @@ public class MainGunStatsScript : GunStatsScript
             name, "\n",
             gunType.ToString(), " ", elementType.ToString(), "\n",
             "Rarity: ", rarity.ToString(), "\n",
-            "DPS: ", CalculateDPS(),"\n",
+            "DPS: ", CalculateDPS(), "\n",
             "Damage: ", damagePerProjectile, " x ", projectilePerShot, "\n",
             "RPM: ", RPM, " Recoil: ", recoil.ToString(), "\n",
             "Hip Fire: ", recoil_HipFire.ToString(), "\n",
@@ -239,7 +250,7 @@ public class MainGunStatsScript : GunStatsScript
 
     public float CalculateDPS()
     {
-        float dps = (1/((60f/RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
+        float dps = (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
         //float dps = (60f/((RPM / 60f) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
         //float dps = damagePerProjectile * projectilePerShot * magazineSize;
         //dps = dps / 60f;
