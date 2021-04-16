@@ -196,7 +196,14 @@ public class TargetMaterialHandlerScript : MonoBehaviour
 
         current = allShockList[allShockListPTR];
         current.gameObject.SetActive(true);
+        try
+        {
+
         StartCoroutine(DisableShockDelay(current));
+        } catch(System.Exception e)
+        {
+
+        }
         return current;
     }
 

@@ -24,6 +24,11 @@ public class ShootingRangeScript : MonoBehaviour
 
     [SerializeField] float timeBetweenWavePerTarget = 1.5f;
 
+    [Header("Tutorial")]
+    [SerializeField] bool isTutorial = false;
+
+    public bool IsRoutine { get => isRoutine; set => isRoutine = value; }
+
     private void Awake()
     {
         if (spawnPoints.Count == 0)
@@ -48,7 +53,10 @@ public class ShootingRangeScript : MonoBehaviour
 
             if (numberOfWaveNow <= numberOfWave && (timeNow_Wave >= timeBetweenWavePerTarget * waveTargets || waveKills == waveTargets))
             {
-                StartWave();
+                if (!isTutorial)
+                {
+                    StartWave();
+                }
             }
             else if (numberOfWaveNow > numberOfWave)
             {
@@ -74,6 +82,7 @@ public class ShootingRangeScript : MonoBehaviour
         waveKills = 0;
         waveTargets = 0;
         timeNow_Wave = 0;
+        IsRoutine = false;
         foreach (SpawnPointScript s in spawnPoints)
         {
             s.Despawn();
@@ -82,6 +91,7 @@ public class ShootingRangeScript : MonoBehaviour
 
     public void StartShootCourse(string inputSeed = "0", float waveTime = 0f, int numberOfWave = 1, List<int> healthOverrideTargets = null, int overrideValue = -1)
     {
+        print("Starting shooting course: \n" + string.Concat(inputSeed, waveTime, numberOfWave, healthOverrideTargets, overrideValue));
         ResetRange();
         totalKills = 0;
         totalTargets = 0;
@@ -103,7 +113,7 @@ public class ShootingRangeScript : MonoBehaviour
         }
         else
         {
-            StartWave(inputSeed, healthOverrideTargets,overrideValue);
+            StartWave(inputSeed, healthOverrideTargets, overrideValue);
         }
         //DelayStartWave();
     }
@@ -119,12 +129,15 @@ public class ShootingRangeScript : MonoBehaviour
         waveKills = 0;
         waveTargets = 0;
         timeNow_Wave = 0;
-        
+
         numberOfWaveNow++;
         if (numberOfWaveNow > numberOfWave)
         {
             return;
         }
+        print("Next wave: \n" + string.Concat(numberOfWaveNow, "/", numberOfWave));
+
+
         shootingSequence.Add(waveSeed.ToString());
         UpdateKillCounter();
         for (int i = 0; i < spawnPoints.Count && i < waveSeed.Length; i++)
@@ -132,13 +145,13 @@ public class ShootingRangeScript : MonoBehaviour
             spawnPoints[i].Despawn();
             if (waveSeed[i].ToString().Equals("1"))
             {
-                if (healthOverrideTargets!=null&& healthOverrideTargets.Contains(i))
+                if (healthOverrideTargets != null && healthOverrideTargets.Contains(i))
                 {
                     spawnPoints[i].Spawn(overrideValue);
                 }
                 else
                 {
-                spawnPoints[i].Spawn();
+                    spawnPoints[i].Spawn();
 
                 }
                 waveTargets++;

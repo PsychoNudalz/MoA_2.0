@@ -17,7 +17,7 @@ public class TeleportManager : MonoBehaviour
             prev = pt;
         }
         prev.portalTarget = end;
-        prev.Setup(null);
+        prev.Setup(end.CurrentRoomEnemySystem);
         end.GetComponent<BoxCollider>().enabled = false;
     }
 

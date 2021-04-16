@@ -87,7 +87,7 @@ public class ShockEffectScript : ElementDebuffScript
 
             newShock.SetLsList(lsList, lsListPointer);
             toShockQueue.Dequeue().ApplyDebuff(newShock);
-            Debug.Log("Current Queue size: " + toShockQueue.Count);
+            //Debug.Log("Current Queue size: " + toShockQueue.Count);
         }
         targetLS.RemoveDebuff(this as ShockEffectScript);
         return true;
@@ -101,7 +101,7 @@ public class ShockEffectScript : ElementDebuffScript
 
         ActiveShockOnTarget(currentTarget);
 
-        Debug.Log("initial Queue size: " + toShockQueue.Count);
+        //Debug.Log("initial Queue size: " + toShockQueue.Count);
 
     }
 

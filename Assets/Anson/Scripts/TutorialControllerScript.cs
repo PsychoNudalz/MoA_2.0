@@ -25,6 +25,12 @@ public class TutorialControllerScript : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        Application.targetFrameRate = 200;
+
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -59,7 +65,7 @@ public class TutorialControllerScript : MonoBehaviour
             {
                 NextStep();
             }
-            else if (!shootingRange.IsWaveCleared() && shootingRange.IsWaveTimedOut())
+            else if (!shootingRange.IsWaveCleared() && shootingRange.IsWaveTimedOut()&&shootingRange.IsRoutine)
             {
                 ResetShootingRange();
                 BackStep();
@@ -131,14 +137,14 @@ public class TutorialControllerScript : MonoBehaviour
     {
         shootingRange.SetLoopMode(0);
         int[] list = { 6, 7, 8, 9, 10, 11 };
-        shootingRange.StartShootCourse("101101111101", float.PositiveInfinity, 1, new List<int>(list), 50);
+        shootingRange.StartShootCourse("101101111101", 40f/9f, 1, new List<int>(list), 50);
     }
     public void SpawnShootingRange_Timed()
     {
         shootingRange.SetLoopMode(0);
         int[] list = { 0,2,3,5 };
 
-        shootingRange.StartShootCourse("101101000000", 10f/4f, 1, new List<int>(list), 600);
+        shootingRange.StartShootCourse("101101000000", 15f/4f, 1, new List<int>(list), 500);
 
     }
     public void SpawnShootingRange_TimedStarter()

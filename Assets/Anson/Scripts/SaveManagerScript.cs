@@ -253,7 +253,6 @@ public class SaveManagerScript : MonoBehaviour
 
         playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
 
-
         print("Write save data");
         saveString = JsonUtility.ToJson(new SaveCollection(playerSaveCollection, gCSSaveCollection));
         print(saveString);
@@ -261,7 +260,16 @@ public class SaveManagerScript : MonoBehaviour
         {
             saveFile = "GCSSaves.json";
         }
-        File.WriteAllText(Application.dataPath + "/SaveFiles/" + saveFile, saveString);
+        try
+        {
+
+        File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile, saveString);
+        } catch(DirectoryNotFoundException e)
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/SaveFiles/");
+            File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile, saveString);
+
+        }
         print("Write save data complete");
 
     }
@@ -274,7 +282,7 @@ public class SaveManagerScript : MonoBehaviour
         {
             saveFile = "GCSSaves.json";
         }
-        string loadString = File.ReadAllText(Application.dataPath + "/SaveFiles/" + saveFile);
+        string loadString = File.ReadAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile);
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
         playerSaveCollection = saveCollection.playerSaveCollection;
         gCSSaveCollection = saveCollection.gCSSaveCollection;
@@ -284,8 +292,8 @@ public class SaveManagerScript : MonoBehaviour
 
     void OverrideData()
     {
-        string loadString = File.ReadAllText(Application.dataPath + "/SaveFiles/GCSSaves_BASE.json");
-        File.WriteAllText(Application.dataPath + "/SaveFiles/GCSSaves.json", loadString);
+        string loadString = File.ReadAllText(Application.persistentDataPath + "/SaveFiles/GCSSaves_BASE.json");
+        File.WriteAllText(Application.persistentDataPath + "/SaveFiles/GCSSaves.json", loadString);
 
     }
 }

@@ -2530,6 +2530,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2750591278332827227, guid: ad1cf5dea5b861746b7e8937673e0bbc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad1cf5dea5b861746b7e8937673e0bbc, type: 3}
 --- !u!1 &775750396
@@ -5217,7 +5222,7 @@ MonoBehaviour:
   shootingRange: {fileID: 1859959459182260830}
   pickUpSteps: 01000000040000000600000008000000
   killSteps: 0200000003000000050000000700000009000000
-  timedKillSteps: 0a000000
+  timedKillSteps: 070000000a000000
 --- !u!4 &1660138713
 Transform:
   m_ObjectHideFlags: 0
@@ -7744,6 +7749,7 @@ MonoBehaviour:
   numberOfWave: 5
   numberOfWaveNow: 0
   timeBetweenWavePerTarget: 1.2
+  isTutorial: 1
 --- !u!4 &1859959459182260831
 Transform:
   m_ObjectHideFlags: 0
@@ -9268,7 +9274,7 @@ PrefabInstance:
     - target: {fileID: 3818627756119550147, guid: ce23994e00211a244b528a127af52f25,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.109668255
       objectReference: {fileID: 0}
     - target: {fileID: 3818627756119550147, guid: ce23994e00211a244b528a127af52f25,
         type: 3}
@@ -9425,7 +9431,7 @@ PrefabInstance:
     - target: {fileID: 3818627756119550147, guid: ce23994e00211a244b528a127af52f25,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 3818627756119550147, guid: ce23994e00211a244b528a127af52f25,
         type: 3}
@@ -9582,7 +9588,7 @@ PrefabInstance:
     - target: {fileID: 3818627756119550147, guid: ce23994e00211a244b528a127af52f25,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.109668255
       objectReference: {fileID: 0}
     - target: {fileID: 3818627756119550147, guid: ce23994e00211a244b528a127af52f25,
         type: 3}
@@ -9721,6 +9727,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b281f4d960c88f34baedc23758f730a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableActive: 1
+  Sound_active: {fileID: 0}
+  Sound_deactive: {fileID: 0}
   toolTip: {fileID: 6581205055913509342}
   linkedUI: {fileID: 229749237327357658}
 --- !u!1 &6145838145062485509
