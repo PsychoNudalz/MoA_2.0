@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 379480470746228731}
-  - component: {fileID: 480521706376171864}
+  - component: {fileID: 8798944463797176139}
   m_Layer: 8
   m_Name: GunShound
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 2289309973118316379}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &480521706376171864
+--- !u!114 &8798944463797176139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,11 +40,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 735122137283187870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5d2998e6bad0e4fbee47d31d24b684, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: GunShot
-  isUnique: 1
   clip: {fileID: 8300000, guid: 961dc72132680f842bbc374344310919, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -61,6 +60,9 @@ MonoBehaviour:
   isLoop: 0
   isPlayOnAwake: 0
   source: {fileID: 0}
+  sourcePool: []
+  sourcePoolSize: 6
+  poolIndex: -1
 --- !u!1 &3981304585147950232
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +226,7 @@ MonoBehaviour:
   muzzleLocation: {fileID: 0}
   animator: {fileID: 167359720121963554}
   shootAnimationLerp: 0.3
-  sound_Fire: {fileID: 480521706376171864}
+  sound_Fire: {fileID: 8798944463797176139}
   sound_StartReload: {fileID: 9121020277200989915}
   sound_EndReload: {fileID: 1935563670974081038}
 --- !u!65 &4601413827931001062
@@ -331,7 +333,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: EndReload
-  isUnique: 1
   clip: {fileID: 8300000, guid: 251292a782f1ad64084c6ad8630697a4, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -392,7 +393,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: StartReload
-  isUnique: 1
   clip: {fileID: 8300000, guid: 3a3ebdc8d6d5c9e4cbca4a659831b356, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -455,7 +455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2391832307503311763}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2385714637919304690}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -724,6 +724,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FinalStand_Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 65832217ab487244e8c4ec359c24d036,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65832217ab487244e8c4ec359c24d036, type: 3}
@@ -1398,6 +1403,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FinalStand_Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bc37cd3c834013b4fbc4113313006f58,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc37cd3c834013b4fbc4113313006f58, type: 3}

@@ -33,8 +33,7 @@ public class Sound : MonoBehaviour
     */
 
     public string soundName;
-    public bool isUnique;
-    [SerializeField] AudioClip clip;
+    [SerializeField] protected AudioClip clip;
 
     [Range(0f, 1f)]
     public float volume = .75f;
@@ -67,7 +66,6 @@ public class Sound : MonoBehaviour
     [SerializeField] bool isLoop;
     [SerializeField] bool isPlayOnAwake;
 
-    [HideInInspector]
     public AudioSource source;
 
 
@@ -78,12 +76,17 @@ public class Sound : MonoBehaviour
 
     private void Awake()
     {
+        AwakeBehaviour();
+    }
+
+    protected virtual void AwakeBehaviour()
+    {
         if (source == null && clip != null)
         {
             source = gameObject.AddComponent<AudioSource>();
             source.clip = clip;
         }
-        else if(source == null && gameObject.TryGetComponent(out source))
+        else if (source == null && gameObject.TryGetComponent(out source))
         {
             print("Auto found audio:" + source.clip);
         }
@@ -107,15 +110,15 @@ public class Sound : MonoBehaviour
         return source.isPlaying;
     }
 
-    public void Pause()
+    public virtual void Pause()
     {
         source.Pause();
     }
-    public void Resume()
+    public virtual void Resume()
     {
         source.UnPause();
     }
-    public void Play()
+    public virtual void Play()
     {
         if (!source.isPlaying)
         {
@@ -123,7 +126,7 @@ public class Sound : MonoBehaviour
             PlayF();
         }
     }
-    public void PlayF()
+    public virtual void PlayF()
     {
 
         source.volume = baseVolume * (1f + UnityEngine.Random.Range(-volumeVariance / 2f, volumeVariance / 2f));
@@ -131,7 +134,7 @@ public class Sound : MonoBehaviour
 
         source.Play();
     }
-    public void Stop()
+    public virtual void Stop()
     {
         source.Stop();
     }
