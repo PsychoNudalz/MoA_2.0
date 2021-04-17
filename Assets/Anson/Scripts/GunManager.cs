@@ -194,6 +194,7 @@ public class GunManager : MonoBehaviour
             }
         }
 
+
         return errorCount;
     }
 

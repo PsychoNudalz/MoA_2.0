@@ -4868,6 +4868,9 @@ MonoBehaviour:
   baseDamage: 0
   level: 0
   elementType: 3
+  explodeEffect: {fileID: 2573044334396453629}
+  delayDistroyGOs: []
+  delayTime: 0
   rb: {fileID: 0}
   physicMateral: {fileID: 13400000, guid: d611a62dd81be9a4da06f686b599e616, type: 2}
   mainCollider: {fileID: 0}
@@ -4876,7 +4879,6 @@ MonoBehaviour:
   tagList:
   - Enviorment
   - Enemy
-  explodeEffect: {fileID: 2573044334396453629}
   orientateProjectileToDirection: 1
   swirlAmount: 0.2
   swirlFrequency: 4
@@ -4887,13 +4889,14 @@ MonoBehaviour:
   triggerDetectionScript: {fileID: 9152647164108209820}
   targetTransform: {fileID: 0}
   homingDir: {x: 0, y: 0, z: 0}
+  homingStrength: 50
   damageMultiplier: 1
-  maxRange: 2
+  maxRange: 3
   rangeFalloff:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.29853058
+      time: 0.8
       value: 1
       inSlope: -0.021092163
       outSlope: -0.021092163
@@ -4928,10 +4931,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 265728
+    m_Bits: 265216
   tagList:
   - Enemy
-  - Player
   attackedTargets: []
 --- !u!136 &7456552688221636353
 CapsuleCollider:

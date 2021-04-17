@@ -9,6 +9,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     [SerializeField] private float walkSpeed = 1f;
     [SerializeField] private float minAttackDelay = 1f;
     [SerializeField] private float maxAttackDelay = 5f;
+    [SerializeField] private float attackDetectionRange = 50f;
     [SerializeField] private float minCoverDelay = 1f;
     [SerializeField] private float maxCoverDelay = 5f;
     [SerializeField] private GameObject fireballPrefab;
@@ -68,7 +69,7 @@ public class ShootingEnemyAgent : MonoBehaviour
                 RaycastHit hit;
                 Vector3 playerDirection = player.transform.position - firePoint.transform.position;
                 Debug.DrawRay(firePoint.position, playerDirection, Color.red,2f);
-                if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, 20f))
+                if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, attackDetectionRange))
                 {
                     if (hit.collider.CompareTag("Player"))
                     {

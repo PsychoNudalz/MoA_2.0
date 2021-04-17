@@ -26,8 +26,8 @@ public class GCSSave
 
         if (obj is string)
         {
-            return GCName.Contains(obj as string) || ((string)obj).Contains(GCName);
-            //return GCName.Equals(obj as string);
+            //return GCName.Contains(obj as string) || ((string)obj).Contains(GCName);
+            return GCName.Equals(obj as string);
         }
         if (obj is GCSelection)
         {

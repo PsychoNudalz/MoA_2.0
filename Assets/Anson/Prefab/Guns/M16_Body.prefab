@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: StartReload
-  isUnique: 1
   clip: {fileID: 8300000, guid: 533956f2962532e478fcca2ba77822f9, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -55,9 +54,11 @@ MonoBehaviour:
   dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
-  loop: 0
-  playOnAwake: 0
-  doesNotRestartOnPlay: 0
+  audioMixer: {fileID: 0}
+  soundManager: {fileID: 0}
+  isOld: 0
+  isLoop: 0
+  isPlayOnAwake: 0
   source: {fileID: 0}
 --- !u!1 &3062925513920080559
 GameObject:
@@ -68,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 629319124299023693}
-  - component: {fileID: 6991427819404131986}
+  - component: {fileID: 3941545142069340594}
   m_Layer: 8
   m_Name: GunShound
   m_TagString: Untagged
@@ -90,7 +91,7 @@ Transform:
   m_Father: {fileID: 4309278449915946941}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6991427819404131986
+--- !u!114 &3941545142069340594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,11 +100,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3062925513920080559}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5d2998e6bad0e4fbee47d31d24b684, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: GunShot
-  isUnique: 1
   clip: {fileID: 8300000, guid: e6bf0eaeae0952b45b0a6b2c6ae1bb02, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -114,10 +114,15 @@ MonoBehaviour:
   dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
-  loop: 0
-  playOnAwake: 0
-  doesNotRestartOnPlay: 0
+  audioMixer: {fileID: 0}
+  soundManager: {fileID: 0}
+  isOld: 0
+  isLoop: 0
+  isPlayOnAwake: 0
   source: {fileID: 0}
+  sourcePool: []
+  sourcePoolSize: 3
+  poolIndex: -1
 --- !u!1 &7515428065024757782
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: EndReload
-  isUnique: 1
   clip: {fileID: 8300000, guid: 251292a782f1ad64084c6ad8630697a4, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -173,9 +177,11 @@ MonoBehaviour:
   dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
-  loop: 0
-  playOnAwake: 0
-  doesNotRestartOnPlay: 0
+  audioMixer: {fileID: 0}
+  soundManager: {fileID: 0}
+  isOld: 0
+  isLoop: 0
+  isPlayOnAwake: 0
   source: {fileID: 0}
 --- !u!1 &8006553030562583846
 GameObject:
@@ -358,7 +364,8 @@ MonoBehaviour:
   sightOffset: {x: 0, y: 0, z: 0}
   muzzleLocation: {fileID: 0}
   animator: {fileID: 6208816365887547987}
-  sound_Fire: {fileID: 6991427819404131986}
+  shootAnimationLerp: 1
+  sound_Fire: {fileID: 3941545142069340594}
   sound_StartReload: {fileID: 58570718916964098}
   sound_EndReload: {fileID: 6340718480508024532}
 --- !u!65 &4476618146266873188
@@ -763,12 +770,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
