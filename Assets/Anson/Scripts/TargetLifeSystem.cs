@@ -8,6 +8,8 @@ public class TargetLifeSystem : LifeSystemScript
     [SerializeField] TargetHandlerScript targetHandler;
     [Header("Shader Effects")]
     [SerializeField] TargetMaterialHandlerScript targetMaterialHandler;
+    [Header("Sound")]
+    [SerializeField] TargetSoundScript targetSoundScript;
     [Header("Collider")]
     [SerializeField] Collider[] mainColliders;
 
@@ -19,6 +21,7 @@ public class TargetLifeSystem : LifeSystemScript
 
         targetHandler = GetComponent<TargetHandlerScript>();
         targetMaterialHandler = targetHandler.TargetMaterialHandler;
+        targetSoundScript = targetHandler.TargetSoundScript;
     }
 
     public override void PlayTakeDamageEffect()
@@ -29,12 +32,17 @@ public class TargetLifeSystem : LifeSystemScript
     public override int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
         targetMaterialHandler.StartDecay();
+        if (displayTakeDamageEffect)
+        {
+            targetSoundScript.Play_TakeDamage();
+        }
         return base.takeDamage(dmg, level, element, displayTakeDamageEffect);
     }
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
     {
         targetMaterialHandler.StartDecay();
+        targetSoundScript.Play_Stagger();
         return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }
     public override void RemoveDebuff(FireEffectScript debuff = null)
@@ -87,6 +95,7 @@ public class TargetLifeSystem : LifeSystemScript
 
     public override void DeathBehaviour()
     {
+        targetSoundScript.Play_Death();
         base.DeathBehaviour();
     }
 

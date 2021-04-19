@@ -6,9 +6,11 @@ public class TargetHandlerScript : MonoBehaviour
 {
     [SerializeField] TargetLifeSystem targetLifeSystem;
     [SerializeField] TargetMaterialHandlerScript targetMaterialHandler;
+    [SerializeField] TargetSoundScript targetSoundScript;
 
     public TargetLifeSystem TargetLifeSystem { get => targetLifeSystem; }
     public TargetMaterialHandlerScript TargetMaterialHandler { get => targetMaterialHandler; }
+    public TargetSoundScript TargetSoundScript { get => targetSoundScript; set => targetSoundScript = value; }
 
     private void Awake()
     {
@@ -19,6 +21,10 @@ public class TargetHandlerScript : MonoBehaviour
         if (targetMaterialHandler == null)
         {
             targetMaterialHandler = GetComponentInChildren<TargetMaterialHandlerScript>();
+        }
+        if (targetSoundScript == null)
+        {
+            targetSoundScript = GetComponentInChildren<TargetSoundScript>();
         }
     }
 

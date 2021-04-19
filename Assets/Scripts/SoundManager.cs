@@ -217,12 +217,13 @@ public class SoundManager : MonoBehaviour
     [SerializeField] List<Sound> sounds = new List<Sound>();
     [SerializeField] List<Sound> soundsCache = new List<Sound>();
     [SerializeField] AudioMixer audioMixer;
+    [SerializeField] bool playBGM = true;
     [SerializeField] Sound bgm;
 
     private void Start()
     {
         UpdateSounds();
-        if (bgm != null)
+        if (bgm != null && playBGM)
         {
             if (!bgm.IsPlaying())
             {
