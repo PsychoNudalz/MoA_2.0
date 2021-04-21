@@ -89,7 +89,7 @@ public class SettingsSaveCollection
     public float sensitivity = 15;
     public float sensitivityADS = 15; // not using
     public float masterVolume = 1;
-    public SettingsSaveCollection(SettingsSaveStats sss) 
+    public SettingsSaveCollection(SettingsSaveStats sss)
     {
         this.sensitivity = sss.sensitivity;
         this.sensitivityADS = sss.sensitivityADS;
@@ -218,7 +218,8 @@ public class SaveManagerScript : MonoBehaviour
         {
             playerMasterScript = FindObjectOfType<PlayerMasterScript>();
         }
-        if (!settingsMenuManager) {
+        if (!settingsMenuManager)
+        {
             settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
         }
         if (freshSaveData)
@@ -229,7 +230,15 @@ public class SaveManagerScript : MonoBehaviour
         Debug.Log("Loading data");
         gunManager.GCSSaveCollection = gCSSaveCollection;
         playerMasterScript.PlayerSaveCollection = playerSaveCollection;
-        settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
+        try
+        {
+            settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
+
+        }
+        catch (NullReferenceException e)
+        {
+
+        }
     }
 
     bool RemoveDuplicateSaveManager()
@@ -266,7 +275,14 @@ public class SaveManagerScript : MonoBehaviour
         playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
 
         //save settings
-        settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
+        try
+        {
+            settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
+        }
+        catch (NullReferenceException e)
+        {
+
+        }
 
         print("Write save data");
         saveString = JsonUtility.ToJson(new SaveCollection(playerSaveCollection, gCSSaveCollection, settingsSaveCollection));
@@ -278,8 +294,9 @@ public class SaveManagerScript : MonoBehaviour
         try
         {
 
-        File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile, saveString);
-        } catch(DirectoryNotFoundException e)
+            File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile, saveString);
+        }
+        catch (DirectoryNotFoundException e)
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/SaveFiles/");
             File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile, saveString);
