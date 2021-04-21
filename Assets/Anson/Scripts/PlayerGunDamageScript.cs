@@ -70,6 +70,7 @@ public class PlayerGunDamageScript : GunDamageScript
             UpdateAmmoCount();
             UpdateGunStatText();
             ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
+            //ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), mainGunStatsScript.ElementType, mainGunStatsScript.GunType, currentSlot);
         }
 
         return newGun;

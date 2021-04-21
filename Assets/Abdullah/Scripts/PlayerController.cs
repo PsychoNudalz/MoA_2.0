@@ -62,10 +62,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
     [SerializeField] PlayerInterationScript playerInterationScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
+    [SerializeField] AnsonTempUIScript ansonTempUIScript;
 
     public PlayerGunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
     public PlayerInterationScript PlayerInterationScript { get => playerInterationScript; set => playerInterationScript = value; }
+    public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
     public bool DisableControl { get => disableControl; set => disableControl = value; }
     public int DashCharges { get => dashCharges;}
     public PlayerVolumeControllerScript PlayerVolumeControllerScript { set => playerVolumeControllerScript = value; }
@@ -112,7 +114,7 @@ public class PlayerController : MonoBehaviour
         {
             dashCharges++;
             dashStart = Time.time;
-
+            ansonTempUIScript.UpdateDashDisplay(dashCharges);
         }
     }
 
@@ -232,6 +234,7 @@ public class PlayerController : MonoBehaviour
                 dashStart = Time.time;
                 playerVolumeControllerScript.PlayLD();
                 StartCoroutine(DashCoroutine());
+                ansonTempUIScript.UpdateDashDisplay(dashCharges);
             }
         }
 

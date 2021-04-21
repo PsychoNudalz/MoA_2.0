@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject darken;
 
     [SerializeField] private float factor = -0.004f;
+    [SerializeField] private AudioSource audioSource;
     private Keyboard keyboard;
     private Mouse mouse;
     void Start() {
@@ -38,6 +39,7 @@ public class MainMenu : MonoBehaviour
         if (pressAnykey.color.a > 0.95f) factor = -0.004f;
 
         if (pressAnykey.gameObject.activeSelf && (keyboard.anyKey.isPressed || mouse.leftButton.isPressed || mouse.rightButton.isPressed || mouse.middleButton.isPressed)) {
+            audioSource.Play();
             pressAnykey.gameObject.SetActive(false);
             darken.SetActive(true);
             mainMenu.SetActive(true);
