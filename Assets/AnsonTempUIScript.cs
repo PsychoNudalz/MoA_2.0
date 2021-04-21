@@ -21,11 +21,11 @@ public class AnsonTempUIScript : MonoBehaviour
     public TextMeshProUGUI newGunText;
     //public TextMeshProUGUI healthText;
     public Image enemyHealthBar;
-    public Text enemyName;
+    public TextMeshProUGUI enemyName;
     public GameObject enemyInfo;
     public Image healthBar;
     public Image dash;
-    public Text dashChargeDisplay;
+    public TextMeshProUGUI dashChargeDisplay;
     Sprite dashReady, dashCoolDown;
     public GameObject gameOverScreen;
     public WeaponAmmoPair gun1;

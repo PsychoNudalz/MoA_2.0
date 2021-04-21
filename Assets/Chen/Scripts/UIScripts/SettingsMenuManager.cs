@@ -42,7 +42,7 @@ public class SettingsMenuManager : MonoBehaviour
 
     public void sensitivityADSOnChange(float val) {
         if (isInGame) {
-            playerMasterScript.SetSensitivity(val);
+            //playerMasterScript.SetSensitivity(val);
         }
         settingsSaveStats.sensitivityADS = val;
     }
