@@ -50,6 +50,12 @@ public class LifeSystemScript : MonoBehaviour
 
     protected void Awake()
     {
+
+        AwakeBehaviour();
+    }
+
+    protected virtual void AwakeBehaviour()
+    {
         health_Current = health_Max;
         try
         {
@@ -60,7 +66,6 @@ public class LifeSystemScript : MonoBehaviour
         {
             print("LifeSystemScript error - ");
         }
-
     }
 
     private void FixedUpdate()

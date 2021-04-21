@@ -25,6 +25,10 @@ public class SettingsMenuManager : MonoBehaviour
         if (settingsSaveCollection != null) {
             LoadSave(settingsSaveCollection);
         }
+        if (!playerMasterScript)
+        {
+            playerMasterScript = GetComponentInParent<PlayerMasterScript>();
+        }
     }
     public void Start() {
         if (playerMasterScript == null) isInGame = false;

@@ -222,6 +222,10 @@ public class SaveManagerScript : MonoBehaviour
         {
             settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
         }
+        if (!settingsMenuManager)
+        {
+            settingsMenuManager = playerMasterScript.GetComponentInChildren<SettingsMenuManager>();
+        }
         if (freshSaveData)
         {
             OverrideData();
@@ -237,7 +241,7 @@ public class SaveManagerScript : MonoBehaviour
         }
         catch (NullReferenceException e)
         {
-
+            Debug.LogWarning("Save Manager: null on settingsMenu");
         }
     }
 
