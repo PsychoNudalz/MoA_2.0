@@ -86,9 +86,14 @@ public class PlayerSaveCollection
 [Serializable]
 public class SettingsSaveCollection
 {
-    public SettingsSaveCollection()
+    public float sensitivity = 15;
+    public float sensitivityADS = 15; // not using
+    public float masterVolume = 1;
+    public SettingsSaveCollection(SettingsSaveStats sss)
     {
-
+        this.sensitivity = sss.sensitivity;
+        this.sensitivityADS = sss.sensitivityADS;
+        this.masterVolume = sss.masterVolume;
     }
 }
 
@@ -99,10 +104,11 @@ public class SaveCollection
     public GCSSaveCollection gCSSaveCollection;
     public SettingsSaveCollection settingsSaveCollection;
 
-    public SaveCollection(PlayerSaveCollection psc, GCSSaveCollection gcssc)
+    public SaveCollection(PlayerSaveCollection psc, GCSSaveCollection gcssc, SettingsSaveCollection ssc)
     {
         playerSaveCollection = psc;
         gCSSaveCollection = gcssc;
+        settingsSaveCollection = ssc;
     }
 }
 
@@ -160,10 +166,12 @@ public class SaveManagerScript : MonoBehaviour
     [Space]
     public GunManager gunManager;
     public PlayerMasterScript playerMasterScript;
+    public SettingsMenuManager settingsMenuManager;
     [SerializeField] List<GCSSave> gCSSaves;
     SaveCollection saveCollection;
     [SerializeField] GCSSaveCollection gCSSaveCollection;
     [SerializeField] PlayerSaveCollection playerSaveCollection;
+    [SerializeField] SettingsSaveCollection settingsSaveCollection;
 
     private void Awake()
     {
@@ -210,6 +218,14 @@ public class SaveManagerScript : MonoBehaviour
         {
             playerMasterScript = FindObjectOfType<PlayerMasterScript>();
         }
+        if (!settingsMenuManager)
+        {
+            settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
+        }
+        if (!settingsMenuManager)
+        {
+            settingsMenuManager = playerMasterScript.GetComponentInChildren<SettingsMenuManager>();
+        }
         if (freshSaveData)
         {
             OverrideData();
@@ -218,6 +234,15 @@ public class SaveManagerScript : MonoBehaviour
         Debug.Log("Loading data");
         gunManager.GCSSaveCollection = gCSSaveCollection;
         playerMasterScript.PlayerSaveCollection = playerSaveCollection;
+        try
+        {
+            settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
+
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning("Save Manager: null on settingsMenu");
+        }
     }
 
     bool RemoveDuplicateSaveManager()
@@ -253,8 +278,18 @@ public class SaveManagerScript : MonoBehaviour
 
         playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
 
+        //save settings
+        try
+        {
+            settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
+        }
+        catch (NullReferenceException e)
+        {
+
+        }
+
         print("Write save data");
-        saveString = JsonUtility.ToJson(new SaveCollection(playerSaveCollection, gCSSaveCollection));
+        saveString = JsonUtility.ToJson(new SaveCollection(playerSaveCollection, gCSSaveCollection, settingsSaveCollection));
         print(saveString);
         if (saveFile.Equals(""))
         {
@@ -263,8 +298,9 @@ public class SaveManagerScript : MonoBehaviour
         try
         {
 
-        File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile, saveString);
-        } catch(DirectoryNotFoundException e)
+            File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile, saveString);
+        }
+        catch (DirectoryNotFoundException e)
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/SaveFiles/");
             File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile, saveString);
@@ -286,6 +322,7 @@ public class SaveManagerScript : MonoBehaviour
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
         playerSaveCollection = saveCollection.playerSaveCollection;
         gCSSaveCollection = saveCollection.gCSSaveCollection;
+        settingsSaveCollection = saveCollection.settingsSaveCollection;
         print("load save data complete");
 
     }

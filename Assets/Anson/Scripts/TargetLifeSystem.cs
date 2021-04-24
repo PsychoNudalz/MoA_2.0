@@ -17,8 +17,8 @@ public class TargetLifeSystem : LifeSystemScript
 
     private void Awake()
     {
-        base.Awake();
-
+        //base.Awake();
+        AwakeBehaviour();
         targetHandler = GetComponent<TargetHandlerScript>();
         targetMaterialHandler = targetHandler.TargetMaterialHandler;
         targetSoundScript = targetHandler.TargetSoundScript;

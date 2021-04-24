@@ -79,7 +79,7 @@ public class ShockEffectScript : ElementDebuffScript
             UpdateShock(lsList[i]);
         }
         */
-        while (toShockQueue.Count != 0 && toShockQueue != null)
+        while (toShockQueue != null&& toShockQueue.Count != 0)
         {
             //ShockEffectScript newShock = new ShockEffectScript(effectDamage, effectPotency, tagList, layerMask, ignorePlayer);
             ShockEffectScript newShock = new ShockEffectScript();

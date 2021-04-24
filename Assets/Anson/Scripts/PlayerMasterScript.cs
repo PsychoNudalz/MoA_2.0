@@ -77,6 +77,11 @@ public class PlayerMasterScript : MonoBehaviour
             playerController.PlayerInterationScript = playerInterationScript;
         }
 
+        if (!playerController.AnsonTempUIScript)
+        {
+            playerController.AnsonTempUIScript = ansonTempUIScript;
+        }
+
         if (playerInventorySystemScript.GunDamageScript == null)
         {
             playerInventorySystemScript.GunDamageScript = playerGunDamageScript;
