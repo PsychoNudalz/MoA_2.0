@@ -104,9 +104,9 @@ public class LifeSystemScript : MonoBehaviour
     public virtual int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
 
+            health_Current -= Mathf.RoundToInt(dmg);
         if (!isDead)
         {
-            health_Current -= Mathf.RoundToInt(dmg);
             print(name + " take damage: " + dmg);
             //updateHealthBar();
             displayDamage(dmg, element);
@@ -132,9 +132,9 @@ public class LifeSystemScript : MonoBehaviour
     public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1, bool displayTakeDamageEffect = true)
     {
 
+            health_Current -= Mathf.RoundToInt(dmg * multiplier);
         if (!isDead)
         {
-            health_Current -= Mathf.RoundToInt(dmg * multiplier);
             print(name + " take " + element + " damage: " + dmg + " x " + multiplier);
             //updateHealthBar();
             displayDamageCritical(dmg * multiplier);

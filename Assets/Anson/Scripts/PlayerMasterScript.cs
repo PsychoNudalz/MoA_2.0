@@ -12,6 +12,7 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] AnsonTempUIScript ansonTempUIScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
     [SerializeField] PlayerSaveStats playerSaveStats;
+    [SerializeField] PlayerGetTargetHealthScript playerGetTargetHealth;
     [SerializeField] PlayerSaveCollection playerSaveCollection;
     [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
 
@@ -61,6 +62,11 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerSaveStats = GetComponent<PlayerSaveStats>();
         }
+        if (!playerGetTargetHealth)
+        {
+            playerGetTargetHealth = GetComponent<PlayerGetTargetHealthScript>();
+        }
+
 
         if (playerController.GunDamageScript == null)
         {
