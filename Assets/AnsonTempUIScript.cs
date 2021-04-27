@@ -35,8 +35,9 @@ public class AnsonTempUIScript : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool debugMode;
     [SerializeField] TextMeshProUGUI coinText;
-    
-    private void Start() {
+
+    private void Start()
+    {
         dashReady = Resources.Load<Sprite>("Sprites/Skill_Ready");
         dashCoolDown = Resources.Load<Sprite>("Sprites/Skill_CoolDown");
     }
@@ -117,15 +118,32 @@ public class AnsonTempUIScript : MonoBehaviour
         rt.SetSizeWithCurrentAnchors(
             RectTransform.Axis.Horizontal,
             478 * hp_ratio);
-        if (hp_ratio < 0.3f) {
+        if (hp_ratio < 0.3f)
+        {
             healthBar.color = new Color(0.81f, 0.164f, 0.307f, 1);
-        } else {
+        }
+        else
+        {
             healthBar.color = new Color(1, 1, 1, 1);
         }
         //healthText.text = "HP:" + hp.ToString("0") + "/" + hp_Max.ToString("0");
     }
 
-    public void SetEnemyHealth(float hp, float hp_Max, string name) {
+    public void SetEnemyHealth(bool b)
+    {
+        enemyInfo.SetActive(false);
+    }
+
+    public void SetEnemyHealth(LifeSystemScript ls)
+    {
+        if (ls != null)
+        {
+            SetEnemyHealth(ls.Health_Current, ls.Health_Max, ls.gameObject.name);
+        }
+    }
+
+    public void SetEnemyHealth(float hp, float hp_Max, string name)
+    {
         enemyInfo.SetActive(true);
         float hp_ratio = hp / hp_Max;
         enemyName.text = name;
@@ -133,18 +151,25 @@ public class AnsonTempUIScript : MonoBehaviour
         rt.SetSizeWithCurrentAnchors(
             RectTransform.Axis.Horizontal,
             595 * hp_ratio);
-        if (hp_ratio < 0.3f) {
+        if (hp_ratio < 0.3f)
+        {
             enemyHealthBar.color = new Color(0.81f, 0.164f, 0.307f, 1);
-        } else {
+        }
+        else
+        {
             enemyHealthBar.color = new Color(1, 1, 1, 1);
         }
     }
 
-    public void UpdateDashDisplay(int charges) {
-        if (charges == 0) {
+    public void UpdateDashDisplay(int charges)
+    {
+        if (charges == 0)
+        {
             dash.sprite = dashCoolDown;
             dashChargeDisplay.text = "0 / 2";
-        } else {
+        }
+        else
+        {
             dash.sprite = dashReady;
             dashChargeDisplay.text = charges.ToString("0") + " / 2";
         }
