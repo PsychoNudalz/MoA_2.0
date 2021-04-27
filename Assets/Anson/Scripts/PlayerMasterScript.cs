@@ -148,5 +148,9 @@ public class PlayerMasterScript : MonoBehaviour
     {
         playerSaveStats.Load(psc);
     }
+    public void TeleportPlayer(Vector3 pos)
+    {
+        playerController.Teleport(pos);
+    }
 
 }

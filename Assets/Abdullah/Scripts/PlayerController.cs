@@ -142,6 +142,14 @@ public class PlayerController : MonoBehaviour
         controller.Move(jumped * Time.deltaTime);
     }
 
+    public void Teleport(Vector3 pos)
+    {
+        controller.enabled = false;
+        transform.position = pos;
+        controller.enabled = true;
+
+    }
+
     public void SetControlLock(bool b)
     {
         disableControl = !b;

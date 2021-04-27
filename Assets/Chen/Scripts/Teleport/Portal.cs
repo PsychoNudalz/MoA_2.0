@@ -41,9 +41,12 @@ public class Portal : MonoBehaviour
         {
             rewardLoot = true;
             player.GetComponent<PlayerMasterScript>().PlayerSaveStats.AddCoins(CoinAmount);
+            GameObject newGun;
             for (int i = 0; i < lootAmount; i++)
             {
-                gunManager.GenerateGun().transform.position = player.transform.position + new Vector3(i*0.1f, 1, 0);
+                newGun = gunManager.GenerateGun();
+                newGun.transform.position = player.transform.position + new Vector3(i*0.3f, 1, i * 0.3f);
+                newGun.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30*i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0,1000,0)));
             }
 
         }
@@ -68,9 +71,12 @@ public class Portal : MonoBehaviour
     void TeleportPlayer()
     {
         Debug.Log("Ohhhhhhhhhhhhhhhhhhhhhhhhh");
+        /*
         player.SetActive(false);
         player.transform.position = targetSpawner.transform.position;
         player.SetActive(true);
+        */
+        player.GetComponent<PlayerMasterScript>().TeleportPlayer(targetSpawner.transform.position);
         if (nextRoomEnemySystem != null)
         {
 
