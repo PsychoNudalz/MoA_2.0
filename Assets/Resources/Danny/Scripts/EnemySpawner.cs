@@ -20,11 +20,17 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemyToSpawn;
     private int enemiesSpawned;
     private float spawnCountdown;
-    
+    private RoomEnemySystem roomSystem;
+
+    internal void UpdateEnemyNumber()
+    {
+        throw new NotImplementedException();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        roomSystem = transform.parent.GetComponent<RoomEnemySystem>();
         /*
          * Save enemy prefabs to spawn in array
          */
@@ -93,6 +99,7 @@ public class EnemySpawner : MonoBehaviour
                 GameObject enemySpawned = GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
                 enemySpawned.name = EnumToString.GetEnemyStringFromEnum(enemySpawned.GetComponent<EnemyTypeScript>().EnemyType);
                 enemiesSpawned++;
+                IncrementEnemies();
                 ResetSpawnCountdown();
             }
         }
@@ -101,8 +108,19 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemySpawned = GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
             enemySpawned.name = EnumToString.GetEnemyStringFromEnum(enemySpawned.GetComponent<EnemyTypeScript>().EnemyType);
             enemiesSpawned++;
+            IncrementEnemies();
             ResetSpawnCountdown();
         }
+    }
+
+    private void IncrementEnemies()
+    {
+        roomSystem.IncrementEnemies();
+    }
+
+    internal void DecrementEnemies()
+    {
+        roomSystem.DecrementEnemies();
     }
 
     /*

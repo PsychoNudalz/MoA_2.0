@@ -86,6 +86,7 @@ public class ShootingEnemyAgent : MonoBehaviour
         }
         if (IsDead)
         {
+            
             GameObject.Destroy(this.transform.gameObject, 5f);
         }
     }

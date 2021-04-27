@@ -28,7 +28,6 @@ public class StoneEnemyAgent : MonoBehaviour
     private float walkPointRange = 100f;
 
 
-
     private void Awake()
     {
         ResetEnemy();

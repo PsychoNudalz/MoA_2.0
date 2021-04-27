@@ -6,10 +6,13 @@ public class ShootingEnemyLifeSystem : TargetLifeSystem
 {
     [Header("Shooting Enemy Agent")]
     ShootingEnemyAgent shootingEnemyAgent;
+    EnemySpawner spawner;
+    bool displayDecremented = false;
 
     private void Start()
     {
         shootingEnemyAgent = GetComponent<ShootingEnemyAgent>();
+        spawner = transform.parent.GetComponent<EnemySpawner>();
     }
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
@@ -31,5 +34,15 @@ public class ShootingEnemyLifeSystem : TargetLifeSystem
     private void StaggerAnimation()
     {
         shootingEnemyAgent.Stagger();
+    }
+
+    public override void DeathBehaviour()
+    {
+        base.DeathBehaviour();
+        if (!displayDecremented)
+        {
+            spawner.DecrementEnemies();
+            displayDecremented = true;
+        }
     }
 }

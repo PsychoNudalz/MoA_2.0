@@ -18,7 +18,6 @@ public class TankEnemyAgent : MonoBehaviour
     private bool isShooting;
     private bool IsStaggering;
     private bool IsDead = false;
- 
 
     [Header("Tank")]
     [SerializeField] GunDamageScript gunDamageScript;
@@ -35,6 +34,7 @@ public class TankEnemyAgent : MonoBehaviour
         TankEnemyAnimator = GetComponent<Animator>();
         ResetAttackTimer();
         gun = GetComponentInChildren<AIGunDamageScript>();
+        
     }
 
     /*
