@@ -90,14 +90,16 @@ public class EnemySpawner : MonoBehaviour
         {
             if(transform.childCount == 0 && enemiesSpawned < numberOfEnemies)
             {
-                GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
+                GameObject enemySpawned = GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
+                enemySpawned.name = EnumToString.GetEnemyStringFromEnum(enemySpawned.GetComponent<EnemyTypeScript>().EnemyType);
                 enemiesSpawned++;
                 ResetSpawnCountdown();
             }
         }
         else
         {
-            GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
+            GameObject enemySpawned = GameObject.Instantiate(enemyToSpawn,transform.position,transform.rotation,transform);
+            enemySpawned.name = EnumToString.GetEnemyStringFromEnum(enemySpawned.GetComponent<EnemyTypeScript>().EnemyType);
             enemiesSpawned++;
             ResetSpawnCountdown();
         }
