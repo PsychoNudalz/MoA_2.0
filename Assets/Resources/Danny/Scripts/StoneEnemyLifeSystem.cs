@@ -6,10 +6,13 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
 {
     [Header("Stone Enemy Agent")]
     StoneEnemyAgent stoneEnemyAgent;
+    EnemySpawner spawner;
+    bool displayDecremented = false;
 
     private void Start()
     {
         stoneEnemyAgent = GetComponent<StoneEnemyAgent>();
+        spawner = transform.parent.GetComponent<EnemySpawner>();
     }
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element,float multiplier, bool displayTakeDamageEffect = true)
@@ -31,5 +34,14 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
     private void StaggerAnimation()
     {
         stoneEnemyAgent.Stagger();
+    }
+    public override void DeathBehaviour()
+    {
+        base.DeathBehaviour();
+        if (!displayDecremented)
+        {
+            spawner.DecrementEnemies();
+            displayDecremented = true;
+        }
     }
 }
