@@ -11,11 +11,13 @@ public class RoomEnemySystem : MonoBehaviour
     Keyboard kb;
     EnemySpawner[] roomSpawners;
     private int enemyCount = 0;
+    AnsonTempUIScript UIScript;
 
     private void Awake()
     {
         kb = InputSystem.GetDevice<Keyboard>();
         roomSpawners = GetComponentsInChildren<EnemySpawner>();
+        UIScript = FindObjectOfType<AnsonTempUIScript>();
     }
 
     private void UpdateEnemyNumberDisplay(bool start = false)
@@ -23,25 +25,19 @@ public class RoomEnemySystem : MonoBehaviour
         string textToSet = "";
         if (start)
         {
-            textToSet = "";
-            // Call UI set portal icon inactive
+            UIScript.SetEnemiesRemainingText(enemyCount,false);
+            UIScript.SetPortalIconActive(false);
         }
         else if(enemyCount == 0)
         {
-            textToSet = "Room Clear";
-            // Call UI set portal icon activated
+            UIScript.SetEnemiesRemainingText(enemyCount, true);
         }
         else
         {
-            textToSet = String.Format("{0} Enemies remaining", enemyCount);
+            UIScript.SetEnemiesRemainingText(enemyCount, false);
         }
-        //Call UI update display with textToSet
-
-
-        //For testing
-        FindObjectOfType<TempEnemyDisplay>().SetText(textToSet);
-       
         
+
     }
 
     private void Update()

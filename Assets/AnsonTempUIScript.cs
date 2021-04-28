@@ -31,6 +31,12 @@ public class AnsonTempUIScript : MonoBehaviour
     public WeaponAmmoPair gun1;
     public WeaponAmmoPair gun2;
     public WeaponAmmoPair gun3;
+    private Sprite portalInactive;
+    private Sprite portalActive;
+    [SerializeField] private TextMeshProUGUI enemiesRemainingText;
+    [SerializeField] private TextMeshProUGUI enemiesRemainingNumber;
+    [SerializeField] private Image portalIcon;
+
 
     [Header("Debug")]
     [SerializeField] bool debugMode;
@@ -40,6 +46,8 @@ public class AnsonTempUIScript : MonoBehaviour
     {
         dashReady = Resources.Load<Sprite>("Sprites/Skill_Ready");
         dashCoolDown = Resources.Load<Sprite>("Sprites/Skill_CoolDown");
+        portalInactive = Resources.Load<Sprite>("Sprites/Portal_Inactive");
+        portalActive = Resources.Load<Sprite>("Sprites/Portal_Active");
     }
 
     private void Awake()
@@ -198,4 +206,34 @@ public class AnsonTempUIScript : MonoBehaviour
         Application.Quit();
     }
 
+    public void SetEnemiesRemainingText(int numberOfEnemies, bool roomClear)
+    {
+        if (roomClear)
+        {
+            enemiesRemainingNumber.text = "";
+            enemiesRemainingText.text = "Room Clear!";
+            SetPortalIconActive(true);
+        }
+        else
+        {
+            enemiesRemainingNumber.text = numberOfEnemies.ToString();
+            enemiesRemainingText.text = "Enemies Remaining";
+            if (numberOfEnemies == 1)
+            {
+                enemiesRemainingText.text = "Enemy Remaining";
+            }
+        }
+    }
+
+    public void SetPortalIconActive(bool isActive)
+    {
+        if (isActive)
+        {
+            portalIcon.sprite = portalActive;
+        }
+        else
+        {
+            portalIcon.sprite = portalInactive;
+        }
+    }
 }
