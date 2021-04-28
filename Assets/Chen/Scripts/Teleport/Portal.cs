@@ -21,6 +21,7 @@ public class Portal : MonoBehaviour
     bool rewardLoot;
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
+    [SerializeField] GameObject VFXPane;
 
 
     public RoomEnemySystem CurrentRoomEnemySystem { get => currentRoomEnemySystem; }
@@ -46,6 +47,10 @@ public class Portal : MonoBehaviour
                 gunManager.GenerateGun().transform.position = player.transform.position + new Vector3(i*0.1f, 1, 0);
             }
 
+        }
+        if (currentRoomEnemySystem != null)
+        {
+            VFXPane.SetActive(currentRoomEnemySystem.IsRoomClear());
         }
     }
 
