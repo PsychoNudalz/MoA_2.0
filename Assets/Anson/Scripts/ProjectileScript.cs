@@ -194,7 +194,7 @@ public abstract class ProjectileScript : MonoBehaviour
         }
         else
         {
-            rb.velocity = ((homingDir * dotResults)*Time.deltaTime*homingStrength + rb.velocity).normalized * launchSpeed;
+            rb.velocity = ((homingDir * dotResults*Time.deltaTime*homingStrength) + rb.velocity.normalized).normalized * launchSpeed;
         }
     }
 

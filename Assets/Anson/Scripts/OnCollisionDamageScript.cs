@@ -25,7 +25,7 @@ public class OnCollisionDamageScript : DamageScript
 
     private void FixedUpdate()
     {
-        if (Time.time- lastDamageTick > tickIntervals)
+        if (Time.time - lastDamageTick > tickIntervals)
         {
             DealDamageToTargets();
         }
@@ -46,7 +46,7 @@ public class OnCollisionDamageScript : DamageScript
     private void OnCollisionEnter(Collision collision)
     {
         LifeSystemScript ls = LifeSystemScript.GetLifeSystemScript(collision.gameObject);
-        print("Collision: "+ls);
+        print("Collision: " + ls);
         if (!onTrigger && onEnter && tagList.Contains(collision.gameObject.tag) && LifeSystemScript.GetLifeSystemScript(collision.gameObject) != null)
         {
             AddTargetToList(collision.gameObject.GetComponentInParent<LifeSystemScript>());
@@ -92,9 +92,17 @@ public class OnCollisionDamageScript : DamageScript
 
     void DealDamageToTargets()
     {
-        foreach(LifeSystemScript ls in attackedTargets)
+        foreach (LifeSystemScript ls in attackedTargets)
         {
-            dealDamageToTarget(ls, damage*((Time.time-lastDamageTick)/tickIntervals), -1, elementType);
+            if (ls != null)
+            {
+                dealDamageToTarget(ls, damage * ((Time.time - lastDamageTick) / tickIntervals), -1, elementType);
+            }
+        }
+        while (attackedTargets.Contains(null))
+        {
+
+        attackedTargets.Remove(null);
         }
         lastDamageTick = Time.time;
     }

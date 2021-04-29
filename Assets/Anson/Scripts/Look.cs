@@ -11,6 +11,8 @@ public class Look : MonoBehaviour
     public Transform CharacterBody;
     public Transform UpDown;
     public Vector2 mouseValue;
+    public Vector2 mouseValue_Nor;
+    public float mouseValue_Mag;
 
 
     public float maxRotationDown = 40f;
@@ -44,7 +46,7 @@ public class Look : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!lookLock)
         {
@@ -55,7 +57,9 @@ public class Look : MonoBehaviour
 
     public void LookMouse(InputAction.CallbackContext callbackContext)
     {
-        mouseValue = callbackContext.ReadValue<Vector2>();
+        mouseValue = callbackContext.ReadValue<Vector2>()*(1/Time.deltaTime)*0.01f;
+        mouseValue_Nor = mouseValue.normalized;
+        mouseValue_Mag = mouseValue.magnitude;
     }
 
     public void MoveLook()
@@ -81,10 +85,16 @@ public class Look : MonoBehaviour
             }
         }
 
+        try
+        {
 
         UpDown.transform.localRotation = Quaternion.Euler(yRotation, 0f, 0f);
 
         CharacterBody.Rotate(Vector3.up * mouseX);
+        }catch(System.Exception e)
+        {
+
+        }
     }
 
     public void ModifySpeed(float mult)
