@@ -232,8 +232,24 @@ public class SaveManagerScript : MonoBehaviour
         }
         LoadData();
         Debug.Log("Loading data");
-        gunManager.GCSSaveCollection = gCSSaveCollection;
-        playerMasterScript.PlayerSaveCollection = playerSaveCollection;
+        try
+        {
+            gunManager.GCSSaveCollection = gCSSaveCollection;
+
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning("gun Manager: null on settingsMenu");
+        }
+        try
+        {
+            playerMasterScript.PlayerSaveCollection = playerSaveCollection;
+
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning("player Master: null on settingsMenu");
+        }
         try
         {
             settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
@@ -264,19 +280,24 @@ public class SaveManagerScript : MonoBehaviour
         print("Start save data");
         //Save GCS
         print("Start GCS save data");
-
-        List<GCSelection> allGCS = gunManager.AllGCSelections;
-        gCSSaves = new List<GCSSave>();
         string saveString = "";
-        foreach (GCSelection g in allGCS)
+        if (gunManager != null)
         {
-            gCSSaves.Add(new GCSSave(g));
+            List<GCSelection> allGCS = gunManager.AllGCSelections;
+            gCSSaves = new List<GCSSave>();
+            foreach (GCSelection g in allGCS)
+            {
+                gCSSaves.Add(new GCSSave(g));
+            }
+            gCSSaveCollection = new GCSSaveCollection(gCSSaves.ToArray());
+            //Save Player
+            print("Start player save data");
         }
-        gCSSaveCollection = new GCSSaveCollection(gCSSaves.ToArray());
-        //Save Player
-        print("Start player save data");
 
-        playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
+        if (playerMasterScript != null)
+        {
+            playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
+        }
 
         //save settings
         try

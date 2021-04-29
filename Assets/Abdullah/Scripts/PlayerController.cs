@@ -363,6 +363,7 @@ public class PlayerController : MonoBehaviour
         {
             lookScript.SetRotationSpeed(amount);
         }
+        print("Player Update sensitivity to:" + amount);
     }
 
 

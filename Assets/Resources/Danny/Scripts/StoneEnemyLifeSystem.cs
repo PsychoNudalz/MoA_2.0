@@ -12,7 +12,14 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
     private void Start()
     {
         stoneEnemyAgent = GetComponent<StoneEnemyAgent>();
+        try
+        {
+
         spawner = transform.parent.GetComponent<EnemySpawner>();
+        }catch(System.NullReferenceException e)
+        {
+            print(name + " can't find spawner");
+        }
     }
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element,float multiplier, bool displayTakeDamageEffect = true)

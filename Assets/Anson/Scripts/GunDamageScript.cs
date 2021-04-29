@@ -493,7 +493,15 @@ public class GunDamageScript : DamageScript
                 if (hit.collider.TryGetComponent(out WeakPointScript wps))
                 {
                     ls = wps.Ls;
+                    try
+                    {
                     dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, 2f);
+
+                    }catch(System.Exception e)
+                    {
+                        Debug.LogError("Failed to do damage");
+                        Debug.LogError(e);
+                    }
                 }
                 else
                 {

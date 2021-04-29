@@ -756,6 +756,10 @@ MonoBehaviour:
   gun3:
     gunName: {fileID: 0}
     gunAmmo: {fileID: 0}
+  enemiesRemainingText: {fileID: 0}
+  enemiesRemainingNumber: {fileID: 0}
+  portalIcon: {fileID: 0}
+  pauseSlider: []
   debugMode: 0
   coinText: {fileID: 0}
 --- !u!1 &1531604873
@@ -1012,6 +1016,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9030423a13f22d348acf6392ced5cfe7, type: 3}
+--- !u!114 &4009868641814961026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3040400858167363375, guid: 9030423a13f22d348acf6392ced5cfe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2131405695935847597}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65aae2d8d87d35e4a949e0948d4ce457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6960855740762042518 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9011046834929151035, guid: 9030423a13f22d348acf6392ced5cfe7,
@@ -1189,6 +1205,11 @@ PrefabInstance:
       propertyPath: gunManager
       value: 
       objectReference: {fileID: 4660823745994997689}
+    - target: {fileID: 8237181797525449886, guid: 62723adb1d1f42843b1647a7721a34cb,
+        type: 3}
+      propertyPath: settingsMenuManager
+      value: 
+      objectReference: {fileID: 4009868641814961026}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62723adb1d1f42843b1647a7721a34cb, type: 3}
 --- !u!4 &5736779929238140473 stripped
@@ -1819,6 +1840,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GunTesting
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125321434533899196, guid: 02a443f5e3a464a4c8ccc17033693215,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02a443f5e3a464a4c8ccc17033693215, type: 3}

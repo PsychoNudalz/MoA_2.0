@@ -2077,6 +2077,30 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &421022738 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9154187483819628901, guid: 13e85e6e03c03214b973fde994bfe628,
+    type: 3}
+  m_PrefabInstance: {fileID: 1585122360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &508057759 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9154187483675826456, guid: 13e85e6e03c03214b973fde994bfe628,
+    type: 3}
+  m_PrefabInstance: {fileID: 1585122360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &550566095
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,11 +2519,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MUST_HAVE
       objectReference: {fileID: 0}
-    - target: {fileID: 1673380746152486927, guid: ad1cf5dea5b861746b7e8937673e0bbc,
-        type: 3}
-      propertyPath: autoGenWeaponsOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2327874199182347267, guid: ad1cf5dea5b861746b7e8937673e0bbc,
         type: 3}
       propertyPath: m_RootOrder
@@ -2555,13 +2574,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2750591278332827227, guid: ad1cf5dea5b861746b7e8937673e0bbc,
+    - target: {fileID: 4009868641814961026, guid: ad1cf5dea5b861746b7e8937673e0bbc,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: sensitivity
+      value: 
+      objectReference: {fileID: 771161279}
+    - target: {fileID: 4009868641814961026, guid: ad1cf5dea5b861746b7e8937673e0bbc,
+        type: 3}
+      propertyPath: masterVolume
+      value: 
+      objectReference: {fileID: 508057759}
+    - target: {fileID: 4009868641814961026, guid: ad1cf5dea5b861746b7e8937673e0bbc,
+        type: 3}
+      propertyPath: sensitivityADS
+      value: 
+      objectReference: {fileID: 421022738}
+    - target: {fileID: 4009868641814961026, guid: ad1cf5dea5b861746b7e8937673e0bbc,
+        type: 3}
+      propertyPath: playerMasterScript
+      value: 
+      objectReference: {fileID: 1453616078}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad1cf5dea5b861746b7e8937673e0bbc, type: 3}
+--- !u!114 &771161279 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9154187483610500777, guid: 13e85e6e03c03214b973fde994bfe628,
+    type: 3}
+  m_PrefabInstance: {fileID: 1585122360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &775750396
 GameObject:
   m_ObjectHideFlags: 0
@@ -4779,6 +4825,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 127829834}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1453616078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1198423547983658473, guid: 13e85e6e03c03214b973fde994bfe628,
+    type: 3}
+  m_PrefabInstance: {fileID: 1585122360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddcdd393d16923f43bb48e6557ac0fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1512313231
 GameObject:
   m_ObjectHideFlags: 0
@@ -5015,9 +5073,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5080755843252701469, guid: 13e85e6e03c03214b973fde994bfe628,
+    - target: {fileID: 5422622871955565154, guid: 13e85e6e03c03214b973fde994bfe628,
         type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154187483351656897, guid: 13e85e6e03c03214b973fde994bfe628,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

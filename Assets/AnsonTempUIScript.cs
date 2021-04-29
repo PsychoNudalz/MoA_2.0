@@ -36,11 +36,15 @@ public class AnsonTempUIScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemiesRemainingText;
     [SerializeField] private TextMeshProUGUI enemiesRemainingNumber;
     [SerializeField] private Image portalIcon;
-
+    [Header("Pause Menu")]
+    [Tooltip("0:sensitivity 1:ADS 2:Master Volume")]
+    [SerializeField] List<Slider> pauseSlider;
 
     [Header("Debug")]
     [SerializeField] bool debugMode;
     [SerializeField] TextMeshProUGUI coinText;
+
+    public List<Slider> PauseSlider { get => pauseSlider; set => pauseSlider = value; }
 
     private void Start()
     {
