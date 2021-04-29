@@ -21,6 +21,7 @@ public class Portal : MonoBehaviour
     bool rewardLoot;
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
+    [SerializeField] GameObject VFXPane;
 
 
     public RoomEnemySystem CurrentRoomEnemySystem { get => currentRoomEnemySystem; }
@@ -49,6 +50,10 @@ public class Portal : MonoBehaviour
                 newGun.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30*i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0,1000,0)));
             }
 
+        }
+        if (currentRoomEnemySystem != null)
+        {
+            VFXPane.SetActive(currentRoomEnemySystem.IsRoomClear());
         }
     }
 
