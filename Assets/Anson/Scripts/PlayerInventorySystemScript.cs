@@ -107,6 +107,19 @@ public class PlayerInventorySystemScript : MonoBehaviour
         }
     }
 
+    public void CycleWeapon(bool next)
+    {
+        if (next)
+        {
+            SwapToWeapon((pointer + 1) % 3);
+        }
+        else
+        {
+            SwapToWeapon((pointer +2) % 3);
+
+        }
+    }
+
 
     void ThrowOldWeapon()
     {
