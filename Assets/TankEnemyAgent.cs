@@ -34,7 +34,6 @@ public class TankEnemyAgent : MonoBehaviour
         TankEnemyAnimator = GetComponent<Animator>();
         ResetAttackTimer();
         gun = GetComponentInChildren<AIGunDamageScript>();
-        
     }
 
     /*
