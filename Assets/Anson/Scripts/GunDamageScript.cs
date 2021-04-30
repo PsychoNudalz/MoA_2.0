@@ -74,6 +74,10 @@ public class GunDamageScript : DamageScript
 
     private void Awake()
     {
+        AwakeBehaviour();
+    }
+    public virtual void AwakeBehaviour()
+    {
         //lookScript = FindObjectOfType<Look>();
         if (mainGunStatsScript != null)
         {
@@ -232,6 +236,7 @@ public class GunDamageScript : DamageScript
 
     public virtual void Fire(bool b)
     {
+        print(name + " Set Fire: " + b);
         isFiring = b;
 
 

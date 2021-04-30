@@ -101,8 +101,8 @@ public class Sound : MonoBehaviour
         if (isOld)
         {
             source.loop = isLoop;
-            source.playOnAwake = isPlayOnAwake;
         }
+            source.playOnAwake = isPlayOnAwake;
     }
 
     public bool IsPlaying()

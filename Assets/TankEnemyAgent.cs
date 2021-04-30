@@ -96,7 +96,7 @@ public class TankEnemyAgent : MonoBehaviour
         yield return new WaitForSeconds(delay);
         ResetAttackTimer();
         isShooting = false;
-        EndFire();
+        //EndFire();
 
     }
 
