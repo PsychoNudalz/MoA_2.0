@@ -35,9 +35,17 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Look"",
+                    ""name"": ""LookMouse"",
                     ""type"": ""PassThrough"",
                     ""id"": ""b7a6a53f-82ed-4471-a414-771b8e7b1c5b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LookController"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""7e6106f2-3919-4f07-9927-fa20329b7bef"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -150,6 +158,30 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""name"": ""GenerateGun"",
                     ""type"": ""Button"",
                     ""id"": ""25cd3158-9f23-4c28-93e0-e5f1513384a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Excape"",
+                    ""type"": ""Button"",
+                    ""id"": ""742174c7-1712-4d9a-b84b-a2ca9d547955"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""NextWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""16930ccd-7874-4b33-806d-ec03fe6e4181"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreviousWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""16677ee0-e741-4115-8e53-a258e26b4a7e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -273,29 +305,7 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""60b93b66-e445-42b5-92dc-fcaae8a3d572"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=20,y=20)"",
-                    ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7eca747a-31d8-4822-9405-08c67b0683fe"",
-                    ""path"": ""<XInputController>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=20,y=20)"",
-                    ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""LookMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -313,7 +323,7 @@ public class @Controller : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2933acbe-24f5-4573-b2e9-a63012c01b9e"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -566,7 +576,7 @@ public class @Controller : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""160ca458-4f10-48f2-9387-94ad62636bcd"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -628,6 +638,116 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""action"": ""GenerateGun"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6bc3e64-5a9f-43b4-9399-f7066e69aade"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Excape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a21e67a-5808-46c6-adfe-afc8fcf8d6b8"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Excape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""035ad0fd-9ee0-40ad-ace5-151b9e7b55ba"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookController"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ac9d58f-43c7-4775-8f9c-313814aa3844"",
+                    ""path"": ""<XInputController>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookController"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f99d55ff-0305-4a36-b18d-1ec449a0cb7c"",
+                    ""path"": ""<Mouse>/backButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6087450-4e99-4423-b5b5-c3d22c068e8e"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bebd84cf-50f0-4404-8550-6d468dc4072d"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2fe364f-905f-4d2c-871c-e6766f13cdb5"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2cc60b9-f4c1-4d11-bec4-88b7b5660e76"",
+                    ""path"": ""<Mouse>/forwardButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8324c989-49a7-445f-8746-04567e38a9d4"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -666,7 +786,8 @@ public class @Controller : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_LookMouse = m_Player.FindAction("LookMouse", throwIfNotFound: true);
+        m_Player_LookController = m_Player.FindAction("LookController", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
@@ -681,6 +802,9 @@ public class @Controller : IInputActionCollection, IDisposable
         m_Player_TestButton2 = m_Player.FindAction("TestButton2", throwIfNotFound: true);
         m_Player_DespawnAllGuns = m_Player.FindAction("DespawnAllGuns", throwIfNotFound: true);
         m_Player_GenerateGun = m_Player.FindAction("GenerateGun", throwIfNotFound: true);
+        m_Player_Excape = m_Player.FindAction("Excape", throwIfNotFound: true);
+        m_Player_NextWeapon = m_Player.FindAction("NextWeapon", throwIfNotFound: true);
+        m_Player_PreviousWeapon = m_Player.FindAction("PreviousWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -732,7 +856,8 @@ public class @Controller : IInputActionCollection, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_LookMouse;
+    private readonly InputAction m_Player_LookController;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Reload;
@@ -747,13 +872,17 @@ public class @Controller : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_TestButton2;
     private readonly InputAction m_Player_DespawnAllGuns;
     private readonly InputAction m_Player_GenerateGun;
+    private readonly InputAction m_Player_Excape;
+    private readonly InputAction m_Player_NextWeapon;
+    private readonly InputAction m_Player_PreviousWeapon;
     public struct PlayerActions
     {
         private @Controller m_Wrapper;
         public PlayerActions(@Controller wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @LookMouse => m_Wrapper.m_Player_LookMouse;
+        public InputAction @LookController => m_Wrapper.m_Player_LookController;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
@@ -768,6 +897,9 @@ public class @Controller : IInputActionCollection, IDisposable
         public InputAction @TestButton2 => m_Wrapper.m_Player_TestButton2;
         public InputAction @DespawnAllGuns => m_Wrapper.m_Player_DespawnAllGuns;
         public InputAction @GenerateGun => m_Wrapper.m_Player_GenerateGun;
+        public InputAction @Excape => m_Wrapper.m_Player_Excape;
+        public InputAction @NextWeapon => m_Wrapper.m_Player_NextWeapon;
+        public InputAction @PreviousWeapon => m_Wrapper.m_Player_PreviousWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -783,9 +915,12 @@ public class @Controller : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @LookMouse.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookMouse;
+                @LookMouse.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookMouse;
+                @LookMouse.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookMouse;
+                @LookController.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookController;
+                @LookController.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookController;
+                @LookController.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookController;
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
@@ -828,6 +963,15 @@ public class @Controller : IInputActionCollection, IDisposable
                 @GenerateGun.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
                 @GenerateGun.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
                 @GenerateGun.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGenerateGun;
+                @Excape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExcape;
+                @Excape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExcape;
+                @Excape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExcape;
+                @NextWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextWeapon;
+                @NextWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextWeapon;
+                @NextWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNextWeapon;
+                @PreviousWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousWeapon;
+                @PreviousWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousWeapon;
+                @PreviousWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousWeapon;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -838,9 +982,12 @@ public class @Controller : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
+                @LookMouse.started += instance.OnLookMouse;
+                @LookMouse.performed += instance.OnLookMouse;
+                @LookMouse.canceled += instance.OnLookMouse;
+                @LookController.started += instance.OnLookController;
+                @LookController.performed += instance.OnLookController;
+                @LookController.canceled += instance.OnLookController;
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
@@ -883,6 +1030,15 @@ public class @Controller : IInputActionCollection, IDisposable
                 @GenerateGun.started += instance.OnGenerateGun;
                 @GenerateGun.performed += instance.OnGenerateGun;
                 @GenerateGun.canceled += instance.OnGenerateGun;
+                @Excape.started += instance.OnExcape;
+                @Excape.performed += instance.OnExcape;
+                @Excape.canceled += instance.OnExcape;
+                @NextWeapon.started += instance.OnNextWeapon;
+                @NextWeapon.performed += instance.OnNextWeapon;
+                @NextWeapon.canceled += instance.OnNextWeapon;
+                @PreviousWeapon.started += instance.OnPreviousWeapon;
+                @PreviousWeapon.performed += instance.OnPreviousWeapon;
+                @PreviousWeapon.canceled += instance.OnPreviousWeapon;
             }
         }
     }
@@ -909,7 +1065,8 @@ public class @Controller : IInputActionCollection, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
+        void OnLookMouse(InputAction.CallbackContext context);
+        void OnLookController(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
@@ -924,5 +1081,8 @@ public class @Controller : IInputActionCollection, IDisposable
         void OnTestButton2(InputAction.CallbackContext context);
         void OnDespawnAllGuns(InputAction.CallbackContext context);
         void OnGenerateGun(InputAction.CallbackContext context);
+        void OnExcape(InputAction.CallbackContext context);
+        void OnNextWeapon(InputAction.CallbackContext context);
+        void OnPreviousWeapon(InputAction.CallbackContext context);
     }
 }

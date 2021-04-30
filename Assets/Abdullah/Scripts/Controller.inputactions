@@ -22,9 +22,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Look",
+                    "name": "LookMouse",
                     "type": "PassThrough",
                     "id": "b7a6a53f-82ed-4471-a414-771b8e7b1c5b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LookController",
+                    "type": "PassThrough",
+                    "id": "7e6106f2-3919-4f07-9927-fa20329b7bef",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
@@ -137,6 +145,30 @@
                     "name": "GenerateGun",
                     "type": "Button",
                     "id": "25cd3158-9f23-4c28-93e0-e5f1513384a5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Excape",
+                    "type": "Button",
+                    "id": "742174c7-1712-4d9a-b84b-a2ca9d547955",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "NextWeapon",
+                    "type": "Button",
+                    "id": "16930ccd-7874-4b33-806d-ec03fe6e4181",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PreviousWeapon",
+                    "type": "Button",
+                    "id": "16677ee0-e741-4115-8e53-a258e26b4a7e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -260,29 +292,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "60b93b66-e445-42b5-92dc-fcaae8a3d572",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "ScaleVector2(x=20,y=20)",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7eca747a-31d8-4822-9405-08c67b0683fe",
-                    "path": "<XInputController>/rightStick",
-                    "interactions": "",
-                    "processors": "ScaleVector2(x=20,y=20)",
-                    "groups": "",
-                    "action": "Look",
+                    "action": "LookMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -300,7 +310,7 @@
                 {
                     "name": "",
                     "id": "2933acbe-24f5-4573-b2e9-a63012c01b9e",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -553,7 +563,7 @@
                 {
                     "name": "",
                     "id": "160ca458-4f10-48f2-9387-94ad62636bcd",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -613,6 +623,116 @@
                     "processors": "",
                     "groups": "",
                     "action": "GenerateGun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6bc3e64-5a9f-43b4-9399-f7066e69aade",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Excape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a21e67a-5808-46c6-adfe-afc8fcf8d6b8",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Excape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "035ad0fd-9ee0-40ad-ace5-151b9e7b55ba",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ac9d58f-43c7-4775-8f9c-313814aa3844",
+                    "path": "<XInputController>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f99d55ff-0305-4a36-b18d-1ec449a0cb7c",
+                    "path": "<Mouse>/backButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6087450-4e99-4423-b5b5-c3d22c068e8e",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bebd84cf-50f0-4404-8550-6d468dc4072d",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d2fe364f-905f-4d2c-871c-e6766f13cdb5",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e2cc60b9-f4c1-4d11-bec4-88b7b5660e76",
+                    "path": "<Mouse>/forwardButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreviousWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8324c989-49a7-445f-8746-04567e38a9d4",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreviousWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

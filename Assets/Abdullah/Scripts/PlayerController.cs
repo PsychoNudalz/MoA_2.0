@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void OnLook(InputAction.CallbackContext context)
+    public void OnLook_Mouse(InputAction.CallbackContext context)
     {
         if (disableControl)
         {
@@ -196,6 +196,16 @@ public class PlayerController : MonoBehaviour
         //lookX += context.ReadValue<Vector2>().x * sensitivityX * Time.deltaTime;
         //lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
         lookScript.LookMouse(context);
+    }
+    public void OnLook_Controller(InputAction.CallbackContext context)
+    {
+        if (disableControl)
+        {
+            return;
+        }
+        //lookX += context.ReadValue<Vector2>().x * sensitivityX * Time.deltaTime;
+        //lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
+        lookScript.LookController(context);
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -315,6 +325,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void CycleWeapon_Next(InputAction.CallbackContext callbackContext)
+    {
+        if (disableControl)
+        {
+            return;
+        }
+        if (callbackContext.performed)
+        {
+            playerInventorySystemScript.CycleWeapon(true);
+        }
+    }
+
+    public void CycleWeapon_Prev(InputAction.CallbackContext callbackContext)
+    {
+        if (disableControl)
+        {
+            return;
+        }
+        if (callbackContext.performed)
+        {
+            playerInventorySystemScript.CycleWeapon(false);
+        }
+    }
     public void Reload()
     {
         gunDamageScript.Reload();

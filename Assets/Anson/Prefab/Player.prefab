@@ -2459,7 +2459,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4112174735619620036}
-        m_MethodName: OnLook
+        m_MethodName: OnLook_Mouse
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2626,6 +2626,55 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b4e8cf07-bc53-407b-98b5-e84ee06e9275
     m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: OnLook_Controller
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7e6106f2-3919-4f07-9927-fa20329b7bef
+    m_ActionName: Player/LookController[/DualShock4GamepadHID/rightStick,/XInputControllerWindows/rightStick,/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 742174c7-1712-4d9a-b84b-a2ca9d547955
+    m_ActionName: Player/Excape[/Keyboard/escape,/DualShock4GamepadHID/start,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: CycleWeapon_Next
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 16930ccd-7874-4b33-806d-ec03fe6e4181
+    m_ActionName: Player/NextWeapon[/Mouse/backButton,/DualShock4GamepadHID/dpad/right,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_MethodName: CycleWeapon_Prev
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 16677ee0-e741-4115-8e53-a258e26b4a7e
+    m_ActionName: Player/PreviousWeapon[/Mouse/forwardButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2680,6 +2729,8 @@ MonoBehaviour:
   CharacterBody: {fileID: 4112174735619620033}
   UpDown: {fileID: 4112174736969628677}
   mouseValue: {x: 0, y: 0}
+  mouseValue_Nor: {x: 0, y: 0}
+  mouseValue_Mag: 0
   maxRotationDown: 85
   yRotation: 0
   lookLock: 0

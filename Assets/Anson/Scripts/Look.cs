@@ -57,16 +57,22 @@ public class Look : MonoBehaviour
 
     public void LookMouse(InputAction.CallbackContext callbackContext)
     {
-        mouseValue = callbackContext.ReadValue<Vector2>() * (1 / Time.deltaTime) * 0.01f;
+        mouseValue = callbackContext.ReadValue<Vector2>() * 0.01f;
+        mouseValue_Nor = mouseValue.normalized;
+        mouseValue_Mag = mouseValue.magnitude;
+    }
+    public void LookController(InputAction.CallbackContext callbackContext)
+    {
+        mouseValue = callbackContext.ReadValue<Vector2>() ;
         mouseValue_Nor = mouseValue.normalized;
         mouseValue_Mag = mouseValue.magnitude;
     }
 
     public void MoveLook()
     {
-        float mouseX = mouseValue.x * rotateSpeed_Current * Time.deltaTime;
+        float mouseX = mouseValue.x * rotateSpeed_Current;
 
-        float mouseY = mouseValue.y * rotateSpeed_Current * Time.deltaTime;
+        float mouseY = mouseValue.y * rotateSpeed_Current ;
         yRotation = UpDown.transform.localRotation.eulerAngles.x - mouseY;
 
 
@@ -111,7 +117,7 @@ public class Look : MonoBehaviour
 
     public void ModifySpeed(float mult)
     {
-        rotateSpeed_Current = rotateSpeed_Current * mult;
+        rotateSpeed_Current = rotateSpeed * mult;
     }
     public void ResetSpeed()
     {
