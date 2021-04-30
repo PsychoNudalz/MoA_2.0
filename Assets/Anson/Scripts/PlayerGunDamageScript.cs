@@ -245,7 +245,7 @@ public class PlayerGunDamageScript : GunDamageScript
     }
 
 
-    protected override void EndReload()
+    public override void EndReload()
     {
         base.EndReload();
         UpdateAmmoCount();
