@@ -332,6 +332,7 @@ public class PlayerController : MonoBehaviour
             if (interactable is WeaponPickUpInteractableScript)
             {
                 playerInventorySystemScript.PickUpNewGun(((WeaponPickUpInteractableScript)interactable).ConnectedGun);
+                playerInterationScript.ClearInteractable();
             }
             else
             {

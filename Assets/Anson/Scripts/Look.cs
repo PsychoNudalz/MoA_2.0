@@ -46,7 +46,7 @@ public class Look : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (!lookLock)
         {
@@ -57,7 +57,7 @@ public class Look : MonoBehaviour
 
     public void LookMouse(InputAction.CallbackContext callbackContext)
     {
-        mouseValue = callbackContext.ReadValue<Vector2>()*(1/Time.deltaTime)*0.01f;
+        mouseValue = callbackContext.ReadValue<Vector2>() * (1 / Time.deltaTime) * 0.01f;
         mouseValue_Nor = mouseValue.normalized;
         mouseValue_Mag = mouseValue.magnitude;
     }
@@ -87,11 +87,23 @@ public class Look : MonoBehaviour
 
         try
         {
+            if (Time.timeScale > 0)
+            {
+                if (Mathf.Abs(YRotation) >= 0.0001f)
+                {
 
-        UpDown.transform.localRotation = Quaternion.Euler(yRotation, 0f, 0f);
+                    Quaternion newUpDown = Quaternion.Euler(yRotation, 0, UpDown.transform.localRotation.eulerAngles.z);
+                    
+                    UpDown.transform.localRotation = newUpDown;
+                }
+                if (Mathf.Abs(mouseX) >= 0.0001f)
+                {
 
-        CharacterBody.Rotate(Vector3.up * mouseX);
-        }catch(System.Exception e)
+                    CharacterBody.Rotate(Vector3.up * mouseX);
+                }
+            }
+        }
+        catch (System.Exception e)
         {
 
         }

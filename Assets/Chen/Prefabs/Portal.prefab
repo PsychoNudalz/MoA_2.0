@@ -1541,6 +1541,7 @@ Transform:
   - {fileID: 6756111004277132118}
   - {fileID: 3667025546756295945}
   - {fileID: 3930105714447879593}
+  - {fileID: 2353622643372801245}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 22.013, y: 0, z: -90.00001}
@@ -1576,6 +1577,7 @@ MonoBehaviour:
   gunManager: {fileID: 0}
   lootAmount: 10
   CoinAmount: 2
+  gunSpawnTransform: {fileID: 2353622643372801245}
   ignoreSpawner: 0
   VFXPane: {fileID: 6756111004124824040}
 --- !u!1 &7851029659109016144
@@ -1607,6 +1609,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6756111004082020349}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8287393482840025019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2353622643372801245}
+  m_Layer: 0
+  m_Name: GunSpawnLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2353622643372801245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287393482840025019}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.03, y: 3.05, z: 1.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9024869301687776579}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5195300762633144843
 PrefabInstance:

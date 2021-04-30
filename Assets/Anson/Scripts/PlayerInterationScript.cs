@@ -44,6 +44,10 @@ public class PlayerInterationScript : MonoBehaviour
         //useFlage = false;
     }
 
+    public void ClearInteractable()
+    {
+        setFocus(null);
+    }
 
 
     public void setFocus(InteractableScript i)

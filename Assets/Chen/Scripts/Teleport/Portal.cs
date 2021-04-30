@@ -19,6 +19,8 @@ public class Portal : MonoBehaviour
     [SerializeField] int lootAmount = 6;
     [SerializeField] int CoinAmount = 2;
     bool rewardLoot;
+    [SerializeField] Transform gunSpawnTransform;
+
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
     [SerializeField] GameObject VFXPane;
@@ -46,8 +48,16 @@ public class Portal : MonoBehaviour
             for (int i = 0; i < lootAmount; i++)
             {
                 newGun = gunManager.GenerateGun();
-                newGun.transform.position = player.transform.position + new Vector3(i*0.3f, 1, i * 0.3f);
-                newGun.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30*i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0,1000,0)));
+                if (gunSpawnTransform != null)
+                {
+                    newGun.transform.position = gunSpawnTransform.position + new Vector3(i * 0.3f-(lootAmount/2f), 1, i * 0.3f - (lootAmount / 2f));
+
+                }
+                else
+                {
+                newGun.transform.position = player.transform.position + new Vector3(i*0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
+                }
+                newGun.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30*i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0,3000f,0)));
             }
 
         }
