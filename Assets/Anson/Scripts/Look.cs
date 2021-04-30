@@ -117,7 +117,7 @@ public class Look : MonoBehaviour
 
     public void ModifySpeed(float mult)
     {
-        rotateSpeed_Current = rotateSpeed_Current * mult;
+        rotateSpeed_Current = rotateSpeed * mult;
     }
     public void ResetSpeed()
     {
