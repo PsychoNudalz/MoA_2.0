@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
-public class GunComponentUIButtonScript : UIToggleButtonScript
+public class GunComponentUIButtonScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI buttonText;
     [SerializeField] GameObject lockImage;
+    [SerializeField] GameObject SelectedSprite;
     [SerializeField] GCSelection gcs;
     [SerializeField] GunAlterUIHandler gunAlterUIHandler;
 
@@ -19,7 +21,7 @@ public class GunComponentUIButtonScript : UIToggleButtonScript
         gcs = g;
         if (g == null)
         {
-            SetButtons(false);
+            SetSelected(false);
             buttonText.text = "NULL";
             return;
         }
@@ -27,25 +29,18 @@ public class GunComponentUIButtonScript : UIToggleButtonScript
         if (g.IsUnlocked)
         {
             lockImage.SetActive(false);
-            if (g.IsSelected)
-            {
-                SetButtons(false);
-            }
-            else
-            {
-                SetButtons(true);
-            }
+            SetSelected(g.IsSelected);
         }
         else
         {
             lockImage.SetActive(true);
-            SetButtons(true);
+            SetSelected(false);
         }
 
         buttonText.text = gcs.Component.name;
     }
 
-    public override void Select()
+    public void Select()
     {
         if (gcs != null)
         {
@@ -53,20 +48,41 @@ public class GunComponentUIButtonScript : UIToggleButtonScript
         }
         if (gcs.IsUnlocked)
         {
-            SetButtons(false);
-            gcs.IsSelected = true;
+            SetSelected(gcs.IsSelected);
+        }
+
+    }
+
+    public void Deselect()
+    {
+        if (gcs != null)
+        {
+            gunAlterUIHandler.SelectComponent(gcs, false);
+
+        }
+        if (gcs.IsUnlocked)
+        {
+            SetSelected(gcs.IsSelected);
+        }
+
+    }
+
+    public void ToggleButtone()
+    {
+        if (gcs.IsSelected)
+        {
+            Deselect();
+        }
+        else
+        {
+            Select();
         }
     }
 
-    public override void Deselect()
+    void SetSelected(bool setB)
     {
-        SetButtons(true);
-        gcs.IsSelected = false;
-        if (gcs != null)
-        {
-            gunAlterUIHandler.SelectComponent(gcs);
-
-        }
+        SelectedSprite.SetActive(setB);
+        //GetComponent<Button>().
     }
 
 

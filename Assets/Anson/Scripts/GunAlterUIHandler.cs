@@ -141,7 +141,7 @@ public class GunAlterUIHandler : MonoBehaviour
         SetGunType((GunTypes)i);
     }
 
-    public void SelectComponent(GCSelection gcs)
+    public void SelectComponent(GCSelection gcs, bool isSelected = true)
     {
         currentGCSelection = gcs;
         PreviewComponent(gcs);
@@ -151,6 +151,10 @@ public class GunAlterUIHandler : MonoBehaviour
         if (!gcs.IsUnlocked)
         {
             UpdateComponentCost(currentGCSelection.Cost);
+        }
+        else
+        {
+            currentGCSelection.IsSelected = isSelected;
         }
     }
 
