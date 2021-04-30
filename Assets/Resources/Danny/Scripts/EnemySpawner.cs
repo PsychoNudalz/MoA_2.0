@@ -89,7 +89,6 @@ public class EnemySpawner : MonoBehaviour
             {
                 //If all enemies from spawner killed destroy spawner
                 GameObject.Destroy(this.gameObject);
-               
             }
         }
     }
