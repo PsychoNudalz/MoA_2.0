@@ -83,7 +83,7 @@ public class GunDamageScript : DamageScript
         {
             UpdateGunScript(mainGunStatsScript);
         }
-        Reload();
+        Reload_Action();
     }
 
     private void Update()
@@ -718,6 +718,14 @@ public class GunDamageScript : DamageScript
         mainGunStatsScript.Play_StartReload();
         currentRecoilTime = 0f;
         yield return new WaitForSeconds(reloadSpeed - offset);
+        if (Reload_Action())
+        {
+            currentReloadCoroutine = StartCoroutine(DelayReload(0.05f));
+        }
+    }
+
+    private bool Reload_Action()
+    {
         if (isFullReload)
         {
             mainGunStatsScript.Play_EndReload();
@@ -732,8 +740,7 @@ public class GunDamageScript : DamageScript
             mainGunStatsScript.Play_StartReload();
             if (currentMag < magazineSize)
             {
-                currentReloadCoroutine = StartCoroutine(DelayReload(0.05f));
-
+                return true;
             }
             else
             {
@@ -743,9 +750,10 @@ public class GunDamageScript : DamageScript
 
             }
         }
+        return false;
     }
 
-    protected virtual void EndReload()
+    public virtual void EndReload()
     {
         if (currentReloadCoroutine != null)
         {

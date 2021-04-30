@@ -32,9 +32,8 @@ public class TankEnemyAgent : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         TankEnemyAnimator = GetComponent<Animator>();
-        ResetAttackTimer();
         gun = GetComponentInChildren<AIGunDamageScript>();
-        
+        ResetAttackTimer();
     }
 
     /*
@@ -43,7 +42,6 @@ public class TankEnemyAgent : MonoBehaviour
     private void ResetAttackTimer()
     {
         currentAttackTimer = Mathf.Clamp(Random.Range(minAttackDelay, maxAttackDelay), 1.5f, maxAttackDelay);
-
     }
 
     // Update is called once per frame
@@ -96,7 +94,7 @@ public class TankEnemyAgent : MonoBehaviour
         yield return new WaitForSeconds(delay);
         ResetAttackTimer();
         isShooting = false;
-        //EndFire();
+        EndFire();
 
     }
 
