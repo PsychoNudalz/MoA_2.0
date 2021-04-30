@@ -7,6 +7,7 @@ public class UIPopUpInteractableScript : InteractableScript
 {
 
     [SerializeField] GameObject UIElement;
+    [SerializeField] GameObject toolTip;
     [SerializeField] PlayerMasterScript playerMasterScript;
     [SerializeField] GameObject defaultButton;
 
@@ -28,6 +29,7 @@ public class UIPopUpInteractableScript : InteractableScript
         {
             FindObjectOfType<EventSystem>().SetSelectedGameObject(defaultButton);
         }
+        print("Active UI");
     }
     public override void deactivate()
     {
@@ -37,5 +39,26 @@ public class UIPopUpInteractableScript : InteractableScript
         UIElement.SetActive(false);
         playerMasterScript.SetControls(true);
 
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            toolTip.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            toolTip.SetActive(false);
+        }
+    }
+
+    public void UIExitCallBack()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
