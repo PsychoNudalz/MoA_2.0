@@ -224,6 +224,28 @@ public class @Controller : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""43b6d07a-7e1e-4e99-8054-f8dcbbc67cc4"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64b2d3bb-d429-4045-b1a1-b839825a4b49"",
+                    ""path"": ""<XInputController>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""73765232-c756-4cd1-ba37-917cda663eae"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -259,6 +281,17 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""60b93b66-e445-42b5-92dc-fcaae8a3d572"",
                     ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7eca747a-31d8-4822-9405-08c67b0683fe"",
+                    ""path"": ""<XInputController>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -571,6 +604,17 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Controller"",
+            ""bindingGroup"": ""Controller"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<XInputController>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -806,6 +850,15 @@ public class @Controller : IInputActionCollection, IDisposable
         {
             if (m_MKSchemeIndex == -1) m_MKSchemeIndex = asset.FindControlSchemeIndex("M&K");
             return asset.controlSchemes[m_MKSchemeIndex];
+        }
+    }
+    private int m_ControllerSchemeIndex = -1;
+    public InputControlScheme ControllerScheme
+    {
+        get
+        {
+            if (m_ControllerSchemeIndex == -1) m_ControllerSchemeIndex = asset.FindControlSchemeIndex("Controller");
+            return asset.controlSchemes[m_ControllerSchemeIndex];
         }
     }
     public interface IPlayerActions
