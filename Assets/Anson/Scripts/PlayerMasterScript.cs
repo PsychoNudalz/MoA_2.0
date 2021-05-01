@@ -94,6 +94,7 @@ public class PlayerMasterScript : MonoBehaviour
         }
         playerLifeSystemScript.PlayerMasterScript = this;
         playerLifeSystemScript.UIScript1 = ansonTempUIScript;
+        playerInventorySystemScript.ansonTempUIScript = ansonTempUIScript;
         playerLifeSystemScript.PlayerVolumeControllerScript = playerVolumeControllerScript;
         playerController.PlayerVolumeControllerScript = playerVolumeControllerScript;
         if (playerSaveCollection != null)
