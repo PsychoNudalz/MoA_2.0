@@ -7,7 +7,8 @@ public enum PlayerSaveProfile
     A,
     B,
     C,
-    DEFAULT
+    DEFAULT,
+    TESTING
 }
 
 public class PlayerSaveStats : MonoBehaviour

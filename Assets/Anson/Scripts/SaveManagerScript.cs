@@ -163,7 +163,7 @@ public static class SaveManager
 public class SaveManagerScript : MonoBehaviour
 {
     [Header("Debug")]
-    [SerializeField] bool freshSaveData = false;
+    [SerializeField] bool UseTestSave = false;
     public static SaveManagerScript instance;
     [Space]
     [Header("Save Stuff")]
@@ -187,31 +187,16 @@ public class SaveManagerScript : MonoBehaviour
         }
         transform.parent = null;
         DontDestroyOnLoad(gameObject);
-        Initialisation();
+        AssignComponents();
+        InitialisationData();
+        LoadSettings();
 
-    }
-    private void Start()
-    {
-    }
-
-    public void OnEnable()
-    {
-        Initialisation();
-    }
-
-    private void OnDisable()
-    {
-        SaveData();
-    }
-
-    private void OnDestroy()
-    {
-        SaveData();
     }
 
     private void OnApplicationQuit()
     {
         SaveData();
+        SaveSettings();
     }
 
     public void SetSaveProfile(PlayerSaveProfile profile)
@@ -219,19 +204,20 @@ public class SaveManagerScript : MonoBehaviour
         playerSaveProfile = profile;
     }
 
-    public void Initialisation()
+    public void InitialisationData()
     {
-        AssignComponents();
-        if (freshSaveData)
-        {
-            OverrideData();
-        }
         LoadData();
         Debug.Log("Loading data");
+        LoadDataToGunAndPlayer();
+    }
+
+
+
+    private void LoadDataToGunAndPlayer()
+    {
         try
         {
-            gunManager.GCSSaveCollection = gCSSaveCollection;
-
+            gunManager.LoadSave(gCSSaveCollection);
         }
         catch (NullReferenceException e)
         {
@@ -239,21 +225,11 @@ public class SaveManagerScript : MonoBehaviour
         }
         try
         {
-            playerMasterScript.PlayerSaveCollection = playerSaveCollection;
-
+            playerMasterScript.LoadSave(playerSaveCollection);
         }
         catch (NullReferenceException e)
         {
             Debug.LogWarning("player Master: null on settingsMenu");
-        }
-        try
-        {
-            settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
-
-        }
-        catch (NullReferenceException e)
-        {
-            Debug.LogWarning("Save Manager: null on settingsMenu");
         }
     }
 
@@ -288,6 +264,7 @@ public class SaveManagerScript : MonoBehaviour
             SetSaveProfile(instance.playerSaveProfile);
             Destroy(instance);
             instance = this;
+            print("Removed duplicate");
             return true;
         }
         return false;
@@ -317,22 +294,14 @@ public class SaveManagerScript : MonoBehaviour
             playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
         }
 
-        //save settings
-        try
-        {
-            settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
-        }
-        catch (NullReferenceException e)
-        {
 
-        }
 
         print("Write save data");
         saveString = JsonUtility.ToJson(new SaveCollection(playerSaveCollection, gCSSaveCollection, settingsSaveCollection));
         print(saveString);
         if (saveFile.Equals(""))
         {
-            saveFile = "GCSSaves" + playerSaveCollection.profile + ".json";
+            saveFile = "GCSSaves_" + playerSaveProfile.ToString() + ".json";
         }
         try
         {
@@ -349,19 +318,26 @@ public class SaveManagerScript : MonoBehaviour
 
     }
 
+
+
     void LoadData(PlayerSaveProfile psp = PlayerSaveProfile.DEFAULT, string saveFile = "")
     {
         print("load save data");
-
+        if (UseTestSave)
+        {
+            psp = PlayerSaveProfile.TESTING;
+        }
+        playerSaveProfile = psp;
         if (saveFile.Equals(""))
         {
-            saveFile = "GCSSaves" + playerSaveCollection.profile + ".json";
+            saveFile = "GCSSaves_" + psp.ToString() + ".json";
         }
         string loadString = "";
         try
         {
-             loadString= File.ReadAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile);
-        }catch(FileNotFoundException e)
+            loadString = File.ReadAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile);
+        }
+        catch (FileNotFoundException e)
         {
             Debug.LogWarning("Failed to find save file, loading default save");
             loadString = Resources.Load<TextAsset>("DefaultSave").text;
@@ -370,8 +346,67 @@ public class SaveManagerScript : MonoBehaviour
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
         playerSaveCollection = saveCollection.playerSaveCollection;
         gCSSaveCollection = saveCollection.gCSSaveCollection;
-        settingsSaveCollection = saveCollection.settingsSaveCollection;
         print("load save data complete");
+
+    }
+
+    public void SaveSettings()
+    {
+        if (settingsMenuManager == null)
+        {
+            settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
+        }
+
+        //save settings
+        try
+        {
+            settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogError("Failed to save setting save file");
+            return;
+        }
+        string saveString = JsonUtility.ToJson(settingsSaveCollection);
+        string settingSaveFile = "Settings.json";
+        try
+        {
+
+            File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + settingSaveFile, saveString);
+        }
+        catch (DirectoryNotFoundException e)
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/SaveFiles/");
+            File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + settingSaveFile, saveString);
+        }
+        print("Write save setting complete");
+
+    }
+
+    public void LoadSettings()
+    {
+        string loadString = "";
+
+        try
+        {
+            loadString = File.ReadAllText(Application.persistentDataPath + "/SaveFiles/Settings.json");
+        }
+        catch (FileNotFoundException e)
+        {
+            Debug.LogWarning("Failed to find save setting, loading default setting");
+            loadString = Resources.Load<TextAsset>("DefaultSetting").text;
+
+        }
+        settingsSaveCollection = JsonUtility.FromJson<SettingsSaveCollection>(loadString);
+        try
+        {
+            settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
+
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning("Save Manager: null on settingsMenu");
+        }
 
     }
 
