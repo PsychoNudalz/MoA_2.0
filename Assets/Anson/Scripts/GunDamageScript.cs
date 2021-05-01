@@ -236,7 +236,7 @@ public class GunDamageScript : DamageScript
 
     public virtual void Fire(bool b)
     {
-        print(name + " Set Fire: " + b);
+        //print(name + " Set Fire: " + b);
         isFiring = b;
 
 

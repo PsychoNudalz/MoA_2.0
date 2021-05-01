@@ -69,11 +69,13 @@ public class GCSSaveCollection
 [Serializable]
 public class PlayerSaveCollection
 {
+    public int profile = 0;
     public int coins = 0;
     public int numberOfRuns = 0;
     public int numberOfBossKills = 0;
     public PlayerSaveCollection(PlayerSaveStats pss)
     {
+        profile = (int)pss.profile;
         this.coins = pss.coins;
         this.numberOfRuns = pss.numberOfRuns;
         this.numberOfBossKills = pss.numberOfBossKills;
@@ -164,14 +166,18 @@ public class SaveManagerScript : MonoBehaviour
     [SerializeField] bool freshSaveData = false;
     public static SaveManagerScript instance;
     [Space]
+    [Header("Save Stuff")]
     public GunManager gunManager;
     public PlayerMasterScript playerMasterScript;
     public SettingsMenuManager settingsMenuManager;
+    [SerializeField] PlayerSaveProfile playerSaveProfile;
     [SerializeField] List<GCSSave> gCSSaves;
     SaveCollection saveCollection;
     [SerializeField] GCSSaveCollection gCSSaveCollection;
     [SerializeField] PlayerSaveCollection playerSaveCollection;
     [SerializeField] SettingsSaveCollection settingsSaveCollection;
+
+    public PlayerSaveProfile PlayerSaveProfile { get => playerSaveProfile; set => playerSaveProfile = value; }
 
     private void Awake()
     {
@@ -179,8 +185,8 @@ public class SaveManagerScript : MonoBehaviour
         {
             return;
         }
-
-        //DontDestroyOnLoad(gameObject);
+        transform.parent = null;
+        DontDestroyOnLoad(gameObject);
         Initialisation();
 
     }
@@ -208,24 +214,14 @@ public class SaveManagerScript : MonoBehaviour
         SaveData();
     }
 
+    public void SetSaveProfile(PlayerSaveProfile profile)
+    {
+        playerSaveProfile = profile;
+    }
+
     public void Initialisation()
     {
-        if (!gunManager)
-        {
-            gunManager = FindObjectOfType<GunManager>();
-        }
-        if (!playerMasterScript)
-        {
-            playerMasterScript = FindObjectOfType<PlayerMasterScript>();
-        }
-        if (!settingsMenuManager)
-        {
-            settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
-        }
-        if (!settingsMenuManager)
-        {
-            settingsMenuManager = playerMasterScript.GetComponentInChildren<SettingsMenuManager>();
-        }
+        AssignComponents();
         if (freshSaveData)
         {
             OverrideData();
@@ -261,6 +257,26 @@ public class SaveManagerScript : MonoBehaviour
         }
     }
 
+    private void AssignComponents()
+    {
+        if (!gunManager)
+        {
+            gunManager = FindObjectOfType<GunManager>();
+        }
+        if (!playerMasterScript)
+        {
+            playerMasterScript = FindObjectOfType<PlayerMasterScript>();
+        }
+        if (!settingsMenuManager)
+        {
+            settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
+        }
+        if (!settingsMenuManager)
+        {
+            settingsMenuManager = playerMasterScript.GetComponentInChildren<SettingsMenuManager>();
+        }
+    }
+
     bool RemoveDuplicateSaveManager()
     {
         if (instance == null)
@@ -269,7 +285,9 @@ public class SaveManagerScript : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            SetSaveProfile(instance.playerSaveProfile);
+            Destroy(instance);
+            instance = this;
             return true;
         }
         return false;
@@ -314,7 +332,7 @@ public class SaveManagerScript : MonoBehaviour
         print(saveString);
         if (saveFile.Equals(""))
         {
-            saveFile = "GCSSaves.json";
+            saveFile = "GCSSaves" + playerSaveCollection.profile + ".json";
         }
         try
         {
@@ -331,15 +349,24 @@ public class SaveManagerScript : MonoBehaviour
 
     }
 
-    void LoadData(string saveFile = "")
+    void LoadData(PlayerSaveProfile psp = PlayerSaveProfile.DEFAULT, string saveFile = "")
     {
         print("load save data");
 
         if (saveFile.Equals(""))
         {
-            saveFile = "GCSSaves.json";
+            saveFile = "GCSSaves" + playerSaveCollection.profile + ".json";
         }
-        string loadString = File.ReadAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile);
+        string loadString = "";
+        try
+        {
+             loadString= File.ReadAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile);
+        }catch(FileNotFoundException e)
+        {
+            Debug.LogWarning("Failed to find save file, loading default save");
+            loadString = Resources.Load<TextAsset>("DefaultSave").text;
+
+        }
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
         playerSaveCollection = saveCollection.playerSaveCollection;
         gCSSaveCollection = saveCollection.gCSSaveCollection;
