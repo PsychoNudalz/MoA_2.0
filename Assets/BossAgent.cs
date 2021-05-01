@@ -9,6 +9,9 @@ public class BossAgent : MonoBehaviour
     [SerializeField] private float attackPlayerDistance = 6f;
     [SerializeField] private AnimationCurve attackDropOff;
     [SerializeField] private float attackTimeInitial;
+    [SerializeField] AIGunDamageScript shootingScript;
+    [SerializeField]Transform firePoint;
+    [SerializeField] Transform gun;
     private NavMeshAgent bossAgent;
     private Animator animator;
     private Transform target;
@@ -16,8 +19,9 @@ public class BossAgent : MonoBehaviour
     private bool IsStaggering;
     private bool IsDead = false;
     private float attackTimeNow;
-    [SerializeField]AIGunDamageScript shootingScript;
     public bool isFiring = false;
+    private GameObject player;
+    private float attackDetectionRange = 50f;
 
 
     private void Awake()
@@ -25,9 +29,13 @@ public class BossAgent : MonoBehaviour
         ResetEnemy();
     }
 
+    /// <summary>
+    /// reset paramaters
+    /// </summary>
     private void ResetEnemy()
     {
-        
+        gun = shootingScript.transform;
+        player = GameObject.FindGameObjectWithTag("Player");
         attackTimeNow = attackTimeInitial;
         animator = GetComponentInChildren<Animator>();
         bossAgent = GetComponent<NavMeshAgent>();
@@ -36,7 +44,9 @@ public class BossAgent : MonoBehaviour
         sphereDamageScript = GetComponent<SphereCastDamageScript>();
     }
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// 
+    /// </summary>
     void Start()
     {
         /*
@@ -46,7 +56,11 @@ public class BossAgent : MonoBehaviour
         bossAgent.speed = walkSpeed;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// check when boss can attack
+    /// decide when the boss chases, hits or shoots
+    /// check if boss is dead
+    /// </summary>
     void Update()
     {
         if (!IsStaggering && !IsDead)
@@ -73,7 +87,16 @@ public class BossAgent : MonoBehaviour
             }
             else if (Vector3.Distance(transform.position, target.position) > 20 && Vector3.Distance(transform.position, target.position) < 40)
             {
-                bossFire();
+                RaycastHit hit;
+                Vector3 playerDirection = player.transform.position - firePoint.transform.position;
+                Debug.DrawRay(firePoint.position, playerDirection, Color.red, 2f);
+                if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, attackDetectionRange))
+                {
+                    if (hit.collider.CompareTag("Player"))
+                    { 
+                        bossFire();
+                    }
+                }
             }
             else if (Vector3.Distance(transform.position, target.position) > attackPlayerDistance)
             {
@@ -97,30 +120,43 @@ public class BossAgent : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// stop the boss character, start the animation, call the fire method in the shooting script
+    /// </summary>
     void bossFire() {
         bossAgent.enabled = false;
+        FaceTarget();
         animator.SetBool("IsFiring", true);
         animator.SetBool("IsWalking", false);
+        shootingScript.transform.LookAt(player.transform);
         shootingScript.Fire(true);
     }
+
+    /// <summary>
+    /// Walk twords player object
+    /// </summary>
     private void WalkTowardsPlayer()
     {
         /*
          * Set walking animation, nav agent speed and target.
          */
-        
-            GetComponent<Rigidbody>().freezeRotation = false;
+            GetComponent<Rigidbody>().freezeRotation = true;
             bossAgent.speed = walkSpeed;
             animator.SetBool("IsAttacking", false);
             bossAgent.SetDestination(target.position);
-        
     }
 
+    /// <summary>
+    /// start stagger
+    /// </summary>
     public void Stagger()
     {
         StartCoroutine(StaggerDelay());
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void DeathAnimation()
     {
         IsDead = true;
@@ -130,7 +166,10 @@ public class BossAgent : MonoBehaviour
         animator.SetBool("IsDead", true);
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     IEnumerator StaggerDelay()
     {
         /*
@@ -145,6 +184,9 @@ public class BossAgent : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Melee attack, set animation and change attack time
+    /// </summary>
     private void Attack()
     {
         /*
@@ -155,15 +197,25 @@ public class BossAgent : MonoBehaviour
         animator.SetBool("IsWalking", false);
         animator.SetBool("IsAttacking", true);
         bossAgent.SetDestination(target.position);
-        transform.LookAt(target.position);
+        //transform.LookAt(target.position);
         attackTimeNow = attackTimeInitial;
     }
 
+    /// <summary>
+    /// Deal damage to player health
+    /// </summary>
     public void DamagePlayer()
     {
         /*
          * Damage player if in range (triggered from attack animation
          */
         sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 40f);
     }
 }
