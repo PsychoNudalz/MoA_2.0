@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: StartReload
-  isUnique: 1
   clip: {fileID: 8300000, guid: 533956f2962532e478fcca2ba77822f9, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -215,9 +214,11 @@ MonoBehaviour:
   dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
-  loop: 0
-  playOnAwake: 0
-  doesNotRestartOnPlay: 0
+  audioMixer: {fileID: 0}
+  soundManager: {fileID: 0}
+  isOld: 0
+  isLoop: 0
+  isPlayOnAwake: 0
   source: {fileID: 0}
 --- !u!1 &3371279430933025446
 GameObject:
@@ -263,7 +264,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: EndReload
-  isUnique: 1
   clip: {fileID: 8300000, guid: 251292a782f1ad64084c6ad8630697a4, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -274,9 +274,11 @@ MonoBehaviour:
   dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
-  loop: 0
-  playOnAwake: 0
-  doesNotRestartOnPlay: 0
+  audioMixer: {fileID: 0}
+  soundManager: {fileID: 0}
+  isOld: 0
+  isLoop: 0
+  isPlayOnAwake: 0
   source: {fileID: 0}
 --- !u!1 &7211308693781503556
 GameObject:
@@ -431,6 +433,7 @@ MonoBehaviour:
   sightOffset: {x: 0, y: 0, z: 0}
   muzzleLocation: {fileID: 3144559159340161981}
   animator: {fileID: 2210687014023865449}
+  shootAnimationLerp: 1
   sound_Fire: {fileID: 756158005232854419}
   sound_StartReload: {fileID: 4260483970394873129}
   sound_EndReload: {fileID: 302746989984219014}
@@ -459,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d30a5d08d3dd9e458534ddcfb65454c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerProjectile: 40
+  damagePerProjectile: 400
   RPM: 150
   reloadSpeed: 0.8
   recoil: {x: 15, y: 0}
@@ -578,7 +581,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundName: GunShot
-  isUnique: 1
   clip: {fileID: 8300000, guid: 739e3066d6b086243a1ff7bf0f49ee3f, type: 3}
   volume: 0.75
   volumeVariance: 0.1
@@ -589,9 +591,11 @@ MonoBehaviour:
   dopplerLevel: 0
   minDistance: 10
   maxDistance: 20
-  loop: 0
-  playOnAwake: 0
-  doesNotRestartOnPlay: 0
+  audioMixer: {fileID: 0}
+  soundManager: {fileID: 0}
+  isOld: 0
+  isLoop: 0
+  isPlayOnAwake: 0
   source: {fileID: 0}
 --- !u!1 &9056707950343924126
 GameObject:

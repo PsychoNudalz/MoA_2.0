@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIPopUpInteractableScript : InteractableScript
 {
 
     [SerializeField] GameObject UIElement;
+    [SerializeField] GameObject toolTip;
     [SerializeField] PlayerMasterScript playerMasterScript;
+    [SerializeField] GameObject defaultButton;
 
     // Start is called before the first frame update
 
@@ -22,6 +25,11 @@ public class UIPopUpInteractableScript : InteractableScript
         Cursor.lockState = CursorLockMode.None;
         UIElement.SetActive(true);
         playerMasterScript.SetControls(false);
+        if (defaultButton != null)
+        {
+            FindObjectOfType<EventSystem>().SetSelectedGameObject(defaultButton);
+        }
+        print("Active UI");
     }
     public override void deactivate()
     {
@@ -31,5 +39,26 @@ public class UIPopUpInteractableScript : InteractableScript
         UIElement.SetActive(false);
         playerMasterScript.SetControls(true);
 
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            toolTip.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            toolTip.SetActive(false);
+        }
+    }
+
+    public void UIExitCallBack()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

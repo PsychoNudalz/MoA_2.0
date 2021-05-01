@@ -185,6 +185,14 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MenuClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""85dfab59-9b46-4872-8c4c-7fcd37e0b213"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -748,6 +756,17 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""action"": ""PreviousWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36d23c05-ffb9-42cf-b3e4-9e14ec9649f9"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -805,6 +824,7 @@ public class @Controller : IInputActionCollection, IDisposable
         m_Player_Excape = m_Player.FindAction("Excape", throwIfNotFound: true);
         m_Player_NextWeapon = m_Player.FindAction("NextWeapon", throwIfNotFound: true);
         m_Player_PreviousWeapon = m_Player.FindAction("PreviousWeapon", throwIfNotFound: true);
+        m_Player_MenuClick = m_Player.FindAction("MenuClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -875,6 +895,7 @@ public class @Controller : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Excape;
     private readonly InputAction m_Player_NextWeapon;
     private readonly InputAction m_Player_PreviousWeapon;
+    private readonly InputAction m_Player_MenuClick;
     public struct PlayerActions
     {
         private @Controller m_Wrapper;
@@ -900,6 +921,7 @@ public class @Controller : IInputActionCollection, IDisposable
         public InputAction @Excape => m_Wrapper.m_Player_Excape;
         public InputAction @NextWeapon => m_Wrapper.m_Player_NextWeapon;
         public InputAction @PreviousWeapon => m_Wrapper.m_Player_PreviousWeapon;
+        public InputAction @MenuClick => m_Wrapper.m_Player_MenuClick;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -972,6 +994,9 @@ public class @Controller : IInputActionCollection, IDisposable
                 @PreviousWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousWeapon;
                 @PreviousWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousWeapon;
                 @PreviousWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPreviousWeapon;
+                @MenuClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuClick;
+                @MenuClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuClick;
+                @MenuClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuClick;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1039,6 +1064,9 @@ public class @Controller : IInputActionCollection, IDisposable
                 @PreviousWeapon.started += instance.OnPreviousWeapon;
                 @PreviousWeapon.performed += instance.OnPreviousWeapon;
                 @PreviousWeapon.canceled += instance.OnPreviousWeapon;
+                @MenuClick.started += instance.OnMenuClick;
+                @MenuClick.performed += instance.OnMenuClick;
+                @MenuClick.canceled += instance.OnMenuClick;
             }
         }
     }
@@ -1084,5 +1112,6 @@ public class @Controller : IInputActionCollection, IDisposable
         void OnExcape(InputAction.CallbackContext context);
         void OnNextWeapon(InputAction.CallbackContext context);
         void OnPreviousWeapon(InputAction.CallbackContext context);
+        void OnMenuClick(InputAction.CallbackContext context);
     }
 }

@@ -76,10 +76,7 @@ public class GunAlterUIHandler : MonoBehaviour
         newGun.transform.position = spawnTransform.position;
     }
 
-    public
-
-
-    void InitialiseAllButtons()
+    public void InitialiseAllButtons()
     {
         /*
         for(int i = 0; i < Enum.GetNames(typeof(GunComponents)).Length; i++)
@@ -144,7 +141,7 @@ public class GunAlterUIHandler : MonoBehaviour
         SetGunType((GunTypes)i);
     }
 
-    public void SelectComponent(GCSelection gcs)
+    public void SelectComponent(GCSelection gcs, bool isSelected = true)
     {
         currentGCSelection = gcs;
         PreviewComponent(gcs);
@@ -154,6 +151,10 @@ public class GunAlterUIHandler : MonoBehaviour
         if (!gcs.IsUnlocked)
         {
             UpdateComponentCost(currentGCSelection.Cost);
+        }
+        else
+        {
+            currentGCSelection.IsSelected = isSelected;
         }
     }
 
@@ -226,7 +227,7 @@ public class GunAlterUIHandler : MonoBehaviour
 
     void DisplayStats()
     {
-        foreach(Transform g in mainStats.GetComponentsInChildren<Transform>())
+        foreach (Transform g in mainStats.GetComponentsInChildren<Transform>())
         {
             if (g != mainStats.transform)
             {
@@ -250,7 +251,7 @@ public class GunAlterUIHandler : MonoBehaviour
 
         currentComponentText.text = currentGCSelection.GetGCName();
         List<List<string>> statsList = currentGCSelection.Component.GetStats();
-        foreach(string s in statsList[0])
+        foreach (string s in statsList[0])
         {
             CreateStatsText(mainStats).text = s;
         }

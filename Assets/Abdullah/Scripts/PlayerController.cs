@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
         lookScript.LookLock = !b;
         if (b)
         {
-
+            moveDirection = new Vector3();
         }
     }
 
