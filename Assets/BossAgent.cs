@@ -234,7 +234,6 @@ public class BossAgent : MonoBehaviour
         FaceTarget();
         animator.SetTrigger("Shoot");
         shootingScript.Fire(true);
-        animator.SetBool("IsShooting", true);
         yield return new WaitForSeconds(delay);
         //bossAgent.enabled = true;
         //animator.SetBool("IsWalking", true);
