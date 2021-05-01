@@ -17,9 +17,10 @@ public class Portal : MonoBehaviour
     RoomEnemySystem nextRoomEnemySystem;
     [SerializeField] GunManager gunManager;
     [SerializeField] int lootAmount = 6;
-    [SerializeField] int CoinAmount = 2;
+    [SerializeField] int coinAmount = 2;
     bool rewardLoot;
     [SerializeField] Transform gunSpawnTransform;
+    [SerializeField] int spawnLevel = 0;
 
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
@@ -42,23 +43,7 @@ public class Portal : MonoBehaviour
     {
         if ((ignoreSpawner || currentRoomEnemySystem.IsRoomClear()) && !rewardLoot)
         {
-            rewardLoot = true;
-            player.GetComponent<PlayerMasterScript>().PlayerSaveStats.AddCoins(CoinAmount);
-            GameObject newGun;
-            for (int i = 0; i < lootAmount; i++)
-            {
-                newGun = gunManager.GenerateGun();
-                if (gunSpawnTransform != null)
-                {
-                    newGun.transform.position = gunSpawnTransform.position + new Vector3(i * 0.3f-(lootAmount/2f), 1, i * 0.3f - (lootAmount / 2f));
-
-                }
-                else
-                {
-                newGun.transform.position = player.transform.position + new Vector3(i*0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
-                }
-                newGun.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30*i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0,3000f,0)));
-            }
+            SpawnRewardLoot();
 
         }
         if (currentRoomEnemySystem != null)
@@ -67,10 +52,36 @@ public class Portal : MonoBehaviour
         }
     }
 
-    public void Setup(RoomEnemySystem r)
+    private void SpawnRewardLoot()
+    {
+        rewardLoot = true;
+        player.GetComponent<PlayerMasterScript>().PlayerSaveStats.AddCoins(coinAmount);
+        List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel-1, spawnLevel+1);
+
+
+
+        GameObject newGun;
+        for (int i = 0; i < gunList.Count; i++)
+        {
+            newGun = gunList[i];
+            if (gunSpawnTransform != null)
+            {
+                newGun.transform.position = gunSpawnTransform.position + new Vector3(i * 0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
+
+            }
+            else
+            {
+                newGun.transform.position = player.transform.position + new Vector3(i * 0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
+            }
+            newGun.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30 * i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0, 3000f, 0)));
+        }
+    }
+
+    public void Setup(RoomEnemySystem r,int level)
     {
         targetSpawner = portalTarget.transform.Find("SpawnPoint");
         nextRoomEnemySystem = r;
+        spawnLevel = level;
     }
     void OnTriggerEnter(Collider other)
     {

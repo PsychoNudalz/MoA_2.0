@@ -40,7 +40,7 @@ public class GCSelection
     public string GetGCName()
     {
         return component.name;
-    } 
+    }
 
     public GunComponent Component { get => component; }
     public bool IsSelected { get => isSelected; set => isSelected = value; }
@@ -176,11 +176,26 @@ public class GunManager : MonoBehaviour
 
     }
 
+    public List<GameObject> GenerateGun(int numberOfGuns, int minRarity, int maxRarity)
+    {
+        gunGenerator.ResetLists();
+        InitialiseGenerator(AllGCSelections);
+        List<GameObject> guns = new List<GameObject>();
+        for (int i = 0; i < numberOfGuns; i++)
+        {
+            GameObject newGun = gunGenerator.GenerateGun_Rarity(minRarity,maxRarity);
+            newGun.transform.position += new Vector3(0, 2, 0);
+            guns.Add(newGun);
+        }
+        return guns;
+
+    }
+
     public int LoadSave(GCSSaveCollection gcss)
     {
         GCSSave temp;
         int errorCount = 0;
-        foreach(GCSelection gcs in allGCSelections)
+        foreach (GCSelection gcs in allGCSelections)
         {
             temp = gcss.FindGCSSave(gcs);
             if (temp != null)
@@ -200,7 +215,7 @@ public class GunManager : MonoBehaviour
 
     public void UnlockAll()
     {
-        foreach(GCSelection g in allGCSelections)
+        foreach (GCSelection g in allGCSelections)
         {
             g.IsUnlocked = true;
             g.IsSelected = true;

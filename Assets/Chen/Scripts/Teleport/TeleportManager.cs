@@ -11,17 +11,19 @@ public class TeleportManager : MonoBehaviour
     {
         ShuffleList(portals);
         Portal prev = start;
+        int i = 0;
         foreach (Portal pt in portals)
         {
             prev.portalTarget = pt;
             if (pt.CurrentRoomEnemySystem != null)
             {
-                prev.Setup(pt.CurrentRoomEnemySystem);
+                prev.Setup(pt.CurrentRoomEnemySystem,i);
             }
             prev = pt;
+            i++;
         }
         prev.portalTarget = end;
-        prev.Setup(end.CurrentRoomEnemySystem);
+        prev.Setup(end.CurrentRoomEnemySystem,i);
         end.GetComponent<BoxCollider>().enabled = false;
     }
 

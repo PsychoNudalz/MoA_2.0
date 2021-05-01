@@ -42,7 +42,13 @@ public class GunGeneratorScript : MonoBehaviour
         return GenerateGun(Mathf.RoundToInt(Random.Range(0, components_Body.Count + 1) % components_Body.Count));
     }
 
-    public GameObject GenerateGun(int bodyIndex)
+    public GameObject GenerateGun_Rarity(int minR = 0, int maxR = 5)
+    {
+        GameObject temp = GenerateGun(Mathf.RoundToInt(Random.Range(0, components_Body.Count + 1) % components_Body.Count), minR, maxR);
+        return temp;
+    }
+
+    public GameObject GenerateGun(int bodyIndex, int minR = 0, int maxR = 5)
     {
         GameObject newEmptyGun = Instantiate(emptyGunGO, transform.position, transform.rotation);
         currentMainGunStatsScript = newEmptyGun.GetComponent<MainGunStatsScript>();
@@ -58,7 +64,7 @@ public class GunGeneratorScript : MonoBehaviour
 
         if (randomRarity)
         {
-            newGun.Rarity = RandomiseRarity();
+            newGun.Rarity = RandomiseRarity(minR,maxR);
         }
         if (randomElement)
         {
@@ -237,9 +243,9 @@ public class GunGeneratorScript : MonoBehaviour
         return Mathf.RoundToInt(Mathf.Clamp(amount * ((int)rarity / 4f), 0, maxAmount));
     }
 
-    Rarity RandomiseRarity()
+    Rarity RandomiseRarity(int minR = 0,int maxR = 5)
     {
-        return (Rarity)(Random.Range(0, 5) % 5);
+        return (Rarity)(Random.Range(minR, maxR) % 5);
     }
 
     ElementTypes RandomiseElement()
