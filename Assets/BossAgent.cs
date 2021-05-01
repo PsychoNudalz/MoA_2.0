@@ -71,7 +71,7 @@ public class BossAgent : MonoBehaviour
                 }
 
             }
-            else if (Vector3.Distance(transform.position, target.position) > 40 && Vector3.Distance(transform.position, target.position) < 50)
+            else if (Vector3.Distance(transform.position, target.position) > 20 && Vector3.Distance(transform.position, target.position) < 40)
             {
                 bossFire();
             }

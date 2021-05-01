@@ -9,7 +9,8 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyType SpawnerEnemyType;
     [SerializeField] private int numberOfEnemies;
-    [SerializeField] private float delayBetweenSpawns;
+    [SerializeField] private int maxEnemies = 3;
+    [SerializeField] private float delayBetweenSpawns = 5;
     [Space]
     [Header("Enemy Prefabs")]
     [SerializeField] private GameObject stoneEnemy;
@@ -120,17 +121,22 @@ public class EnemySpawner : MonoBehaviour
                 GameObject enemy = enemiesToSpawn.Dequeue();
                 enemy.SetActive(true);
                 enemiesSpawned++;
+                spawnedEnemies.Add(enemy);
                 IncrementEnemies();
                 ResetSpawnCountdown();
             }
         }
         else
         {
-            GameObject enemy = enemiesToSpawn.Dequeue();
-            enemy.SetActive(true);
-            enemiesSpawned++;
-            IncrementEnemies();
-            ResetSpawnCountdown();
+            if(spawnedEnemies.Count < maxEnemies && enemiesSpawned < numberOfEnemies)
+            {
+                GameObject enemy = enemiesToSpawn.Dequeue();
+                enemy.SetActive(true);
+                enemiesSpawned++;
+                spawnedEnemies.Add(enemy);
+                IncrementEnemies();
+                ResetSpawnCountdown();
+            }
         }
     }
 
