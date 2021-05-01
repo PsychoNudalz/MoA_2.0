@@ -374,6 +374,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnPauseGame(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            FindObjectOfType<PauseMenu>().TogglePauseMenu();
+        }
+    }
+
     IEnumerator DashCoroutine()
     {
         moveSpeed = moveSpeed * dashSpeed;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {    
@@ -25,12 +26,10 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (keyboard.escapeKey.wasReleasedThisFrame) {
-            TogglePauseMenu();
-        }
+
     }
 
-    void TogglePauseMenu() {
+    public void TogglePauseMenu() {
         if (m_popUp) {
             popUpGroup.SetActive(false);
             m_popUp = false;
@@ -53,6 +52,7 @@ public class PauseMenu : MonoBehaviour
             menuBody.SetActive(true);
             m_paused = !m_paused;
         }
+        //FindObjectOfType<EventSystem>().SetSelectedGameObject(null);
     }
 
     public void ContinueOnClick() {
