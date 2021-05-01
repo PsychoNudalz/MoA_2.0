@@ -22,7 +22,7 @@ public class BossAgent : MonoBehaviour
     public bool isFiring = false;
     private GameObject player;
     private float attackDetectionRange = 50f;
-
+    private bool isShooting;
 
     private void Awake()
     {
@@ -74,10 +74,10 @@ public class BossAgent : MonoBehaviour
              * If player is in range then attack
              * If not then follow navmesh toward players location
              */
-            if (Vector3.Distance(transform.position, target.position) < attackPlayerDistance)
+            if (!isShooting && Vector3.Distance(transform.position, target.position) < attackPlayerDistance)
             {
                 bossAgent.enabled = true;
-                animator.SetBool("IsFiring", false);
+                //animator.SetBool("IsFiring", false);
                 shootingScript.Fire(false);
                 if (attackTimeNow <= 0)
                 {
@@ -87,30 +87,35 @@ public class BossAgent : MonoBehaviour
             }
             else if (Vector3.Distance(transform.position, target.position) > 20 && Vector3.Distance(transform.position, target.position) < 40)
             {
-                RaycastHit hit;
-                Vector3 playerDirection = player.transform.position - firePoint.transform.position;
-                Debug.DrawRay(firePoint.position, playerDirection, Color.red, 2f);
-                if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, attackDetectionRange))
+                if (!isShooting)
                 {
-                    if (hit.collider.CompareTag("Player"))
-                    { 
-                        bossFire();
+                    RaycastHit hit;
+                    Vector3 playerDirection = player.transform.position - firePoint.transform.position;
+                    Debug.DrawRay(firePoint.position, playerDirection, Color.red, 20f);
+                    if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, attackDetectionRange))
+                    {
+                        if (hit.collider.CompareTag("Player"))
+                        {
+                            bossAgent.enabled = false;
+                            animator.SetTrigger("Shoot");
+                        }
                     }
                 }
             }
-            else if (Vector3.Distance(transform.position, target.position) > attackPlayerDistance)
+            else if (!isShooting && Vector3.Distance(transform.position, target.position) > attackPlayerDistance)
             {
                 bossAgent.enabled = true;
-                animator.SetBool("IsFiring", false);
+                //animator.SetBool("IsFiring", false);
                 animator.SetBool("IsWalking", true);
                 shootingScript.Fire(false);
                 WalkTowardsPlayer();
             }
+            /*
             else {
                 bossAgent.enabled = true;
-                animator.SetBool("IsFiring", false);
+                //animator.SetBool("IsFiring", false);
                 animator.SetBool("IsWalking", true);
-            }
+            }*/
 
         }
         if (IsDead)
@@ -124,12 +129,14 @@ public class BossAgent : MonoBehaviour
     /// stop the boss character, start the animation, call the fire method in the shooting script
     /// </summary>
     void bossFire() {
-        bossAgent.enabled = false;
-        FaceTarget();
-        animator.SetBool("IsFiring", true);
-        animator.SetBool("IsWalking", false);
-        shootingScript.transform.LookAt(player.transform);
-        shootingScript.Fire(true);
+
+        StartCoroutine(Shoot(0.5f));
+        //bossAgent.enabled = false;
+        //FaceTarget();
+        //animator.SetBool("IsFiring", true);
+        //animator.SetBool("IsWalking", false);
+        //shootingScript.transform.LookAt(player.transform);
+        //shootingScript.Fire(true);
     }
 
     /// <summary>
@@ -217,5 +224,19 @@ public class BossAgent : MonoBehaviour
         Vector3 direction = (player.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 40f);
+        shootingScript.transform.LookAt(player.transform);
+    }
+
+    IEnumerator Shoot(float delay)
+    {
+        isShooting = true;
+        animator.SetBool("IsWalking", false);
+        FaceTarget();
+        animator.SetTrigger("Shoot");
+        shootingScript.Fire(true);
+        yield return new WaitForSeconds(delay);
+        //bossAgent.enabled = true;
+        //animator.SetBool("IsWalking", true);
+        isShooting = false;
     }
 }
