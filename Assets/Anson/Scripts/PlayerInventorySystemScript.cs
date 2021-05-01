@@ -10,6 +10,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
     [SerializeField] int pointer = 0;
     [SerializeField] Transform inventoryTransform;
     [SerializeField] PlayerGunDamageScript gunDamageScript;
+    public AnsonTempUIScript ansonTempUIScript;
 
     public PlayerGunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public int Pointer { get => pointer; set => pointer = value; }
@@ -63,7 +64,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
         newGun.SetRarityEffect(false);
         gunDamageScript.UpdateGunScript(newGun, i);
         gunDamageScript.UpdateUI();
-
+        ansonTempUIScript.UpdateActiveGun(pointer);
     }
 
     public void PickUpNewGun(MainGunStatsScript newGun)
