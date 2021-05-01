@@ -167,6 +167,8 @@ public class SaveManagerScript : MonoBehaviour
     public static SaveManagerScript instance;
     [Space]
     [Header("Save Stuff")]
+    [SerializeField] bool IsLoaded;
+    [SerializeField] bool IsSaved;
     public GunManager gunManager;
     public PlayerMasterScript playerMasterScript;
     public SettingsMenuManager settingsMenuManager;
@@ -181,32 +183,69 @@ public class SaveManagerScript : MonoBehaviour
 
     private void Awake()
     {
-        if (RemoveDuplicateSaveManager())
-        {
-            return;
-        }
+        RemoveDuplicateSaveManager();
         transform.parent = null;
         DontDestroyOnLoad(gameObject);
-        AssignComponents();
-        InitialisationData();
-        LoadSettings();
+        if (!IsLoaded)
+        {
+            AssignComponents();
+            LoadProcedure();
+        }
+    }
 
+    public void LoadProcedure()
+    {
+        InitialisationData(playerSaveProfile);
+        LoadSettings();
+        IsLoaded = true;
+        IsSaved = false;
+    }
+
+    public void LoadProcedure(PlayerSaveProfile psp)
+    {
+        InitialisationData(psp);
+        LoadSettings();
+        IsLoaded = true;
+        IsSaved = false;
     }
 
     private void OnApplicationQuit()
     {
+        if (!IsSaved)
+        {
+            SaveProcedure();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (!IsSaved)
+        {
+            SaveProcedure();
+        }
+    }
+
+    public void SaveProcedure()
+    {
         SaveData();
         SaveSettings();
+        IsSaved = true;
+        IsLoaded = false;
     }
 
     public void SetSaveProfile(PlayerSaveProfile profile)
     {
+        print("Setting save profile: " + profile.ToString());
         playerSaveProfile = profile;
     }
-
-    public void InitialisationData()
+    public void SetSaveProfile(int profile)
     {
-        LoadData();
+        SetSaveProfile((PlayerSaveProfile) profile);
+    }
+
+    public void InitialisationData(PlayerSaveProfile psp = PlayerSaveProfile.DEFAULT)
+    {
+        LoadData(psp);
         Debug.Log("Loading data");
         LoadDataToGunAndPlayer();
     }
@@ -255,14 +294,17 @@ public class SaveManagerScript : MonoBehaviour
 
     bool RemoveDuplicateSaveManager()
     {
+        //if there is not other save manager
         if (instance == null)
         {
             instance = this;
         }
+        //if there is another save manager
         else
         {
             SetSaveProfile(instance.playerSaveProfile);
-            Destroy(instance);
+            //instance.LoadProcedure();
+            Destroy(instance.gameObject);
             instance = this;
             print("Removed duplicate");
             return true;
