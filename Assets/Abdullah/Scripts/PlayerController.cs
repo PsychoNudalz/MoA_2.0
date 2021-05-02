@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
     bool jump;
     bool run;
+    bool coyoteJump;
 
     Transform cam;
     Transform player;
@@ -116,6 +117,23 @@ public class PlayerController : MonoBehaviour
             dashStart = Time.time;
             ansonTempUIScript.UpdateDashDisplay(dashCharges);
         }
+    }
+    private void FixedUpdate()
+    {
+        GroundCheckForCoyoteJump();
+    }
+
+    void GroundCheckForCoyoteJump() {
+        bool wasGrounded = controller.isGrounded;
+        if (wasGrounded) {
+            StartCoroutine(CoyoteJumpDelay(1f));
+        }
+    }
+
+    IEnumerator CoyoteJumpDelay(float delay) {
+        coyoteJump = true;
+        yield return new WaitForSeconds(delay);
+        coyoteJump = false;
     }
 
     void CameraTilt()
@@ -210,6 +228,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+       
         if (disableControl)
         {
             return;
@@ -224,12 +243,19 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                if (coyoteJump) {
+                    canDoubleJumped = true;
+                    Debug.Log("coyoteJump");
+                    jumped = new Vector3(0f, jumpSpeed, 0f);
+                }
+
                 if (canDoubleJumped)
                 {
                     jumped = new Vector3(0f, doubleJumpSpeed, 0f);
                     canDoubleJumped = false;
                 }
             }
+            
         }
     }
 
