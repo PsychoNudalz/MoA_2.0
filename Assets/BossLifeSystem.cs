@@ -14,7 +14,7 @@ public class BossLifeSystem : TargetLifeSystem
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
     {
-        StaggerAnimation();
+       // StaggerAnimation();
         return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }
 

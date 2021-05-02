@@ -69,11 +69,13 @@ public class GCSSaveCollection
 [Serializable]
 public class PlayerSaveCollection
 {
+    public int profile = 0;
     public int coins = 0;
     public int numberOfRuns = 0;
     public int numberOfBossKills = 0;
     public PlayerSaveCollection(PlayerSaveStats pss)
     {
+        profile = (int)pss.profile;
         this.coins = pss.coins;
         this.numberOfRuns = pss.numberOfRuns;
         this.numberOfBossKills = pss.numberOfBossKills;
@@ -161,54 +163,116 @@ public static class SaveManager
 public class SaveManagerScript : MonoBehaviour
 {
     [Header("Debug")]
-    [SerializeField] bool freshSaveData = false;
+    [SerializeField] bool UseTestSave = false;
     public static SaveManagerScript instance;
     [Space]
+    [Header("Save Stuff")]
+    [SerializeField] bool IsLoaded;
+    [SerializeField] bool IsSaved;
     public GunManager gunManager;
     public PlayerMasterScript playerMasterScript;
     public SettingsMenuManager settingsMenuManager;
+    [SerializeField] PlayerSaveProfile playerSaveProfile;
     [SerializeField] List<GCSSave> gCSSaves;
     SaveCollection saveCollection;
     [SerializeField] GCSSaveCollection gCSSaveCollection;
     [SerializeField] PlayerSaveCollection playerSaveCollection;
     [SerializeField] SettingsSaveCollection settingsSaveCollection;
 
+    public PlayerSaveProfile PlayerSaveProfile { get => playerSaveProfile; set => playerSaveProfile = value; }
+
     private void Awake()
     {
-        if (RemoveDuplicateSaveManager())
+        RemoveDuplicateSaveManager();
+        transform.parent = null;
+        DontDestroyOnLoad(gameObject);
+        if (!IsLoaded)
         {
-            return;
+            AssignComponents();
+            LoadProcedure();
         }
-
-        //DontDestroyOnLoad(gameObject);
-        Initialisation();
-
-    }
-    private void Start()
-    {
     }
 
-    public void OnEnable()
+    public void LoadProcedure()
     {
-        Initialisation();
+        InitialisationData(playerSaveProfile);
+        LoadSettings();
+        IsLoaded = true;
+        IsSaved = false;
     }
 
-    private void OnDisable()
+    public void LoadProcedure(PlayerSaveProfile psp)
     {
-        SaveData();
-    }
-
-    private void OnDestroy()
-    {
-        SaveData();
+        InitialisationData(psp);
+        LoadSettings();
+        IsLoaded = true;
+        IsSaved = false;
     }
 
     private void OnApplicationQuit()
     {
-        SaveData();
+        if (!IsSaved)
+        {
+            SaveProcedure();
+        }
     }
 
-    public void Initialisation()
+    private void OnDestroy()
+    {
+        if (!IsSaved)
+        {
+            SaveProcedure();
+        }
+    }
+
+    public void SaveProcedure()
+    {
+        SaveData();
+        SaveSettings();
+        IsSaved = true;
+        IsLoaded = false;
+    }
+
+    public void SetSaveProfile(PlayerSaveProfile profile)
+    {
+        print("Setting save profile: " + profile.ToString());
+        playerSaveProfile = profile;
+    }
+    public void SetSaveProfile(int profile)
+    {
+        SetSaveProfile((PlayerSaveProfile) profile);
+    }
+
+    public void InitialisationData(PlayerSaveProfile psp = PlayerSaveProfile.DEFAULT)
+    {
+        LoadData(psp);
+        Debug.Log("Loading data");
+        LoadDataToGunAndPlayer();
+    }
+
+
+
+    private void LoadDataToGunAndPlayer()
+    {
+        try
+        {
+            gunManager.LoadSave(gCSSaveCollection);
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning("gun Manager: null on settingsMenu");
+        }
+        try
+        {
+            playerMasterScript.LoadSave(playerSaveCollection);
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning("player Master: null on settingsMenu");
+        }
+    }
+
+    private void AssignComponents()
     {
         if (!gunManager)
         {
@@ -226,50 +290,23 @@ public class SaveManagerScript : MonoBehaviour
         {
             settingsMenuManager = playerMasterScript.GetComponentInChildren<SettingsMenuManager>();
         }
-        if (freshSaveData)
-        {
-            OverrideData();
-        }
-        LoadData();
-        Debug.Log("Loading data");
-        try
-        {
-            gunManager.GCSSaveCollection = gCSSaveCollection;
-
-        }
-        catch (NullReferenceException e)
-        {
-            Debug.LogWarning("gun Manager: null on settingsMenu");
-        }
-        try
-        {
-            playerMasterScript.PlayerSaveCollection = playerSaveCollection;
-
-        }
-        catch (NullReferenceException e)
-        {
-            Debug.LogWarning("player Master: null on settingsMenu");
-        }
-        try
-        {
-            settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
-
-        }
-        catch (NullReferenceException e)
-        {
-            Debug.LogWarning("Save Manager: null on settingsMenu");
-        }
     }
 
     bool RemoveDuplicateSaveManager()
     {
+        //if there is not other save manager
         if (instance == null)
         {
             instance = this;
         }
+        //if there is another save manager
         else
         {
-            Destroy(gameObject);
+            SetSaveProfile(instance.playerSaveProfile);
+            //instance.LoadProcedure();
+            Destroy(instance.gameObject);
+            instance = this;
+            print("Removed duplicate");
             return true;
         }
         return false;
@@ -299,22 +336,14 @@ public class SaveManagerScript : MonoBehaviour
             playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
         }
 
-        //save settings
-        try
-        {
-            settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
-        }
-        catch (NullReferenceException e)
-        {
 
-        }
 
         print("Write save data");
         saveString = JsonUtility.ToJson(new SaveCollection(playerSaveCollection, gCSSaveCollection, settingsSaveCollection));
         print(saveString);
         if (saveFile.Equals(""))
         {
-            saveFile = "GCSSaves.json";
+            saveFile = "GCSSaves_" + playerSaveProfile.ToString() + ".json";
         }
         try
         {
@@ -331,20 +360,95 @@ public class SaveManagerScript : MonoBehaviour
 
     }
 
-    void LoadData(string saveFile = "")
+
+
+    void LoadData(PlayerSaveProfile psp = PlayerSaveProfile.DEFAULT, string saveFile = "")
     {
         print("load save data");
-
+        if (UseTestSave)
+        {
+            psp = PlayerSaveProfile.TESTING;
+        }
+        playerSaveProfile = psp;
         if (saveFile.Equals(""))
         {
-            saveFile = "GCSSaves.json";
+            saveFile = "GCSSaves_" + psp.ToString() + ".json";
         }
-        string loadString = File.ReadAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile);
+        string loadString = "";
+        try
+        {
+            loadString = File.ReadAllText(Application.persistentDataPath + "/SaveFiles/" + saveFile);
+        }
+        catch (FileNotFoundException e)
+        {
+            Debug.LogWarning("Failed to find save file, loading default save");
+            loadString = Resources.Load<TextAsset>("DefaultSave").text;
+
+        }
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
         playerSaveCollection = saveCollection.playerSaveCollection;
         gCSSaveCollection = saveCollection.gCSSaveCollection;
-        settingsSaveCollection = saveCollection.settingsSaveCollection;
         print("load save data complete");
+
+    }
+
+    public void SaveSettings()
+    {
+        if (settingsMenuManager == null)
+        {
+            settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
+        }
+
+        //save settings
+        try
+        {
+            settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogError("Failed to save setting save file");
+            return;
+        }
+        string saveString = JsonUtility.ToJson(settingsSaveCollection);
+        string settingSaveFile = "Settings.json";
+        try
+        {
+
+            File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + settingSaveFile, saveString);
+        }
+        catch (DirectoryNotFoundException e)
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/SaveFiles/");
+            File.WriteAllText(Application.persistentDataPath + "/SaveFiles/" + settingSaveFile, saveString);
+        }
+        print("Write save setting complete");
+
+    }
+
+    public void LoadSettings()
+    {
+        string loadString = "";
+
+        try
+        {
+            loadString = File.ReadAllText(Application.persistentDataPath + "/SaveFiles/Settings.json");
+        }
+        catch (FileNotFoundException e)
+        {
+            Debug.LogWarning("Failed to find save setting, loading default setting");
+            loadString = Resources.Load<TextAsset>("DefaultSetting").text;
+
+        }
+        settingsSaveCollection = JsonUtility.FromJson<SettingsSaveCollection>(loadString);
+        try
+        {
+            settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
+
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning("Save Manager: null on settingsMenu");
+        }
 
     }
 

@@ -28,6 +28,16 @@ public class TargetHandlerScript : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        PlaySpawnEffects();
+    }
+
+    private void PlaySpawnEffects()
+    {
+        targetSoundScript.Play_Spawn();
+        targetMaterialHandler.SpawnEffect();
+    }
 }
 
 

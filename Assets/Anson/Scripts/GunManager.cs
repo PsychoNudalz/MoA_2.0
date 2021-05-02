@@ -87,10 +87,9 @@ public class GunManager : MonoBehaviour
 
     private void Awake()
     {
-        AssignGCSelections();
-        if (gCSSaveCollection != null)
+        if (gCSSaveCollection == null)
         {
-            LoadSave(gCSSaveCollection);
+            AssignGCSelections();
         }
     }
 
@@ -183,7 +182,7 @@ public class GunManager : MonoBehaviour
         List<GameObject> guns = new List<GameObject>();
         for (int i = 0; i < numberOfGuns; i++)
         {
-            GameObject newGun = gunGenerator.GenerateGun_Rarity(minRarity,maxRarity);
+            GameObject newGun = gunGenerator.GenerateGun_Rarity(minRarity, maxRarity);
             newGun.transform.position += new Vector3(0, 2, 0);
             guns.Add(newGun);
         }
@@ -193,6 +192,8 @@ public class GunManager : MonoBehaviour
 
     public int LoadSave(GCSSaveCollection gcss)
     {
+        AssignGCSelections();
+        gCSSaveCollection = gcss;
         GCSSave temp;
         int errorCount = 0;
         foreach (GCSelection gcs in allGCSelections)

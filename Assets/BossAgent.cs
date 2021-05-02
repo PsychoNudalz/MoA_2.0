@@ -85,13 +85,13 @@ public class BossAgent : MonoBehaviour
                 }
 
             }
-            else if (Vector3.Distance(transform.position, target.position) > 20 && Vector3.Distance(transform.position, target.position) < 40)
+            else if (Vector3.Distance(transform.position, target.position) > 20 && Vector3.Distance(transform.position, target.position) < 30)
             {
                 if (!isShooting)
                 {
                     RaycastHit hit;
                     Vector3 playerDirection = player.transform.position - firePoint.transform.position;
-                    Debug.DrawRay(firePoint.position, playerDirection, Color.red, 20f);
+                    Debug.DrawRay(firePoint.position, playerDirection, Color.red, 3f);
                     if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, attackDetectionRange))
                     {
                         if (hit.collider.CompareTag("Player"))
@@ -130,7 +130,7 @@ public class BossAgent : MonoBehaviour
     /// </summary>
     void bossFire() {
 
-        StartCoroutine(Shoot(0.5f));
+        StartCoroutine(Shoot(0.1f));
         //bossAgent.enabled = false;
         //FaceTarget();
         //animator.SetBool("IsFiring", true);
@@ -138,7 +138,7 @@ public class BossAgent : MonoBehaviour
         //shootingScript.transform.LookAt(player.transform);
         //shootingScript.Fire(true);
     }
-
+     
     /// <summary>
     /// Walk twords player object
     /// </summary>
@@ -238,5 +238,6 @@ public class BossAgent : MonoBehaviour
         //bossAgent.enabled = true;
         //animator.SetBool("IsWalking", true);
         isShooting = false;
+        FaceTarget();
     }
 }
