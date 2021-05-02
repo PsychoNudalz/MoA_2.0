@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     bool jump;
     bool run;
     [SerializeField]bool coyoteJump;
+    [SerializeField] float coyoteJumpTime;
+    float lastGroundedTime;
 
     Transform cam;
     Transform player;
@@ -109,8 +111,9 @@ public class PlayerController : MonoBehaviour
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
             }
-            if (controller.isGrounded) {
+            else {
                 coyoteJump = true;
+                lastGroundedTime = Time.time;
             }
         }
 
@@ -225,7 +228,7 @@ public class PlayerController : MonoBehaviour
         jump = context.performed;
         if (context.performed)
         {
-            if (controller.isGrounded)
+            if (controller.isGrounded || (coyoteJump && Time.time-lastGroundedTime<coyoteJumpTime))
             {
                 canDoubleJumped = true;
                 jumped = new Vector3(0f, jumpSpeed, 0f);
@@ -238,12 +241,6 @@ public class PlayerController : MonoBehaviour
                     coyoteJump = false;
                     jumped = new Vector3(0f, doubleJumpSpeed, 0f);
                     canDoubleJumped = false;
-                }
-                if (coyoteJump && !controller.isGrounded) {
-                    canDoubleJumped = true;
-                    coyoteJump = false;
-                    jumped = new Vector3(0f, jumpSpeed, 0f);
-                    Debug.Log("coyoteJump");
                 }
             }
             
