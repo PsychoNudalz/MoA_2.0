@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
     bool jump;
     bool run;
-    bool coyoteJump;
+    [SerializeField]bool coyoteJump;
 
     Transform cam;
     Transform player;
@@ -109,6 +109,9 @@ public class PlayerController : MonoBehaviour
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
             }
+            if (controller.isGrounded) {
+                coyoteJump = true;
+            }
         }
 
         if (dashCharges<dashCharges_Max&& Time.time > dashStart + dashCooldown)
@@ -118,23 +121,9 @@ public class PlayerController : MonoBehaviour
             ansonTempUIScript.UpdateDashDisplay(dashCharges);
         }
     }
-    private void FixedUpdate()
-    {
-        GroundCheckForCoyoteJump();
-    }
+  
 
-    void GroundCheckForCoyoteJump() {
-        bool wasGrounded = controller.isGrounded;
-        if (wasGrounded) {
-            StartCoroutine(CoyoteJumpDelay(1f));
-        }
-    }
-
-    IEnumerator CoyoteJumpDelay(float delay) {
-        coyoteJump = true;
-        yield return new WaitForSeconds(delay);
-        coyoteJump = false;
-    }
+   
 
     void CameraTilt()
     {
@@ -240,19 +229,21 @@ public class PlayerController : MonoBehaviour
             {
                 canDoubleJumped = true;
                 jumped = new Vector3(0f, jumpSpeed, 0f);
+                coyoteJump = false;
             }
             else
             {
-                if (coyoteJump) {
-                    canDoubleJumped = true;
-                    Debug.Log("coyoteJump");
-                    jumped = new Vector3(0f, jumpSpeed, 0f);
-                }
-
                 if (canDoubleJumped)
                 {
+                    coyoteJump = false;
                     jumped = new Vector3(0f, doubleJumpSpeed, 0f);
                     canDoubleJumped = false;
+                }
+                if (coyoteJump && !controller.isGrounded) {
+                    canDoubleJumped = true;
+                    coyoteJump = false;
+                    jumped = new Vector3(0f, jumpSpeed, 0f);
+                    Debug.Log("coyoteJump");
                 }
             }
             
