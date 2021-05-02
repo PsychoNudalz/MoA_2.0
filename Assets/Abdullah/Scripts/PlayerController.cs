@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     bool jump;
     bool run;
     [SerializeField]bool coyoteJump;
+    float notGroundedTime =0f;
+    [SerializeField]bool canCoyoteJump;
 
     Transform cam;
     Transform player;
@@ -105,12 +107,16 @@ public class PlayerController : MonoBehaviour
             }
             if (!controller.isGrounded)
             {
+               
                 //print("Adding gravity");
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
+                if (notGroundedTime == 0) { 
+                notGroundedTime = Time.time;
+                }
             }
             if (controller.isGrounded) {
-                coyoteJump = true;
+                canCoyoteJump = true;
             }
         }
 
@@ -121,7 +127,7 @@ public class PlayerController : MonoBehaviour
             ansonTempUIScript.UpdateDashDisplay(dashCharges);
         }
     }
-  
+
 
    
 
@@ -217,6 +223,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+
        
         if (disableControl)
         {
@@ -225,25 +232,34 @@ public class PlayerController : MonoBehaviour
         jump = context.performed;
         if (context.performed)
         {
-            if (controller.isGrounded)
+        if ((Time.time -notGroundedTime) <= 2 && canCoyoteJump)
+        {
+            coyoteJump = true;
+            canCoyoteJump = false;
+            Debug.Log("coyote jump" + (Time.time - notGroundedTime));
+        }
+        if((Time.time - notGroundedTime) > 2) {
+            coyoteJump = false;
+            canCoyoteJump = false;
+            Debug.Log("Too Late" + (Time.time - notGroundedTime));
+        }
+            if (controller.isGrounded || coyoteJump)
             {
-                canDoubleJumped = true;
-                jumped = new Vector3(0f, jumpSpeed, 0f);
                 coyoteJump = false;
+                canCoyoteJump = false;
+                canDoubleJumped = true;
+                notGroundedTime = 0f;
+                jumped = new Vector3(0f, jumpSpeed, 0f);
             }
             else
             {
                 if (canDoubleJumped)
                 {
                     coyoteJump = false;
-                    jumped = new Vector3(0f, doubleJumpSpeed, 0f);
+                    canCoyoteJump = false;
                     canDoubleJumped = false;
-                }
-                if (coyoteJump && !controller.isGrounded) {
-                    canDoubleJumped = true;
-                    coyoteJump = false;
-                    jumped = new Vector3(0f, jumpSpeed, 0f);
-                    Debug.Log("coyoteJump");
+                    notGroundedTime = 0f;
+                    jumped = new Vector3(0f, doubleJumpSpeed, 0f);
                 }
             }
             
