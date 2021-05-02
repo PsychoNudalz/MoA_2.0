@@ -16,6 +16,7 @@ public class Portal : MonoBehaviour
     [SerializeField]
     RoomEnemySystem nextRoomEnemySystem;
     [SerializeField] GunManager gunManager;
+    [SerializeField] List<GameObject> gunCache;
     [SerializeField] int lootAmount = 6;
     [SerializeField] int coinAmount = 2;
     bool rewardLoot;
@@ -36,6 +37,8 @@ public class Portal : MonoBehaviour
         {
             gunManager = FindObjectOfType<GunManager>();
         }
+        GenerateRewardLoot();
+
     }
 
     // Update is called once per frame
@@ -56,7 +59,17 @@ public class Portal : MonoBehaviour
     {
         rewardLoot = true;
         player.GetComponent<PlayerMasterScript>().PlayerSaveStats.AddCoins(coinAmount);
-        List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel-1, spawnLevel+1);
+        for (int i = 0; i < gunCache.Count; i++)
+        {
+            gunCache[i].SetActive(true);
+            gunCache[i].GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30 * i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0, 3000f, 0)));
+
+        }
+    }
+
+    private void GenerateRewardLoot()
+    {
+        List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1, spawnLevel + 1);
 
 
 
@@ -73,7 +86,8 @@ public class Portal : MonoBehaviour
             {
                 newGun.transform.position = player.transform.position + new Vector3(i * 0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
             }
-            newGun.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30 * i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0, 3000f, 0)));
+            gunCache.Add(newGun);
+            newGun.SetActive(false);
         }
     }
 
@@ -103,6 +117,7 @@ public class Portal : MonoBehaviour
         player.SetActive(true);
         */
         player.GetComponent<PlayerMasterScript>().TeleportPlayer(targetSpawner.transform.position);
+        gunManager.ClearGunsOnGround(false);
         if (nextRoomEnemySystem != null)
         {
 
