@@ -9,6 +9,7 @@ public class TargetSoundScript : MonoBehaviour
     [SerializeField] Sound takeDamageSound;
     [SerializeField] Sound staggerSound;
     [SerializeField] Sound deathSound;
+    [SerializeField] Sound spawnSound;
 
     public void Play_Attack()
     {
@@ -44,5 +45,13 @@ public class TargetSoundScript : MonoBehaviour
             return;
         }
         deathSound.Play();
+    }
+    public void Play_Spawn()
+    {
+        if (!spawnSound)
+        {
+            return;
+        }
+        spawnSound.Play();
     }
 }

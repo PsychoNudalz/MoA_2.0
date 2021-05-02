@@ -323,7 +323,7 @@ VisualEffectResource:
       #endif\n\t\t\t\t\n\t\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\tfloat4
       cPosPrevious : TEXCOORD6;\n\t\t\t\tfloat4 cPosNonJiterred : TEXCOORD7;\n\t\t\t\t#endif\n\t\t\t   
       VFX_OPTIONAL_INTERPOLATION float _Opacity : NORMAL0;\n\t\t\t    VFX_OPTIONAL_INTERPOLATION
-      float _Blend : NORMAL1;\n\t\t\t    VFX_OPTIONAL_INTERPOLATION float Vector1_7012D389
+      float _Blend : NORMAL1;\n\t\t\t    VFX_OPTIONAL_INTERPOLATION float _TextureSize
       : NORMAL2;\n\t\t\t    VFX_OPTIONAL_INTERPOLATION float _Seed : NORMAL3;\n\t\t\t   
       VFX_OPTIONAL_INTERPOLATION bool Boolean_F4277C12 : NORMAL4;\n\t\t\t    \n\n\t\t\t\t\n\t\t\t\tUNITY_VERTEX_OUTPUT_STEREO\n\t\t\t};\n\t\t\t\n\t\t\t#define
       VFX_VARYING_PS_INPUTS ps_input\n\t\t\t#define VFX_VARYING_POSCS pos\n\t\t\t#define
@@ -442,15 +442,14 @@ VisualEffectResource:
       \n\t\t\t    float _Opacity__ = (float)0;{\n\t\t\t        \n\t\t\t        _Opacity__
       = (float)1;\n\t\t\t    }\n\t\t\t    o._Opacity = _Opacity__;float _Blend__
       = (float)0;{\n\t\t\t        \n\t\t\t        _Blend__ = (float)0.5;\n\t\t\t   
-      }\n\t\t\t    o._Blend = _Blend__;float Vector1_7012D389__ = (float)0;{\n\t\t\t       
-      \n\t\t\t        Vector1_7012D389__ = (float)0.209999993;\n\t\t\t    }\n\t\t\t   
-      o.Vector1_7012D389 = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t       
-      float tmp_bd = Rand(attributes.seed);\n\t\t\t        float tmp_bf = tmp_bd
-      * (float)10;\n\t\t\t        \n\t\t\t        _Seed__ = tmp_bf;\n\t\t\t    }\n\t\t\t   
-      o._Seed = _Seed__;bool Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t       
-      Boolean_F4277C12__ = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12
-      = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
+      }\n\t\t\t    o._Blend = _Blend__;float _TextureSize__ = (float)0;{\n\t\t\t       
+      \n\t\t\t        _TextureSize__ = (float)0.209999993;\n\t\t\t    }\n\t\t\t   
+      o._TextureSize = _TextureSize__;float _Seed__ = (float)0;{\n\t\t\t        float
+      tmp_bd = Rand(attributes.seed);\n\t\t\t        float tmp_bf = tmp_bd * (float)10;\n\t\t\t       
+      \n\t\t\t        _Seed__ = tmp_bf;\n\t\t\t    }\n\t\t\t    o._Seed = _Seed__;bool
+      Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t        Boolean_F4277C12__
+      = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12 = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn
+      o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl\"\n\t\t\t\t\t#include
@@ -485,15 +484,15 @@ VisualEffectResource:
       SG_Output_07065d1c61f22ba49ab42b342a988728\n\t\t\t{\n\t\t\t    float Alpha_4;\n\t\t\t};\n\t\t\t\n\t\t\tSG_Output_07065d1c61f22ba49ab42b342a988728
       SG_Evaluate_07065d1c61f22ba49ab42b342a988728(\n\t\t\t    SG_Input_07065d1c61f22ba49ab42b342a988728
       IN,\n\t\t\t    /* Property: Opacity */ float _Opacity,\n\t\t\t    /* Property:
-      TextureSize */ float Vector1_7012D389,\n\t\t\t    /* Property: Seed */ float
-      _Seed)\n\t\t\t{\n\t\t\t    // Node: Property\n\t\t\t    float _Property_942D4722_Out_0
-      = Vector1_7012D389;\n\t\t\t\n\t\t\t    // Node: Multiply\n\t\t\t    float _Multiply_FF30E8BB_Out_2;\n\t\t\t   
-      Unity_Multiply_float(_Property_942D4722_Out_0, 1.2, _Multiply_FF30E8BB_Out_2);\n\t\t\t\n\t\t\t   
-      // Node: Property\n\t\t\t    float _Property_46E046A3_Out_0 = _Seed;\n\t\t\t\n\t\t\t   
-      // Node: Add\n\t\t\t    float _Add_1E24A17_Out_2;\n\t\t\t    Unity_Add_float(IN.TimeParameters.x,
-      _Property_46E046A3_Out_0, _Add_1E24A17_Out_2);\n\t\t\t\n\t\t\t    // Node:
-      Vector 1\n\t\t\t    float _Vector1_B1EABD21_Out_0 = _Add_1E24A17_Out_2;\n\t\t\t\n\t\t\t   
-      // Node: Vector 2\n\t\t\t    float2 _Vector2_32EA0166_Out_0 = float2(0, 0.1);\n\t\t\t\n\t\t\t   
+      TextureSize */ float _TextureSize,\n\t\t\t    /* Property: Seed */ float _Seed)\n\t\t\t{\n\t\t\t   
+      // Node: Property\n\t\t\t    float _Property_942D4722_Out_0 = _TextureSize;\n\t\t\t\n\t\t\t   
+      // Node: Multiply\n\t\t\t    float _Multiply_FF30E8BB_Out_2;\n\t\t\t    Unity_Multiply_float(_Property_942D4722_Out_0,
+      1.2, _Multiply_FF30E8BB_Out_2);\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t   
+      float _Property_46E046A3_Out_0 = _Seed;\n\t\t\t\n\t\t\t    // Node: Add\n\t\t\t   
+      float _Add_1E24A17_Out_2;\n\t\t\t    Unity_Add_float(IN.TimeParameters.x, _Property_46E046A3_Out_0,
+      _Add_1E24A17_Out_2);\n\t\t\t\n\t\t\t    // Node: Vector 1\n\t\t\t    float
+      _Vector1_B1EABD21_Out_0 = _Add_1E24A17_Out_2;\n\t\t\t\n\t\t\t    // Node: Vector
+      2\n\t\t\t    float2 _Vector2_32EA0166_Out_0 = float2(0, 0.1);\n\t\t\t\n\t\t\t   
       // Node: Multiply\n\t\t\t    float2 _Multiply_8866BCDB_Out_2;\n\t\t\t    Unity_Multiply_float((_Vector1_B1EABD21_Out_0.xx),
       _Vector2_32EA0166_Out_0, _Multiply_8866BCDB_Out_2);\n\t\t\t\n\t\t\t    // Node:
       Add\n\t\t\t    float2 _Add_50335B5E_Out_2;\n\t\t\t    Unity_Add_float2(_Multiply_8866BCDB_Out_2,
@@ -582,17 +581,17 @@ VisualEffectResource:
       VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\tint _ObjectId;\n\t\t\tint _PassValue;\n\t\t\t#endif\n\t\t\t\n\t\t\t#pragma
       fragment frag\n\t\t\tfloat4 frag(ps_input i) : SV_TARGET\n\t\t\t{\n\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t   
       #ifdef VFX_SHADERGRAPH\n\t\t\t        float _Opacity = i._Opacity;float _Blend
-      = i._Blend;float Vector1_7012D389 = i.Vector1_7012D389;float _Seed = i._Seed;bool
-      Boolean_F4277C12 = i.Boolean_F4277C12;\n\t\t\t        //Call Shader Graph\n\t\t\t       
-      SG_Input_07065d1c61f22ba49ab42b342a988728 INSG = (SG_Input_07065d1c61f22ba49ab42b342a988728)0;\n\t\t\t       
-      INSG.uv0.xy = i.uv;\n\t\t\t        INSG.TimeParameters = _TimeParameters.xyz;\n\t\t\t       
+      = i._Blend;float _TextureSize = i._TextureSize;float _Seed = i._Seed;bool Boolean_F4277C12
+      = i.Boolean_F4277C12;\n\t\t\t        //Call Shader Graph\n\t\t\t        SG_Input_07065d1c61f22ba49ab42b342a988728
+      INSG = (SG_Input_07065d1c61f22ba49ab42b342a988728)0;\n\t\t\t        INSG.uv0.xy
+      = i.uv;\n\t\t\t        INSG.TimeParameters = _TimeParameters.xyz;\n\t\t\t       
       \n\t\t\t        SG_Output_07065d1c61f22ba49ab42b342a988728 OUTSG = SG_Evaluate_07065d1c61f22ba49ab42b342a988728(INSG,_Opacity,
-      Vector1_7012D389, _Seed);\n\t\t\t        \n\n\t\t\t        \n\t\t\t       
-      float alpha = OUTSG.Alpha_4;\n\t\t\t    #else\n\t\t\t        float alpha =
-      VFXGetFragmentColor(i).a;\n\t\t\t        alpha *= VFXGetTextureColor(VFX_SAMPLER(mainTexture),i).a;\t\t\n\t\t\t   
-      #endif\n\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#if VFX_PASSDEPTH
-      == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2 velocity =
-      (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) - (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
+      _TextureSize, _Seed);\n\t\t\t        \n\n\t\t\t        \n\t\t\t        float
+      alpha = OUTSG.Alpha_4;\n\t\t\t    #else\n\t\t\t        float alpha = VFXGetFragmentColor(i).a;\n\t\t\t       
+      alpha *= VFXGetTextureColor(VFX_SAMPLER(mainTexture),i).a;\t\t\n\t\t\t    #endif\n\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2
+      velocity = (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) -
+      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
       UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tfloat4
       encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity *
       0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\n\t\t\t\t\treturn encodedMotionVector;\n\t\t\t\t#elif
@@ -620,7 +619,7 @@ VisualEffectResource:
       SHADERGRAPH_NEEDS_NORMAL_FORWARD\n\t\t\t\tfloat3 normal : TEXCOORD7;\n\t\t\t\t#endif\n\t\t\t\t#if
       SHADERGRAPH_NEEDS_TANGENT_FORWARD\n\t\t\t\tfloat4 tangent : TEXCOORD8;\n\t\t\t\t#endif\n\t\t\t\t\n\t\t       
       VFX_OPTIONAL_INTERPOLATION float _Opacity : NORMAL0;\n\t\t        VFX_OPTIONAL_INTERPOLATION
-      float _Blend : NORMAL1;\n\t\t        VFX_OPTIONAL_INTERPOLATION float Vector1_7012D389
+      float _Blend : NORMAL1;\n\t\t        VFX_OPTIONAL_INTERPOLATION float _TextureSize
       : NORMAL2;\n\t\t        VFX_OPTIONAL_INTERPOLATION float _Seed : NORMAL3;\n\t\t       
       VFX_OPTIONAL_INTERPOLATION bool Boolean_F4277C12 : NORMAL4;\n\t\t        \n\n\t\t\n\t\t\t\tUNITY_VERTEX_OUTPUT_STEREO\n\t\t\t};\n\t\t\t\n\t\t\tstruct
       ps_output\n\t\t\t{\n\t\t\t\tfloat4 color : SV_Target0;\n\t\t#if WRITE_MOTION_VECTOR_IN_FORWARD\n\t\t\t\tfloat4
@@ -743,15 +742,14 @@ VisualEffectResource:
       \n\t\t\t    float _Opacity__ = (float)0;{\n\t\t\t        \n\t\t\t        _Opacity__
       = (float)1;\n\t\t\t    }\n\t\t\t    o._Opacity = _Opacity__;float _Blend__
       = (float)0;{\n\t\t\t        \n\t\t\t        _Blend__ = (float)0.5;\n\t\t\t   
-      }\n\t\t\t    o._Blend = _Blend__;float Vector1_7012D389__ = (float)0;{\n\t\t\t       
-      \n\t\t\t        Vector1_7012D389__ = (float)0.209999993;\n\t\t\t    }\n\t\t\t   
-      o.Vector1_7012D389 = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t       
-      float tmp_bd = Rand(attributes.seed);\n\t\t\t        float tmp_bf = tmp_bd
-      * (float)10;\n\t\t\t        \n\t\t\t        _Seed__ = tmp_bf;\n\t\t\t    }\n\t\t\t   
-      o._Seed = _Seed__;bool Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t       
-      Boolean_F4277C12__ = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12
-      = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
+      }\n\t\t\t    o._Blend = _Blend__;float _TextureSize__ = (float)0;{\n\t\t\t       
+      \n\t\t\t        _TextureSize__ = (float)0.209999993;\n\t\t\t    }\n\t\t\t   
+      o._TextureSize = _TextureSize__;float _Seed__ = (float)0;{\n\t\t\t        float
+      tmp_bd = Rand(attributes.seed);\n\t\t\t        float tmp_bf = tmp_bd * (float)10;\n\t\t\t       
+      \n\t\t\t        _Seed__ = tmp_bf;\n\t\t\t    }\n\t\t\t    o._Seed = _Seed__;bool
+      Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t        Boolean_F4277C12__
+      = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12 = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn
+      o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl\"\n\t\t\t\t\t#include
@@ -806,7 +804,7 @@ VisualEffectResource:
       IN,\n\t\t\t    /* Property: Colour1 */ float4 _Colour1,\n\t\t\t    /* Property:
       Colour2 */ float4 _Colour2,\n\t\t\t    /* Property: Opacity */ float _Opacity,\n\t\t\t   
       /* Property: Blend */ float _Blend,\n\t\t\t    /* Property: TextureSize */
-      float Vector1_7012D389,\n\t\t\t    /* Property: Seed */ float _Seed,\n\t\t\t   
+      float _TextureSize,\n\t\t\t    /* Property: Seed */ float _Seed,\n\t\t\t   
       /* Property: Debug */ float Boolean_F4277C12)\n\t\t\t{\n\t\t\t    // Node:
       Property\n\t\t\t    float _Property_F9F8D687_Out_0 = Boolean_F4277C12;\n\t\t\t\n\t\t\t   
       // Node: Color\n\t\t\t    float4 Color_6E245952 = IsGammaSpace() ? float4(1,
@@ -824,7 +822,7 @@ VisualEffectResource:
       // Node: Vector 1\n\t\t\t    float _Vector1_249BBA66_Out_0 = 1;\n\t\t\t\n\t\t\t   
       // Node: Multiply\n\t\t\t    float _Multiply_1FAFBA63_Out_2;\n\t\t\t    Unity_Multiply_float(_Vector1_249BBA66_Out_0,
       0.2, _Multiply_1FAFBA63_Out_2);\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t   
-      float _Property_942D4722_Out_0 = Vector1_7012D389;\n\t\t\t\n\t\t\t    // Node:
+      float _Property_942D4722_Out_0 = _TextureSize;\n\t\t\t\n\t\t\t    // Node:
       Multiply\n\t\t\t    float _Multiply_FF30E8BB_Out_2;\n\t\t\t    Unity_Multiply_float(_Property_942D4722_Out_0,
       1.2, _Multiply_FF30E8BB_Out_2);\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t   
       float _Property_46E046A3_Out_0 = _Seed;\n\t\t\t\n\t\t\t    // Node: Add\n\t\t\t   
@@ -932,7 +930,7 @@ VisualEffectResource:
       // Node: Property\n\t\t\t    float4 _Property_843FC987_Out_0 = _Colour2;\n\t\t\t\n\t\t\t   
       // Node: Rotate\n\t\t\t    float2 _Rotate_D6DFD54C_Out_3;\n\t\t\t    Unity_Rotate_Degrees_float(IN.uv0.xy,
       float2 (0.5, 0.5), 45, _Rotate_D6DFD54C_Out_3);\n\t\t\t\n\t\t\t    // Node:
-      Property\n\t\t\t    float _Property_98929B02_Out_0 = Vector1_7012D389;\n\t\t\t\n\t\t\t   
+      Property\n\t\t\t    float _Property_98929B02_Out_0 = _TextureSize;\n\t\t\t\n\t\t\t   
       // Node: Vector 2\n\t\t\t    float2 _Vector2_E5A97856_Out_0 = float2(1, _Property_98929B02_Out_0);\n\t\t\t\n\t\t\t   
       // Node: Multiply\n\t\t\t    float2 _Multiply_2DCC7409_Out_2;\n\t\t\t    Unity_Multiply_float(_Vector2_E5A97856_Out_0,
       float2(1, 10), _Multiply_2DCC7409_Out_2);\n\t\t\t\n\t\t\t    // Node: Vector
@@ -991,13 +989,12 @@ VisualEffectResource:
       = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tnormalWS
       = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t       
       #if VFX_SHADERGRAPH        \n\t\t            float _Opacity = i._Opacity;float
-      _Blend = i._Blend;float Vector1_7012D389 = i.Vector1_7012D389;float _Seed =
-      i._Seed;bool Boolean_F4277C12 = i.Boolean_F4277C12;\n\t\t            //Call
-      Shader Graph\n\t\t            SG_Input_07065d1c61f22ba49ab42b342a988728 INSG
-      = (SG_Input_07065d1c61f22ba49ab42b342a988728)0;\n\t\t            INSG.uv0.xy
-      = i.uv;\n\t\t            INSG.TimeParameters = _TimeParameters.xyz;\n\t\t           
+      _Blend = i._Blend;float _TextureSize = i._TextureSize;float _Seed = i._Seed;bool
+      Boolean_F4277C12 = i.Boolean_F4277C12;\n\t\t            //Call Shader Graph\n\t\t           
+      SG_Input_07065d1c61f22ba49ab42b342a988728 INSG = (SG_Input_07065d1c61f22ba49ab42b342a988728)0;\n\t\t           
+      INSG.uv0.xy = i.uv;\n\t\t            INSG.TimeParameters = _TimeParameters.xyz;\n\t\t           
       \n\t\t            SG_Output_07065d1c61f22ba49ab42b342a988728 OUTSG = SG_Evaluate_07065d1c61f22ba49ab42b342a988728(INSG,_Colour1,
-      _Colour2, _Opacity, _Blend, Vector1_7012D389, _Seed, Boolean_F4277C12);\n\t\t           
+      _Colour2, _Opacity, _Blend, _TextureSize, _Seed, Boolean_F4277C12);\n\t\t           
       \n\n\t\t            \n\t\t            #if HAS_SHADERGRAPH_PARAM_COLOR\n\t\t               
       o.color.rgb = OUTSG.Color_6.rgb;\n\t\t            #endif\n\t\t            \n\t\t           
       #if HAS_SHADERGRAPH_PARAM_ALPHA \n\t\t                o.color.a = OUTSG.Alpha_4;\n\t\t           
@@ -1231,7 +1228,7 @@ VisualEffectResource:
       #endif\n\t\t\t\t\n\t\t\t\t#if VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\tfloat4
       cPosPrevious : TEXCOORD6;\n\t\t\t\tfloat4 cPosNonJiterred : TEXCOORD7;\n\t\t\t\t#endif\n\t\t\t   
       VFX_OPTIONAL_INTERPOLATION float _Opacity : NORMAL0;\n\t\t\t    VFX_OPTIONAL_INTERPOLATION
-      float _Blend : NORMAL1;\n\t\t\t    VFX_OPTIONAL_INTERPOLATION float Vector1_7012D389
+      float _Blend : NORMAL1;\n\t\t\t    VFX_OPTIONAL_INTERPOLATION float _TextureSize
       : NORMAL2;\n\t\t\t    VFX_OPTIONAL_INTERPOLATION float _Seed : NORMAL3;\n\t\t\t   
       VFX_OPTIONAL_INTERPOLATION bool Boolean_F4277C12 : NORMAL4;\n\t\t\t    \n\n\t\t\t\t\n\t\t\t\tUNITY_VERTEX_OUTPUT_STEREO\n\t\t\t};\n\t\t\t\n\t\t\t#define
       VFX_VARYING_PS_INPUTS ps_input\n\t\t\t#define VFX_VARYING_POSCS pos\n\t\t\t#define
@@ -1350,15 +1347,14 @@ VisualEffectResource:
       \n\t\t\t    float _Opacity__ = (float)0;{\n\t\t\t        \n\t\t\t        _Opacity__
       = (float)1;\n\t\t\t    }\n\t\t\t    o._Opacity = _Opacity__;float _Blend__
       = (float)0;{\n\t\t\t        \n\t\t\t        _Blend__ = (float)0.5;\n\t\t\t   
-      }\n\t\t\t    o._Blend = _Blend__;float Vector1_7012D389__ = (float)0;{\n\t\t\t       
-      \n\t\t\t        Vector1_7012D389__ = (float)0.209999993;\n\t\t\t    }\n\t\t\t   
-      o.Vector1_7012D389 = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t       
-      float tmp_bd = Rand(attributes.seed);\n\t\t\t        float tmp_bf = tmp_bd
-      * (float)10;\n\t\t\t        \n\t\t\t        _Seed__ = tmp_bf;\n\t\t\t    }\n\t\t\t   
-      o._Seed = _Seed__;bool Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t       
-      Boolean_F4277C12__ = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12
-      = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
+      }\n\t\t\t    o._Blend = _Blend__;float _TextureSize__ = (float)0;{\n\t\t\t       
+      \n\t\t\t        _TextureSize__ = (float)0.209999993;\n\t\t\t    }\n\t\t\t   
+      o._TextureSize = _TextureSize__;float _Seed__ = (float)0;{\n\t\t\t        float
+      tmp_bd = Rand(attributes.seed);\n\t\t\t        float tmp_bf = tmp_bd * (float)10;\n\t\t\t       
+      \n\t\t\t        _Seed__ = tmp_bf;\n\t\t\t    }\n\t\t\t    o._Seed = _Seed__;bool
+      Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t        Boolean_F4277C12__
+      = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12 = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn
+      o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl\"\n\t\t\t\t\t#include
@@ -1393,15 +1389,15 @@ VisualEffectResource:
       SG_Output_07065d1c61f22ba49ab42b342a988728\n\t\t\t{\n\t\t\t    float Alpha_4;\n\t\t\t};\n\t\t\t\n\t\t\tSG_Output_07065d1c61f22ba49ab42b342a988728
       SG_Evaluate_07065d1c61f22ba49ab42b342a988728(\n\t\t\t    SG_Input_07065d1c61f22ba49ab42b342a988728
       IN,\n\t\t\t    /* Property: Opacity */ float _Opacity,\n\t\t\t    /* Property:
-      TextureSize */ float Vector1_7012D389,\n\t\t\t    /* Property: Seed */ float
-      _Seed)\n\t\t\t{\n\t\t\t    // Node: Property\n\t\t\t    float _Property_942D4722_Out_0
-      = Vector1_7012D389;\n\t\t\t\n\t\t\t    // Node: Multiply\n\t\t\t    float _Multiply_FF30E8BB_Out_2;\n\t\t\t   
-      Unity_Multiply_float(_Property_942D4722_Out_0, 1.2, _Multiply_FF30E8BB_Out_2);\n\t\t\t\n\t\t\t   
-      // Node: Property\n\t\t\t    float _Property_46E046A3_Out_0 = _Seed;\n\t\t\t\n\t\t\t   
-      // Node: Add\n\t\t\t    float _Add_1E24A17_Out_2;\n\t\t\t    Unity_Add_float(IN.TimeParameters.x,
-      _Property_46E046A3_Out_0, _Add_1E24A17_Out_2);\n\t\t\t\n\t\t\t    // Node:
-      Vector 1\n\t\t\t    float _Vector1_B1EABD21_Out_0 = _Add_1E24A17_Out_2;\n\t\t\t\n\t\t\t   
-      // Node: Vector 2\n\t\t\t    float2 _Vector2_32EA0166_Out_0 = float2(0, 0.1);\n\t\t\t\n\t\t\t   
+      TextureSize */ float _TextureSize,\n\t\t\t    /* Property: Seed */ float _Seed)\n\t\t\t{\n\t\t\t   
+      // Node: Property\n\t\t\t    float _Property_942D4722_Out_0 = _TextureSize;\n\t\t\t\n\t\t\t   
+      // Node: Multiply\n\t\t\t    float _Multiply_FF30E8BB_Out_2;\n\t\t\t    Unity_Multiply_float(_Property_942D4722_Out_0,
+      1.2, _Multiply_FF30E8BB_Out_2);\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t   
+      float _Property_46E046A3_Out_0 = _Seed;\n\t\t\t\n\t\t\t    // Node: Add\n\t\t\t   
+      float _Add_1E24A17_Out_2;\n\t\t\t    Unity_Add_float(IN.TimeParameters.x, _Property_46E046A3_Out_0,
+      _Add_1E24A17_Out_2);\n\t\t\t\n\t\t\t    // Node: Vector 1\n\t\t\t    float
+      _Vector1_B1EABD21_Out_0 = _Add_1E24A17_Out_2;\n\t\t\t\n\t\t\t    // Node: Vector
+      2\n\t\t\t    float2 _Vector2_32EA0166_Out_0 = float2(0, 0.1);\n\t\t\t\n\t\t\t   
       // Node: Multiply\n\t\t\t    float2 _Multiply_8866BCDB_Out_2;\n\t\t\t    Unity_Multiply_float((_Vector1_B1EABD21_Out_0.xx),
       _Vector2_32EA0166_Out_0, _Multiply_8866BCDB_Out_2);\n\t\t\t\n\t\t\t    // Node:
       Add\n\t\t\t    float2 _Add_50335B5E_Out_2;\n\t\t\t    Unity_Add_float2(_Multiply_8866BCDB_Out_2,
@@ -1490,17 +1486,17 @@ VisualEffectResource:
       VFX_PASSDEPTH == VFX_PASSDEPTH_SELECTION\n\t\t\tint _ObjectId;\n\t\t\tint _PassValue;\n\t\t\t#endif\n\t\t\t\n\t\t\t#pragma
       fragment frag\n\t\t\tfloat4 frag(ps_input i) : SV_TARGET\n\t\t\t{\n\t\t\t\tUNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);\n\t\t\t\tVFXTransformPSInputs(i);\n\t\t\t   
       #ifdef VFX_SHADERGRAPH\n\t\t\t        float _Opacity = i._Opacity;float _Blend
-      = i._Blend;float Vector1_7012D389 = i.Vector1_7012D389;float _Seed = i._Seed;bool
-      Boolean_F4277C12 = i.Boolean_F4277C12;\n\t\t\t        //Call Shader Graph\n\t\t\t       
-      SG_Input_07065d1c61f22ba49ab42b342a988728 INSG = (SG_Input_07065d1c61f22ba49ab42b342a988728)0;\n\t\t\t       
-      INSG.uv0.xy = i.uv;\n\t\t\t        INSG.TimeParameters = _TimeParameters.xyz;\n\t\t\t       
+      = i._Blend;float _TextureSize = i._TextureSize;float _Seed = i._Seed;bool Boolean_F4277C12
+      = i.Boolean_F4277C12;\n\t\t\t        //Call Shader Graph\n\t\t\t        SG_Input_07065d1c61f22ba49ab42b342a988728
+      INSG = (SG_Input_07065d1c61f22ba49ab42b342a988728)0;\n\t\t\t        INSG.uv0.xy
+      = i.uv;\n\t\t\t        INSG.TimeParameters = _TimeParameters.xyz;\n\t\t\t       
       \n\t\t\t        SG_Output_07065d1c61f22ba49ab42b342a988728 OUTSG = SG_Evaluate_07065d1c61f22ba49ab42b342a988728(INSG,_Opacity,
-      Vector1_7012D389, _Seed);\n\t\t\t        \n\n\t\t\t        \n\t\t\t       
-      float alpha = OUTSG.Alpha_4;\n\t\t\t    #else\n\t\t\t        float alpha =
-      VFXGetFragmentColor(i).a;\n\t\t\t        alpha *= VFXGetTextureColor(VFX_SAMPLER(mainTexture),i).a;\t\t\n\t\t\t   
-      #endif\n\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#if VFX_PASSDEPTH
-      == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2 velocity =
-      (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) - (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
+      _TextureSize, _Seed);\n\t\t\t        \n\n\t\t\t        \n\t\t\t        float
+      alpha = OUTSG.Alpha_4;\n\t\t\t    #else\n\t\t\t        float alpha = VFXGetFragmentColor(i).a;\n\t\t\t       
+      alpha *= VFXGetTextureColor(VFX_SAMPLER(mainTexture),i).a;\t\t\n\t\t\t    #endif\n\t\t\t\tVFXClipFragmentColor(alpha,i);\n\t\t\t\t\n\t\t\t\t#if
+      VFX_PASSDEPTH == VFX_PASSDEPTH_MOTION_VECTOR\n\t\t\t\t\t\n\t\t\t\t\t\t\tfloat2
+      velocity = (i.VFX_VARYING_VELOCITY_CPOS.xy/i.VFX_VARYING_VELOCITY_CPOS.w) -
+      (i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.xy/i.VFX_VARYING_VELOCITY_CPOS_PREVIOUS.w);\n\t\t\t\t\t\t\t#if
       UNITY_UV_STARTS_AT_TOP\n\t\t\t\t\t\t\t\tvelocity.y = -velocity.y;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tfloat4
       encodedMotionVector = 0.0f;\n\t\t\t\t\t\t\tVFXEncodeMotionVector(velocity *
       0.5f, encodedMotionVector);\n\t\t\t\t\t\t\t\n\t\t\t\t\treturn encodedMotionVector;\n\t\t\t\t#elif
@@ -1528,7 +1524,7 @@ VisualEffectResource:
       SHADERGRAPH_NEEDS_NORMAL_FORWARD\n\t\t\t\tfloat3 normal : TEXCOORD7;\n\t\t\t\t#endif\n\t\t\t\t#if
       SHADERGRAPH_NEEDS_TANGENT_FORWARD\n\t\t\t\tfloat4 tangent : TEXCOORD8;\n\t\t\t\t#endif\n\t\t\t\t\n\t\t       
       VFX_OPTIONAL_INTERPOLATION float _Opacity : NORMAL0;\n\t\t        VFX_OPTIONAL_INTERPOLATION
-      float _Blend : NORMAL1;\n\t\t        VFX_OPTIONAL_INTERPOLATION float Vector1_7012D389
+      float _Blend : NORMAL1;\n\t\t        VFX_OPTIONAL_INTERPOLATION float _TextureSize
       : NORMAL2;\n\t\t        VFX_OPTIONAL_INTERPOLATION float _Seed : NORMAL3;\n\t\t       
       VFX_OPTIONAL_INTERPOLATION bool Boolean_F4277C12 : NORMAL4;\n\t\t        \n\n\t\t\n\t\t\t\tUNITY_VERTEX_OUTPUT_STEREO\n\t\t\t};\n\t\t\t\n\t\t\tstruct
       ps_output\n\t\t\t{\n\t\t\t\tfloat4 color : SV_Target0;\n\t\t#if WRITE_MOTION_VECTOR_IN_FORWARD\n\t\t\t\tfloat4
@@ -1651,15 +1647,14 @@ VisualEffectResource:
       \n\t\t\t    float _Opacity__ = (float)0;{\n\t\t\t        \n\t\t\t        _Opacity__
       = (float)1;\n\t\t\t    }\n\t\t\t    o._Opacity = _Opacity__;float _Blend__
       = (float)0;{\n\t\t\t        \n\t\t\t        _Blend__ = (float)0.5;\n\t\t\t   
-      }\n\t\t\t    o._Blend = _Blend__;float Vector1_7012D389__ = (float)0;{\n\t\t\t       
-      \n\t\t\t        Vector1_7012D389__ = (float)0.209999993;\n\t\t\t    }\n\t\t\t   
-      o.Vector1_7012D389 = Vector1_7012D389__;float _Seed__ = (float)0;{\n\t\t\t       
-      float tmp_bd = Rand(attributes.seed);\n\t\t\t        float tmp_bf = tmp_bd
-      * (float)10;\n\t\t\t        \n\t\t\t        _Seed__ = tmp_bf;\n\t\t\t    }\n\t\t\t   
-      o._Seed = _Seed__;bool Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t       
-      Boolean_F4277C12__ = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12
-      = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include
-      \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
+      }\n\t\t\t    o._Blend = _Blend__;float _TextureSize__ = (float)0;{\n\t\t\t       
+      \n\t\t\t        _TextureSize__ = (float)0.209999993;\n\t\t\t    }\n\t\t\t   
+      o._TextureSize = _TextureSize__;float _Seed__ = (float)0;{\n\t\t\t        float
+      tmp_bd = Rand(attributes.seed);\n\t\t\t        float tmp_bf = tmp_bd * (float)10;\n\t\t\t       
+      \n\t\t\t        _Seed__ = tmp_bf;\n\t\t\t    }\n\t\t\t    o._Seed = _Seed__;bool
+      Boolean_F4277C12__ = (bool)0;{\n\t\t\t        \n\t\t\t        Boolean_F4277C12__
+      = (bool)false;\n\t\t\t    }\n\t\t\t    o.Boolean_F4277C12 = Boolean_F4277C12__;\n\n\t\t\t\t\n\t\t\t\treturn
+      o;\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t#include \"Packages/com.unity.visualeffectgraph/Shaders/VFXCommonOutput.hlsl\"\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl\"\n\t\t\t\t\t#include
       \"Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl\"\n\t\t\t\t\t#include
@@ -1714,7 +1709,7 @@ VisualEffectResource:
       IN,\n\t\t\t    /* Property: Colour1 */ float4 _Colour1,\n\t\t\t    /* Property:
       Colour2 */ float4 _Colour2,\n\t\t\t    /* Property: Opacity */ float _Opacity,\n\t\t\t   
       /* Property: Blend */ float _Blend,\n\t\t\t    /* Property: TextureSize */
-      float Vector1_7012D389,\n\t\t\t    /* Property: Seed */ float _Seed,\n\t\t\t   
+      float _TextureSize,\n\t\t\t    /* Property: Seed */ float _Seed,\n\t\t\t   
       /* Property: Debug */ float Boolean_F4277C12)\n\t\t\t{\n\t\t\t    // Node:
       Property\n\t\t\t    float _Property_F9F8D687_Out_0 = Boolean_F4277C12;\n\t\t\t\n\t\t\t   
       // Node: Color\n\t\t\t    float4 Color_6E245952 = IsGammaSpace() ? float4(1,
@@ -1732,7 +1727,7 @@ VisualEffectResource:
       // Node: Vector 1\n\t\t\t    float _Vector1_249BBA66_Out_0 = 1;\n\t\t\t\n\t\t\t   
       // Node: Multiply\n\t\t\t    float _Multiply_1FAFBA63_Out_2;\n\t\t\t    Unity_Multiply_float(_Vector1_249BBA66_Out_0,
       0.2, _Multiply_1FAFBA63_Out_2);\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t   
-      float _Property_942D4722_Out_0 = Vector1_7012D389;\n\t\t\t\n\t\t\t    // Node:
+      float _Property_942D4722_Out_0 = _TextureSize;\n\t\t\t\n\t\t\t    // Node:
       Multiply\n\t\t\t    float _Multiply_FF30E8BB_Out_2;\n\t\t\t    Unity_Multiply_float(_Property_942D4722_Out_0,
       1.2, _Multiply_FF30E8BB_Out_2);\n\t\t\t\n\t\t\t    // Node: Property\n\t\t\t   
       float _Property_46E046A3_Out_0 = _Seed;\n\t\t\t\n\t\t\t    // Node: Add\n\t\t\t   
@@ -1840,7 +1835,7 @@ VisualEffectResource:
       // Node: Property\n\t\t\t    float4 _Property_843FC987_Out_0 = _Colour2;\n\t\t\t\n\t\t\t   
       // Node: Rotate\n\t\t\t    float2 _Rotate_D6DFD54C_Out_3;\n\t\t\t    Unity_Rotate_Degrees_float(IN.uv0.xy,
       float2 (0.5, 0.5), 45, _Rotate_D6DFD54C_Out_3);\n\t\t\t\n\t\t\t    // Node:
-      Property\n\t\t\t    float _Property_98929B02_Out_0 = Vector1_7012D389;\n\t\t\t\n\t\t\t   
+      Property\n\t\t\t    float _Property_98929B02_Out_0 = _TextureSize;\n\t\t\t\n\t\t\t   
       // Node: Vector 2\n\t\t\t    float2 _Vector2_E5A97856_Out_0 = float2(1, _Property_98929B02_Out_0);\n\t\t\t\n\t\t\t   
       // Node: Multiply\n\t\t\t    float2 _Multiply_2DCC7409_Out_2;\n\t\t\t    Unity_Multiply_float(_Vector2_E5A97856_Out_0,
       float2(1, 10), _Multiply_2DCC7409_Out_2);\n\t\t\t\n\t\t\t    // Node: Vector
@@ -1899,13 +1894,12 @@ VisualEffectResource:
       = i.VFX_VARYING_NORMALSCALE;\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\tnormalWS
       = normalize(lerp(normalWS,mul(n,tbn),normalScale));\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t       
       #if VFX_SHADERGRAPH        \n\t\t            float _Opacity = i._Opacity;float
-      _Blend = i._Blend;float Vector1_7012D389 = i.Vector1_7012D389;float _Seed =
-      i._Seed;bool Boolean_F4277C12 = i.Boolean_F4277C12;\n\t\t            //Call
-      Shader Graph\n\t\t            SG_Input_07065d1c61f22ba49ab42b342a988728 INSG
-      = (SG_Input_07065d1c61f22ba49ab42b342a988728)0;\n\t\t            INSG.uv0.xy
-      = i.uv;\n\t\t            INSG.TimeParameters = _TimeParameters.xyz;\n\t\t           
+      _Blend = i._Blend;float _TextureSize = i._TextureSize;float _Seed = i._Seed;bool
+      Boolean_F4277C12 = i.Boolean_F4277C12;\n\t\t            //Call Shader Graph\n\t\t           
+      SG_Input_07065d1c61f22ba49ab42b342a988728 INSG = (SG_Input_07065d1c61f22ba49ab42b342a988728)0;\n\t\t           
+      INSG.uv0.xy = i.uv;\n\t\t            INSG.TimeParameters = _TimeParameters.xyz;\n\t\t           
       \n\t\t            SG_Output_07065d1c61f22ba49ab42b342a988728 OUTSG = SG_Evaluate_07065d1c61f22ba49ab42b342a988728(INSG,_Colour1,
-      _Colour2, _Opacity, _Blend, Vector1_7012D389, _Seed, Boolean_F4277C12);\n\t\t           
+      _Colour2, _Opacity, _Blend, _TextureSize, _Seed, Boolean_F4277C12);\n\t\t           
       \n\n\t\t            \n\t\t            #if HAS_SHADERGRAPH_PARAM_COLOR\n\t\t               
       o.color.rgb = OUTSG.Color_6.rgb;\n\t\t            #endif\n\t\t            \n\t\t           
       #if HAS_SHADERGRAPH_PARAM_ALPHA \n\t\t                o.color.a = OUTSG.Alpha_4;\n\t\t           
@@ -4124,7 +4118,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614606}
   - {fileID: 8926484042661614611}
   - {fileID: 8926484042661614612}
-  - {fileID: 8926484042661614613}
+  - {fileID: 8926484042661614728}
   - {fileID: 8926484042661614614}
   - {fileID: 8926484042661614615}
   m_OutputSlots: []
@@ -6783,7 +6777,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614689}
   - {fileID: 8926484042661614694}
   - {fileID: 8926484042661614695}
-  - {fileID: 8926484042661614696}
+  - {fileID: 8926484042661614729}
   - {fileID: 8926484042661614697}
   - {fileID: 8926484042661614698}
   m_OutputSlots: []
@@ -8452,4 +8446,72 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
     attributes: []
   m_Direction: 1
+  m_LinkedSlots: []
+--- !u!114 &8926484042661614728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661614728}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661614595}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0.21
+    m_Space: 2147483647
+  m_Property:
+    name: _TextureSize
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    attributes: []
+  m_Direction: 0
+  m_LinkedSlots: []
+--- !u!114 &8926484042661614729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661614729}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661614680}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0.21
+    m_Space: 2147483647
+  m_Property:
+    name: _TextureSize
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    attributes: []
+  m_Direction: 0
   m_LinkedSlots: []
