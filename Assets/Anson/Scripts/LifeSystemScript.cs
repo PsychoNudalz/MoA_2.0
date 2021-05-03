@@ -397,5 +397,10 @@ public class LifeSystemScript : MonoBehaviour
 
     }
 
+    public float GetPercentageHealth()
+    {
+        return Mathf.Clamp((float)health_Current / (float)health_Max, 0f, 1f);
+    }
+
 
 }
