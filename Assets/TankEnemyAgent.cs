@@ -19,6 +19,9 @@ public class TankEnemyAgent : MonoBehaviour
     private bool IsStaggering;
     [SerializeField] private bool IsDead = false;
 
+    private bool deathHandled = false;
+    [SerializeField] private GameObject healthPickup;
+
     [Header("Tank")]
     [SerializeField] GunDamageScript gunDamageScript;
 
@@ -71,11 +74,22 @@ public class TankEnemyAgent : MonoBehaviour
             }
 
         }
-        if (IsDead)
+        if (IsDead && !deathHandled)
         {
             transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
+            SpawnHealthPickup();
             GameObject.Destroy(this.transform.gameObject, 5f);
             transform.GetComponentInParent<EnemySpawner>().ResetSpawnCountdown();
+        }
+    }
+
+    private void SpawnHealthPickup()
+    {
+        float playerHealthPercent = player.GetComponent<PlayerLifeSystemScript>().GetPercentageHealth();
+        float rand = Random.Range(0f, 1f);
+        if (playerHealthPercent < rand)
+        {
+            GameObject.Instantiate(healthPickup, transform.position, transform.rotation, transform.parent.parent);
         }
     }
 
