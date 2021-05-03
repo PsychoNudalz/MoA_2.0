@@ -80,6 +80,7 @@ public class TankEnemyAgent : MonoBehaviour
             SpawnHealthPickup();
             GameObject.Destroy(this.transform.gameObject, 5f);
             transform.GetComponentInParent<EnemySpawner>().ResetSpawnCountdown();
+            deathHandled = true;
         }
     }
 
