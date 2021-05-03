@@ -14,6 +14,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     [SerializeField] private float maxCoverDelay = 5f;
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject healthPickup;
     private NavMeshAgent shootingEnemyAgent;
     private Animator shootingEnemyAnimator;
     private float currentAttackTimer;
@@ -27,6 +28,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     private NavMeshPath path;
     private float walkPointRange = 100f;
     private AIGunDamageScript gun;
+    private bool deathHandled = false;
 
     [Header("Shooting")]
     [SerializeField] GunDamageScript gunDamageScript;
@@ -84,10 +86,22 @@ public class ShootingEnemyAgent : MonoBehaviour
             }
             
         }
-        if (IsDead)
+        if (IsDead & !deathHandled)
         {
             transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
+            SpawnHealthPickup();
             GameObject.Destroy(this.transform.gameObject, 5f);
+            deathHandled = true;
+        }
+    }
+
+    private void SpawnHealthPickup()
+    {
+        float playerHealthPercent = player.GetComponent<PlayerLifeSystemScript>().GetPercentageHealth();
+        float rand = Random.Range(0f, 1f);
+        if (playerHealthPercent < rand)
+        {
+            GameObject.Instantiate(healthPickup, transform.position, transform.rotation, transform.parent.parent);
         }
     }
 
