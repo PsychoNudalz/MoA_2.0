@@ -61,7 +61,7 @@ public class GCSSaveCollection
             }
 
         }
-        Debug.LogError("failed to load data: " + gcs);
+        Debug.LogError("failed to load data: " + gcs.GetGCName());
         return null;
     }
 }
