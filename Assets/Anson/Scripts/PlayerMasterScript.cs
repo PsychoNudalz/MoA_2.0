@@ -155,6 +155,7 @@ public class PlayerMasterScript : MonoBehaviour
     public void TeleportPlayer(Vector3 pos)
     {
         playerController.Teleport(pos);
+        ansonTempUIScript.DisplayNewGunText(false);
     }
 
 }

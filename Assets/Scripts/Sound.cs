@@ -45,17 +45,7 @@ public class Sound : MonoBehaviour
     [Range(0f, 1f)]
     public float pitchVariance = .1f;
 
-    [Range(0f, 1f)]
-    public float spatialBlend = 1f;
-    [Range(0f, 1.1f)]
-    public float reverbZoneMix = 0f;
-    [Range(0f, 1f)]
-    public float dopplerLevel = 0f;
-
-    public float minDistance = 10f;
-    public float maxDistance = 20f;
-
-
+    
     [SerializeField] AudioMixer audioMixer;
     [SerializeField] SoundManager soundManager;
 
@@ -79,12 +69,19 @@ public class Sound : MonoBehaviour
         AwakeBehaviour();
     }
 
+    protected virtual void InitialiseClip()
+    {
+        source = gameObject.AddComponent<AudioSource>();
+        source.clip = clip;
+        source.volume = volume;
+        source.pitch = pitch;
+    }
+
     protected virtual void AwakeBehaviour()
     {
         if (source == null && clip != null)
         {
-            source = gameObject.AddComponent<AudioSource>();
-            source.clip = clip;
+            InitialiseClip();
         }
         else if (source == null && gameObject.TryGetComponent(out source))
         {
