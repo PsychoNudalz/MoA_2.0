@@ -201,7 +201,7 @@ public class LifeSystemScript : MonoBehaviour
         amount = Mathf.Clamp(amount, 0f, 1f);
         if (!isDead)
         {
-            healHealth( Mathf.RoundToInt(amount * (1f - GetPercentageHealth())));
+            healHealth( Mathf.RoundToInt(amount * (health_Max-health_Current)));
 
         }
         return health_Current;
