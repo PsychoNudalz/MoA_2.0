@@ -104,7 +104,7 @@ public class LifeSystemScript : MonoBehaviour
     public virtual int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
 
-            health_Current -= Mathf.RoundToInt(dmg);
+        health_Current -= Mathf.RoundToInt(dmg);
         if (!isDead)
         {
             print(name + " take damage: " + dmg);
@@ -132,7 +132,7 @@ public class LifeSystemScript : MonoBehaviour
     public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1, bool displayTakeDamageEffect = true)
     {
 
-            health_Current -= Mathf.RoundToInt(dmg * multiplier);
+        health_Current -= Mathf.RoundToInt(dmg * multiplier);
         if (!isDead)
         {
             print(name + " take " + element + " damage: " + dmg + " x " + multiplier);
@@ -184,13 +184,8 @@ public class LifeSystemScript : MonoBehaviour
         amount = Mathf.Clamp(amount, 0f, 1f);
         if (!isDead)
         {
-            health_Current += Mathf.RoundToInt(amount*health_Max);
-            print(name + " heal damage: " + amount);
-            if (health_Current > health_Max)
-            {
-                health_Current = health_Max;
-            }
-            //updateHealthBar();
+            healHealth(amount * health_Max);
+
         }
         return health_Current;
     }
@@ -206,13 +201,8 @@ public class LifeSystemScript : MonoBehaviour
         amount = Mathf.Clamp(amount, 0f, 1f);
         if (!isDead)
         {
-            health_Current += Mathf.RoundToInt(amount * (1-GetPercentageHealth()));
-            print(name + " heal damage: " + amount);
-            if (health_Current > health_Max)
-            {
-                health_Current = health_Max;
-            }
-            //updateHealthBar();
+            healHealth( Mathf.RoundToInt(amount * (1f - GetPercentageHealth())));
+
         }
         return health_Current;
     }
@@ -448,6 +438,18 @@ public class LifeSystemScript : MonoBehaviour
         return Mathf.Clamp((float)health_Current / (float)health_Max, 0f, 1f);
     }
 
+    public float DrainMaxHealth(int amount)
+    {
 
+        health_Max -= amount;
+        if (health_Max < 1)
+        {
+            health_Max = 1;
+
+        }
+        health_Current = Mathf.RoundToInt(Mathf.Clamp(health_Current, 0f, health_Max));
+        return health_Max;
+
+    }
 
 }

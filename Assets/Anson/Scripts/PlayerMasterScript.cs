@@ -19,6 +19,7 @@ public class PlayerMasterScript : MonoBehaviour
     public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
     public PlayerSaveStats PlayerSaveStats { get => playerSaveStats; }
     public PlayerSaveCollection PlayerSaveCollection { set => playerSaveCollection = value; }
+    public PlayerLifeSystemScript PlayerLifeSystemScript { get => playerLifeSystemScript; set => playerLifeSystemScript = value; }
 
     private void Awake()
     {

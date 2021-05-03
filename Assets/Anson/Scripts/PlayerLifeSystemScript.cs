@@ -85,6 +85,8 @@ public class PlayerLifeSystemScript : LifeSystemScript
         {
             playerVolumeControllerScript.SetBloodVignette(false);
         }
+        UIScript.SetHealth(health_Current, Health_Max);
+
         return temp;
     }
 
