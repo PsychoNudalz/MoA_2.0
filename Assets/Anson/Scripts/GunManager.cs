@@ -238,17 +238,24 @@ public class GunManager : MonoBehaviour
         {
             try
             {
-
-            if (!g.transform.parent.tag.Equals("PlayerInventory") && (g.transform.parent.Equals(this.transform) || fullClear))
-            {
-                if (g.activeSelf)
+                if (g.transform.parent == null)
                 {
-                    temp.Add(g);
+                    if (fullClear)
+                    {
+                        temp.Add(g);
+                    }
+                }
+                else if ((transform.Equals(g.transform.parent) || fullClear)&& !g.transform.parent.tag.Equals("PlayerInventory") )
+                {
+                    if (g.activeSelf)
+                    {
+                        temp.Add(g);
+                    }
                 }
             }
-            }catch(NullReferenceException e)
+            catch (NullReferenceException e)
             {
-                Debug.LogError("Clear guns null reference");
+                Debug.LogError("Clear guns null reference: " + g);
 
             }
         }
