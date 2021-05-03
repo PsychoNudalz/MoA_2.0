@@ -13,6 +13,7 @@ public class StoneEnemyAgent : MonoBehaviour
     [SerializeField] private AnimationCurve attackDropOff;
     [SerializeField] private float attackTimeInitial;
     [SerializeField] private LayerMask playerMask;
+    [SerializeField] private GameObject healthPickup;
     private NavMeshAgent stoneEnemyAgent;
     private Animator animator;
     private Transform player;
@@ -26,6 +27,7 @@ public class StoneEnemyAgent : MonoBehaviour
     private bool waypointSet;
     private NavMeshPath path;
     private float walkPointRange = 100f;
+    private bool deathHandled = false;
 
 
     private void Awake()
@@ -82,12 +84,24 @@ public class StoneEnemyAgent : MonoBehaviour
 
         }
 
-        if (IsDead)
+        if (IsDead && !deathHandled)
         {
             transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
+            SpawnHealthPickup();
             GameObject.Destroy(this.gameObject, 5f);
+            deathHandled = true;
         }
 
+    }
+
+    private void SpawnHealthPickup()
+    {
+        float playerHealthPercent = player.GetComponent<PlayerLifeSystemScript>().GetPercentageHealth();
+        float rand = Random.Range(0f, 1f);
+        if(playerHealthPercent < rand)
+        {
+            GameObject.Instantiate(healthPickup, transform.position, transform.rotation, transform.parent.parent);
+        }
     }
 
     private void Patrol()
