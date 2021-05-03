@@ -173,6 +173,52 @@ public class LifeSystemScript : MonoBehaviour
 
 
     /// <summary>
+    /// heal gameobject
+    /// amount based on maximum health
+    /// 
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns> health remaining</returns>
+    public virtual int healHealth_Percentage(float amount)
+    {
+        amount = Mathf.Clamp(amount, 0f, 1f);
+        if (!isDead)
+        {
+            health_Current += Mathf.RoundToInt(amount*health_Max);
+            print(name + " heal damage: " + amount);
+            if (health_Current > health_Max)
+            {
+                health_Current = health_Max;
+            }
+            //updateHealthBar();
+        }
+        return health_Current;
+    }
+    /// <summary>
+    /// heal gameobject
+    /// amount based on missing health
+    /// 
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns> health remaining</returns>
+    public virtual int healHealth_PercentageMissing(float amount)
+    {
+        amount = Mathf.Clamp(amount, 0f, 1f);
+        if (!isDead)
+        {
+            health_Current += Mathf.RoundToInt(amount * (1-GetPercentageHealth()));
+            print(name + " heal damage: " + amount);
+            if (health_Current > health_Max)
+            {
+                health_Current = health_Max;
+            }
+            //updateHealthBar();
+        }
+        return health_Current;
+    }
+
+
+    /// <summary>
     /// check if the gameobject is dead
     /// plays death event when health reaches 0
     /// </summary>
@@ -401,6 +447,7 @@ public class LifeSystemScript : MonoBehaviour
     {
         return Mathf.Clamp((float)health_Current / (float)health_Max, 0f, 1f);
     }
+
 
 
 }
