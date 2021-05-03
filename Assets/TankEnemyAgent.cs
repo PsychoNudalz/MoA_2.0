@@ -17,7 +17,7 @@ public class TankEnemyAgent : MonoBehaviour
 
     private bool isShooting;
     private bool IsStaggering;
-    private bool IsDead = false;
+    [SerializeField] private bool IsDead = false;
 
     [Header("Tank")]
     [SerializeField] GunDamageScript gunDamageScript;
@@ -73,6 +73,7 @@ public class TankEnemyAgent : MonoBehaviour
         }
         if (IsDead)
         {
+            transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
             GameObject.Destroy(this.transform.gameObject, 5f);
             transform.GetComponentInParent<EnemySpawner>().ResetSpawnCountdown();
         }

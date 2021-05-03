@@ -21,7 +21,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     private bool isCrouching;
     private bool isShooting;
     private bool IsStaggering;
-    private bool IsDead = false;
+    [SerializeField] private bool IsDead = false;
     private Vector3 currentWaypoint;
     private bool waypointSet;
     private NavMeshPath path;
@@ -86,7 +86,7 @@ public class ShootingEnemyAgent : MonoBehaviour
         }
         if (IsDead)
         {
-            
+            transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
             GameObject.Destroy(this.transform.gameObject, 5f);
         }
     }

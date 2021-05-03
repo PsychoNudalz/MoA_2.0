@@ -107,6 +107,11 @@ public class EnemySpawner : MonoBehaviour
         enemiesToSpawn.Enqueue(enemySpawned);
     }
 
+    internal void RemoveFromSpawnedEnemies(GameObject enemyToRemove)
+    {
+        spawnedEnemies.Remove(enemyToRemove);
+    }
+
     /*
      * Get an enemy prefab to spawn, spawn it, 
      * increment spawn count and reset delay countdown

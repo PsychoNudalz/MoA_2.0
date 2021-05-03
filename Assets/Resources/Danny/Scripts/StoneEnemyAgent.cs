@@ -18,7 +18,7 @@ public class StoneEnemyAgent : MonoBehaviour
     private Transform player;
     private SphereCastDamageScript sphereDamageScript;
     private bool IsStaggering;
-    private bool IsDead = false;
+    [SerializeField]private bool IsDead = false;
     private float attackTimeNow;
     private bool inChaseRange;
     private bool inAttackRange;
@@ -84,6 +84,7 @@ public class StoneEnemyAgent : MonoBehaviour
 
         if (IsDead)
         {
+            transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
             GameObject.Destroy(this.gameObject, 5f);
         }
 
