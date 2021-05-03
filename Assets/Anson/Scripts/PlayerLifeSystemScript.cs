@@ -72,7 +72,7 @@ public class PlayerLifeSystemScript : LifeSystemScript
     public override void PlayTakeDamageEffect()
     {
         playerVolumeControllerScript.PlayCD();
-        if ((health_Current / (float)health_Max) < vignetteThreshold)
+        if (GetPercentageHealth() < vignetteThreshold)
         {
             //print("Changing Vignette: " + (health_Current / health_Max));
             playerVolumeControllerScript.SetBloodVignette(true, 1 - (health_Current / (Health_Max * vignetteThreshold)));
@@ -81,9 +81,14 @@ public class PlayerLifeSystemScript : LifeSystemScript
     public override int healHealth(float amount)
     {
         int temp = base.healHealth(amount);
-        if (health_Current / (float)health_Max > vignetteThreshold)
+        if (GetPercentageHealth() > vignetteThreshold)
         {
             playerVolumeControllerScript.SetBloodVignette(false);
+        }
+        else
+        {
+            playerVolumeControllerScript.SetBloodVignette(true, 1 - (health_Current / (Health_Max * vignetteThreshold)));
+
         }
         UIScript.SetHealth(health_Current, Health_Max);
 
