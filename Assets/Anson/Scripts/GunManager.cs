@@ -72,6 +72,8 @@ public class GunManager : MonoBehaviour
     [Space]
     [Header("Save")]
     [SerializeField] GCSSaveCollection gCSSaveCollection;
+    [Header("Others")]
+    [SerializeField] List<GameObject> gunCache;
 
     public List<GCSelection> AllGCSelections { get => allGCSelections; }
     public List<GCSelection> Body { get => body; }
@@ -171,6 +173,9 @@ public class GunManager : MonoBehaviour
         InitialiseGenerator(AllGCSelections);
         GameObject newGun = gunGenerator.GenerateGun();
         newGun.transform.position += new Vector3(0, 2, 0);
+        gunCache.Add(newGun);
+        newGun.transform.parent = this.transform;
+
         return newGun;
 
     }
@@ -185,6 +190,8 @@ public class GunManager : MonoBehaviour
             GameObject newGun = gunGenerator.GenerateGun_Rarity(minRarity, maxRarity);
             newGun.transform.position += new Vector3(0, 2, 0);
             guns.Add(newGun);
+            gunCache.Add(newGun);
+            newGun.transform.parent = this.transform;
         }
         return guns;
 
@@ -223,5 +230,34 @@ public class GunManager : MonoBehaviour
         }
     }
 
+    public void ClearGunsOnGround(bool fullClear = false)
+    {
+        Debug.Log(this + " CLEARING ALL WAEPONS FROM GROUND");
+        List<GameObject> temp = new List<GameObject>();
+        foreach (GameObject g in gunCache)
+        {
+            try
+            {
+
+            if (!g.transform.parent.tag.Equals("PlayerInventory") && (g.transform.parent.Equals(this.transform) || fullClear))
+            {
+                if (g.activeSelf)
+                {
+                    temp.Add(g);
+                }
+            }
+            }catch(NullReferenceException e)
+            {
+                Debug.LogError("Clear guns null reference");
+
+            }
+        }
+        foreach (GameObject g in temp)
+        {
+            gunCache.Remove(g);
+            Destroy(g);
+        }
+
+    }
 
 }
