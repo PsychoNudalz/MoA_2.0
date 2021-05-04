@@ -132,7 +132,7 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {*/
-            if(spawnedEnemies.Count < maxEnemies && enemiesSpawned < numberOfEnemies)
+            if(spawnedEnemies.Count < maxEnemies && enemiesToSpawn.Count > 0)
             {
                 GameObject enemy = enemiesToSpawn.Dequeue();
                 enemy.SetActive(true);

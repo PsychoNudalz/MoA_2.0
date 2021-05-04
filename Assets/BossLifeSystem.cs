@@ -6,10 +6,21 @@ public class BossLifeSystem : TargetLifeSystem
 {
     [Header("Stone Enemy Agent")]
     BossAgent bossAgent;
+    EnemySpawner spawner;
+    bool displayDecremented = false;
 
     private void Start()
     {
         bossAgent = GetComponent<BossAgent>();
+        try
+        {
+
+            spawner = transform.parent.GetComponent<EnemySpawner>();
+        }
+        catch (System.NullReferenceException e)
+        {
+            print(name + " can't find spawner");
+        }
     }
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
@@ -31,5 +42,15 @@ public class BossLifeSystem : TargetLifeSystem
     private void StaggerAnimation()
     {
         bossAgent.Stagger();
+    }
+
+    public override void DeathBehaviour()
+    {
+        base.DeathBehaviour();
+        if (!displayDecremented)
+        {
+            spawner.DecrementEnemies();
+            displayDecremented = true;
+        }
     }
 }

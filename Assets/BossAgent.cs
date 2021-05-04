@@ -23,6 +23,7 @@ public class BossAgent : MonoBehaviour
     private GameObject player;
     private float attackDetectionRange = 50f;
     private bool isShooting;
+    private bool deathHandled = false;
 
     private void Awake()
     {
@@ -118,9 +119,11 @@ public class BossAgent : MonoBehaviour
             }*/
 
         }
-        if (IsDead)
+        if (IsDead && !deathHandled)
         {
+            transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
             GameObject.Destroy(this.gameObject, 10f);
+            deathHandled = true;
         }
 
     }
