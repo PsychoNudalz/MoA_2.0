@@ -698,11 +698,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0
@@ -849,8 +844,9 @@ GameObject:
   - component: {fileID: 2702026834853663533}
   - component: {fileID: 3490730928409475076}
   - component: {fileID: 3490730928409475077}
+  - component: {fileID: -1204274689561689960}
   m_Layer: 10
-  m_Name: Boss_Test2
+  m_Name: BossEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1043,6 +1039,19 @@ MonoBehaviour:
   targetMaterialHandler: {fileID: 1443652925260587619}
   targetSoundScript: {fileID: 0}
   mainColliders: []
+--- !u!114 &-1204274689561689960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977506464976353396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383adbd66f607c94b9625097fcfab177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 3
 --- !u!1 &2089390217097209927
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,11 +1966,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0
@@ -3216,11 +3220,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0
@@ -3962,15 +3961,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fc7deb162947004aaf7af26c1d2d274, type: 3}
---- !u!198 &4788209102772470682 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1994476989549923862, guid: 9fc7deb162947004aaf7af26c1d2d274,
-    type: 3}
-  m_PrefabInstance: {fileID: 6475873410510212492}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6257699029696250087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1083463785328528747, guid: 9fc7deb162947004aaf7af26c1d2d274,
+    type: 3}
+  m_PrefabInstance: {fileID: 6475873410510212492}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4788209102772470682 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1994476989549923862, guid: 9fc7deb162947004aaf7af26c1d2d274,
     type: 3}
   m_PrefabInstance: {fileID: 6475873410510212492}
   m_PrefabAsset: {fileID: 0}
@@ -4138,15 +4137,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cdcaabd41925d44eb7720f80c3a3aa7, type: 3}
---- !u!4 &7781065666627929303 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
-    type: 3}
-  m_PrefabInstance: {fileID: 7698545397613819411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!2083052967 &2674512229451172122 stripped
 VisualEffect:
   m_CorrespondingSourceObject: {fileID: 5749826735744843529, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7698545397613819411}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7781065666627929303 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
     type: 3}
   m_PrefabInstance: {fileID: 7698545397613819411}
   m_PrefabAsset: {fileID: 0}
