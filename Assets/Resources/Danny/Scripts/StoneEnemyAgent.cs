@@ -35,6 +35,11 @@ public class StoneEnemyAgent : MonoBehaviour
         ResetEnemy();
     }
 
+    private void OnEnable()
+    {
+        Patrol();
+    }
+
     private void ResetEnemy()
     {
         attackTimeNow = attackTimeInitial;

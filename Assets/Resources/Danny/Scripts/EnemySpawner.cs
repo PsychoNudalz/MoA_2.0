@@ -139,7 +139,10 @@ public class EnemySpawner : MonoBehaviour
                 enemiesSpawned++;
                 spawnedEnemies.Add(enemy);
                 IncrementEnemies();
-                ResetSpawnCountdown();
+                if(spawnCountdown < delayBetweenSpawns / 5)
+                {
+                    ResetSpawnCountdown();
+                }
             }
        // }
     }
