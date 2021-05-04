@@ -125,7 +125,12 @@ public class PlayerMasterScript : MonoBehaviour
     }
     public int AddCoins(int amount)
     {
-        return playerSaveStats.AddCoins(amount);
+        int temp=  playerSaveStats.AddCoins(amount);
+        if (ansonTempUIScript != null)
+        {
+            ansonTempUIScript.SetCoins(temp);
+        }
+        return temp;
     }
 
     /// <summary>
@@ -141,7 +146,11 @@ public class PlayerMasterScript : MonoBehaviour
         }
         else
         {
-            playerSaveStats.AddCoins(-amount);
+            int temp = playerSaveStats.AddCoins(-amount);
+            if (ansonTempUIScript != null)
+            {
+                ansonTempUIScript.SetCoins(temp);
+            }
             return true;
         }
     }

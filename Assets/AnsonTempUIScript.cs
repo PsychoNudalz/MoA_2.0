@@ -45,7 +45,6 @@ public class AnsonTempUIScript : MonoBehaviour
     [SerializeField] List<Slider> pauseSlider;
 
     [Header("Debug")]
-    [SerializeField] bool debugMode;
     [SerializeField] TextMeshProUGUI coinText;
 
     public List<Slider> PauseSlider { get => pauseSlider; set => pauseSlider = value; }
@@ -64,41 +63,30 @@ public class AnsonTempUIScript : MonoBehaviour
 
     private void Awake()
     {
-        if (debugMode)
-        {
-            coinText.gameObject.SetActive(true);
-        }
-        else
-        {
-            coinText.gameObject.SetActive(false);
-        }
+        coinText.gameObject.SetActive(true);
+        SetCoins(FindObjectOfType<PlayerSaveStats>().coins);
+
     }
 
-    public void UpdateActiveGun(int gunIndex) {
-        inventoryAnimator.SetInteger("GunIndex", gunIndex);
-    //     activeGun.gunAmmo.fontSize = 16;
-    //     activeGun.gunName.fontSize = 16;
-    //     if (gunIndex == 0) {
-    //         inventoryBackground.sprite = weaponOnSlot1;
-    //         activeGun = gun1;
-    //     }
-    //     if (gunIndex == 1) {
-    //         inventoryBackground.sprite = weaponOnSlot2;
-    //         activeGun = gun2;
-    //     }
-    //     if (gunIndex == 2) {
-    //         inventoryBackground.sprite = weaponOnSlot3;
-    //         activeGun = gun3;
-    //     }
-    //     activeGun.gunAmmo.fontSize = 20;
-    //     activeGun.gunName.fontSize = 20;
-    }
-    private void FixedUpdate()
+    public void UpdateActiveGun(int gunIndex)
     {
-        if (debugMode)
-        {
-            SetCoins(FindObjectOfType<PlayerSaveStats>().coins);
-        }
+        inventoryAnimator.SetInteger("GunIndex", gunIndex);
+        //     activeGun.gunAmmo.fontSize = 16;
+        //     activeGun.gunName.fontSize = 16;
+        //     if (gunIndex == 0) {
+        //         inventoryBackground.sprite = weaponOnSlot1;
+        //         activeGun = gun1;
+        //     }
+        //     if (gunIndex == 1) {
+        //         inventoryBackground.sprite = weaponOnSlot2;
+        //         activeGun = gun2;
+        //     }
+        //     if (gunIndex == 2) {
+        //         inventoryBackground.sprite = weaponOnSlot3;
+        //         activeGun = gun3;
+        //     }
+        //     activeGun.gunAmmo.fontSize = 20;
+        //     activeGun.gunName.fontSize = 20;
     }
 
     public void SetAmmoText(string s, int i)

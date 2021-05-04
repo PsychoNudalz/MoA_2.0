@@ -61,7 +61,7 @@ public class ShootingEnemyAgent : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!IsStaggering && !IsDead)
         {
