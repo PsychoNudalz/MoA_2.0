@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class StoneEnemyAgent : MonoBehaviour
 {
     [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] int attackDamage = 1;
     [SerializeField] private float attackPlayerDistance = 2f;
     [SerializeField] private float chasePlayerDistance = 15f;
     [SerializeField] private AnimationCurve attackDropOff;
@@ -223,7 +224,7 @@ public class StoneEnemyAgent : MonoBehaviour
         /*
          * Damage player if in range (triggered from attack animation
          */
-        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
+        sphereDamageScript.SphereCastDamageArea(attackDamage, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
     }
 
     private void OnDrawGizmosSelected()
