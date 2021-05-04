@@ -261,9 +261,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6415723201291006970}
+  - component: {fileID: 4324998910360545143}
+  - component: {fileID: 8811374777689182700}
   m_Layer: 10
-  m_Name: DEF-f_index.02.L_end
+  m_Name: EnemyShooting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -517,9 +518,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8842696667408617188}
+  - component: {fileID: 2484493435048923913}
+  - component: {fileID: 4448607069317691052}
   m_Layer: 10
-  m_Name: DEF-forearm.R
+  m_Name: EndReload
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,9 +1174,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6404552106245753413}
+  - component: {fileID: 8228723847872160979}
   m_Layer: 10
-  m_Name: DEF-palm.01.L
+  m_Name: Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1567,10 +1569,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9142547404795705163}
-  - component: {fileID: 4084179200485458384}
-  m_Layer: 0
-  m_Name: EnemyShooting
+  - component: {fileID: 3897038624548663625}
+  - component: {fileID: 7547460057553322873}
+  m_Layer: 10
+  m_Name: GunShound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1706,10 +1708,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2901553086296725676}
+  - component: {fileID: 3637483736989423669}
+  - component: {fileID: 288688418381923626}
+  - component: {fileID: 3673222227497242528}
+  - component: {fileID: 5550127684185989069}
   m_Layer: 10
-  m_Name: ORG-palm.04.R
-  m_TagString: Untagged
+  m_Name: EnemyGun
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2737,9 +2742,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2114180707893700864}
+  - component: {fileID: 9176915021249206558}
   m_Layer: 10
-  m_Name: DEF-spine.004
+  m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2925,9 +2930,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3122579241266355615}
+  - component: {fileID: 5052396010508833737}
+  - component: {fileID: 2356586544295869873}
   m_Layer: 10
-  m_Name: DEF-palm.03.L_end
+  m_Name: StartReload
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3835,6 +3841,11 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9092994258117433402, guid: 3630b20189e9e4f4c84655103a2d92eb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9092994258117433402, guid: 3630b20189e9e4f4c84655103a2d92eb,
 >>>>>>> Stashed changes
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -3866,10 +3877,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4866697288444285503}
     m_Modifications:
-<<<<<<< Updated upstream
-    - target: {fileID: 3031908020252123173, guid: f5cfe4db31c410f46832dc6f64a10b24,
-=======
     - target: {fileID: 2600301049504681029, guid: b1c784d261821ed48af9e50201e23870,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599365054219386943, guid: b1c784d261821ed48af9e50201e23870,
         type: 3}
       propertyPath: m_Layer
       value: 10
@@ -3950,8 +3963,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: 4956610747859041368, guid: b1c784d261821ed48af9e50201e23870,
         type: 3}
       propertyPath: m_Layer
@@ -3977,7 +3988,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5cfe4db31c410f46832dc6f64a10b24, type: 3}
 --- !u!4 &7835721555050513243 stripped
@@ -4072,6 +4082,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8218656049262611835, guid: 9fc7deb162947004aaf7af26c1d2d274,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8218656049262611835, guid: 9fc7deb162947004aaf7af26c1d2d274,
         type: 3}

@@ -84,6 +84,18 @@ public class AnsonTempUIScript : MonoBehaviour
         }
     }
 
+    public void SetEnemiesVisibleBehindObjects(bool areVisible)
+    {
+        if (areVisible)
+        {
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 0);
+        }
+        else
+        {
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 1);
+        }
+    }
+
     public void UpdateActiveGun(int gunIndex) {
         inventoryAnimator.SetInteger("GunIndex", gunIndex);
         //     activeGun.gunAmmo.fontSize = 16;
