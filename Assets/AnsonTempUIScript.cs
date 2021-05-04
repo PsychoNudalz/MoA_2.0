@@ -47,6 +47,10 @@ public class AnsonTempUIScript : MonoBehaviour
     [Header("Debug")]
     [SerializeField] TextMeshProUGUI coinText;
 
+    [SerializeField] Material enemiesBehindObjectMaterial;
+    [SerializeField] int enemiesVisibleValue = 5;
+    
+
     public List<Slider> PauseSlider { get => pauseSlider; set => pauseSlider = value; }
 
     private void Start()
@@ -68,8 +72,19 @@ public class AnsonTempUIScript : MonoBehaviour
 
     }
 
-    public void UpdateActiveGun(int gunIndex)
+    public void SetEnemiesVisibleBehindObjects(bool areVisible)
     {
+        if (areVisible)
+        {
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 0);
+        }
+        else
+        {
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 1);
+        }
+    }
+
+    public void UpdateActiveGun(int gunIndex) {
         inventoryAnimator.SetInteger("GunIndex", gunIndex);
         //     activeGun.gunAmmo.fontSize = 16;
         //     activeGun.gunName.fontSize = 16;
@@ -227,6 +242,8 @@ public class AnsonTempUIScript : MonoBehaviour
 
     public void SetEnemiesRemainingText(int numberOfEnemies, bool roomClear)
     {
+        
+        SetEnemiesVisibleBehindObjects(numberOfEnemies <= enemiesVisibleValue);
         if (roomClear)
         {
             enemiesRemainingNumber.text = "";
