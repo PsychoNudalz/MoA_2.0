@@ -62,7 +62,7 @@ public class Portal : MonoBehaviour
         for (int i = 0; i < gunCache.Count; i++)
         {
             gunCache[i].SetActive(true);
-            gunCache[i].GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30 * i, Vector3.up) * (new Vector3(5000f, 5000f, 0)));
+            gunCache[i].GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(45 * i, Vector3.up) * (new Vector3(2000f, 4000f, 0)));
 
         }
     }
@@ -74,19 +74,20 @@ public class Portal : MonoBehaviour
 
 
         GameObject newGun;
+        float offset = 0.3f;
         for (int i = 0; i < gunList.Count; i++)
         {
             newGun = gunList[i];
             if (gunSpawnTransform != null)
             {
-                //newGun.transform.position = gunSpawnTransform.position + new Vector3(i * 0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
-                newGun.transform.position = gunSpawnTransform.position;
+                newGun.transform.position = gunSpawnTransform.position + new Vector3(i * offset - (lootAmount / 2f) * offset, 1, i * offset - (lootAmount / 2f)) * offset;
+                //newGun.transform.position = gunSpawnTransform.position;
 
             }
             else
             {
-                //newGun.transform.position = player.transform.position + new Vector3(i * 0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
-                newGun.transform.position = player.transform.position;
+                newGun.transform.position = player.transform.position + new Vector3(i * offset - (lootAmount / 2f) * offset, 1, i * offset - (lootAmount / 2f) * offset);
+                //newGun.transform.position = player.transform.position;
             }
             gunCache.Add(newGun);
             newGun.SetActive(false);
