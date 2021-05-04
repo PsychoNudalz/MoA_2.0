@@ -108,6 +108,7 @@ public class EnemySpawner : MonoBehaviour
     internal void RemoveFromSpawnedEnemies(GameObject enemyToRemove)
     {
         spawnedEnemies.Remove(enemyToRemove);
+        ResetSpawnCountdown();
     }
 
     /*

@@ -50,10 +50,9 @@ public class TankEnemyAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FaceTarget();
         if (!IsStaggering && !IsDead)
         {
-
+            FaceTarget();
             if (currentAttackTimer <= 0 && !isShooting)
             {
                 RaycastHit hit;
