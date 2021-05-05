@@ -84,7 +84,7 @@ public class AnsonTempUIScript : MonoBehaviour
     {
         if (areVisible)
         {
-            enemiesBehindObjectMaterial.SetFloat("_Alpha", 0.6f);
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 0.4f);
         }
         else
         {
