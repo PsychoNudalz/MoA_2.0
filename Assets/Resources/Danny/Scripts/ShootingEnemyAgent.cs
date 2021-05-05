@@ -90,7 +90,7 @@ public class ShootingEnemyAgent : MonoBehaviour
         {
             transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
             SpawnHealthPickup();
-            GameObject.Destroy(this.transform.gameObject, 5f);
+            GameObject.Destroy(this.transform.gameObject, 3f);
             deathHandled = true;
         }
     }

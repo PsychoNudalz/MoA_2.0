@@ -94,7 +94,7 @@ public class StoneEnemyAgent : MonoBehaviour
         {
             transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
             SpawnHealthPickup();
-            GameObject.Destroy(this.gameObject, 5f);
+            GameObject.Destroy(this.gameObject, 3f);
             deathHandled = true;
         }
 
