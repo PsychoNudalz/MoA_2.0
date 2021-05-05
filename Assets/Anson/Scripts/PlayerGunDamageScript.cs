@@ -144,7 +144,7 @@ public class PlayerGunDamageScript : GunDamageScript
     protected override float HandleWeapon(float newRecoilTime = -1)
     {
         float temp = base.HandleWeapon(newRecoilTime);
-
+        ansonTempUIScript.FireCrossair();
         UpdateAmmoCount();
         return temp;
     }
@@ -184,7 +184,7 @@ public class PlayerGunDamageScript : GunDamageScript
 
         isADS = true;
         lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
-
+        ansonTempUIScript.SetCrossair(true);
     }
 
     public void ADS_Off()
@@ -205,6 +205,8 @@ public class PlayerGunDamageScript : GunDamageScript
 
 
         lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
+    
+        ansonTempUIScript.SetCrossair(false);
     }
 
     protected override IEnumerator DelayReload(float offset = 0)
