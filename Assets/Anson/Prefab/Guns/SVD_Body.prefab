@@ -82,11 +82,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0
@@ -142,11 +137,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0
@@ -245,7 +235,7 @@ MonoBehaviour:
   - {fileID: 5878959978401060744}
   componentGunStatsScript: {fileID: 3380439694699035715}
   componentCost: 1
-  isSetElement: 1
+  isSetElement: 0
   elementType: 2
   rarity: 0
   rangeCurve:
@@ -253,13 +243,22 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.75
       inSlope: -0.021092163
       outSlope: -0.021092163
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0.25285715
+    - serializedVersion: 3
+      time: 0.1
+      value: 1
+      inSlope: 0.0024101734
+      outSlope: 0.0024101734
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.5
       value: 1
@@ -417,7 +416,7 @@ MonoBehaviour:
   reloadSpeed: 3
   recoil: {x: 12, y: 3}
   recoil_HipFire: {x: 5, y: 15}
-  range: 300
+  range: 100
   magazineSize: 0
   elementDamage: 1
   elementPotency: 6
@@ -496,11 +495,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0
