@@ -72,7 +72,10 @@ public class PlayerGunDamageScript : GunDamageScript
             ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
             //ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), mainGunStatsScript.ElementType, mainGunStatsScript.GunType, currentSlot);
         }
-
+        if (isADS)
+        {
+            ADS_Off();
+        }
         return newGun;
 
     }
