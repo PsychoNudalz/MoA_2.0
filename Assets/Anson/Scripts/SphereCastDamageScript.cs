@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SphereCastDamageScript : DamageScript
 {
+    [SerializeField] float lineOfSightOffset = 0f;
     public bool SphereCastDamageArea(float dmg, float range, AnimationCurve rangeCurve, int level, ElementTypes elementType, bool needLineOfSight = false)
     {
         attackedTargets = new List<LifeSystemScript>();
@@ -63,9 +64,11 @@ public class SphereCastDamageScript : DamageScript
 
     bool rayCastLineOfSight(Collider c, float range)
     {
-        Vector3 dir = (c.transform.position - transform.position).normalized;
+        Vector3 targetOffset = new Vector3(0, 0.5f, 0);
+        Vector3 dir = (c.transform.position+targetOffset - transform.position).normalized;
         RaycastHit hit;
-        Debug.DrawRay(transform.position, dir * range, Color.blue, 3f);
+        Vector3 offset = dir * lineOfSightOffset;
+        Debug.DrawRay(transform.position+offset, dir * range, Color.blue, 3f);
         if (Physics.Raycast(transform.position, dir, out hit, range, layerMask))
         {
             print("Check line of sight found:" + hit.collider.name);
