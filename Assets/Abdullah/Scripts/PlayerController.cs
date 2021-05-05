@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
             if (lookScript == null)
             {
                 Look();
-                CameraTilt();
+                //CameraTilt();
 
             }
             if (!controller.isGrounded)
@@ -392,6 +392,7 @@ public class PlayerController : MonoBehaviour
     {
         if (callbackContext.performed)
         {
+            ansonTempUIScript.CloseAllMenus();
             FindObjectOfType<PauseMenu>().TogglePauseMenu();
         }
     }

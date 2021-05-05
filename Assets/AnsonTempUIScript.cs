@@ -290,4 +290,11 @@ public class AnsonTempUIScript : MonoBehaviour
     {
         crossAimator.SetTrigger("Shoot");
     }
+    public void CloseAllMenus()
+    {
+        foreach (UIPopUpInteractableScript i in FindObjectsOfType<UIPopUpInteractableScript>())
+        {
+            i.deactivate();
+        }
+    }
 }
