@@ -126,11 +126,17 @@ public class Look : MonoBehaviour
 
     public void AimSight(bool b, float mult)
     {
+        if (isADS && b)
+        {
+            timeNow_Aim = 0.5f;
+        }
+
         isADS = b;
         if (b)
         {
             ModifySpeed(1 / mult);
             currentMult = mult;
+            
         }
         else
         {

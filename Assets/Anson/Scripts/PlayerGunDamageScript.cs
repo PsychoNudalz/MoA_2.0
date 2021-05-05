@@ -63,6 +63,8 @@ public class PlayerGunDamageScript : GunDamageScript
 
     public override MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
     {
+        bool wasADS = isADS;
+
         MainGunStatsScript newGun = base.UpdateGunScript(g, slot);
         if (newGun != null)
         {
@@ -72,9 +74,9 @@ public class PlayerGunDamageScript : GunDamageScript
             ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
             //ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), mainGunStatsScript.ElementType, mainGunStatsScript.GunType, currentSlot);
         }
-        if (isADS)
+        if (wasADS)
         {
-            ADS_Off();
+            lookScript.AimSight(wasADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
         }
         return newGun;
 

@@ -14,7 +14,9 @@ public class SphereCastDamageScript : DamageScript
         foreach (RaycastHit h in hits)
         {
             Collider c = h.collider;
-            if (!needLineOfSight || rayCastLineOfSight(c.transform.position, c.tag, range))
+            print("Check line of sight to:" + c.name);
+
+            if (!needLineOfSight || rayCastLineOfSight(c, range))
             {
 
 
@@ -59,14 +61,15 @@ public class SphereCastDamageScript : DamageScript
         return Mathf.RoundToInt(dmg * rangeCurve.Evaluate((pos - transform.position).magnitude / range)) + 1;
     }
 
-    bool rayCastLineOfSight(Vector3 pos, string targetTag, float range)
+    bool rayCastLineOfSight(Collider c, float range)
     {
+        Vector3 dir = (c.transform.position - transform.position).normalized;
         RaycastHit hit;
-        Debug.DrawRay(transform.position, (pos - transform.position).normalized * range, Color.blue, 3f);
-        if (Physics.Raycast(transform.position, (pos - transform.position).normalized, out hit, range, layerMask))
+        Debug.DrawRay(transform.position, dir * range, Color.blue, 3f);
+        if (Physics.Raycast(transform.position, dir, out hit, range, layerMask))
         {
-            print("Check line of sight to:" + hit.collider.name);
-            if (hit.collider.tag.Equals(targetTag))
+            print("Check line of sight found:" + hit.collider.name);
+            if (hit.collider.Equals(c))
             {
                 print("have line of sight");
                 return true;
