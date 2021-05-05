@@ -23,6 +23,7 @@ public class LifeSystemScript : MonoBehaviour
     public float delayDeath = 0;
     public bool detatchPopUps = true;
     public bool reatatchPopUps = true;
+    Coroutine deathCoroutine;
 
     Vector3 popUpLocation;
     Vector3 particleLocation;
@@ -219,8 +220,8 @@ public class LifeSystemScript : MonoBehaviour
         {
             isDead = true;
             health_Current = 0;
-
-            StartCoroutine(delayDeathRoutine());
+            
+            deathCoroutine = StartCoroutine(delayDeathRoutine());
         }
         return isDead;
     }

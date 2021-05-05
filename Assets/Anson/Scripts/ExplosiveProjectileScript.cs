@@ -14,7 +14,7 @@ public class ExplosiveProjectileScript : ProjectileScript
     public override void Explode()
     {
         base.Explode();
-        sphereCastDamageScript.SphereCastDamageArea(BaseDamage*damageMultiplier, maxRange, rangeFalloff, Level, ElementType);
+        sphereCastDamageScript.SphereCastDamageArea(BaseDamage*damageMultiplier, maxRange, rangeFalloff, Level, ElementType, true);
         Destroy(gameObject);
     }
 }
