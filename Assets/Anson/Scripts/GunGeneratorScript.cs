@@ -245,6 +245,8 @@ public class GunGeneratorScript : MonoBehaviour
 
     Rarity RandomiseRarity(int minR = 0,int maxR = 5)
     {
+        minR = Mathf.Clamp(minR, 0, 5);
+        maxR = Mathf.Clamp(maxR, 0, 5);
         return (Rarity)(Random.Range(minR, maxR) % 5);
     }
 
