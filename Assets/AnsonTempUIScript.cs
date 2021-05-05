@@ -15,23 +15,31 @@ public struct WeaponAmmoPair
 
 public class AnsonTempUIScript : MonoBehaviour
 {
+    [Header("Gun Stats")]
     public GameObject currentGun;
     public TextMeshProUGUI currentGunText;
     public GameObject newGun;
     public TextMeshProUGUI newGunText;
     //public TextMeshProUGUI healthText;
+    [Header("Enemy info")]
     public Image enemyHealthBar;
     public TextMeshProUGUI enemyName;
     public GameObject enemyInfo;
+    [Header("Player info")]
     public Image healthBar;
     public Image dash;
     public TextMeshProUGUI dashChargeDisplay;
     Sprite dashReady, dashCoolDown;
+    [Header("UI Elements")]
     public GameObject gameOverScreen;
+    //public GameObject crossAim;
+    public Animator crossAimator;
+    [Header("Inventory")]
     public WeaponAmmoPair gun1;
     public WeaponAmmoPair gun2;
     public WeaponAmmoPair gun3;
     // private WeaponAmmoPair activeGun;
+    [Header("Level info")]
     private Sprite portalInactive;
     private Sprite portalActive;
     public Animator inventoryAnimator;
@@ -271,5 +279,15 @@ public class AnsonTempUIScript : MonoBehaviour
         {
             portalIcon.sprite = portalInactive;
         }
+    }
+
+    public void SetCrossair(bool b)
+    {
+        crossAimator.SetBool("ADS", b);
+    }
+
+    public void FireCrossair()
+    {
+        crossAimator.SetTrigger("Shoot");
     }
 }
