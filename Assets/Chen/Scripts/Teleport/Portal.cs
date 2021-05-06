@@ -24,6 +24,7 @@ public class Portal : InteractableScript
     [SerializeField] Transform gunSpawnTransform;
     [SerializeField] int spawnLevel = 0;
     public bool isBoss = false;
+    public bool isWinning = false;
     public int percentageHealthReduced = 10;
 
     [Header("Debug")]
@@ -118,8 +119,12 @@ public class Portal : InteractableScript
     public override void activate()
     {
         base.activate();
-        if (isBoss) ReduceMaxHP(percentageHealthReduced);
-        TeleportPlayer();
+        if (isWinning) {
+            player.GetComponent<PlayerMasterScript>().AnsonTempUIScript.WinScreen();
+        } else {
+            if (isBoss) ReduceMaxHP(percentageHealthReduced);
+            TeleportPlayer();
+        }
     }
 
     public override void deactivate()

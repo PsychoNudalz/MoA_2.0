@@ -38,6 +38,7 @@ public class TeleportManager : MonoBehaviour
         prev.portalTarget = end;
         prev.Setup(end.CurrentRoomEnemySystem,i);
         //end.GetComponent<BoxCollider>().enabled = false;
+        end.isWinning = true;
     }
 
     void ShuffleList(List<Portal> list)
