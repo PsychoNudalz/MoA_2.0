@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class TeleportManager : MonoBehaviour
 {
-    public List<Portal> portals = new List<Portal>();
-    public Portal start, end;
+    public List<Portal> portals = new List<Portal>(); // List of non-boss room portals
+    public List<Portal> bossPortals = new List<Portal>(); // list of boss room portals
+    public Portal start;
+    public Portal end; // Deprecated
 
     void Start()
     {
         ShuffleList(portals);
+        ShuffleList(bossPortals);
+        end = bossPortals[bossPortals.Count - 1];
+        bossPortals.RemoveAt(bossPortals.Count - 1);
+        for (int j = 1; j <= portals.Count / 3; j++) {
+            if (bossPortals.Count >= j) portals.Insert(j*4 - 1, bossPortals[j - 1]);
+        }
         Portal prev = start;
         int i = 0;
         foreach (Portal pt in portals)
