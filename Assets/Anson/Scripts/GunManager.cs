@@ -185,6 +185,7 @@ public class GunManager : MonoBehaviour
         gunGenerator.ResetLists();
         InitialiseGenerator(AllGCSelections);
         List<GameObject> guns = new List<GameObject>();
+        print("Generating guns:" + numberOfGuns + " " + minRarity + " " + maxRarity);
         for (int i = 0; i < numberOfGuns; i++)
         {
             GameObject newGun = gunGenerator.GenerateGun_Rarity(minRarity, maxRarity);

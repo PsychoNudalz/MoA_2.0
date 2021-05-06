@@ -30,14 +30,13 @@ public class Portal : MonoBehaviour
 
     public RoomEnemySystem CurrentRoomEnemySystem { get => currentRoomEnemySystem; }
 
-    void Start()
+    void Awake()
     {
         player = GameObject.FindWithTag("Player");
         if (gunManager == null)
         {
             gunManager = FindObjectOfType<GunManager>();
         }
-        GenerateRewardLoot();
 
     }
 
@@ -69,6 +68,7 @@ public class Portal : MonoBehaviour
 
     private void GenerateRewardLoot()
     {
+        print("Spawn weapon:" + spawnLevel);
         List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1, spawnLevel + 1);
 
 
@@ -99,6 +99,8 @@ public class Portal : MonoBehaviour
         targetSpawner = portalTarget.transform.Find("SpawnPoint");
         nextRoomEnemySystem = r;
         spawnLevel = level;
+        GenerateRewardLoot();
+
     }
     void OnTriggerEnter(Collider other)
     {
