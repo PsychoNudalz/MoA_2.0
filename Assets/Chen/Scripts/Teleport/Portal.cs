@@ -23,6 +23,8 @@ public class Portal : InteractableScript
     bool rewardLoot;
     [SerializeField] Transform gunSpawnTransform;
     [SerializeField] int spawnLevel = 0;
+    public bool isBoss = false;
+    public int percentageHealthReduced = 10;
 
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
@@ -116,6 +118,7 @@ public class Portal : InteractableScript
     public override void activate()
     {
         base.activate();
+        if (isBoss) ReduceMaxHP(percentageHealthReduced);
         TeleportPlayer();
     }
 
@@ -126,7 +129,6 @@ public class Portal : InteractableScript
 
     void TeleportPlayer()
     {
-        Debug.Log("Ohhhhhhhhhhhhhhhhhhhhhhhhh");
         /*
         player.SetActive(false);
         player.transform.position = targetSpawner.transform.position;
@@ -144,5 +146,11 @@ public class Portal : InteractableScript
         {
             Debug.LogError("Cannot spawn enemy");
         }
+    }
+
+    void ReduceMaxHP(int percentage) {
+        int current_max = player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.Health_Max;
+        int reduced = Mathf.FloorToInt(current_max * percentage / 100f);
+        player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.DrainMaxHealth(reduced);
     }
 }
