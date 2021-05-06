@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Portal : MonoBehaviour
+public class Portal : InteractableScript
 {
     public Portal portalTarget;
 
@@ -102,15 +103,25 @@ public class Portal : MonoBehaviour
         GenerateRewardLoot();
 
     }
-    void OnTriggerEnter(Collider other)
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         if (ignoreSpawner || currentRoomEnemySystem.IsRoomClear())
+    //         {
+    //             TeleportPlayer();
+    //         }
+    //     }
+    // }
+    public override void activate()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            if (ignoreSpawner || currentRoomEnemySystem.IsRoomClear())
-            {
-                TeleportPlayer();
-            }
-        }
+        base.activate();
+        TeleportPlayer();
+    }
+
+    public override void deactivate()
+    {
+        base.deactivate();
     }
 
     void TeleportPlayer()
