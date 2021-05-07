@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class BossAgent : MonoBehaviour
 {
+    [SerializeField] int meleeDamage = 100;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float attackPlayerDistance = 6f;
     [SerializeField] private AnimationCurve attackDropOff;
@@ -23,6 +24,7 @@ public class BossAgent : MonoBehaviour
     private GameObject player;
     private float attackDetectionRange = 50f;
     private bool isShooting;
+    private bool deathHandled = false;
 
     private void Awake()
     {
@@ -118,9 +120,11 @@ public class BossAgent : MonoBehaviour
             }*/
 
         }
-        if (IsDead)
+        if (IsDead && !deathHandled)
         {
+            transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
             GameObject.Destroy(this.gameObject, 10f);
+            deathHandled = true;
         }
 
     }
@@ -216,7 +220,7 @@ public class BossAgent : MonoBehaviour
         /*
          * Damage player if in range (triggered from attack animation
          */
-        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
+        sphereDamageScript.SphereCastDamageArea(meleeDamage, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
     }
 
     private void FaceTarget()

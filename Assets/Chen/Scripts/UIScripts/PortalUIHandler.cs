@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PortalUIHandler : MonoBehaviour
 {
     public void ConfirmOnClick() {
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
         SceneManager.LoadScene("PrototypeLevel2");
     }
 

@@ -17,12 +17,16 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
 
     public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
-    public PlayerSaveStats PlayerSaveStats { get => playerSaveStats;}
-    public PlayerSaveCollection PlayerSaveCollection {set => playerSaveCollection = value; }
+    public PlayerSaveStats PlayerSaveStats { get => playerSaveStats; }
+    public PlayerSaveCollection PlayerSaveCollection { set => playerSaveCollection = value; }
+    public PlayerLifeSystemScript PlayerLifeSystemScript { get => playerLifeSystemScript; set => playerLifeSystemScript = value; }
 
     private void Awake()
     {
-        Initialize();
+        if (playerSaveCollection == null)
+        {
+            Initialize();
+        }
 
     }
 
@@ -94,12 +98,10 @@ public class PlayerMasterScript : MonoBehaviour
         }
         playerLifeSystemScript.PlayerMasterScript = this;
         playerLifeSystemScript.UIScript1 = ansonTempUIScript;
+        playerInventorySystemScript.ansonTempUIScript = ansonTempUIScript;
         playerLifeSystemScript.PlayerVolumeControllerScript = playerVolumeControllerScript;
         playerController.PlayerVolumeControllerScript = playerVolumeControllerScript;
-        if (playerSaveCollection != null)
-        {
-            LoadSave(playerSaveCollection);
-        }
+
     }
 
     public void SetControls(bool b)
@@ -123,7 +125,12 @@ public class PlayerMasterScript : MonoBehaviour
     }
     public int AddCoins(int amount)
     {
-        return playerSaveStats.AddCoins(amount);
+        int temp=  playerSaveStats.AddCoins(amount);
+        if (ansonTempUIScript != null)
+        {
+            ansonTempUIScript.SetCoins(temp);
+        }
+        return temp;
     }
 
     /// <summary>
@@ -139,18 +146,25 @@ public class PlayerMasterScript : MonoBehaviour
         }
         else
         {
-            playerSaveStats.AddCoins(-amount);
+            int temp = playerSaveStats.AddCoins(-amount);
+            if (ansonTempUIScript != null)
+            {
+                ansonTempUIScript.SetCoins(temp);
+            }
             return true;
         }
     }
 
     public void LoadSave(PlayerSaveCollection psc)
     {
+        Initialize();
+        playerSaveCollection = psc;
         playerSaveStats.Load(psc);
     }
     public void TeleportPlayer(Vector3 pos)
     {
         playerController.Teleport(pos);
+        ansonTempUIScript.DisplayNewGunText(false);
     }
 
 }

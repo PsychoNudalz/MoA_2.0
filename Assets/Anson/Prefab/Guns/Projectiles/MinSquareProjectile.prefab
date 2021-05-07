@@ -4871,6 +4871,7 @@ MonoBehaviour:
   tagList:
   - Enemy
   attackedTargets: []
+  lineOfSightOffset: 0.05
 --- !u!136 &7183683471440185746
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4949,8 +4950,10 @@ MonoBehaviour:
   projectileScript: {fileID: 0}
   triggerArea: {fileID: 6088202927809539530}
   radius: 15
+  deadZone: 0
   tagList: []
   canOverrideTarget: 1
+  checkRate: 0.5
 --- !u!135 &6088202927809539530
 SphereCollider:
   m_ObjectHideFlags: 0

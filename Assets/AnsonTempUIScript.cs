@@ -15,24 +15,37 @@ public struct WeaponAmmoPair
 
 public class AnsonTempUIScript : MonoBehaviour
 {
+    [Header("Gun Stats")]
     public GameObject currentGun;
     public TextMeshProUGUI currentGunText;
     public GameObject newGun;
     public TextMeshProUGUI newGunText;
     //public TextMeshProUGUI healthText;
+    [Header("Enemy info")]
     public Image enemyHealthBar;
     public TextMeshProUGUI enemyName;
     public GameObject enemyInfo;
+    [Header("Player info")]
     public Image healthBar;
     public Image dash;
+    public Image winScr;
     public TextMeshProUGUI dashChargeDisplay;
     Sprite dashReady, dashCoolDown;
+    [Header("UI Elements")]
     public GameObject gameOverScreen;
+    //public GameObject crossAim;
+    public Animator crossAimator;
+    [Header("Inventory")]
     public WeaponAmmoPair gun1;
     public WeaponAmmoPair gun2;
     public WeaponAmmoPair gun3;
+    // private WeaponAmmoPair activeGun;
+    [Header("Level info")]
     private Sprite portalInactive;
     private Sprite portalActive;
+    public Animator inventoryAnimator;
+    // private Sprite weaponOnSlot1, weaponOnSlot2, weaponOnSlot3;
+    // [SerializeField] private Image inventoryBackground;
     [SerializeField] private TextMeshProUGUI enemiesRemainingText;
     [SerializeField] private TextMeshProUGUI enemiesRemainingNumber;
     [SerializeField] private Image portalIcon;
@@ -41,8 +54,11 @@ public class AnsonTempUIScript : MonoBehaviour
     [SerializeField] List<Slider> pauseSlider;
 
     [Header("Debug")]
-    [SerializeField] bool debugMode;
     [SerializeField] TextMeshProUGUI coinText;
+
+    [SerializeField] Material enemiesBehindObjectMaterial;
+    [SerializeField] int enemiesVisibleValue = 5;
+    
 
     public List<Slider> PauseSlider { get => pauseSlider; set => pauseSlider = value; }
 
@@ -52,26 +68,49 @@ public class AnsonTempUIScript : MonoBehaviour
         dashCoolDown = Resources.Load<Sprite>("Sprites/Skill_CoolDown");
         portalInactive = Resources.Load<Sprite>("Sprites/Portal_Inactive");
         portalActive = Resources.Load<Sprite>("Sprites/Portal_Active");
+        // weaponOnSlot1 = Resources.Load<Sprite>("Sprites/Weapon Reel");
+        // weaponOnSlot2 = Resources.Load<Sprite>("Sprites/Weapon Reel 2");
+        // weaponOnSlot3 = Resources.Load<Sprite>("Sprites/Weapon Reel 3");
+        // activeGun = gun1;
     }
 
     private void Awake()
     {
-        if (debugMode)
+        coinText.gameObject.SetActive(true);
+        SetCoins(FindObjectOfType<PlayerSaveStats>().coins);
+
+    }
+
+    public void SetEnemiesVisibleBehindObjects(bool areVisible)
+    {
+        if (areVisible)
         {
-            coinText.gameObject.SetActive(true);
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 0.4f);
         }
         else
         {
-            coinText.gameObject.SetActive(false);
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 1f);
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (debugMode)
-        {
-            SetCoins(FindObjectOfType<PlayerSaveStats>().coins);
-        }
+    public void UpdateActiveGun(int gunIndex) {
+        inventoryAnimator.SetInteger("GunIndex", gunIndex);
+        //     activeGun.gunAmmo.fontSize = 16;
+        //     activeGun.gunName.fontSize = 16;
+        //     if (gunIndex == 0) {
+        //         inventoryBackground.sprite = weaponOnSlot1;
+        //         activeGun = gun1;
+        //     }
+        //     if (gunIndex == 1) {
+        //         inventoryBackground.sprite = weaponOnSlot2;
+        //         activeGun = gun2;
+        //     }
+        //     if (gunIndex == 2) {
+        //         inventoryBackground.sprite = weaponOnSlot3;
+        //         activeGun = gun3;
+        //     }
+        //     activeGun.gunAmmo.fontSize = 20;
+        //     activeGun.gunName.fontSize = 20;
     }
 
     public void SetAmmoText(string s, int i)
@@ -202,6 +241,7 @@ public class AnsonTempUIScript : MonoBehaviour
 
     public void LoadToBase()
     {
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
         SceneManager.LoadScene("Base");
 
     }
@@ -212,6 +252,8 @@ public class AnsonTempUIScript : MonoBehaviour
 
     public void SetEnemiesRemainingText(int numberOfEnemies, bool roomClear)
     {
+        
+        SetEnemiesVisibleBehindObjects(numberOfEnemies <= enemiesVisibleValue);
         if (roomClear)
         {
             enemiesRemainingNumber.text = "";
@@ -239,5 +281,28 @@ public class AnsonTempUIScript : MonoBehaviour
         {
             portalIcon.sprite = portalInactive;
         }
+    }
+
+    public void SetCrossair(bool b)
+    {
+        crossAimator.SetBool("ADS", b);
+    }
+
+    public void FireCrossair()
+    {
+        crossAimator.SetTrigger("Shoot");
+    }
+    public void CloseAllMenus()
+    {
+        foreach (UIPopUpInteractableScript i in FindObjectsOfType<UIPopUpInteractableScript>())
+        {
+            i.deactivate();
+        }
+    }
+
+    public void WinScreen() {
+        winScr.gameObject.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }

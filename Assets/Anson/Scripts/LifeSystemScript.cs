@@ -23,6 +23,7 @@ public class LifeSystemScript : MonoBehaviour
     public float delayDeath = 0;
     public bool detatchPopUps = true;
     public bool reatatchPopUps = true;
+    Coroutine deathCoroutine;
 
     Vector3 popUpLocation;
     Vector3 particleLocation;
@@ -104,7 +105,7 @@ public class LifeSystemScript : MonoBehaviour
     public virtual int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
 
-            health_Current -= Mathf.RoundToInt(dmg);
+        health_Current -= Mathf.RoundToInt(dmg);
         if (!isDead)
         {
             print(name + " take damage: " + dmg);
@@ -132,7 +133,7 @@ public class LifeSystemScript : MonoBehaviour
     public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1, bool displayTakeDamageEffect = true)
     {
 
-            health_Current -= Mathf.RoundToInt(dmg * multiplier);
+        health_Current -= Mathf.RoundToInt(dmg * multiplier);
         if (!isDead)
         {
             print(name + " take " + element + " damage: " + dmg + " x " + multiplier);
@@ -173,6 +174,42 @@ public class LifeSystemScript : MonoBehaviour
 
 
     /// <summary>
+    /// heal gameobject
+    /// amount based on maximum health
+    /// 
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns> health remaining</returns>
+    public virtual int healHealth_Percentage(float amount)
+    {
+        amount = Mathf.Clamp(amount, 0f, 1f);
+        if (!isDead)
+        {
+            healHealth(amount * health_Max);
+
+        }
+        return health_Current;
+    }
+    /// <summary>
+    /// heal gameobject
+    /// amount based on missing health
+    /// 
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns> health remaining</returns>
+    public virtual int healHealth_PercentageMissing(float amount)
+    {
+        amount = Mathf.Clamp(amount, 0f, 1f);
+        if (!isDead)
+        {
+            healHealth( Mathf.RoundToInt(amount * (health_Max-health_Current)));
+
+        }
+        return health_Current;
+    }
+
+
+    /// <summary>
     /// check if the gameobject is dead
     /// plays death event when health reaches 0
     /// </summary>
@@ -183,8 +220,8 @@ public class LifeSystemScript : MonoBehaviour
         {
             isDead = true;
             health_Current = 0;
-
-            StartCoroutine(delayDeathRoutine());
+            
+            deathCoroutine = StartCoroutine(delayDeathRoutine());
         }
         return isDead;
     }
@@ -397,5 +434,23 @@ public class LifeSystemScript : MonoBehaviour
 
     }
 
+    public float GetPercentageHealth()
+    {
+        return Mathf.Clamp((float)health_Current / (float)health_Max, 0f, 1f);
+    }
+
+    public float DrainMaxHealth(int amount)
+    {
+
+        health_Max -= amount;
+        if (health_Max < 1)
+        {
+            health_Max = 1;
+
+        }
+        health_Current = Mathf.RoundToInt(Mathf.Clamp(health_Current, 0f, health_Max));
+        return health_Max;
+
+    }
 
 }

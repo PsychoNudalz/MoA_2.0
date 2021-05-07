@@ -26,7 +26,7 @@ public class TargetLifeSystem : LifeSystemScript
 
     public override void PlayTakeDamageEffect()
     {
-        targetMaterialHandler.PlayerTakeDamageEffect();
+        targetMaterialHandler.TakeDamageEffect();
     }
 
     public override int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)

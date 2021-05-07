@@ -232,6 +232,7 @@ MonoBehaviour:
   tagList:
   - Player
   attackedTargets: []
+  lineOfSightOffset: 0.05
 --- !u!54 &2667038320215456807
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5150,8 +5151,10 @@ MonoBehaviour:
   projectileScript: {fileID: 3948449223630348403}
   triggerArea: {fileID: 7635291643927871114}
   radius: 10
+  deadZone: 0
   tagList: []
   canOverrideTarget: 0
+  checkRate: 0.5
 --- !u!135 &7635291643927871114
 SphereCollider:
   m_ObjectHideFlags: 0

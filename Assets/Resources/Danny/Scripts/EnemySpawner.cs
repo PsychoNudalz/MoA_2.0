@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-enum EnemyType {StoneEnemy,ShootingEnemy,TankEnemy,RandomEnemies};
+enum EnemyType {StoneEnemy,ShootingEnemy,TankEnemy,BossEnemy,RandomEnemies};
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyType SpawnerEnemyType;
@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject stoneEnemy;
     [SerializeField] private GameObject shootingEnemy;
     [SerializeField] private GameObject TankEnemy;
+    [SerializeField] private GameObject BossEnemy;
     [SerializeField] private bool isSpawning = false;
     private GameObject[] enemyPrefabs;
     private GameObject enemyToSpawn;
@@ -30,12 +31,6 @@ public class EnemySpawner : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private void Awake()
-    {
-        
-    }
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +43,9 @@ public class EnemySpawner : MonoBehaviour
         enemyPrefabs[1] = shootingEnemy;
         enemiesToSpawn = new Queue<GameObject>();
         spawnedEnemies = new List<GameObject>();
+        if (SpawnerEnemyType.Equals(EnemyType.BossEnemy) || SpawnerEnemyType.Equals(EnemyType.TankEnemy)){
+            numberOfEnemies = 1;
+        }
         for (int i = 0; i < numberOfEnemies; i++)
         {
             CreateEnemy();
@@ -107,13 +105,19 @@ public class EnemySpawner : MonoBehaviour
         enemiesToSpawn.Enqueue(enemySpawned);
     }
 
+    internal void RemoveFromSpawnedEnemies(GameObject enemyToRemove)
+    {
+        spawnedEnemies.Remove(enemyToRemove);
+        ResetSpawnCountdown();
+    }
+
     /*
      * Get an enemy prefab to spawn, spawn it, 
      * increment spawn count and reset delay countdown
      */
     private void SpawnEnemy()
     {
-        
+        /*
         if (SpawnerEnemyType.Equals(EnemyType.TankEnemy))
         {
             if(spawnedEnemies.Count == 0 && enemiesSpawned < numberOfEnemies)
@@ -127,17 +131,20 @@ public class EnemySpawner : MonoBehaviour
             }
         }
         else
-        {
-            if(spawnedEnemies.Count < maxEnemies && enemiesSpawned < numberOfEnemies)
+        {*/
+            if(spawnedEnemies.Count < maxEnemies && enemiesToSpawn.Count > 0)
             {
                 GameObject enemy = enemiesToSpawn.Dequeue();
                 enemy.SetActive(true);
                 enemiesSpawned++;
                 spawnedEnemies.Add(enemy);
                 IncrementEnemies();
-                ResetSpawnCountdown();
+                if(spawnCountdown < delayBetweenSpawns / 5)
+                {
+                    ResetSpawnCountdown();
+                }
             }
-        }
+       // }
     }
 
     private void IncrementEnemies()
@@ -164,6 +171,8 @@ public class EnemySpawner : MonoBehaviour
                 return enemyPrefabs[1];
             case EnemyType.TankEnemy:
                 return TankEnemy;
+            case EnemyType.BossEnemy:
+                return BossEnemy;
             default:
                 int index = Random.Range(0, enemyPrefabs.Length);
                 return enemyPrefabs[index];

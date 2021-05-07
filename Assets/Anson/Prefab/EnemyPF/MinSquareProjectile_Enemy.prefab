@@ -202,27 +202,27 @@ MonoBehaviour:
   homingDir: {x: 0, y: 0, z: 0}
   homingStrength: 1
   damageMultiplier: 1
-  maxRange: 0.5
+  maxRange: 1
   rangeFalloff:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.29853058
+      time: 0
       value: 1
-      inSlope: -0.021092163
-      outSlope: -0.021092163
-      tangentMode: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.25285715
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -2.5243332
-      outSlope: -2.5243332
-      tangentMode: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.07415438
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -246,6 +246,7 @@ MonoBehaviour:
   tagList:
   - Player
   attackedTargets: []
+  lineOfSightOffset: 0.05
 --- !u!136 &2299660718121512103
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5072,8 +5073,10 @@ MonoBehaviour:
   projectileScript: {fileID: 0}
   triggerArea: {fileID: 7474338642719980770}
   radius: 10
+  deadZone: 0
   tagList: []
   canOverrideTarget: 0
+  checkRate: 0.5
 --- !u!135 &7474338642719980770
 SphereCollider:
   m_ObjectHideFlags: 0

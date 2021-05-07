@@ -27,8 +27,8 @@ public class PlayerController : MonoBehaviour
     bool jump;
     bool run;
     [SerializeField]bool coyoteJump;
-    float notGroundedTime =0f;
-    [SerializeField]bool canCoyoteJump;
+    [SerializeField] float coyoteJumpTime;
+    float lastGroundedTime;
 
     Transform cam;
     Transform player;
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
             if (lookScript == null)
             {
                 Look();
-                CameraTilt();
+                //CameraTilt();
 
             }
             if (!controller.isGrounded)
@@ -115,8 +115,9 @@ public class PlayerController : MonoBehaviour
                 notGroundedTime = Time.time;
                 }
             }
-            if (controller.isGrounded) {
-                canCoyoteJump = true;
+            else {
+                coyoteJump = true;
+                lastGroundedTime = Time.time;
             }
         }
 
@@ -232,18 +233,7 @@ public class PlayerController : MonoBehaviour
         jump = context.performed;
         if (context.performed)
         {
-        if ((Time.time -notGroundedTime) <= 2 && canCoyoteJump)
-        {
-            coyoteJump = true;
-            canCoyoteJump = false;
-            Debug.Log("coyote jump" + (Time.time - notGroundedTime));
-        }
-        if((Time.time - notGroundedTime) > 2) {
-            coyoteJump = false;
-            canCoyoteJump = false;
-            Debug.Log("Too Late" + (Time.time - notGroundedTime));
-        }
-            if (controller.isGrounded || coyoteJump)
+            if (controller.isGrounded || (coyoteJump && Time.time-lastGroundedTime<coyoteJumpTime))
             {
                 coyoteJump = false;
                 canCoyoteJump = false;
@@ -411,6 +401,7 @@ public class PlayerController : MonoBehaviour
     {
         if (callbackContext.performed)
         {
+            ansonTempUIScript.CloseAllMenus();
             FindObjectOfType<PauseMenu>().TogglePauseMenu();
         }
     }

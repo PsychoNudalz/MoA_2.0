@@ -72,6 +72,8 @@ public class GunManager : MonoBehaviour
     [Space]
     [Header("Save")]
     [SerializeField] GCSSaveCollection gCSSaveCollection;
+    [Header("Others")]
+    [SerializeField] List<GameObject> gunCache;
 
     public List<GCSelection> AllGCSelections { get => allGCSelections; }
     public List<GCSelection> Body { get => body; }
@@ -87,10 +89,9 @@ public class GunManager : MonoBehaviour
 
     private void Awake()
     {
-        AssignGCSelections();
-        if (gCSSaveCollection != null)
+        if (gCSSaveCollection == null)
         {
-            LoadSave(gCSSaveCollection);
+            AssignGCSelections();
         }
     }
 
@@ -157,6 +158,8 @@ public class GunManager : MonoBehaviour
 
     void InitialiseGenerator(List<GCSelection> selectedGCS)
     {
+        print("Updatating generator");
+
         foreach (GCSelection gcs in selectedGCS)
         {
             if (gcs.IsSelected || gcs.Component.name.Contains("_No"))
@@ -166,12 +169,22 @@ public class GunManager : MonoBehaviour
         }
     }
 
+    public void UpdateManager()
+    {
+        print("Updatating Gun Manager");
+        InitialiseGenerator(AllGCSelections);
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
+    }
+
     public GameObject GenerateGun()
     {
         gunGenerator.ResetLists();
         InitialiseGenerator(AllGCSelections);
         GameObject newGun = gunGenerator.GenerateGun();
         newGun.transform.position += new Vector3(0, 2, 0);
+        gunCache.Add(newGun);
+        newGun.transform.parent = this.transform;
+
         return newGun;
 
     }
@@ -181,11 +194,14 @@ public class GunManager : MonoBehaviour
         gunGenerator.ResetLists();
         InitialiseGenerator(AllGCSelections);
         List<GameObject> guns = new List<GameObject>();
+        print("Generating guns:" + numberOfGuns + " " + minRarity + " " + maxRarity);
         for (int i = 0; i < numberOfGuns; i++)
         {
-            GameObject newGun = gunGenerator.GenerateGun_Rarity(minRarity,maxRarity);
+            GameObject newGun = gunGenerator.GenerateGun_Rarity(minRarity, maxRarity);
             newGun.transform.position += new Vector3(0, 2, 0);
             guns.Add(newGun);
+            gunCache.Add(newGun);
+            newGun.transform.parent = this.transform;
         }
         return guns;
 
@@ -193,6 +209,8 @@ public class GunManager : MonoBehaviour
 
     public int LoadSave(GCSSaveCollection gcss)
     {
+        AssignGCSelections();
+        gCSSaveCollection = gcss;
         GCSSave temp;
         int errorCount = 0;
         foreach (GCSelection gcs in allGCSelections)
@@ -222,5 +240,40 @@ public class GunManager : MonoBehaviour
         }
     }
 
+    public void ClearGunsOnGround(bool fullClear = false)
+    {
+        Debug.Log(this + " CLEARING ALL WAEPONS FROM GROUND");
+        List<GameObject> temp = new List<GameObject>();
+        foreach (GameObject g in gunCache)
+        {
+            try
+            {
+                if (g.transform.parent == null)
+                {
+                    if (fullClear)
+                    {
+                        temp.Add(g);
+                    }
+                }
+                else if ((transform.Equals(g.transform.parent) || fullClear)&& !g.transform.parent.tag.Equals("PlayerInventory") )
+                {
+                    if (g.activeSelf)
+                    {
+                        temp.Add(g);
+                    }
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.LogError("Clear guns null reference: " + g);
 
+            }
+        }
+        foreach (GameObject g in temp)
+        {
+            gunCache.Remove(g);
+            Destroy(g);
+        }
+
+    }
 }

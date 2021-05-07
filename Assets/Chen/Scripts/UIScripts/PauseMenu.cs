@@ -10,13 +10,17 @@ public class PauseMenu : MonoBehaviour
     private Keyboard keyboard;
     [SerializeField] private GameObject menuBody;
     [SerializeField] private GameObject popUpGroup;
+    [SerializeField] private GameObject popUpFocus;
     [SerializeField] private GameObject menuPrimary;
+    [SerializeField] private GameObject primaryFocus;
     [SerializeField] private GameObject menuSettings;
     bool m_paused = false;
     bool m_popUp = false;
     bool m_settings = false;
+    private EventSystem eventSystem;
     void Start()
     {
+        eventSystem = EventSystem.current;
         keyboard = Keyboard.current;
         if (menuBody == null) menuBody = gameObject.transform.GetChild(0).gameObject;
         if (popUpGroup == null) popUpGroup = gameObject.transform.GetChild(1).gameObject;
@@ -76,6 +80,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void PopUpExitOnClick() {
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
         SceneManager.LoadScene("MainEntry");
     }
 }

@@ -25,6 +25,9 @@ public class TargetMaterialHandlerScript : MonoBehaviour
     int allShockListPTR = 0;
     List<VisualEffect> shockList = new List<VisualEffect>();
     List<Transform> shockTargets = new List<Transform>();
+
+    [Header("Spawn Effect")]
+    [SerializeField] VisualEffect spawnEffect;
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,6 +37,9 @@ public class TargetMaterialHandlerScript : MonoBehaviour
             decayTime = material.GetFloat("_DecayTime");
             takeDamageEffect.SetVector4("Colour1", material.GetColor("_ShineColour1"));
             takeDamageEffect.SetVector4("Colour2", material.GetColor("_ShineColour2"));
+            spawnEffect.SetVector4("Colour1", material.GetColor("_ShineColour1"));
+            spawnEffect.SetVector4("Colour2", material.GetColor("_ShineColour2"));
+
         }
         catch (System.Exception e)
         {
@@ -52,7 +58,7 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         }
     }
 
-    public void PlayerTakeDamageEffect()
+    public void TakeDamageEffect()
     {
         if (takeDamageEffect != null)
         {
@@ -60,6 +66,14 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         }
     }
 
+
+    public void SpawnEffect()
+    {
+        if (spawnEffect != null)
+        {
+            StartCoroutine(DelaySpawnEvent(2f));
+        }
+    }
     public void StartDecay()
     {
         currentRatio = 1;
@@ -234,6 +248,14 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         iceEffect.SendEvent("StartIceShards");
         yield return new WaitForSeconds(i);
         iceEffect.SendEvent("EndIceShards");
+
+    }
+
+    IEnumerator DelaySpawnEvent(float i)
+    {
+        spawnEffect.SendEvent("OnSpawn_Start");
+        yield return new WaitForSeconds(i);
+        spawnEffect.SendEvent("OnSpawn_End");
 
     }
 }

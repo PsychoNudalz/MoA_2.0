@@ -145,7 +145,7 @@ public abstract class ProjectileScript : MonoBehaviour
             explodeEffect = Instantiate(explodeEffect, transform.position, transform.rotation);
             explodeEffect.Play();
             Destroy(explodeEffect.gameObject, 1f);
-            
+
         }
         DetattachEffects();
     }
@@ -164,6 +164,12 @@ public abstract class ProjectileScript : MonoBehaviour
 
     public virtual void SetHoming(Transform target)
     {
+        if (target == null)
+        {
+            targetTransform = null;
+            homingLock = false;
+            return;
+        }
         if (homingLock || !isHoming)
         {
             return;
@@ -194,7 +200,7 @@ public abstract class ProjectileScript : MonoBehaviour
         }
         else
         {
-            rb.velocity = ((homingDir * dotResults*Time.deltaTime*homingStrength) + rb.velocity.normalized).normalized * launchSpeed;
+            rb.velocity = ((homingDir * dotResults * Time.deltaTime * homingStrength) + rb.velocity.normalized).normalized * launchSpeed;
         }
     }
 
@@ -208,7 +214,7 @@ public abstract class ProjectileScript : MonoBehaviour
     protected virtual void DetattachEffects()
     {
         VisualEffect v;
-        foreach(GameObject g in delayDistroyGOs)
+        foreach (GameObject g in delayDistroyGOs)
         {
             if (g.TryGetComponent(out v))
             {

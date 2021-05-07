@@ -63,6 +63,8 @@ public class PlayerGunDamageScript : GunDamageScript
 
     public override MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
     {
+        bool wasADS = isADS;
+
         MainGunStatsScript newGun = base.UpdateGunScript(g, slot);
         if (newGun != null)
         {
@@ -72,7 +74,10 @@ public class PlayerGunDamageScript : GunDamageScript
             ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
             //ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), mainGunStatsScript.ElementType, mainGunStatsScript.GunType, currentSlot);
         }
-
+        if (wasADS)
+        {
+            lookScript.AimSight(wasADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
+        }
         return newGun;
 
     }
@@ -144,7 +149,7 @@ public class PlayerGunDamageScript : GunDamageScript
     protected override float HandleWeapon(float newRecoilTime = -1)
     {
         float temp = base.HandleWeapon(newRecoilTime);
-
+        ansonTempUIScript.FireCrossair();
         UpdateAmmoCount();
         return temp;
     }
@@ -184,7 +189,7 @@ public class PlayerGunDamageScript : GunDamageScript
 
         isADS = true;
         lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
-
+        ansonTempUIScript.SetCrossair(true);
     }
 
     public void ADS_Off()
@@ -205,6 +210,8 @@ public class PlayerGunDamageScript : GunDamageScript
 
 
         lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
+    
+        ansonTempUIScript.SetCrossair(false);
     }
 
     protected override IEnumerator DelayReload(float offset = 0)

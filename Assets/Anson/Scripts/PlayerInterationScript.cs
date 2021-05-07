@@ -13,6 +13,8 @@ public class PlayerInterationScript : MonoBehaviour
     [SerializeField] InteractableScript currentFocus;
     //public bool useFlage = false;
     [SerializeField] LayerMask layerMask;
+    [SerializeField] float updateRate = 0.2f;
+    float lastUpdateTime;
     public AnsonTempUIScript ansonTempUIScript;
 
 
@@ -28,7 +30,11 @@ public class PlayerInterationScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CastDetectionRay();
+        if (Time.time - lastUpdateTime > updateRate)
+        {
+            CastDetectionRay();
+            lastUpdateTime = Time.time;
+        }
     }
     public void useInteractable()
     {

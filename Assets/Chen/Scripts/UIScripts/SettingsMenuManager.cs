@@ -13,7 +13,7 @@ public class SettingsMenuManager : MonoBehaviour
     //private float masterVolume;
     [SerializeField] private PlayerMasterScript playerMasterScript;
     [SerializeField] private bool isInGame = true;
-    public SettingsSaveCollection settingsSaveCollection;
+    private SettingsSaveCollection settingsSaveCollection;
     public SettingsSaveStats settingsSaveStats;
     //[SerializeField] private AudioListener audioListener;
 
@@ -91,5 +91,11 @@ public class SettingsMenuManager : MonoBehaviour
     public void LoadSave(SettingsSaveCollection sss)
     {
         settingsSaveStats.Load(sss);
+    }
+
+    public void SetSettingSaveCollection(SettingsSaveCollection sss)
+    {
+        settingsSaveCollection = sss;
+        LoadSave(sss);
     }
 }

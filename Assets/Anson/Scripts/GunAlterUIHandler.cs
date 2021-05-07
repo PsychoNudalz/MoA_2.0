@@ -30,6 +30,8 @@ public class GunAlterUIHandler : MonoBehaviour
     [Header("Component Preview UI")]
     [SerializeField] GameObject textTemplateGO;
     [SerializeField] TextMeshProUGUI currentComponentText;
+    [SerializeField] GridLayoutGroup essentialComponents;
+    [SerializeField] GridLayoutGroup potentialComponents;
     [SerializeField] GridLayoutGroup mainStats;
     [SerializeField] GridLayoutGroup elementStats;
     [SerializeField] GridLayoutGroup multiplierStats;
@@ -188,6 +190,7 @@ public class GunAlterUIHandler : MonoBehaviour
                     currentGCSelection.IsUnlocked = true;
                     currentGCSelection.IsSelected = true;
                     unlockButton.SetActive(false);
+                    gunManager.UpdateManager();
                 }
 
             }
@@ -265,6 +268,14 @@ public class GunAlterUIHandler : MonoBehaviour
         }
     }
 
+    void DisplayConnections()
+    {
+        foreach(KeyValuePair<GunComponents, int> pair in currentGCSelection.Component.GetEssentialDict())
+        {
+            CreateStatsText(essentialComponents).text = pair.Value + "x " + pair.Key;
+        }
+    }
+
     public void SelectAll()
     {
         UI_Attachment.SelectAll(true);
@@ -300,5 +311,10 @@ public class GunAlterUIHandler : MonoBehaviour
     public void UnlockAll()
     {
         gunManager.UnlockAll();
+    }
+
+    public void CloseMenu()
+    {
+        gunManager.UpdateManager();
     }
 }

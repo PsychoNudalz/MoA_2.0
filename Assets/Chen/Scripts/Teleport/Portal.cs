@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Portal : MonoBehaviour
+public class Portal : InteractableScript
 {
     public Portal portalTarget;
 
@@ -16,11 +17,15 @@ public class Portal : MonoBehaviour
     [SerializeField]
     RoomEnemySystem nextRoomEnemySystem;
     [SerializeField] GunManager gunManager;
+    [SerializeField] List<GameObject> gunCache;
     [SerializeField] int lootAmount = 6;
     [SerializeField] int coinAmount = 2;
     bool rewardLoot;
     [SerializeField] Transform gunSpawnTransform;
     [SerializeField] int spawnLevel = 0;
+    public bool isBoss = false;
+    public bool isWinning = false;
+    public int percentageHealthReduced = 10;
 
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
@@ -29,13 +34,14 @@ public class Portal : MonoBehaviour
 
     public RoomEnemySystem CurrentRoomEnemySystem { get => currentRoomEnemySystem; }
 
-    void Start()
+    void Awake()
     {
         player = GameObject.FindWithTag("Player");
         if (gunManager == null)
         {
             gunManager = FindObjectOfType<GunManager>();
         }
+
     }
 
     // Update is called once per frame
@@ -56,24 +62,39 @@ public class Portal : MonoBehaviour
     {
         rewardLoot = true;
         player.GetComponent<PlayerMasterScript>().PlayerSaveStats.AddCoins(coinAmount);
-        List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel-1, spawnLevel+1);
+        for (int i = 0; i < gunCache.Count; i++)
+        {
+            gunCache[i].SetActive(true);
+            gunCache[i].GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(45 * i, Vector3.up) * (new Vector3(2000f, 4000f, 0)));
+
+        }
+    }
+
+    private void GenerateRewardLoot()
+    {
+        print("Spawn weapon:" + spawnLevel);
+        List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1, spawnLevel + 1);
 
 
 
         GameObject newGun;
+        float offset = 0.3f;
         for (int i = 0; i < gunList.Count; i++)
         {
             newGun = gunList[i];
             if (gunSpawnTransform != null)
             {
-                newGun.transform.position = gunSpawnTransform.position + new Vector3(i * 0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
+                newGun.transform.position = gunSpawnTransform.position + new Vector3(i * offset - (lootAmount / 2f) * offset, 1, i * offset - (lootAmount / 2f)) * offset;
+                //newGun.transform.position = gunSpawnTransform.position;
 
             }
             else
             {
-                newGun.transform.position = player.transform.position + new Vector3(i * 0.3f - (lootAmount / 2f), 1, i * 0.3f - (lootAmount / 2f));
+                newGun.transform.position = player.transform.position + new Vector3(i * offset - (lootAmount / 2f) * offset, 1, i * offset - (lootAmount / 2f) * offset);
+                //newGun.transform.position = player.transform.position;
             }
-            newGun.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(30 * i, Vector3.up) * Quaternion.AngleAxis(30, Vector3.right) * (new Vector3(0, 3000f, 0)));
+            gunCache.Add(newGun);
+            newGun.SetActive(false);
         }
     }
 
@@ -82,27 +103,46 @@ public class Portal : MonoBehaviour
         targetSpawner = portalTarget.transform.Find("SpawnPoint");
         nextRoomEnemySystem = r;
         spawnLevel = level;
+        GenerateRewardLoot();
+
     }
-    void OnTriggerEnter(Collider other)
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         if (ignoreSpawner || currentRoomEnemySystem.IsRoomClear())
+    //         {
+    //             TeleportPlayer();
+    //         }
+    //     }
+    // }
+    public override void activate()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            if (ignoreSpawner || currentRoomEnemySystem.IsRoomClear())
-            {
-                TeleportPlayer();
-            }
+        base.activate();
+        if (isWinning) {
+            player.GetComponent<PlayerMasterScript>().AnsonTempUIScript.WinScreen();
+        } else {
+            if (isBoss) ReduceMaxHP(percentageHealthReduced);
+            TeleportPlayer();
         }
+    }
+
+    public override void deactivate()
+    {
+        base.deactivate();
     }
 
     void TeleportPlayer()
     {
-        Debug.Log("Ohhhhhhhhhhhhhhhhhhhhhhhhh");
         /*
         player.SetActive(false);
         player.transform.position = targetSpawner.transform.position;
         player.SetActive(true);
         */
         player.GetComponent<PlayerMasterScript>().TeleportPlayer(targetSpawner.transform.position);
+        gunManager.ClearGunsOnGround(false);
+        player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.healHealth_PercentageMissing(.2f);
+
         if (nextRoomEnemySystem != null)
         {
 
@@ -112,5 +152,11 @@ public class Portal : MonoBehaviour
         {
             Debug.LogError("Cannot spawn enemy");
         }
+    }
+
+    void ReduceMaxHP(int percentage) {
+        int current_max = player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.Health_Max;
+        int reduced = Mathf.FloorToInt(current_max * percentage / 100f);
+        player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.DrainMaxHealth(reduced);
     }
 }

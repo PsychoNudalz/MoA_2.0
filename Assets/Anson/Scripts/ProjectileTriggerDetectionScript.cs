@@ -8,8 +8,11 @@ public class ProjectileTriggerDetectionScript : MonoBehaviour
     [SerializeField] ProjectileScript projectileScript;
     [SerializeField] SphereCollider triggerArea;
     [SerializeField] float radius;
+    [SerializeField] float deadZone;
     [SerializeField] List<string> tagList;
     [SerializeField] bool canOverrideTarget;
+    [SerializeField] float checkRate = 0.5f;
+    float lastCheck;
 
 
     private void Awake()
@@ -41,6 +44,20 @@ public class ProjectileTriggerDetectionScript : MonoBehaviour
             {
                 target = other.gameObject;
                 projectileScript.SetHoming(target.transform);
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Time.time-lastCheck > checkRate)
+        {
+            lastCheck = Time.time;
+
+            if (target!=null&&(target.transform.position - transform.position).magnitude < deadZone)
+            {
+                projectileScript.SetHoming(null);
+
             }
         }
     }

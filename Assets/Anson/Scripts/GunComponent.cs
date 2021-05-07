@@ -69,5 +69,18 @@ public abstract class GunComponent : MonoBehaviour
         return returnList;
     }
 
+    public Dictionary<GunComponents,int> GetEssentialDict()
+    {
+        Dictionary<GunComponents, int> returnDict = new Dictionary<GunComponents, int>();
+        foreach (GunConnectionPoint gcp in essentialConnectionPoints)
+        {
+            foreach(GunComponents gc in gcp.GetGunComponents())
+            {
+                returnDict.Add(gc, 1);
+            }
+        }
+        return returnDict;
+    }
+
 
 }

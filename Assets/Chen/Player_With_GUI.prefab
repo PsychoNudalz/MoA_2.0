@@ -2049,6 +2049,7 @@ MonoBehaviour:
   playerSaveStats: {fileID: 0}
   playerGetTargetHealth: {fileID: 0}
   playerSaveCollection:
+    profile: 0
     coins: 0
     numberOfRuns: 0
     numberOfBossKills: 0
@@ -2279,6 +2280,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b4e8cf07-bc53-407b-98b5-e84ee06e9275
     m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7e6106f2-3919-4f07-9927-fa20329b7bef
+    m_ActionName: Player/LookController
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 742174c7-1712-4d9a-b84b-a2ca9d547955
+    m_ActionName: Player/Excape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16930ccd-7874-4b33-806d-ec03fe6e4181
+    m_ActionName: Player/NextWeapon[/Mouse/backButton,/Keyboard/q,/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16677ee0-e741-4115-8e53-a258e26b4a7e
+    m_ActionName: Player/PreviousWeapon[/Mouse/forwardButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85dfab59-9b46-4872-8c4c-7fcd37e0b213
+    m_ActionName: Player/MenuClick[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2333,6 +2354,8 @@ MonoBehaviour:
   CharacterBody: {fileID: 4112174735619620033}
   UpDown: {fileID: 4112174736969628677}
   mouseValue: {x: 0, y: 0}
+  mouseValue_Nor: {x: 0, y: 0}
+  mouseValue_Mag: 0
   maxRotationDown: 85
   yRotation: 0
   lookLock: 0
@@ -2382,6 +2405,8 @@ MonoBehaviour:
   maxY: 85
   tilt: 20
   moveSpeed_Default: 8
+  coyoteJump: 0
+  coyoteJumpTime: 0
   cam1: {fileID: 4112174735984912498}
   dashDuration: 0.05
   dashSpeed: 15
@@ -2444,6 +2469,7 @@ MonoBehaviour:
   pointer: 0
   inventoryTransform: {fileID: 7892161585610838363}
   gunDamageScript: {fileID: 0}
+  ansonTempUIScript: {fileID: 0}
 --- !u!114 &-1675315315690588733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2494,6 +2520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c583e78d1713a454fa2c6430d41a4b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  profile: 0
   coins: 0
   numberOfRuns: 0
   numberOfBossKills: 0
@@ -3585,8 +3612,11 @@ MonoBehaviour:
   gun3:
     gunName: {fileID: 3049816925046084240}
     gunAmmo: {fileID: 4319536951760699310}
-  enemiesRemaining: {fileID: 0}
+  inventoryAnimator: {fileID: 0}
+  enemiesRemainingText: {fileID: 0}
+  enemiesRemainingNumber: {fileID: 0}
   portalIcon: {fileID: 0}
+  pauseSlider: []
   debugMode: 1
   coinText: {fileID: 1868602255356550870}
 --- !u!1 &5128834333298183812

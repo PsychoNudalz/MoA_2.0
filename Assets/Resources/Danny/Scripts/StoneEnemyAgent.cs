@@ -8,17 +8,19 @@ using Random = UnityEngine.Random;
 public class StoneEnemyAgent : MonoBehaviour
 {
     [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] int attackDamage = 1;
     [SerializeField] private float attackPlayerDistance = 2f;
     [SerializeField] private float chasePlayerDistance = 15f;
     [SerializeField] private AnimationCurve attackDropOff;
     [SerializeField] private float attackTimeInitial;
     [SerializeField] private LayerMask playerMask;
+    [SerializeField] private GameObject healthPickup;
     private NavMeshAgent stoneEnemyAgent;
     private Animator animator;
     private Transform player;
     private SphereCastDamageScript sphereDamageScript;
     private bool IsStaggering;
-    private bool IsDead = false;
+    [SerializeField]private bool IsDead = false;
     private float attackTimeNow;
     private bool inChaseRange;
     private bool inAttackRange;
@@ -26,11 +28,17 @@ public class StoneEnemyAgent : MonoBehaviour
     private bool waypointSet;
     private NavMeshPath path;
     private float walkPointRange = 100f;
+    private bool deathHandled = false;
 
 
     private void Awake()
     {
         ResetEnemy();
+    }
+
+    private void OnEnable()
+    {
+        Patrol();
     }
 
     private void ResetEnemy()
@@ -44,7 +52,7 @@ public class StoneEnemyAgent : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!IsStaggering && !IsDead)
         {
@@ -82,11 +90,24 @@ public class StoneEnemyAgent : MonoBehaviour
 
         }
 
-        if (IsDead)
+        if (IsDead && !deathHandled)
         {
-            GameObject.Destroy(this.gameObject, 5f);
+            transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
+            SpawnHealthPickup();
+            GameObject.Destroy(this.gameObject, 3f);
+            deathHandled = true;
         }
 
+    }
+
+    private void SpawnHealthPickup()
+    {
+        float playerHealthPercent = player.GetComponent<PlayerLifeSystemScript>().GetPercentageHealth();
+        float rand = Random.Range(0f, 1f);
+        if(playerHealthPercent < rand)
+        {
+            GameObject.Instantiate(healthPickup, transform.position, transform.rotation, transform.parent.parent);
+        }
     }
 
     private void Patrol()
@@ -101,7 +122,7 @@ public class StoneEnemyAgent : MonoBehaviour
         }
         Vector3 distanceToWaypoint = transform.position - currentWaypoint;
 
-        if (distanceToWaypoint.magnitude < 1f)
+        if (distanceToWaypoint.magnitude < 2f)
         {
             waypointSet = false;
         }
@@ -203,7 +224,7 @@ public class StoneEnemyAgent : MonoBehaviour
         /*
          * Damage player if in range (triggered from attack animation
          */
-        sphereDamageScript.SphereCastDamageArea(1, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
+        sphereDamageScript.SphereCastDamageArea(attackDamage, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
     }
 
     private void OnDrawGizmosSelected()

@@ -49,11 +49,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0
@@ -150,11 +145,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0
@@ -307,9 +297,63 @@ MonoBehaviour:
     m_RotationOrder: 4
   recoilPattern_Y:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -10
+      outSlope: -10
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2
+      value: -1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4
+      value: 1
+      inSlope: 0.00000047683716
+      outSlope: 0.00000047683716
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6
+      value: -1
+      inSlope: 0.0000009536743
+      outSlope: 0.0000009536743
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: -1
+      inSlope: -10.000001
+      outSlope: -10.000001
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
-    m_PostInfinity: 2
+    m_PostInfinity: 1
     m_RotationOrder: 4
   timeToRecenter: 0.2
   fireType: 0
@@ -353,11 +397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d30a5d08d3dd9e458534ddcfb65454c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerProjectile: 120
+  damagePerProjectile: 130
   RPM: 750
   reloadSpeed: 1
-  recoil: {x: 0.6, y: 0.25}
-  recoil_HipFire: {x: 5, y: 15}
+  recoil: {x: 0.8, y: 0.35}
+  recoil_HipFire: {x: 5, y: 20}
   range: 70
   magazineSize: 0
   elementDamage: 0.7
@@ -470,11 +514,6 @@ MonoBehaviour:
   volumeVariance: 0.1
   pitch: 1
   pitchVariance: 0.1
-  spatialBlend: 1
-  reverbZoneMix: 0
-  dopplerLevel: 0
-  minDistance: 10
-  maxDistance: 20
   audioMixer: {fileID: 0}
   soundManager: {fileID: 0}
   isOld: 0

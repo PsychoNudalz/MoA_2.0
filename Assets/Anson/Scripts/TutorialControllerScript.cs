@@ -22,6 +22,7 @@ public class TutorialControllerScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         Application.targetFrameRate = 200;
+        Time.timeScale = 1;
 
     }
 
@@ -144,7 +145,7 @@ public class TutorialControllerScript : MonoBehaviour
         shootingRange.SetLoopMode(0);
         int[] list = { 0,2,3,5 };
 
-        shootingRange.StartShootCourse("101101000000", 15f/4f, 1, new List<int>(list), 500);
+        shootingRange.StartShootCourse("101101000000", 15f/4f, 1, new List<int>(list), 3500);
 
     }
     public void SpawnShootingRange_TimedStarter()

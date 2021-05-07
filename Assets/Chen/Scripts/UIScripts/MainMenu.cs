@@ -68,6 +68,7 @@ public class MainMenu : MonoBehaviour
 
     public void slotsOnClick(int slotIndex) {
         // no SL function currently, will jump in new game instead
+        FindObjectOfType<SaveManagerScript>().SetSaveProfile(slotIndex - 1);
         SceneManager.LoadScene("Tutorial");
     }
 }

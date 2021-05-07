@@ -243,8 +243,10 @@ public class GunGeneratorScript : MonoBehaviour
         return Mathf.RoundToInt(Mathf.Clamp(amount * ((int)rarity / 4f), 0, maxAmount));
     }
 
-    Rarity RandomiseRarity(int minR = 0,int maxR = 5)
+    Rarity RandomiseRarity(int minR = 0,int maxR = 4)
     {
+        minR = Mathf.Clamp(minR, 0, 4);
+        maxR = Mathf.Clamp(maxR, 0, 4);
         return (Rarity)(Random.Range(minR, maxR) % 5);
     }
 
