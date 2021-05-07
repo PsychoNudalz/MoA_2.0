@@ -250,8 +250,11 @@ MonoBehaviour:
   CharacterBody: {fileID: 354899266133722239}
   UpDown: {fileID: 354899266946925755}
   mouseValue: {x: 0, y: 0}
+  mouseValue_Nor: {x: 0, y: 0}
+  mouseValue_Mag: 0
   maxRotationDown: 85
   yRotation: 0
+  lookLock: 0
   FOV: 0
   aimCurve:
     serializedVersion: 2
@@ -309,15 +312,22 @@ MonoBehaviour:
   minY: -85
   maxY: 85
   tilt: 20
-  moveSpeed: 10
+  moveSpeed_Default: 0
+  coyoteJump: 0
+  coyoteJumpTime: 0
   cam1: {fileID: 354899266028998860}
+  dashDuration: 0.4
+  dashSpeed: 5
   lookScript: {fileID: 354899266133722232}
   doubleJumpSpeed: 10
   dashCooldown: 1
+  dashCharges_Max: 0
   disableControl: 0
-  gunDamageScript: {fileID: 354899266946925754}
+  gunDamageScript: {fileID: 0}
   playerInventorySystemScript: {fileID: 0}
   playerInterationScript: {fileID: 0}
+  playerVolumeControllerScript: {fileID: 0}
+  ansonTempUIScript: {fileID: 0}
 --- !u!114 &354899266133722235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,9 +507,12 @@ MonoBehaviour:
   reatatchPopUps: 1
   debuffList: []
   damagePopScript: {fileID: 0}
-  groupParticleSystemScript: {fileID: 0}
+  playerMasterScript: {fileID: 0}
+  UIScript: {fileID: 0}
+  playerVolumeControllerScript: {fileID: 0}
   animator: {fileID: 0}
   deathTriggerName: Death
+  vignetteThreshold: 0.25
 --- !u!136 &1411545370896009306
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -675,7 +688,6 @@ MonoBehaviour:
   tagList:
   - Enemy
   attackedTargets: []
-  timeBetweenAttack_TimeNow: 0
   mainGunStatsScript: {fileID: 0}
   damagePerProjectile: 0
   RPM: 0
@@ -729,19 +741,13 @@ MonoBehaviour:
   isReloading: 0
   currentRecoil: {x: 0, y: 0}
   currentRecoilTime: 0
-  camera: {fileID: 354899266028998860}
   firePoint: {fileID: 354899266103922465}
   gunPosition: {fileID: 354899266129936439}
   isADS: 0
   fireDir: {x: 0, y: 0, z: 0}
   randomFireDir: {x: 0, y: 0, z: 0}
   sightOffset: {x: 0, y: 0, z: 0}
-  lookScript: {fileID: 0}
-  originalFireDirection_X: 0
   displayFireRaycast: 1
-  isAI: 0
-  ansonTempUIScript: {fileID: 0}
-  currentSlot: 0
 --- !u!1 &2471650650326551395
 GameObject:
   m_ObjectHideFlags: 0
@@ -3877,7 +3883,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25a9fb42d361f46ad89221f6d301e96e, type: 2}
+  - {fileID: 2100000, guid: 597f47af9bff0754296b5c4f84d4cb1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5347,7 +5353,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25a9fb42d361f46ad89221f6d301e96e, type: 2}
+  - {fileID: 2100000, guid: 597f47af9bff0754296b5c4f84d4cb1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5599,7 +5605,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c8c455b619a5474883b6873beea8a55, type: 2}
+  - {fileID: 2100000, guid: f05e803fde735df4a9ad47081edd0e9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7211,7 +7217,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25a9fb42d361f46ad89221f6d301e96e, type: 2}
+  - {fileID: 2100000, guid: 597f47af9bff0754296b5c4f84d4cb1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7274,6 +7280,11 @@ PrefabInstance:
     - target: {fileID: 6749784481118096368, guid: dd8b661b4bc2dfb4787bdb7c0de6a866,
         type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749784481118096368, guid: dd8b661b4bc2dfb4787bdb7c0de6a866,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6749784481118096368, guid: dd8b661b4bc2dfb4787bdb7c0de6a866,
