@@ -122,7 +122,7 @@ public class StoneEnemyAgent : MonoBehaviour
         }
         Vector3 distanceToWaypoint = transform.position - currentWaypoint;
 
-        if (distanceToWaypoint.magnitude < 1f)
+        if (distanceToWaypoint.magnitude < 2f)
         {
             waypointSet = false;
         }
