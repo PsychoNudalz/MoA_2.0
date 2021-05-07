@@ -175,21 +175,17 @@ public class SaveManagerScript : MonoBehaviour
     [SerializeField] PlayerSaveProfile playerSaveProfile;
     [SerializeField] List<GCSSave> gCSSaves;
     SaveCollection saveCollection;
-    [SerializeField] GCSSaveCollection gCSSaveCollection;
-    [SerializeField] PlayerSaveCollection playerSaveCollection;
-    [SerializeField] SettingsSaveCollection settingsSaveCollection;
+    GCSSaveCollection gCSSaveCollection;
+    PlayerSaveCollection playerSaveCollection;
+    SettingsSaveCollection settingsSaveCollection;
 
     public PlayerSaveProfile PlayerSaveProfile { get => playerSaveProfile; set => playerSaveProfile = value; }
 
     private void Awake()
     {
-        RemoveDuplicateSaveManager();
-        transform.parent = null;
-        DontDestroyOnLoad(gameObject);
-        if (!IsLoaded)
+        if (!RemoveDuplicateSaveManager())
         {
-            AssignComponents();
-            LoadProcedure();
+
         }
     }
 
@@ -217,14 +213,6 @@ public class SaveManagerScript : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        if (!IsSaved)
-        {
-            SaveProcedure();
-        }
-    }
-
     public void SaveProcedure()
     {
         SaveData();
@@ -237,8 +225,10 @@ public class SaveManagerScript : MonoBehaviour
 
     public void SetSaveProfile(PlayerSaveProfile profile)
     {
+        SaveProcedure();
         print("Setting save profile: " + profile.ToString());
         playerSaveProfile = profile;
+        LoadProcedure();
     }
     public void SetSaveProfile(int profile)
     {
@@ -262,7 +252,7 @@ public class SaveManagerScript : MonoBehaviour
         }
         catch (NullReferenceException e)
         {
-            Debug.LogWarning("gun Manager: null on settingsMenu");
+            Debug.LogWarning("Save Manager: null on gun manager");
         }
         try
         {
@@ -270,12 +260,12 @@ public class SaveManagerScript : MonoBehaviour
         }
         catch (NullReferenceException e)
         {
-            Debug.LogWarning("player Master: null on settingsMenu");
+            Debug.LogWarning("Save Master: null on player ");
         }
     }
 
     private void AssignComponents()
-    {
+    {/*
         if (!gunManager)
         {
             gunManager = FindObjectOfType<GunManager>();
@@ -292,31 +282,51 @@ public class SaveManagerScript : MonoBehaviour
         {
             settingsMenuManager = playerMasterScript.GetComponentInChildren<SettingsMenuManager>();
         }
+        */
+        gunManager = FindObjectOfType<GunManager>();
+        playerMasterScript = FindObjectOfType<PlayerMasterScript>();
+        settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
     }
 
+    /// <summary>
+    /// return if a duplicate old one is found
+    /// </summary>
+    /// <returns></returns>
     bool RemoveDuplicateSaveManager()
     {
         //if there is not other save manager
         if (instance == null)
         {
             instance = this;
+            transform.parent = null;
+            DontDestroyOnLoad(gameObject);
+            AssignComponents();
+            LoadProcedure();
+            return false;
+
         }
         //if there is another save manager
         else
         {
+            /*
             SetSaveProfile(instance.playerSaveProfile);
             //instance.SaveProcedure();
             //instance.LoadProcedure();
             Destroy(instance.gameObject);
             instance = this;
             print("Removed duplicate");
+            */
+            instance.SaveProcedure();
+            Destroy(gameObject);
+            instance.AssignComponents();
+            instance.LoadProcedure();
             return true;
         }
-        return false;
     }
 
-    void SaveData(string saveFile = "")
+    void SaveData()
     {
+        string saveFile = "";
         print("Start save data");
         //Save GCS
         print("Start GCS save data");
@@ -386,6 +396,11 @@ public class SaveManagerScript : MonoBehaviour
         {
             Debug.LogWarning("Failed to find save file, loading default save");
             loadString = LoadDefaultData();
+            saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
+            playerSaveCollection = saveCollection.playerSaveCollection;
+            gCSSaveCollection = saveCollection.gCSSaveCollection;
+            SaveData();
+            return;
         }
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
         playerSaveCollection = saveCollection.playerSaveCollection;
@@ -398,7 +413,7 @@ public class SaveManagerScript : MonoBehaviour
     {
         string loadString = Resources.Load<TextAsset>("DefaultSave").text;
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
-        saveCollection.playerSaveCollection.profile =(int) playerSaveProfile;
+        saveCollection.playerSaveCollection.profile = (int)playerSaveProfile;
         loadString = JsonUtility.ToJson(saveCollection);
         return loadString;
     }
@@ -409,17 +424,20 @@ public class SaveManagerScript : MonoBehaviour
         {
             settingsMenuManager = FindObjectOfType<SettingsMenuManager>();
         }
+        else
+        {
+            //save settings
+            try
+            {
+                settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.LogError("Failed to save setting save file");
+                return;
+            }
+        }
 
-        //save settings
-        try
-        {
-            settingsSaveCollection = new SettingsSaveCollection(settingsMenuManager.settingsSaveStats);
-        }
-        catch (NullReferenceException e)
-        {
-            Debug.LogError("Failed to save setting save file");
-            return;
-        }
         string saveString = JsonUtility.ToJson(settingsSaveCollection);
         string settingSaveFile = "Settings.json";
         try
@@ -448,12 +466,23 @@ public class SaveManagerScript : MonoBehaviour
         {
             Debug.LogWarning("Failed to find save setting, loading default setting");
             loadString = Resources.Load<TextAsset>("DefaultSetting").text;
+            settingsSaveCollection = JsonUtility.FromJson<SettingsSaveCollection>(loadString);
+            try
+            {
+                settingsMenuManager.SetSettingSaveCollection(settingsSaveCollection);
 
+            }
+            catch (NullReferenceException i)
+            {
+                Debug.LogWarning("Save Manager: null on settingsMenu");
+            }
+            SaveSettings();
+            return;
         }
         settingsSaveCollection = JsonUtility.FromJson<SettingsSaveCollection>(loadString);
         try
         {
-            settingsMenuManager.settingsSaveCollection = settingsSaveCollection;
+            settingsMenuManager.SetSettingSaveCollection(settingsSaveCollection);
 
         }
         catch (NullReferenceException e)

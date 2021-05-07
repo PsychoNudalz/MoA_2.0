@@ -76,6 +76,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void PopUpExitOnClick() {
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
         SceneManager.LoadScene("MainEntry");
     }
 }

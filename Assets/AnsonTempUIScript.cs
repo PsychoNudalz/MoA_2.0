@@ -240,6 +240,7 @@ public class AnsonTempUIScript : MonoBehaviour
 
     public void LoadToBase()
     {
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
         SceneManager.LoadScene("Base");
 
     }

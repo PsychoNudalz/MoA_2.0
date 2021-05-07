@@ -158,6 +158,8 @@ public class GunManager : MonoBehaviour
 
     void InitialiseGenerator(List<GCSelection> selectedGCS)
     {
+        print("Updatating generator");
+
         foreach (GCSelection gcs in selectedGCS)
         {
             if (gcs.IsSelected || gcs.Component.name.Contains("_No"))
@@ -165,6 +167,13 @@ public class GunManager : MonoBehaviour
                 gunGenerator.AddComponentToList(gcs.Component);
             }
         }
+    }
+
+    public void UpdateManager()
+    {
+        print("Updatating Gun Manager");
+        InitialiseGenerator(AllGCSelections);
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
     }
 
     public GameObject GenerateGun()

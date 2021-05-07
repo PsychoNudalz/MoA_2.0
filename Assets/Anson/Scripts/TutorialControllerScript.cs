@@ -22,6 +22,7 @@ public class TutorialControllerScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         Application.targetFrameRate = 200;
+        Time.timeScale = 1;
 
     }
 

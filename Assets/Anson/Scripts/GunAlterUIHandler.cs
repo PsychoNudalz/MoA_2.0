@@ -190,6 +190,7 @@ public class GunAlterUIHandler : MonoBehaviour
                     currentGCSelection.IsUnlocked = true;
                     currentGCSelection.IsSelected = true;
                     unlockButton.SetActive(false);
+                    gunManager.UpdateManager();
                 }
 
             }
@@ -310,5 +311,10 @@ public class GunAlterUIHandler : MonoBehaviour
     public void UnlockAll()
     {
         gunManager.UnlockAll();
+    }
+
+    public void CloseMenu()
+    {
+        gunManager.UpdateManager();
     }
 }

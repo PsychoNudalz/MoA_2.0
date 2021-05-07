@@ -124,6 +124,7 @@ public class Portal : MonoBehaviour
         player.GetComponent<PlayerMasterScript>().TeleportPlayer(targetSpawner.transform.position);
         gunManager.ClearGunsOnGround(false);
         player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.healHealth_PercentageMissing(.2f);
+
         if (nextRoomEnemySystem != null)
         {
 
