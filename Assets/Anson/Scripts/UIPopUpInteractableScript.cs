@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class UIPopUpInteractableScript : InteractableScript
 {
 
-    [SerializeField] GameObject UIElement;
+    [SerializeField] protected GameObject UIElement;
     [SerializeField] GameObject toolTip;
     [SerializeField] PlayerMasterScript playerMasterScript;
     [SerializeField] GameObject defaultButton;

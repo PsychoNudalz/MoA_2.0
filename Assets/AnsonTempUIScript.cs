@@ -296,7 +296,15 @@ public class AnsonTempUIScript : MonoBehaviour
     {
         foreach (UIPopUpInteractableScript i in FindObjectsOfType<UIPopUpInteractableScript>())
         {
+            if (i is GunAlterInteractableScript)
+            {
+                ((GunAlterInteractableScript)i).deactivate();
+            }
+            else
+            {
             i.deactivate();
+
+            }
         }
     }
 

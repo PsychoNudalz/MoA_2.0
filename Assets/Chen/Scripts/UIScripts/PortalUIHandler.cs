@@ -10,4 +10,10 @@ public class PortalUIHandler : MonoBehaviour
         SceneManager.LoadScene("PrototypeLevel2");
     }
 
+
+    public void ConfirmOnClick_Base()
+    {
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
+        SceneManager.LoadScene("Base");
+    }
 }

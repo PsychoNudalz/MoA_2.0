@@ -159,7 +159,7 @@ public class GunManager : MonoBehaviour
     void InitialiseGenerator(List<GCSelection> selectedGCS)
     {
         print("Updatating generator");
-
+        gunGenerator.ResetLists();
         foreach (GCSelection gcs in selectedGCS)
         {
             if (gcs.IsSelected || gcs.Component.name.Contains("_No"))
