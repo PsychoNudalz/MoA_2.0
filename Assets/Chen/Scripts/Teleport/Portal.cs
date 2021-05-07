@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Portal : MonoBehaviour
+public class Portal : InteractableScript
 {
     public Portal portalTarget;
 
@@ -22,6 +23,9 @@ public class Portal : MonoBehaviour
     bool rewardLoot;
     [SerializeField] Transform gunSpawnTransform;
     [SerializeField] int spawnLevel = 0;
+    public bool isBoss = false;
+    public bool isWinning = false;
+    public int percentageHealthReduced = 10;
 
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
@@ -102,20 +106,34 @@ public class Portal : MonoBehaviour
         GenerateRewardLoot();
 
     }
-    void OnTriggerEnter(Collider other)
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         if (ignoreSpawner || currentRoomEnemySystem.IsRoomClear())
+    //         {
+    //             TeleportPlayer();
+    //         }
+    //     }
+    // }
+    public override void activate()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            if (ignoreSpawner || currentRoomEnemySystem.IsRoomClear())
-            {
-                TeleportPlayer();
-            }
+        base.activate();
+        if (isWinning) {
+            player.GetComponent<PlayerMasterScript>().AnsonTempUIScript.WinScreen();
+        } else {
+            if (isBoss) ReduceMaxHP(percentageHealthReduced);
+            TeleportPlayer();
         }
+    }
+
+    public override void deactivate()
+    {
+        base.deactivate();
     }
 
     void TeleportPlayer()
     {
-        Debug.Log("Ohhhhhhhhhhhhhhhhhhhhhhhhh");
         /*
         player.SetActive(false);
         player.transform.position = targetSpawner.transform.position;
@@ -134,5 +152,11 @@ public class Portal : MonoBehaviour
         {
             Debug.LogError("Cannot spawn enemy");
         }
+    }
+
+    void ReduceMaxHP(int percentage) {
+        int current_max = player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.Health_Max;
+        int reduced = Mathf.FloorToInt(current_max * percentage / 100f);
+        player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.DrainMaxHealth(reduced);
     }
 }

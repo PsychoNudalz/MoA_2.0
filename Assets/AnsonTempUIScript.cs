@@ -28,6 +28,7 @@ public class AnsonTempUIScript : MonoBehaviour
     [Header("Player info")]
     public Image healthBar;
     public Image dash;
+    public Image winScr;
     public TextMeshProUGUI dashChargeDisplay;
     Sprite dashReady, dashCoolDown;
     [Header("UI Elements")]
@@ -297,5 +298,11 @@ public class AnsonTempUIScript : MonoBehaviour
         {
             i.deactivate();
         }
+    }
+
+    public void WinScreen() {
+        winScr.gameObject.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
