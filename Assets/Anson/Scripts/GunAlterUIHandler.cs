@@ -30,6 +30,8 @@ public class GunAlterUIHandler : MonoBehaviour
     [Header("Component Preview UI")]
     [SerializeField] GameObject textTemplateGO;
     [SerializeField] TextMeshProUGUI currentComponentText;
+    [SerializeField] GridLayoutGroup essentialComponents;
+    [SerializeField] GridLayoutGroup potentialComponents;
     [SerializeField] GridLayoutGroup mainStats;
     [SerializeField] GridLayoutGroup elementStats;
     [SerializeField] GridLayoutGroup multiplierStats;
@@ -262,6 +264,14 @@ public class GunAlterUIHandler : MonoBehaviour
         foreach (string s in statsList[2])
         {
             CreateStatsText(multiplierStats).text = s;
+        }
+    }
+
+    void DisplayConnections()
+    {
+        foreach(KeyValuePair<GunComponents, int> pair in currentGCSelection.Component.GetEssentialDict())
+        {
+            CreateStatsText(essentialComponents).text = pair.Value + "x " + pair.Key;
         }
     }
 

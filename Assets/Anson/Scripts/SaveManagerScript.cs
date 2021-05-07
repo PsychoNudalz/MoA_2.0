@@ -233,6 +233,8 @@ public class SaveManagerScript : MonoBehaviour
         IsLoaded = false;
     }
 
+
+
     public void SetSaveProfile(PlayerSaveProfile profile)
     {
         print("Setting save profile: " + profile.ToString());
@@ -240,7 +242,7 @@ public class SaveManagerScript : MonoBehaviour
     }
     public void SetSaveProfile(int profile)
     {
-        SetSaveProfile((PlayerSaveProfile) profile);
+        SetSaveProfile((PlayerSaveProfile)profile);
     }
 
     public void InitialisationData(PlayerSaveProfile psp = PlayerSaveProfile.DEFAULT)
@@ -303,6 +305,7 @@ public class SaveManagerScript : MonoBehaviour
         else
         {
             SetSaveProfile(instance.playerSaveProfile);
+            //instance.SaveProcedure();
             //instance.LoadProcedure();
             Destroy(instance.gameObject);
             instance = this;
@@ -382,14 +385,22 @@ public class SaveManagerScript : MonoBehaviour
         catch (FileNotFoundException e)
         {
             Debug.LogWarning("Failed to find save file, loading default save");
-            loadString = Resources.Load<TextAsset>("DefaultSave").text;
-
+            loadString = LoadDefaultData();
         }
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
         playerSaveCollection = saveCollection.playerSaveCollection;
         gCSSaveCollection = saveCollection.gCSSaveCollection;
         print("load save data complete");
 
+    }
+
+    string LoadDefaultData()
+    {
+        string loadString = Resources.Load<TextAsset>("DefaultSave").text;
+        saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
+        saveCollection.playerSaveCollection.profile =(int) playerSaveProfile;
+        loadString = JsonUtility.ToJson(saveCollection);
+        return loadString;
     }
 
     public void SaveSettings()
