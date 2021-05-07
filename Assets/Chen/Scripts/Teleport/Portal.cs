@@ -19,13 +19,15 @@ public class Portal : InteractableScript
     [SerializeField] GunManager gunManager;
     [SerializeField] List<GameObject> gunCache;
     [SerializeField] int lootAmount = 6;
-    [SerializeField] int coinAmount = 2;
+    [SerializeField] int coinAmount = 5;
     bool rewardLoot;
     [SerializeField] Transform gunSpawnTransform;
     [SerializeField] int spawnLevel = 0;
     public bool isBoss = false;
     public bool isWinning = false;
     public int percentageHealthReduced = 10;
+    [SerializeField] float checkRate = 1.5f;
+    float checkTime = -10f;
 
     [Header("Debug")]
     [SerializeField] bool ignoreSpawner = false;
@@ -47,21 +49,26 @@ public class Portal : InteractableScript
     // Update is called once per frame
     void FixedUpdate()
     {
-        if ((ignoreSpawner || currentRoomEnemySystem.IsRoomClear()) && !rewardLoot)
+        if (Time.time - checkTime > checkRate)
         {
-            SpawnRewardLoot();
 
-        }
-        if (currentRoomEnemySystem != null)
-        {
-            VFXPane.SetActive(currentRoomEnemySystem.IsRoomClear());
+            if ((ignoreSpawner || currentRoomEnemySystem.IsRoomClear()) && !rewardLoot)
+            {
+                SpawnRewardLoot();
+
+            }
+            if (currentRoomEnemySystem != null)
+            {
+                VFXPane.SetActive(currentRoomEnemySystem.IsRoomClear());
+            }
+            checkTime = Time.time;
         }
     }
 
     private void SpawnRewardLoot()
     {
         rewardLoot = true;
-        player.GetComponent<PlayerMasterScript>().PlayerSaveStats.AddCoins(coinAmount);
+        player.GetComponent<PlayerMasterScript>().AddCoins(coinAmount);
         for (int i = 0; i < gunCache.Count; i++)
         {
             gunCache[i].SetActive(true);
@@ -98,7 +105,7 @@ public class Portal : InteractableScript
         }
     }
 
-    public void Setup(RoomEnemySystem r,int level)
+    public void Setup(RoomEnemySystem r, int level)
     {
         targetSpawner = portalTarget.transform.Find("SpawnPoint");
         nextRoomEnemySystem = r;
@@ -119,9 +126,12 @@ public class Portal : InteractableScript
     public override void activate()
     {
         base.activate();
-        if (isWinning) {
+        if (isWinning)
+        {
             player.GetComponent<PlayerMasterScript>().AnsonTempUIScript.WinScreen();
-        } else {
+        }
+        else
+        {
             if (isBoss) ReduceMaxHP(percentageHealthReduced);
             TeleportPlayer();
         }
@@ -154,7 +164,8 @@ public class Portal : InteractableScript
         }
     }
 
-    void ReduceMaxHP(int percentage) {
+    void ReduceMaxHP(int percentage)
+    {
         int current_max = player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.Health_Max;
         int reduced = Mathf.FloorToInt(current_max * percentage / 100f);
         player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.DrainMaxHealth(reduced);
