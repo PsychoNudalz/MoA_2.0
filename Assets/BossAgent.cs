@@ -220,7 +220,7 @@ public class BossAgent : MonoBehaviour
         /*
          * Damage player if in range (triggered from attack animation
          */
-        sphereDamageScript.SphereCastDamageArea(meleeDamage, 1f, attackDropOff, 1, ElementTypes.PHYSICAL);
+        sphereDamageScript.SphereCastDamageArea(meleeDamage, 3f, attackDropOff, 1, ElementTypes.PHYSICAL);
     }
 
     private void FaceTarget()
