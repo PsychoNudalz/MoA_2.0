@@ -111,9 +111,7 @@ public class PlayerController : MonoBehaviour
                 //print("Adding gravity");
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
-                if (notGroundedTime == 0) { 
-                notGroundedTime = Time.time;
-                }
+
             }
             else {
                 coyoteJump = true;
@@ -235,10 +233,7 @@ public class PlayerController : MonoBehaviour
         {
             if (controller.isGrounded || (coyoteJump && Time.time-lastGroundedTime<coyoteJumpTime))
             {
-                coyoteJump = false;
-                canCoyoteJump = false;
                 canDoubleJumped = true;
-                notGroundedTime = 0f;
                 jumped = new Vector3(0f, jumpSpeed, 0f);
             }
             else
@@ -246,10 +241,8 @@ public class PlayerController : MonoBehaviour
                 if (canDoubleJumped)
                 {
                     coyoteJump = false;
-                    canCoyoteJump = false;
-                    canDoubleJumped = false;
-                    notGroundedTime = 0f;
                     jumped = new Vector3(0f, doubleJumpSpeed, 0f);
+                    canDoubleJumped = false;
                 }
             }
             
