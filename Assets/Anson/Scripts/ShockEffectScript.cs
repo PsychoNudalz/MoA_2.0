@@ -115,6 +115,16 @@ public class ShockEffectScript : ElementDebuffScript
             }
         }
     }
+    void ActiveShockOnTarget(LifeSystemScript currentTarget, LifeSystemScript nextTarget)
+    {
+        if (currentTarget is TargetLifeSystem)
+        {
+            if (currentTarget.TryGetComponent(out TargetHandlerScript targetHandler))
+            {
+                targetHandler.TargetMaterialHandler.SetShock(true, nextTarget);
+            }
+        }
+    }
 
     void UpdateShock(LifeSystemScript currentTarget)
     {
@@ -198,7 +208,7 @@ public class ShockEffectScript : ElementDebuffScript
                 {
                     lsList.Add(lss);
                     lsQueue.Enqueue(lss);
-                    ActiveShockOnTarget(currentTarget, lss.transform);
+                    ActiveShockOnTarget(currentTarget, lss as LifeSystemScript);
 
                 }
             }

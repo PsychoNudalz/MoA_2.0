@@ -5,11 +5,11 @@ using UnityEngine;
 public class TargetHandlerScript : MonoBehaviour
 {
     [SerializeField] TargetLifeSystem targetLifeSystem;
-    [SerializeField] TargetMaterialHandlerScript targetMaterialHandler;
+    [SerializeField] TargetEffectController targetMaterialHandler;
     [SerializeField] TargetSoundScript targetSoundScript;
 
     public TargetLifeSystem TargetLifeSystem { get => targetLifeSystem; }
-    public TargetMaterialHandlerScript TargetMaterialHandler { get => targetMaterialHandler; }
+    public TargetEffectController TargetMaterialHandler { get => targetMaterialHandler; }
     public TargetSoundScript TargetSoundScript { get => targetSoundScript; set => targetSoundScript = value; }
 
     private void Awake()
@@ -20,7 +20,7 @@ public class TargetHandlerScript : MonoBehaviour
         }
         if (targetMaterialHandler == null)
         {
-            targetMaterialHandler = GetComponentInChildren<TargetMaterialHandlerScript>();
+            targetMaterialHandler = GetComponentInChildren<TargetEffectController>();
         }
         if (targetSoundScript == null)
         {
@@ -37,6 +37,11 @@ public class TargetHandlerScript : MonoBehaviour
     {
         targetSoundScript.Play_Spawn();
         targetMaterialHandler.SpawnEffect();
+    }
+
+    public virtual Vector3 GetEffectCenter()
+    {
+        return targetLifeSystem.GetEffectCenter();
     }
 }
 

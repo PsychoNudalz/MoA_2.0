@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class TargetMaterialHandlerScript : MonoBehaviour
+public class TargetEffectController : MonoBehaviour
 {
     [Header("Target Material")]
     [SerializeField] Renderer render;
@@ -158,6 +158,21 @@ public class TargetMaterialHandlerScript : MonoBehaviour
             {
                 shockList.Add(currentShock_vfx);
                 shockTargets.Add(shockTarget.transform);
+                /*
+                if (shockTarget.TryGetComponent(out TargetHandlerScript targetHandlerScript))
+                {
+                    currentShock_vfx.SetFloat("ChainLength", (targetHandlerScript.GetEffectCenter() - transform.position).magnitude);
+                    currentShock_vfx.transform.forward = targetHandlerScript.GetEffectCenter() - transform.position;
+                    currentShock_vfx.SendEvent("ShockChain");
+
+                }
+                else
+                {
+                currentShock_vfx.SetFloat("ChainLength", (shockTarget.position - transform.position).magnitude);
+                currentShock_vfx.transform.forward = shockTarget.position - transform.position;
+                currentShock_vfx.SendEvent("ShockChain");
+                }
+            */
                 currentShock_vfx.SetFloat("ChainLength", (shockTarget.position - transform.position).magnitude);
                 currentShock_vfx.transform.forward = shockTarget.position - transform.position;
                 currentShock_vfx.SendEvent("ShockChain");
@@ -165,6 +180,30 @@ public class TargetMaterialHandlerScript : MonoBehaviour
 
         }
     }
+
+    public void SetShock(bool b, LifeSystemScript shockTarget)
+    {
+        if (b)
+        {
+            DebuffEffect.SendEvent("OnShock");
+            currentShock_vfx = GetNextShock();
+            currentShock_vfx.gameObject.SetActive(true);
+            currentShock_vfx.SendEvent("ShockSelf");
+            //Destroy(currentShock_vfx.gameObject, currentShock_vfx.GetFloat("Lifetime")*1.5f);
+
+            //shockEffect.SetActive(true);
+            if (shockTarget != null)
+            {
+                shockList.Add(currentShock_vfx);
+                shockTargets.Add(shockTarget.transform);
+                currentShock_vfx.SetFloat("ChainLength", (shockTarget.GetEffectCenter() - transform.position).magnitude);
+                currentShock_vfx.transform.forward = shockTarget.GetEffectCenter() - transform.position;
+                currentShock_vfx.SendEvent("ShockChain");
+            }
+
+        }
+    }
+
 
     public void UpdateShock()
     {
@@ -213,8 +252,9 @@ public class TargetMaterialHandlerScript : MonoBehaviour
         try
         {
 
-        StartCoroutine(DisableShockDelay(current));
-        } catch(System.Exception e)
+            StartCoroutine(DisableShockDelay(current));
+        }
+        catch (System.Exception e)
         {
 
         }

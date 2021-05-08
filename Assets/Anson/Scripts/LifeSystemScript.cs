@@ -453,4 +453,9 @@ public class LifeSystemScript : MonoBehaviour
 
     }
 
+    public virtual Vector3 GetEffectCenter()
+    {
+        return transform.position;
+    }
+
 }

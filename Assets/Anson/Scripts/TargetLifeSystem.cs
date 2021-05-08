@@ -7,31 +7,31 @@ public class TargetLifeSystem : LifeSystemScript
     [Header("Target Handler")]
     [SerializeField] TargetHandlerScript targetHandler;
     [Header("Shader Effects")]
-    [SerializeField] TargetMaterialHandlerScript targetMaterialHandler;
+    [SerializeField] TargetEffectController targetEffectController;
     [Header("Sound")]
     [SerializeField] TargetSoundScript targetSoundScript;
     [Header("Collider")]
     [SerializeField] Collider[] mainColliders;
 
-    public TargetMaterialHandlerScript TargetMaterialHandler { get => targetMaterialHandler; }
+    public TargetEffectController TargetMaterialHandler { get => targetEffectController; }
 
     private void Awake()
     {
         //base.Awake();
         AwakeBehaviour();
         targetHandler = GetComponent<TargetHandlerScript>();
-        targetMaterialHandler = targetHandler.TargetMaterialHandler;
+        targetEffectController = targetHandler.TargetMaterialHandler;
         targetSoundScript = targetHandler.TargetSoundScript;
     }
 
     public override void PlayTakeDamageEffect()
     {
-        targetMaterialHandler.TakeDamageEffect();
+        targetEffectController.TakeDamageEffect();
     }
 
     public override int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
-        targetMaterialHandler.StartDecay();
+        targetEffectController.StartDecay();
         if (displayTakeDamageEffect)
         {
             targetSoundScript.Play_TakeDamage();
@@ -41,43 +41,43 @@ public class TargetLifeSystem : LifeSystemScript
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
     {
-        targetMaterialHandler.StartDecay();
+        targetEffectController.StartDecay();
         targetSoundScript.Play_Stagger();
         return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }
     public override void RemoveDebuff(FireEffectScript debuff = null)
     {
         base.RemoveDebuff(debuff as DebuffScript);
-        targetMaterialHandler.SetFire(CheckIsStillOnFire() != null);
+        targetEffectController.SetFire(CheckIsStillOnFire() != null);
     }
     public override void ApplyDebuff(FireEffectScript debuff)
     {
         base.ApplyDebuff(debuff as DebuffScript);
-        targetMaterialHandler.SetFire(true);
+        targetEffectController.SetFire(true);
 
     }
     public override void ApplyDebuff(ShockEffectScript debuff)
     {
         base.ApplyDebuff(debuff as DebuffScript);
-        targetMaterialHandler.SetShock(true);
+        targetEffectController.SetShock(true);
 
     }
 
     public override void RemoveDebuff(ShockEffectScript debuff)
     {
         base.RemoveDebuff(debuff as DebuffScript);
-        targetMaterialHandler.ResetShockList();
+        targetEffectController.ResetShockList();
     }
 
     public override void RemoveDebuff(IceEffectScript debuff = null)
     {
         base.RemoveDebuff(debuff as DebuffScript);
         //print(name + " deactivate Ice");
-        targetMaterialHandler.SetIce(false);
+        targetEffectController.SetIce(false);
     }
     public override void ApplyDebuff(IceEffectScript debuff)
     {
-        targetMaterialHandler.SetIce(true);
+        targetEffectController.SetIce(true);
         base.ApplyDebuff(debuff as DebuffScript);
 
     }
@@ -85,7 +85,7 @@ public class TargetLifeSystem : LifeSystemScript
     public override void ResetSystem()
     {
         base.ResetSystem();
-        targetMaterialHandler.SetFire(false);
+        targetEffectController.SetFire(false);
         foreach (Collider c in mainColliders)
         {
             c.enabled = true;
@@ -112,6 +112,11 @@ public class TargetLifeSystem : LifeSystemScript
 
         }
         return b;
+    }
+
+    public override Vector3 GetEffectCenter()
+    {
+        return targetEffectController.transform.position;
     }
 
 
