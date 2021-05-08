@@ -224,15 +224,16 @@ public class MainGunStatsScript : GunStatsScript
     {
         string returnString = string.Concat(
             name, "\n",
-            gunType.ToString(), " ", elementType.ToString(), "\n",
+            gunType.ToString(), " ",
             "Rarity: ", rarity.ToString(), "\n",
-            "DPS: ", CalculateDPS(), "\n",
-            "Damage: ", damagePerProjectile, " x ", projectilePerShot, "\n",
-            "RPM: ", RPM, " Recoil: ", recoil.ToString(), "\n",
+            "DPS: ", CalculateDPS().ToString("0"), " Dmg/Sec.", "\n",
+            "Damage: ", damagePerProjectile.ToString("0"), " x ", projectilePerShot, "\n",
+            "RPM: ", RPM.ToString("0"), " Recoil: ", recoil.ToString(), "\n",
             "Hip Fire: ", recoil_HipFire.ToString(), "\n",
             "Mag: ", magazineSize, " Reload Speed: ", ReloadSpeed, "\n",
             "Range: ", range, "\n",
-            "Range Drop Offs: ", Mathf.Round(rangeCurve.Evaluate(0) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(0.5f) * damagePerProjectile), ", ", Mathf.Round(rangeCurve.Evaluate(1) * damagePerProjectile)
+            "Element: ", elementType.ToString(), "\n",
+             (elementDamage*damagePerProjectile).ToString("0")," Dmg, ",(elementChance*100f).ToString("0"),"%, ",elementPotency," Pow."
 
             );
         return returnString;

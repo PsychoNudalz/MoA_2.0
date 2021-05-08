@@ -36,7 +36,8 @@ public class GunAlterUIHandler : MonoBehaviour
     [SerializeField] GridLayoutGroup elementStats;
     [SerializeField] GridLayoutGroup multiplierStats;
     [Header("Component Preview")]
-    [SerializeField] Transform spawnTransform;
+    [SerializeField] Transform spawnGunTransform;
+    [SerializeField] Transform spawnComponentTransform;
     [SerializeField] GCSelection currentGCSelection;
     [SerializeField] GameObject currentGunGO;
     [SerializeField] Camera previewCamera;
@@ -75,7 +76,7 @@ public class GunAlterUIHandler : MonoBehaviour
     public void GenerateGun()
     {
         GameObject newGun = gunManager.GenerateGun();
-        newGun.transform.position = spawnTransform.position;
+        newGun.transform.position = spawnGunTransform.position;
     }
 
     public void InitialiseAllButtons()
@@ -168,7 +169,7 @@ public class GunAlterUIHandler : MonoBehaviour
             Destroy(currentGunGO);
         }
 
-        currentGunGO = Instantiate(gcs.Component.gameObject, spawnTransform.position, spawnTransform.rotation, spawnTransform);
+        currentGunGO = Instantiate(gcs.Component.gameObject, spawnComponentTransform.position, spawnComponentTransform.rotation, spawnComponentTransform);
 
     }
 

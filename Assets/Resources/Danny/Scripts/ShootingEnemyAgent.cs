@@ -32,6 +32,7 @@ public class ShootingEnemyAgent : MonoBehaviour
 
     [Header("Shooting")]
     [SerializeField] GunDamageScript gunDamageScript;
+    [SerializeField] Vector3 aimOffset = new Vector3(0, 0.5f, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +70,7 @@ public class ShootingEnemyAgent : MonoBehaviour
             if (currentAttackTimer <= 0 && !isShooting)
             {
                 RaycastHit hit;
-                Vector3 playerDirection = player.transform.position - firePoint.transform.position;
+                Vector3 playerDirection = player.transform.position - firePoint.transform.position+aimOffset;
                 Debug.DrawRay(firePoint.position, playerDirection, Color.red,2f);
                 if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, attackDetectionRange))
                 {
@@ -110,7 +111,7 @@ public class ShootingEnemyAgent : MonoBehaviour
         Vector3 direction = (player.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 40f);
-        gun.transform.LookAt(player.transform);
+        gun.transform.LookAt(player.transform.position + aimOffset);
     }
 
     private void Patrol()
