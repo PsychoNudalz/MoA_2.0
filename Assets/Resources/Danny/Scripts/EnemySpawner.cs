@@ -26,6 +26,8 @@ public class EnemySpawner : MonoBehaviour
     private Queue<GameObject> enemiesToSpawn;
     private List<GameObject> spawnedEnemies;
 
+    public int NumberOfEnemies { get => numberOfEnemies;}
+
     internal void UpdateEnemyNumber()
     {
         throw new NotImplementedException();

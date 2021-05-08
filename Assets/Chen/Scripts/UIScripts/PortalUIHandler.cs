@@ -7,13 +7,31 @@ public class PortalUIHandler : MonoBehaviour
 {
     public void ConfirmOnClick() {
         FindObjectOfType<SaveManagerScript>().SaveProcedure();
-        SceneManager.LoadScene("PrototypeLevel2");
+        SceneLoader loader = FindObjectOfType<SceneLoader>();
+        if(loader != null)
+        {
+            loader.LoadWithLoadingScreen("PrototypeLevel2",true);
+        }
+        else
+        {
+            Debug.LogWarning("SceneLoader not found");
+            SceneManager.LoadScene("PrototypeLevel2");
+        }
     }
 
 
     public void ConfirmOnClick_Base()
     {
         FindObjectOfType<SaveManagerScript>().SaveProcedure();
-        SceneManager.LoadScene("Base");
+        SceneLoader loader = FindObjectOfType<SceneLoader>();
+        if (loader != null)
+        {
+            loader.LoadWithLoadingScreen("Base");
+        }
+        else
+        {
+            Debug.LogWarning("SceneLoader not found");
+            SceneManager.LoadScene("Base");
+        }
     }
 }

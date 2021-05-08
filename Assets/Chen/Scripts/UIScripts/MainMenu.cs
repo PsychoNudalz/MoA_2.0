@@ -53,7 +53,16 @@ public class MainMenu : MonoBehaviour
     }
 
     public void NewGameOnClick() {
-        SceneManager.LoadScene("Tutorial");
+        SceneLoader loader = FindObjectOfType<SceneLoader>();
+        if (loader != null)
+        {
+            loader.LoadWithLoadingScreen("Tutorial");
+        }
+        else
+        {
+            Debug.LogWarning("SceneLoader not found");
+            SceneManager.LoadScene("Tutorial");
+        }
     }
 
     public void SettingsOnClick() {
@@ -69,6 +78,15 @@ public class MainMenu : MonoBehaviour
     public void slotsOnClick(int slotIndex) {
         // no SL function currently, will jump in new game instead
         FindObjectOfType<SaveManagerScript>().SetSaveProfile(slotIndex - 1);
-        SceneManager.LoadScene("Tutorial");
+        SceneLoader loader = FindObjectOfType<SceneLoader>();
+        if (loader != null)
+        {
+            loader.LoadWithLoadingScreen("Tutorial");
+        }
+        else
+        {
+            Debug.LogWarning("SceneLoader not found");
+            SceneManager.LoadScene("Tutorial");
+        }
     }
 }
