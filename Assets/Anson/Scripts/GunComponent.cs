@@ -11,6 +11,7 @@ public abstract class GunComponent : MonoBehaviour
     [SerializeField] protected List<GunConnectionPoint> essentialConnectionPoints = new List<GunConnectionPoint>();
     [SerializeField] protected List<GunConnectionPoint> extraConnectionPoints = new List<GunConnectionPoint>();
     [SerializeField] protected ComponentGunStatsScript componentGunStatsScript;
+    [SerializeField] protected string componentName = "";
     [SerializeField] private int componentCost = 1;
     public GunComponents ComponentType { get => componentType; }
     public List<GunTypes> GTypes { get => gunTypes; }
@@ -69,17 +70,28 @@ public abstract class GunComponent : MonoBehaviour
         return returnList;
     }
 
-    public Dictionary<GunComponents,int> GetEssentialDict()
+    public Dictionary<GunComponents, int> GetEssentialDict()
     {
         Dictionary<GunComponents, int> returnDict = new Dictionary<GunComponents, int>();
         foreach (GunConnectionPoint gcp in essentialConnectionPoints)
         {
-            foreach(GunComponents gc in gcp.GetGunComponents())
+            foreach (GunComponents gc in gcp.GetGunComponents())
             {
                 returnDict.Add(gc, 1);
             }
         }
         return returnDict;
+    }
+    public string GetComponentName()
+    {
+        if (componentName.Equals(""))
+        {
+            return name;
+        }
+        else
+        {
+            return componentName;
+        }
     }
 
 

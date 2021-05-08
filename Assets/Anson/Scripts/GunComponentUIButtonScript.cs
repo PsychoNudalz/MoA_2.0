@@ -37,7 +37,13 @@ public class GunComponentUIButtonScript : MonoBehaviour
             SetSelected(false);
         }
 
-        buttonText.text = gcs.Component.name;
+        buttonText.text = NameToDisplay(gcs.Component.GetComponentName());
+    }
+
+    string NameToDisplay(string s)
+    {
+        
+        return s.Replace("_","\n");
     }
 
     public void Select()

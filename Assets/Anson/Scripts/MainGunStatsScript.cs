@@ -223,14 +223,15 @@ public class MainGunStatsScript : GunStatsScript
     public override string ToString()
     {
         string returnString = string.Concat(
-            name, "\n",
-            gunType.ToString(), " ",
-            "Rarity: ", rarity.ToString(), "\n",
+            "<b>",name, "</b>", "\n",
+            rarity.ToString(), " ", gunType.ToString(), "\n",
             "DPS: ", CalculateDPS().ToString("0"), " Dmg/Sec.", "\n",
             "Damage: ", damagePerProjectile.ToString("0"), " x ", projectilePerShot, "\n",
-            "RPM: ", RPM.ToString("0"), " Recoil: ", recoil.ToString(), "\n",
+            "RPM: ", RPM.ToString("0"), "\n",
+            "Recoil: ", recoil.ToString(), "\n",
             "Hip Fire: ", recoil_HipFire.ToString(), "\n",
-            "Mag: ", magazineSize, " Reload Speed: ", ReloadSpeed, "\n",
+            "Mag: ", magazineSize, "\n", 
+            "   Reload: ", ReloadSpeed, "\n",
             "Range: ", range, "\n",
             "Element: ", elementType.ToString(), "\n",
              (elementDamage*damagePerProjectile).ToString("0")," Dmg, ",(elementChance*100f).ToString("0"),"%, ",elementPotency," Pow."
