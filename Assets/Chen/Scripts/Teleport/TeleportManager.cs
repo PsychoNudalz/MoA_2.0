@@ -13,7 +13,7 @@ public class TeleportManager : MonoBehaviour
     void Start()
     {
         ShuffleList(portals);
-        ShuffleList(bossPortals);
+        //ShuffleList(bossPortals);
         foreach (Portal pt in bossPortals) {
             pt.isBoss = true;
             pt.percentageHealthReduced = percentageHealthReduced;
