@@ -107,9 +107,13 @@ public class PlayerController : MonoBehaviour
             }
             if (!controller.isGrounded)
             {
+               
                 //print("Adding gravity");
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
+                if (notGroundedTime == 0) { 
+                notGroundedTime = Time.time;
+                }
             }
             else {
                 coyoteJump = true;
@@ -124,7 +128,7 @@ public class PlayerController : MonoBehaviour
             ansonTempUIScript.UpdateDashDisplay(dashCharges);
         }
     }
-  
+
 
    
 
@@ -220,6 +224,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+
        
         if (disableControl)
         {
@@ -230,17 +235,21 @@ public class PlayerController : MonoBehaviour
         {
             if (controller.isGrounded || (coyoteJump && Time.time-lastGroundedTime<coyoteJumpTime))
             {
-                canDoubleJumped = true;
-                jumped = new Vector3(0f, jumpSpeed, 0f);
                 coyoteJump = false;
+                canCoyoteJump = false;
+                canDoubleJumped = true;
+                notGroundedTime = 0f;
+                jumped = new Vector3(0f, jumpSpeed, 0f);
             }
             else
             {
                 if (canDoubleJumped)
                 {
                     coyoteJump = false;
-                    jumped = new Vector3(0f, doubleJumpSpeed, 0f);
+                    canCoyoteJump = false;
                     canDoubleJumped = false;
+                    notGroundedTime = 0f;
+                    jumped = new Vector3(0f, doubleJumpSpeed, 0f);
                 }
             }
             
