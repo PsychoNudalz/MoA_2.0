@@ -242,7 +242,16 @@ public class AnsonTempUIScript : MonoBehaviour
     public void LoadToBase()
     {
         FindObjectOfType<SaveManagerScript>().SaveProcedure();
-        SceneManager.LoadScene("Base");
+        SceneLoader loader = FindObjectOfType<SceneLoader>();
+        if (loader != null)
+        {
+            loader.LoadWithLoadingScreen("Base");
+        }
+        else
+        {
+            Debug.LogWarning("SceneLoader not found");
+            SceneManager.LoadScene("Base");
+        }
 
     }
     public void ExitGame()
