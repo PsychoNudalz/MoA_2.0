@@ -13,6 +13,7 @@ public class PlayerLifeSystemScript : LifeSystemScript
     [SerializeField] PlayerMasterScript playerMasterScript;
     [SerializeField] AnsonTempUIScript UIScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
+    [SerializeField] PlayerSoundScript playerSoundScript;
     [Header("Player Animator")]
     public Animator animator;
     public string deathTriggerName = "Death";
@@ -23,6 +24,7 @@ public class PlayerLifeSystemScript : LifeSystemScript
     public PlayerMasterScript PlayerMasterScript { set => playerMasterScript = value; }
     public AnsonTempUIScript UIScript1 { set => UIScript = value; }
     public PlayerVolumeControllerScript PlayerVolumeControllerScript { set => playerVolumeControllerScript = value; }
+    public PlayerSoundScript PlayerSoundScript { get => playerSoundScript; set => playerSoundScript = value; }
 
     private void Awake()
     {
@@ -72,6 +74,7 @@ public class PlayerLifeSystemScript : LifeSystemScript
     public override void PlayTakeDamageEffect()
     {
         playerVolumeControllerScript.PlayCD();
+        playerSoundScript.Play_TakeDamage();
         if (GetPercentageHealth() < vignetteThreshold)
         {
             //print("Changing Vignette: " + (health_Current / health_Max));
@@ -91,6 +94,8 @@ public class PlayerLifeSystemScript : LifeSystemScript
 
         }
         UIScript.SetHealth(health_Current, Health_Max);
+        playerSoundScript.Play_Heal();
+
 
         return temp;
     }

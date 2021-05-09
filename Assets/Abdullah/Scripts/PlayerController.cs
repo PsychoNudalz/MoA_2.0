@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
     bool jump;
     bool run;
-    [SerializeField]bool coyoteJump;
+    [SerializeField] bool coyoteJump;
     [SerializeField] float coyoteJumpTime;
     float lastGroundedTime;
 
@@ -66,14 +66,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerInterationScript playerInterationScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
     [SerializeField] AnsonTempUIScript ansonTempUIScript;
+    [SerializeField] PlayerSoundScript playerSoundScript;
 
     public PlayerGunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
     public PlayerInterationScript PlayerInterationScript { get => playerInterationScript; set => playerInterationScript = value; }
     public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
     public bool DisableControl { get => disableControl; set => disableControl = value; }
-    public int DashCharges { get => dashCharges;}
+    public int DashCharges { get => dashCharges; }
     public PlayerVolumeControllerScript PlayerVolumeControllerScript { set => playerVolumeControllerScript = value; }
+    public PlayerSoundScript PlayerSoundScript { get => playerSoundScript; set => playerSoundScript = value; }
 
 
 
@@ -107,19 +109,20 @@ public class PlayerController : MonoBehaviour
             }
             if (!controller.isGrounded)
             {
-               
+
                 //print("Adding gravity");
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
 
             }
-            else {
+            else
+            {
                 coyoteJump = true;
                 lastGroundedTime = Time.time;
             }
         }
 
-        if (dashCharges<dashCharges_Max&& Time.time > dashStart + dashCooldown)
+        if (dashCharges < dashCharges_Max && Time.time > dashStart + dashCooldown)
         {
             dashCharges++;
             dashStart = Time.time;
@@ -128,7 +131,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-   
+
 
     void CameraTilt()
     {
@@ -223,7 +226,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
 
-       
+
         if (disableControl)
         {
             return;
@@ -231,10 +234,12 @@ public class PlayerController : MonoBehaviour
         jump = context.performed;
         if (context.performed)
         {
-            if (controller.isGrounded || (coyoteJump && Time.time-lastGroundedTime<coyoteJumpTime))
+            if (controller.isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
             {
                 canDoubleJumped = true;
                 jumped = new Vector3(0f, jumpSpeed, 0f);
+                playerSoundScript.Play_Jump();
+
             }
             else
             {
@@ -243,9 +248,11 @@ public class PlayerController : MonoBehaviour
                     coyoteJump = false;
                     jumped = new Vector3(0f, doubleJumpSpeed, 0f);
                     canDoubleJumped = false;
+                    playerSoundScript.Play_Jump();
+
                 }
             }
-            
+
         }
     }
 
@@ -258,12 +265,13 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed)
         {
-            if (dashCharges>0 && moveDirection.magnitude > 0)
+            if (dashCharges > 0 && moveDirection.magnitude > 0)
             {
                 /*
                 dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
                 controller.Move(dashRange * Time.deltaTime);
                 */
+                playerSoundScript.Play_Dash();
                 dashCharges--;
                 dashStart = Time.time;
                 playerVolumeControllerScript.PlayLD();

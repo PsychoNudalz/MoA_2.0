@@ -14,6 +14,7 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] PlayerSaveStats playerSaveStats;
     [SerializeField] PlayerGetTargetHealthScript playerGetTargetHealth;
     [SerializeField] PlayerSaveCollection playerSaveCollection;
+    [SerializeField] PlayerSoundScript playerSoundScript;
     [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
 
     public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
@@ -70,6 +71,10 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerGetTargetHealth = GetComponent<PlayerGetTargetHealthScript>();
         }
+        if (!playerSoundScript)
+        {
+            playerSoundScript = GetComponentInChildren<PlayerSoundScript>();
+        }
 
 
         if (playerController.GunDamageScript == null)
@@ -96,6 +101,15 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerInventorySystemScript.GunDamageScript = playerGunDamageScript;
         }
+        if (!playerLifeSystemScript.PlayerSoundScript)
+        {
+            PlayerLifeSystemScript.PlayerSoundScript = playerSoundScript;
+        }
+        if (!playerController.PlayerSoundScript)
+        {
+            playerController.PlayerSoundScript = playerSoundScript;
+        }
+
         playerLifeSystemScript.PlayerMasterScript = this;
         playerLifeSystemScript.UIScript1 = ansonTempUIScript;
         playerInventorySystemScript.ansonTempUIScript = ansonTempUIScript;
