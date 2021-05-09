@@ -39,7 +39,7 @@ public class GCSelection
 
     public string GetGCName()
     {
-        return component.name;
+        return component.GetComponentName();
     }
 
     public GunComponent Component { get => component; }

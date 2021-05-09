@@ -9,14 +9,14 @@ public abstract class GunComponent : MonoBehaviour
     [SerializeField] private List<GunTypes> gunTypes;
     //[SerializeField] protected List<GunComponent> connectedComponents;
     [SerializeField] protected List<GunConnectionPoint> essentialConnectionPoints = new List<GunConnectionPoint>();
-    [SerializeField] protected List<GunConnectionPoint> extraConnectionPoints = new List<GunConnectionPoint>();
+    [SerializeField] protected List<GunConnectionPoint> potentialConnectionPoints = new List<GunConnectionPoint>();
     [SerializeField] protected ComponentGunStatsScript componentGunStatsScript;
     [SerializeField] protected string componentName = "";
     [SerializeField] private int componentCost = 1;
     public GunComponents ComponentType { get => componentType; }
     public List<GunTypes> GTypes { get => gunTypes; }
     public List<GunConnectionPoint> EssentialConnectionPoints { get => essentialConnectionPoints; set => essentialConnectionPoints = value; }
-    public List<GunConnectionPoint> ExtraConnectionPoints { get => extraConnectionPoints; set => extraConnectionPoints = value; }
+    public List<GunConnectionPoint> ExtraConnectionPoints { get => potentialConnectionPoints; set => potentialConnectionPoints = value; }
     public int ComponentCost { get => componentCost; set => componentCost = value; }
 
     private void Awake()
@@ -26,6 +26,7 @@ public abstract class GunComponent : MonoBehaviour
             componentGunStatsScript = GetComponent<ComponentGunStatsScript>();
 
         }
+        //AutoSetPotentialConnections();
     }
 
 
@@ -77,7 +78,34 @@ public abstract class GunComponent : MonoBehaviour
         {
             foreach (GunComponents gc in gcp.GetGunComponents())
             {
+                if (returnDict.ContainsKey(gc))
+                {
+                    returnDict[gc]++;
+                }
+                else
+                {
+                    returnDict.Add(gc, 1);
+                }
+            }
+        }
+        return returnDict;
+    }
+
+    public Dictionary<GunComponents, int> GetPotentialDict()
+    {
+        Dictionary<GunComponents, int> returnDict = new Dictionary<GunComponents, int>();
+        foreach (GunConnectionPoint gcp in potentialConnectionPoints)
+        {
+            foreach (GunComponents gc in gcp.GetGunComponents())
+            {
+                if (returnDict.ContainsKey(gc))
+                {
+                    returnDict[gc]++;
+                }
+                else
+                {
                 returnDict.Add(gc, 1);
+                }
             }
         }
         return returnDict;
@@ -94,5 +122,16 @@ public abstract class GunComponent : MonoBehaviour
         }
     }
 
+    void AutoSetPotentialConnections()
+    {
+        GunConnectionPoint[] cps = GetComponentsInChildren<GunConnectionPoint>();
+        foreach (GunConnectionPoint cp in cps)
+        {
+            if (!essentialConnectionPoints.Contains(cp) && !potentialConnectionPoints.Contains(cp) && cp.gameObject.activeSelf)
+            {
+                potentialConnectionPoints.Add(cp);
+            }
+        }
+    }
 
 }

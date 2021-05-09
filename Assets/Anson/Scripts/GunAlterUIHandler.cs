@@ -231,6 +231,8 @@ public class GunAlterUIHandler : MonoBehaviour
 
     void DisplayStats()
     {
+        DisplayEConnections();
+        DisplayPConnections();
         foreach (Transform g in mainStats.GetComponentsInChildren<Transform>())
         {
             if (g != mainStats.transform)
@@ -269,11 +271,34 @@ public class GunAlterUIHandler : MonoBehaviour
         }
     }
 
-    void DisplayConnections()
+    void DisplayEConnections()
     {
-        foreach(KeyValuePair<GunComponents, int> pair in currentGCSelection.Component.GetEssentialDict())
+
+        foreach (Transform g in essentialComponents.GetComponentsInChildren<Transform>())
+        {
+            if (g != essentialComponents.transform)
+            {
+                Destroy(g.gameObject);
+            }
+        }
+        foreach (KeyValuePair<GunComponents, int> pair in currentGCSelection.Component.GetEssentialDict())
         {
             CreateStatsText(essentialComponents).text = pair.Value + "x " + pair.Key;
+        }
+    }
+
+    void DisplayPConnections()
+    {
+        foreach (Transform g in potentialComponents.GetComponentsInChildren<Transform>())
+        {
+            if (g != potentialComponents.transform)
+            {
+                Destroy(g.gameObject);
+            }
+        }
+        foreach (KeyValuePair<GunComponents, int> pair in currentGCSelection.Component.GetPotentialDict())
+        {
+            CreateStatsText(potentialComponents).text = pair.Value + "x " + pair.Key;
         }
     }
 
