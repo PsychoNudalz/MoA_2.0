@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Portal : InteractableScript
 {
+    [Header("Portal")]
     public Portal portalTarget;
 
     [SerializeField]
