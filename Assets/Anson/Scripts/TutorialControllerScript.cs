@@ -12,6 +12,7 @@ public class TutorialControllerScript : MonoBehaviour
     [SerializeField] Transform guns;
     [SerializeField] GameObject currentGun;
     [SerializeField] ShootingRangeScript shootingRange;
+    [SerializeField] GameObject gunAlter;
     [SerializeField] List<int> pickUpSteps;
     [SerializeField] List<int> killSteps;
     [SerializeField] List<int> timedKillSteps;
@@ -65,6 +66,8 @@ public class TutorialControllerScript : MonoBehaviour
             if (shootingRange.IsWaveCleared())
             {
                 NextStep();
+                //Anson: cba to set a new if
+                gunAlter.SetActive(true);
             }
             else if (!shootingRange.IsWaveCleared() && shootingRange.IsWaveTimedOut()&&shootingRange.IsRoutine)
             {
