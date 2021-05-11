@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject menuPrimary;
     [SerializeField] private GameObject primaryFocus;
     [SerializeField] private GameObject menuSettings;
+    [SerializeField] private GameObject helpPage;
     bool m_paused = false;
     bool m_popUp = false;
     bool m_settings = false;
@@ -33,6 +34,13 @@ public class PauseMenu : MonoBehaviour
 
     }
 
+    public void HelpButtonOnClick() {
+        helpPage.SetActive(true);
+    }
+
+    public void HelpCloseOnClick() {
+        helpPage.SetActive(false);
+    }
     public void TogglePauseMenu() {
         if (m_popUp) {
             popUpGroup.SetActive(false);
