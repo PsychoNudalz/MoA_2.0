@@ -44,6 +44,10 @@ public class GunGeneratorScript : MonoBehaviour
 
     public GameObject GenerateGun_Rarity(int minR = 0, int maxR = 5)
     {
+        if (components_Body.Count == 0)
+        {
+            return null;
+        }
         GameObject temp = GenerateGun(Mathf.RoundToInt(Random.Range(0, components_Body.Count + 1) % components_Body.Count), minR, maxR);
         return temp;
     }

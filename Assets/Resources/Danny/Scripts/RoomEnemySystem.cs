@@ -44,12 +44,13 @@ public class RoomEnemySystem : MonoBehaviour
     {
         
         //For testing start spawning
+        /*
         if (kb.numpadMinusKey.wasPressedThisFrame)
         {
             StartRoomSpawners();
         }
         
-        
+        */
     }
 
     public void StartRoomSpawners()

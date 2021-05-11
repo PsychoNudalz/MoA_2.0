@@ -236,6 +236,7 @@ public class PlayerController : MonoBehaviour
         {
             if (controller.isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
             {
+                coyoteJump = false;
                 canDoubleJumped = true;
                 jumped = new Vector3(0f, jumpSpeed, 0f);
                 playerSoundScript.Play_Jump();

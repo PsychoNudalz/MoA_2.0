@@ -202,6 +202,10 @@ public class GunManager : MonoBehaviour
         for (int i = 0; i < numberOfGuns; i++)
         {
             GameObject newGun = gunGenerator.GenerateGun_Rarity(minRarity, maxRarity);
+            if (newGun == null)
+            {
+                return guns;
+            }
             newGun.transform.position += new Vector3(0, 2, 0);
             guns.Add(newGun);
             gunCache.Add(newGun);
