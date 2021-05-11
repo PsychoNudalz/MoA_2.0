@@ -23,6 +23,7 @@ public class GunAlterUIHandler : MonoBehaviour
     [SerializeField] GunComponentUITypeSectionScript UI_StatBoost;
     [Header("Filter Control")]
     [SerializeField] List<GunTypes> currentGunTypes;
+    [SerializeField] List<GameObject> currentGunTypesSprites;
     [Header("UI")]
     [SerializeField] TextMeshProUGUI currentTypeText;
     [SerializeField] TextMeshProUGUI unlockCostText;
@@ -120,10 +121,13 @@ public class GunAlterUIHandler : MonoBehaviour
         if (currentGunTypes.Contains(g))
         {
             currentGunTypes.Remove(g);
+            currentGunTypesSprites[(int)g].SetActive(false);
         }
         else
         {
             currentGunTypes.Add(g);
+            currentGunTypesSprites[(int)g].SetActive(true);
+
         }
         UpdateButtons();
         UpdateEnumText();
