@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject continueMenu;
+    [SerializeField] private GameObject tutorialMenu;
     [SerializeField] private GameObject headTitle;
     [SerializeField] private GameObject darken;
 
@@ -52,7 +53,8 @@ public class MainMenu : MonoBehaviour
         continueMenu.SetActive(true);
     }
 
-    public void NewGameOnClick() {
+    public void TutorialOnClick() {
+        /*
         SceneLoader loader = FindObjectOfType<SceneLoader>();
         if (loader != null)
         {
@@ -63,11 +65,16 @@ public class MainMenu : MonoBehaviour
             Debug.LogWarning("SceneLoader not found");
             SceneManager.LoadScene("Tutorial");
         }
+        */
+        headTitle.SetActive(false);
+        settingsMenu.SetActive(false);
+        tutorialMenu.SetActive(true);
     }
 
     public void SettingsOnClick() {
         headTitle.SetActive(false);
         continueMenu.SetActive(false);
+        tutorialMenu.SetActive(false);
         settingsMenu.SetActive(true);
     }
 
@@ -75,7 +82,23 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void slotsOnClick(int slotIndex) {
+    public void slotsOnClick_Continue(int slotIndex) {
+        // no SL function currently, will jump in new game instead
+        FindObjectOfType<SaveManagerScript>().SetSaveProfile(slotIndex - 1);
+        SceneLoader loader = FindObjectOfType<SceneLoader>();
+        if (loader != null)
+        {
+            loader.LoadWithLoadingScreen("Base");
+        }
+        else
+        {
+            Debug.LogWarning("SceneLoader not found");
+            SceneManager.LoadScene("Tutorial");
+        }
+    }
+
+    public void slotsOnClick_Tutorial(int slotIndex)
+    {
         // no SL function currently, will jump in new game instead
         FindObjectOfType<SaveManagerScript>().SetSaveProfile(slotIndex - 1);
         SceneLoader loader = FindObjectOfType<SceneLoader>();
