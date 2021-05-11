@@ -43,7 +43,7 @@ public class GunComponentUIButtonScript : MonoBehaviour
     string NameToDisplay(string s)
     {
         
-        return s.Replace("_","\n");
+        return s.Replace("_"," ");
     }
 
     public void Select()

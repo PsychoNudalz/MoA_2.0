@@ -103,7 +103,7 @@ public class GunAlterUIHandler : MonoBehaviour
     public void UpdateButtons()
     {
         //Anson: i know this is bad code
-        UI_Attachment.ResetGridSize();
+        //UI_Attachment.ResetGridSize();
 
 
         UI_Attachment.UpdateButtons(currentGunTypes);

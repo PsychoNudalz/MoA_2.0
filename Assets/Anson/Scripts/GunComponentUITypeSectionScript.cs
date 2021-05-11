@@ -56,7 +56,7 @@ public class GunComponentUITypeSectionScript : MonoBehaviour
                 buttons.Add(newButton);
             }
         }
-        SetGridSize();
+        //SetGridSize();
     }
 
     public void ResetButtons()

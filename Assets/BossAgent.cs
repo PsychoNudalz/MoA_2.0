@@ -8,6 +8,7 @@ public class BossAgent : MonoBehaviour
     [SerializeField] int meleeDamage = 100;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float attackPlayerDistance = 6f;
+    [SerializeField] float rangeAttackPlayerDistance = 30f;
     [SerializeField] private AnimationCurve attackDropOff;
     [SerializeField] private float attackTimeInitial;
     [SerializeField] AIGunDamageScript shootingScript;
@@ -87,7 +88,7 @@ public class BossAgent : MonoBehaviour
                 }
 
             }
-            else if (Vector3.Distance(transform.position, target.position) > 20 && Vector3.Distance(transform.position, target.position) < 30)
+            else if (Vector3.Distance(transform.position, target.position) > attackPlayerDistance && Vector3.Distance(transform.position, target.position) < rangeAttackPlayerDistance)
             {
                 if (!isShooting)
                 {
@@ -104,7 +105,7 @@ public class BossAgent : MonoBehaviour
                     }
                 }
             }
-            else if (!isShooting && Vector3.Distance(transform.position, target.position) > attackPlayerDistance)
+            else if (!isShooting && Vector3.Distance(transform.position, target.position) > rangeAttackPlayerDistance)
             {
                 bossAgent.enabled = true;
                 //animator.SetBool("IsFiring", false);
