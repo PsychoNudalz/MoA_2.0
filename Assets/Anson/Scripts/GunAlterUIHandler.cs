@@ -176,7 +176,8 @@ public class GunAlterUIHandler : MonoBehaviour
     void UpdateComponentCost(int amount)
     {
         unlockButton.SetActive(true);
-        unlockCostText.text = "Cost:" + amount.ToString();
+        String currentCoin = playerMasterScript.PlayerSaveStats.coins.ToString();
+        unlockCostText.text = "Cost:" + amount.ToString() + " / " + currentCoin;
     }
 
     public void UnlockComponent()
