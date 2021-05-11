@@ -222,9 +222,14 @@ public class GunDamageScript : DamageScript
 
         //HANDLE ELEMENTS.  Reduce main damage, change element damage
         elementDamage = Mathf.RoundToInt(g.ElementDamage * damagePerProjectile);
-        damagePerProjectile = damagePerProjectile * 0.85f;
+        //damagePerProjectile = damagePerProjectile * 0.85f;
         elementPotency = g.ElementPotency;
         elementChance = g.ElementChance;
+
+        if (elementType != ElementTypes.PHYSICAL)
+        {
+            damagePerProjectile = damagePerProjectile * DamageMultiplier.ElementDamageNerf;
+        }
 
         //mainGunStatsScript.SetRarityEffect(false);
 

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public static class DamageMultiplier
 {
+
+    public static float ElementDamageNerf { get => 0.85f; }
+
     public static float Get(GunTypes gt)
     {
         float temp = 1f;
@@ -54,4 +57,5 @@ public static class DamageMultiplier
         }
         return temp;
     }
+
 }

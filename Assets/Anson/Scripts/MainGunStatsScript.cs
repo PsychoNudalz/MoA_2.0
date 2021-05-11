@@ -223,18 +223,18 @@ public class MainGunStatsScript : GunStatsScript
     public override string ToString()
     {
         string returnString = string.Concat(
-            "<b>",name, "</b>", "\n",
+            "<b>", name, "</b>", "\n",
             rarity.ToString(), " ", gunType.ToString(), "\n",
             "DPS: ", CalculateDPS().ToString("0"), " Dmg/Sec.", "\n",
             "Damage: ", damagePerProjectile.ToString("0"), " x ", projectilePerShot, "\n",
             "RPM: ", RPM.ToString("0"), "\n",
             "Recoil: ", recoil.ToString(), "\n",
             "Hip Fire: ", recoil_HipFire.ToString(), "\n",
-            "Mag: ", magazineSize, "\n", 
-            "   Reload: ", ReloadSpeed, "\n",
+            "Mag: ", magazineSize, "\n",
+            "Reload: ", ReloadSpeed, "\n",
             "Range: ", range, "\n",
             "Element: ", elementType.ToString(), "\n",
-             (elementDamage*damagePerProjectile).ToString("0")," Dmg, ",(elementChance*100f).ToString("0"),"%, ",elementPotency," Pow."
+             (elementDamage * damagePerProjectile).ToString("0"), " Dmg, ", (elementChance * 100f).ToString("0"), "%, ", elementPotency, " Pow."
 
             );
         return returnString;
@@ -253,9 +253,24 @@ public class MainGunStatsScript : GunStatsScript
     public float CalculateDPS()
     {
         float dps = (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
-        //float dps = (60f/((RPM / 60f) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
-        //float dps = damagePerProjectile * projectilePerShot * magazineSize;
-        //dps = dps / 60f;
+        if (elementType != ElementTypes.PHYSICAL)
+        {
+            dps = dps * DamageMultiplier.ElementDamageNerf;
+        }
+        dps += (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * elementDamage * elementChance * DamageMultiplier.Get(elementType) * projectilePerShot * magazineSize;
+        /*
+        switch (elementType)
+        {
+            case ElementTypes.PHYSICAL:
+                break;
+            case ElementTypes.FIRE:
+                break;
+            case ElementTypes.ICE:
+                break;
+            case ElementTypes.SHOCK:
+                break;
+        }
+        */
         return dps;
     }
 }
