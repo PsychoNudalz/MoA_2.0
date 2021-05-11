@@ -74,6 +74,20 @@ public class PauseMenu : MonoBehaviour
         m_popUp = true;
     }
 
+    public void BackToBaseOnClick() {
+        FindObjectOfType<SaveManagerScript>().SaveProcedure();
+        SceneLoader loader = FindObjectOfType<SceneLoader>();
+        if (loader != null)
+        {
+            loader.LoadWithLoadingScreen("Base");
+        }
+        else
+        {
+            Debug.LogWarning("SceneLoader not found");
+            SceneManager.LoadScene("Base");
+        }
+    }
+
     public void PopUpBackOnClick() {
         popUpGroup.SetActive(false);
         m_popUp = false;
