@@ -500,7 +500,7 @@ public class GunDamageScript : DamageScript
                     ls = wps.Ls;
                     try
                     {
-                    dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, 2f);
+                    dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, DamageMultiplier.Get(gunType));
 
                     }catch(System.Exception e)
                     {

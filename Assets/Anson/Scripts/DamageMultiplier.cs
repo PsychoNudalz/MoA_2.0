@@ -2,17 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageMultiplier : MonoBehaviour
+public static class DamageMultiplier
 {
-    // Start is called before the first frame update
-    void Start()
+    public static float Get(GunTypes gt)
     {
-        
+        float temp = 1f;
+        switch (gt)
+        {
+            case GunTypes.SMALL:
+                temp = 2f;
+                break;
+            case GunTypes.RIFLE:
+                temp = 1.5f;
+
+                break;
+            case GunTypes.SHOTGUN:
+                temp = 1.2f;
+
+                break;
+            case GunTypes.EXPLOSIVE:
+                temp = 1.5f;
+
+                break;
+            case GunTypes.SNIPER:
+                temp = 2.5f;
+
+                break;
+            default:
+                break;
+        }
+        return temp;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static float Get(ElementTypes et)
     {
-        
+        float temp = 1f;
+
+        switch (et)
+        {
+            case ElementTypes.PHYSICAL:
+                break;
+            case ElementTypes.FIRE:
+                temp = 2f;
+                break;
+            case ElementTypes.ICE:
+                break;
+            case ElementTypes.SHOCK:
+                break;
+            default:
+                break;
+        }
+        return temp;
     }
 }

@@ -27,7 +27,7 @@ public class ShockEffectScript : ElementDebuffScript
         this.effectDamage = effectDamage;
         this.effectPotency = effectPotency;
         duration = .25f;
-        shockDamage = effectDamage;
+        shockDamage = this.effectDamage;
         this.ignorePlayer = ignorePlayer;
         this.tagList = tagList;
         this.layerMask = layerMask;
