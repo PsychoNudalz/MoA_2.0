@@ -104,6 +104,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemySpawned = GameObject.Instantiate(enemyToSpawn, transform.position, transform.rotation, transform);
         enemySpawned.name = EnumToString.GetEnemyStringFromEnum(enemySpawned.GetComponent<EnemyTypeScript>().EnemyType);
         enemySpawned.SetActive(false);
+        IncrementEnemies();
         enemiesToSpawn.Enqueue(enemySpawned);
     }
 
@@ -140,7 +141,7 @@ public class EnemySpawner : MonoBehaviour
                 enemy.SetActive(true);
                 enemiesSpawned++;
                 spawnedEnemies.Add(enemy);
-                IncrementEnemies();
+                
                 if(spawnCountdown < delayBetweenSpawns / 5)
                 {
                     ResetSpawnCountdown();

@@ -22,7 +22,7 @@ public class RoomEnemySystem : MonoBehaviour
 
     private void UpdateEnemyNumberDisplay(bool start = false)
     {
-        string textToSet = "";
+        
         if (start)
         {
             UIScript.SetEnemiesRemainingText(enemyCount,false);
@@ -78,7 +78,6 @@ public class RoomEnemySystem : MonoBehaviour
     internal void IncrementEnemies()
     {
         enemyCount++;
-        UpdateEnemyNumberDisplay();
     }
 
     internal void DecrementEnemies()
