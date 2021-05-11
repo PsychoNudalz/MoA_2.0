@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 coyoteJump = true;
+                canDoubleJumped = true;
                 lastGroundedTime = Time.time;
             }
         }
