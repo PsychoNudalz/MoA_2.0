@@ -112,4 +112,8 @@ public class MainMenu : MonoBehaviour
             SceneManager.LoadScene("Tutorial");
         }
     }
+
+    public void CreditsOnClick() {
+        SceneManager.LoadScene("Credits");
+    }
 }
