@@ -108,6 +108,11 @@ public class EnemySpawner : MonoBehaviour
         enemiesToSpawn.Enqueue(enemySpawned);
     }
 
+    private void IncrementEnemies()
+    {
+        roomSystem.IncrementEnemies();
+    }
+
     internal void RemoveFromSpawnedEnemies(GameObject enemyToRemove)
     {
         spawnedEnemies.Remove(enemyToRemove);
@@ -120,21 +125,6 @@ public class EnemySpawner : MonoBehaviour
      */
     private void SpawnEnemy()
     {
-        /*
-        if (SpawnerEnemyType.Equals(EnemyType.TankEnemy))
-        {
-            if(spawnedEnemies.Count == 0 && enemiesSpawned < numberOfEnemies)
-            {
-                GameObject enemy = enemiesToSpawn.Dequeue();
-                enemy.SetActive(true);
-                enemiesSpawned++;
-                spawnedEnemies.Add(enemy);
-                IncrementEnemies();
-                ResetSpawnCountdown();
-            }
-        }
-        else
-        {*/
             if(spawnedEnemies.Count < maxEnemies && enemiesToSpawn.Count > 0)
             {
                 GameObject enemy = enemiesToSpawn.Dequeue();
@@ -147,12 +137,6 @@ public class EnemySpawner : MonoBehaviour
                     ResetSpawnCountdown();
                 }
             }
-       // }
-    }
-
-    private void IncrementEnemies()
-    {
-        roomSystem.IncrementEnemies();
     }
 
     internal void DecrementEnemies()

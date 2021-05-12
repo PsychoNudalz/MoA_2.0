@@ -8,14 +8,12 @@ using UnityEngine.UI;
 public class RoomEnemySystem : MonoBehaviour
 {
     
-    Keyboard kb;
     EnemySpawner[] roomSpawners;
     private int enemyCount = 0;
     AnsonTempUIScript UIScript;
 
     private void Awake()
     {
-        kb = InputSystem.GetDevice<Keyboard>();
         roomSpawners = GetComponentsInChildren<EnemySpawner>();
         UIScript = FindObjectOfType<AnsonTempUIScript>();
     }
@@ -38,19 +36,6 @@ public class RoomEnemySystem : MonoBehaviour
         }
         
 
-    }
-
-    private void Update()
-    {
-        
-        //For testing start spawning
-        /*
-        if (kb.numpadMinusKey.wasPressedThisFrame)
-        {
-            StartRoomSpawners();
-        }
-        
-        */
     }
 
     public void StartRoomSpawners()
