@@ -6,7 +6,7 @@ public class SettingsSaveStats : MonoBehaviour
 {
     
     public float sensitivity = 15;
-    public float sensitivityADS = 15; // not using
+    public float sensitivityADS = 1;
     public float masterVolume = 1;
 
     public void Load(SettingsSaveStats sss)
