@@ -137,6 +137,13 @@ public class PlayerMasterScript : MonoBehaviour
     {
         playerController.SetSensitivity(amount);
     }
+
+    public void SetADSMultiplier(float amount)
+    {
+        playerController.SetADSSensitivity(amount);
+    }
+
+
     public int AddCoins(int amount)
     {
         int temp=  playerSaveStats.AddCoins(amount);

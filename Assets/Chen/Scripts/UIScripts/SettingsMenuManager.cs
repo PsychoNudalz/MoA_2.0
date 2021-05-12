@@ -38,7 +38,7 @@ public class SettingsMenuManager : MonoBehaviour
     {
         if (playerMasterScript == null) isInGame = false;
         sensitivity.value = settingsSaveStats.sensitivity;
-        //sensitivityADS.value = settingsSaveStats.sensitivityADS;
+        sensitivityADS.value = settingsSaveStats.sensitivityADS;
         masterVolume.value = settingsSaveStats.masterVolume;
         // TODO: load default/current value and reflect it on sliders
     }
@@ -74,7 +74,7 @@ public class SettingsMenuManager : MonoBehaviour
     {
         if (isInGame)
         {
-            //playerMasterScript.SetSensitivity(val);
+            playerMasterScript.SetADSMultiplier(val);
         }
         settingsSaveStats.sensitivityADS = val;
     }

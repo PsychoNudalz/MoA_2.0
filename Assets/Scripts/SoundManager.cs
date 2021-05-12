@@ -4,7 +4,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-
+/// <summary>
+/// 6th generation of the sound manager
+/// </summary>
 public class SoundManager : MonoBehaviour
 {
     /*//Anson: Old Sound Manager
