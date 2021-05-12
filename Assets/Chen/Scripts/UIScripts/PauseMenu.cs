@@ -21,8 +21,10 @@ public class PauseMenu : MonoBehaviour
     bool m_popUp = false;
     bool m_settings = false;
     private EventSystem eventSystem;
+    private SoundManager soundManager;
     void Start()
     {
+        soundManager = FindObjectOfType<SoundManager>();
         eventSystem = EventSystem.current;
         keyboard = Keyboard.current;
         if (menuBody == null) menuBody = gameObject.transform.GetChild(0).gameObject;
@@ -59,14 +61,16 @@ public class PauseMenu : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1.0f;
-            AudioListener.pause = false;
+            soundManager.PauseAllSounds();
+            // AudioListener.pause = false;
             menuBody.SetActive(false);
             m_paused = !m_paused;
         } else {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             Time.timeScale = 0.0f;
-            AudioListener.pause = true;
+            soundManager.ResumeSounds();
+            // AudioListener.pause = true;
             menuBody.SetActive(true);
             m_paused = !m_paused;
         }
