@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {    
@@ -15,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject primaryFocus;
     [SerializeField] private GameObject menuSettings;
     [SerializeField] private GameObject helpPage;
+    [SerializeField] private Button backToBaseBtn;
     bool m_paused = false;
     bool m_popUp = false;
     bool m_settings = false;
@@ -27,6 +29,10 @@ public class PauseMenu : MonoBehaviour
         if (popUpGroup == null) popUpGroup = gameObject.transform.GetChild(1).gameObject;
         if (menuPrimary == null) menuPrimary = menuBody.transform.GetChild(1).gameObject;
         if (menuSettings == null) menuSettings = menuBody.transform.GetChild(2).gameObject;
+        if (SceneManager.GetActiveScene().name.Equals("Base")) {
+            backToBaseBtn.enabled = false;
+            backToBaseBtn.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
+        }
     }
 
     void Update()
@@ -88,11 +94,13 @@ public class PauseMenu : MonoBehaviour
         if (loader != null)
         {
             loader.LoadWithLoadingScreen("Base");
+            Time.timeScale = 1.0f;
         }
         else
         {
             Debug.LogWarning("SceneLoader not found");
             SceneManager.LoadScene("Base");
+            Time.timeScale = 1.0f;
         }
     }
 
