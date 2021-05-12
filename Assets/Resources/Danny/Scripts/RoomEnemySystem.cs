@@ -18,15 +18,6 @@ public class RoomEnemySystem : MonoBehaviour
         UIScript = FindObjectOfType<AnsonTempUIScript>();
     }
 
-    private void Start()
-    {
-        foreach(EnemySpawner spawner in roomSpawners)
-        {
-            enemyCount += spawner.transform.childCount;
-        }
-        Debug.Log(transform.ToString() + ":" + enemyCount);
-    }
-
     private void UpdateEnemyNumberDisplay(bool start = false)
     {
         

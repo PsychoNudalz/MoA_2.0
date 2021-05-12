@@ -108,6 +108,11 @@ public class EnemySpawner : MonoBehaviour
         enemiesToSpawn.Enqueue(enemySpawned);
     }
 
+    private void IncrementEnemies()
+    {
+        roomSystem.IncrementEnemies();
+    }
+
     internal void RemoveFromSpawnedEnemies(GameObject enemyToRemove)
     {
         spawnedEnemies.Remove(enemyToRemove);
