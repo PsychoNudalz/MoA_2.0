@@ -59,14 +59,14 @@ public class PauseMenu : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1.0f;
-            // AudioListener.pause = false;
+            AudioListener.pause = false;
             menuBody.SetActive(false);
             m_paused = !m_paused;
         } else {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             Time.timeScale = 0.0f;
-           // AudioListener.pause = true;
+            AudioListener.pause = true;
             menuBody.SetActive(true);
             m_paused = !m_paused;
         }
