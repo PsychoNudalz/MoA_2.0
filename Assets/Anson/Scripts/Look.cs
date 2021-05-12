@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class Look : MonoBehaviour
 {
     public float rotateSpeed = 15f; //MouseSense
+    [SerializeField] float ADSMultiplier;
     [SerializeField] float rotateSpeed_Current;
 
     public Transform CharacterBody;
@@ -134,7 +135,7 @@ public class Look : MonoBehaviour
         isADS = b;
         if (b)
         {
-            ModifySpeed(1 / mult);
+            ModifySpeed((1 / mult) * ADSMultiplier);
             currentMult = mult;
             
         }
@@ -185,5 +186,10 @@ public class Look : MonoBehaviour
     {
         rotateSpeed = amount;
         rotateSpeed_Current = rotateSpeed;
+    }
+
+    public void SetADSMultiplier(float amount)
+    {
+        ADSMultiplier = amount;
     }
 }

@@ -435,5 +435,13 @@ public class PlayerController : MonoBehaviour
         print("Player Update sensitivity to:" + amount);
     }
 
+    public void SetADSSensitivity(float amount)
+    {
+        if (lookScript != null)
+        {
+            lookScript.SetADSMultiplier(amount);
+        }
+    }
+
 
 }
