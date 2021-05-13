@@ -17,6 +17,7 @@ public class PlayerSaveStats : MonoBehaviour
     public int coins = 0;
     public int numberOfRuns = 0;
     public int numberOfBossKills = 0;
+    public int totalFullClears = 0;
 
     public void Load(PlayerSaveStats pss)
     {
@@ -24,6 +25,7 @@ public class PlayerSaveStats : MonoBehaviour
         this.coins = pss.coins;
         this.numberOfRuns = pss.numberOfRuns;
         this.numberOfBossKills = pss.numberOfBossKills;
+        this.totalFullClears = pss.totalFullClears;
     }
     public void Load(PlayerSaveCollection psc)
     {
@@ -31,6 +33,7 @@ public class PlayerSaveStats : MonoBehaviour
         this.coins = psc.coins;
         this.numberOfRuns = psc.numberOfRuns;
         this.numberOfBossKills = psc.numberOfBossKills;
+        this.totalFullClears = psc.totalFullClears;
     }
 
 

@@ -73,12 +73,15 @@ public class PlayerSaveCollection
     public int coins = 0;
     public int numberOfRuns = 0;
     public int numberOfBossKills = 0;
+    public int totalFullClears = 0;
+
     public PlayerSaveCollection(PlayerSaveStats pss)
     {
         profile = (int)pss.profile;
         this.coins = pss.coins;
         this.numberOfRuns = pss.numberOfRuns;
         this.numberOfBossKills = pss.numberOfBossKills;
+        this.totalFullClears = pss.totalFullClears;
     }
 }
 

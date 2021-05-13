@@ -129,11 +129,17 @@ public class Portal : InteractableScript
         base.activate();
         if (isWinning)
         {
+            player.GetComponent<PlayerMasterScript>().IncreamentClears();
             player.GetComponent<PlayerMasterScript>().AnsonTempUIScript.WinScreen();
         }
         else
         {
-            if (isBoss) ReduceMaxHP(percentageHealthReduced);
+            if (isBoss)
+            {
+                ReduceMaxHP(percentageHealthReduced);
+                player.GetComponent<PlayerMasterScript>().IncreamentBossKill();
+
+            }
             TeleportPlayer();
         }
     }

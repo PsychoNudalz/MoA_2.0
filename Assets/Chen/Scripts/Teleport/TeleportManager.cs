@@ -39,6 +39,9 @@ public class TeleportManager : MonoBehaviour
         prev.Setup(end.CurrentRoomEnemySystem,i);
         //end.GetComponent<BoxCollider>().enabled = false;
         end.isWinning = true;
+
+        //Anson: incease player total run
+        FindObjectOfType<PlayerMasterScript>().IncreamentRun();
     }
 
     void ShuffleList(List<Portal> list)

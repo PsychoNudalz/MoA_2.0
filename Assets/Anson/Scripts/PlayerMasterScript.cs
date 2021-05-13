@@ -188,4 +188,17 @@ public class PlayerMasterScript : MonoBehaviour
         ansonTempUIScript.DisplayNewGunText(false);
     }
 
+    public void IncreamentRun()
+    {
+        playerSaveStats.numberOfRuns++;
+    }
+
+    public void IncreamentBossKill()
+    {
+        playerSaveStats.numberOfBossKills++;
+    }
+    public void IncreamentClears()
+    {
+        playerSaveStats.totalFullClears++;
+    }
 }
