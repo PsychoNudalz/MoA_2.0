@@ -337,6 +337,12 @@ public class GunDamageScript : DamageScript
         {
             currentRecoilTime = 0;
         }
+
+        if (float.IsInfinity(Mathf.Abs(currentRecoilTime)))
+        {
+            currentRecoilTime = 0;
+
+        }
     }
 
 

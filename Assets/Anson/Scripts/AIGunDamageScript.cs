@@ -19,7 +19,7 @@ public class AIGunDamageScript : GunDamageScript
     protected override void UpdateBehaviour()
     {
         base.UpdateBehaviour();
-        if (!isFiring)
+        if (!isFiring && currentRecoilTime >0)
         {
             CorrectRecoil();
 

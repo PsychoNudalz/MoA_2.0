@@ -24,6 +24,7 @@ public class Boss_AI : MonoBehaviour
     [SerializeField] AIGunDamageScript missileDamageScript;
     [Header("Variables")]
     [SerializeField] float maxDetection = 60f;
+    [SerializeField] LayerMask layerMask;
     [Header("Shoot")]
     [SerializeField] float shootAttackRange = 15f;
     [SerializeField] float shootAttackCoolDown = 3f;
@@ -171,7 +172,8 @@ public class Boss_AI : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 dir = player.transform.position + new Vector3(0f, 0.3f, 0f) - lineOfSightTransform.position;
-        if (Physics.Raycast(lineOfSightTransform.position, dir, out hit, range))
+        Debug.DrawRay(lineOfSightTransform.position, dir * range, Color.red);
+        if (Physics.Raycast(lineOfSightTransform.position, dir, out hit, range,layerMask))
         {
             if (hit.collider.CompareTag("Player"))
             {
