@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossLifeSystem : TargetLifeSystem
 {
-    [Header("Stone Enemy Agent")]
-    //BossAgent bossAgent;
+    [Header("Boss Enemy Agent")]
+    [SerializeField] Boss_AI bossAgent;
     EnemySpawner spawner;
     bool displayDecremented = false;
 
@@ -34,7 +34,7 @@ public class BossLifeSystem : TargetLifeSystem
         bool retValue = base.CheckDead();
         if (retValue)
         {
-            //bossAgent.DeathAnimation();
+            bossAgent.DeathAnimation();
         }
         return retValue;
     }
