@@ -540,8 +540,13 @@ public class GunDamageScript : DamageScript
             //for (int i = 0; i < projectilePerShot; i++)
             //{
             projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
-            Vector3 fireDir = firePoint.forward;
-            /*
+            float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
+
+            randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
+
+            Vector3 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
+
+            /*s
             if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
             {
                 fireDir = hit.point - mainGunStatsScript.transform.position;
