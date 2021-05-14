@@ -68,7 +68,7 @@ public class Boss_AI : MonoBehaviour
                 AnimatorNext();
                 break;
             case AIMode.Walking:
-                if (CheckLineOfSight(shootAttackRange))
+                if (CheckLineOfSight((shootAttackRange+maxDetection )/2f))
                 {
                     StopMoving();
                 }
@@ -125,18 +125,21 @@ public class Boss_AI : MonoBehaviour
 
     }
 
-
-
     void MissileAttack()
     {
+        SetAIMode(AIMode.Shoot);
+        animator.SetTrigger("Attack_Missile");
+        SetNextDecisionTime(shootAttackCoolDown);
+        SetAIMode(AIMode.Waiting);
 
     }
+
 
     public void LookForPlayer()
     {
         SetAIMode(AIMode.Hunt);
         StopAttack();
-        if (CheckLineOfSight(shootAttackRange))
+        if (CheckLineOfSight((maxDetection)))
         {
             animator.SetTrigger("Next");
 
@@ -164,7 +167,7 @@ public class Boss_AI : MonoBehaviour
         }
         else
         {
-            RangedAttack();
+            MissileAttack();
         }
     }
 
@@ -223,6 +226,7 @@ public class Boss_AI : MonoBehaviour
     public void StopMoving()
     {
         animator.SetBool("IsWalking", false);
+        agent.enabled = false;
     }
 
     void MoveAwayFromPlayer()
