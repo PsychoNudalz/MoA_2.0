@@ -37,6 +37,9 @@ public class Boss_AI : MonoBehaviour
     [SerializeField] AIMode aIMode = AIMode.Idle;
     [SerializeField] float nextDecisionTime;
     [SerializeField] float decisionTime = 1f;
+
+    public bool IsDead { get; private set; }
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -263,6 +266,14 @@ public class Boss_AI : MonoBehaviour
         Vector3 direction = (player.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.95f);
+    }
+
+    public void DeathAnimation()
+    {
+        IsDead = true;
+        agent.speed = 0f;
+        agent.velocity = Vector3.zero;
+        animator.SetTrigger("Death");
     }
 
 }
