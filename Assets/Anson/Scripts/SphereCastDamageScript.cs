@@ -71,14 +71,14 @@ public class SphereCastDamageScript : DamageScript
         Debug.DrawRay(transform.position+offset, dir * range, Color.blue, 3f);
         if (Physics.Raycast(transform.position, dir, out hit, range, layerMask))
         {
-            print("Check line of sight found:" + hit.collider.name);
+            //print("Check line of sight found:" + hit.collider.name);
             if (hit.collider.Equals(c))
             {
-                print("have line of sight");
+                //print("have line of sight");
                 return true;
             }
         }
-        print("no line of sight");
+        //print("no line of sight");
 
         return false;
     }
