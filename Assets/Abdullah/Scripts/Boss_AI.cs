@@ -1,12 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class Boss_AI : MonoBehaviour
 {
+    public NavMeshAgent agent;
+    public GameObject player;
     private void Awake()
     {
         
+    }
+    private void Update()
+    {
+        MoveTwordsPlayer();
     }
 
     void MeleeAttack() 
@@ -36,7 +41,8 @@ public class Boss_AI : MonoBehaviour
 
     void MoveTwordsPlayer() 
     {
-    
+        Vector3 playerLocation = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        agent.SetDestination(playerLocation);
     }
 
     void MoveAwayFromPlayer() 
