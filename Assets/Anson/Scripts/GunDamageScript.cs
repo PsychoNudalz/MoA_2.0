@@ -255,7 +255,7 @@ public class GunDamageScript : DamageScript
     protected bool canFire()
     {
 
-        if (currentMag < 1 || (isReloading && isFullReload)||mainGunStatsScript == null)
+        if (currentMag < 1 || (isReloading && isFullReload) || mainGunStatsScript == null)
         {
             isFiring = false;
             if (currentMag < 1 && !isReloading)
@@ -312,46 +312,6 @@ public class GunDamageScript : DamageScript
         if (b)
         {
             currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenter);
-
-            /*
-            //x
-            if (currentRecoil.x > recoil.x * .2f)
-            {
-                currentRecoil.x -= currentRecoil.x * Time.deltaTime / timeToRecenter;
-            }
-
-            if (currentRecoil.x > 0.005f)
-            {
-                currentRecoil.x -= recoil.x * Time.deltaTime / timeToRecenter;
-            }
-            else
-            {
-                currentRecoil.x = 0;
-            }
-
-
-            //y
-            if (currentRecoil.y > recoil.y * .2f)
-            {
-                currentRecoil.y -= currentRecoil.y * Time.deltaTime * 2 / timeToRecenter;
-            }
-            else if (currentRecoil.y < recoil.y * -.2f)
-            {
-                currentRecoil.y += Mathf.Abs(currentRecoil.y) * Time.deltaTime * 2 / timeToRecenter;
-            }
-            else if (currentRecoil.y > 0.05f)
-            {
-                currentRecoil.y -= recoil.y * Time.deltaTime * 2 / timeToRecenter;
-            }
-            else if (currentRecoil.y < -0.05f)
-            {
-                currentRecoil.y += recoil.y * Time.deltaTime * 2 / timeToRecenter;
-            }
-            else
-            {
-                currentRecoil.y = 0;
-            }
-            */
 
         }
 
@@ -505,9 +465,10 @@ public class GunDamageScript : DamageScript
                     ls = wps.Ls;
                     try
                     {
-                    dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, DamageMultiplier.Get(gunType));
+                        dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, DamageMultiplier.Get(gunType));
 
-                    }catch(System.Exception e)
+                    }
+                    catch (System.Exception e)
                     {
                         Debug.LogError("Failed to do damage");
                         Debug.LogError(e);
