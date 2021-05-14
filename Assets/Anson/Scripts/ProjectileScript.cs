@@ -38,6 +38,7 @@ public abstract class ProjectileScript : MonoBehaviour
     [Header("Homing Behaviour")]
     [SerializeField] bool isHoming;
     [SerializeField] bool homingLock;
+    [SerializeField] bool omniHoming;
     [SerializeField] ProjectileTriggerDetectionScript triggerDetectionScript;
     [SerializeField] Transform targetTransform;
     [SerializeField] Vector3 homingDir;
@@ -177,7 +178,7 @@ public abstract class ProjectileScript : MonoBehaviour
         homingDir = (target.position - transform.position).normalized;
 
         float dotResults = Vector3.Dot(homingDir, transform.forward);
-        if (dotResults <= 0f)
+        if (dotResults <= 0f && !omniHoming)
         {
             return;
         }
@@ -194,13 +195,13 @@ public abstract class ProjectileScript : MonoBehaviour
         }
         homingDir = (targetTransform.position - transform.position).normalized;
         float dotResults = Vector3.Dot(homingDir, transform.forward);
-        if (dotResults <= 0f)
+        if (dotResults <= 0f &&! omniHoming)
         {
             resetHomingTarget();
         }
         else
         {
-            rb.velocity = ((homingDir * dotResults * Time.deltaTime * homingStrength) + rb.velocity.normalized).normalized * launchSpeed;
+            rb.velocity = ((homingDir * Mathf.Abs(dotResults) * Time.deltaTime * homingStrength) + rb.velocity.normalized).normalized * launchSpeed;
         }
     }
 

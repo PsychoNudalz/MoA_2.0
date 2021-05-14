@@ -5,13 +5,13 @@ using UnityEngine;
 public class BossLifeSystem : TargetLifeSystem
 {
     [Header("Stone Enemy Agent")]
-    BossAgent bossAgent;
+    //BossAgent bossAgent;
     EnemySpawner spawner;
     bool displayDecremented = false;
 
     private void Start()
     {
-        bossAgent = GetComponent<BossAgent>();
+        //bossAgent = GetComponent<BossAgent>();
         try
         {
 
@@ -34,14 +34,14 @@ public class BossLifeSystem : TargetLifeSystem
         bool retValue = base.CheckDead();
         if (retValue)
         {
-            bossAgent.DeathAnimation();
+            //bossAgent.DeathAnimation();
         }
         return retValue;
     }
 
     private void StaggerAnimation()
     {
-        bossAgent.Stagger();
+        //bossAgent.Stagger();
     }
 
     public override void DeathBehaviour()
