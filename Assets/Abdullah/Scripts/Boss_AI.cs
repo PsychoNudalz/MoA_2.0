@@ -25,6 +25,9 @@ public class Boss_AI : MonoBehaviour
     [Header("Variables")]
     [SerializeField] float maxDetection = 60f;
     [SerializeField] LayerMask layerMask;
+    [Header("Missil")]
+    [SerializeField] float missileAttackRange = 15f;
+    [SerializeField] float missileAttackCoolDown = 3f;
     [Header("Shoot")]
     [SerializeField] float shootAttackRange = 15f;
     [SerializeField] float shootAttackCoolDown = 3f;
@@ -68,7 +71,7 @@ public class Boss_AI : MonoBehaviour
                 AnimatorNext();
                 break;
             case AIMode.Walking:
-                if (CheckLineOfSight((shootAttackRange+maxDetection )/2f))
+                if (CheckLineOfSight((shootAttackRange+missileAttackRange )/2f))
                 {
                     StopMoving();
                 }
@@ -129,7 +132,7 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Shoot);
         animator.SetTrigger("Attack_Missile");
-        SetNextDecisionTime(shootAttackCoolDown);
+        SetNextDecisionTime(missileAttackCoolDown);
         SetAIMode(AIMode.Waiting);
 
     }
@@ -139,7 +142,7 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Hunt);
         StopAttack();
-        if (CheckLineOfSight(((shootAttackRange + maxDetection) / 2f)))
+        if (CheckLineOfSight(missileAttackRange))
         {
             animator.SetTrigger("Next");
 
@@ -165,7 +168,7 @@ public class Boss_AI : MonoBehaviour
         {
             RangedAttack();
         }
-        else
+        else 
         {
             MissileAttack();
         }
@@ -220,7 +223,7 @@ public class Boss_AI : MonoBehaviour
 
         animator.SetTrigger("Next");
         animator.SetBool("IsWalking", true);
-
+        SetNextDecisionTime(decisionTime * 3f);
     }
 
     public void StopMoving()
