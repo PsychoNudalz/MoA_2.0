@@ -26,7 +26,7 @@ public class Portal : InteractableScript
     [SerializeField] int spawnLevel = 0;
     public bool isBoss = false;
     public bool isWinning = false;
-    public int percentageHealthReduced = 10;
+    public int percentageHealthReduced = 0;
     [SerializeField] float checkRate = 1.5f;
     float checkTime = -10f;
 

@@ -139,7 +139,7 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Hunt);
         StopAttack();
-        if (CheckLineOfSight((maxDetection)))
+        if (CheckLineOfSight(((shootAttackRange + maxDetection) / 2f)))
         {
             animator.SetTrigger("Next");
 
@@ -201,7 +201,7 @@ public class Boss_AI : MonoBehaviour
         SetAIMode(AIMode.Idle);
         agent.enabled = false;
 
-        if (CheckLineOfSight(maxDetection))
+        if (CheckLineOfSight(maxDetection*1.5f))
         {
             MoveTowordsPlayer();
 
@@ -246,7 +246,7 @@ public class Boss_AI : MonoBehaviour
 
     public void DealMeleeAttack()
     {
-        meleeDamageScript.SphereCastDamageArea(meleeDamage, meleeAttackRange, meleeCurve, 1, ElementTypes.PHYSICAL, true);
+        meleeDamageScript.SphereCastDamageArea(meleeDamage, 2, meleeCurve, 1, ElementTypes.PHYSICAL, true);
     }
 
     public void DealRangeAttack()
