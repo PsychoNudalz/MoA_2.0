@@ -254,11 +254,13 @@ public class SoundManager : MonoBehaviour
             {
                 s.AudioMixer = audioMixer;
             }
+            sounds.Add(s);
         }
     }
 
     public void PauseAllSounds()
     {
+        UpdateSounds();
         soundsCache = new List<Sound>();
         foreach (Sound s in sounds)
         {
@@ -272,10 +274,12 @@ public class SoundManager : MonoBehaviour
 
     public void ResumeSounds()
     {
+
         foreach (Sound s in soundsCache)
         {
             s.Resume();
         }
+        UpdateSounds();
     }
 
 
