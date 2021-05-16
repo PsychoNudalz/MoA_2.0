@@ -126,21 +126,25 @@ public class Portal : InteractableScript
     // }
     public override void activate()
     {
-        base.activate();
-        if (isWinning)
+        if (ignoreSpawner|| currentRoomEnemySystem.IsRoomClear())
         {
-            player.GetComponent<PlayerMasterScript>().IncreamentClears();
-            player.GetComponent<PlayerMasterScript>().AnsonTempUIScript.WinScreen();
-        }
-        else
-        {
-            if (isBoss)
-            {
-                ReduceMaxHP(percentageHealthReduced);
-                player.GetComponent<PlayerMasterScript>().IncreamentBossKill();
 
+            base.activate();
+            if (isWinning)
+            {
+                player.GetComponent<PlayerMasterScript>().IncreamentClears();
+                player.GetComponent<PlayerMasterScript>().AnsonTempUIScript.WinScreen();
             }
-            TeleportPlayer();
+            else
+            {
+                if (isBoss)
+                {
+                    ReduceMaxHP(percentageHealthReduced);
+                    player.GetComponent<PlayerMasterScript>().IncreamentBossKill();
+
+                }
+                TeleportPlayer();
+            }
         }
     }
 
