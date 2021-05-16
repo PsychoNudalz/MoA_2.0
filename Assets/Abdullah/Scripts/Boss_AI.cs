@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public enum AIMode
 {
@@ -36,6 +37,7 @@ public class Boss_AI : MonoBehaviour
     [SerializeField] float meleeAttackCoolDown = 1f;
     [SerializeField] float meleeDamage;
     [SerializeField] AnimationCurve meleeCurve;
+    [SerializeField] VisualEffect meleeAoEEffect;
 
     [Header("Status")]
     [SerializeField] AIMode aIMode = AIMode.Idle;
@@ -249,7 +251,8 @@ public class Boss_AI : MonoBehaviour
 
     public void DealMeleeAttack()
     {
-        meleeDamageScript.SphereCastDamageArea(meleeDamage, 2, meleeCurve, 1, ElementTypes.PHYSICAL, true);
+        meleeDamageScript.SphereCastDamageArea(meleeDamage, meleeAttackRange*0.6f, meleeCurve, 1, ElementTypes.PHYSICAL, true);
+        meleeAoEEffect.Play();
     }
 
     public void DealRangeAttack()
