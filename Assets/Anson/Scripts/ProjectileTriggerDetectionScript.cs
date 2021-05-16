@@ -43,7 +43,15 @@ public class ProjectileTriggerDetectionScript : MonoBehaviour
             if (canOverrideTarget || target == null)
             {
                 target = other.gameObject;
+                if(target.TryGetComponent<LifeSystemScript>(out LifeSystemScript ls))
+                {
+                    projectileScript.SetHoming(ls.GetCentreOfMass());
+                }
+                else
+                {
                 projectileScript.SetHoming(target.transform);
+
+                }
             }
         }
     }

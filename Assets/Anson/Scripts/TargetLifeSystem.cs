@@ -22,6 +22,10 @@ public class TargetLifeSystem : LifeSystemScript
         targetHandler = GetComponent<TargetHandlerScript>();
         targetEffectController = targetHandler.TargetMaterialHandler;
         targetSoundScript = targetHandler.TargetSoundScript;
+        if (!centreOfMass)
+        {
+            centreOfMass = targetEffectController.transform;
+        }
     }
 
     public override void PlayTakeDamageEffect()
