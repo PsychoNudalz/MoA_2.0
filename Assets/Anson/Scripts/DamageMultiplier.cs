@@ -16,7 +16,7 @@ public static class DamageMultiplier
                 temp = 2f;
                 break;
             case GunTypes.RIFLE:
-                temp = 1.5f;
+                temp = 1.7f;
 
                 break;
             case GunTypes.SHOTGUN:

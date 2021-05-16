@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
                 lastGroundedTime = Time.time;
                 if (jumped.y != 0)
                 {
-                    jumped.y = -3.5f;
+                    jumped.y = -4f;
                 }
                 
             }

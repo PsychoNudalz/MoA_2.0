@@ -9208,6 +9208,11 @@ PrefabInstance:
       propertyPath: playerMasterScript
       value: 
       objectReference: {fileID: 1895567220}
+    - target: {fileID: 8514733658705199115, guid: ad1cf5dea5b861746b7e8937673e0bbc,
+        type: 3}
+      propertyPath: playBGM
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad1cf5dea5b861746b7e8937673e0bbc, type: 3}
 --- !u!43 &1013086493
@@ -11233,7 +11238,7 @@ PrefabInstance:
     - target: {fileID: 7996651654848253238, guid: a146358a8a0eef5428d7c6ba7a0bb3dc,
         type: 3}
       propertyPath: percentageHealthReduced
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7996651654848253238, guid: a146358a8a0eef5428d7c6ba7a0bb3dc,
         type: 3}
@@ -22290,6 +22295,10 @@ MonoBehaviour:
   minY: -85
   maxY: 85
   tilt: 20
+  jumpHeadDetection: 0.2
+  jumpLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   moveSpeed_Default: 0
   coyoteJump: 0
   coyoteJumpTime: 0
@@ -25732,6 +25741,7 @@ MonoBehaviour:
   health_Current: 0
   health_Max: 1000000000
   isDead: 0
+  centreOfMass: {fileID: 0}
   deathGameObject: {fileID: 0}
   disableOnDeath: 1
   destroyOnDeath: 0
