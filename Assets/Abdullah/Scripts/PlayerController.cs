@@ -180,7 +180,10 @@ public class PlayerController : MonoBehaviour
         controller.enabled = true;
 
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="b">false to lock controller</param>
     public void SetControlLock(bool b)
     {
         disableControl = !b;
@@ -420,7 +423,14 @@ public class PlayerController : MonoBehaviour
         if (callbackContext.performed)
         {
             ansonTempUIScript.CloseAllMenus();
-            FindObjectOfType<PauseMenu>().TogglePauseMenu();
+            if (FindObjectOfType<PauseMenu>().TogglePauseMenu())
+            {
+                SetControlLock(false);
+            }
+            else
+            {
+                SetControlLock(true);
+            }
         }
     }
 
