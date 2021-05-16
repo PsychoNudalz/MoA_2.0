@@ -4533,9 +4533,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264704
   missileAttackRange: 40
-  missileAttackCoolDown: 3
+  missileAttackCoolDown: 15
   shootAttackRange: 20
-  shootAttackCoolDown: 4
+  shootAttackCoolDown: 5
   meleeAttackRange: 8
   meleeAttackCoolDown: 1
   meleeDamage: 150
@@ -4566,6 +4566,7 @@ MonoBehaviour:
   meleeAoEEffect: {fileID: 7543457437869231235}
   aIMode: 0
   nextDecisionTime: 0
+  nextAttackTime: 0
   decisionTime: 1
 --- !u!195 &7849803350579588289
 NavMeshAgent:
@@ -4577,7 +4578,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.18
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

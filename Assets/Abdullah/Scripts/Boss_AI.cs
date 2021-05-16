@@ -42,6 +42,7 @@ public class Boss_AI : MonoBehaviour
     [Header("Status")]
     [SerializeField] AIMode aIMode = AIMode.Idle;
     [SerializeField] float nextDecisionTime;
+    [SerializeField] float nextAttackTime;
     [SerializeField] float decisionTime = 1f;
 
     public bool IsDead { get; private set; }
@@ -51,6 +52,12 @@ public class Boss_AI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         agent.SetDestination(transform.position);
         agent.enabled = false;
+    }
+
+    private void Start()
+    {
+        agent.enabled = false;
+
     }
     private void FixedUpdate()
     {
@@ -116,8 +123,9 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Melee);
         animator.SetTrigger("Attack_Melee");
-        SetNextDecisionTime(meleeAttackCoolDown);
-        SetAIMode(AIMode.Waiting);
+        //SetNextDecisionTime(meleeAttackCoolDown);
+        nextAttackTime = Time.time + meleeAttackCoolDown;
+        //SetAIMode(AIMode.Waiting);
 
     }
 
@@ -125,8 +133,9 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Shoot);
         animator.SetTrigger("Attack_Shooting");
-        SetNextDecisionTime(shootAttackCoolDown);
-        SetAIMode(AIMode.Waiting);
+        //SetNextDecisionTime(shootAttackCoolDown);
+        nextAttackTime = Time.time + shootAttackCoolDown;
+        //SetAIMode(AIMode.Waiting);
 
     }
 
@@ -134,8 +143,9 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Shoot);
         animator.SetTrigger("Attack_Missile");
-        SetNextDecisionTime(missileAttackCoolDown);
-        SetAIMode(AIMode.Waiting);
+        //SetNextDecisionTime(missileAttackCoolDown);
+        nextAttackTime = Time.time + missileAttackCoolDown;
+        //SetAIMode(AIMode.Waiting);
 
     }
 
@@ -144,7 +154,7 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Hunt);
         StopAttack();
-        if (CheckLineOfSight(missileAttackRange))
+        if (CheckLineOfSight(missileAttackRange)&&Time.time>nextAttackTime)
         {
             animator.SetTrigger("Next");
 
