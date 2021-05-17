@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject tutorialMenu;
     [SerializeField] private GameObject headTitle;
     [SerializeField] private GameObject darken;
+    [SerializeField] private GameObject creditBtn;
 
     [SerializeField] private float factor = -0.004f;
     [SerializeField] private AudioSource audioSource;
@@ -51,6 +52,8 @@ public class MainMenu : MonoBehaviour
         headTitle.SetActive(false);
         settingsMenu.SetActive(false);
         continueMenu.SetActive(true);
+        tutorialMenu.SetActive(false);
+        creditBtn.SetActive(false);
     }
 
     public void TutorialOnClick() {
@@ -69,6 +72,8 @@ public class MainMenu : MonoBehaviour
         headTitle.SetActive(false);
         settingsMenu.SetActive(false);
         tutorialMenu.SetActive(true);
+        continueMenu.SetActive(false);
+        creditBtn.SetActive(false);
     }
 
     public void SettingsOnClick() {
@@ -76,6 +81,7 @@ public class MainMenu : MonoBehaviour
         continueMenu.SetActive(false);
         tutorialMenu.SetActive(false);
         settingsMenu.SetActive(true);
+        creditBtn.SetActive(false);
     }
 
     public void ExitOnClick() {
