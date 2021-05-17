@@ -51,6 +51,8 @@ MonoBehaviour:
   smallPercentageValue: 0.2
   largePercentageValue: 0.5
   regenDuration: 20
+  text: {fileID: 2690878237236193568}
+  camera: {fileID: 0}
 --- !u!135 &2719464019124376171
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -100,6 +102,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2719464019124376149}
     m_Modifications:
+    - target: {fileID: 1791787048449204018, guid: af5b62df8e4035543b0bdd63bbe07a6d,
+        type: 3}
+      propertyPath: m_text
+      value: + HP
+      objectReference: {fileID: 0}
     - target: {fileID: 2253921546607594945, guid: af5b62df8e4035543b0bdd63bbe07a6d,
         type: 3}
       propertyPath: m_RootOrder
@@ -170,11 +177,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthPickUpModel_Small
       objectReference: {fileID: 0}
+    - target: {fileID: 8338588677083596967, guid: af5b62df8e4035543b0bdd63bbe07a6d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338588677083596967, guid: af5b62df8e4035543b0bdd63bbe07a6d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338588677083596967, guid: af5b62df8e4035543b0bdd63bbe07a6d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.38
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af5b62df8e4035543b0bdd63bbe07a6d, type: 3}
 --- !u!4 &5307770282818563142 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2253921546607594945, guid: af5b62df8e4035543b0bdd63bbe07a6d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6264354555067326855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2690878237236193568 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8338588677083596967, guid: af5b62df8e4035543b0bdd63bbe07a6d,
     type: 3}
   m_PrefabInstance: {fileID: 6264354555067326855}
   m_PrefabAsset: {fileID: 0}

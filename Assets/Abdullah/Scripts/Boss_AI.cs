@@ -67,6 +67,11 @@ public class Boss_AI : MonoBehaviour
             AIBehaviour();
             nextDecisionTime = nextDecisionTime + decisionTime;
         }
+        if (aIMode.Equals(AIMode.Shoot))
+        {
+            FaceTarget();
+
+        }
     }
 
     void AIBehaviour()
@@ -201,10 +206,6 @@ public class Boss_AI : MonoBehaviour
         return false;
     }
 
-    void LookAtPlayer()
-    {
-
-    }
 
     void AttackCooldown()
     {
