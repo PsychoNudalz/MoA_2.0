@@ -15,7 +15,7 @@ public class SphereCastDamageScript : DamageScript
         foreach (RaycastHit h in hits)
         {
             Collider c = h.collider;
-            print("Check line of sight to:" + c.name);
+            //print("Check line of sight to:" + c.name);
 
             if (!needLineOfSight || rayCastLineOfSight(c, range))
             {
@@ -28,7 +28,8 @@ public class SphereCastDamageScript : DamageScript
                     {
                         hitTarget = true;
                         attackedTargets.Add(lss);
-                        calculatedDamage = CalculateDamage(dmg, range, rangeCurve, c.transform.position);
+
+                        calculatedDamage = CalculateDamage(dmg, range, rangeCurve, lss.GetCentreOfMass().position);
                         dealDamageToTarget(lss, calculatedDamage, level, elementType);
 
                         if (!(lss is PlayerLifeSystemScript))

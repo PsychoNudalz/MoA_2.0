@@ -1217,6 +1217,7 @@ MonoBehaviour:
     type: 3}
   IsDead: 0
   gunDamageScript: {fileID: 8346961404557175092}
+  aimOffset: {x: 0, y: 0.5, z: 0}
 --- !u!195 &8212764219785700500
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1268,6 +1269,7 @@ MonoBehaviour:
   health_Current: 0
   health_Max: 1500
   isDead: 0
+  centreOfMass: {fileID: 0}
   deathGameObject: {fileID: 0}
   disableOnDeath: 0
   destroyOnDeath: 0
@@ -1277,7 +1279,7 @@ MonoBehaviour:
   debuffList: []
   damagePopScript: {fileID: 2511962009368432827}
   targetHandler: {fileID: 7789549031433731199}
-  targetMaterialHandler: {fileID: 5988185067292597598}
+  targetEffectController: {fileID: 0}
   targetSoundScript: {fileID: 0}
   mainColliders:
   - {fileID: 3177964519048324564}
@@ -2613,6 +2615,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 856303293805654957, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1077458394628910458, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
       propertyPath: m_Layer
@@ -2650,8 +2657,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
+      propertyPath: recoil.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
+      propertyPath: recoil.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
+      propertyPath: currentMag
+      value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
       propertyPath: magazineSize
-      value: 1000
+      value: Infinity
       objectReference: {fileID: 0}
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
@@ -2660,13 +2682,28 @@ PrefabInstance:
       objectReference: {fileID: 6744772841950439597}
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
+      propertyPath: recoil_HipFire.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
+      propertyPath: recoil_HipFire.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
+      propertyPath: projectilePerShot
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
       propertyPath: damagePerProjectile
-      value: 40
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
       propertyPath: timeBetweenProjectile
-      value: 0.035
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 4851381496675741153, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
@@ -2969,7 +3006,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07bd638e5aa7f945a70ff6f246aea5b, type: 3}
+  m_Script: {fileID: 11500000, guid: efd962e443322be4fb5c68a93294df5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7007439118970503502

@@ -12,6 +12,11 @@ public class HealthPickupScript : MonoBehaviour
     [SerializeField] private float regenDuration;
     PlayerLifeSystemScript playerLifeSystem;
 
+    [Header("Text")]
+    [SerializeField] Transform text;
+    [SerializeField] Camera camera;
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag.Equals("Player"))
@@ -19,6 +24,11 @@ public class HealthPickupScript : MonoBehaviour
             playerLifeSystem = other.transform.GetComponent<PlayerLifeSystemScript>();
             CollectPickup();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        rotateTextToCamera();
     }
 
     private void CollectPickup()
@@ -42,5 +52,15 @@ public class HealthPickupScript : MonoBehaviour
             }
             GameObject.Destroy(this.gameObject);
         }
+    }
+
+    void rotateTextToCamera()
+    {
+        if (camera == null)
+        {
+            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        }
+        Vector3 dir = camera.transform.position - transform.position;
+        transform.forward = -dir;
     }
 }

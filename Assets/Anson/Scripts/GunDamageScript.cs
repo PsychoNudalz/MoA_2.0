@@ -255,7 +255,7 @@ public class GunDamageScript : DamageScript
     protected bool canFire()
     {
 
-        if (currentMag < 1 || (isReloading && isFullReload)||mainGunStatsScript == null)
+        if (currentMag < 1 || (isReloading && isFullReload) || mainGunStatsScript == null)
         {
             isFiring = false;
             if (currentMag < 1 && !isReloading)
@@ -313,46 +313,6 @@ public class GunDamageScript : DamageScript
         {
             currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenter);
 
-            /*
-            //x
-            if (currentRecoil.x > recoil.x * .2f)
-            {
-                currentRecoil.x -= currentRecoil.x * Time.deltaTime / timeToRecenter;
-            }
-
-            if (currentRecoil.x > 0.005f)
-            {
-                currentRecoil.x -= recoil.x * Time.deltaTime / timeToRecenter;
-            }
-            else
-            {
-                currentRecoil.x = 0;
-            }
-
-
-            //y
-            if (currentRecoil.y > recoil.y * .2f)
-            {
-                currentRecoil.y -= currentRecoil.y * Time.deltaTime * 2 / timeToRecenter;
-            }
-            else if (currentRecoil.y < recoil.y * -.2f)
-            {
-                currentRecoil.y += Mathf.Abs(currentRecoil.y) * Time.deltaTime * 2 / timeToRecenter;
-            }
-            else if (currentRecoil.y > 0.05f)
-            {
-                currentRecoil.y -= recoil.y * Time.deltaTime * 2 / timeToRecenter;
-            }
-            else if (currentRecoil.y < -0.05f)
-            {
-                currentRecoil.y += recoil.y * Time.deltaTime * 2 / timeToRecenter;
-            }
-            else
-            {
-                currentRecoil.y = 0;
-            }
-            */
-
         }
 
 
@@ -376,6 +336,12 @@ public class GunDamageScript : DamageScript
         else
         {
             currentRecoilTime = 0;
+        }
+
+        if (float.IsInfinity(Mathf.Abs(currentRecoilTime)))
+        {
+            currentRecoilTime = 0;
+
         }
     }
 
@@ -505,9 +471,10 @@ public class GunDamageScript : DamageScript
                     ls = wps.Ls;
                     try
                     {
-                    dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, DamageMultiplier.Get(gunType));
+                        dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, DamageMultiplier.Get(gunType));
 
-                    }catch(System.Exception e)
+                    }
+                    catch (System.Exception e)
                     {
                         Debug.LogError("Failed to do damage");
                         Debug.LogError(e);
@@ -540,8 +507,13 @@ public class GunDamageScript : DamageScript
             //for (int i = 0; i < projectilePerShot; i++)
             //{
             projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
-            Vector3 fireDir = firePoint.forward;
-            /*
+            float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
+
+            randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
+
+            Vector3 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
+
+            /*s
             if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
             {
                 fireDir = hit.point - mainGunStatsScript.transform.position;

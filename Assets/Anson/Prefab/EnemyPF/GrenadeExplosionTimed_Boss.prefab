@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f20cc6f7090c8428fb26223d1240bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchForce: 10
+  launchForce: 20
   launchSpeed: 0
   launchSpin: 100
   baseDamage: 0
@@ -61,9 +61,9 @@ MonoBehaviour:
   delayTime: 0
   rb: {fileID: 0}
   physicMateral: {fileID: 13400000, guid: d611a62dd81be9a4da06f686b599e616, type: 2}
-  mainCollider: {fileID: 0}
-  numberOfBounces: 99
-  fuseTime: 6
+  mainCollider: {fileID: 56123128684320105}
+  numberOfBounces: 5
+  fuseTime: 10
   tagList:
   - Enviorment
   - Player
@@ -81,12 +81,12 @@ MonoBehaviour:
   homingDir: {x: 0, y: 0, z: 0}
   homingStrength: 50
   damageMultiplier: 1
-  maxRange: 8
+  maxRange: 6
   rangeFalloff:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.5
+      time: 0.8
       value: 1
       inSlope: -0.021092163
       outSlope: -0.021092163
@@ -133,11 +133,11 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56123128684320107}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d611a62dd81be9a4da06f686b599e616, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.2
-  m_Height: 0.74
+  m_Radius: 0.5
+  m_Height: 1.64
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &56123128684320104
@@ -9763,7 +9763,10 @@ VisualEffect:
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.5
+        m_Name: Size
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -9782,10 +9785,10 @@ VisualEffect:
         m_Overridden: 1
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 3.9686275, y: 3.9686275, z: 0, w: 1}
+      - m_Value: {x: 1.9843138, y: 1.9843138, z: 0, w: 1}
         m_Name: Colour2
         m_Overridden: 1
-      - m_Value: {x: 3.9686275, y: 0.28235295, z: 0, w: 1}
+      - m_Value: {x: 1.9843138, y: 0.14544709, z: 0, w: 1}
         m_Name: Colour1
         m_Overridden: 1
     m_Uint:
@@ -9867,17 +9870,17 @@ PrefabInstance:
     - target: {fileID: 3863634146400483919, guid: 4eff889102226024d8f08b667f8b2971,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3863634146400483919, guid: 4eff889102226024d8f08b667f8b2971,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3863634146400483919, guid: 4eff889102226024d8f08b667f8b2971,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3863634146400483919, guid: 4eff889102226024d8f08b667f8b2971,
         type: 3}

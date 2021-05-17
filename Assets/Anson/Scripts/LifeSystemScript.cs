@@ -15,6 +15,7 @@ public class LifeSystemScript : MonoBehaviour
     [SerializeField] protected int health_Current;
     [SerializeField] protected int health_Max = 10;
     [SerializeField] bool isDead = false;
+    [SerializeField] protected Transform centreOfMass;
 
     [Header("On Death")]
     public GameObject deathGameObject;
@@ -456,6 +457,19 @@ public class LifeSystemScript : MonoBehaviour
     public virtual Vector3 GetEffectCenter()
     {
         return transform.position;
+    }
+
+    public Transform GetCentreOfMass()
+    {
+        if (centreOfMass == null)
+        {
+            return transform;
+        }
+        else
+        {
+            return centreOfMass.transform;
+        }
+
     }
 
 }

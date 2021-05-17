@@ -17,8 +17,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] public float tilt = 20;
 
-    Vector3 jumped;
 
+    [Header("Jump stuff")]
+    Vector3 jumped;
+    [SerializeField] float jumpHeadDetection = 0.2f;
+    [SerializeField] LayerMask jumpLayerMask;
+
+    [Space]
     float moveSpeed;
     [SerializeField] float moveSpeed_Default;
 
@@ -113,13 +118,23 @@ public class PlayerController : MonoBehaviour
                 //print("Adding gravity");
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
-
+                //Debug.DrawRay(controller.center + new Vector3(0, controller.height / 2f, 0))
+                if (Physics.Raycast(transform.position+ controller.center+new Vector3(0, controller.height / 2f, 0), transform.up, jumpHeadDetection, jumpLayerMask))
+                {
+                    print("Playuer hit head");
+                    jumped.y = Mathf.Clamp(.1f, 0, jumped.y);
+                }
             }
             else
             {
                 coyoteJump = true;
                 canDoubleJumped = true;
                 lastGroundedTime = Time.time;
+                if (jumped.y != 0)
+                {
+                    jumped.y = -4f;
+                }
+                
             }
         }
 
@@ -165,7 +180,10 @@ public class PlayerController : MonoBehaviour
         controller.enabled = true;
 
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="b">false to lock controller</param>
     public void SetControlLock(bool b)
     {
         disableControl = !b;
@@ -405,7 +423,14 @@ public class PlayerController : MonoBehaviour
         if (callbackContext.performed)
         {
             ansonTempUIScript.CloseAllMenus();
-            FindObjectOfType<PauseMenu>().TogglePauseMenu();
+            if (FindObjectOfType<PauseMenu>().TogglePauseMenu())
+            {
+                SetControlLock(false);
+            }
+            else
+            {
+                SetControlLock(true);
+            }
         }
     }
 

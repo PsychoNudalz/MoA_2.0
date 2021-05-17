@@ -49,42 +49,53 @@ public class PauseMenu : MonoBehaviour
     public void HelpCloseOnClick() {
         helpPage.SetActive(false);
     }
-    public void TogglePauseMenu() {
+    public bool TogglePauseMenu() {
+        bool isInMenu = true; 
+
         if (m_popUp) {
             popUpGroup.SetActive(false);
             m_popUp = false;
+
         } else if (m_settings) {
             menuSettings.SetActive(false);
             menuPrimary.SetActive(true);
             m_settings = false;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         } else if (m_paused) {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1.0f;
-            soundManager.PauseAllSounds();
+            soundManager.ResumeSounds();
             // AudioListener.pause = false;
             menuBody.SetActive(false);
             m_paused = !m_paused;
+            isInMenu = false;
         } else {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             Time.timeScale = 0.0f;
-            soundManager.ResumeSounds();
+            soundManager.PauseAllSounds();
             // AudioListener.pause = true;
             menuBody.SetActive(true);
             m_paused = !m_paused;
+            isInMenu = true;
+
         }
+        return isInMenu;
         //FindObjectOfType<EventSystem>().SetSelectedGameObject(null);
     }
 
     public void ContinueOnClick() {
         TogglePauseMenu();
+        FindObjectOfType<PlayerMasterScript>().SetControls(true);
     }
 
     public void SettingsOnClick() {
         menuPrimary.SetActive(false);
         menuSettings.SetActive(true);
         m_settings = true;
+        
     }
 
     public void ExitOnClick() {

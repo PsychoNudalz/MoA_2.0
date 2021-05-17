@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public enum AIMode
 {
@@ -24,6 +25,10 @@ public class Boss_AI : MonoBehaviour
     [SerializeField] AIGunDamageScript missileDamageScript;
     [Header("Variables")]
     [SerializeField] float maxDetection = 60f;
+    [SerializeField] LayerMask layerMask;
+    [Header("Missil")]
+    [SerializeField] float missileAttackRange = 15f;
+    [SerializeField] float missileAttackCoolDown = 3f;
     [Header("Shoot")]
     [SerializeField] float shootAttackRange = 15f;
     [SerializeField] float shootAttackCoolDown = 3f;
@@ -32,10 +37,12 @@ public class Boss_AI : MonoBehaviour
     [SerializeField] float meleeAttackCoolDown = 1f;
     [SerializeField] float meleeDamage;
     [SerializeField] AnimationCurve meleeCurve;
+    [SerializeField] VisualEffect meleeAoEEffect;
 
     [Header("Status")]
     [SerializeField] AIMode aIMode = AIMode.Idle;
     [SerializeField] float nextDecisionTime;
+    [SerializeField] float nextAttackTime;
     [SerializeField] float decisionTime = 1f;
 
     public bool IsDead { get; private set; }
@@ -46,6 +53,12 @@ public class Boss_AI : MonoBehaviour
         agent.SetDestination(transform.position);
         agent.enabled = false;
     }
+
+    private void Start()
+    {
+        agent.enabled = false;
+
+    }
     private void FixedUpdate()
     {
         //MoveTowordsPlayer();
@@ -53,6 +66,11 @@ public class Boss_AI : MonoBehaviour
         {
             AIBehaviour();
             nextDecisionTime = nextDecisionTime + decisionTime;
+        }
+        if (aIMode.Equals(AIMode.Shoot))
+        {
+            FaceTarget();
+
         }
     }
 
@@ -67,7 +85,7 @@ public class Boss_AI : MonoBehaviour
                 AnimatorNext();
                 break;
             case AIMode.Walking:
-                if (CheckLineOfSight(shootAttackRange))
+                if (CheckLineOfSight((shootAttackRange+missileAttackRange )/2f))
                 {
                     StopMoving();
                 }
@@ -110,8 +128,9 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Melee);
         animator.SetTrigger("Attack_Melee");
-        SetNextDecisionTime(meleeAttackCoolDown);
-        SetAIMode(AIMode.Waiting);
+        //SetNextDecisionTime(meleeAttackCoolDown);
+        nextAttackTime = Time.time + meleeAttackCoolDown;
+        //SetAIMode(AIMode.Waiting);
 
     }
 
@@ -119,23 +138,28 @@ public class Boss_AI : MonoBehaviour
     {
         SetAIMode(AIMode.Shoot);
         animator.SetTrigger("Attack_Shooting");
-        SetNextDecisionTime(shootAttackCoolDown);
-        SetAIMode(AIMode.Waiting);
+        //SetNextDecisionTime(shootAttackCoolDown);
+        nextAttackTime = Time.time + shootAttackCoolDown;
+        //SetAIMode(AIMode.Waiting);
 
     }
-
-
 
     void MissileAttack()
     {
+        SetAIMode(AIMode.Shoot);
+        animator.SetTrigger("Attack_Missile");
+        //SetNextDecisionTime(missileAttackCoolDown);
+        nextAttackTime = Time.time + missileAttackCoolDown;
+        //SetAIMode(AIMode.Waiting);
 
     }
+
 
     public void LookForPlayer()
     {
         SetAIMode(AIMode.Hunt);
         StopAttack();
-        if (CheckLineOfSight(shootAttackRange))
+        if (CheckLineOfSight(missileAttackRange)&&Time.time>nextAttackTime)
         {
             animator.SetTrigger("Next");
 
@@ -161,9 +185,9 @@ public class Boss_AI : MonoBehaviour
         {
             RangedAttack();
         }
-        else
+        else 
         {
-            RangedAttack();
+            MissileAttack();
         }
     }
 
@@ -171,7 +195,8 @@ public class Boss_AI : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 dir = player.transform.position + new Vector3(0f, 0.3f, 0f) - lineOfSightTransform.position;
-        if (Physics.Raycast(lineOfSightTransform.position, dir, out hit, range))
+        Debug.DrawRay(lineOfSightTransform.position, dir * range, Color.red);
+        if (Physics.Raycast(lineOfSightTransform.position, dir, out hit, range,layerMask))
         {
             if (hit.collider.CompareTag("Player"))
             {
@@ -181,10 +206,6 @@ public class Boss_AI : MonoBehaviour
         return false;
     }
 
-    void LookAtPlayer()
-    {
-
-    }
 
     void AttackCooldown()
     {
@@ -196,7 +217,7 @@ public class Boss_AI : MonoBehaviour
         SetAIMode(AIMode.Idle);
         agent.enabled = false;
 
-        if (CheckLineOfSight(maxDetection))
+        if (CheckLineOfSight(maxDetection*1.5f))
         {
             MoveTowordsPlayer();
 
@@ -215,12 +236,13 @@ public class Boss_AI : MonoBehaviour
 
         animator.SetTrigger("Next");
         animator.SetBool("IsWalking", true);
-
+        SetNextDecisionTime(decisionTime * 3f);
     }
 
     public void StopMoving()
     {
         animator.SetBool("IsWalking", false);
+        agent.enabled = false;
     }
 
     void MoveAwayFromPlayer()
@@ -240,7 +262,8 @@ public class Boss_AI : MonoBehaviour
 
     public void DealMeleeAttack()
     {
-        meleeDamageScript.SphereCastDamageArea(meleeDamage, meleeAttackRange, meleeCurve, 1, ElementTypes.PHYSICAL, true);
+        meleeDamageScript.SphereCastDamageArea(meleeDamage, meleeAttackRange*0.6f, meleeCurve, 1, ElementTypes.PHYSICAL, true);
+        meleeAoEEffect.Play();
     }
 
     public void DealRangeAttack()
