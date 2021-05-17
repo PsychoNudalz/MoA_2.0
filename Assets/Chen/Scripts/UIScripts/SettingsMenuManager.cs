@@ -81,11 +81,9 @@ public class SettingsMenuManager : MonoBehaviour
 
     public void masterVolumeOnChange(float val)
     {
-        if (isInGame)
-        {
-            AudioListener.volume = val;
-        }
+        AudioListener.volume = val;
         settingsSaveStats.masterVolume = val;
+        Debug.Log("volume");
     }
 
     public void LoadSave(SettingsSaveCollection sss)
