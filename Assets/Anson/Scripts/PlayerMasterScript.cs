@@ -34,6 +34,7 @@ public class PlayerMasterScript : MonoBehaviour
     void Initialize()
     {
         //Set up
+        print("Initialise player master");
         if (playerLifeSystemScript == null)
         {
             playerLifeSystemScript = GetComponent<PlayerLifeSystemScript>();

@@ -349,6 +349,7 @@ public class SaveManagerScript : MonoBehaviour
 
         if (playerMasterScript != null)
         {
+            //print("Creating save");
             playerSaveCollection = new PlayerSaveCollection(playerMasterScript.PlayerSaveStats);
         }
 
@@ -402,7 +403,7 @@ public class SaveManagerScript : MonoBehaviour
             saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
             playerSaveCollection = saveCollection.playerSaveCollection;
             gCSSaveCollection = saveCollection.gCSSaveCollection;
-            SaveData();
+            //SaveData();
             return;
         }
         saveCollection = JsonUtility.FromJson<SaveCollection>(loadString);
