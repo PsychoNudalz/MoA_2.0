@@ -10,7 +10,6 @@ public class Look : MonoBehaviour
     [SerializeField] float rotateSpeed_Current;
 
     public Transform CharacterBody;
-    public Transform UpDown;
     public Vector2 mouseValue;
     public Vector2 mouseValue_Nor;
     public float mouseValue_Mag;
@@ -28,6 +27,20 @@ public class Look : MonoBehaviour
     [SerializeField] private float timeNow_Aim = 0f;
     private bool isADS = false;
     private float currentMult = 1f;
+
+
+    [Header("Head Layers")]
+    [SerializeField] Transform controllerLayer;
+    [SerializeField] Transform recoilLayer;
+    [SerializeField] Transform weaponLayer;
+
+    [Header("Camera Recoil")]
+    [SerializeField] Vector2 targetRecoil = new Vector2();
+    [SerializeField] float timeToRecenterRecoil;
+    [SerializeField] float timeToRecenterRecoil_Little;
+    [SerializeField] bool isRecenter = true;
+    [SerializeField] float controllerXOriginal;
+    [SerializeField] float controllerXRemaing;
 
     private Camera camera;
 
@@ -54,6 +67,7 @@ public class Look : MonoBehaviour
             MoveLook();
         }
         AdjustAim();
+        UpdateRecoil();
     }
 
     public void LookMouse(InputAction.CallbackContext callbackContext)
@@ -74,7 +88,7 @@ public class Look : MonoBehaviour
         float mouseX = mouseValue.x * rotateSpeed_Current * Time.deltaTime;
 
         float mouseY = mouseValue.y * rotateSpeed_Current * Time.deltaTime;
-        yRotation = UpDown.transform.localRotation.eulerAngles.x - mouseY;
+        yRotation = controllerLayer.transform.localRotation.eulerAngles.x - mouseY;
 
 
         //yRotation = Mathf.Clamp(yRotation, -maxRotationDown, maxRotationDown) ;
@@ -99,9 +113,9 @@ public class Look : MonoBehaviour
                 if (Mathf.Abs(YRotation) >= 0.0001f)
                 {
 
-                    Quaternion newUpDown = Quaternion.Euler(yRotation, 0, UpDown.transform.localRotation.eulerAngles.z);
-                    
-                    UpDown.transform.localRotation = newUpDown;
+                    Quaternion newUpDown = Quaternion.Euler(yRotation, 0, controllerLayer.transform.localRotation.eulerAngles.z);
+
+                    controllerLayer.transform.localRotation = newUpDown;
                 }
                 if (Mathf.Abs(mouseX) >= 0.0001f)
                 {
@@ -137,7 +151,7 @@ public class Look : MonoBehaviour
         {
             ModifySpeed((1 / mult) * ADSMultiplier);
             currentMult = mult;
-            
+
         }
         else
         {
@@ -178,6 +192,15 @@ public class Look : MonoBehaviour
         return (YRotation + 90) % 180;
     }
 
+    public float XRotation_adjust(float x)
+    {
+        if (x > 180)
+        {
+            x = x - 360;
+        }
+        return x;
+    }
+
     /// <summary>
     /// to change rotation speed
     /// </summary>
@@ -192,4 +215,86 @@ public class Look : MonoBehaviour
     {
         ADSMultiplier = amount;
     }
+
+    void UpdateRecoil()
+    {
+        recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.Euler(-targetRecoil.x, targetRecoil.y, 0) * recoilLayer.localRotation, Time.deltaTime * 10f);
+        recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
+
+        if (isRecenter)
+        {
+            ReadjustRecoil();
+        }
+        else
+        {
+            ReadjustRecoil_Little();
+        }
+    }
+
+    public void AddRecoil(Vector2 recoil)
+    {
+        targetRecoil += recoil;
+    }
+
+
+    public void SetIsRecenter(bool b)
+    {
+        isRecenter = b;
+        if (!b)
+        {
+            controllerXOriginal = XRotation_adjust(controllerLayer.localEulerAngles.x);
+
+        }
+        else
+        {
+            controllerXRemaing = -(controllerXOriginal -  XRotation_adjust(controllerLayer.localEulerAngles.x));
+            print($"{controllerXRemaing} {controllerLayer.localEulerAngles.x} {recoilLayer.localEulerAngles.x}");
+            RecoilControlControllerLayer();
+
+        }
+    }
+    void ReadjustRecoil()
+    {
+        targetRecoil = Vector2.Lerp(targetRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenterRecoil);
+        
+        recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.identity, Time.deltaTime * 2 / timeToRecenterRecoil);
+        recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
+    }
+
+    private void RecoilControlControllerLayer()
+    {
+        //player looks higher
+        if (controllerXRemaing <= 0f)
+        {
+            print("player looks higher");
+        }
+        //player recoil controls above the original point
+        else if ( controllerXOriginal > XRotation_adjust(controllerLayer.localEulerAngles.x) + XRotation_adjust(recoilLayer.localEulerAngles.x))
+        {
+            controllerLayer.localRotation = Quaternion.Euler(-controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;
+            recoilLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * recoilLayer.localRotation;
+            controllerXRemaing = 0;
+            print("player recoil controls above the original point");
+
+        }
+        //player recoil controls below
+        else {
+            print("player recoil controls below");
+            controllerXRemaing =  XRotation_adjust(recoilLayer.localEulerAngles.x);
+            print(controllerXRemaing);
+            controllerLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;
+            recoilLayer.localRotation = Quaternion.Euler(-controllerXRemaing, 0f, 0f) * recoilLayer.localRotation;
+            controllerXRemaing = 0;
+        }
+
+    }
+
+    void ReadjustRecoil_Little()
+    {
+        targetRecoil = Vector2.Lerp(targetRecoil, targetRecoil, Time.deltaTime * 2 / timeToRecenterRecoil_Little);
+        recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.identity, Time.deltaTime * 2 / timeToRecenterRecoil_Little);
+        recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
+
+    }
+
 }

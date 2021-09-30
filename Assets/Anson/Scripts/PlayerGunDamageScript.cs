@@ -102,12 +102,13 @@ public class PlayerGunDamageScript : GunDamageScript
             currentRecoilTime = currentRecoilTime / 2;
             AdjustRecoil();
         }
+        lookScript.SetIsRecenter(!b);
     }
+
 
     public void AdjustRecoil()
     {
-
-
+        /*
         //print("Adjusting recoil ");
         float NewAimDir = (firePoint.transform.rotation.eulerAngles.x + 90) % 360;
         Vector3 localEular = transform.localRotation.eulerAngles;
@@ -116,9 +117,9 @@ public class PlayerGunDamageScript : GunDamageScript
             currentRecoil.x = currentRecoil.x * 0.05f;
             //currentRecoil.y = currentRecoil.y * 0.005f;
 
-            transform.rotation = Quaternion.AngleAxis(firePoint.localEulerAngles.x + currentRecoil.x, transform.right) * transform.rotation;
+            //transform.rotation = Quaternion.AngleAxis(firePoint.localEulerAngles.x + currentRecoil.x, transform.right) * transform.rotation;
 
-            firePoint.localRotation = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
+            //firePoint.localRotation = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
 
             UpdateSights();
             SetWeaponLocation(true);
@@ -144,6 +145,7 @@ public class PlayerGunDamageScript : GunDamageScript
             //print("None");
             //print("None");
         }
+        */
     }
 
     protected override float HandleWeapon(float newRecoilTime = -1)
@@ -154,25 +156,56 @@ public class PlayerGunDamageScript : GunDamageScript
         return temp;
     }
 
-    protected override void SetWeaponRecoil()
+    protected override float RecoilWeapon(out Vector2 addRecoil)
     {
-        base.SetWeaponRecoil();
-        UpdateSights();
+        float temp = base.RecoilWeapon(out addRecoil);
+        lookScript.AddRecoil(addRecoil);
+        return temp;
+    }
 
+    protected override Quaternion SetWeaponRecoil()
+    {
+        Quaternion targetPoint;
+        /*
+        if (firePoint.transform.rotation.eulerAngles.x > 180f && firePoint.transform.rotation.eulerAngles.x - currentRecoil.x < 275f)
+        {
+            currentRecoil.x = firePoint.transform.rotation.eulerAngles.x - 275f;
+            currentRecoil.y = 0f;
+        }
+        */
+        if (isADS)
+        {
+            //mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0), 10f * Time.deltaTime);
+            mainGunStatsScript.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            targetPoint = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
+
+        }
+        else
+        {
+            targetPoint = Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0);
+            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0), Time.deltaTime);
+        }
+
+        UpdateSights();
+        return targetPoint;
     }
 
     void UpdateSights()
     {
+        //set gun to forward
         mainGunStatsScript.transform.forward = firePoint.forward;
+
+        //reset firepoint and gun to not rotate left and right
         firePoint.transform.rotation = Quaternion.Euler(firePoint.transform.rotation.eulerAngles.x, firePoint.transform.rotation.eulerAngles.y, 0f);
         mainGunStatsScript.transform.rotation = Quaternion.Euler(mainGunStatsScript.transform.rotation.eulerAngles.x, mainGunStatsScript.transform.rotation.eulerAngles.y, 0f);
 
 
-
-        camera.transform.position = firePoint.position;
-        float rot_X = firePoint.transform.rotation.eulerAngles.x;
-        float rot_Y = firePoint.transform.rotation.eulerAngles.y;
-        camera.transform.rotation = Quaternion.Euler(rot_X, rot_Y, 0f);
+        //WHY IS IT DOING THIS?????
+        //to make sure the camera and the firepoint is the same
+        //camera.transform.position = firePoint.position;
+        //float rot_X = firePoint.transform.rotation.eulerAngles.x;
+        //float rot_Y = firePoint.transform.rotation.eulerAngles.y;
+        //camera.transform.rotation = Quaternion.Euler(rot_X, rot_Y, 0f);
 
         if (isReloading)
         {
@@ -205,12 +238,12 @@ public class PlayerGunDamageScript : GunDamageScript
 
         mainGunStatsScript.transform.rotation = gunPosition.transform.rotation;
 
-        camera.transform.position = transform.position;
-        camera.transform.rotation = transform.rotation;
+        //camera.transform.position = transform.position;
+        //camera.transform.rotation = transform.rotation;
 
 
         lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
-    
+
         ansonTempUIScript.SetCrossair(false);
     }
 

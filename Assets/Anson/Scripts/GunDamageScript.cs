@@ -257,7 +257,7 @@ public class GunDamageScript : DamageScript
 
         if (currentMag < 1 || (isReloading && isFullReload) || mainGunStatsScript == null)
         {
-            isFiring = false;
+            Fire(false);
             if (currentMag < 1 && !isReloading)
             {
                 Reload();
@@ -387,6 +387,7 @@ public class GunDamageScript : DamageScript
             }
             return true;
         }
+
         return false;
     }
 
@@ -534,14 +535,15 @@ public class GunDamageScript : DamageScript
     {
         mainGunStatsScript.PlayAnimationTrigger("Shoot", 1 / timeUntilFire);
         mainGunStatsScript.Play_Fire();
+        Vector2 addRecoil = new Vector2();
         if (newRecoilTime < 0)
         {
-            newRecoilTime = RecoilWeapon();
+            newRecoilTime = RecoilWeapon(out addRecoil);
 
         }
         else
         {
-            newRecoilTime = RecoilWeapon(newRecoilTime);
+            newRecoilTime = RecoilWeapon(newRecoilTime, out addRecoil);
         }
         currentProjectile -= 1;
         currentMag -= 1;
@@ -554,11 +556,14 @@ public class GunDamageScript : DamageScript
         return newRecoilTime;
     }
 
-    protected float RecoilWeapon()
+    protected virtual float RecoilWeapon(out Vector2 addRecoil)
     {
 
         currentRecoilTime += 0.1f;
-        currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
+         addRecoil = new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
+        currentRecoil += addRecoil;
+
+
         if (gunType.Equals(GunTypes.SHOTGUN))
         {
             currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y) * projectilePerShot / 5f;
@@ -584,46 +589,34 @@ public class GunDamageScript : DamageScript
 
     }
 
-    protected float RecoilWeapon(float newTime)
+    protected float RecoilWeapon(float newTime, out Vector2 addRecoil)
     {
         currentRecoilTime = newTime;
-        return RecoilWeapon();
+        return RecoilWeapon(out addRecoil);
     }
 
-    protected virtual void SetWeaponRecoil()
+    protected virtual Quaternion SetWeaponRecoil()
     {
+        Quaternion targetPoint;
+        if (firePoint.transform.rotation.eulerAngles.x > 180f && firePoint.transform.rotation.eulerAngles.x - currentRecoil.x < 275f)
+        {
+            currentRecoil.x = firePoint.transform.rotation.eulerAngles.x - 275f;
+            currentRecoil.y = 0f;
+        }
         if (isADS)
         {
-
             //mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0), 10f * Time.deltaTime);
             mainGunStatsScript.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            targetPoint = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
 
-            if (firePoint.transform.rotation.eulerAngles.x > 180f && firePoint.transform.rotation.eulerAngles.x - currentRecoil.x < 275f)
-            {
-                currentRecoil.x = firePoint.transform.rotation.eulerAngles.x - 275f;
-                currentRecoil.y = 0f;
-            }
-
-            Quaternion targetPoint = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
-
-            firePoint.transform.localRotation = Quaternion.Lerp(firePoint.transform.localRotation, targetPoint, 10f * Time.deltaTime);
         }
         else
         {
-            if (firePoint.transform.rotation.eulerAngles.x > 180f && firePoint.transform.rotation.eulerAngles.x - currentRecoil.x < 275f)
-            {
-                currentRecoil.x = firePoint.transform.rotation.eulerAngles.x - 275f;
-                currentRecoil.y = 0f;
-            }
-
-            Quaternion targetPoint = Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0);
+            targetPoint = Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0);
             mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0), Time.deltaTime);
-
-
-
-            firePoint.transform.localRotation = Quaternion.Lerp(firePoint.transform.localRotation, targetPoint, 10f * Time.deltaTime);
-
         }
+        firePoint.transform.localRotation = Quaternion.Lerp(firePoint.transform.localRotation, targetPoint, 10f * Time.deltaTime);
+        return targetPoint;
 
     }
 

@@ -25,6 +25,7 @@ public class PlayerInterationScript : MonoBehaviour
     private void Awake()
     {
         ansonTempUIScript = FindObjectOfType<AnsonTempUIScript>();
+        cam1 = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
     }
 

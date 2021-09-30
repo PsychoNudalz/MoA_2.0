@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
         player = transform;
+        cam1 = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         cam = cam1.transform;
         canDoubleJumped = false;
         moveSpeed = moveSpeed_Default;
@@ -119,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
                 //Debug.DrawRay(controller.center + new Vector3(0, controller.height / 2f, 0))
-                if (Physics.Raycast(transform.position+ controller.center+new Vector3(0, controller.height / 2f, 0), transform.up, jumpHeadDetection, jumpLayerMask))
+                if (Physics.Raycast(transform.position + controller.center + new Vector3(0, controller.height / 2f, 0), transform.up, jumpHeadDetection, jumpLayerMask))
                 {
                     print("Playuer hit head");
                     jumped.y = Mathf.Clamp(.1f, 0, jumped.y);
@@ -134,7 +135,7 @@ public class PlayerController : MonoBehaviour
                 {
                     jumped.y = -4f;
                 }
-                
+
             }
         }
 

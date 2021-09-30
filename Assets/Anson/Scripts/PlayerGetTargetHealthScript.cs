@@ -15,6 +15,11 @@ public class PlayerGetTargetHealthScript : MonoBehaviour
     [SerializeField] LayerMask layerMask;
     public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
 
+    private void Awake()
+    {
+            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+
     private void FixedUpdate()
     {
         if (Time.time - lastUpdateTime > updateRate)
