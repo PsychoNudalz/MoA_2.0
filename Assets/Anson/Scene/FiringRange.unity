@@ -6205,6 +6205,47 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &805770695 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1852822212854026388, guid: 13e85e6e03c03214b973fde994bfe628,
+    type: 3}
+  m_PrefabInstance: {fileID: 4112174736242046427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &805770698
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805770695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c41ac9245b87c4192012080077d830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Damping: 0
+--- !u!114 &805770699
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805770695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 2
+  m_FollowOffset: {x: 0, y: 0, z: 0}
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!1001 &810397396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8449,7 +8490,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8514733658606221194}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1223703100
+--- !u!114 &1223703099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8458,31 +8499,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1223703098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 60fb3696a8e707c4181430026d52f0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  zLock: 0
 --- !u!1 &1242495367
 GameObject:
   m_ObjectHideFlags: 0
@@ -16706,17 +16726,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4112174735619620037, guid: 13e85e6e03c03214b973fde994bfe628,
+    - target: {fileID: 8809070048899550338, guid: 13e85e6e03c03214b973fde994bfe628,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4112174735619620037, guid: 13e85e6e03c03214b973fde994bfe628,
-        type: 3}
-      propertyPath: m_NeverAutoSwitchControlSchemes
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 805770698, guid: 13e85e6e03c03214b973fde994bfe628, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 13e85e6e03c03214b973fde994bfe628, type: 3}
 --- !u!1001 &5169857968291826956
 PrefabInstance:
