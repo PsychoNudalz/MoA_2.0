@@ -78,10 +78,14 @@ public class Portal : InteractableScript
         }
     }
 
+    /// <summary>
+    /// Generate rewards on Awake
+    /// </summary>
     private void GenerateRewardLoot()
     {
         print("Spawn weapon:" + spawnLevel);
-        List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1, spawnLevel + 1);
+        //List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1, spawnLevel + 1);
+        List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1);
 
 
 

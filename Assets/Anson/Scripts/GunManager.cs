@@ -189,7 +189,7 @@ public class GunManager : MonoBehaviour
 
     }
 
-    public List<GameObject> GenerateGun(int numberOfGuns, int minRarity, int maxRarity)
+    public List<GameObject> GenerateGun(int numberOfGuns, int minRarity, int maxRarity = 6)
     {
         gunGenerator.ResetLists();
         InitialiseGenerator(AllGCSelections);
