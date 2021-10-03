@@ -94,6 +94,7 @@ public class GunComponent_Body : GunComponent
         component_Sight = s;
         sightLocation = s.SightLocation;
         sightOffset = sightLocation.position - transform.position;
+        component_Sight.SetSightMaterial(isFullAuto||(GetGunTypes().Contains(GunTypes.RIFLE)&& projectilePerShot!=1));
     }
 
     public void SetMuzzle(Transform m)

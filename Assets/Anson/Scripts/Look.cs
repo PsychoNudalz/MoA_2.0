@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class Look : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class Look : MonoBehaviour
 
 
     [Header("ADS transition")]
+    [SerializeField] CinemachineVirtualCamera camera;
+    [SerializeField] LensSettings cameraLens;
     [SerializeField] float FOV = 0f;
     [SerializeField] AnimationCurve aimCurve;
     [SerializeField] private float timeNow_Aim = 0f;
@@ -42,7 +45,6 @@ public class Look : MonoBehaviour
     [SerializeField] float controllerXOriginal;
     [SerializeField] float controllerXRemaing;
 
-    private Camera camera;
 
     public float YRotation { get => yRotation; set => yRotation = value; }
     public bool LookLock { get => lookLock; set => lookLock = value; }
@@ -55,8 +57,9 @@ public class Look : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rotateSpeed_Current = rotateSpeed;
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        FOV = camera.fieldOfView;
+        //camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        cameraLens = camera.m_Lens;
+        FOV = cameraLens.FieldOfView;
     }
 
     // Update is called once per frame
@@ -68,6 +71,11 @@ public class Look : MonoBehaviour
         }
         AdjustAim();
         UpdateRecoil();
+    }
+
+    private void OnApplicationQuit()
+    {
+        cameraLens.FieldOfView = FOV;
     }
 
     public void LookMouse(InputAction.CallbackContext callbackContext)
@@ -173,7 +181,7 @@ public class Look : MonoBehaviour
             if (timeNow_Aim < 1)
             {
                 timeNow_Aim += 5 * Time.deltaTime;
-                camera.fieldOfView = FOV - aimCurve.Evaluate(timeNow_Aim) * (FOV * (1 - 1 / currentMult));
+                cameraLens.FieldOfView = FOV - aimCurve.Evaluate(timeNow_Aim) * (FOV * (1 - 1 / currentMult));
             }
 
 
@@ -183,14 +191,15 @@ public class Look : MonoBehaviour
             if (timeNow_Aim >= 0)
             {
                 timeNow_Aim -= 5 * Time.deltaTime;
-                camera.fieldOfView = FOV - (aimCurve.Evaluate(timeNow_Aim) * (FOV * (1 - 1 / currentMult)));
+                cameraLens.FieldOfView = FOV - (aimCurve.Evaluate(timeNow_Aim) * (FOV * (1 - 1 / currentMult)));
 
             }
             else
             {
-                camera.fieldOfView = FOV;
+                cameraLens.FieldOfView = FOV;
             }
         }
+        camera.m_Lens = cameraLens;
     }
 
     public float YRotation_adjusted()
@@ -293,6 +302,7 @@ public class Look : MonoBehaviour
         //player recoil controls below
         else {
             print("player recoil controls below");
+            targetRecoil = targetRecoil.normalized;
             controllerXRemaing =  XRotation_adjust(recoilLayer.localEulerAngles.x);
             print(controllerXRemaing);
             //controllerLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;

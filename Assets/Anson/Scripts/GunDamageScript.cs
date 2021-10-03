@@ -625,15 +625,15 @@ public class GunDamageScript : DamageScript
         if (isADS)
         {
             Vector3 targetPos = firePoint.transform.position - firePoint.transform.rotation * sightOffset;
-            if (isFiring || forced)
-            {
-                mainGunStatsScript.transform.position = targetPos;
-
-            }
-            else
-            {
                 mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, targetPos, 20 * Time.deltaTime);
-            }
+            //if (isFiring || forced)
+            //{
+            //    mainGunStatsScript.transform.position = targetPos;
+
+            //}
+            //else
+            //{
+            //}
 
         }
         else
