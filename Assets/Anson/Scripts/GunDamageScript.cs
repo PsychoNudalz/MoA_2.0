@@ -362,7 +362,7 @@ public class GunDamageScript : DamageScript
 
 
 
-    public void Reload()
+    public virtual void Reload()
     {
         if (mainGunStatsScript == null) { return; }
 

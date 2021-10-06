@@ -328,11 +328,11 @@ public class PlayerController : MonoBehaviour
         }
         if (callbackContext.performed)
         {
-            gunDamageScript.ADS_On();
+            gunDamageScript.PressADS(true);
         }
         else if (callbackContext.canceled)
         {
-            gunDamageScript.ADS_Off();
+            gunDamageScript.PressADS(false);
 
         }
     }

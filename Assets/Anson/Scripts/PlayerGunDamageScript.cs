@@ -6,6 +6,7 @@ public class PlayerGunDamageScript : GunDamageScript
 {
     [Header("Player Specific ")]
     [SerializeField] protected bool pressedFire;
+    [SerializeField] protected bool pressedADS;
     [SerializeField] protected Camera camera;
     [SerializeField] Look lookScript;
 
@@ -54,6 +55,9 @@ public class PlayerGunDamageScript : GunDamageScript
             SetWeaponRecoil();
             SetWeaponLocation();
         }
+
+
+
 
         if (displayFireRaycast)
         {
@@ -224,9 +228,19 @@ public class PlayerGunDamageScript : GunDamageScript
         //float rot_Y = firePoint.transform.rotation.eulerAngles.y;
         //camera.transform.rotation = Quaternion.Euler(rot_X, rot_Y, 0f);
 
-        if (isReloading)
+
+    }
+
+    public void PressADS(bool b)
+    {
+        pressedADS = b;
+        if (b&&!isReloading)
         {
-            // ADS_Off();
+            ADS_On();
+        }
+        else
+        {
+            ADS_Off();
         }
     }
 
@@ -306,7 +320,12 @@ public class PlayerGunDamageScript : GunDamageScript
     {
         base.EndReload();
         UpdateAmmoCount();
-
+        //Reload
+        if (pressedADS)
+        {
+            ADS_On();
+        }
+        PressFire(pressedFire);
     }
 
     void UpdateAmmoCount()
@@ -327,6 +346,12 @@ public class PlayerGunDamageScript : GunDamageScript
         {
             ansonTempUIScript.SetGunText(mainGunStatsScript.ToString());
         }
+    }
+
+    public override void Reload()
+    {
+        base.Reload();
+        ADS_Off();
     }
 
 
