@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerGunDamageScript : GunDamageScript
 {
     [Header("Player Specific ")]
+    [SerializeField] protected bool pressedFire;
     [SerializeField] protected Camera camera;
     [SerializeField] Look lookScript;
 
@@ -103,6 +104,22 @@ public class PlayerGunDamageScript : GunDamageScript
             AdjustRecoil();
         }
         lookScript.SetIsRecenter(!b);
+    }
+
+    public void PressFire(bool b)
+    {
+        pressedFire = b;
+        if (!isFullAuto)
+        {
+            if (timeNow_TimeUnitlFire <= 0)
+            {
+                Fire(b);
+            }
+        }
+        else
+        {
+            Fire(b);
+        }
     }
 
 

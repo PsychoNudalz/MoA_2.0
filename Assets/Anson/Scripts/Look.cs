@@ -69,8 +69,8 @@ public class Look : MonoBehaviour
         {
             MoveLook();
         }
-        AdjustAim();
         UpdateRecoil();
+        AdjustAim();
     }
 
     private void OnApplicationQuit()
@@ -98,10 +98,10 @@ public class Look : MonoBehaviour
         float mouseY = mouseValue.y * rotateSpeed_Current * Time.deltaTime;
         //yRotation = controllerLayer.transform.localRotation.eulerAngles.x - mouseY;
         yRotation = yRotation - mouseY;
-        float recoilX =-XRotation_adjust( recoilLayer.localEulerAngles.x);
-        yRotation = Mathf.Clamp(yRotation, -maxRotationDown +recoilX , maxRotationDown + recoilX);
+        float recoilX = -XRotation_adjust(recoilLayer.localEulerAngles.x);
+        yRotation = Mathf.Clamp(yRotation, -maxRotationDown + recoilX, maxRotationDown + recoilX);
         //print($"y clamp {-maxRotationDown + recoilX} {maxRotationDown + recoilX}");
-        
+
 
 
 
@@ -233,9 +233,30 @@ public class Look : MonoBehaviour
 
     void UpdateRecoil()
     {
-        recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.Euler(-targetRecoil.x, targetRecoil.y, 0) * recoilLayer.localRotation, Time.deltaTime * 10f);
-        recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
+        //Move up
+        Quaternion targetRotation = Quaternion.Euler(-targetRecoil.x, targetRecoil.y, 0) * recoilLayer.localRotation;
+        Vector3 targetEuler = targetRotation.eulerAngles;
+        if (targetEuler.x > 180 && targetEuler.x < 360 - maxRotationDown)
+        {
+            print("over recoil");
+            targetEuler.x = -maxRotationDown;
+            targetEuler.y = 0;
+            targetEuler.z = 0;
+            targetRotation = Quaternion.Euler(targetEuler);
+            targetRecoil.x = (Mathf.Min(targetRecoil.x, 20f));
+            recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, targetRotation, Time.deltaTime * 10f);
+            float recoilX = -XRotation_adjust(recoilLayer.localEulerAngles.x);
+            //yRotation = Mathf.Clamp(yRotation, -maxRotationDown + recoilX, maxRotationDown + recoilX);
 
+        }
+        else
+        {
+
+            recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, targetRotation, Time.deltaTime * 10f);
+
+        }
+        //recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
+        //Move Down
         if (isRecenter)
         {
             ReadjustRecoil();
@@ -248,7 +269,9 @@ public class Look : MonoBehaviour
 
     public void AddRecoil(Vector2 recoil)
     {
+
         targetRecoil += recoil;
+        print($"add recoil {targetRecoil}");
     }
 
 
@@ -262,8 +285,8 @@ public class Look : MonoBehaviour
         }
         else
         {
-            controllerXRemaing = -(controllerXOriginal -  XRotation_adjust(controllerLayer.localEulerAngles.x));
-            print($"{controllerXRemaing} {controllerLayer.localEulerAngles.x} {recoilLayer.localEulerAngles.x}");
+            controllerXRemaing = -(controllerXOriginal - XRotation_adjust(controllerLayer.localEulerAngles.x));
+            //print($"{controllerXRemaing} {controllerLayer.localEulerAngles.x} {recoilLayer.localEulerAngles.x}");
             RecoilControlControllerLayer();
 
         }
@@ -276,8 +299,7 @@ public class Look : MonoBehaviour
             targetRecoil = new Vector2(0, 0);
         }
 
-
-        recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.identity, Time.deltaTime * 2 / timeToRecenterRecoil);
+        recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 2 / timeToRecenterRecoil);
         recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
     }
 
@@ -289,22 +311,23 @@ public class Look : MonoBehaviour
             print("player looks higher");
         }
         //player recoil controls above the original point
-        else if ( controllerXOriginal > XRotation_adjust(controllerLayer.localEulerAngles.x) + XRotation_adjust(recoilLayer.localEulerAngles.x))
+        else if (controllerXOriginal > XRotation_adjust(controllerLayer.localEulerAngles.x) + XRotation_adjust(recoilLayer.localEulerAngles.x))
         {
             //controllerLayer.localRotation = Quaternion.Euler(-controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;
             yRotation = yRotation - controllerXRemaing;
-            
+
             recoilLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * recoilLayer.localRotation;
             //controllerXRemaing = 0;
             print("player recoil controls above the original point");
 
         }
         //player recoil controls below
-        else {
+        else
+        {
             print("player recoil controls below");
             targetRecoil = targetRecoil.normalized;
-            controllerXRemaing =  XRotation_adjust(recoilLayer.localEulerAngles.x);
-            print(controllerXRemaing);
+            controllerXRemaing = XRotation_adjust(recoilLayer.localEulerAngles.x);
+            //print(controllerXRemaing);
             //controllerLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;
             yRotation = yRotation + controllerXRemaing;
 
@@ -317,7 +340,8 @@ public class Look : MonoBehaviour
     void ReadjustRecoil_Little()
     {
         targetRecoil = Vector2.Lerp(targetRecoil, targetRecoil, Time.deltaTime * 2 / timeToRecenterRecoil_Little);
-        recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.identity, Time.deltaTime * 2 / timeToRecenterRecoil_Little);
+        recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 2 / timeToRecenterRecoil_Little);
+
         recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
 
     }

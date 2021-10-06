@@ -311,11 +311,11 @@ public class PlayerController : MonoBehaviour
         }
         if (callbackContext.performed)
         {
-            gunDamageScript.Fire(true);
+            gunDamageScript.PressFire(true);
         }
         else if (callbackContext.canceled)
         {
-            gunDamageScript.Fire(false);
+            gunDamageScript.PressFire(false);
         }
     }
 

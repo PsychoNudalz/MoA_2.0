@@ -242,6 +242,17 @@ public class GunDamageScript : DamageScript
     public virtual void Fire(bool b)
     {
         //print(name + " Set Fire: " + b);
+        //if (!isFullAuto)
+        //{
+        //    if (timeNow_TimeUnitlFire <= 0)
+        //    {
+        //        isFiring = b;
+        //    }
+        //}
+        //else
+        //{
+        //    isFiring = b;
+        //}
         isFiring = b;
 
 
@@ -560,7 +571,7 @@ public class GunDamageScript : DamageScript
     {
 
         currentRecoilTime += 0.1f;
-         addRecoil = new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
+        addRecoil = new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
         currentRecoil += addRecoil;
 
 
@@ -625,7 +636,7 @@ public class GunDamageScript : DamageScript
         if (isADS)
         {
             Vector3 targetPos = firePoint.transform.position - firePoint.transform.rotation * sightOffset;
-                mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, targetPos, 20 * Time.deltaTime);
+            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, targetPos, 20 * Time.deltaTime);
             //if (isFiring || forced)
             //{
             //    mainGunStatsScript.transform.position = targetPos;
