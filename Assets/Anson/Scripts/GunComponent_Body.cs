@@ -43,6 +43,7 @@ public class GunComponent_Body : GunComponent
     [SerializeField] Animator animator;
     [Range(0f,1f)]
     [SerializeField] float shootAnimationLerp = 1;
+    [SerializeField] GunHandController gunHandController;
 
 
     [Header("Sound")]
@@ -86,6 +87,10 @@ public class GunComponent_Body : GunComponent
         if (component_Sight != null)
         {
             SetSight(component_Sight);
+        }
+        if (!gunHandController)
+        {
+            gunHandController = GetComponentInChildren<GunHandController>();
         }
     }
 
@@ -156,4 +161,12 @@ public class GunComponent_Body : GunComponent
         }
     }
 
+    public void AddPointLeft(int i)
+    {
+        gunHandController.AddPointToLeft(i);
+    }
+    public void RemovePointLeft(int i)
+    {
+        gunHandController.RemovePointToLeft(i);
+    }
 }

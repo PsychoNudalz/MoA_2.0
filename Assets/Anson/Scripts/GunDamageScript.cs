@@ -125,13 +125,29 @@ public class GunDamageScript : DamageScript
         currentRecoilTime = 0f;
         return mainGunStatsScript;
     }
-    void convertWeaponLayerMask(GameObject currentGun, string layerName)
+    protected void convertWeaponLayerMask(GameObject currentGO, string layerName, List<int> ignoreLayers = null )
     {
-        currentGun.gameObject.layer = LayerMask.NameToLayer(layerName);
-        foreach (Transform child in currentGun.transform)
+        if (ignoreLayers != null )
         {
-            child.gameObject.layer = LayerMask.NameToLayer(layerName);
-            convertWeaponLayerMask(child.gameObject, layerName);
+            if (ignoreLayers.Contains(currentGO.layer))
+            {
+
+            }
+            else
+            {
+            currentGO.gameObject.layer = LayerMask.NameToLayer(layerName);
+
+            }
+        }
+        else
+        {
+            currentGO.gameObject.layer = LayerMask.NameToLayer(layerName);
+
+        }
+        foreach (Transform child in currentGO.transform)
+        {
+            convertWeaponLayerMask(child.gameObject, layerName,ignoreLayers);
+
 
             /*
             if (!child.TryGetComponent(out GunComponent_Sight s))
@@ -205,7 +221,6 @@ public class GunDamageScript : DamageScript
         g.gameObject.transform.position = gunPosition.position;
         g.gameObject.transform.SetParent(transform);
         g.gameObject.SetActive(true);
-        convertWeaponLayerMask(g.gameObject, "PlayerGun");
 
         //g.transform.right = firePoint.forward;
         if (sightLocation == null)

@@ -71,6 +71,10 @@ public class PlayerGunDamageScript : GunDamageScript
         bool wasADS = isADS;
 
         MainGunStatsScript newGun = base.UpdateGunScript(g, slot);
+        int[] temp = { LayerMask.NameToLayer("Debug") };
+        convertWeaponLayerMask(g.gameObject, "PlayerGun", new List<int>(temp));
+
+
         if (newGun != null)
         {
             print("Updating UI");
