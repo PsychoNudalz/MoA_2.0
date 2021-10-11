@@ -80,6 +80,7 @@ public class GunComponent_Body : GunComponent
     public Vector3 SightOffset { get => sightOffset; set => sightOffset = value; }
     public Rarity Rarity { get => rarity; set => rarity = value; }
     public float ShootAnimationLerp { get => shootAnimationLerp; set => shootAnimationLerp = value; }
+    public GunHandController GunHandController { get => gunHandController; set => gunHandController = value; }
 
     private void Awake()
     {
@@ -163,10 +164,11 @@ public class GunComponent_Body : GunComponent
 
     public void AddPointLeft(int i)
     {
-        gunHandController.AddPointToLeft(i);
+        gunHandController.AddPoint_Left(i);
     }
     public void RemovePointLeft(int i)
     {
-        gunHandController.RemovePointToLeft(i);
+        gunHandController.RemovePoint_Left(i);
     }
+
 }

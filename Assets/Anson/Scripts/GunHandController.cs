@@ -8,7 +8,10 @@ public class GunHandController : MonoBehaviour
     [SerializeField] HandPositionPointer handRest;
     [SerializeField] HandPositionPointer handMag;
 
-    public void AddPointToLeft(int i)
+    public HandPositionPointer HandRest { get => handRest; set => handRest = value; }
+    public HandPositionPointer HandMag { get => handMag; set => handMag = value; }
+
+    public void AddPoint_Left(int i)
     {
         try
         {
@@ -19,7 +22,7 @@ public class GunHandController : MonoBehaviour
             Debug.LogError($"{transform.parent.name} pointer: {i} out of range");
         }
     }
-    public void RemovePointToLeft(int i)
+    public void RemovePoint_Left(int i)
     {
         try
         {
@@ -28,6 +31,15 @@ public class GunHandController : MonoBehaviour
         catch (System.IndexOutOfRangeException)
         {
             Debug.LogError($"{transform.parent.name} pointer: {i} out of range");
+        }
+    }
+
+
+    public void RemoveAllPoints_Left()
+    {
+        foreach(HandPositionPointer h in handPositionPointers)
+        {
+            HandController.left.RemovePointer(h);
         }
     }
 

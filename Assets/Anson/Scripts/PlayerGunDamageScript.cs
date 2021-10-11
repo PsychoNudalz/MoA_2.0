@@ -66,13 +66,25 @@ public class PlayerGunDamageScript : GunDamageScript
         }
     }
 
+    public override MainGunStatsScript TidyOldGun()
+    {
+        if (mainGunStatsScript&& mainGunStatsScript.GunComponent_Body.GunHandController)
+        {
+            mainGunStatsScript.GunComponent_Body.GunHandController.RemoveAllPoints_Left();
+
+        }
+        MainGunStatsScript temp = base.TidyOldGun();
+        HandController.ResetHands();
+        
+        return temp;
+    }
     public override MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
     {
         bool wasADS = isADS;
 
         MainGunStatsScript newGun = base.UpdateGunScript(g, slot);
         int[] temp = { LayerMask.NameToLayer("Debug") };
-        convertWeaponLayerMask(g.gameObject, "PlayerGun", new List<int>(temp));
+        AnsonUtility.ConvertLayerMask(g.gameObject, "PlayerGun", new List<int>(temp));
 
 
         if (newGun != null)
@@ -86,6 +98,11 @@ public class PlayerGunDamageScript : GunDamageScript
         if (wasADS)
         {
             lookScript.AimSight(wasADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
+        }
+
+        if (mainGunStatsScript&& mainGunStatsScript.GunComponent_Body.GunHandController)
+        {
+            HandController.left.AddPointer(mainGunStatsScript.GunComponent_Body.GunHandController.HandRest);
         }
         return newGun;
 
@@ -238,7 +255,7 @@ public class PlayerGunDamageScript : GunDamageScript
     public void PressADS(bool b)
     {
         pressedADS = b;
-        if (b&&!isReloading)
+        if (b && !isReloading)
         {
             ADS_On();
         }

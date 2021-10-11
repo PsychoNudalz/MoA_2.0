@@ -110,13 +110,15 @@ public class GunDamageScript : DamageScript
     }
 
 
-    public MainGunStatsScript TidyOldGun()
+    public virtual MainGunStatsScript TidyOldGun()
     {
         if (mainGunStatsScript != null)
         {
             mainGunStatsScript.CurrentMag = currentMag;
             mainGunStatsScript.PlayAnimationTrigger("Reset");
-            convertWeaponLayerMask(mainGunStatsScript.gameObject, "Gun");
+            int[] temp = { LayerMask.NameToLayer("Debug") };
+
+            AnsonUtility.ConvertLayerMask(mainGunStatsScript.gameObject, "Gun", new List<int>(temp));
             //mainGunStatsScript.SetRarityEffect(true);
         }
         EndReload();
@@ -125,39 +127,7 @@ public class GunDamageScript : DamageScript
         currentRecoilTime = 0f;
         return mainGunStatsScript;
     }
-    protected void convertWeaponLayerMask(GameObject currentGO, string layerName, List<int> ignoreLayers = null )
-    {
-        if (ignoreLayers != null )
-        {
-            if (ignoreLayers.Contains(currentGO.layer))
-            {
 
-            }
-            else
-            {
-            currentGO.gameObject.layer = LayerMask.NameToLayer(layerName);
-
-            }
-        }
-        else
-        {
-            currentGO.gameObject.layer = LayerMask.NameToLayer(layerName);
-
-        }
-        foreach (Transform child in currentGO.transform)
-        {
-            convertWeaponLayerMask(child.gameObject, layerName,ignoreLayers);
-
-
-            /*
-            if (!child.TryGetComponent(out GunComponent_Sight s))
-            {
-                convertWeaponLayerMask(child.gameObject, layerName);
-
-            }
-            */
-        }
-    }
 
     public virtual MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
     {

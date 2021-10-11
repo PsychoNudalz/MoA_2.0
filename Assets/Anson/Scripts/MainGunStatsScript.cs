@@ -82,6 +82,7 @@ public class MainGunStatsScript : GunStatsScript
 
     public AnimationCurve RangeCurve { get => rangeCurve; }
     public Rarity Rarity { get => rarity; set => rarity = value; }
+    public GunComponent_Body GunComponent_Body { get => gunComponent_Body; set => gunComponent_Body = value; }
 
     private void Start()
     {

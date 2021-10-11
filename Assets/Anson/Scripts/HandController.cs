@@ -11,6 +11,7 @@ public class HandController : MonoBehaviour
     [SerializeField] Vector3 targetPosition;
     [SerializeField] Quaternion targetRotation;
     [SerializeField] List<HandPositionPointer> pointers;
+    [SerializeField] HandPositionPointer originalPoint;
 
     [Header("Settings")]
     [SerializeField] bool rightHand;
@@ -23,7 +24,7 @@ public class HandController : MonoBehaviour
     [Header("Model")]
     [SerializeField] Transform originalFinger;
     [SerializeField] Transform targetFinger;
-    [Range(0f,1f)]
+    [Range(0f, 1f)]
     [SerializeField] float range = 0;
 
 
@@ -53,21 +54,34 @@ public class HandController : MonoBehaviour
         }
         else
         {
-        left = this;
+            left = this;
 
         }
 
         original = transform;
+        ResetHand();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateTarget();
+        MoveHand();
+
+        if (showDebug)
+        {
+            targetVisualiseTransform.position = targetPosition;
+            targetVisualiseTransform.rotation = targetRotation;
+        }
+    }
+
+    private void MoveHand()
+    {
         if (Vector3.Distance(handTransform.position, targetPosition) > positionDeadZone)
-        {if (handTransform != original)
+        {
+            if (handTransform.parent != original)
             {
-                handTransform = original;
+                handTransform.parent = original;
             }
             handTransform.position = Vector3.Lerp(handTransform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
@@ -84,12 +98,6 @@ public class HandController : MonoBehaviour
         else if (Quaternion.Angle(handTransform.rotation, targetRotation) > rotationDeadZone * .1f)
         {
             handTransform.rotation = targetRotation;
-        }
-
-        if (showDebug)
-        {
-            targetVisualiseTransform.position = targetPosition;
-            targetVisualiseTransform.rotation = targetRotation;
         }
     }
 
@@ -110,13 +118,14 @@ public class HandController : MonoBehaviour
         if (pointers.Count == 0)
         {
             pointers.Add(pp);
+            return;
         }
         bool flag = false;
         for (int i = 0; i < pointers.Count && !flag; i++)
         {
-            if (pp.Priority>= pointers[i].Priority)
+            if (pp.Priority >= pointers[i].Priority)
             {
-                pointers.Insert(i,pp);
+                pointers.Insert(i, pp);
                 flag = true;
             }
         }
@@ -140,6 +149,35 @@ public class HandController : MonoBehaviour
             targetPosition = pointers[0].transform.position;
             targetRotation = pointers[0].transform.rotation;
             targetTransform = pointers[0].transform;
+        }
+    }
+
+    public void ResetHand()
+    {
+        int[] temp = { LayerMask.NameToLayer("Debug") };
+        AnsonUtility.ConvertLayerMask(gameObject, "PlayerGun", new List<int>(temp));
+        AnsonUtility.ConvertLayerMask(handTransform.gameObject, "PlayerGun", new List<int>(temp));
+
+    }
+
+    public void ResetHand_Full()
+    {
+        ResetHand();
+        pointers = new List<HandPositionPointer>();
+        AddPointer(originalPoint);
+
+
+    }
+
+    public static void ResetHands()
+    {
+        if (left)
+        {
+            HandController.left.ResetHand();
+        }
+        if (right)
+        {
+            HandController.right.ResetHand();
         }
     }
 }
