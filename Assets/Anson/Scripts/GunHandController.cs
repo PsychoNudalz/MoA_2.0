@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GunHandController : MonoBehaviour
 {
+    [Tooltip("0: rest, 1: mag, 2: bolt, 2+: anything ")]
     [SerializeField] HandPositionPointer[] handPositionPointers;
+
     [SerializeField] HandPositionPointer handRest;
     [SerializeField] HandPositionPointer handMag;
 
@@ -41,6 +43,13 @@ public class GunHandController : MonoBehaviour
         {
             HandController.left.RemovePointer(h);
         }
+    }
+
+    public void SetNewRestPoint_Left(HandPositionPointer hpp)
+    {
+
+        handRest = hpp;
+        handPositionPointers[0] = hpp;
     }
 
 }

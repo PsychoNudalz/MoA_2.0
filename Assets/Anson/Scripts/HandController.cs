@@ -59,7 +59,7 @@ public class HandController : MonoBehaviour
         }
 
         original = transform;
-        ResetHand();
+        ResetHand_Full();
     }
 
     // Update is called once per frame
@@ -139,7 +139,10 @@ public class HandController : MonoBehaviour
 
     public void RemovePointer(HandPositionPointer pp)
     {
-        pointers.Remove(pp);
+        if (pointers.Contains(pp))
+        {
+            pointers.Remove(pp);
+        }
     }
 
     public void UpdateTarget()
@@ -180,4 +183,5 @@ public class HandController : MonoBehaviour
             HandController.right.ResetHand();
         }
     }
+
 }

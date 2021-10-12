@@ -109,6 +109,19 @@ public class GunComponent_Body : GunComponent
         muzzleEffect.transform.position = muzzleLocation.position;
     }
 
+    public void SetBarrel(GunComponent_Barrel b)
+    {
+        
+        if (b.Hpp_Left)
+        {
+            gunHandController.SetNewRestPoint_Left(b.Hpp_Left);
+        }
+        if (b.Hpp_Right)
+        {
+
+        }
+    }
+
     public void SetProjectile(GameObject g)
     {
         if (fireType == FireTypes.Projectile)

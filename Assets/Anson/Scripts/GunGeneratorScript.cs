@@ -180,6 +180,8 @@ public class GunGeneratorScript : MonoBehaviour
                 else if (newComponent.GetGunComponentType().Equals(GunComponents.BARREL))
                 {
                     SetMuzzlePoint(newComponent.GetComponent<GunComponent_Barrel>());
+                    SetBarrel(newComponent.GetComponent<GunComponent_Barrel>());
+
                 }
                 else if (newComponent.GetGunComponentType().Equals(GunComponents.MUZZLE))
                 {
@@ -188,7 +190,7 @@ public class GunGeneratorScript : MonoBehaviour
                 else if (newComponent.GetGunComponentType().Equals(GunComponents.MAGAZINE))
                 {
                     SetProjectile(newComponent.GetComponent<GunComponent_Magazine>().Projectile);
-                }
+                } 
                 if (!isExtra)
                 {
 
@@ -329,6 +331,11 @@ public class GunGeneratorScript : MonoBehaviour
         {
             newGun.SetMuzzle(m.transform);
         }
+    }
+
+    void SetBarrel(GunComponent_Barrel b) 
+    {
+        newGun.SetBarrel(b);
     }
 
     void SetProjectile(GameObject g)
