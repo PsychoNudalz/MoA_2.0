@@ -89,7 +89,7 @@ public class PlayerGunDamageScript : GunDamageScript
 
         if (newGun != null)
         {
-            print("Updating UI");
+            //print("Updating UI");
             UpdateAmmoCount();
             UpdateGunStatText();
             ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);

@@ -87,7 +87,6 @@ public class HandController : MonoBehaviour
         }
         else if (Vector3.Distance(handTransform.position, targetPosition) > positionDeadZone * .1f)
         {
-            handTransform.parent = targetTransform;
             handTransform.localPosition = new Vector3();
 
         }
@@ -152,6 +151,8 @@ public class HandController : MonoBehaviour
             targetPosition = pointers[0].transform.position;
             targetRotation = pointers[0].transform.rotation;
             targetTransform = pointers[0].transform;
+            handTransform.parent = targetTransform;
+
         }
     }
 

@@ -112,11 +112,13 @@ public class GunComponent_Body : GunComponent
     public void SetBarrel(GunComponent_Barrel b)
     {
         
-        if (b.Hpp_Left)
+        if (b.Hpp_Left&& gunHandController)
         {
+            print($"{b.Hpp_Left}");
+            print($"{gunHandController}");
             gunHandController.SetNewRestPoint_Left(b.Hpp_Left);
         }
-        if (b.Hpp_Right)
+        if (b.Hpp_Right && gunHandController)
         {
 
         }
