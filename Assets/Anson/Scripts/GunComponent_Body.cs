@@ -41,9 +41,10 @@ public class GunComponent_Body : GunComponent
 
     [Header("Animator")]
     [SerializeField] Animator animator;
-    [Range(0f,1f)]
+    [Range(0f, 1f)]
     [SerializeField] float shootAnimationLerp = 1;
     [SerializeField] GunHandController gunHandController;
+    [SerializeField] bool ignoreBarrelHand;
 
 
     [Header("Sound")]
@@ -100,7 +101,7 @@ public class GunComponent_Body : GunComponent
         component_Sight = s;
         sightLocation = s.SightLocation;
         sightOffset = sightLocation.position - transform.position;
-        component_Sight.SetSightMaterial(isFullAuto||(GetGunTypes().Contains(GunTypes.RIFLE)&& projectilePerShot!=1));
+        component_Sight.SetSightMaterial(isFullAuto || (GetGunTypes().Contains(GunTypes.RIFLE) && projectilePerShot != 1));
     }
 
     public void SetMuzzle(Transform m)
@@ -111,16 +112,18 @@ public class GunComponent_Body : GunComponent
 
     public void SetBarrel(GunComponent_Barrel b)
     {
-        
-        if (b.Hpp_Left&& gunHandController)
+        if (gunHandController && !ignoreBarrelHand)
         {
-            print($"{b.Hpp_Left}");
-            print($"{gunHandController}");
-            gunHandController.SetNewRestPoint_Left(b.Hpp_Left);
-        }
-        if (b.Hpp_Right && gunHandController)
-        {
+            if (b.Hpp_Left)
+            {
+                print($"{b.Hpp_Left}");
+                print($"{gunHandController}");
+                gunHandController.SetNewRestPoint_Left(b.Hpp_Left);
+            }
+            if (b.Hpp_Right)
+            {
 
+            }
         }
     }
 
@@ -132,7 +135,7 @@ public class GunComponent_Body : GunComponent
         }
     }
 
-    public void PlayGunShootEffect(int notEjectCase= 0)
+    public void PlayGunShootEffect(int notEjectCase = 0)
     {
         try
         {
