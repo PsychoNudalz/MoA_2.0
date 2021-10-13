@@ -14,8 +14,9 @@ public class HandController : MonoBehaviour
     [SerializeField] HandPositionPointer originalPoint;
 
     [Header("Settings")]
+    [SerializeField] float currentSpeed = 2f;
     [SerializeField] bool rightHand;
-    [SerializeField] float moveSpeed = 2f;
+    [SerializeField] float moveSpeed = 9f;
     [SerializeField] float transitionSpeed = 1f;
     [SerializeField] float positionDeadZone = 0.05f;
     [SerializeField] float rotationDeadZone = 0.05f;
@@ -83,16 +84,25 @@ public class HandController : MonoBehaviour
             {
                 handTransform.parent = original;
             }
-            handTransform.position = Vector3.Lerp(handTransform.position, targetPosition, moveSpeed * Time.deltaTime);
+            handTransform.position = Vector3.Lerp(handTransform.position, targetPosition, currentSpeed * Time.deltaTime);
         }
         else if (Vector3.Distance(handTransform.position, targetPosition) > positionDeadZone * .1f)
+        {
+            if (currentSpeed != moveSpeed)
+            {
+                currentSpeed = moveSpeed;
+            }
+            handTransform.position = Vector3.Lerp(handTransform.position, targetPosition, currentSpeed * Time.deltaTime);
+
+        }
+        else
         {
             handTransform.localPosition = new Vector3();
 
         }
         if (Quaternion.Angle(handTransform.rotation, targetRotation) > rotationDeadZone)
         {
-            handTransform.rotation = Quaternion.Lerp(handTransform.rotation, targetRotation, moveSpeed * Time.deltaTime);
+            handTransform.rotation = Quaternion.Lerp(handTransform.rotation, targetRotation, currentSpeed * Time.deltaTime);
         }
         else if (Quaternion.Angle(handTransform.rotation, targetRotation) > rotationDeadZone * .1f)
         {
@@ -114,12 +124,12 @@ public class HandController : MonoBehaviour
         {
             return;
         }
+        bool flag = false;
         if (pointers.Count == 0)
         {
             pointers.Add(pp);
-            return;
+            flag = true;
         }
-        bool flag = false;
         for (int i = 0; i < pointers.Count && !flag; i++)
         {
             if (pp.Priority >= pointers[i].Priority)
@@ -132,6 +142,7 @@ public class HandController : MonoBehaviour
         {
             pointers.Add(pp);
         }
+        currentSpeed = transitionSpeed;
         UpdateTarget();
 
     }
