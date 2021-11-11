@@ -17,6 +17,7 @@ public class Look : MonoBehaviour
 
 
     public float maxRotationDown = 40f;
+    public float maxRotationSide = 15f;
 
     [SerializeField] float yRotation = 0f;
     [SerializeField] bool lookLock = false;
@@ -68,9 +69,9 @@ public class Look : MonoBehaviour
         if (!lookLock)
         {
             MoveLook();
+            UpdateRecoil();
+            AdjustAim();
         }
-        UpdateRecoil();
-        AdjustAim();
     }
 
     private void OnApplicationQuit()
@@ -243,7 +244,7 @@ public class Look : MonoBehaviour
             targetEuler.y = 0;
             targetEuler.z = 0;
             targetRotation = Quaternion.Euler(targetEuler);
-            targetRecoil.x = (Mathf.Min(targetRecoil.x, 20f));
+            targetRecoil = new Vector2(Mathf.Min(targetRecoil.x, 20f), 0);
             recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, targetRotation, Time.deltaTime * 10f);
             float recoilX = -XRotation_adjust(recoilLayer.localEulerAngles.x);
             //yRotation = Mathf.Clamp(yRotation, -maxRotationDown + recoilX, maxRotationDown + recoilX);
@@ -270,8 +271,23 @@ public class Look : MonoBehaviour
     public void AddRecoil(Vector2 recoil)
     {
 
-        targetRecoil += recoil;
+        Quaternion targetRotation = recoilLayer.localRotation;
+        Vector3 targetEuler = targetRotation.eulerAngles;
         print($"add recoil {targetRecoil}");
+        if (targetEuler.x > 180 && targetEuler.x < 360 - maxRotationDown)
+        {
+            print("over recoil on add");
+
+        } else if (Mathf.Abs(targetRecoil.y) > maxRotationSide)
+        {
+            print("over side recoil on add");
+
+        }
+        else
+        {
+            targetRecoil += recoil;
+
+        }
     }
 
 

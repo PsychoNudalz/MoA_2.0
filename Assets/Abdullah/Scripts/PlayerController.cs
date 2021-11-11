@@ -5,10 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public float gravity = -9.81f;
-    public float jumpSpeed = 8f;
 
-
+    [Header("Mouse Sens")]
     [SerializeField] public float sensitivityX;
     [SerializeField] public float sensitivityY;
 
@@ -16,21 +14,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float maxY = 60f;
 
     [SerializeField] public float tilt = 20;
-
+    [Space(5)]
 
     [Header("Jump stuff")]
     Vector3 jumped;
+    [SerializeField] public float gravity = -9.81f;
+    public float jumpSpeed = 8f;
     [SerializeField] float jumpHeadDetection = 0.2f;
     [SerializeField] LayerMask jumpLayerMask;
+    bool canDoubleJumped;
+    [SerializeField] float doubleJumpSpeed;
 
-    [Space]
+    [Space(5)]
+    [Header("Movement")]
     float moveSpeed;
     [SerializeField] float moveSpeed_Default;
 
-    CharacterController controller;
     Vector3 moveDirection;
-    bool jump;
-    bool run;
     [SerializeField] bool coyoteJump;
     [SerializeField] float coyoteJumpTime;
     float lastGroundedTime;
@@ -42,36 +42,32 @@ public class PlayerController : MonoBehaviour
     float lookY;
 
     [SerializeField] Camera cam1;
-    bool moving;
-    Vector2 isMoving;
-    bool tilted;
 
-    Vector3 dashRange;
-    float dashDistance = 10f;
+    [Header("Dash")]
     [SerializeField] float dashDuration = 0.4f;
     [SerializeField] float dashSpeed = 5f;
-
-    [SerializeField] Look lookScript;
-
-    bool canDoubleJumped;
-    [SerializeField] float doubleJumpSpeed;
 
     float dashStart = 0f;
     [SerializeField] float dashCooldown;
     [SerializeField] int dashCharges_Max;
     int dashCharges;
+
     [Space]
+    [Header("Control Lock")]
     [SerializeField] bool disableControl = false;
 
 
     [Space]
     [Header("Other Components")]
+    [SerializeField] Look lookScript;
     [SerializeField] PlayerGunDamageScript gunDamageScript;
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
     [SerializeField] PlayerInterationScript playerInterationScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
     [SerializeField] AnsonTempUIScript ansonTempUIScript;
     [SerializeField] PlayerSoundScript playerSoundScript;
+    CharacterController controller;
+
 
     public PlayerGunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
@@ -87,12 +83,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tilted = false;
         Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
         player = transform;
-        cam1 = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        cam = cam1.transform;
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().transform;
         canDoubleJumped = false;
         moveSpeed = moveSpeed_Default;
     }
@@ -101,7 +95,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        //moveDirection = transform.TransformDirection(moveDirection);
 
         if (!disableControl)
         {
@@ -116,10 +109,7 @@ public class PlayerController : MonoBehaviour
             if (!controller.isGrounded)
             {
 
-                //print("Adding gravity");
-                //controller.Move(new Vector3(0, -gravity * Time.deltaTime, 0));
                 jumped.y -= gravity * Time.deltaTime;
-                //Debug.DrawRay(controller.center + new Vector3(0, controller.height / 2f, 0))
                 if (Physics.Raycast(transform.position + controller.center + new Vector3(0, controller.height / 2f, 0), transform.up, jumpHeadDetection, jumpLayerMask))
                 {
                     print("Playuer hit head");
@@ -148,17 +138,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-
-    void CameraTilt()
-    {
-        if (isMoving.x == 0)
-        {
-            Vector3 eulerRotation = transform.rotation.eulerAngles;
-            cam1.transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
-            tilted = false;
-        }
-    }
 
     void Look()
     {
@@ -201,25 +180,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        isMoving = context.ReadValue<Vector2>();
         moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
-        //moveDirection = transform.TransformDirection(moveDirection);
-        if (isMoving.x != 0)
-        {
-            if (isMoving.x < 0 && tilted == false)
-            {
-                cam1.transform.Rotate(new Vector3(0, 0, tilt) * Time.deltaTime);
-                tilted = true;
-
-            }
-            else if (isMoving.x > 0 && tilted == false)
-            {
-                cam1.transform.Rotate(new Vector3(0, 0, -tilt) * Time.deltaTime);
-                tilted = true;
-            }
-        }
-
-
     }
 
     public void OnLook_Mouse(InputAction.CallbackContext context)
@@ -251,7 +212,6 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        jump = context.performed;
         if (context.performed)
         {
             if (controller.isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
