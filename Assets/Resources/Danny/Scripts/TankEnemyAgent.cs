@@ -75,7 +75,14 @@ public class TankEnemyAgent : MonoBehaviour
         }
         if (IsDead && !deathHandled)
         {
+            try
+            {
+
             transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
+            }catch(System.NullReferenceException e)
+            {
+                Debug.LogWarning("Can't find parent spawner");
+            }
             SpawnHealthPickup();
             GameObject.Destroy(this.transform.gameObject, 3f);
             transform.GetComponentInParent<EnemySpawner>().ResetSpawnCountdown();

@@ -2491,6 +2491,7 @@ MonoBehaviour:
   mouseValue_Nor: {x: 0, y: 0}
   mouseValue_Mag: 0
   maxRotationDown: 80
+  maxRotationSide: 15
   yRotation: 0
   lookLock: 0
   camera: {fileID: 7608761042303734092}
@@ -3240,28 +3241,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4440c12464cc42a48b02139ac062a026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 15
-  jumpSpeed: 8
   sensitivityX: 1
   sensitivityY: 1
   minY: -85
   maxY: 85
-  tilt: 0
-  jumpHeadDetection: 0.1
+  gravity: -15
+  jumpStrength: 8
+  jumpVelocity: 0
   jumpLayerMask:
     serializedVersion: 2
     m_Bits: 264192
-  moveSpeed_Default: 8
+  doubleJumpStrength: 10
   coyoteJump: 0
   coyoteJumpTime: 0.15
-  cam1: {fileID: 0}
+  moveSpeed_Default: 8
   dashDuration: 0.05
   dashSpeed: 15
-  lookScript: {fileID: 8146306236498932640}
-  doubleJumpSpeed: 10
   dashCooldown: 2
   dashCharges_Max: 2
   disableControl: 0
+  lookScript: {fileID: 8146306236498932640}
   gunDamageScript: {fileID: 0}
   playerInventorySystemScript: {fileID: 0}
   playerInterationScript: {fileID: 0}

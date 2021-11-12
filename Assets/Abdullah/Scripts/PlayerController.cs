@@ -13,35 +13,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float minY = -60f;
     [SerializeField] public float maxY = 60f;
 
-    [SerializeField] public float tilt = 20;
-    [Space(5)]
-
-    [Header("Jump stuff")]
-    Vector3 jumped;
-    [SerializeField] public float gravity = -9.81f;
-    public float jumpSpeed = 8f;
-    [SerializeField] float jumpHeadDetection = 0.2f;
-    [SerializeField] LayerMask jumpLayerMask;
-    bool canDoubleJumped;
-    [SerializeField] float doubleJumpSpeed;
-
-    [Space(5)]
-    [Header("Movement")]
-    float moveSpeed;
-    [SerializeField] float moveSpeed_Default;
-
-    Vector3 moveDirection;
-    [SerializeField] bool coyoteJump;
-    [SerializeField] float coyoteJumpTime;
-    float lastGroundedTime;
-
-    Transform cam;
-    Transform player;
-
     float lookX;
     float lookY;
 
-    [SerializeField] Camera cam1;
+    [Header("Jump stuff")]
+    private bool isGrounded;
+
+    [SerializeField] public float gravity = -9.81f;
+    [SerializeField] float jumpStrength = 8f;
+    [SerializeField] float jumpVelocity;
+    [SerializeField] LayerMask jumpLayerMask;
+    bool canDoubleJumped;
+    [SerializeField] float doubleJumpStrength;
+    private float groundCheckRadius = 0.3f;
+    [SerializeField] bool coyoteJump;
+    [SerializeField] float coyoteJumpTime;
+
+
+    [Header("Movement")]
+    float moveSpeed;
+    [SerializeField] float moveSpeed_Default;
+    Vector3 moveDirection;
+    float lastGroundedTime;
+    Transform cam;
+    Transform player;
+
+    [Space]
 
     [Header("Dash")]
     [SerializeField] float dashDuration = 0.4f;
@@ -66,8 +63,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
     [SerializeField] AnsonTempUIScript ansonTempUIScript;
     [SerializeField] PlayerSoundScript playerSoundScript;
-    CharacterController controller;
-
+    CharacterController characterController;
 
     public PlayerGunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
@@ -84,7 +80,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        controller = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
         player = transform;
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().transform;
         canDoubleJumped = false;
@@ -106,27 +102,8 @@ public class PlayerController : MonoBehaviour
                 //CameraTilt();
 
             }
-            if (!controller.isGrounded)
-            {
+            UpdateJumpAndGravity();
 
-                jumped.y -= gravity * Time.deltaTime;
-                if (Physics.Raycast(transform.position + controller.center + new Vector3(0, controller.height / 2f, 0), transform.up, jumpHeadDetection, jumpLayerMask))
-                {
-                    print("Playuer hit head");
-                    jumped.y = Mathf.Clamp(.1f, 0, jumped.y);
-                }
-            }
-            else
-            {
-                coyoteJump = true;
-                canDoubleJumped = true;
-                lastGroundedTime = Time.time;
-                if (jumped.y != 0)
-                {
-                    jumped.y = -4f;
-                }
-
-            }
         }
 
         if (dashCharges < dashCharges_Max && Time.time > dashStart + dashCooldown)
@@ -149,15 +126,14 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
 
-        controller.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection * moveSpeed * Time.deltaTime);
-        controller.Move(jumped * Time.deltaTime);
+        characterController.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection * moveSpeed * Time.deltaTime);
     }
 
     public void Teleport(Vector3 pos)
     {
-        controller.enabled = false;
+        characterController.enabled = false;
         transform.position = pos;
-        controller.enabled = true;
+        characterController.enabled = true;
 
     }
     /// <summary>
@@ -214,11 +190,12 @@ public class PlayerController : MonoBehaviour
         }
         if (context.performed)
         {
-            if (controller.isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
+            if (isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
             {
                 coyoteJump = false;
                 canDoubleJumped = true;
-                jumped = new Vector3(0f, jumpSpeed, 0f);
+                //jumped = new Vector3(0f, jumpStrength, 0f);
+                jumpVelocity = jumpStrength;
                 playerSoundScript.Play_Jump();
 
             }
@@ -227,7 +204,8 @@ public class PlayerController : MonoBehaviour
                 if (canDoubleJumped)
                 {
                     coyoteJump = false;
-                    jumped = new Vector3(0f, doubleJumpSpeed, 0f);
+                    //jumped = new Vector3(0f, doubleJumpSpeed, 0f);
+                    jumpVelocity = Mathf.Max(doubleJumpStrength + jumpVelocity, doubleJumpStrength);
                     canDoubleJumped = false;
                     playerSoundScript.Play_Jump();
 
@@ -429,5 +407,42 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+    public void UpdateJumpAndGravity()
+    {
+        GroundCheck();
+        HeadCheck();
+        characterController.Move(new Vector3(0, jumpVelocity * Time.deltaTime, 0));
+        if (!isGrounded)
+        {
+            jumpVelocity += gravity * Time.deltaTime;
+        }
+        else
+        {
+            if (jumpVelocity < groundCheckRadius * gravity / 2f)
+            {
+                jumpVelocity = groundCheckRadius * gravity / 2f;
+            }
+            coyoteJump = true;
+            canDoubleJumped = true;
+            lastGroundedTime = Time.time;
+        }
+    }
+
+    public void GroundCheck()
+    {
+        Vector3 offsetHeight = new Vector3(0, characterController.center.y - (characterController.height / 2f), 0);
+        isGrounded = Physics.CheckSphere(characterController.transform.position + offsetHeight, groundCheckRadius, jumpLayerMask, QueryTriggerInteraction.Ignore);
+    }
+    public void HeadCheck()
+    {
+        Vector3 offsetHeight = new Vector3(0, characterController.center.y + (characterController.height / 2f), 0);
+        bool hitHead = Physics.CheckSphere(characterController.transform.position + offsetHeight, groundCheckRadius, jumpLayerMask, QueryTriggerInteraction.Ignore);
+        if (hitHead)
+        {
+            jumpVelocity = Mathf.Min(jumpVelocity, 0f);
+        }
+    }
 
 }
