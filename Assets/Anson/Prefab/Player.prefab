@@ -2855,7 +2855,6 @@ GameObject:
   - component: {fileID: 7179264872622490381}
   - component: {fileID: 1118942522593812116}
   - component: {fileID: 7467936058749316762}
-  - component: {fileID: 68983515036826100}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -2880,6 +2879,7 @@ Transform:
   - {fileID: 690791203812069218}
   - {fileID: 4389847174702668528}
   - {fileID: 8809070048899550338}
+  - {fileID: 4422923672601812071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2895,22 +2895,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddcdd393d16923f43bb48e6557ac0fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLifeSystemScript: {fileID: 0}
-  playerGunDamageScript: {fileID: 0}
-  playerInventorySystemScript: {fileID: 0}
-  playerController: {fileID: 0}
-  playerInterationScript: {fileID: 0}
+  playerLifeSystemScript: {fileID: 111666207402980044}
+  playerGunDamageScript: {fileID: 1232806125}
+  playerInventorySystemScript: {fileID: 4011440769745659725}
+  playerController: {fileID: 4112174735619620036}
+  playerInterationScript: {fileID: -1675315315690588733}
   ansonTempUIScript: {fileID: 2225990549073635975}
-  playerVolumeControllerScript: {fileID: 0}
-  playerSaveStats: {fileID: 0}
-  playerGetTargetHealth: {fileID: 0}
+  playerVolumeControllerScript: {fileID: 240417212050282902}
+  playerSaveStats: {fileID: 1118942522593812116}
+  playerGetTargetHealth: {fileID: 7467936058749316762}
   playerSaveCollection:
     profile: 0
     coins: 0
     numberOfRuns: 0
     numberOfBossKills: 0
     totalFullClears: 0
-  playerSoundScript: {fileID: 0}
+  playerSoundScript: {fileID: 6134024595516240257}
   playerInput: {fileID: 4112174735619620037}
 --- !u!114 &4112174735619620037
 MonoBehaviour:
@@ -3225,7 +3225,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 35
-  m_StepOffset: 0
+  m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
@@ -3252,7 +3252,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264192
   doubleJumpStrength: 10
-  coyoteJump: 0
   coyoteJumpTime: 0.15
   moveSpeed_Default: 8
   dashDuration: 0.05
@@ -3261,12 +3260,13 @@ MonoBehaviour:
   dashCharges_Max: 2
   disableControl: 0
   lookScript: {fileID: 8146306236498932640}
-  gunDamageScript: {fileID: 0}
-  playerInventorySystemScript: {fileID: 0}
-  playerInterationScript: {fileID: 0}
-  playerVolumeControllerScript: {fileID: 0}
-  ansonTempUIScript: {fileID: 0}
-  playerSoundScript: {fileID: 0}
+  gunDamageScript: {fileID: 1232806125}
+  playerInventorySystemScript: {fileID: 4011440769745659725}
+  playerInterationScript: {fileID: -1675315315690588733}
+  playerVolumeControllerScript: {fileID: 240417212050282902}
+  ansonTempUIScript: {fileID: 2225990549073635975}
+  playerSoundScript: {fileID: 6134024595516240257}
+  animator: {fileID: 7179264872622490381}
 --- !u!114 &111666207402980044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3291,10 +3291,10 @@ MonoBehaviour:
   reatatchPopUps: 0
   debuffList: []
   damagePopScript: {fileID: 0}
-  playerMasterScript: {fileID: 0}
-  UIScript: {fileID: 0}
-  playerVolumeControllerScript: {fileID: 0}
-  playerSoundScript: {fileID: 0}
+  playerMasterScript: {fileID: 1198423547983658473}
+  UIScript: {fileID: 2225990549073635975}
+  playerVolumeControllerScript: {fileID: 240417212050282902}
+  playerSoundScript: {fileID: 6134024595516240257}
   animator: {fileID: 0}
   deathTriggerName: Death
   vignetteThreshold: 0.5
@@ -3317,8 +3317,8 @@ MonoBehaviour:
   - {fileID: 0}
   pointer: 0
   inventoryTransform: {fileID: 7892161585610838363}
-  gunDamageScript: {fileID: 0}
-  ansonTempUIScript: {fileID: 0}
+  gunDamageScript: {fileID: 1232806125}
+  ansonTempUIScript: {fileID: 2225990549073635975}
 --- !u!114 &-1675315315690588733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3396,20 +3396,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
---- !u!136 &68983515036826100
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4112174735619620034}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.6
-  m_Height: 2.2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!1 &4112174736059414424
 GameObject:
   m_ObjectHideFlags: 0
@@ -3956,6 +3942,76 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &4558807823775798145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4422923672601812071}
+  - component: {fileID: 6718047166417129693}
+  - component: {fileID: 247793942}
+  m_Layer: 21
+  m_Name: PlayerHitBox
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4422923672601812071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4558807823775798145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4112174735619620033}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6718047166417129693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4558807823775798145}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693fa28f8f38ed54fbc35d63b4f577f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_Current: 0
+  health_Max: 10
+  isDead: 0
+  centreOfMass: {fileID: 0}
+  deathGameObject: {fileID: 0}
+  disableOnDeath: 1
+  destroyOnDeath: 0
+  delayDeath: 0
+  detatchPopUps: 1
+  reatatchPopUps: 1
+  debuffList: []
+  damagePopScript: {fileID: 0}
+  routedLS: {fileID: 111666207402980044}
+--- !u!65 &247793942
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4558807823775798145}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 2, z: 1.1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &4912764527650146396
 GameObject:
   m_ObjectHideFlags: 0
@@ -6438,6 +6494,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74c10ac8466fcaa4a900cf3a9ed0789e, type: 3}
+--- !u!1 &9154187483397130682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5457602314548750042, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3798638265396997984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9154187483675826456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5457602314294703736, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3798638265396997984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &2319224658315733119 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1484204262191646495, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3798638265396997984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9154187482679009458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5457602315543990226, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3798638265396997984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &9154187483351656897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5457602314610214561, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
@@ -6486,36 +6572,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9154187483675826456 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5457602314294703736, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3798638265396997984}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &9154187483397130682 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5457602314548750042, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3798638265396997984}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &9154187482679009458 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5457602315543990226, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3798638265396997984}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &2319224658315733119 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1484204262191646495, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3798638265396997984}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9154187483700666188 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5457602314254659628, guid: 74c10ac8466fcaa4a900cf3a9ed0789e,
@@ -6646,12 +6702,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e248fbcb38246c64ab3c2e30fdb36b16, type: 3}
---- !u!224 &6732745388497023204 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7234717427886484404, guid: e248fbcb38246c64ab3c2e30fdb36b16,
-    type: 3}
-  m_PrefabInstance: {fileID: 4109927637655477072}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5572002865206408907 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8384258283465469339, guid: e248fbcb38246c64ab3c2e30fdb36b16,
@@ -6664,6 +6714,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6732745388497023204 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7234717427886484404, guid: e248fbcb38246c64ab3c2e30fdb36b16,
+    type: 3}
+  m_PrefabInstance: {fileID: 4109927637655477072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4614935892175104082
 PrefabInstance:
   m_ObjectHideFlags: 0

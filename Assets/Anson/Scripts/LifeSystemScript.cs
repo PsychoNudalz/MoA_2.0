@@ -56,7 +56,7 @@ public class LifeSystemScript : MonoBehaviour
         AwakeBehaviour();
     }
 
-    protected virtual void AwakeBehaviour()
+    public virtual void AwakeBehaviour()
     {
         health_Current = health_Max;
         try
@@ -227,7 +227,7 @@ public class LifeSystemScript : MonoBehaviour
         return isDead;
     }
 
-    protected virtual void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
+    public virtual void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
     {
         if (damagePopScript == null)
         {
@@ -355,7 +355,7 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual void RemoveDebuff(FireEffectScript debuff = null)
     {
-        RemoveDebuff(debuff);
+        RemoveDebuff(debuff as DebuffScript);
 
     }
     public virtual void RemoveDebuff(ShockEffectScript debuff)

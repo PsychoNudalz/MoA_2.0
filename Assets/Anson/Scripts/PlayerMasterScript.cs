@@ -30,7 +30,7 @@ public class PlayerMasterScript : MonoBehaviour
         }
 
     }
-
+    [ContextMenu("Initialize")]
     void Initialize()
     {
         //Set up

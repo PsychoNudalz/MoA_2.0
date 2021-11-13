@@ -16,23 +16,24 @@ public class PlayerController : MonoBehaviour
     float lookX;
     float lookY;
 
+    [Space]
     [Header("Jump stuff")]
-    private bool isGrounded;
 
     [SerializeField] public float gravity = -9.81f;
     [SerializeField] float jumpStrength = 8f;
     [SerializeField] float jumpVelocity;
     [SerializeField] LayerMask jumpLayerMask;
-    bool canDoubleJumped;
     [SerializeField] float doubleJumpStrength;
-    private float groundCheckRadius = 0.3f;
-    [SerializeField] bool coyoteJump;
     [SerializeField] float coyoteJumpTime;
+    private float groundCheckRadius = 0.3f;
+    bool canDoubleJumped;
+    bool coyoteJump;
+    private bool isGrounded;
 
 
     [Header("Movement")]
-    float moveSpeed;
     [SerializeField] float moveSpeed_Default;
+    float moveSpeed;
     Vector3 moveDirection;
     float lastGroundedTime;
     Transform cam;
@@ -64,6 +65,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AnsonTempUIScript ansonTempUIScript;
     [SerializeField] PlayerSoundScript playerSoundScript;
     CharacterController characterController;
+    [SerializeField] private Animator animator;
 
     public PlayerGunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
     public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
@@ -85,6 +87,10 @@ public class PlayerController : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().transform;
         canDoubleJumped = false;
         moveSpeed = moveSpeed_Default;
+        if (!animator)
+        {
+            animator = GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
@@ -127,6 +133,7 @@ public class PlayerController : MonoBehaviour
     {
 
         characterController.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection * moveSpeed * Time.deltaTime);
+        animator.SetFloat("Speed", moveDirection.magnitude);
     }
 
     public void Teleport(Vector3 pos)
@@ -414,6 +421,7 @@ public class PlayerController : MonoBehaviour
         GroundCheck();
         HeadCheck();
         characterController.Move(new Vector3(0, jumpVelocity * Time.deltaTime, 0));
+        animator.SetBool("Grounded", isGrounded);
         if (!isGrounded)
         {
             jumpVelocity += gravity * Time.deltaTime;
