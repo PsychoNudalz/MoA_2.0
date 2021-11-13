@@ -215,6 +215,7 @@ public class PlayerController : MonoBehaviour
                     jumpVelocity = Mathf.Max(doubleJumpStrength + jumpVelocity, doubleJumpStrength);
                     canDoubleJumped = false;
                     playerSoundScript.Play_Jump();
+                    animator.SetTrigger("Jump");
 
                 }
             }

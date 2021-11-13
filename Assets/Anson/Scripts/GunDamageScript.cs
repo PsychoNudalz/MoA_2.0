@@ -679,7 +679,7 @@ public class GunDamageScript : DamageScript
 
     protected virtual IEnumerator DelayReload(float offset = 0)
     {
-        isFiring = false;
+        Fire(false);
         mainGunStatsScript.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
         mainGunStatsScript.Play_StartReload();
         currentRecoilTime = 0f;

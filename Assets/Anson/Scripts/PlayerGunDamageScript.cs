@@ -372,6 +372,7 @@ public class PlayerGunDamageScript : GunDamageScript
     public override void Reload()
     {
         base.Reload();
+        Fire(false);
         ADS_Off();
     }
 
