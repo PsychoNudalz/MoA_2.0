@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Anson:
@@ -33,8 +34,8 @@ public class LifeSystemScript : MonoBehaviour
     [SerializeField] protected List<DebuffScript> debuffList = new List<DebuffScript>();
     //[SerializeField] 
 
-    [Header("Components")]
-    public DamagePopScript damagePopScript;
+    [FormerlySerializedAs("damagePopScript")] [Header("Components")]
+    public DamagePopUpScript damagePopUpScript;
 
     public int Health_Current { get => health_Current; }
     public int Health_Max { get => health_Max; }
@@ -62,7 +63,7 @@ public class LifeSystemScript : MonoBehaviour
         try
         {
             // updateHealthBar();
-            popUpLocation = damagePopScript.transform.position - transform.position;
+            popUpLocation = damagePopUpScript.transform.position - transform.position;
         }
         catch (System.Exception)
         {
@@ -229,23 +230,23 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
     {
-        if (damagePopScript == null)
+        if (damagePopUpScript == null)
         {
             Debug.LogWarning(name + " missing damage numbers");
             return;
         }
-        damagePopScript.displayDamage(dmg, e);
+        damagePopUpScript.displayDamage(dmg, e);
 
     }
 
     void displayDamageCritical(float dmg)
     {
-        if (damagePopScript == null)
+        if (damagePopUpScript == null)
         {
             Debug.LogWarning(name + " missing damage numbers");
             return;
         }
-        damagePopScript.displayCriticalDamage(dmg);
+        damagePopUpScript.displayCriticalDamage(dmg);
     }
 
     public virtual void PlayTakeDamageEffect()
@@ -279,8 +280,8 @@ public class LifeSystemScript : MonoBehaviour
         {
             if (detatchPopUps)
             {
-                damagePopScript.transform.SetParent(null);
-                //damagePopScript.transform.position = transform.position;
+                damagePopUpScript.transform.SetParent(null);
+                //damagePopUpScript.transform.position = transform.position;
                 //groupParticleSystemScript.transform.position = transform.position;
                 if (reatatchPopUps)
                 {
@@ -293,7 +294,7 @@ public class LifeSystemScript : MonoBehaviour
         {
             if (detatchPopUps)
             {
-                damagePopScript.transform.SetParent(null);
+                damagePopUpScript.transform.SetParent(null);
                 if (reatatchPopUps)
                 {
                     StartCoroutine(reattach());
@@ -319,8 +320,8 @@ public class LifeSystemScript : MonoBehaviour
     {
 
         yield return new WaitForSeconds(3f);
-        damagePopScript.transform.SetParent(transform);
-        damagePopScript.transform.position = transform.position + popUpLocation;
+        damagePopUpScript.transform.SetParent(transform);
+        damagePopUpScript.transform.position = transform.position + popUpLocation;
 
     }
 
@@ -380,8 +381,8 @@ public class LifeSystemScript : MonoBehaviour
         {
             if (reatatchPopUps)
             {
-                damagePopScript.transform.SetParent(transform);
-                damagePopScript.transform.position = transform.position + popUpLocation;
+                damagePopUpScript.transform.SetParent(transform);
+                damagePopUpScript.transform.position = transform.position + popUpLocation;
             }
         }
         catch (System.Exception)

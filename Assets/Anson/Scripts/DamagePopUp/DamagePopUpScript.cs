@@ -8,36 +8,22 @@ using TMPro;
 /// Anson:
 /// class for displaying damage dealt on the target
 /// </summary>
-public class DamagePopScript : MonoBehaviour
+public class DamagePopUpScript : MonoBehaviour
 {
-    public TextMeshPro text;
+    public GameObject text;
     public Animator animator;
-    public float value;
     public string displayText;
-    [SerializeField] Camera camera;
+    private DamagePopUpUIScript pairedUI;
 
     [Header("Text colours")]
     [SerializeField] Color normalColour = Color.white;
     [SerializeField] Color critColour = Color.red;
-    [SerializeField] Color fireColour = new Color(255,235,0);
+    [SerializeField] Color fireColour = new Color(255, 235, 0);
     [SerializeField] Color iceColour = Color.cyan;
     [SerializeField] Color shockColour = Color.yellow;
 
 
-    private void FixedUpdate()
-    {
-        rotateTextToCamera();
-    }
 
-    void rotateTextToCamera()
-    {
-        if (camera == null)
-        {
-            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        }
-        Vector3 dir = camera.transform.position - transform.position;
-        transform.forward = -dir;
-    }
 
 
     /// <summary>
@@ -45,12 +31,12 @@ public class DamagePopScript : MonoBehaviour
     /// the total damage value stacks up until it disappears
     /// </summary>
     /// <param name="dmg"></param>
-    public virtual void displayDamage(float dmg,ElementTypes e = ElementTypes.PHYSICAL)
+    public virtual void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
     {
         switch (e)
         {
             case (ElementTypes.PHYSICAL):
-                displayDamage(dmg,normalColour);
+                displayDamage(dmg, normalColour);
                 break;
             case (ElementTypes.FIRE):
                 displayDamage(dmg, fireColour);
@@ -71,18 +57,13 @@ public class DamagePopScript : MonoBehaviour
     /// text colour change depending on colour
     /// </summary>
     /// <param name="dmg"></param>
-    public virtual void displayDamage(float dmg,Color colour)
+    public virtual void displayDamage(float dmg, Color colour)
     {
-        if (!checkText())
-        {
-            value = 0;
-        }
-        text.gameObject.SetActive(true);
+
         animator.SetTrigger("Play");
-        value += dmg;
-        displayText = Mathf.RoundToInt(value).ToString();
-        text.text = displayText;
-        text.color = colour;
+        displayText = Mathf.RoundToInt(dmg).ToString();
+        pairedUI = DamagePopUpUIManager.current.displayDamage(displayText, colour, this);
+
     }
 
 
@@ -92,20 +73,14 @@ public class DamagePopScript : MonoBehaviour
     /// <param name="dmg"></param>
     public virtual void displayCriticalDamage(float dmg)
     {
-        if (!checkText())
-        {
-            value = 0;
-        }
-        text.gameObject.SetActive(true);
-        animator.SetTrigger("Play");
-        value += dmg;
-        displayText = Mathf.RoundToInt(value).ToString();
-        text.text = displayText;
-        text.color = critColour;
+        displayDamage(dmg, critColour);
+
     }
 
     public bool checkText()
     {
-        return text.gameObject.activeSelf;
+        return text.activeSelf;
     }
+
+
 }

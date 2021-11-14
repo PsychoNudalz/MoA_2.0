@@ -1,11 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamagePopUpPoolScript : DamagePopScript
+public class DamagePopUpUIManager : MonoBehaviour
 {
-    [SerializeField] List<DamagePopScript> DPPool;
-    [SerializeField] DamagePopScript baseDP;
+    public static DamagePopUpUIManager current;
+
+    [SerializeField] List<DamagePopUpUIScript> DPPool;
+    [SerializeField] DamagePopUpUIScript baseDP;
     [SerializeField] int pointer = 0;
     [SerializeField] int initialSize = 10;
     [SerializeField] float spawnRange = .2f;
@@ -13,7 +15,8 @@ public class DamagePopUpPoolScript : DamagePopScript
 
     private void Awake()
     {
-        DPPool = new List<DamagePopScript>();
+        current = this;
+        DPPool = new List<DamagePopUpUIScript>();
         for (int i = 0; i < initialSize; i++)
         {
             DPPool.Add(Instantiate(baseDP, transform));
@@ -29,33 +32,28 @@ public class DamagePopUpPoolScript : DamagePopScript
         }
     }
 
-    public override void displayDamage(float dmg, Color colour)
+    public DamagePopUpUIScript displayDamage(string dmg, Color colour,DamagePopUpScript damagePopUpScript)
     {
-        DamagePopScript currentDP = GetNextDP();
-        currentDP.displayDamage(dmg, colour);
-        currentDP.transform.localPosition = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange));
+        DamagePopUpUIScript currentDP = GetNextDP();
+        currentDP.SetText(dmg,colour,damagePopUpScript);
+        return currentDP;
     }
 
-    public override void displayCriticalDamage(float dmg)
-    {
-        DamagePopScript currentDP = GetNextDP();
-        currentDP.displayCriticalDamage(dmg);
-        currentDP.transform.localPosition = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange));
-    }
 
-    DamagePopScript GetNextDP()
+
+    DamagePopUpUIScript GetNextDP()
     {
         int i = 0;
         pointer = (pointer) % DPPool.Count;
 
-        DamagePopScript currentDP = DPPool[pointer];
-        while (i < DPPool.Count && currentDP.checkText())
+        DamagePopUpUIScript currentDP = DPPool[pointer];
+        while (i < DPPool.Count && currentDP.gameObject.activeSelf)
         {
             pointer = (pointer + 1) % DPPool.Count;
             currentDP = DPPool[pointer];
             i++;
         }
-        if (currentDP.checkText())
+        if (currentDP.gameObject.activeSelf)
         {
             currentDP = Instantiate(baseDP, transform);
             DPPool.Add(currentDP);
@@ -68,14 +66,14 @@ public class DamagePopUpPoolScript : DamagePopScript
     {
         if (DPPool.Count > initialSize)
         {
-           // print(this + " loading clean up");
+            // print(this + " loading clean up");
             int i = 0;
-            DamagePopScript currentDP;
+            DamagePopUpUIScript currentDP;
             while (i < DPPool.Count && DPPool.Count > initialSize)
             {
                 currentDP = DPPool[i];
                 i++;
-                if (!currentDP.checkText())
+                if (!currentDP.gameObject.activeSelf)
                 {
                     //print(this + " clearing " + i);
                     DPPool.Remove(currentDP);
