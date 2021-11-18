@@ -70,6 +70,7 @@ public class GunDamageScript : DamageScript
     public bool displayFireRaycast = true;
     protected bool isAI = false;
     protected int currentSlot = 0;
+    private RaycastHit raycastHit;
 
 
     private void Awake()
@@ -213,7 +214,7 @@ public class GunDamageScript : DamageScript
 
         if (elementType != ElementTypes.PHYSICAL)
         {
-            damagePerProjectile = damagePerProjectile * DamageMultiplier.ElementDamageNerf;
+            damagePerProjectile = damagePerProjectile * UniversalValues.ElementDamageNerf;
         }
 
         //mainGunStatsScript.SetRarityEffect(false);
@@ -402,7 +403,6 @@ public class GunDamageScript : DamageScript
 
     bool Raycast_HipFire()
     {
-        RaycastHit hit;
         bool hitTarget = false;
         float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
 
@@ -431,7 +431,6 @@ public class GunDamageScript : DamageScript
 
     bool Raycast_ADS()
     {
-        RaycastHit hit;
         bool hitTarget = false;
         //Vector3 fireDir = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0) * firePoint.transform.forward;
         fireDir = firePoint.transform.forward;
@@ -456,19 +455,18 @@ public class GunDamageScript : DamageScript
 
     bool RayCastDealDamage(Vector3 dir, bool hitTarget)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(firePoint.transform.position, dir, out hit, range * 1.5f, layerMask))
+        if (Physics.Raycast(firePoint.transform.position, dir, out raycastHit, range * 1.5f, layerMask))
         {
-            Instantiate(impactEffect, hit.point, Quaternion.Euler(hit.normal));
-            if (tagList.Contains(hit.collider.tag) && (hit.collider.TryGetComponent(out LifeSystemScript ls) || hit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
+            Instantiate(impactEffect, raycastHit.point, Quaternion.Euler(raycastHit.normal));
+            if (tagList.Contains(raycastHit.collider.tag) && (raycastHit.collider.TryGetComponent(out LifeSystemScript ls) || raycastHit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
             {
-                float dropOff = rangeCurve.Evaluate((firePoint.transform.position - hit.point).magnitude / range);
-                if (hit.collider.TryGetComponent(out WeakPointScript wps))
+                float dropOff = rangeCurve.Evaluate((firePoint.transform.position - raycastHit.point).magnitude / range);
+                if (raycastHit.collider.TryGetComponent(out WeakPointScript wps))
                 {
                     ls = wps.Ls;
                     try
                     {
-                        dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, DamageMultiplier.Get(gunType));
+                        dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, UniversalValues.GetDamageMultiplier(gunType));
 
                     }
                     catch (System.Exception e)
@@ -500,7 +498,6 @@ public class GunDamageScript : DamageScript
     {
         if (projectileGO.TryGetComponent(out ProjectileScript projectileScript))
         {
-            RaycastHit hit;
             //for (int i = 0; i < projectilePerShot; i++)
             //{
             projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
@@ -549,6 +546,10 @@ public class GunDamageScript : DamageScript
             Fire(false);
         }
 
+        //Set fire hitpoints and direction
+        mainGunStatsScript.GunComponent_Body.RaycastHit = raycastHit;
+        mainGunStatsScript.GunComponent_Body.FireDir = fireDir;
+        
         return newRecoilTime;
     }
 

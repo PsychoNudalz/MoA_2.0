@@ -273,7 +273,7 @@ public class Look : MonoBehaviour
 
         Quaternion targetRotation = recoilLayer.localRotation;
         Vector3 targetEuler = targetRotation.eulerAngles;
-        print($"add recoil {targetRecoil}");
+        // print($"add recoil {targetRecoil}");
         if (targetEuler.x > 180 && targetEuler.x < 360 - maxRotationDown)
         {
             print("over recoil on add");

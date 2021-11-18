@@ -158,6 +158,7 @@ public class MainGunStatsScript : GunStatsScript
         GetComponentInChildren<Rigidbody>().isKinematic = false;
         GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
         transform.parent = null;
+        gunComponent_Body.SetEffectsElement(60f/RPM);
     }
 
     public void PlayAnimationTrigger(string s, float animationSpeed = 1)
@@ -256,9 +257,9 @@ public class MainGunStatsScript : GunStatsScript
         float dps = (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
         if (elementType != ElementTypes.PHYSICAL)
         {
-            dps = dps * DamageMultiplier.ElementDamageNerf;
+            dps = dps * UniversalValues.ElementDamageNerf;
         }
-        dps += (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * elementDamage * elementChance * DamageMultiplier.Get(elementType) * projectilePerShot * magazineSize;
+        dps += (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * elementDamage * elementChance * UniversalValues.GetDamageMultiplier(elementType) * projectilePerShot * magazineSize;
         /*
         switch (elementType)
         {

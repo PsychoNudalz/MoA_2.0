@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class DamageMultiplier
+public static class UniversalValues
 {
-
+    
+    //Damage Multipliers
     public static float ElementDamageNerf { get => 0.85f; }
 
-    public static float Get(GunTypes gt)
+    public static float GetDamageMultiplier(GunTypes gt)
     {
         float temp = 1f;
         switch (gt)
@@ -37,7 +38,7 @@ public static class DamageMultiplier
         return temp;
     }
 
-    public static float Get(ElementTypes et)
+    public static float GetDamageMultiplier(ElementTypes et)
     {
         float temp = 1f;
 
@@ -57,5 +58,7 @@ public static class DamageMultiplier
         }
         return temp;
     }
+    
+    
 
 }

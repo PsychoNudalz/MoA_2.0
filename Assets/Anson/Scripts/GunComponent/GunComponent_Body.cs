@@ -6,82 +6,259 @@ using UnityEngine.VFX;
 public class GunComponent_Body : GunComponent
 {
     [Header("Extra")]
+    [SerializeField]
+    protected bool isSetElement = false;
 
-    [SerializeField] protected bool isSetElement = false;
-    [SerializeField] protected ElementTypes elementType;
-    [SerializeField] protected Rarity rarity;
-    [SerializeField] protected AnimationCurve rangeCurve;
+    [SerializeField]
+    protected ElementTypes elementType;
+
+    [SerializeField]
+    protected Rarity rarity;
+
+    [SerializeField]
+    protected AnimationCurve rangeCurve;
 
 
     [Header("Effects")]
-    [SerializeField] ParticleSystem bulletParticle;
-    [SerializeField] GameObject impactEffect;
-    [SerializeField] VisualEffect muzzleEffect;
-    [SerializeField] ParticleSystem bulletCaseParticle;
+    [SerializeField]
+    ParticleSystem bulletParticle;
+
+    [SerializeField]
+    GameObject impactEffect;
+
+    [SerializeField]
+    VisualEffect muzzleEffect;
+
+    [SerializeField]
+    ParticleSystem bulletCaseParticle;
+
+    [SerializeField]
+    private BulletTrailControllerScript bulletTrailControllerScript;
+
+    private RaycastHit raycastHit;
+
+    public RaycastHit RaycastHit
+    {
+        get => raycastHit;
+        set => raycastHit = value;
+    }
+
+    private Vector3 fireDir;
+
+    public Vector3 FireDir
+    {
+        get => fireDir;
+        set => fireDir = value;
+    }
 
     [Header("Recoil")]
-    [SerializeField] AnimationCurve recoilPattern_X;
-    [SerializeField] AnimationCurve recoilPattern_Y;
-    [SerializeField] float timeToRecenter = 3f;
+    [SerializeField]
+    AnimationCurve recoilPattern_X;
+
+    [SerializeField]
+    AnimationCurve recoilPattern_Y;
+
+    [SerializeField]
+    float timeToRecenter = 3f;
 
     [Header("Fire Type")]
-    [SerializeField] FireTypes fireType = FireTypes.HitScan;
-    [SerializeField] GameObject projectileGO;
-    [SerializeField] int projectilePerShot = 1;
-    [SerializeField] float timeBetweenProjectile = 0f;
-    [SerializeField] bool isFullAuto = true;
-    [SerializeField] bool isFullReload = true;
-    [SerializeField] int amountPerReload = 1;
+    [SerializeField]
+    FireTypes fireType = FireTypes.HitScan;
+
+    [SerializeField]
+    GameObject projectileGO;
+
+    [SerializeField]
+    int projectilePerShot = 1;
+
+    [SerializeField]
+    float timeBetweenProjectile = 0f;
+
+    [SerializeField]
+    bool isFullAuto = true;
+
+    [SerializeField]
+    bool isFullReload = true;
+
+    [SerializeField]
+    int amountPerReload = 1;
 
     [Header("Component")]
-    [SerializeField] GunComponent_Sight component_Sight;
-    [SerializeField] Transform sightLocation;
-    [SerializeField] Vector3 sightOffset;
-    [SerializeField] Transform muzzleLocation;
+    [SerializeField]
+    GunComponent_Sight component_Sight;
+
+    [SerializeField]
+    Transform sightLocation;
+
+    [SerializeField]
+    Vector3 sightOffset;
+
+    [SerializeField]
+    Transform muzzleLocation;
 
     [Header("Animator")]
-    [SerializeField] Animator animator;
+    [SerializeField]
+    Animator animator;
+
     [Range(0f, 1f)]
-    [SerializeField] float shootAnimationLerp = 1;
-    [SerializeField] GunHandController gunHandController;
-    [SerializeField] bool ignoreBarrelHand;
+    [SerializeField]
+    float shootAnimationLerp = 1;
+
+    [SerializeField]
+    GunHandController gunHandController;
+
+    [SerializeField]
+    bool ignoreBarrelHand;
 
 
     [Header("Sound")]
-    [SerializeField] Sound sound_Fire;
-    [SerializeField] Sound sound_StartReload;
-    [SerializeField] Sound sound_EndReload;
+    [SerializeField]
+    Sound sound_Fire;
 
+    [SerializeField]
+    Sound sound_StartReload;
 
+    [SerializeField]
+    Sound sound_EndReload;
 
 
     //Getters
-    public float TimeBetweenProjectile { get => timeBetweenProjectile; }
-    public bool IsFullAuto { get => isFullAuto; set => isFullAuto = value; }
-    public AnimationCurve RecoilPattern_X { get => recoilPattern_X; }
-    public AnimationCurve RecoilPattern_Y { get => recoilPattern_Y; }
-    public ParticleSystem BulletParticle { get => BulletParticle1; }
-    public int ProjectilePerShot { get => projectilePerShot; }
-    public float TimeToRecenter { get => timeToRecenter; }
-    public Transform SightLocation { get => sightLocation; }
-    public ParticleSystem BulletParticle1 { get => bulletParticle; }
-    public VisualEffect MuzzleEffect { get => muzzleEffect; }
-    public GameObject ImpactEffect { get => impactEffect; }
-    public Animator GetAnimator { get => animator; }
-    public Sound Sound_Fire { get => sound_Fire; }
-    public Sound Sound_StartReload { get => sound_StartReload; }
-    public Sound Sound_EndReload { get => sound_EndReload; }
-    public int AmountPerReload { get => amountPerReload; }
-    public bool IsFullReload { get => isFullReload; }
-    public GunComponent_Sight Component_Sight { get => component_Sight; }
-    public FireTypes FireType { get => fireType; set => fireType = value; }
-    public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
-    public AnimationCurve RangeCurve { get => rangeCurve; }
-    public ElementTypes ElementType { get => elementType; }
-    public Vector3 SightOffset { get => sightOffset; set => sightOffset = value; }
-    public Rarity Rarity { get => rarity; set => rarity = value; }
-    public float ShootAnimationLerp { get => shootAnimationLerp; set => shootAnimationLerp = value; }
-    public GunHandController GunHandController { get => gunHandController; set => gunHandController = value; }
+    public float TimeBetweenProjectile
+    {
+        get => timeBetweenProjectile;
+    }
+
+    public bool IsFullAuto
+    {
+        get => isFullAuto;
+        set => isFullAuto = value;
+    }
+
+    public AnimationCurve RecoilPattern_X
+    {
+        get => recoilPattern_X;
+    }
+
+    public AnimationCurve RecoilPattern_Y
+    {
+        get => recoilPattern_Y;
+    }
+
+    public ParticleSystem BulletParticle
+    {
+        get => BulletParticle1;
+    }
+
+    public int ProjectilePerShot
+    {
+        get => projectilePerShot;
+    }
+
+    public float TimeToRecenter
+    {
+        get => timeToRecenter;
+    }
+
+    public Transform SightLocation
+    {
+        get => sightLocation;
+    }
+
+    public ParticleSystem BulletParticle1
+    {
+        get => bulletParticle;
+    }
+
+    public VisualEffect MuzzleEffect
+    {
+        get => muzzleEffect;
+    }
+
+    public GameObject ImpactEffect
+    {
+        get => impactEffect;
+    }
+
+    public Animator GetAnimator
+    {
+        get => animator;
+    }
+
+    public Sound Sound_Fire
+    {
+        get => sound_Fire;
+    }
+
+    public Sound Sound_StartReload
+    {
+        get => sound_StartReload;
+    }
+
+    public Sound Sound_EndReload
+    {
+        get => sound_EndReload;
+    }
+
+    public int AmountPerReload
+    {
+        get => amountPerReload;
+    }
+
+    public bool IsFullReload
+    {
+        get => isFullReload;
+    }
+
+    public GunComponent_Sight Component_Sight
+    {
+        get => component_Sight;
+    }
+
+    public FireTypes FireType
+    {
+        get => fireType;
+        set => fireType = value;
+    }
+
+    public GameObject ProjectileGO
+    {
+        get => projectileGO;
+        set => projectileGO = value;
+    }
+
+    public AnimationCurve RangeCurve
+    {
+        get => rangeCurve;
+    }
+
+    public ElementTypes ElementType
+    {
+        get => elementType;
+    }
+
+    public Vector3 SightOffset
+    {
+        get => sightOffset;
+        set => sightOffset = value;
+    }
+
+    public Rarity Rarity
+    {
+        get => rarity;
+        set => rarity = value;
+    }
+
+    public float ShootAnimationLerp
+    {
+        get => shootAnimationLerp;
+        set => shootAnimationLerp = value;
+    }
+
+    public GunHandController GunHandController
+    {
+        get => gunHandController;
+        set => gunHandController = value;
+    }
 
     private void Awake()
     {
@@ -90,9 +267,15 @@ public class GunComponent_Body : GunComponent
         {
             SetSight(component_Sight);
         }
+
         if (!gunHandController)
         {
             gunHandController = GetComponentInChildren<GunHandController>();
+        }
+
+        if (!bulletTrailControllerScript)
+        {
+            bulletTrailControllerScript = GetComponentInChildren<BulletTrailControllerScript>();
         }
     }
 
@@ -101,7 +284,8 @@ public class GunComponent_Body : GunComponent
         component_Sight = s;
         sightLocation = s.SightLocation;
         sightOffset = sightLocation.position - transform.position;
-        component_Sight.SetSightMaterial(isFullAuto || (GetGunTypes().Contains(GunTypes.RIFLE) && projectilePerShot != 1));
+        component_Sight.SetSightMaterial(isFullAuto ||
+                                         (GetGunTypes().Contains(GunTypes.RIFLE) && projectilePerShot != 1));
     }
 
     public void SetMuzzle(Transform m)
@@ -120,9 +304,9 @@ public class GunComponent_Body : GunComponent
                 print($"{gunHandController}");
                 gunHandController.SetNewRestPoint_Left(b.Hpp_Left);
             }
+
             if (b.Hpp_Right)
             {
-
             }
         }
     }
@@ -135,6 +319,30 @@ public class GunComponent_Body : GunComponent
         }
     }
 
+    public void SetEffectsElement(float timeBetweenShots)
+    {
+        muzzleEffect.SetInt("ElementEnum", (int) elementType);
+        if (bulletTrailControllerScript)
+        {
+            bulletTrailControllerScript.InitialiseTrails((int) elementType, timeBetweenShots);
+        }
+    }
+
+    public void SetBulletTrail()
+    {
+        if (bulletTrailControllerScript)
+        {
+            if (raycastHit.point.magnitude!=0)
+            {
+                bulletTrailControllerScript.PlayTrail(raycastHit);
+            }
+            else
+            {
+                bulletTrailControllerScript.PlayTrail(fireDir);
+            }
+        }
+    }
+
     public void PlayGunShootEffect(int notEjectCase = 0)
     {
         try
@@ -142,7 +350,6 @@ public class GunComponent_Body : GunComponent
             //Debug.Log(name + " play muzzle");
 
             bulletParticle.Play();
-            muzzleEffect.SetInt("ElementEnum", (int)elementType);
             muzzleEffect.Play();
 
             if (GTypes[0] != GunTypes.SHOTGUN)
@@ -152,6 +359,8 @@ public class GunComponent_Body : GunComponent
                     bulletCaseParticle.Play();
                 }
             }
+
+            SetBulletTrail();
         }
         catch (System.NullReferenceException e)
         {
@@ -176,7 +385,6 @@ public class GunComponent_Body : GunComponent
         if (!isSetElement)
         {
             elementType = e;
-
         }
     }
 
@@ -184,9 +392,9 @@ public class GunComponent_Body : GunComponent
     {
         gunHandController.AddPoint_Left(i);
     }
+
     public void RemovePointLeft(int i)
     {
         gunHandController.RemovePoint_Left(i);
     }
-
 }

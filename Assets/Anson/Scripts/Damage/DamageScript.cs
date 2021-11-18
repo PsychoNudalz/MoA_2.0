@@ -47,21 +47,21 @@ public class DamageScript : MonoBehaviour
         switch (elementType)
         {
             case (ElementTypes.PHYSICAL):
-                dealCriticalDamageToTarget(ls, elementDamage*DamageMultiplier.Get(elementType), 1, elementType, 1);
+                dealCriticalDamageToTarget(ls, elementDamage*UniversalValues.GetDamageMultiplier(elementType), 1, elementType, 1);
                 break;
             case (ElementTypes.FIRE):
                 FireEffectScript newFireDebuff = new FireEffectScript();
-                newFireDebuff.init(elementDamage * DamageMultiplier.Get(elementType), elementPotency, tagList, layerMask);
+                newFireDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency, tagList, layerMask);
                 ls.ApplyDebuff(newFireDebuff);
                 break;
             case (ElementTypes.ICE):
                 IceEffectScript newIceDebuff = new IceEffectScript();
-                newIceDebuff.init(elementDamage * DamageMultiplier.Get(elementType), elementPotency, tagList, layerMask);
+                newIceDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency, tagList, layerMask);
                 ls.ApplyDebuff(newIceDebuff);
                 break;
             case (ElementTypes.SHOCK):
                 ShockEffectScript newShockDebuff = new ShockEffectScript();
-                newShockDebuff.init(elementDamage * DamageMultiplier.Get(elementType), elementPotency, tagList, layerMask);
+                newShockDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency, tagList, layerMask);
                 ls.ApplyDebuff(newShockDebuff);
                 break;
         }
