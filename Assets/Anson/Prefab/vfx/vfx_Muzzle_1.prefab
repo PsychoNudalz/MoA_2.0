@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 84829243655451332}
   - component: {fileID: 5749826735744843529}
   - component: {fileID: 634545865914422147}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: vfx_Muzzle_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14.12, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3341712500664724484}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45,6 +46,7 @@ VisualEffect:
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
+  m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
       m_Array: []
@@ -83,9 +85,11 @@ VFXRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -108,3 +112,78 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1001 &3974596430277061679
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 84829243655451332}
+    m_Modifications:
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926920347367471667, guid: c980be34452426d4e94e783b8a477053,
+        type: 3}
+      propertyPath: m_Name
+      value: BulletTrails
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c980be34452426d4e94e783b8a477053, type: 3}
+--- !u!4 &3341712500664724484 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1821916834717843499, guid: c980be34452426d4e94e783b8a477053,
+    type: 3}
+  m_PrefabInstance: {fileID: 3974596430277061679}
+  m_PrefabAsset: {fileID: 0}

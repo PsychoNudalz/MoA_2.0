@@ -558,12 +558,16 @@ public class GunDamageScript : DamageScript
 
         currentRecoilTime += 0.1f;
         addRecoil = new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
+        if (!isADS)
+        {
+            addRecoil *= UniversalValues.HipFireRecoilMultiplier;
+        }
         currentRecoil += addRecoil;
 
 
         if (gunType.Equals(GunTypes.SHOTGUN))
         {
-            currentRecoil += new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y) * projectilePerShot / 5f;
+            currentRecoil += addRecoil * projectilePerShot / UniversalValues.ShotgunPelletRecoilMultiplier;
 
         }
         //print(currentRecoilTime + ", " + new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y));

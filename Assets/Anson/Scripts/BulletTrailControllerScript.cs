@@ -38,13 +38,20 @@ public class BulletTrailControllerScript : MonoBehaviour
         bulletTrails.Add(baseTrail);
         for (int j = 0; j < numberOfTrails; j++)
         {
-            bulletTrails.Add(Instantiate(baseTrail,transform).GetComponent<LineRenderer>());
+            CreateNewTrail();
         }
 
         foreach (LineRenderer lineRenderer in bulletTrails)
         {
             lineRenderer.gameObject.SetActive(false);
         }
+    }
+
+    private LineRenderer CreateNewTrail()
+    {
+        LineRenderer newLine = Instantiate(baseTrail, transform).GetComponent<LineRenderer>();
+        bulletTrails.Add(newLine);
+        return newLine;
     }
 
     public void PlayTrail(RaycastHit raycastHit)
@@ -66,6 +73,10 @@ public class BulletTrailControllerScript : MonoBehaviour
     {
         LineRenderer current = bulletTrails[trailPointer % bulletTrails.Count];
         trailPointer = (trailPointer + 1) % bulletTrails.Count;
+        if (current.gameObject.activeSelf)
+        {
+            current = CreateNewTrail();
+        }
         current.gameObject.SetActive(true);
         current.material.SetFloat("_EndingTime",Time.time);
 

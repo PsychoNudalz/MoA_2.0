@@ -4,9 +4,21 @@ using UnityEngine;
 
 public static class UniversalValues
 {
-    
+    //Weapon Handling Globals
+    public static float HipFireRecoilMultiplier
+    {
+        get => 0.65f;
+    }
+    public static float ShotgunPelletRecoilMultiplier
+    {
+        get => 5f;
+    }
+
     //Damage Multipliers
-    public static float ElementDamageNerf { get => 0.85f; }
+    public static float ElementDamageNerf
+    {
+        get => 0.85f;
+    }
 
     public static float GetDamageMultiplier(GunTypes gt)
     {
@@ -35,6 +47,7 @@ public static class UniversalValues
             default:
                 break;
         }
+
         return temp;
     }
 
@@ -56,9 +69,7 @@ public static class UniversalValues
             default:
                 break;
         }
+
         return temp;
     }
-    
-    
-
 }
