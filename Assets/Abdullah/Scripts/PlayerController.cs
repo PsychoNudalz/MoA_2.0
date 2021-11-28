@@ -1,30 +1,45 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
     [Header("Mouse Sens")]
-    [SerializeField] public float sensitivityX;
-    [SerializeField] public float sensitivityY;
+    [SerializeField]
+    public float sensitivityX;
 
-    [SerializeField] public float minY = -60f;
-    [SerializeField] public float maxY = 60f;
+    [SerializeField]
+    public float sensitivityY;
+
+    [SerializeField]
+    public float minY = -60f;
+
+    [SerializeField]
+    public float maxY = 60f;
 
     float lookX;
     float lookY;
 
     [Space]
     [Header("Jump stuff")]
+    [SerializeField]
+    public float gravity = -9.81f;
 
-    [SerializeField] public float gravity = -9.81f;
-    [SerializeField] float jumpStrength = 8f;
-    [SerializeField] float jumpVelocity;
-    [SerializeField] LayerMask jumpLayerMask;
-    [SerializeField] float doubleJumpStrength;
-    [SerializeField] float coyoteJumpTime;
+    [SerializeField]
+    float jumpStrength = 8f;
+
+    [SerializeField]
+    float jumpVelocity;
+
+    [SerializeField]
+    LayerMask jumpLayerMask;
+
+    [SerializeField]
+    float doubleJumpStrength;
+
+    [SerializeField]
+    float coyoteJumpTime;
+
     private float groundCheckRadius = 0.3f;
     bool canDoubleJumped;
     bool coyoteJump;
@@ -32,50 +47,116 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Movement")]
-    [SerializeField] float moveSpeed_Default;
+    [SerializeField]
+    float moveSpeed_Default;
+
+    [SerializeField]
+    private float moveAcceleration = .3f;
+
     float moveSpeed;
+    private float moveVelocity = 0f;
     Vector3 moveDirection;
     float lastGroundedTime;
     Transform cam;
     Transform player;
 
     [Space]
-
     [Header("Dash")]
-    [SerializeField] float dashDuration = 0.4f;
-    [SerializeField] float dashSpeed = 5f;
+    [SerializeField]
+    float dashDuration = 0.4f;
+
+    [SerializeField]
+    float dashSpeed = 5f;
 
     float dashStart = 0f;
-    [SerializeField] float dashCooldown;
-    [SerializeField] int dashCharges_Max;
+
+    [SerializeField]
+    float dashCooldown;
+
+    [SerializeField]
+    int dashCharges_Max;
+
     int dashCharges;
 
     [Space]
     [Header("Control Lock")]
-    [SerializeField] bool disableControl = false;
+    [SerializeField]
+    bool disableControl = false;
 
 
     [Space]
     [Header("Other Components")]
-    [SerializeField] Look lookScript;
-    [SerializeField] PlayerGunDamageScript gunDamageScript;
-    [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
-    [SerializeField] PlayerInterationScript playerInterationScript;
-    [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
-    [SerializeField] AnsonTempUIScript ansonTempUIScript;
-    [SerializeField] PlayerSoundScript playerSoundScript;
+    [SerializeField]
+    Look lookScript;
+
+    [SerializeField]
+    PlayerGunDamageScript gunDamageScript;
+
+    [SerializeField]
+    PlayerInventorySystemScript playerInventorySystemScript;
+
+    [SerializeField]
+    PlayerInterationScript playerInterationScript;
+
+    [SerializeField]
+    PlayerVolumeControllerScript playerVolumeControllerScript;
+
+    [SerializeField]
+    AnsonTempUIScript ansonTempUIScript;
+
+    [SerializeField]
+    PlayerSoundScript playerSoundScript;
+
     CharacterController characterController;
-    [SerializeField] private Animator animator;
 
-    public PlayerGunDamageScript GunDamageScript { get => gunDamageScript; set => gunDamageScript = value; }
-    public PlayerInventorySystemScript PlayerInventorySystemScript { get => playerInventorySystemScript; set => playerInventorySystemScript = value; }
-    public PlayerInterationScript PlayerInterationScript { get => playerInterationScript; set => playerInterationScript = value; }
-    public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
-    public bool DisableControl { get => disableControl; set => disableControl = value; }
-    public int DashCharges { get => dashCharges; }
-    public PlayerVolumeControllerScript PlayerVolumeControllerScript { set => playerVolumeControllerScript = value; }
-    public PlayerSoundScript PlayerSoundScript { get => playerSoundScript; set => playerSoundScript = value; }
+    [SerializeField]
+    private Animator animator;
 
+    public PlayerGunDamageScript GunDamageScript
+    {
+        get => gunDamageScript;
+        set => gunDamageScript = value;
+    }
+
+    public PlayerInventorySystemScript PlayerInventorySystemScript
+    {
+        get => playerInventorySystemScript;
+        set => playerInventorySystemScript = value;
+    }
+
+    public PlayerInterationScript PlayerInterationScript
+    {
+        get => playerInterationScript;
+        set => playerInterationScript = value;
+    }
+
+    public AnsonTempUIScript AnsonTempUIScript
+    {
+        get => ansonTempUIScript;
+        set => ansonTempUIScript = value;
+    }
+
+    public bool DisableControl
+    {
+        get => disableControl;
+        set => disableControl = value;
+    }
+
+    public int DashCharges
+    {
+        get => dashCharges;
+    }
+
+    public PlayerVolumeControllerScript PlayerVolumeControllerScript
+    {
+        set => playerVolumeControllerScript = value;
+    }
+
+    public PlayerSoundScript PlayerSoundScript
+    {
+        get => playerSoundScript;
+        set => playerSoundScript = value;
+    }
 
 
     // Start is called before the first frame update
@@ -96,20 +177,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if (!disableControl)
         {
-
             Move();
             if (lookScript == null)
             {
                 Look();
                 //CameraTilt();
-
             }
-            UpdateJumpAndGravity();
 
+            UpdateJumpAndGravity();
         }
 
         if (dashCharges < dashCharges_Max && Time.time > dashStart + dashCooldown)
@@ -121,7 +198,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
     void Look()
     {
         lookY = Mathf.Clamp(lookY, minY, maxY);
@@ -131,8 +207,18 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        if (moveDirection.magnitude <= 0.1f)
+        {
+            moveVelocity = Mathf.Max(moveAcceleration * Time.deltaTime,0f);
+            
+        }
+        else
+        {
+            moveVelocity = Mathf.Min(moveSpeed, moveVelocity + moveAcceleration * Time.deltaTime);
+        }
 
-        characterController.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection * moveSpeed * Time.deltaTime);
+        characterController.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection *
+                                 moveVelocity * Time.deltaTime);
         animator.SetFloat("Speed", moveDirection.magnitude);
     }
 
@@ -141,8 +227,8 @@ public class PlayerController : MonoBehaviour
         characterController.enabled = false;
         transform.position = pos;
         characterController.enabled = true;
-
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -163,6 +249,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
     }
 
@@ -172,16 +259,19 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         //lookX += context.ReadValue<Vector2>().x * sensitivityX * Time.deltaTime;
         //lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
         lookScript.LookMouse(context);
     }
+
     public void OnLook_Controller(InputAction.CallbackContext context)
     {
         if (disableControl)
         {
             return;
         }
+
         //lookX += context.ReadValue<Vector2>().x * sensitivityX * Time.deltaTime;
         //lookY -= context.ReadValue<Vector2>().y * sensitivityY * Time.deltaTime;
         lookScript.LookController(context);
@@ -189,12 +279,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-
-
         if (disableControl)
         {
             return;
         }
+
         if (context.performed)
         {
             if (isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
@@ -204,7 +293,6 @@ public class PlayerController : MonoBehaviour
                 //jumped = new Vector3(0f, jumpStrength, 0f);
                 jumpVelocity = jumpStrength;
                 playerSoundScript.Play_Jump();
-
             }
             else
             {
@@ -216,10 +304,8 @@ public class PlayerController : MonoBehaviour
                     canDoubleJumped = false;
                     playerSoundScript.Play_Jump();
                     animator.SetTrigger("Jump");
-
                 }
             }
-
         }
     }
 
@@ -246,7 +332,6 @@ public class PlayerController : MonoBehaviour
                 ansonTempUIScript.UpdateDashDisplay(dashCharges);
             }
         }
-
     }
 
     public void Shoot(InputAction.CallbackContext callbackContext)
@@ -255,6 +340,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         if (callbackContext.performed)
         {
             gunDamageScript.PressFire(true);
@@ -272,6 +358,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         if (callbackContext.performed)
         {
             gunDamageScript.PressADS(true);
@@ -279,37 +366,42 @@ public class PlayerController : MonoBehaviour
         else if (callbackContext.canceled)
         {
             gunDamageScript.PressADS(false);
-
         }
     }
+
     public void SwapToWeapon1(InputAction.CallbackContext callbackContext)
     {
         if (disableControl)
         {
             return;
         }
+
         if (callbackContext.performed)
         {
             playerInventorySystemScript.SwapToWeapon(0);
         }
     }
+
     public void SwapToWeapon2(InputAction.CallbackContext callbackContext)
     {
         if (disableControl)
         {
             return;
         }
+
         if (callbackContext.performed)
         {
             playerInventorySystemScript.SwapToWeapon(1);
         }
     }
+
     public void SwapToWeapon3(InputAction.CallbackContext callbackContext)
     {
         if (disableControl)
         {
             return;
         }
+
         if (callbackContext.performed)
         {
             playerInventorySystemScript.SwapToWeapon(2);
@@ -322,6 +414,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         if (callbackContext.performed)
         {
             playerInventorySystemScript.CycleWeapon(true);
@@ -334,11 +427,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         if (callbackContext.performed)
         {
             playerInventorySystemScript.CycleWeapon(false);
         }
     }
+
     public void Reload()
     {
         gunDamageScript.Reload();
@@ -353,9 +448,10 @@ public class PlayerController : MonoBehaviour
             {
                 return;
             }
+
             if (interactable is WeaponPickUpInteractableScript)
             {
-                playerInventorySystemScript.PickUpNewGun(((WeaponPickUpInteractableScript)interactable).ConnectedGun);
+                playerInventorySystemScript.PickUpNewGun(((WeaponPickUpInteractableScript) interactable).ConnectedGun);
                 playerInterationScript.ClearInteractable();
             }
             else
@@ -387,11 +483,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashDuration);
         moveSpeed = moveSpeed_Default;
     }
+
     private void OnEnable()
     {
         moveSpeed = moveSpeed_Default;
-
     }
+
     /// <summary>
     /// to change mouse sensitivity
     /// </summary>
@@ -404,6 +501,7 @@ public class PlayerController : MonoBehaviour
         {
             lookScript.SetRotationSpeed(amount);
         }
+
         print("Player Update sensitivity to:" + amount);
     }
 
@@ -414,7 +512,6 @@ public class PlayerController : MonoBehaviour
             lookScript.SetADSMultiplier(amount);
         }
     }
-
 
 
     public void UpdateJumpAndGravity()
@@ -433,6 +530,7 @@ public class PlayerController : MonoBehaviour
             {
                 jumpVelocity = groundCheckRadius * gravity / 2f;
             }
+
             coyoteJump = true;
             canDoubleJumped = true;
             lastGroundedTime = Time.time;
@@ -442,16 +540,18 @@ public class PlayerController : MonoBehaviour
     public void GroundCheck()
     {
         Vector3 offsetHeight = new Vector3(0, characterController.center.y - (characterController.height / 2f), 0);
-        isGrounded = Physics.CheckSphere(characterController.transform.position + offsetHeight, groundCheckRadius, jumpLayerMask, QueryTriggerInteraction.Ignore);
+        isGrounded = Physics.CheckSphere(characterController.transform.position + offsetHeight, groundCheckRadius,
+            jumpLayerMask, QueryTriggerInteraction.Ignore);
     }
+
     public void HeadCheck()
     {
         Vector3 offsetHeight = new Vector3(0, characterController.center.y + (characterController.height / 2f), 0);
-        bool hitHead = Physics.CheckSphere(characterController.transform.position + offsetHeight, groundCheckRadius, jumpLayerMask, QueryTriggerInteraction.Ignore);
+        bool hitHead = Physics.CheckSphere(characterController.transform.position + offsetHeight, groundCheckRadius,
+            jumpLayerMask, QueryTriggerInteraction.Ignore);
         if (hitHead)
         {
             jumpVelocity = Mathf.Min(jumpVelocity, 0f);
         }
     }
-
 }
