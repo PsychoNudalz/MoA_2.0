@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -53,8 +55,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float moveAcceleration = .3f;
 
-    float moveSpeed;
-    private float moveVelocity = 0f;
+    //float moveSpeed_Cap;
+    private float moveSpeed_Current = 0f;
+    private float moveSpeed_Target = 0f;
+
     Vector3 moveDirection;
     float lastGroundedTime;
     Transform cam;
@@ -65,8 +69,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float dashDuration = 0.4f;
 
+    [FormerlySerializedAs("dashSpeed")]
     [SerializeField]
-    float dashSpeed = 5f;
+    float dashMultiplier = 5f;
 
     float dashStart = 0f;
 
@@ -79,6 +84,42 @@ public class PlayerController : MonoBehaviour
     int dashCharges;
 
     [Space]
+    private float height_Original;
+
+    private float radius_Original;
+
+    private float height_Target;
+
+    [Header("Crouch")]
+    [SerializeField]
+    private float heightChangeSpeed = 1f;
+
+    [SerializeField]
+    private float crouchHeightMultiplier = 0.5f;
+
+    [SerializeField]
+    private float crouchSpeedMultiplier = .65f;
+
+    [Header("Slide")]
+    [SerializeField]
+    private float slideHeightMultiplier = 0.5f;
+
+    [SerializeField]
+    private float slideSpeedMultiplier = 2f;
+
+    [SerializeField]
+    private float slideDuration = 5f;
+
+    [SerializeField]
+    private AnimationCurve slideCurve;
+
+
+    private bool isCrouch = false;
+    private bool isSlide = false;
+    private float slideStartTime = 0;
+
+
+    [Space(10)]
     [Header("Control Lock")]
     [SerializeField]
     bool disableControl = false;
@@ -167,11 +208,15 @@ public class PlayerController : MonoBehaviour
         player = transform;
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().transform;
         canDoubleJumped = false;
-        moveSpeed = moveSpeed_Default;
+        //moveSpeed_Cap = moveSpeed_Default;
         if (!animator)
         {
             animator = GetComponent<Animator>();
         }
+
+        height_Original = characterController.height;
+        height_Target = height_Original;
+        radius_Original = characterController.radius;
     }
 
     // Update is called once per frame
@@ -179,6 +224,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!disableControl)
         {
+            UpdateVelocity();
             Move();
             if (lookScript == null)
             {
@@ -189,12 +235,24 @@ public class PlayerController : MonoBehaviour
             UpdateJumpAndGravity();
         }
 
+
+        UpdatePlayerHeight();
+
+
+        //Dash Recharge
         if (dashCharges < dashCharges_Max && Time.time > dashStart + dashCooldown)
         {
             dashCharges++;
             dashStart = Time.time;
             ansonTempUIScript.UpdateDashDisplay(dashCharges);
         }
+    }
+
+    private void LateUpdate()
+    {
+        UpdatePlayerHeight();
+
+        //check for stopping slide
     }
 
 
@@ -207,19 +265,68 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        if (moveDirection.magnitude <= 0.1f)
+        animator.SetFloat("Speed", moveDirection.magnitude);
+        if (isSlide)
         {
-            moveVelocity = Mathf.Max(moveAcceleration * Time.deltaTime,0f);
-            
+            characterController.Move(transform.forward * moveSpeed_Current * Time.deltaTime);
         }
         else
         {
-            moveVelocity = Mathf.Min(moveSpeed, moveVelocity + moveAcceleration * Time.deltaTime);
+            characterController.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection *
+                                     moveSpeed_Current * Time.deltaTime);
+        }
+    }
+
+    void UpdateVelocity()
+    {
+        if (isSlide)
+        {
+            if (moveSpeed_Current <= slideCurve.Evaluate(.999f))
+            {
+                OnSlide_End();
+                Crouch();
+            }
+
+            //moveSpeed_Current = Mathf.Max(moveSpeed_Current - slideDecel * Time.deltaTime, 0f);
+
+            moveSpeed_Current =
+                slideCurve.Evaluate((Time.time - slideStartTime) / slideDuration) * slideSpeedMultiplier *
+                moveSpeed_Default;
         }
 
-        characterController.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection *
-                                 moveVelocity * Time.deltaTime);
-        animator.SetFloat("Speed", moveDirection.magnitude);
+        else
+        {
+            if (moveSpeed_Current > moveSpeed_Target)
+            {
+                moveSpeed_Current = Mathf.Max(moveSpeed_Current - moveAcceleration * Time.deltaTime, moveSpeed_Target);
+            }
+            else if (moveSpeed_Current < moveSpeed_Target)
+            {
+                moveSpeed_Current = Mathf.Min(moveSpeed_Current + moveAcceleration * Time.deltaTime, moveSpeed_Target);
+            }
+
+            // if (moveDirection.magnitude <= 0.1f)
+            // {
+            //     moveVelocity_Current = Mathf.Max(moveVelocity_Current - moveAcceleration * Time.deltaTime, 0f);
+            // }else
+            // {
+            //     if (isCrouch)
+            //     {
+            //         moveVelocity_Current = Mathf.Min(moveSpeed_Cap * crouchSpeedMultiplier,
+            //             moveVelocity_Current + moveAcceleration * Time.deltaTime);
+            //         
+            //     }
+            //     else
+            //     {
+            //         moveVelocity_Current = Mathf.Min(moveSpeed_Cap, moveVelocity_Current + moveAcceleration * Time.deltaTime);
+            //     }
+            // }
+        }
+    }
+
+    public void SetMoveSpeed_Target(float f)
+    {
+        moveSpeed_Target = f;
     }
 
     public void Teleport(Vector3 pos)
@@ -251,6 +358,34 @@ public class PlayerController : MonoBehaviour
         }
 
         moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
+
+        float newMoveSpeed = 0f;
+        if (moveDirection.magnitude > 0.1f)
+        {
+            if (isCrouch)
+            {
+                newMoveSpeed = crouchSpeedMultiplier * moveSpeed_Default;
+            }
+            else if (isSlide)
+            {
+            }
+            else
+            {
+                newMoveSpeed = moveSpeed_Default;
+            }
+        }
+        else
+        {
+            if (!isSlide)
+            {
+                newMoveSpeed = 0f;
+            }
+        }
+
+        if (Math.Abs(newMoveSpeed - moveSpeed_Target) > 0.001f)
+        {
+            SetMoveSpeed_Target(newMoveSpeed);
+        }
     }
 
     public void OnLook_Mouse(InputAction.CallbackContext context)
@@ -286,6 +421,11 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed)
         {
+            if (isCrouch)
+            {
+                UnCrouch();
+            }
+
             if (isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
             {
                 coyoteJump = false;
@@ -318,6 +458,11 @@ public class PlayerController : MonoBehaviour
 
         if (context.performed)
         {
+            if (isCrouch)
+            {
+                UnCrouch();
+            }
+
             if (dashCharges > 0 && moveDirection.magnitude > 0)
             {
                 /*
@@ -332,6 +477,69 @@ public class PlayerController : MonoBehaviour
                 ansonTempUIScript.UpdateDashDisplay(dashCharges);
             }
         }
+    }
+
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (!isCrouch && isGrounded)
+            {
+                Crouch();
+            }
+            else
+            {
+                UnCrouch();
+            }
+        }
+        else if (context.canceled)
+        {
+            if (isSlide)
+            {
+                OnSlide_End();
+            }
+        }
+    }
+
+    private void UnCrouch()
+    {
+        // print("UnCrouch");
+        height_Target = height_Original;
+        isCrouch = false;
+        SetMoveSpeed_Target(moveSpeed_Default);
+    }
+
+    private void Crouch()
+    {
+        // print("Crouch");
+        height_Target = height_Original * crouchHeightMultiplier;
+        isCrouch = true;
+        SetMoveSpeed_Target(moveSpeed_Default * crouchSpeedMultiplier);
+    }
+
+    public void OnSlide(InputAction.CallbackContext context)
+    {
+        if (isGrounded&& context.performed && moveDirection.z > 0.1f && moveSpeed_Current > moveSpeed_Default * .5f)
+        {
+            // print("Slide pressed");
+            OnSlide();
+        }
+    }
+
+    public void OnSlide()
+    {
+        height_Target = height_Original * slideHeightMultiplier;
+        // moveSpeed_Current = moveSpeed_Default * slideSpeedMultiplier;
+        SetMoveSpeed_Target(moveSpeed_Default * slideSpeedMultiplier);
+        //moveSpeed_Current = moveSpeed_Default * slideSpeedMultiplier;
+        isSlide = true;
+        slideStartTime = Time.time;
+    }
+
+    public void OnSlide_End()
+    {
+        UnCrouch();
+        isSlide = false;
     }
 
     public void Shoot(InputAction.CallbackContext callbackContext)
@@ -479,14 +687,16 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DashCoroutine()
     {
-        moveSpeed = moveSpeed * dashSpeed;
+        moveSpeed_Target = moveSpeed_Default * dashMultiplier;
+        moveSpeed_Current = moveSpeed_Target;
         yield return new WaitForSeconds(dashDuration);
-        moveSpeed = moveSpeed_Default;
+        moveSpeed_Target = moveSpeed_Default;
+        moveSpeed_Current = moveSpeed_Target;
     }
 
     private void OnEnable()
     {
-        moveSpeed = moveSpeed_Default;
+        // moveSpeed_Cap = moveSpeed_Default;
     }
 
     /// <summary>
@@ -514,7 +724,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void UpdateJumpAndGravity()
+    void UpdateJumpAndGravity()
     {
         GroundCheck();
         HeadCheck();
@@ -537,14 +747,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void GroundCheck()
+    void GroundCheck()
     {
         Vector3 offsetHeight = new Vector3(0, characterController.center.y - (characterController.height / 2f), 0);
         isGrounded = Physics.CheckSphere(characterController.transform.position + offsetHeight, groundCheckRadius,
             jumpLayerMask, QueryTriggerInteraction.Ignore);
     }
 
-    public void HeadCheck()
+    void HeadCheck()
     {
         Vector3 offsetHeight = new Vector3(0, characterController.center.y + (characterController.height / 2f), 0);
         bool hitHead = Physics.CheckSphere(characterController.transform.position + offsetHeight, groundCheckRadius,
@@ -552,6 +762,38 @@ public class PlayerController : MonoBehaviour
         if (hitHead)
         {
             jumpVelocity = Mathf.Min(jumpVelocity, 0f);
+        }
+    }
+
+    void UpdatePlayerHeight()
+    {
+        var height = characterController.height;
+        if (Math.Abs(height - height_Target) > .01f)
+        {
+            // characterController.height =
+            //     Mathf.Lerp(characterController.height, height_Target, heightChangeSpeed * Time.deltaTime);
+            //
+            if (height_Target > characterController.height)
+            {
+                height += Time.deltaTime * heightChangeSpeed;
+                height = Mathf.Min(height, height_Target);
+            }
+            else if (height_Target < characterController.height)
+            {
+                height -= Time.deltaTime * heightChangeSpeed;
+                height = Mathf.Max(height, height_Target);
+            }
+
+            characterController.height = height;
+        }
+
+        if (height / 2f < radius_Original)
+        {
+            characterController.radius = height / 2f;
+        }
+        else if (Math.Abs(characterController.radius - radius_Original) > 0.001f)
+        {
+            characterController.radius = radius_Original;
         }
     }
 }

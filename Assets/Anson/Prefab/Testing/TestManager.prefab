@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 122b211d3724b4d438aa2e1af63f7d66,
+  m_Actions: {fileID: -944628639613478452, guid: 0b76dd4272069014583e21c7be36848e,
     type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
@@ -59,106 +59,69 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3217332936278367902}
-        m_MethodName: GenerateGun_Single
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 0eed7761-68af-4c2b-a6a5-37e59f867d7a
-    m_ActionName: TestInput/GenerateGun[/Keyboard/c]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3217332936278367902}
-        m_MethodName: Shoot
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 8d127cf0-d445-48e0-bcde-f17b359bf949
-    m_ActionName: TestInput/Shoot[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3217332936278367902}
-        m_MethodName: Aim
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: bae29351-4363-457f-af24-6c17d0a9f7bf
-    m_ActionName: TestInput/Aim[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3217332936278367902}
-        m_MethodName: Reload
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: aa2864fd-1af2-4900-95f1-0fe7ee720b97
-    m_ActionName: TestInput/Reload[/Keyboard/r]
+      m_Calls: []
+    m_ActionId: b8228302-1c86-4e08-af05-88241b1a8e9c
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: fa36c57e-91a0-4ca4-b8cb-d141d42dc4ad
-    m_ActionName: TestInput/Look[/Mouse/delta]
+    m_ActionId: 5c517d44-8d6f-45b3-957f-cd56c7320f5a
+    m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 1f7fe740-383f-4c87-8547-c8578dceabed
-    m_ActionName: TestInput/New action
+    m_ActionId: b7a6a53f-82ed-4471-a414-771b8e7b1c5b
+    m_ActionName: Player/LookMouse[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7e6106f2-3919-4f07-9927-fa20329b7bef
+    m_ActionName: Player/LookController
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 919c190c-3357-40cf-9ef0-b6d59b807e0d
+    m_ActionName: Player/Dash[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 63245073-fff7-438c-ab10-8b9c87ee2cb4
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ec79c769-5491-487a-a3c5-e675bf7da58d
+    m_ActionName: Player/Crouch[/Keyboard/c,/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 75f03887-38b3-493a-b7d0-2c5d314f0299
+    m_ActionName: Player/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4e404d22-2e26-4e55-be7d-10f27e2f20a8
+    m_ActionName: Player/Aim[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 535c80b3-6be2-4576-b092-5219091c8d8b
+    m_ActionName: Player/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b4e8cf07-bc53-407b-98b5-e84ee06e9275
+    m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eb5ad711-53d4-4bd9-b8e9-3690807e52a7
+    m_ActionName: Player/Gun1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79f66fee-a87c-41bf-b744-573456157e79
+    m_ActionName: Player/Gun2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 87814599-2987-4f65-b398-fc9e3cf42212
+    m_ActionName: Player/Gun3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4fa00674-e281-4224-b4a0-bd18f29d7f49
+    m_ActionName: Player/WeaponWheel[/Keyboard/tab]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3217332936278367902}
-        m_MethodName: RemoveAllGuns
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 86564bc4-b276-429c-afe8-a1ed7a4f2e4a
-    m_ActionName: TestInput/New action
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3217332936278367902}
-        m_MethodName: GenerateGun_Group
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3704bffb-ba50-4bc5-b92c-d2bac07cfe1e
-    m_ActionName: TestInput/GenerateGun2[/Keyboard/x]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3217332936278367902}
+        m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
         m_MethodName: GenerateGun_All
         m_Mode: 0
         m_Arguments:
@@ -169,12 +132,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: c4f8cbb2-b7a2-409e-9a17-b035bfc2c918
-    m_ActionName: TestInput/GenerateGun3[/Keyboard/z]
+    m_ActionId: f8d11d9b-a054-4998-b3d1-7c211656a5db
+    m_ActionName: Player/TestButton1[/Keyboard/t]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3217332936278367902}
-        m_MethodName: StartShootingRange1
+        m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+        m_MethodName: GenerateGun_Group
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -184,12 +148,29 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 16f96f6f-acc5-4277-b8c9-d3853cf8693b
-    m_ActionName: TestInput/TestButton1[/Keyboard/t]
+    m_ActionId: 57bc4b99-5690-4585-bedd-a50e14320292
+    m_ActionName: Player/TestButton2[/Keyboard/y]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3217332936278367902}
-        m_MethodName: StartShootingRange2
+        m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+        m_MethodName: RemoveAllGuns
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e797ec15-e36e-45b4-ba7a-78a36d7be230
+    m_ActionName: Player/DespawnAllGuns[/Keyboard/b]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3217332936278367902}
+        m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+        m_MethodName: GenerateGun_Single
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -199,11 +180,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 027a5351-f04b-4581-beef-50405774e5db
-    m_ActionName: TestInput/TestButton2[/Keyboard/y]
+    m_ActionId: 25cd3158-9f23-4c28-93e0-e5f1513384a5
+    m_ActionName: Player/GenerateGun[/Keyboard/v]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 742174c7-1712-4d9a-b84b-a2ca9d547955
+    m_ActionName: Player/Excape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16930ccd-7874-4b33-806d-ec03fe6e4181
+    m_ActionName: Player/NextWeapon[/Mouse/backButton,/Keyboard/q,/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16677ee0-e741-4115-8e53-a258e26b4a7e
+    m_ActionName: Player/PreviousWeapon[/Mouse/forwardButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85dfab59-9b46-4872-8c4c-7fcd37e0b213
+    m_ActionName: Player/MenuClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7b0caac0-7781-4f07-ac67-80ec200e4c3a
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: TestInput
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &3217332936278367902
@@ -223,4 +224,5 @@ MonoBehaviour:
   generatorScript3: {fileID: 0}
   shootingRangeScript1: {fileID: 0}
   shootingRangeScript2: {fileID: 0}
-  gunDamageScript: {fileID: 0}
+  playerInventorySystemScript: {fileID: 0}
+  autoGenWeaponsOnAwake: 0

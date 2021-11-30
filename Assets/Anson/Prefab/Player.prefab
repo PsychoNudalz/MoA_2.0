@@ -3207,6 +3207,42 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 85dfab59-9b46-4872-8c4c-7fcd37e0b213
     m_ActionName: Player/MenuClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnCrouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ec79c769-5491-487a-a3c5-e675bf7da58d
+    m_ActionName: Player/Crouch[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4112174735619620036}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSlide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 079af0f8-3e74-47f7-a2a2-8a9e314d2d6b
+    m_ActionName: Player/Slide[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7b0caac0-7781-4f07-ac67-80ec200e4c3a
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3257,9 +3293,48 @@ MonoBehaviour:
   moveSpeed_Default: 8
   moveAcceleration: 24
   dashDuration: 0.05
-  dashSpeed: 15
+  dashMultiplier: 15
   dashCooldown: 2
   dashCharges_Max: 2
+  heightChangeSpeed: 5
+  crouchHeightMultiplier: 0.6
+  crouchSpeedMultiplier: 0.35
+  slideHeightMultiplier: 0.35
+  slideSpeedMultiplier: 2
+  slideDuration: 2
+  slideCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   disableControl: 0
   lookScript: {fileID: 8146306236498932640}
   gunDamageScript: {fileID: 1232806125}
@@ -6805,7 +6880,7 @@ PrefabInstance:
     - target: {fileID: 7524102751084405416, guid: 0d31a05d5d81bb646873d9e0da25d936,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.849
+      value: 1.052
       objectReference: {fileID: 0}
     - target: {fileID: 7524102751084405416, guid: 0d31a05d5d81bb646873d9e0da25d936,
         type: 3}
