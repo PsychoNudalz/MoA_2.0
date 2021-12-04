@@ -153,6 +153,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private Transform playerHitBox;
+
     public PlayerGunDamageScript GunDamageScript
     {
         get => gunDamageScript;
@@ -215,7 +218,7 @@ public class PlayerController : MonoBehaviour
         }
 
         height_Original = characterController.height;
-        height_Target = height_Original;
+        SetPlayerHeight(1);
         radius_Original = characterController.radius;
     }
 
@@ -281,7 +284,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isSlide)
         {
-            if (moveSpeed_Current <= slideCurve.Evaluate(.999f))
+            float slideToCrouchSpeedMultiplier = 0.85f;
+            if (moveSpeed_Current <= moveSpeed_Default*crouchSpeedMultiplier*slideToCrouchSpeedMultiplier)
             {
                 OnSlide_End();
                 Crouch();
@@ -483,7 +487,14 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            if (!isCrouch && isGrounded)
+            
+        }
+        else if (context.canceled)
+        {
+            if (isSlide)
+            {
+                OnSlide_End();
+            }else if (!isCrouch && isGrounded)
             {
                 Crouch();
             }
@@ -492,19 +503,12 @@ public class PlayerController : MonoBehaviour
                 UnCrouch();
             }
         }
-        else if (context.canceled)
-        {
-            if (isSlide)
-            {
-                OnSlide_End();
-            }
-        }
     }
 
     private void UnCrouch()
     {
         // print("UnCrouch");
-        height_Target = height_Original;
+        SetPlayerHeight(1);
         isCrouch = false;
         SetMoveSpeed_Target(moveSpeed_Default);
     }
@@ -512,7 +516,7 @@ public class PlayerController : MonoBehaviour
     private void Crouch()
     {
         // print("Crouch");
-        height_Target = height_Original * crouchHeightMultiplier;
+        SetPlayerHeight(crouchHeightMultiplier);
         isCrouch = true;
         SetMoveSpeed_Target(moveSpeed_Default * crouchSpeedMultiplier);
     }
@@ -528,7 +532,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSlide()
     {
-        height_Target = height_Original * slideHeightMultiplier;
+        SetPlayerHeight(slideHeightMultiplier);
         // moveSpeed_Current = moveSpeed_Default * slideSpeedMultiplier;
         SetMoveSpeed_Target(moveSpeed_Default * slideSpeedMultiplier);
         //moveSpeed_Current = moveSpeed_Default * slideSpeedMultiplier;
@@ -763,6 +767,14 @@ public class PlayerController : MonoBehaviour
         {
             jumpVelocity = Mathf.Min(jumpVelocity, 0f);
         }
+    }
+
+    void SetPlayerHeight(float m)
+    {
+        height_Target = height_Original * m;
+        Vector3 localScale = playerHitBox.localScale;
+        localScale.y = m;
+        playerHitBox.localScale = localScale;
     }
 
     void UpdatePlayerHeight()

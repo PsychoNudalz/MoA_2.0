@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
 public class GunDamageScript : DamageScript
 {
@@ -547,8 +549,17 @@ public class GunDamageScript : DamageScript
         }
 
         //Set fire hitpoints and direction
-        mainGunStatsScript.GunComponent_Body.RaycastHit = raycastHit;
-        mainGunStatsScript.GunComponent_Body.FireDir = fireDir;
+        try
+        {
+            mainGunStatsScript.GunComponent_Body.RaycastHit = raycastHit;
+            mainGunStatsScript.GunComponent_Body.FireDir = fireDir;
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning(e);
+            //throw;
+        }
+        
         
         return newRecoilTime;
     }

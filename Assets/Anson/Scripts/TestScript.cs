@@ -114,11 +114,11 @@ public class TestScript : MonoBehaviour
 
     public void RemoveAllGuns()
     {
-        MainGunStatsScript[] AllGuns = FindObjectsOfType<MainGunStatsScript>();
-        foreach (MainGunStatsScript m in AllGuns)
-        {
-            Destroy(m.gameObject);
-        }
+        // MainGunStatsScript[] AllGuns = FindObjectsOfType<MainGunStatsScript>();
+        // foreach (MainGunStatsScript m in AllGuns)
+        // {
+        //     Destroy(m.gameObject);
+        // }
     }
 
     public void StartShootingRange1(InputAction.CallbackContext callbackContext)
