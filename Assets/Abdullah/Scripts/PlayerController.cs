@@ -113,6 +113,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private AnimationCurve slideCurve;
 
+    [SerializeField]
+    private Transform slideCastPoint;
+
+    [SerializeField]
+    private HandPositionPointer slideHandPointer;
+
 
     private bool isCrouch = false;
     private bool isSlide = false;
@@ -240,6 +246,11 @@ public class PlayerController : MonoBehaviour
 
 
         UpdatePlayerHeight();
+
+        if (isSlide)
+        {
+            UpdateSlideHandPosition();
+        }
 
 
         //Dash Recharge
@@ -538,12 +549,30 @@ public class PlayerController : MonoBehaviour
         //moveSpeed_Current = moveSpeed_Default * slideSpeedMultiplier;
         isSlide = true;
         slideStartTime = Time.time;
+        animator.SetBool("Slide",true);
+        HandController.left.AddPointer(slideHandPointer);
     }
 
     public void OnSlide_End()
     {
         UnCrouch();
         isSlide = false;
+        animator.SetBool("Slide",false);
+        HandController.left.RemovePointer(slideHandPointer);
+
+    }
+
+    void UpdateSlideHandPosition()
+    {
+        RaycastHit raycastHit;
+        if (Physics.Raycast(slideCastPoint.position, -transform.up, out raycastHit, height_Original,
+            jumpLayerMask))
+        {
+            slideHandPointer.transform.position = raycastHit.point;
+            //slideHandPointer.transform.forward = transform.forward;
+            //slideHandPointer.transform.right = -raycastHit.normal;
+        }
+        
     }
 
     public void Shoot(InputAction.CallbackContext callbackContext)

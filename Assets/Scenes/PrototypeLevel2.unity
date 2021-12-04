@@ -979,7 +979,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-20792
+  m_Name: pb_Mesh-955940
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2749,7 +2749,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-20808
+  m_Name: pb_Mesh-955956
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3095,7 +3095,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-15810
+  m_Name: pb_Mesh-951340
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5032,7 +5032,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-15820
+  m_Name: pb_Mesh-951356
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9265,7 +9265,7 @@ PrefabInstance:
     - target: {fileID: 4781399870388223806, guid: ad1cf5dea5b861746b7e8937673e0bbc,
         type: 3}
       propertyPath: field of view
-      value: 90
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 4781399870388223806, guid: ad1cf5dea5b861746b7e8937673e0bbc,
         type: 3}
@@ -9295,7 +9295,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-20796
+  m_Name: pb_Mesh-955910
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20081,7 +20081,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-15802
+  m_Name: pb_Mesh-951310
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22310,6 +22310,7 @@ MonoBehaviour:
   mouseValue_Nor: {x: 0, y: 0}
   mouseValue_Mag: 0
   maxRotationDown: 85
+  maxRotationSide: 15
   yRotation: 0
   lookLock: 0
   camera: {fileID: 0}
@@ -22379,34 +22380,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4440c12464cc42a48b02139ac062a026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 15
-  jumpSpeed: 8
   sensitivityX: 0.05
   sensitivityY: 0.05
   minY: -85
   maxY: 85
-  tilt: 20
-  jumpHeadDetection: 0.2
+  gravity: 15
+  jumpStrength: 8
+  jumpVelocity: 0
   jumpLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  moveSpeed_Default: 0
-  coyoteJump: 0
+  doubleJumpStrength: 0
   coyoteJumpTime: 0
-  cam1: {fileID: 354899267493083948}
+  moveSpeed_Default: 0
+  moveAcceleration: 0.3
   dashDuration: 0.4
-  dashSpeed: 5
-  lookScript: {fileID: 354899267925487512}
-  doubleJumpSpeed: 10
+  dashMultiplier: 5
   dashCooldown: 1
   dashCharges_Max: 0
+  heightChangeSpeed: 1
+  crouchHeightMultiplier: 0.5
+  crouchSpeedMultiplier: 0.65
+  slideHeightMultiplier: 0.5
+  slideSpeedMultiplier: 2
+  slideDuration: 5
+  slideCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  slideCastPoint: {fileID: 0}
+  slideHandPointer: {fileID: 0}
   disableControl: 0
+  lookScript: {fileID: 354899267925487512}
   gunDamageScript: {fileID: 0}
   playerInventorySystemScript: {fileID: 0}
   playerInterationScript: {fileID: 0}
   playerVolumeControllerScript: {fileID: 0}
   ansonTempUIScript: {fileID: 0}
   playerSoundScript: {fileID: 0}
+  animator: {fileID: 0}
+  playerHitBox: {fileID: 0}
 --- !u!114 &354899267925487515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25849,7 +25864,7 @@ MonoBehaviour:
   detatchPopUps: 1
   reatatchPopUps: 1
   debuffList: []
-  damagePopScript: {fileID: 0}
+  damagePopUpScript: {fileID: 0}
   playerMasterScript: {fileID: 0}
   UIScript: {fileID: 0}
   playerVolumeControllerScript: {fileID: 0}
