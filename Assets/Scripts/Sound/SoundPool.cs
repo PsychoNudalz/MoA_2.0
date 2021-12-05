@@ -14,7 +14,7 @@ public class SoundPool : Sound
 
     private void Awake()
     {
-        AwakeBehaviour();
+        Initialise();
         sourcePool = new AudioSource[sourcePoolSize];
         AudioSource temp;
         string[] ignoreList = { "minVolume", "maxVolume", "rolloffFactor" };
@@ -29,10 +29,17 @@ public class SoundPool : Sound
         }
 
     }
-
+    [ContextMenu("Play")]
+    public override void Play()
+    {
+        poolIndex = (poolIndex + 1) % sourcePoolSize;
+        source = sourcePool[poolIndex];
+        base.Play();
+    }
+    [ContextMenu("PlayF")]
     public override void PlayF()
     {
-        poolIndex = (poolIndex+1) % sourcePoolSize;
+        poolIndex = (poolIndex + 1) % sourcePoolSize;
         source = sourcePool[poolIndex];
         base.PlayF();
     }

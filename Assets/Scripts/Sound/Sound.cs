@@ -1,108 +1,87 @@
-﻿using UnityEngine.Audio;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine.Audio;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 [System.Serializable]
 public class Sound : MonoBehaviour
 {
-    /*
-    private void Awake()
-    {
-        if (soundName.Equals(""))
-        {
-            soundName = clip.name;
-        }
-        if (isUnique)
-        {
-            soundName = soundName + GetHashCode() + transform.parent.name + Time.time;
-        }
-    }
+    [SerializeField]
+    protected AudioSource source;
 
-    public override bool Equals(object other)
-    {
-        if ((other == null) || !this.GetType().Equals(other.GetType()))
-        {
-            return false;
-        }
-        if (!soundName.Equals((other as Sound).soundName))
-        {
-            return false;
-        }
-
-        return true;
-    }
-    */
-
-    public string soundName;
-    [SerializeField] protected AudioClip clip;
+    public AudioSource Source => source;
 
     [Range(0f, 1f)]
     public float volume = .75f;
+
     [Range(0f, 1f)]
     public float volumeVariance = .1f;
 
     [Range(.1f, 3f)]
     public float pitch = 1f;
+
     [Range(0f, 1f)]
     public float pitchVariance = .1f;
 
-    
-    [SerializeField] AudioMixer audioMixer;
-    [SerializeField] SoundManager soundManager;
+
+    [SerializeField]
+    AudioMixer audioMixer;
+
+    protected SoundManager soundManager;
 
     float baseVolume;
     float basePitch;
-    [Header("Convert From Old System")]
-    [SerializeField] bool isOld;
-    [SerializeField] bool isLoop;
-    [SerializeField] bool isPlayOnAwake;
-
-    public AudioSource source;
 
 
+    public AudioMixer AudioMixer
+    {
+        get => audioMixer;
+        set => audioMixer = value;
+    }
 
-
-    public AudioMixer AudioMixer { get => audioMixer; set => audioMixer = value; }
-    public SoundManager SoundManager { get => soundManager; set => soundManager = value; }
+    public SoundManager SoundManager
+    {
+        get => soundManager;
+        set => soundManager = value;
+    }
 
     private void Awake()
     {
-        AwakeBehaviour();
+        Initialise();
     }
 
-    protected virtual void InitialiseClip()
+    private void Start()
     {
-        source = gameObject.AddComponent<AudioSource>();
-        source.clip = clip;
-        source.volume = volume;
-        source.pitch = pitch;
+        StartBehaviour();
     }
 
-    protected virtual void AwakeBehaviour()
+    protected virtual void StartBehaviour()
     {
-        if (source == null && clip != null)
+        if (!source)
         {
-            InitialiseClip();
+            Debug.LogError($"{gameObject.name} missing audio source");
         }
-        else if (source == null && gameObject.TryGetComponent(out source))
+    }
+
+
+    protected virtual void Initialise()
+    {
+        if (source == null && gameObject.TryGetComponent(out source))
         {
             print("Auto found audio:" + source.clip);
         }
+
         if (soundManager != null)
         {
-            soundManager = FindObjectOfType<SoundManager>();
+            soundManager = SoundManager.current;
         }
-        source.clip = clip;
-        baseVolume = source.volume;
-        basePitch = source.pitch;
 
-        if (isOld)
-        {
-            source.loop = isLoop;
-        }
-            source.playOnAwake = isPlayOnAwake;
+        baseVolume = volume;
+        basePitch = pitch;
     }
 
-    public bool IsPlaying()
+    public virtual bool IsPlaying()
     {
         return source.isPlaying;
     }
@@ -111,26 +90,31 @@ public class Sound : MonoBehaviour
     {
         source.Pause();
     }
+
     public virtual void Resume()
     {
         source.UnPause();
     }
+
+    [ContextMenu("Play")]
     public virtual void Play()
     {
         if (!source.isPlaying)
         {
-
             PlayF();
         }
     }
+
+    [ContextMenu("PlayF")]
     public virtual void PlayF()
     {
-
         source.volume = baseVolume * (1f + UnityEngine.Random.Range(-volumeVariance / 2f, volumeVariance / 2f));
         source.pitch = basePitch * (1f + UnityEngine.Random.Range(-pitchVariance / 2f, pitchVariance / 2f));
 
         source.Play();
     }
+
+    [ContextMenu("Stop")]
     public virtual void Stop()
     {
         source.Stop();
@@ -138,6 +122,25 @@ public class Sound : MonoBehaviour
 
     public void ModifySource()
     {
+    }
 
+    private void OnDisable()
+    {
+        if (source&& source.playOnAwake)
+        {
+            source.Stop();
+        }
+    }
+
+    public virtual void UpdateSourceClip(AudioSource audioSource)
+    {
+        string[] ignoreList = {"minVolume", "maxVolume", "rolloffFactor"};
+
+        DuplicateObjectScript.CopyPropertiesTo(audioSource, source, new List<string>(ignoreList));
+    }
+
+    public virtual void SetSoundLocation(Vector3 position)
+    {
+        transform.position = position;
     }
 }

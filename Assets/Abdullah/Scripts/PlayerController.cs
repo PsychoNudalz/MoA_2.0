@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Crouch")]
     [SerializeField]
-    private float heightChangeSpeed = 1f;
+    private float heightChangeSpeed = 5f;
 
     [SerializeField]
     private float crouchHeightMultiplier = 0.5f;
@@ -377,6 +377,8 @@ public class PlayerController : MonoBehaviour
         float newMoveSpeed = 0f;
         if (moveDirection.magnitude > 0.1f)
         {
+            playerSoundScript.Set_Walk(isGrounded&&!isSlide);
+            // playerSoundScript.Set_Crouch(isCrouch);
             if (isCrouch)
             {
                 newMoveSpeed = crouchSpeedMultiplier * moveSpeed_Default;
@@ -391,6 +393,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            playerSoundScript.Set_Walk(false);
             if (!isSlide)
             {
                 newMoveSpeed = 0f;
@@ -522,6 +525,8 @@ public class PlayerController : MonoBehaviour
         SetPlayerHeight(1);
         isCrouch = false;
         SetMoveSpeed_Target(moveSpeed_Default);
+        playerSoundScript.Set_Crouch(isCrouch);
+
     }
 
     private void Crouch()
@@ -530,6 +535,8 @@ public class PlayerController : MonoBehaviour
         SetPlayerHeight(crouchHeightMultiplier);
         isCrouch = true;
         SetMoveSpeed_Target(moveSpeed_Default * crouchSpeedMultiplier);
+        playerSoundScript.Set_Crouch(isCrouch);
+
     }
 
     public void OnSlide(InputAction.CallbackContext context)
@@ -551,6 +558,8 @@ public class PlayerController : MonoBehaviour
         slideStartTime = Time.time;
         animator.SetBool("Slide",true);
         HandController.left.AddPointer(slideHandPointer);
+        playerSoundScript.Set_Walk(false);
+        playerSoundScript.Play_Slide();
     }
 
     public void OnSlide_End()
@@ -559,6 +568,8 @@ public class PlayerController : MonoBehaviour
         isSlide = false;
         animator.SetBool("Slide",false);
         HandController.left.RemovePointer(slideHandPointer);
+        playerSoundScript.Set_Walk(isGrounded&&!isSlide);
+
 
     }
 
@@ -759,10 +770,17 @@ public class PlayerController : MonoBehaviour
 
     void UpdateJumpAndGravity()
     {
+        bool wasGrounded = isGrounded;
         GroundCheck();
         HeadCheck();
         characterController.Move(new Vector3(0, jumpVelocity * Time.deltaTime, 0));
         animator.SetBool("Grounded", isGrounded);
+
+        if (wasGrounded != isGrounded)
+        {
+            playerSoundScript.Play_Jump();
+        }
+        
         if (!isGrounded)
         {
             jumpVelocity += gravity * Time.deltaTime;
