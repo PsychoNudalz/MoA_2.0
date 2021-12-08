@@ -88,6 +88,7 @@ MonoBehaviour:
   health_Current: 0
   health_Max: 8000
   isDead: 0
+  centreOfMass: {fileID: 0}
   deathGameObject: {fileID: 0}
   disableOnDeath: 0
   destroyOnDeath: 0
@@ -95,9 +96,9 @@ MonoBehaviour:
   detatchPopUps: 1
   reatatchPopUps: 1
   debuffList: []
-  damagePopScript: {fileID: 8367018465659740205}
+  damagePopUpScript: {fileID: 8367018465659740205}
   targetHandler: {fileID: 701885084}
-  targetMaterialHandler: {fileID: 422098399897120200}
+  targetEffectController: {fileID: 0}
   targetSoundScript: {fileID: 0}
   mainColliders:
   - {fileID: 701885083}
@@ -242,6 +243,7 @@ VisualEffect:
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
+  m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
       m_Array: []
@@ -280,6 +282,7 @@ VFXRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -388,6 +391,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2091627296962368593, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b2204f47b903e413e8e8e442d60a8ca1, type: 3}
     - target: {fileID: 3409435785760813993, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
       propertyPath: m_Layer
@@ -758,7 +766,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07bd638e5aa7f945a70ff6f246aea5b, type: 3}
+  m_Script: {fileID: 11500000, guid: efd962e443322be4fb5c68a93294df5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8367018465659740205 stripped
@@ -1232,6 +1240,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6341729143672840761, guid: b1c784d261821ed48af9e50201e23870,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 24a385004120d415a8fea8ed65c44fef, type: 3}
     - target: {fileID: 6923988755516773699, guid: b1c784d261821ed48af9e50201e23870,
         type: 3}
       propertyPath: m_Name
