@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 
+/// <summary>
+/// plays a sound
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
 [System.Serializable]
 public class Sound : MonoBehaviour
@@ -69,7 +72,7 @@ public class Sound : MonoBehaviour
     {
         if (source == null && gameObject.TryGetComponent(out source))
         {
-            print("Auto found audio:" + source.clip);
+            // print("Auto found audio:" + source.clip);
         }
 
         if (soundManager != null)
@@ -79,6 +82,11 @@ public class Sound : MonoBehaviour
 
         baseVolume = volume;
         basePitch = pitch;
+        if (source)
+        {
+            source.volume = baseVolume;
+            source.pitch = basePitch;
+        }
     }
 
     public virtual bool IsPlaying()
@@ -126,7 +134,7 @@ public class Sound : MonoBehaviour
 
     private void OnDisable()
     {
-        if (source&& source.playOnAwake)
+        if (source && source.playOnAwake)
         {
             source.Stop();
         }
