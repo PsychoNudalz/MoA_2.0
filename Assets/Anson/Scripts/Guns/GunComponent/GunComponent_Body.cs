@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
+[RequireComponent(typeof(GunEffectsController))]
 public class GunComponent_Body : GunComponent
 {
     [Header("Extra")]
@@ -85,6 +86,8 @@ public class GunComponent_Body : GunComponent
 
     [Header("Component")]
     [SerializeField]
+    private GunEffectsController gunEffectsController;
+    [SerializeField]
     GunComponent_Sight component_Sight;
 
     [SerializeField]
@@ -122,7 +125,8 @@ public class GunComponent_Body : GunComponent
     Sound sound_EndReload;
 
 
-    //Getters
+    //_______________________________________________________
+    //Getters and Setters
     public float TimeBetweenProjectile
     {
         get => timeBetweenProjectile;
@@ -260,9 +264,22 @@ public class GunComponent_Body : GunComponent
         set => gunHandController = value;
     }
 
+    //_______________________________________________________
+    
+    
+    
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        if (!gunEffectsController)
+        {
+            gunEffectsController = GetComponent<GunEffectsController>();
+        }
+
+        if (!animator)
+        {
+            animator = GetComponent<Animator>();
+        }
+
         if (component_Sight != null)
         {
             SetSight(component_Sight);
