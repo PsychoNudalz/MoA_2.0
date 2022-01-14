@@ -89,6 +89,10 @@ public class MainGunStatsScript : GunStatsScript
     [SerializeField]
     Animator animator;
 
+    public Animator Animator => animator;
+
+    public float ShootAnimationLerp => shootAnimationLerp;
+
     [SerializeField]
     float shootAnimationLerp = 1;
 
@@ -108,6 +112,12 @@ public class MainGunStatsScript : GunStatsScript
     [Header("Saved Stats")]
     [SerializeField]
     float currentMag;
+
+    public Sound SoundFire => soundFire;
+
+    public Sound SoundStartReload => soundStartReload;
+
+    public Sound SoundEndReload => soundEndReload;
 
     public int ProjectilePerShot
     {

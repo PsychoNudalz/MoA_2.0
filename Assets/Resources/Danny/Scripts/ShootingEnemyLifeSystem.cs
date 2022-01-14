@@ -12,7 +12,10 @@ public class ShootingEnemyLifeSystem : TargetLifeSystem
     private void Start()
     {
         shootingEnemyAgent = GetComponent<ShootingEnemyAgent>();
-        spawner = transform.parent.GetComponent<EnemySpawner>();
+        if (transform.parent)
+        {
+            spawner = transform.parent.GetComponent<EnemySpawner>();
+        }
     }
 
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)

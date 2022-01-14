@@ -158,6 +158,7 @@ public class GunDamageScript : DamageScript
     private RaycastHit raycastHit;
 
     [Header("Other Components")]
+    [SerializeField]
     protected GunEffectsController gunEffectsController;
 
 
@@ -583,8 +584,32 @@ public class GunDamageScript : DamageScript
                 hitTarget = true;
             }
         }
+        
+        UpdateBulletTrailStuff();
+
 
         return hitTarget;
+    }
+
+    private void UpdateBulletTrailStuff()
+    {
+        //Set fire hitpoints and direction
+        try
+        {
+            if (raycastHit.point.magnitude > 0)
+            {
+                gunEffectsController?.AddBulletTrail(raycastHit);
+            }
+            else
+            {
+                gunEffectsController?.AddBulletTrail(fireDir);
+            }
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogWarning(e);
+            //throw;
+        }
     }
 
 
@@ -643,23 +668,7 @@ public class GunDamageScript : DamageScript
             Fire(false);
         }
 
-        //Set fire hitpoints and direction
-        try
-        {
-            if (raycastHit.point.magnitude > 0)
-            {
-                gunEffectsController?.AddBulletTrail(raycastHit);
-            }
-            else
-            {
-                gunEffectsController?.AddBulletTrail(fireDir);
-            }
-        }
-        catch (NullReferenceException e)
-        {
-            Debug.LogWarning(e);
-            //throw;
-        }
+
 
 
         return newRecoilTime;

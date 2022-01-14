@@ -229,6 +229,8 @@ public class GunEffectsController : MonoBehaviour
 
     public void WipeBulletTrailCache()
     {
+        //Debug.Log($"Wiping trail cache {bulletTrailCache_FireDir.Count} {bulletTrailCache_RaycastHit.Count}");
+        
         bulletTrailCache_FireDir = new List<Vector3>();
         bulletTrailCache_RaycastHit = new List<RaycastHit>();
     }
@@ -278,4 +280,31 @@ public class GunEffectsController : MonoBehaviour
         sound_StartReload = b.Sound_StartReload;
         sound_EndReload = b.Sound_EndReload;
     }
+
+    [ContextMenu("Transfer Body")]
+    public void GetBodyData()
+    {
+        GunComponent_Body temp = GetComponent<GunComponent_Body>();
+        GetBodyData(temp);
+        
+    }
+    
+    [ContextMenu("Transfer Gun State")]
+    public void GetStateData()
+    {
+        MainGunStatsScript b = GetComponent<MainGunStatsScript>();
+        bulletParticle = b.BulletParticle;
+        impactEffect = b.ImpactEffect;
+        muzzleEffect = b.MuzzleEffect;
+        animator = b.Animator;
+        shootAnimationLerp = b.ShootAnimationLerp;
+        bulletParticle = b.BulletParticle;
+        impactEffect = b.ImpactEffect;
+        muzzleEffect = b.MuzzleEffect;
+        sound_Fire = b.SoundFire;
+        sound_StartReload = b.SoundStartReload;
+        sound_EndReload = b.SoundEndReload;
+        
+    }
+    
 }

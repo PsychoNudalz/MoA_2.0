@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 3502107389508526294}
   - component: {fileID: 459847289465956956}
   - component: {fileID: 8763546597313624625}
+  - component: {fileID: 9194257342345130385}
   m_Layer: 10
   m_Name: EnemyGun
   m_TagString: Gun
@@ -545,7 +546,7 @@ MonoBehaviour:
   rarity: 0
   elementType: 1
   fireType: 1
-  projectileGO: {fileID: 2299660718121512101, guid: 5e7ee2cc3d6c20941a05509c9e9f4b63,
+  projectileGo: {fileID: 2299660718121512101, guid: 5e7ee2cc3d6c20941a05509c9e9f4b63,
     type: 3}
   rangeCurve:
     serializedVersion: 2
@@ -585,141 +586,34 @@ MonoBehaviour:
   timeBetweenProjectile: 0
   isFullReload: 1
   amountPerReload: 1
-  recoilPattern_X:
+  recoilPatternX:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -10
-      outSlope: -10
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2
-      value: -1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.4
-      value: 1
-      inSlope: 0.00000047683716
-      outSlope: 0.00000047683716
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.6
-      value: -1
-      inSlope: 0.0000009536743
-      outSlope: 0.0000009536743
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.8
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: -1
-      inSlope: -10.000001
-      outSlope: -10.000001
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
-    m_PostInfinity: 1
+    m_PostInfinity: 2
     m_RotationOrder: 4
-  recoilPattern_Y:
+  recoilPatternY:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -10
-      outSlope: -10
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2
-      value: -1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.4
-      value: 1
-      inSlope: 0.00000047683716
-      outSlope: 0.00000047683716
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.6
-      value: -1
-      inSlope: 0.0000009536743
-      outSlope: 0.0000009536743
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.8
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: -1
-      inSlope: -10.000001
-      outSlope: -10.000001
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
-    m_PostInfinity: 1
+    m_PostInfinity: 2
     m_RotationOrder: 4
   timeToRecenter: 0
   sightLocation: {fileID: 0}
   sightOffset: {x: 0, y: 0, z: 0}
+  gunEffectsController: {fileID: 9194257342345130385}
   bulletParticle: {fileID: 8569081549638215270}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 1262584836785286374}
-  gunComponent_Body: {fileID: 0}
-  component_Sight: {fileID: 0}
+  gunComponentBody: {fileID: 0}
+  componentSight: {fileID: 0}
   components: []
   animator: {fileID: 8763546597313624625}
   shootAnimationLerp: 1
-  sound_Fire: {fileID: 7792255594652824276}
-  sound_StartReload: {fileID: 0}
-  sound_EndReload: {fileID: 0}
+  soundFire: {fileID: 0}
+  soundStartReload: {fileID: 0}
+  soundEndReload: {fileID: 0}
   currentMag: 5000
 --- !u!54 &459847289465956956
 Rigidbody:
@@ -756,6 +650,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9194257342345130385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146904756725623386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdbaf2debe8b7548a5f041d691447a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8763546597313624625}
+  shootAnimationLerp: 1
+  gunHandController: {fileID: 0}
+  bulletParticle: {fileID: 8569081549638215270}
+  impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
+    type: 3}
+  muzzleEffect: {fileID: 1262584836785286374}
+  bulletCaseParticle: {fileID: 0}
+  bulletTrailControllerScript: {fileID: 0}
+  bulletTrailCache_FireDir: []
+  sound_Fire: {fileID: 7792255594652824276}
+  sound_StartReload: {fileID: 1453565856926259277}
+  sound_EndReload: {fileID: 658928542556967760}
+  mainGunStat: {fileID: 0}
 --- !u!1 &1298294631704070693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,6 +1767,7 @@ MonoBehaviour:
   randomFireDir: {x: 0, y: 0, z: 0}
   sightOffset: {x: 0, y: 0, z: 0}
   displayFireRaycast: 0
+  gunEffectsController: {fileID: 9194257342345130385}
 --- !u!1 &4543812924829049762
 GameObject:
   m_ObjectHideFlags: 0
@@ -2043,6 +1964,7 @@ GameObject:
   - component: {fileID: 8660143857333329969}
   - component: {fileID: 5681091118239066811}
   - component: {fileID: 3542259069529717462}
+  - component: {fileID: 3441958101604649912}
   m_Layer: 10
   m_Name: EnemyMissile
   m_TagString: Gun
@@ -2095,7 +2017,7 @@ MonoBehaviour:
   rarity: 0
   elementType: 1
   fireType: 1
-  projectileGO: {fileID: 56123128684320107, guid: a39fa3df522ba30479e9836c526b2d80,
+  projectileGo: {fileID: 56123128684320107, guid: a39fa3df522ba30479e9836c526b2d80,
     type: 3}
   rangeCurve:
     serializedVersion: 2
@@ -2135,141 +2057,34 @@ MonoBehaviour:
   timeBetweenProjectile: 0
   isFullReload: 1
   amountPerReload: 1
-  recoilPattern_X:
+  recoilPatternX:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -10
-      outSlope: -10
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2
-      value: -1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.4
-      value: 1
-      inSlope: 0.00000047683716
-      outSlope: 0.00000047683716
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.6
-      value: -1
-      inSlope: 0.0000009536743
-      outSlope: 0.0000009536743
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.8
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: -1
-      inSlope: -10.000001
-      outSlope: -10.000001
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
-    m_PostInfinity: 1
+    m_PostInfinity: 2
     m_RotationOrder: 4
-  recoilPattern_Y:
+  recoilPatternY:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -10
-      outSlope: -10
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2
-      value: -1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.4
-      value: 1
-      inSlope: 0.00000047683716
-      outSlope: 0.00000047683716
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.6
-      value: -1
-      inSlope: 0.0000009536743
-      outSlope: 0.0000009536743
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.8
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: -1
-      inSlope: -10.000001
-      outSlope: -10.000001
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
-    m_PostInfinity: 1
+    m_PostInfinity: 2
     m_RotationOrder: 4
   timeToRecenter: 0
   sightLocation: {fileID: 0}
   sightOffset: {x: 0, y: 0, z: 0}
+  gunEffectsController: {fileID: 3441958101604649912}
   bulletParticle: {fileID: 4493889485536585345}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 6427591945818663937}
-  gunComponent_Body: {fileID: 0}
-  component_Sight: {fileID: 0}
+  gunComponentBody: {fileID: 0}
+  componentSight: {fileID: 0}
   components: []
   animator: {fileID: 3542259069529717462}
   shootAnimationLerp: 1
-  sound_Fire: {fileID: 196932779210831165}
-  sound_StartReload: {fileID: 0}
-  sound_EndReload: {fileID: 0}
+  soundFire: {fileID: 0}
+  soundStartReload: {fileID: 0}
+  soundEndReload: {fileID: 0}
   currentMag: 5000
 --- !u!54 &5681091118239066811
 Rigidbody:
@@ -2306,6 +2121,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3441958101604649912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5142091687754558141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdbaf2debe8b7548a5f041d691447a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3542259069529717462}
+  shootAnimationLerp: 1
+  gunHandController: {fileID: 0}
+  bulletParticle: {fileID: 4493889485536585345}
+  impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
+    type: 3}
+  muzzleEffect: {fileID: 6427591945818663937}
+  bulletCaseParticle: {fileID: 0}
+  bulletTrailControllerScript: {fileID: 0}
+  bulletTrailCache_FireDir: []
+  sound_Fire: {fileID: 196932779210831165}
+  sound_StartReload: {fileID: 6672897155955857578}
+  sound_EndReload: {fileID: 4724842178071106487}
+  mainGunStat: {fileID: 0}
 --- !u!1 &5145333429754003166
 GameObject:
   m_ObjectHideFlags: 0
@@ -4739,6 +4580,7 @@ MonoBehaviour:
   randomFireDir: {x: 0, y: 0, z: 0}
   sightOffset: {x: 0, y: 0, z: 0}
   displayFireRaycast: 0
+  gunEffectsController: {fileID: 3441958101604649912}
 --- !u!1 &8529882053667638554
 GameObject:
   m_ObjectHideFlags: 0
@@ -5284,15 +5126,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cdcaabd41925d44eb7720f80c3a3aa7, type: 3}
---- !u!4 &1717357573840462284 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1655099398099800840}
-  m_PrefabAsset: {fileID: 0}
 --- !u!2083052967 &6427591945818663937 stripped
 VisualEffect:
   m_CorrespondingSourceObject: {fileID: 5749826735744843529, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1655099398099800840}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1717357573840462284 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
     type: 3}
   m_PrefabInstance: {fileID: 1655099398099800840}
   m_PrefabAsset: {fileID: 0}
@@ -5375,15 +5217,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fc7deb162947004aaf7af26c1d2d274, type: 3}
---- !u!4 &3096632107843511804 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1083463785328528747, guid: 9fc7deb162947004aaf7af26c1d2d274,
-    type: 3}
-  m_PrefabInstance: {fileID: 2733771750802532503}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &4493889485536585345 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1994476989549923862, guid: 9fc7deb162947004aaf7af26c1d2d274,
+    type: 3}
+  m_PrefabInstance: {fileID: 2733771750802532503}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3096632107843511804 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1083463785328528747, guid: 9fc7deb162947004aaf7af26c1d2d274,
     type: 3}
   m_PrefabInstance: {fileID: 2733771750802532503}
   m_PrefabAsset: {fileID: 0}
@@ -5570,6 +5412,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2285041251126367772, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cdcaabd41925d44eb7720f80c3a3aa7, type: 3}
