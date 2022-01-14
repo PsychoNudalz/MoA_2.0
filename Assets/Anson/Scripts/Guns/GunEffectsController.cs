@@ -12,6 +12,7 @@ public class GunEffectsController : MonoBehaviour
 
     [SerializeField]
     float shootAnimationLerp = 1;
+
     [SerializeField]
     GunHandController gunHandController;
 
@@ -62,6 +63,7 @@ public class GunEffectsController : MonoBehaviour
         {
             bulletTrailControllerScript = GetComponentInChildren<BulletTrailControllerScript>();
         }
+
         if (!gunHandController)
         {
             gunHandController = GetComponentInChildren<GunHandController>();
@@ -183,7 +185,7 @@ public class GunEffectsController : MonoBehaviour
         catch (System.NullReferenceException e)
         {
             Debug.LogWarning(name + " Missing shoot effect");
-            Debug.Log(e.StackTrace.Substring(0,60));
+            Debug.Log(e.StackTrace.Substring(0, 60));
         }
     }
 
@@ -202,7 +204,7 @@ public class GunEffectsController : MonoBehaviour
         {
             bulletTrailControllerScript.PlayTrail(bulletTrailCache_FireDir);
         }
-        
+
         WipeBulletTrailCache();
     }
 
@@ -230,7 +232,7 @@ public class GunEffectsController : MonoBehaviour
         bulletTrailCache_FireDir = new List<Vector3>();
         bulletTrailCache_RaycastHit = new List<RaycastHit>();
     }
-    
+
     public void AddPointLeft(int i)
     {
         gunHandController.AddPoint_Left(i);
@@ -247,7 +249,6 @@ public class GunEffectsController : MonoBehaviour
         {
             if (b.Hpp_Left)
             {
-
                 gunHandController.SetNewRestPoint_Left(b.Hpp_Left);
             }
 
@@ -255,5 +256,26 @@ public class GunEffectsController : MonoBehaviour
             {
             }
         }
+    }
+
+    /// <summary>
+    /// used for getting things from body components
+    /// </summary>
+    /// <param name="b"></param>
+    public void GetBodyData(GunComponent_Body b)
+    {
+        bulletParticle = b.BulletParticle;
+        impactEffect = b.ImpactEffect;
+        muzzleEffect = b.MuzzleEffect;
+        animator = b.GetAnimator;
+        shootAnimationLerp = b.ShootAnimationLerp;
+        gunHandController = b.GunHandController;
+        bulletParticle = b.BulletParticle;
+        impactEffect = b.ImpactEffect;
+        muzzleEffect = b.MuzzleEffect;
+        bulletCaseParticle = b.BulletCaseParticle;
+        sound_Fire = b.Sound_Fire;
+        sound_StartReload = b.Sound_StartReload;
+        sound_EndReload = b.Sound_EndReload;
     }
 }

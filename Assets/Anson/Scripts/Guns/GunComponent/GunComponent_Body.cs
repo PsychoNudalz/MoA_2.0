@@ -161,6 +161,8 @@ public class GunComponent_Body : GunComponent
         get => bulletParticle;
     }
 
+    public ParticleSystem BulletCaseParticle => bulletCaseParticle;
+
     public VisualEffect MuzzleEffect
     {
         get => muzzleEffect;
