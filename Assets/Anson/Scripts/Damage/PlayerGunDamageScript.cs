@@ -68,9 +68,9 @@ public class PlayerGunDamageScript : GunDamageScript
 
     public override MainGunStatsScript TidyOldGun()
     {
-        if (mainGunStatsScript&& mainGunStatsScript.GunComponent_Body.GunHandController)
+        if (mainGunStatsScript&& mainGunStatsScript.GunComponentBody.GunHandController)
         {
-            mainGunStatsScript.GunComponent_Body.GunHandController.RemoveAllPoints_Left();
+            mainGunStatsScript.GunComponentBody.GunHandController.RemoveAllPoints_Left();
 
         }
         MainGunStatsScript temp = base.TidyOldGun();
@@ -97,12 +97,12 @@ public class PlayerGunDamageScript : GunDamageScript
         }
         if (wasADS)
         {
-            lookScript.AimSight(wasADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
+            lookScript.AimSight(wasADS, mainGunStatsScript.ComponentSight.ZoomMultiplier);
         }
 
-        if (mainGunStatsScript&& mainGunStatsScript.GunComponent_Body.GunHandController)
+        if (mainGunStatsScript&& mainGunStatsScript.GunComponentBody.GunHandController)
         {
-            HandController.left.AddPointer(mainGunStatsScript.GunComponent_Body.GunHandController.HandRest);
+            HandController.left.AddPointer(mainGunStatsScript.GunComponentBody.GunHandController.HandRest);
         }
         return newGun;
 
@@ -273,7 +273,7 @@ public class PlayerGunDamageScript : GunDamageScript
         currentRecoil = new Vector2(0, 0);
 
         isADS = true;
-        lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
+        lookScript.AimSight(isADS, mainGunStatsScript.ComponentSight.ZoomMultiplier);
         ansonTempUIScript.SetCrossair(true);
     }
 
@@ -294,7 +294,7 @@ public class PlayerGunDamageScript : GunDamageScript
         //camera.transform.rotation = transform.rotation;
 
 
-        lookScript.AimSight(isADS, mainGunStatsScript.Component_Sight.ZoomMultiplier);
+        lookScript.AimSight(isADS, mainGunStatsScript.ComponentSight.ZoomMultiplier);
 
         ansonTempUIScript.SetCrossair(false);
     }
@@ -303,14 +303,14 @@ public class PlayerGunDamageScript : GunDamageScript
     {
 
         isFiring = false;
-        mainGunStatsScript.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
-        mainGunStatsScript.Play_StartReload();
+        gunEffectsController.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
+        gunEffectsController.PlaySound_StartReload();
         currentRecoilTime = 0f;
         AdjustRecoil();
         yield return new WaitForSeconds(reloadSpeed - offset);
         if (isFullReload)
         {
-            mainGunStatsScript.Play_EndReload();
+            gunEffectsController.PlaySound_EndReload();
             currentMag = magazineSize;
             isReloading = false;
             EndReload();
@@ -319,7 +319,7 @@ public class PlayerGunDamageScript : GunDamageScript
         else
         {
             currentMag += amountPerReload;
-            mainGunStatsScript.Play_StartReload();
+            gunEffectsController.PlaySound_StartReload();
             if (currentMag < magazineSize)
             {
                 currentReloadCoroutine = StartCoroutine(DelayReload(0.05f));
@@ -329,7 +329,7 @@ public class PlayerGunDamageScript : GunDamageScript
             else
             {
                 isReloading = false;
-                mainGunStatsScript.Play_EndReload();
+                gunEffectsController.PlaySound_EndReload();
                 EndReload();
 
             }

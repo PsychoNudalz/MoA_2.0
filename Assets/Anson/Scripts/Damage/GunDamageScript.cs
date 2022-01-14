@@ -8,77 +8,166 @@ using Random = UnityEngine.Random;
 public class GunDamageScript : DamageScript
 {
     [Header("Gun Stats")]
-    [SerializeField] protected MainGunStatsScript mainGunStatsScript;
-    [SerializeField] protected float damagePerProjectile = 0;
-    [SerializeField] protected float RPM = 0;
-    [SerializeField] protected float reloadSpeed = 0;
-    [SerializeField] protected Vector2 recoil = new Vector2(0, 0);
-    [SerializeField] protected Vector2 recoil_HipFire = new Vector2(0, 0);
-    [SerializeField] protected float range = 0;
-    [SerializeField] protected float magazineSize = 0;
-    [SerializeField] protected int projectilePerShot;
-    [SerializeField] protected float timeBetweenProjectile = 0f;
-    [SerializeField] GunTypes gunType = GunTypes.RIFLE;
-    [SerializeField] Rarity rarity;
-    [SerializeField] protected ElementTypes elementType = ElementTypes.PHYSICAL;
-    [SerializeField] protected float elementDamage = 0;
-    [SerializeField] protected float elementPotency = 0; //effect duration or range
-    [SerializeField] protected float elementChance = 0;
-    [SerializeField] FireTypes fireType = FireTypes.HitScan;
-    [SerializeField] GameObject projectileGO;
+    [SerializeField]
+    protected MainGunStatsScript mainGunStatsScript;
 
-    [SerializeField] protected AnimationCurve rangeCurve;
-    [SerializeField] protected bool isFullAuto = true;
-    [SerializeField] protected bool isFullReload = true;
-    [SerializeField] protected int amountPerReload = 1;
+    [SerializeField]
+    protected float damagePerProjectile = 0;
 
-    [SerializeField] AnimationCurve recoilPattern_X;
-    [SerializeField] AnimationCurve recoilPattern_Y;
-    [SerializeField] float timeToRecenter = 3f;
+    [SerializeField]
+    protected float RPM = 0;
+
+    [SerializeField]
+    protected float reloadSpeed = 0;
+
+    [SerializeField]
+    protected Vector2 recoil = new Vector2(0, 0);
+
+    [SerializeField]
+    protected Vector2 recoil_HipFire = new Vector2(0, 0);
+
+    [SerializeField]
+    protected float range = 0;
+
+    [SerializeField]
+    protected float magazineSize = 0;
+
+    [SerializeField]
+    protected int projectilePerShot;
+
+    [SerializeField]
+    protected float timeBetweenProjectile = 0f;
+
+    [SerializeField]
+    GunTypes gunType = GunTypes.RIFLE;
+
+    [SerializeField]
+    Rarity rarity;
+
+    [SerializeField]
+    protected ElementTypes elementType = ElementTypes.PHYSICAL;
+
+    [SerializeField]
+    protected float elementDamage = 0;
+
+    [SerializeField]
+    protected float elementPotency = 0; //effect duration or range
+
+    [SerializeField]
+    protected float elementChance = 0;
+
+    [SerializeField]
+    FireTypes fireType = FireTypes.HitScan;
+
+    [SerializeField]
+    GameObject projectileGO;
+
+    [SerializeField]
+    protected AnimationCurve rangeCurve;
+
+    [SerializeField]
+    protected bool isFullAuto = true;
+
+    [SerializeField]
+    protected bool isFullReload = true;
+
+    [SerializeField]
+    protected int amountPerReload = 1;
+
+    [SerializeField]
+    AnimationCurve recoilPattern_X;
+
+    [SerializeField]
+    AnimationCurve recoilPattern_Y;
+
+    [SerializeField]
+    float timeToRecenter = 3f;
 
 
-    [SerializeField] ParticleSystem bulletParticle;
-    [SerializeField] GameObject impactEffect;
-    [SerializeField] VisualEffect muzzleEffect;
+    [SerializeField]
+    ParticleSystem bulletParticle;
 
-    [SerializeField] Transform sightLocation;
+    [SerializeField]
+    GameObject impactEffect;
 
+    [SerializeField]
+    VisualEffect muzzleEffect;
 
+    [SerializeField]
+    Transform sightLocation;
 
 
     [Header("Current Stats")]
-    [SerializeField] protected float timeUntilFire = 1f;
-    [SerializeField] protected float timeNow_TimeUnitlFire;
-    [SerializeField] protected int currentProjectile = 1;
-    [SerializeField] protected float timeNow_TimeBetweenProjectile;
-    [SerializeField] protected float currentMag;
-    [SerializeField] protected bool isFiring = false;
-    [SerializeField] protected bool isReloading = false;
-    [SerializeField] protected Vector2 currentRecoil;
-    [SerializeField] protected float currentRecoilTime = 0f;
+    [SerializeField]
+    protected float timeUntilFire = 1f;
+
+    [SerializeField]
+    protected float timeNow_TimeUnitlFire;
+
+    [SerializeField]
+    protected int currentProjectile = 1;
+
+    [SerializeField]
+    protected float timeNow_TimeBetweenProjectile;
+
+    [SerializeField]
+    protected float currentMag;
+
+    [SerializeField]
+    protected bool isFiring = false;
+
+    [SerializeField]
+    protected bool isReloading = false;
+
+    [SerializeField]
+    protected Vector2 currentRecoil;
+
+    [SerializeField]
+    protected float currentRecoilTime = 0f;
 
 
-    [Header("Other")]
-    [SerializeField] protected Transform firePoint;
-    [SerializeField] protected Transform gunPosition;
-    [SerializeField] protected bool isADS = false;
-    [SerializeField] protected Vector3 fireDir;
-    [SerializeField] protected Vector3 randomFireDir;
-    [SerializeField] protected Vector3 sightOffset;
-    [SerializeField] protected Coroutine currentReloadCoroutine;
-    [SerializeField] protected Coroutine currentBurstCoroutine;
+    [Header("Other Fields")]
+    [SerializeField]
+    protected Transform firePoint;
+
+    [SerializeField]
+    protected Transform gunPosition;
+
+    [SerializeField]
+    protected bool isADS = false;
+
+    [SerializeField]
+    protected Vector3 fireDir;
+
+    [SerializeField]
+    protected Vector3 randomFireDir;
+
+    [SerializeField]
+    protected Vector3 sightOffset;
+
+    protected Coroutine currentReloadCoroutine;
+
+    protected Coroutine currentBurstCoroutine;
+    
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
+
     protected bool isAI = false;
     protected int currentSlot = 0;
     private RaycastHit raycastHit;
 
+    [Header("Other Components")]
+    protected GunEffectsController gunEffectsController;
+
+
+    public GunTypes GunType => gunType;
 
     private void Awake()
     {
         AwakeBehaviour();
     }
+
     public virtual void AwakeBehaviour()
     {
         //lookScript = FindObjectOfType<Look>();
@@ -86,6 +175,7 @@ public class GunDamageScript : DamageScript
         {
             UpdateGunScript(mainGunStatsScript);
         }
+
         Reload_Action();
     }
 
@@ -93,6 +183,7 @@ public class GunDamageScript : DamageScript
     {
         UpdateBehaviour();
     }
+
     protected virtual void UpdateBehaviour()
     {
         tickTime();
@@ -109,7 +200,6 @@ public class GunDamageScript : DamageScript
             Vector3 fireDir = firePoint.transform.forward;
             Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.green, 0f);
         }
-
     }
 
 
@@ -118,12 +208,13 @@ public class GunDamageScript : DamageScript
         if (mainGunStatsScript != null)
         {
             mainGunStatsScript.CurrentMag = currentMag;
-            mainGunStatsScript.PlayAnimationTrigger("Reset");
-            int[] temp = { LayerMask.NameToLayer("Debug") };
+            gunEffectsController.PlayAnimationTrigger("Reset");
+            int[] temp = {LayerMask.NameToLayer("Debug")};
 
             AnsonUtility.ConvertLayerMask(mainGunStatsScript.gameObject, "Gun", new List<int>(temp));
             //mainGunStatsScript.SetRarityEffect(true);
         }
+
         EndReload();
         isFiring = false;
         //currentRecoil = new Vector2(0, 0);
@@ -149,7 +240,7 @@ public class GunDamageScript : DamageScript
         gunType = g.GunType;
         rarity = g.Rarity;
         damagePerProjectile = g.DamagePerProjectile;
-        RPM = g.RPM_Get;
+        RPM = g.GetRPM;
         reloadSpeed = g.ReloadSpeed;
         recoil = g.Recoil;
         recoil_HipFire = g.Recoil_HipFire;
@@ -168,7 +259,7 @@ public class GunDamageScript : DamageScript
         amountPerReload = g.AmountPerReload;
 
         fireType = g.FireType;
-        projectileGO = g.ProjectileGO;
+        projectileGO = g.ProjectileGo;
 
         currentMag = g.CurrentMag;
 
@@ -176,13 +267,14 @@ public class GunDamageScript : DamageScript
         impactEffect = g.ImpactEffect;
         muzzleEffect = g.MuzzleEffect;
 
-        recoilPattern_X = g.RecoilPattern_X;
-        recoilPattern_Y = g.RecoilPattern_Y;
+        recoilPattern_X = g.RecoilPatternX;
+        recoilPattern_Y = g.RecoilPatternY;
         timeToRecenter = g.TimeToRecenter;
 
         sightLocation = g.SightLocation;
 
         rangeCurve = g.RangeCurve;
+        gunEffectsController = g.GunEffectsController;
 
 
         g.GetComponentInChildren<Rigidbody>().isKinematic = true;
@@ -200,6 +292,7 @@ public class GunDamageScript : DamageScript
         {
             sightLocation = transform;
         }
+
         /*
         mainGunStatsScript.transform.rotation = Quaternion.identity;
         sightOffset = sightLocation.position - gunPosition.position;
@@ -222,9 +315,7 @@ public class GunDamageScript : DamageScript
         //mainGunStatsScript.SetRarityEffect(false);
 
         return oldGunScript;
-
     }
-
 
 
     public virtual void Fire(bool b)
@@ -242,8 +333,6 @@ public class GunDamageScript : DamageScript
         //    isFiring = b;
         //}
         isFiring = b;
-
-
     }
 
     public void SetFirePoint(Transform t)
@@ -253,7 +342,6 @@ public class GunDamageScript : DamageScript
 
     protected bool canFire()
     {
-
         if (currentMag < 1 || (isReloading && isFullReload) || mainGunStatsScript == null)
         {
             Fire(false);
@@ -261,6 +349,7 @@ public class GunDamageScript : DamageScript
             {
                 Reload();
             }
+
             return false;
         }
 
@@ -274,13 +363,13 @@ public class GunDamageScript : DamageScript
                 {
                     StopCoroutine(currentReloadCoroutine);
                     currentReloadCoroutine = null;
-
                 }
             }
+
             return true;
         }
-        return false;
 
+        return false;
     }
 
     protected void tickTime()
@@ -293,6 +382,7 @@ public class GunDamageScript : DamageScript
         {
             timeNow_TimeBetweenProjectile = 0;
         }
+
         if (timeNow_TimeUnitlFire > 0)
         {
             timeNow_TimeUnitlFire -= Time.deltaTime;
@@ -301,9 +391,6 @@ public class GunDamageScript : DamageScript
         {
             timeNow_TimeUnitlFire = 0;
         }
-
-
-
     }
 
     protected void CorrectRecoil(bool b = true)
@@ -311,7 +398,6 @@ public class GunDamageScript : DamageScript
         if (b)
         {
             currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenter);
-
         }
 
 
@@ -319,7 +405,6 @@ public class GunDamageScript : DamageScript
         {
             if (isFiring)
             {
-
                 currentRecoilTime -= Time.deltaTime / (timeToRecenter * 2);
             }
             else
@@ -328,8 +413,8 @@ public class GunDamageScript : DamageScript
                 {
                     currentRecoilTime = 1.2f;
                 }
-                currentRecoilTime -= Time.deltaTime / (timeToRecenter);
 
+                currentRecoilTime -= Time.deltaTime / (timeToRecenter);
             }
         }
         else
@@ -340,25 +425,21 @@ public class GunDamageScript : DamageScript
         if (float.IsInfinity(Mathf.Abs(currentRecoilTime)))
         {
             currentRecoilTime = 0;
-
         }
     }
 
 
-
-
-
-
-
     public virtual void Reload()
     {
-        if (mainGunStatsScript == null) { return; }
+        if (mainGunStatsScript == null)
+        {
+            return;
+        }
 
         if (currentMag < magazineSize && !isReloading)
         {
             isReloading = true;
             currentReloadCoroutine = StartCoroutine(DelayReload());
-
         }
     }
 
@@ -378,12 +459,14 @@ public class GunDamageScript : DamageScript
                     LaunchProjectile();
                     break;
             }
+
             HandleWeapon();
 
             if (currentProjectile > 0 && currentMag > 0 && timeBetweenProjectile > 0)
             {
                 currentBurstCoroutine = StartCoroutine(BurstFire(currentRecoilTime));
             }
+
             return true;
         }
 
@@ -400,17 +483,18 @@ public class GunDamageScript : DamageScript
         {
             return Raycast_HipFire();
         }
-
     }
 
     bool Raycast_HipFire()
     {
         bool hitTarget = false;
-        float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
+        float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0,
+            recoil_HipFire.y);
 
         randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
 
-        fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
+        fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
+                  Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
 
         //Vector3 fireDir = firePoint.transform.forward;
@@ -422,12 +506,16 @@ public class GunDamageScript : DamageScript
             //Shotgun Raycast
             for (int i = 0; i < projectilePerShot - 1; i++)
             {
-                randomFireDir = new Vector2(Random.Range(recoil_HipFire.x * 0.35f, recoil_HipFire.x), (360f / (projectilePerShot - 1)) * i);
-                fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
+                randomFireDir = new Vector2(Random.Range(recoil_HipFire.x * 0.35f, recoil_HipFire.x),
+                    (360f / (projectilePerShot - 1)) * i);
+                fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
+                          Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
+                          firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
             }
         }
+
         return hitTarget;
     }
 
@@ -446,13 +534,15 @@ public class GunDamageScript : DamageScript
             for (int i = 0; i < projectilePerShot - 1; i++)
             {
                 randomFireDir = new Vector2(Random.Range(0, recoil_HipFire.y), (360f / (projectilePerShot - 1)) * i);
-                fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
+                fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
+                          Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
+                          firePoint.transform.forward;
                 hitTarget = RayCastDealDamage(fireDir, hitTarget);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
             }
         }
-        return hitTarget;
 
+        return hitTarget;
     }
 
     bool RayCastDealDamage(Vector3 dir, bool hitTarget)
@@ -460,16 +550,19 @@ public class GunDamageScript : DamageScript
         if (Physics.Raycast(firePoint.transform.position, dir, out raycastHit, range * 1.5f, layerMask))
         {
             Instantiate(impactEffect, raycastHit.point, Quaternion.Euler(raycastHit.normal));
-            if (tagList.Contains(raycastHit.collider.tag) && (raycastHit.collider.TryGetComponent(out LifeSystemScript ls) || raycastHit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
+            if (tagList.Contains(raycastHit.collider.tag) &&
+                (raycastHit.collider.TryGetComponent(out LifeSystemScript ls) ||
+                 raycastHit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
             {
-                float dropOff = rangeCurve.Evaluate((firePoint.transform.position - raycastHit.point).magnitude / range);
+                float dropOff =
+                    rangeCurve.Evaluate((firePoint.transform.position - raycastHit.point).magnitude / range);
                 if (raycastHit.collider.TryGetComponent(out WeakPointScript wps))
                 {
                     ls = wps.Ls;
                     try
                     {
-                        dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType, UniversalValues.GetDamageMultiplier(gunType));
-
+                        dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType,
+                            UniversalValues.GetDamageMultiplier(gunType));
                     }
                     catch (System.Exception e)
                     {
@@ -480,20 +573,19 @@ public class GunDamageScript : DamageScript
                 else
                 {
                     dealDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType);
-
                 }
+
                 if (Random.Range(0, 1f) <= elementChance)
                 {
                     ApplyElementEffect(ls);
-
                 }
+
                 hitTarget = true;
             }
         }
+
         return hitTarget;
     }
-
-
 
 
     void LaunchProjectile()
@@ -502,12 +594,16 @@ public class GunDamageScript : DamageScript
         {
             //for (int i = 0; i < projectilePerShot; i++)
             //{
-            projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
-            float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0, recoil_HipFire.y);
+            projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity)
+                .GetComponent<ProjectileScript>();
+            float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0,
+                recoil_HipFire.y);
 
             randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
 
-            Vector3 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) * Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) * firePoint.transform.forward;
+            Vector3 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
+                              Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
+                              firePoint.transform.forward;
 
             /*s
             if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
@@ -523,23 +619,22 @@ public class GunDamageScript : DamageScript
         {
             Debug.LogError("Failed to get Projectile " + projectileGO.name + " script");
         }
-
     }
 
     protected virtual float HandleWeapon(float newRecoilTime = -1f)
     {
-        mainGunStatsScript.PlayAnimationTrigger("Shoot", 1 / timeUntilFire);
-        mainGunStatsScript.Play_Fire();
+        gunEffectsController.PlayAnimationTrigger("Shoot", 1 / timeUntilFire);
+        gunEffectsController.PlaySound_Fire();
         Vector2 addRecoil = new Vector2();
         if (newRecoilTime < 0)
         {
             newRecoilTime = RecoilWeapon(out addRecoil);
-
         }
         else
         {
             newRecoilTime = RecoilWeapon(newRecoilTime, out addRecoil);
         }
+
         currentProjectile -= 1;
         currentMag -= 1;
 
@@ -551,35 +646,41 @@ public class GunDamageScript : DamageScript
         //Set fire hitpoints and direction
         try
         {
-            mainGunStatsScript.GunComponent_Body.RaycastHit = raycastHit;
-            mainGunStatsScript.GunComponent_Body.FireDir = fireDir;
+            if (raycastHit.point.magnitude > 0)
+            {
+                gunEffectsController?.AddBulletTrail(raycastHit);
+            }
+            else
+            {
+                gunEffectsController?.AddBulletTrail(fireDir);
+            }
         }
         catch (NullReferenceException e)
         {
             Debug.LogWarning(e);
             //throw;
         }
-        
-        
+
+
         return newRecoilTime;
     }
 
     protected virtual float RecoilWeapon(out Vector2 addRecoil)
     {
-
         currentRecoilTime += 0.1f;
-        addRecoil = new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
+        addRecoil = new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x,
+            recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y);
         if (!isADS)
         {
             addRecoil *= UniversalValues.HipFireRecoilMultiplier;
         }
+
         currentRecoil += addRecoil;
 
 
         if (gunType.Equals(GunTypes.SHOTGUN))
         {
             currentRecoil += addRecoil * projectilePerShot / UniversalValues.ShotgunPelletRecoilMultiplier;
-
         }
         //print(currentRecoilTime + ", " + new Vector2(recoilPattern_X.Evaluate(currentRecoilTime) * recoil.x, recoilPattern_Y.Evaluate(currentRecoilTime) * recoil.y));
         /*
@@ -598,7 +699,6 @@ public class GunDamageScript : DamageScript
         */
 
         return currentRecoilTime;
-
     }
 
     protected float RecoilWeapon(float newTime, out Vector2 addRecoil)
@@ -610,26 +710,29 @@ public class GunDamageScript : DamageScript
     protected virtual Quaternion SetWeaponRecoil()
     {
         Quaternion targetPoint;
-        if (firePoint.transform.rotation.eulerAngles.x > 180f && firePoint.transform.rotation.eulerAngles.x - currentRecoil.x < 275f)
+        if (firePoint.transform.rotation.eulerAngles.x > 180f &&
+            firePoint.transform.rotation.eulerAngles.x - currentRecoil.x < 275f)
         {
             currentRecoil.x = firePoint.transform.rotation.eulerAngles.x - 275f;
             currentRecoil.y = 0f;
         }
+
         if (isADS)
         {
             //mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0), 10f * Time.deltaTime);
             mainGunStatsScript.transform.localRotation = Quaternion.Euler(0, 0, 0);
             targetPoint = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0);
-
         }
         else
         {
             targetPoint = Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0);
-            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0), Time.deltaTime);
+            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation,
+                Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0), Time.deltaTime);
         }
-        firePoint.transform.localRotation = Quaternion.Lerp(firePoint.transform.localRotation, targetPoint, 10f * Time.deltaTime);
-        return targetPoint;
 
+        firePoint.transform.localRotation =
+            Quaternion.Lerp(firePoint.transform.localRotation, targetPoint, 10f * Time.deltaTime);
+        return targetPoint;
     }
 
     protected void SetWeaponLocation(bool forced = false)
@@ -637,7 +740,8 @@ public class GunDamageScript : DamageScript
         if (isADS)
         {
             Vector3 targetPos = firePoint.transform.position - firePoint.transform.rotation * sightOffset;
-            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, targetPos, 20 * Time.deltaTime);
+            mainGunStatsScript.transform.position =
+                Vector3.Lerp(mainGunStatsScript.transform.position, targetPos, 20 * Time.deltaTime);
             //if (isFiring || forced)
             //{
             //    mainGunStatsScript.transform.position = targetPos;
@@ -646,26 +750,19 @@ public class GunDamageScript : DamageScript
             //else
             //{
             //}
-
         }
         else
         {
-            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position, gunPosition.transform.position, 20 * Time.deltaTime);
-
+            mainGunStatsScript.transform.position = Vector3.Lerp(mainGunStatsScript.transform.position,
+                gunPosition.transform.position, 20 * Time.deltaTime);
         }
     }
-
-
-
 
 
     void ApplyElementEffect(LifeSystemScript ls)
     {
         base.ApplyElementEffect(ls, elementDamage, elementPotency, elementType);
     }
-
-
-
 
 
     IEnumerator BurstFire(float newRecoilTime)
@@ -682,6 +779,7 @@ public class GunDamageScript : DamageScript
                 LaunchProjectile();
                 break;
         }
+
         newRecoilTime = HandleWeapon(newRecoilTime);
         if (currentProjectile > 0 && currentMag > 0)
         {
@@ -689,6 +787,7 @@ public class GunDamageScript : DamageScript
             {
                 StopCoroutine(currentBurstCoroutine);
             }
+
             currentBurstCoroutine = StartCoroutine(BurstFire(newRecoilTime));
         }
     }
@@ -696,8 +795,8 @@ public class GunDamageScript : DamageScript
     protected virtual IEnumerator DelayReload(float offset = 0)
     {
         Fire(false);
-        mainGunStatsScript.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
-        mainGunStatsScript.Play_StartReload();
+        gunEffectsController.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
+        gunEffectsController.PlaySound_StartReload();
         currentRecoilTime = 0f;
         yield return new WaitForSeconds(reloadSpeed - offset);
         if (Reload_Action())
@@ -710,16 +809,15 @@ public class GunDamageScript : DamageScript
     {
         if (isFullReload)
         {
-            mainGunStatsScript.Play_EndReload();
+            gunEffectsController.PlaySound_EndReload();
             currentMag = magazineSize;
             isReloading = false;
             EndReload();
-
         }
         else
         {
             currentMag += amountPerReload;
-            mainGunStatsScript.Play_StartReload();
+            gunEffectsController.PlaySound_StartReload();
             if (currentMag < magazineSize)
             {
                 return true;
@@ -727,11 +825,11 @@ public class GunDamageScript : DamageScript
             else
             {
                 isReloading = false;
-                mainGunStatsScript.Play_EndReload();
+                gunEffectsController.PlaySound_EndReload();
                 EndReload();
-
             }
         }
+
         return false;
     }
 
@@ -742,12 +840,7 @@ public class GunDamageScript : DamageScript
             StopCoroutine(currentReloadCoroutine);
             currentReloadCoroutine = null;
         }
+
         isReloading = false;
-
     }
-
-
-
-
-
 }

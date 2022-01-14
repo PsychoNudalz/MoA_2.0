@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -7,88 +8,238 @@ using UnityEngine.VFX;
 public class MainGunStatsScript : GunStatsScript
 {
     [Header("Gun Effects")]
-    [SerializeField] VisualEffect rarityEffect;
+    [SerializeField]
+    VisualEffect rarityEffect;
 
     [Header("Gun Property")]
-    [SerializeField] GunTypes gunType = GunTypes.RIFLE;
-    [SerializeField] Rarity rarity;
-    [SerializeField] ElementTypes elementType = ElementTypes.PHYSICAL;
-    [SerializeField] FireTypes fireType = FireTypes.HitScan;
-    [SerializeField] GameObject projectileGO;
+    [SerializeField]
+    GunTypes gunType = GunTypes.RIFLE;
 
-    [SerializeField] protected AnimationCurve rangeCurve;
+    [SerializeField]
+    Rarity rarity;
 
-    [SerializeField] bool isFullAuto = true;
-    [SerializeField] int projectilePerShot;
-    [SerializeField] float timeBetweenProjectile = 0f;
-    [SerializeField] bool isFullReload = true;
-    [SerializeField] int amountPerReload = 1;
+    [SerializeField]
+    ElementTypes elementType = ElementTypes.PHYSICAL;
 
-    [SerializeField] AnimationCurve recoilPattern_X;
-    [SerializeField] AnimationCurve recoilPattern_Y;
-    [SerializeField] float timeToRecenter = 3f;
+    [SerializeField]
+    FireTypes fireType = FireTypes.HitScan;
 
-    [SerializeField] Transform sightLocation;
-    [SerializeField] Vector3 sightOffset;
+    [SerializeField]
+    GameObject projectileGo;
 
+    [SerializeField]
+    protected AnimationCurve rangeCurve;
+
+    [SerializeField]
+    bool isFullAuto = true;
+
+    [SerializeField]
+    int projectilePerShot;
+
+    [SerializeField]
+    float timeBetweenProjectile = 0f;
+
+    [SerializeField]
+    bool isFullReload = true;
+
+    [SerializeField]
+    int amountPerReload = 1;
+
+    [SerializeField]
+    AnimationCurve recoilPatternX;
+
+    [SerializeField]
+    AnimationCurve recoilPatternY;
+
+    [SerializeField]
+    float timeToRecenter = 3f;
+
+    [SerializeField]
+    Transform sightLocation;
+
+    [SerializeField]
+    Vector3 sightOffset;
 
 
     [Header("Effects")]
-    [SerializeField] ParticleSystem bulletParticle;
-    [SerializeField] GameObject impactEffect;
-    [SerializeField] VisualEffect muzzleEffect;
+    [SerializeField]
+    private GunEffectsController gunEffectsController;
+
+
+    [SerializeField]
+    ParticleSystem bulletParticle;
+
+    [SerializeField]
+    GameObject impactEffect;
+
+    [SerializeField]
+    VisualEffect muzzleEffect;
 
     [Header("Connected Components")]
-    [SerializeField] GunComponent_Body gunComponent_Body;
-    [SerializeField] GunComponent_Sight component_Sight;
-    [SerializeField] List<GunComponent> components;
+    [SerializeField]
+    GunComponent_Body gunComponentBody;
+
+    [SerializeField]
+    GunComponent_Sight componentSight;
+
+    [SerializeField]
+    List<GunComponent> components;
 
     [Header("Animator")]
-    [SerializeField] Animator animator;
-    [SerializeField] float shootAnimationLerp = 1;
+    [SerializeField]
+    Animator animator;
+
+    [SerializeField]
+    float shootAnimationLerp = 1;
 
 
     [Header("Sound")]
     SoundManager soundManager;
-    [SerializeField] Sound sound_Fire;
-    [SerializeField] Sound sound_StartReload;
-    [SerializeField] Sound sound_EndReload;
+
+    [SerializeField]
+    Sound soundFire;
+
+    [SerializeField]
+    Sound soundStartReload;
+
+    [SerializeField]
+    Sound soundEndReload;
 
     [Header("Saved Stats")]
-    [SerializeField] float currentMag;
+    [SerializeField]
+    float currentMag;
 
-    public int ProjectilePerShot { get => projectilePerShot; }
-    public float TimeBetweenProjectile { get => timeBetweenProjectile; }
-    public float CurrentMag { get => currentMag; set => currentMag = value; }
-    public ElementTypes ElementType { get => elementType; }
-    public GunTypes GunType { get => gunType; }
-    public bool IsFullAuto { get => isFullAuto; set => isFullAuto = value; }
-    public int AmountPerReload { get => amountPerReload; }
-    public bool IsFullReload { get => isFullReload; }
+    public int ProjectilePerShot
+    {
+        get => projectilePerShot;
+    }
 
-    public ParticleSystem BulletParticle { get => bulletParticle; }
-    public VisualEffect MuzzleEffect { get => muzzleEffect; set => muzzleEffect = value; }
-    public GameObject ImpactEffect { get => impactEffect; set => impactEffect = value; }
+    public float TimeBetweenProjectile
+    {
+        get => timeBetweenProjectile;
+    }
 
-    public AnimationCurve RecoilPattern_X { get => recoilPattern_X; }
-    public AnimationCurve RecoilPattern_Y { get => recoilPattern_Y; }
-    public float TimeToRecenter { get => timeToRecenter; set => timeToRecenter = value; }
-    public Transform SightLocation { get => sightLocation; set => sightLocation = value; }
-    public Vector3 SightOffset { get => sightOffset; set => sightOffset = value; }
+    public float CurrentMag
+    {
+        get => currentMag;
+        set => currentMag = value;
+    }
 
-    public GunComponent_Sight Component_Sight { get => component_Sight; }
-    public FireTypes FireType { get => fireType; set => fireType = value; }
-    public GameObject ProjectileGO { get => projectileGO; set => projectileGO = value; }
+    public ElementTypes ElementType
+    {
+        get => elementType;
+    }
 
-    public AnimationCurve RangeCurve { get => rangeCurve; }
-    public Rarity Rarity { get => rarity; set => rarity = value; }
-    public GunComponent_Body GunComponent_Body { get => gunComponent_Body; set => gunComponent_Body = value; }
+    public GunTypes GunType
+    {
+        get => gunType;
+    }
+
+    public bool IsFullAuto
+    {
+        get => isFullAuto;
+        set => isFullAuto = value;
+    }
+
+    public int AmountPerReload
+    {
+        get => amountPerReload;
+    }
+
+    public bool IsFullReload
+    {
+        get => isFullReload;
+    }
+
+    public ParticleSystem BulletParticle
+    {
+        get => bulletParticle;
+    }
+
+    public VisualEffect MuzzleEffect
+    {
+        get => muzzleEffect;
+        set => muzzleEffect = value;
+    }
+
+    public GameObject ImpactEffect
+    {
+        get => impactEffect;
+        set => impactEffect = value;
+    }
+
+    public AnimationCurve RecoilPatternX
+    {
+        get => recoilPatternX;
+    }
+
+    public AnimationCurve RecoilPatternY
+    {
+        get => recoilPatternY;
+    }
+
+    public float TimeToRecenter
+    {
+        get => timeToRecenter;
+        set => timeToRecenter = value;
+    }
+
+    public Transform SightLocation
+    {
+        get => sightLocation;
+        set => sightLocation = value;
+    }
+
+    public Vector3 SightOffset
+    {
+        get => sightOffset;
+        set => sightOffset = value;
+    }
+
+    public GunComponent_Sight ComponentSight
+    {
+        get => componentSight;
+    }
+
+    public FireTypes FireType
+    {
+        get => fireType;
+        set => fireType = value;
+    }
+
+    public GameObject ProjectileGo
+    {
+        get => projectileGo;
+        set => projectileGo = value;
+    }
+
+    public AnimationCurve RangeCurve
+    {
+        get => rangeCurve;
+    }
+
+    public Rarity Rarity
+    {
+        get => rarity;
+        set => rarity = value;
+    }
+
+    public GunComponent_Body GunComponentBody
+    {
+        get => gunComponentBody;
+        set => gunComponentBody = value;
+    }
+
+    public GunEffectsController GunEffectsController
+    {
+        get => gunEffectsController;
+    }
 
     private void Start()
     {
-        if (gunComponent_Body != null)
+        if (gunComponentBody != null)
         {
-            SetBody(gunComponent_Body);
+            SetBody(gunComponentBody);
         }
     }
 
@@ -96,12 +247,12 @@ public class MainGunStatsScript : GunStatsScript
     {
         name = b.name.Substring(0, b.name.IndexOf("_"));
         soundManager = FindObjectOfType<SoundManager>();
-        gunComponent_Body = b;
+        gunComponentBody = b;
 
         gunType = b.GTypes[0];
         rarity = b.Rarity;
-        recoilPattern_X = b.RecoilPattern_X;
-        recoilPattern_Y = b.RecoilPattern_Y;
+        recoilPatternX = b.RecoilPattern_X;
+        recoilPatternY = b.RecoilPattern_Y;
         timeToRecenter = b.TimeToRecenter;
         isFullAuto = b.IsFullAuto;
         bulletParticle = b.BulletParticle;
@@ -114,22 +265,24 @@ public class MainGunStatsScript : GunStatsScript
         sightOffset = b.SightOffset;
         animator = b.GetAnimator;
         shootAnimationLerp = b.ShootAnimationLerp;
-        sound_Fire = b.Sound_Fire;
-        sound_StartReload = b.Sound_StartReload;
-        sound_EndReload = b.Sound_EndReload;
+        soundFire = b.Sound_Fire;
+        soundStartReload = b.Sound_StartReload;
+        soundEndReload = b.Sound_EndReload;
         isFullReload = b.IsFullReload;
         amountPerReload = b.AmountPerReload;
-        component_Sight = b.Component_Sight;
+        componentSight = b.Component_Sight;
         fireType = b.FireType;
         elementType = b.ElementType;
-        projectileGO = b.ProjectileGO;
+        projectileGo = b.ProjectileGO;
         rangeCurve = b.RangeCurve;
+        gunEffectsController = b.GunEffectsController;
+
         //b.transform.rotation = Quaternion.Euler(0, -90, 0) * transform.rotation;
 
         //Rarity effect
 
-        rarityEffect.SetInt("Rarity", (int)rarity);
-        rarityEffect.SetInt("Element", (int)elementType);
+        rarityEffect.SetInt("Rarity", (int) rarity);
+        rarityEffect.SetInt("Element", (int) elementType);
     }
 
 
@@ -143,12 +296,13 @@ public class MainGunStatsScript : GunStatsScript
         base.AddStats(g);
     }
 
-    public void FinishAssemply()
+    public void FinishAssembly()
     {
         if (recoil.x < 0)
         {
             recoil.x = 0;
         }
+
         if (recoil.y < 0)
         {
             recoil.y = 0;
@@ -158,64 +312,76 @@ public class MainGunStatsScript : GunStatsScript
         GetComponentInChildren<Rigidbody>().isKinematic = false;
         GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
         transform.parent = null;
-        gunComponent_Body.SetEffectsElement(60f/RPM);
+        gunEffectsController.Initialise(this);
+        gunEffectsController.SetEffectsElement(60f / RPM,elementType);
     }
 
+    /// <summary>
+    /// Depreciated 
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="animationSpeed"></param>
+    [Obsolete("Moved to GunEffectController", true)]
     public void PlayAnimationTrigger(string s, float animationSpeed = 1)
     {
         if (animator == null)
         {
             return;
         }
+
         if (s.Equals("Shoot"))
         {
             animator.speed = Mathf.Lerp(1, animationSpeed, shootAnimationLerp);
-
         }
         else
         {
             animator.speed = animationSpeed;
         }
-        animator.SetTrigger(s);
 
+        animator.SetTrigger(s);
     }
 
-
+    [Obsolete("Moved to GunEffectController", true)]
     public void Play_Fire()
     {
-        if (sound_Fire != null)
+        if (soundFire != null)
         {
-            sound_Fire.PlayF();
+            soundFire.PlayF();
         }
     }
 
+    [Obsolete("Moved to GunEffectController", true)]
     public void Play_StartReload()
     {
-        if (sound_StartReload != null)
+        if (soundStartReload != null)
         {
-            sound_StartReload.PlayF();
-        }
-    }
-    public void Play_EndReload()
-    {
-        if (sound_EndReload != null)
-        {
-            sound_EndReload.PlayF();
+            soundStartReload.PlayF();
         }
     }
 
+    [Obsolete("Moved to GunEffectController", true)]
+    public void Play_EndReload()
+    {
+        if (soundEndReload != null)
+        {
+            soundEndReload.PlayF();
+        }
+    }
+
+    [Obsolete("MOved to GunEffectController", true)]
     public void StopAnimation()
     {
         animator.StopPlayback();
     }
 
-
+    [Obsolete("MOved to GunEffectController", true)]
     public void PlayGunShootEffect()
     {
         if (bulletParticle != null)
         {
             bulletParticle.Play();
         }
+
         if (muzzleEffect != null)
         {
             muzzleEffect.Play();
@@ -227,7 +393,7 @@ public class MainGunStatsScript : GunStatsScript
         string returnString = string.Concat(
             "<b>", name, "</b>", "\n",
             rarity.ToString(), " ", gunType.ToString(), "\n",
-            "DPS: ", CalculateDPS().ToString("0"), " Dmg/Sec.", "\n",
+            "DPS: ", CalculateDps().ToString("0"), " Dmg/Sec.", "\n",
             "Damage: ", damagePerProjectile.ToString("0"), " x ", projectilePerShot, "\n",
             "RPM: ", RPM.ToString("0"), "\n",
             "Recoil: ", recoil.ToString(), "\n",
@@ -236,9 +402,9 @@ public class MainGunStatsScript : GunStatsScript
             "Reload: ", ReloadSpeed, "\n",
             "Range: ", range, "\n",
             "Element: ", elementType.ToString(), "\n",
-             (elementDamage * damagePerProjectile).ToString("0"), " Dmg, ", (elementChance * 100f).ToString("0"), "%, ", elementPotency, " Pow."
-
-            );
+            (elementDamage * damagePerProjectile).ToString("0"), " Dmg, ", (elementChance * 100f).ToString("0"), "%, ",
+            elementPotency, " Pow."
+        );
         return returnString;
     }
 
@@ -252,14 +418,17 @@ public class MainGunStatsScript : GunStatsScript
         rarityEffect.gameObject.SetActive(b);
     }
 
-    public float CalculateDPS()
+    public float CalculateDps()
     {
-        float dps = (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot * magazineSize;
+        float dps = (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * projectilePerShot *
+                    magazineSize;
         if (elementType != ElementTypes.PHYSICAL)
         {
             dps = dps * UniversalValues.ElementDamageNerf;
         }
-        dps += (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * elementDamage * elementChance * UniversalValues.GetDamageMultiplier(elementType) * projectilePerShot * magazineSize;
+
+        dps += (1 / ((60f / RPM) * magazineSize + reloadSpeed)) * damagePerProjectile * elementDamage * elementChance *
+               UniversalValues.GetDamageMultiplier(elementType) * projectilePerShot * magazineSize;
         /*
         switch (elementType)
         {

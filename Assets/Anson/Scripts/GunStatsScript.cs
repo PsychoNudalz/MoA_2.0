@@ -21,7 +21,7 @@ public class GunStatsScript : MonoBehaviour
     [SerializeField] protected float elementChance = 0;
 
     public float DamagePerProjectile{ get => damagePerProjectile; }
-    public float RPM_Get { get => RPM; }
+    public float GetRPM { get => RPM; }
     public float ReloadSpeed { get => reloadSpeed; }
     public Vector2 Recoil { get => recoil; }
     public Vector2 Recoil_HipFire { get => recoil_HipFire; }

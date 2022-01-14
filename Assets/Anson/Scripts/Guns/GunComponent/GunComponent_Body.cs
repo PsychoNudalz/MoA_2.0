@@ -22,6 +22,10 @@ public class GunComponent_Body : GunComponent
 
     [Header("Effects")]
     [SerializeField]
+    private GunEffectsController gunEffectsController;
+
+
+    [SerializeField]
     ParticleSystem bulletParticle;
 
     [SerializeField]
@@ -33,24 +37,6 @@ public class GunComponent_Body : GunComponent
     [SerializeField]
     ParticleSystem bulletCaseParticle;
 
-    [SerializeField]
-    private BulletTrailControllerScript bulletTrailControllerScript;
-
-    private RaycastHit raycastHit;
-
-    public RaycastHit RaycastHit
-    {
-        get => raycastHit;
-        set => raycastHit = value;
-    }
-
-    private Vector3 fireDir;
-
-    public Vector3 FireDir
-    {
-        get => fireDir;
-        set => fireDir = value;
-    }
 
     [Header("Recoil")]
     [SerializeField]
@@ -85,8 +71,7 @@ public class GunComponent_Body : GunComponent
     int amountPerReload = 1;
 
     [Header("Component")]
-    [SerializeField]
-    private GunEffectsController gunEffectsController;
+
     [SerializeField]
     GunComponent_Sight component_Sight;
 
@@ -127,6 +112,9 @@ public class GunComponent_Body : GunComponent
 
     //_______________________________________________________
     //Getters and Setters
+
+    public GunEffectsController GunEffectsController => gunEffectsController;
+
     public float TimeBetweenProjectile
     {
         get => timeBetweenProjectile;
@@ -265,9 +253,8 @@ public class GunComponent_Body : GunComponent
     }
 
     //_______________________________________________________
-    
-    
-    
+
+
     private void Awake()
     {
         if (!gunEffectsController)
@@ -290,10 +277,6 @@ public class GunComponent_Body : GunComponent
             gunHandController = GetComponentInChildren<GunHandController>();
         }
 
-        if (!bulletTrailControllerScript)
-        {
-            bulletTrailControllerScript = GetComponentInChildren<BulletTrailControllerScript>();
-        }
     }
 
     public void SetSight(GunComponent_Sight s)
@@ -313,19 +296,7 @@ public class GunComponent_Body : GunComponent
 
     public void SetBarrel(GunComponent_Barrel b)
     {
-        if (gunHandController && !ignoreBarrelHand)
-        {
-            if (b.Hpp_Left)
-            {
-                print($"{b.Hpp_Left}");
-                print($"{gunHandController}");
-                gunHandController.SetNewRestPoint_Left(b.Hpp_Left);
-            }
-
-            if (b.Hpp_Right)
-            {
-            }
-        }
+        gunEffectsController.SetHandOnBarrel(b,ignoreBarrelHand);
     }
 
     public void SetProjectile(GameObject g)
@@ -336,54 +307,13 @@ public class GunComponent_Body : GunComponent
         }
     }
 
-    public void SetEffectsElement(float timeBetweenShots)
-    {
-        muzzleEffect.SetInt("ElementEnum", (int) elementType);
-        if (bulletTrailControllerScript)
-        {
-            bulletTrailControllerScript.InitialiseTrails((int) elementType, timeBetweenShots);
-        }
-    }
 
-    public void SetBulletTrail()
-    {
-        if (bulletTrailControllerScript)
-        {
-            if (raycastHit.point.magnitude!=0)
-            {
-                bulletTrailControllerScript.PlayTrail(raycastHit);
-            }
-            else
-            {
-                bulletTrailControllerScript.PlayTrail(fireDir);
-            }
-        }
-    }
+    
 
-    public void PlayGunShootEffect(int notEjectCase = 0)
-    {
-        try
-        {
-            //Debug.Log(name + " play muzzle");
 
-            bulletParticle.Play();
-            muzzleEffect.Play();
 
-            if (GTypes[0] != GunTypes.SHOTGUN)
-            {
-                if (notEjectCase == 0)
-                {
-                    bulletCaseParticle.Play();
-                }
-            }
+    
 
-            SetBulletTrail();
-        }
-        catch (System.NullReferenceException e)
-        {
-            Debug.LogWarning(name + " Missing shoot effect");
-        }
-    }
 
     public void PlayBulletCaseEffect()
     {

@@ -66,9 +66,28 @@ public class BulletTrailControllerScript : MonoBehaviour
         current.SetPosition(0,transform.position);
         current.SetPosition(1,transform.position+(dir*trailDistance));
     }
-    
-    
 
+    public void PlayTrail(List<RaycastHit> raycastHits)
+    {
+        foreach (RaycastHit raycastHit in raycastHits)
+        {
+            PlayTrail(raycastHit);
+        }
+    }
+
+    public void PlayTrail(List<Vector3> fireDirs)
+    {
+        foreach (Vector3 fireDir in fireDirs)
+        {
+            PlayTrail(fireDir);
+        }
+    }
+
+
+    /// <summary>
+        /// Object Pool Trails
+        /// </summary>
+        /// <returns></returns>
     private LineRenderer GetNextTrail()
     {
         LineRenderer current = bulletTrails[trailPointer % bulletTrails.Count];

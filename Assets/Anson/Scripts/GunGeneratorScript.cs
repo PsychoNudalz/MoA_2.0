@@ -79,7 +79,7 @@ public class GunGeneratorScript : MonoBehaviour
         AddRandomExtraComponents(newGun);
 
         currentMainGunStatsScript.SetBody(newGun);
-        currentMainGunStatsScript.FinishAssemply();
+        currentMainGunStatsScript.FinishAssembly();
 
         //newEmptyGun.name = newGun.name;
 
