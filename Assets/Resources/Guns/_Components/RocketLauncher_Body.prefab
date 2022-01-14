@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 9162925702345229365}
   - component: {fileID: 7944685696879757847}
   - component: {fileID: 6101215029106087514}
+  - component: {fileID: 8550617971237100552}
   m_Layer: 8
   m_Name: RocketLauncher_Body
   m_TagString: Gun
@@ -214,12 +215,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  gunEffectsController: {fileID: 0}
   bulletParticle: {fileID: 7381465778741779579}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 3405770491112318019}
   bulletCaseParticle: {fileID: 7381465778741779579}
-  bulletTrailControllerScript: {fileID: 0}
   recoilPattern_X:
     serializedVersion: 2
     m_Curve:
@@ -339,6 +340,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8550617971237100552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3320729156540099703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdbaf2debe8b7548a5f041d691447a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6101215029106087514}
+  shootAnimationLerp: 1
+  gunHandController: {fileID: 0}
+  bulletParticle: {fileID: 7381465778741779579}
+  impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
+    type: 3}
+  muzzleEffect: {fileID: 3405770491112318019}
+  bulletCaseParticle: {fileID: 7381465778741779579}
+  bulletTrailControllerScript: {fileID: 0}
+  bulletTrailCache_FireDir: []
+  sound_Fire: {fileID: 4645541274897242016}
+  sound_StartReload: {fileID: 8153319655041363738}
+  sound_EndReload: {fileID: 5635617589003636149}
+  mainGunStat: {fileID: 0}
 --- !u!1 &3951165690216377775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,15 +1736,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cdcaabd41925d44eb7720f80c3a3aa7, type: 3}
---- !u!4 &7036198747402496398 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
-    type: 3}
-  m_PrefabInstance: {fileID: 6956028171155970890}
-  m_PrefabAsset: {fileID: 0}
 --- !u!2083052967 &3405770491112318019 stripped
 VisualEffect:
   m_CorrespondingSourceObject: {fileID: 5749826735744843529, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 6956028171155970890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7036198747402496398 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 84829243655451332, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
     type: 3}
   m_PrefabInstance: {fileID: 6956028171155970890}
   m_PrefabAsset: {fileID: 0}
@@ -2111,12 +2138,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d67531af8904c5f429eea5fe25eaed44, type: 3}
---- !u!4 &2041179831150839595 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7911245224739490585, guid: d67531af8904c5f429eea5fe25eaed44,
-    type: 3}
-  m_PrefabInstance: {fileID: 8185813079509584946}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &352570126651414428 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8466007578337516462, guid: d67531af8904c5f429eea5fe25eaed44,
@@ -2129,6 +2150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aed2c6f2b93f3745b990e44238da0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2041179831150839595 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7911245224739490585, guid: d67531af8904c5f429eea5fe25eaed44,
+    type: 3}
+  m_PrefabInstance: {fileID: 8185813079509584946}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9069671604460147309
 PrefabInstance:
   m_ObjectHideFlags: 0

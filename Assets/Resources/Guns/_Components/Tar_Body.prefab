@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 773453676006926149}
   - component: {fileID: 2028710814316969147}
   - component: {fileID: 1339272583147588649}
+  - component: {fileID: -1190436762084673306}
   m_Layer: 8
   m_Name: Tar_Body
   m_TagString: Gun
@@ -432,12 +433,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  gunEffectsController: {fileID: 0}
   bulletParticle: {fileID: 4682246670959758071}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 1975207338761667935}
   bulletCaseParticle: {fileID: 7984594195804118374}
-  bulletTrailControllerScript: {fileID: 0}
   recoilPattern_X:
     serializedVersion: 2
     m_Curve:
@@ -619,6 +620,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-1190436762084673306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3155319886196525195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdbaf2debe8b7548a5f041d691447a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1339272583147588649}
+  shootAnimationLerp: 1
+  gunHandController: {fileID: 0}
+  bulletParticle: {fileID: 4682246670959758071}
+  impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
+    type: 3}
+  muzzleEffect: {fileID: 1975207338761667935}
+  bulletCaseParticle: {fileID: 7984594195804118374}
+  bulletTrailControllerScript: {fileID: 0}
+  bulletTrailCache_FireDir: []
+  sound_Fire: {fileID: 6120126819613589952}
+  sound_StartReload: {fileID: 1787511580864897707}
+  sound_EndReload: {fileID: 1276518584935594546}
+  mainGunStat: {fileID: 0}
 --- !u!1 &5042789657739372996
 GameObject:
   m_ObjectHideFlags: 0

@@ -388,6 +388,7 @@ GameObject:
   - component: {fileID: 1174943469718909956}
   - component: {fileID: 82838516655077926}
   - component: {fileID: 4308997077330011755}
+  - component: {fileID: -5419919169963289842}
   m_Layer: 8
   m_Name: SpamShotgun_Body
   m_TagString: Gun
@@ -473,12 +474,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  gunEffectsController: {fileID: 0}
   bulletParticle: {fileID: 655063434518080586}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 4622037417306018930}
   bulletCaseParticle: {fileID: 655063434518080586}
-  bulletTrailControllerScript: {fileID: 0}
   recoilPattern_X:
     serializedVersion: 2
     m_Curve:
@@ -633,6 +634,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-5419919169963289842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4716083752563760198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdbaf2debe8b7548a5f041d691447a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4308997077330011755}
+  shootAnimationLerp: 1
+  gunHandController: {fileID: 7420996445813736076}
+  bulletParticle: {fileID: 655063434518080586}
+  impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
+    type: 3}
+  muzzleEffect: {fileID: 4622037417306018930}
+  bulletCaseParticle: {fileID: 655063434518080586}
+  bulletTrailControllerScript: {fileID: 0}
+  bulletTrailCache_FireDir: []
+  sound_Fire: {fileID: 3395498135600850833}
+  sound_StartReload: {fileID: 2180047585289723691}
+  sound_EndReload: {fileID: 2401193670831668612}
+  mainGunStat: {fileID: 0}
 --- !u!1 &5493732719807095258
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +999,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa1380926f39ab544baf960f4afc1858, type: 3}
+--- !u!4 &6714003857619737697 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6446745910454273785, guid: fa1380926f39ab544baf960f4afc1858,
+    type: 3}
+  m_PrefabInstance: {fileID: 314020316476250776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5015814247893830870 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4737891998971500110, guid: fa1380926f39ab544baf960f4afc1858,
@@ -984,12 +1017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aed2c6f2b93f3745b990e44238da0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6714003857619737697 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6446745910454273785, guid: fa1380926f39ab544baf960f4afc1858,
-    type: 3}
-  m_PrefabInstance: {fileID: 314020316476250776}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &581454851364539493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2435,12 +2462,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 200c43ed6fa95874aa0168051bb8eb98, type: 3}
---- !u!4 &6550238766108283618 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2903998204529188140, guid: 200c43ed6fa95874aa0168051bb8eb98,
-    type: 3}
-  m_PrefabInstance: {fileID: 8262431347867717582}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4778374075479769685 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3529199706550652315, guid: 200c43ed6fa95874aa0168051bb8eb98,
@@ -2453,6 +2474,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aed2c6f2b93f3745b990e44238da0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6550238766108283618 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2903998204529188140, guid: 200c43ed6fa95874aa0168051bb8eb98,
+    type: 3}
+  m_PrefabInstance: {fileID: 8262431347867717582}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8571110707932745219
 PrefabInstance:
   m_ObjectHideFlags: 0

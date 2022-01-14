@@ -88,6 +88,14 @@ public class GunEffectsConvertor
         {
             Debug.Log($"Updating Gun Component Body {gunComponentBody.name}");
             gunEffectsController = gunComponentBody.GetComponent<GunEffectsController>();
+            // if (gunEffectsController)
+            // {
+            //     GameObject.DestroyImmediate(gunEffectsController);
+            // }
+            //
+            // gunComponentBody.gameObject.AddComponent(typeof(GunEffectsController));
+            // gunEffectsController = gunComponentBody.GetComponent<GunEffectsController>();
+
             gunEffectsController.GetBodyData(gunComponentBody);
             EditorUtility.SetDirty(gunEffectsController.gameObject);
         }

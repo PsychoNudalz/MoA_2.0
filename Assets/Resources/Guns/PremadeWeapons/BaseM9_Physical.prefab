@@ -283,12 +283,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  gunEffectsController: {fileID: 0}
   bulletParticle: {fileID: 4505381813125582641}
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 906211740135061785}
   bulletCaseParticle: {fileID: 153518780736836583}
-  bulletTrailControllerScript: {fileID: 0}
   recoilPattern_X:
     serializedVersion: 2
     m_Curve:
@@ -354,7 +354,6 @@ MonoBehaviour:
   isFullAuto: 0
   isFullReload: 1
   amountPerReload: 1
-  gunEffectsController: {fileID: 0}
   component_Sight: {fileID: 1486736451750989328}
   sightLocation: {fileID: 9036510818201584278}
   sightOffset: {x: 0, y: 0, z: 0}
@@ -438,6 +437,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdbaf2debe8b7548a5f041d691447a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 2088415607614702352}
+  shootAnimationLerp: 1
+  gunHandController: {fileID: 0}
+  bulletParticle: {fileID: 4505381813125582641}
+  impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
+    type: 3}
+  muzzleEffect: {fileID: 906211740135061785}
+  bulletCaseParticle: {fileID: 153518780736836583}
+  bulletTrailControllerScript: {fileID: 0}
+  bulletTrailCache_FireDir: []
+  sound_Fire: {fileID: 6691680804994271922}
+  sound_StartReload: {fileID: 5083533183330073828}
+  sound_EndReload: {fileID: 6772165545941961911}
+  mainGunStat: {fileID: 0}
 --- !u!1 &8387633344683600235
 GameObject:
   m_ObjectHideFlags: 0
