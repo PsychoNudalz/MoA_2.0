@@ -51,9 +51,15 @@ public class GunEffectsController : MonoBehaviour
     [SerializeField]
     Sound sound_EndReload;
 
+    [Header("Gun Effects")]
+    [SerializeField]
+    VisualEffect rarityEffect;
+    
     [Header("Components")]
     [SerializeField]
     private MainGunStatsScript mainGunStat;
+
+
 
     public GunHandController GunHandController => gunHandController;
 
@@ -83,7 +89,15 @@ public class GunEffectsController : MonoBehaviour
     public void Initialise(MainGunStatsScript gunStat)
     {
         this.mainGunStat = gunStat;
+        rarityEffect = gunStat.RarityEffect;
         SetEffectsElement(60f / gunStat.GetRPM, gunStat.ElementType);
+        rarityEffect.SetInt("Rarity", (int) gunStat.Rarity);
+        rarityEffect.SetInt("Element", (int) gunStat.ElementType);
+    }
+    
+    public void SetRarityEffect(bool b)
+    {
+        rarityEffect.gameObject.SetActive(b);
     }
 
     public void SetEffectsElement(float timeBetweenShots, ElementTypes elementType)
@@ -279,6 +293,7 @@ public class GunEffectsController : MonoBehaviour
         sound_Fire = b.Sound_Fire;
         sound_StartReload = b.Sound_StartReload;
         sound_EndReload = b.Sound_EndReload;
+
     }
 
     [ContextMenu("Transfer Body")]
@@ -304,7 +319,8 @@ public class GunEffectsController : MonoBehaviour
         sound_Fire = b.SoundFire;
         sound_StartReload = b.SoundStartReload;
         sound_EndReload = b.SoundEndReload;
-        
+        rarityEffect = b.RarityEffect;
+
     }
     
 }

@@ -113,6 +113,8 @@ public class MainGunStatsScript : GunStatsScript
     [SerializeField]
     float currentMag;
 
+    public VisualEffect RarityEffect => rarityEffect;
+
     public Sound SoundFire => soundFire;
 
     public Sound SoundStartReload => soundStartReload;
@@ -291,8 +293,7 @@ public class MainGunStatsScript : GunStatsScript
 
         //Rarity effect
 
-        rarityEffect.SetInt("Rarity", (int) rarity);
-        rarityEffect.SetInt("Element", (int) elementType);
+
     }
 
 
@@ -425,7 +426,7 @@ public class MainGunStatsScript : GunStatsScript
 
     public void SetRarityEffect(bool b)
     {
-        rarityEffect.gameObject.SetActive(b);
+        gunEffectsController.SetRarityEffect(b);
     }
 
     public float CalculateDps()
