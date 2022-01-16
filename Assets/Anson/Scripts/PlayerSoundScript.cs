@@ -37,6 +37,9 @@ public class PlayerSoundScript : MonoBehaviour
 
     [SerializeField]
     private Sound slideSound;
+
+    [SerializeField]
+    private Sound bounceSound;
     // Start is called before the first frame update
 
     private void Awake()
@@ -113,5 +116,10 @@ public class PlayerSoundScript : MonoBehaviour
     public void Play_Land()
     {
         landSound.PlayF();
+    }
+
+    public void Play_Bounce()
+    {
+        bounceSound.PlayF();
     }
 }

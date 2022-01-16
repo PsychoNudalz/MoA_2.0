@@ -362,4 +362,10 @@ public class Look : MonoBehaviour
 
     }
 
+
+    public Vector3 GetFaceForward()
+    {
+        return weaponLayer.transform.forward;
+    }
+
 }

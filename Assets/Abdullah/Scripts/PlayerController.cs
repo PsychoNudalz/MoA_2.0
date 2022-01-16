@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     float lookX;
     float lookY;
 
-    [Space]
     [Header("Jump stuff")]
     [SerializeField]
     public float gravity = -9.81f;
@@ -42,6 +41,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float coyoteJumpTime;
 
+    [SerializeField]
+    private float inAirControl = 3f;
+
     private float groundCheckRadius = 0.3f;
     bool canDoubleJumped;
     bool coyoteJump;
@@ -59,12 +61,12 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed_Current = 0f;
     private float moveSpeed_Target = 0f;
 
+    private Vector3 inputDirection;
     Vector3 moveDirection;
     float lastGroundedTime;
     Transform cam;
     Transform player;
 
-    [Space]
     [Header("Dash")]
     [SerializeField]
     float dashDuration = 0.4f;
@@ -83,7 +85,6 @@ public class PlayerController : MonoBehaviour
 
     int dashCharges;
 
-    [Space]
     private float height_Original;
 
     private float radius_Original;
@@ -125,6 +126,26 @@ public class PlayerController : MonoBehaviour
     private float slideStartTime = 0;
 
 
+    [Header("Mantling")]
+    [SerializeField]
+    private TriggerDetector headVaultDetector;
+
+    [SerializeField]
+    private Transform mantlingCastPoint;
+
+    [Header("Wall Stick/ Bounce")]
+    [SerializeField]
+    float bounceSpeedMult = 3f;
+
+    [SerializeField]
+    float bounceYMult = 1.5f;
+
+    [SerializeField]
+    private TriggerDetector sideDetector;
+
+    private bool isStick = false;
+
+
     [Space(10)]
     [Header("Control Lock")]
     [SerializeField]
@@ -161,6 +182,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Transform playerHitBox;
+
 
     public PlayerGunDamageScript GunDamageScript
     {
@@ -212,20 +234,35 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Confined;
         player = transform;
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().transform;
         canDoubleJumped = false;
         //moveSpeed_Cap = moveSpeed_Default;
-        if (!animator)
-        {
-            animator = GetComponent<Animator>();
-        }
+
+        AssignComponents();
 
         height_Original = characterController.height;
         SetPlayerHeight(1);
         radius_Original = characterController.radius;
+    }
+
+    [ContextMenu("Assign Components")]
+    private void AssignComponents()
+    {
+        if (!cam)
+        {
+            cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().transform;
+        }
+
+        if (!characterController)
+        {
+            characterController = GetComponent<CharacterController>();
+        }
+
+        if (!animator)
+        {
+            animator = GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
@@ -246,6 +283,7 @@ public class PlayerController : MonoBehaviour
 
 
         UpdatePlayerHeight();
+
 
         if (isSlide)
         {
@@ -269,6 +307,13 @@ public class PlayerController : MonoBehaviour
         //check for stopping slide
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        AssignComponents();
+        Vector3 offsetHeight = new Vector3(0, characterController.center.y - (characterController.height / 2f), 0);
+        Gizmos.DrawSphere(characterController.transform.position + offsetHeight, groundCheckRadius);
+    }
+
 
     void Look()
     {
@@ -279,15 +324,20 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        UpdateMoveDirectionFlat(inputDirection);
         animator.SetFloat("Speed", moveDirection.magnitude);
         if (isSlide)
         {
             characterController.Move(transform.forward * moveSpeed_Current * Time.deltaTime);
         }
+        else if (isStick)
+        {
+        }
         else
         {
-            characterController.Move(Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * moveDirection *
-                                     moveSpeed_Current * Time.deltaTime);
+            // characterController.Move( Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) *moveDirection *
+            //                           moveSpeed_Current * Time.deltaTime);
+            characterController.Move(moveDirection * moveSpeed_Current * Time.deltaTime);
         }
     }
 
@@ -296,7 +346,7 @@ public class PlayerController : MonoBehaviour
         if (isSlide)
         {
             float slideToCrouchSpeedMultiplier = 0.85f;
-            if (moveSpeed_Current <= moveSpeed_Default*crouchSpeedMultiplier*slideToCrouchSpeedMultiplier)
+            if (moveSpeed_Current <= moveSpeed_Default * crouchSpeedMultiplier * slideToCrouchSpeedMultiplier)
             {
                 OnSlide_End();
                 Crouch();
@@ -344,6 +394,12 @@ public class PlayerController : MonoBehaviour
         moveSpeed_Target = f;
     }
 
+    public void SetMoveSpeed_Current(float f)
+    {
+        Debug.Log($"overriding from {moveSpeed_Current} to {f}");
+        moveSpeed_Current = f;
+    }
+
     public void Teleport(Vector3 pos)
     {
         characterController.enabled = false;
@@ -372,12 +428,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        moveDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
+
+        inputDirection = new Vector3(context.ReadValue<Vector2>().x, 0, context.ReadValue<Vector2>().y);
+        inputDirection = inputDirection;
+
 
         float newMoveSpeed = 0f;
-        if (moveDirection.magnitude > 0.1f)
+        if (inputDirection.magnitude > 0.1f)
         {
-            playerSoundScript.Set_Walk(isGrounded&&!isSlide);
+            playerSoundScript.Set_Walk(isGrounded && !isSlide);
             // playerSoundScript.Set_Crouch(isCrouch);
             if (isCrouch)
             {
@@ -400,10 +459,40 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Math.Abs(newMoveSpeed - moveSpeed_Target) > 0.001f)
+        if (isGrounded && (Math.Abs(newMoveSpeed - moveSpeed_Target) > 0.001f))
         {
             SetMoveSpeed_Target(newMoveSpeed);
         }
+        else if (!isGrounded && moveSpeed_Target == 0)
+        {
+            SetMoveSpeed_Target(newMoveSpeed);
+        }
+    }
+
+    void UpdateMoveDirectionFlat(Vector3 newMoveDir)
+    {
+        newMoveDir = RelativeToFacing(newMoveDir);
+        newMoveDir.y = 0;
+
+        Vector3 temp = moveDirection;
+        temp.y = 0;
+        if (isGrounded)
+        {
+            temp = Vector3.Lerp(temp.normalized, newMoveDir.normalized, 1);
+        }
+        else
+        {
+            temp = Vector3.Lerp(temp.normalized, newMoveDir.normalized, inAirControl * Time.deltaTime);
+        }
+
+        temp.y = 0;
+
+        moveDirection = temp;
+    }
+
+    private Vector3 RelativeToFacing(Vector3 newMoveDir)
+    {
+        return Quaternion.AngleAxis(transform.eulerAngles.y, transform.up) * newMoveDir;
     }
 
     public void OnLook_Mouse(InputAction.CallbackContext context)
@@ -437,35 +526,108 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (context.performed)
+        if (context.canceled)
+        {
+            if (IsBodySideTouch() && !isGrounded&&isStick)
+            {
+                OnWallBounch();
+            }
+
+            if (isStick)
+            {
+                isStick = false;
+            }
+        }
+        else if (context.performed)
         {
             if (isCrouch)
             {
                 UnCrouch();
             }
 
-            if (isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
+
+            else if (!isGrounded && !isStick && IsBodySideTouch())
             {
-                coyoteJump = false;
-                canDoubleJumped = true;
-                //jumped = new Vector3(0f, jumpStrength, 0f);
-                jumpVelocity = jumpStrength;
-                playerSoundScript.Play_Jump();
+                OnStick();
             }
             else
             {
-                if (canDoubleJumped)
+                //To jumping
+                if (isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
                 {
                     coyoteJump = false;
-                    //jumped = new Vector3(0f, doubleJumpSpeed, 0f);
-                    jumpVelocity = Mathf.Max(doubleJumpStrength + jumpVelocity, doubleJumpStrength);
-                    canDoubleJumped = false;
+                    canDoubleJumped = true;
+                    //jumped = new Vector3(0f, jumpStrength, 0f);
+                    jumpVelocity = jumpStrength;
                     playerSoundScript.Play_Jump();
-                    animator.SetTrigger("Jump");
+                }
+                else
+                {
+                    if (canDoubleJumped)
+                    {
+                        SetMoveDirectionToFaceForward();
+                        coyoteJump = false;
+                        //jumped = new Vector3(0f, doubleJumpSpeed, 0f);
+                        jumpVelocity = Mathf.Max(doubleJumpStrength + jumpVelocity, doubleJumpStrength);
+                        canDoubleJumped = false;
+                        playerSoundScript.Play_Jump();
+                        animator.SetTrigger("Jump");
+                    }
                 }
             }
         }
     }
+
+    public void Mantle()
+    {
+    }
+
+    public bool CanMantle()
+    {
+        if (IsBodySideTouch())
+        {
+            return false;
+        }
+        else
+        {
+            //if (Physics.Raycast(mantlingCastPoint,))
+            return true;
+        }
+    }
+
+    private bool IsBodySideTouch()
+    {
+        // print(characterController.coll);
+
+        if (sideDetector.IsObstructed)
+        {
+            return true;
+        }
+        //print("Not touch");
+
+        return false;
+    }
+
+    void OnWallBounch()
+    {
+        print("Bounce");
+        playerSoundScript.Play_Bounce();
+        SetMoveSpeed_Current(bounceSpeedMult * moveSpeed_Default);
+        SetMoveDirectionToFaceForward();
+        jumpVelocity = lookScript.GetFaceForward().y * bounceYMult * moveSpeed_Default;
+    }
+
+    void OnStick()
+    {
+        isStick = true;
+        jumpVelocity = 0f;
+    }
+
+    private void SetMoveDirectionToFaceForward()
+    {
+        moveDirection = Vector3.Lerp(lookScript.GetFaceForward(), RelativeToFacing(inputDirection),.5f).normalized;
+    }
+
 
     public void OnDash(InputAction.CallbackContext context)
     {
@@ -487,6 +649,7 @@ public class PlayerController : MonoBehaviour
                 dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
                 controller.Move(dashRange * Time.deltaTime);
                 */
+                SetMoveDirectionToFaceForward();
                 playerSoundScript.Play_Dash();
                 dashCharges--;
                 dashStart = Time.time;
@@ -501,14 +664,14 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            
         }
         else if (context.canceled)
         {
             if (isSlide)
             {
                 OnSlide_End();
-            }else if (!isCrouch && isGrounded)
+            }
+            else if (!isCrouch && isGrounded)
             {
                 Crouch();
             }
@@ -526,7 +689,6 @@ public class PlayerController : MonoBehaviour
         isCrouch = false;
         SetMoveSpeed_Target(moveSpeed_Default);
         playerSoundScript.Set_Crouch(isCrouch);
-
     }
 
     private void Crouch()
@@ -536,12 +698,11 @@ public class PlayerController : MonoBehaviour
         isCrouch = true;
         SetMoveSpeed_Target(moveSpeed_Default * crouchSpeedMultiplier);
         playerSoundScript.Set_Crouch(isCrouch);
-
     }
 
     public void OnSlide(InputAction.CallbackContext context)
     {
-        if (isGrounded&& context.performed && moveDirection.z > 0.1f && moveSpeed_Current > moveSpeed_Default * .5f)
+        if (isGrounded && context.performed && moveDirection.z > 0.1f && moveSpeed_Current > moveSpeed_Default * .5f)
         {
             // print("Slide pressed");
             OnSlide();
@@ -551,12 +712,10 @@ public class PlayerController : MonoBehaviour
     public void OnSlide()
     {
         SetPlayerHeight(slideHeightMultiplier);
-        // moveSpeed_Current = moveSpeed_Default * slideSpeedMultiplier;
         SetMoveSpeed_Target(moveSpeed_Default * slideSpeedMultiplier);
-        //moveSpeed_Current = moveSpeed_Default * slideSpeedMultiplier;
         isSlide = true;
         slideStartTime = Time.time;
-        animator.SetBool("Slide",true);
+        animator.SetBool("Slide", true);
         HandController.left.AddPointer(slideHandPointer);
         playerSoundScript.Set_Walk(false);
         playerSoundScript.Play_Slide();
@@ -566,24 +725,21 @@ public class PlayerController : MonoBehaviour
     {
         UnCrouch();
         isSlide = false;
-        animator.SetBool("Slide",false);
+        animator.SetBool("Slide", false);
         HandController.left.RemovePointer(slideHandPointer);
-        playerSoundScript.Set_Walk(isGrounded&&!isSlide);
-
-
+        playerSoundScript.Set_Walk(isGrounded && !isSlide);
     }
 
     void UpdateSlideHandPosition()
     {
         RaycastHit raycastHit;
         if (Physics.Raycast(slideCastPoint.position, -transform.up, out raycastHit, height_Original,
-            jumpLayerMask))
+                jumpLayerMask))
         {
             slideHandPointer.transform.position = raycastHit.point;
             //slideHandPointer.transform.forward = transform.forward;
             //slideHandPointer.transform.right = -raycastHit.normal;
         }
-        
     }
 
     public void Shoot(InputAction.CallbackContext callbackContext)
@@ -620,6 +776,7 @@ public class PlayerController : MonoBehaviour
             gunDamageScript.PressADS(false);
         }
     }
+
 
     public void SwapToWeapon1(InputAction.CallbackContext callbackContext)
     {
@@ -778,10 +935,14 @@ public class PlayerController : MonoBehaviour
 
         if (wasGrounded != isGrounded)
         {
-            playerSoundScript.Play_Jump();
+            //playerSoundScript.Play_Jump();
+            if (isGrounded)
+            {
+                //SetMoveSpeed_Target(moveSpeed_Default);
+            }
         }
-        
-        if (!isGrounded)
+
+        if (!isGrounded && !isStick)
         {
             jumpVelocity += gravity * Time.deltaTime;
         }
