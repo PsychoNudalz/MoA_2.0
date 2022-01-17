@@ -552,6 +552,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                playerSoundScript.Set_Walk(false);
                 //To jumping
                 if (isGrounded || (coyoteJump && Time.time - lastGroundedTime < coyoteJumpTime))
                 {
@@ -565,7 +566,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (canDoubleJumped)
                     {
-                        SetMoveDirectionToFaceForward();
+                        ForceOverridedMoveDirection();
                         coyoteJump = false;
                         //jumped = new Vector3(0f, doubleJumpSpeed, 0f);
                         jumpVelocity = Mathf.Max(doubleJumpStrength + jumpVelocity, doubleJumpStrength);
@@ -613,7 +614,7 @@ public class PlayerController : MonoBehaviour
         print("Bounce");
         playerSoundScript.Play_Bounce();
         SetMoveSpeed_Current(bounceSpeedMult * moveSpeed_Default);
-        SetMoveDirectionToFaceForward();
+        ForceOverridedMoveDirection();
         jumpVelocity = lookScript.GetFaceForward().y * bounceYMult * moveSpeed_Default;
     }
 
@@ -626,6 +627,11 @@ public class PlayerController : MonoBehaviour
     private void SetMoveDirectionToFaceForward()
     {
         moveDirection = Vector3.Lerp(lookScript.GetFaceForward(), RelativeToFacing(inputDirection),.5f).normalized;
+    }
+    
+    private void ForceOverridedMoveDirection()
+    {
+        moveDirection = RelativeToFacing(inputDirection);
     }
 
 
@@ -643,13 +649,13 @@ public class PlayerController : MonoBehaviour
                 UnCrouch();
             }
 
-            if (dashCharges > 0 && moveDirection.magnitude > 0)
+            if (dashCharges > 0 && inputDirection.magnitude > 0)
             {
                 /*
                 dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
                 controller.Move(dashRange * Time.deltaTime);
                 */
-                SetMoveDirectionToFaceForward();
+                ForceOverridedMoveDirection();
                 playerSoundScript.Play_Dash();
                 dashCharges--;
                 dashStart = Time.time;
@@ -702,7 +708,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSlide(InputAction.CallbackContext context)
     {
-        if (isGrounded && context.performed && moveDirection.z > 0.1f && moveSpeed_Current > moveSpeed_Default * .5f)
+        if (isGrounded && context.performed && inputDirection.z > 0.1f && moveSpeed_Current > moveSpeed_Default * .5f)
         {
             // print("Slide pressed");
             OnSlide();
@@ -727,7 +733,7 @@ public class PlayerController : MonoBehaviour
         isSlide = false;
         animator.SetBool("Slide", false);
         HandController.left.RemovePointer(slideHandPointer);
-        playerSoundScript.Set_Walk(isGrounded && !isSlide);
+        playerSoundScript.Set_Walk(isGrounded && !isSlide&&inputDirection.magnitude>0.1f);
     }
 
     void UpdateSlideHandPosition()
@@ -939,6 +945,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 //SetMoveSpeed_Target(moveSpeed_Default);
+                playerSoundScript.Set_Walk(inputDirection.magnitude>0.1f);
             }
         }
 
