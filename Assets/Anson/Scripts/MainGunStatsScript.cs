@@ -257,7 +257,15 @@ public class MainGunStatsScript : GunStatsScript
 
     public void SetBody(GunComponent_Body b)
     {
-        name = b.name.Substring(0, b.name.IndexOf("_"));
+        try
+        {
+            name = b.name.Substring(0, b.name.IndexOf("_"));
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         soundManager = FindObjectOfType<SoundManager>();
         gunComponentBody = b;
 

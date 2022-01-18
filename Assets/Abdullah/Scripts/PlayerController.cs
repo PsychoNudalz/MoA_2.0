@@ -133,6 +133,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform mantlingCastPoint;
 
+    [SerializeField]
+    private float mantleTime;
+
+    [SerializeField]
+    private float slopLimit_Mantle = 35f;
+
+    [SerializeField]
+    private float stepLimit_Mantle = 1f;
+
+    private float slopLimit_Default = 35f;
+
+    private float stepLimit_Default = 2f;
+
+
     [Header("Wall Stick/ Bounce")]
     [SerializeField]
     float bounceSpeedMult = 3f;
@@ -234,7 +248,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
         player = transform;
         canDoubleJumped = false;
         //moveSpeed_Cap = moveSpeed_Default;
@@ -244,6 +258,8 @@ public class PlayerController : MonoBehaviour
         height_Original = characterController.height;
         SetPlayerHeight(1);
         radius_Original = characterController.radius;
+        slopLimit_Default = characterController.slopeLimit;
+        stepLimit_Default = characterController.stepOffset;
     }
 
     [ContextMenu("Assign Components")]
@@ -528,7 +544,7 @@ public class PlayerController : MonoBehaviour
 
         if (context.canceled)
         {
-            if (IsBodySideTouch() && !isGrounded&&isStick)
+            if (IsBodySideTouch() && !isGrounded && isStick)
             {
                 OnWallBounch();
             }
@@ -544,7 +560,10 @@ public class PlayerController : MonoBehaviour
             {
                 UnCrouch();
             }
-
+            else if (CanMantle())
+            {
+                Mantle();
+            }
 
             else if (!isGrounded && !isStick && IsBodySideTouch())
             {
@@ -579,21 +598,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Mantle()
+    void Mantle()
     {
+        Debug.Log("Mantle");
+        StartCoroutine(MantleCoroutine());
     }
 
-    public bool CanMantle()
+    IEnumerator MantleCoroutine()
     {
-        if (IsBodySideTouch())
+        characterController.slopeLimit = slopLimit_Mantle;
+        characterController.stepOffset = stepLimit_Mantle;
+        jumpVelocity = jumpStrength;
+        yield return new WaitForSeconds(mantleTime);
+        characterController.slopeLimit = slopLimit_Default;
+        characterController.stepOffset = stepLimit_Default;
+    }
+
+    bool CanMantle()
+    {
+        if (IsBodySideTouch() && !headVaultDetector.IsObstructed)
         {
-            return false;
-        }
-        else
-        {
-            //if (Physics.Raycast(mantlingCastPoint,))
             return true;
+            if (Physics.Raycast(GetPlayerCentre(), transform.forward, characterController.radius * 1.5f, jumpLayerMask))
+            {
+            }
         }
+
+        return false;
     }
 
     private bool IsBodySideTouch()
@@ -626,9 +657,9 @@ public class PlayerController : MonoBehaviour
 
     private void SetMoveDirectionToFaceForward()
     {
-        moveDirection = Vector3.Lerp(lookScript.GetFaceForward(), RelativeToFacing(inputDirection),.5f).normalized;
+        moveDirection = Vector3.Lerp(lookScript.GetFaceForward(), RelativeToFacing(inputDirection), .5f).normalized;
     }
-    
+
     private void ForceOverridedMoveDirection()
     {
         moveDirection = RelativeToFacing(inputDirection);
@@ -733,7 +764,7 @@ public class PlayerController : MonoBehaviour
         isSlide = false;
         animator.SetBool("Slide", false);
         HandController.left.RemovePointer(slideHandPointer);
-        playerSoundScript.Set_Walk(isGrounded && !isSlide&&inputDirection.magnitude>0.1f);
+        playerSoundScript.Set_Walk(isGrounded && !isSlide && inputDirection.magnitude > 0.1f);
     }
 
     void UpdateSlideHandPosition()
@@ -930,6 +961,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Vector3 GetPlayerCentre()
+    {
+        return transform.position + characterController.center;
+    }
+
 
     void UpdateJumpAndGravity()
     {
@@ -945,7 +981,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 //SetMoveSpeed_Target(moveSpeed_Default);
-                playerSoundScript.Set_Walk(inputDirection.magnitude>0.1f);
+                playerSoundScript.Set_Walk(inputDirection.magnitude > 0.1f);
             }
         }
 

@@ -368,4 +368,9 @@ public class Look : MonoBehaviour
         return weaponLayer.transform.forward;
     }
 
+    public Vector3 GetHead()
+    {
+        return weaponLayer.transform.position;
+    }
+
 }
