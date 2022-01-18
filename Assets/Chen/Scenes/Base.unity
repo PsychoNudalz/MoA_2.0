@@ -4780,7 +4780,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh44260
+  m_Name: pb_Mesh84674
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8873,6 +8873,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8809070048899550338, guid: 13e85e6e03c03214b973fde994bfe628,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13e85e6e03c03214b973fde994bfe628, type: 3}
@@ -33635,9 +33640,10 @@ GameObject:
   - component: {fileID: 1144358426}
   - component: {fileID: 1144358425}
   - component: {fileID: 1144358424}
-  m_Layer: 0
+  - component: {fileID: 1144358429}
+  m_Layer: 11
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Enviorment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -35865,6 +35871,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1144358429
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144358423}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!43 &1150908707
 Mesh:
   m_ObjectHideFlags: 0
@@ -44435,6 +44457,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -49393,7 +49416,7 @@ PrefabInstance:
     - target: {fileID: 4781399870388223806, guid: ad1cf5dea5b861746b7e8937673e0bbc,
         type: 3}
       propertyPath: field of view
-      value: 90
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 4781399870388223806, guid: ad1cf5dea5b861746b7e8937673e0bbc,
         type: 3}
