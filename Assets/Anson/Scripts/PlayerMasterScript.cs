@@ -9,7 +9,7 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
     [SerializeField] PlayerController playerController;
     [SerializeField] PlayerInterationScript playerInterationScript;
-    [SerializeField] AnsonTempUIScript ansonTempUIScript;
+    [SerializeField] PlayerUIScript playerUIScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
     [SerializeField] PlayerSaveStats playerSaveStats;
     [SerializeField] PlayerGetTargetHealthScript playerGetTargetHealth;
@@ -17,7 +17,7 @@ public class PlayerMasterScript : MonoBehaviour
     [SerializeField] PlayerSoundScript playerSoundScript;
     [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
 
-    public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
+    public PlayerUIScript PlayerUIScript { get => playerUIScript; set => playerUIScript = value; }
     public PlayerSaveStats PlayerSaveStats { get => playerSaveStats; }
     public PlayerSaveCollection PlayerSaveCollection { set => playerSaveCollection = value; }
     public PlayerLifeSystemScript PlayerLifeSystemScript { get => playerLifeSystemScript; set => playerLifeSystemScript = value; }
@@ -51,9 +51,9 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerController = GetComponent<PlayerController>();
         }
-        if (ansonTempUIScript == null)
+        if (playerUIScript == null)
         {
-            ansonTempUIScript = GetComponentInChildren<AnsonTempUIScript>();
+            playerUIScript = GetComponentInChildren<PlayerUIScript>();
         }
         if (playerVolumeControllerScript == null)
         {
@@ -93,9 +93,9 @@ public class PlayerMasterScript : MonoBehaviour
             playerController.PlayerInterationScript = playerInterationScript;
         }
 
-        if (!playerController.AnsonTempUIScript)
+        if (!playerController.PlayerUIScript)
         {
-            playerController.AnsonTempUIScript = ansonTempUIScript;
+            playerController.PlayerUIScript = playerUIScript;
         }
 
         if (playerInventorySystemScript.GunDamageScript == null)
@@ -112,8 +112,8 @@ public class PlayerMasterScript : MonoBehaviour
         }
 
         playerLifeSystemScript.PlayerMasterScript = this;
-        playerLifeSystemScript.UIScript1 = ansonTempUIScript;
-        playerInventorySystemScript.ansonTempUIScript = ansonTempUIScript;
+        playerLifeSystemScript.UIScript1 = playerUIScript;
+        playerInventorySystemScript.playerUIScript = playerUIScript;
         playerLifeSystemScript.PlayerVolumeControllerScript = playerVolumeControllerScript;
         playerController.PlayerVolumeControllerScript = playerVolumeControllerScript;
 
@@ -127,7 +127,7 @@ public class PlayerMasterScript : MonoBehaviour
     public void GameOver()
     {
         SetControls(false);
-        ansonTempUIScript.ShowGameOver();
+        playerUIScript.ShowGameOver();
     }
 
     /// <summary>
@@ -148,9 +148,9 @@ public class PlayerMasterScript : MonoBehaviour
     public int AddCoins(int amount)
     {
         int temp=  playerSaveStats.AddCoins(amount);
-        if (ansonTempUIScript != null)
+        if (playerUIScript != null)
         {
-            ansonTempUIScript.SetCoins(temp);
+            playerUIScript.SetCoins(temp);
         }
         return temp;
     }
@@ -169,9 +169,9 @@ public class PlayerMasterScript : MonoBehaviour
         else
         {
             int temp = playerSaveStats.AddCoins(-amount);
-            if (ansonTempUIScript != null)
+            if (playerUIScript != null)
             {
-                ansonTempUIScript.SetCoins(temp);
+                playerUIScript.SetCoins(temp);
             }
             return true;
         }
@@ -186,7 +186,7 @@ public class PlayerMasterScript : MonoBehaviour
     public void TeleportPlayer(Vector3 pos)
     {
         playerController.Teleport(pos);
-        ansonTempUIScript.DisplayNewGunText(false);
+        playerUIScript.DisplayNewGunText(false);
     }
 
     public void IncreamentRun()

@@ -131,6 +131,9 @@ public class PlayerController : MonoBehaviour
     private TriggerDetector headVaultDetector;
 
     [SerializeField]
+    private TriggerDetector frontWallDetector;
+
+    [SerializeField]
     private Transform mantlingCastPoint;
 
     [SerializeField]
@@ -183,8 +186,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     PlayerVolumeControllerScript playerVolumeControllerScript;
 
+    [FormerlySerializedAs("ansonTempUIScript")]
     [SerializeField]
-    AnsonTempUIScript ansonTempUIScript;
+    PlayerUIScript playerUIScript;
 
     [SerializeField]
     PlayerSoundScript playerSoundScript;
@@ -216,10 +220,10 @@ public class PlayerController : MonoBehaviour
         set => playerInterationScript = value;
     }
 
-    public AnsonTempUIScript AnsonTempUIScript
+    public PlayerUIScript PlayerUIScript
     {
-        get => ansonTempUIScript;
-        set => ansonTempUIScript = value;
+        get => playerUIScript;
+        set => playerUIScript = value;
     }
 
     public bool DisableControl
@@ -299,6 +303,8 @@ public class PlayerController : MonoBehaviour
 
 
         UpdatePlayerHeight();
+        
+        UpdateUIControlPrompts();
 
 
         if (isSlide)
@@ -312,7 +318,7 @@ public class PlayerController : MonoBehaviour
         {
             dashCharges++;
             dashStart = Time.time;
-            ansonTempUIScript.UpdateDashDisplay(dashCharges);
+            playerUIScript.UpdateDashDisplay(dashCharges);
         }
     }
 
@@ -608,7 +614,7 @@ public class PlayerController : MonoBehaviour
     {
         characterController.slopeLimit = slopLimit_Mantle;
         characterController.stepOffset = stepLimit_Mantle;
-        jumpVelocity = jumpStrength;
+        jumpVelocity = 0;
         yield return new WaitForSeconds(mantleTime);
         characterController.slopeLimit = slopLimit_Default;
         characterController.stepOffset = stepLimit_Default;
@@ -616,7 +622,7 @@ public class PlayerController : MonoBehaviour
 
     bool CanMantle()
     {
-        if (IsBodySideTouch() && !headVaultDetector.IsObstructed)
+        if (IsBodySideTouch() && !headVaultDetector.IsObstructed && frontWallDetector.IsObstructed)
         {
             return true;
             if (Physics.Raycast(GetPlayerCentre(), transform.forward, characterController.radius * 1.5f, jumpLayerMask))
@@ -653,6 +659,26 @@ public class PlayerController : MonoBehaviour
     {
         isStick = true;
         jumpVelocity = 0f;
+    }
+
+    void UpdateUIControlPrompts()
+    {
+        if (CanMantle())
+        {
+            playerUIScript.DisplayControlPrompt(ControlPromptType.Mantle);
+        }
+        else if (isStick)
+        {
+            playerUIScript.DisplayControlPrompt(ControlPromptType.Bounce);
+        }
+        else if (!isGrounded && !isStick && IsBodySideTouch())
+        {
+            playerUIScript.DisplayControlPrompt(ControlPromptType.Stick);
+        }
+        else
+        {
+            playerUIScript.CloseAllControlPrompt();
+        }
     }
 
     private void SetMoveDirectionToFaceForward()
@@ -692,7 +718,7 @@ public class PlayerController : MonoBehaviour
                 dashStart = Time.time;
                 playerVolumeControllerScript.PlayLD();
                 StartCoroutine(DashCoroutine());
-                ansonTempUIScript.UpdateDashDisplay(dashCharges);
+                playerUIScript.UpdateDashDisplay(dashCharges);
             }
         }
     }
@@ -771,7 +797,7 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit raycastHit;
         if (Physics.Raycast(slideCastPoint.position, -transform.up, out raycastHit, height_Original,
-                jumpLayerMask))
+            jumpLayerMask))
         {
             slideHandPointer.transform.position = raycastHit.point;
             //slideHandPointer.transform.forward = transform.forward;
@@ -911,7 +937,7 @@ public class PlayerController : MonoBehaviour
     {
         if (callbackContext.performed)
         {
-            ansonTempUIScript.CloseAllMenus();
+            playerUIScript.CloseAllMenus();
             if (FindObjectOfType<PauseMenu>().TogglePauseMenu())
             {
                 SetControlLock(false);

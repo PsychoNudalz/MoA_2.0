@@ -50,7 +50,7 @@ public class SettingsMenuManager : MonoBehaviour
     {
         if (playerMasterScript != null)
         {
-            List<Slider> sliders = playerMasterScript.AnsonTempUIScript.PauseSlider;
+            List<Slider> sliders = playerMasterScript.PlayerUIScript.PauseSlider;
             sensitivity = sliders[0];
             sensitivityADS = sliders[1];
             masterVolume = sliders[2];

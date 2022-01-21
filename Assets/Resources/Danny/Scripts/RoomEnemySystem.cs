@@ -10,12 +10,12 @@ public class RoomEnemySystem : MonoBehaviour
     
     EnemySpawner[] roomSpawners;
     private int enemyCount = 0;
-    AnsonTempUIScript UIScript;
+    PlayerUIScript UIScript;
 
     private void Awake()
     {
         roomSpawners = GetComponentsInChildren<EnemySpawner>();
-        UIScript = FindObjectOfType<AnsonTempUIScript>();
+        UIScript = FindObjectOfType<PlayerUIScript>();
     }
 
     private void UpdateEnemyNumberDisplay(bool start = false)

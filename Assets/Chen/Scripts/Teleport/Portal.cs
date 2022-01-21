@@ -137,7 +137,7 @@ public class Portal : InteractableScript
             if (isWinning)
             {
                 player.GetComponent<PlayerMasterScript>().IncreamentClears();
-                player.GetComponent<PlayerMasterScript>().AnsonTempUIScript.WinScreen();
+                player.GetComponent<PlayerMasterScript>().PlayerUIScript.WinScreen();
             }
             else
             {

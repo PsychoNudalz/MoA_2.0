@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -13,7 +14,14 @@ public struct WeaponAmmoPair
 
 }
 
-public class AnsonTempUIScript : MonoBehaviour
+public enum ControlPromptType
+{
+    Mantle,
+    Stick,
+    Bounce
+}
+
+public class PlayerUIScript : MonoBehaviour
 {
     [Header("Gun Stats")]
     public GameObject currentGun;
@@ -31,6 +39,17 @@ public class AnsonTempUIScript : MonoBehaviour
     public Image winScr;
     public TextMeshProUGUI dashChargeDisplay;
     Sprite dashReady, dashCoolDown;
+
+    [Header("Control Prompts")]
+    [SerializeField]
+    private GameObject mantleIcon;
+
+    [SerializeField]
+    private GameObject stickIcon;
+
+    [SerializeField]
+    private GameObject bounceIcon;
+    
     [Header("UI Elements")]
     public GameObject gameOverScreen;
     //public GameObject crossAim;
@@ -301,6 +320,37 @@ public class AnsonTempUIScript : MonoBehaviour
     {
         crossAimator.SetTrigger("Shoot");
     }
+
+    public void DisplayControlPrompt(ControlPromptType controlPromptType)
+    {
+        CloseAllControlPrompt();
+        switch (controlPromptType)
+        {
+            case ControlPromptType.Mantle:
+                mantleIcon.SetActive(true);
+
+                break;
+            case ControlPromptType.Stick:
+                stickIcon.SetActive(true);
+                break;
+            case ControlPromptType.Bounce:
+                bounceIcon.SetActive(true);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(controlPromptType), controlPromptType, null);
+        }
+    }
+
+    public void CloseAllControlPrompt()
+    {
+        if (mantleIcon.activeSelf || stickIcon.activeSelf || bounceIcon.activeSelf)
+        {
+            bounceIcon.SetActive(false);
+            stickIcon.SetActive(false);
+            mantleIcon.SetActive(false);
+        }
+    }
+
     public void CloseAllMenus()
     {
         foreach (UIPopUpInteractableScript i in FindObjectsOfType<UIPopUpInteractableScript>())

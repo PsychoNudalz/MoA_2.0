@@ -214,7 +214,7 @@ public class GunEffectsController : MonoBehaviour
         {
             bulletTrailControllerScript.PlayTrail(bulletTrailCache_RaycastHit);
         }
-        else if (bulletTrailCache_FireDir.Count > 0)
+         if (bulletTrailCache_FireDir.Count > 0)
         {
             bulletTrailControllerScript.PlayTrail(bulletTrailCache_FireDir);
         }

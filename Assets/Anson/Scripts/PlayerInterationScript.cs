@@ -15,7 +15,7 @@ public class PlayerInterationScript : MonoBehaviour
     [SerializeField] LayerMask layerMask;
     [SerializeField] float updateRate = 0.2f;
     float lastUpdateTime;
-    public AnsonTempUIScript ansonTempUIScript;
+    public PlayerUIScript playerUIScript;
 
 
     public InteractableScript CurrentFocus { get => currentFocus; set => currentFocus = value; }
@@ -24,7 +24,7 @@ public class PlayerInterationScript : MonoBehaviour
 
     private void Awake()
     {
-        ansonTempUIScript = FindObjectOfType<AnsonTempUIScript>();
+        playerUIScript = FindObjectOfType<PlayerUIScript>();
         cam1 = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
     }
@@ -112,11 +112,11 @@ public class PlayerInterationScript : MonoBehaviour
     {
         if (b)
         {
-            ansonTempUIScript.DisplayNewGunText(b, s);
+            playerUIScript.DisplayNewGunText(b, s);
         }
         else
         {
-            ansonTempUIScript.DisplayNewGunText(b);
+            playerUIScript.DisplayNewGunText(b);
         }
     }
 }

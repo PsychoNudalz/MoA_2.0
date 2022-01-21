@@ -11,7 +11,7 @@ public class PlayerLifeSystemScript : LifeSystemScript
 {
     [Header("Components+")]
     [SerializeField] PlayerMasterScript playerMasterScript;
-    [SerializeField] AnsonTempUIScript UIScript;
+    [SerializeField] PlayerUIScript UIScript;
     [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
     [SerializeField] PlayerSoundScript playerSoundScript;
     [Header("Player Animator")]
@@ -22,14 +22,14 @@ public class PlayerLifeSystemScript : LifeSystemScript
     [SerializeField] float vignetteThreshold = 0.25f;
 
     public PlayerMasterScript PlayerMasterScript { set => playerMasterScript = value; }
-    public AnsonTempUIScript UIScript1 { set => UIScript = value; }
+    public PlayerUIScript UIScript1 { set => UIScript = value; }
     public PlayerVolumeControllerScript PlayerVolumeControllerScript { set => playerVolumeControllerScript = value; }
     public PlayerSoundScript PlayerSoundScript { get => playerSoundScript; set => playerSoundScript = value; }
 
     private void Awake()
     {
         base.health_Current = base.Health_Max;
-        UIScript = playerMasterScript.AnsonTempUIScript;
+        UIScript = playerMasterScript.PlayerUIScript;
         UIScript.SetHealth(health_Current, Health_Max);
 
         //updateHealthBar();

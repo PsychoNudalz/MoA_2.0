@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerGetTargetHealthScript : MonoBehaviour
 {
-    [SerializeField] AnsonTempUIScript ansonTempUIScript;
+    [SerializeField] PlayerUIScript playerUIScript;
     [SerializeField] Camera camera;
     [SerializeField] LifeSystemScript targetLS;
     [SerializeField] float updateRate = 0.5f;
@@ -13,7 +13,7 @@ public class PlayerGetTargetHealthScript : MonoBehaviour
     float lastStayOnTargetTime;
     [SerializeField] float detectionRange;
     [SerializeField] LayerMask layerMask;
-    public AnsonTempUIScript AnsonTempUIScript { get => ansonTempUIScript; set => ansonTempUIScript = value; }
+    public PlayerUIScript PlayerUIScript { get => playerUIScript; set => playerUIScript = value; }
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class PlayerGetTargetHealthScript : MonoBehaviour
         }
         if (targetLS!= null)
         {
-            ansonTempUIScript.SetEnemyHealth(targetLS);
+            playerUIScript.SetEnemyHealth(targetLS);
         }
     }
 
@@ -46,7 +46,7 @@ public class PlayerGetTargetHealthScript : MonoBehaviour
         {
             if (Time.time - lastStayOnTargetTime > stayOnTargetTime)
             {
-                ansonTempUIScript.SetEnemyHealth(false);
+                playerUIScript.SetEnemyHealth(false);
                 targetLS = null;
             }
         }
