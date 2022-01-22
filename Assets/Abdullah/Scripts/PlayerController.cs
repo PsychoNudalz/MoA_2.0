@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -159,8 +160,14 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private TriggerDetector sideDetector;
+    [SerializeField]
+    private HandPositionPointer stickHandPointer;
+    [SerializeField]
+    private Transform stickHandTransform;
 
     private bool isStick = false;
+    private Vector3 stickPoint;
+    private RaycastHit handStickHit;
 
 
     [Space(10)]
@@ -200,6 +207,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Transform playerHitBox;
+
 
 
     public PlayerGunDamageScript GunDamageScript
@@ -305,6 +313,11 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerHeight();
         
         UpdateUIControlPrompts();
+
+        if (isStick)
+        {
+            UpdateStickHandPosition();
+        }
 
 
         if (isSlide)
@@ -558,6 +571,7 @@ public class PlayerController : MonoBehaviour
             if (isStick)
             {
                 isStick = false;
+                HandController.left.RemovePointer(stickHandPointer);
             }
         }
         else if (context.performed)
@@ -591,7 +605,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (canDoubleJumped)
                     {
-                        ForceOverridedMoveDirection();
+                        ForceOverridesMoveDirection();
                         coyoteJump = false;
                         //jumped = new Vector3(0f, doubleJumpSpeed, 0f);
                         jumpVelocity = Mathf.Max(doubleJumpStrength + jumpVelocity, doubleJumpStrength);
@@ -651,7 +665,7 @@ public class PlayerController : MonoBehaviour
         print("Bounce");
         playerSoundScript.Play_Bounce();
         SetMoveSpeed_Current(bounceSpeedMult * moveSpeed_Default);
-        ForceOverridedMoveDirection();
+        ForceOverridesMoveDirection();
         jumpVelocity = lookScript.GetFaceForward().y * bounceYMult * moveSpeed_Default;
     }
 
@@ -659,6 +673,7 @@ public class PlayerController : MonoBehaviour
     {
         isStick = true;
         jumpVelocity = 0f;
+        FindStickHandPosition();
     }
 
     void UpdateUIControlPrompts()
@@ -686,7 +701,7 @@ public class PlayerController : MonoBehaviour
         moveDirection = Vector3.Lerp(lookScript.GetFaceForward(), RelativeToFacing(inputDirection), .5f).normalized;
     }
 
-    private void ForceOverridedMoveDirection()
+    private void ForceOverridesMoveDirection()
     {
         moveDirection = RelativeToFacing(inputDirection);
     }
@@ -712,7 +727,7 @@ public class PlayerController : MonoBehaviour
                 dashRange = transform.TransformDirection(moveDirection) * (dashDistance * 100);
                 controller.Move(dashRange * Time.deltaTime);
                 */
-                ForceOverridedMoveDirection();
+                ForceOverridesMoveDirection();
                 playerSoundScript.Play_Dash();
                 dashCharges--;
                 dashStart = Time.time;
@@ -802,6 +817,95 @@ public class PlayerController : MonoBehaviour
             slideHandPointer.transform.position = raycastHit.point;
             //slideHandPointer.transform.forward = transform.forward;
             //slideHandPointer.transform.right = -raycastHit.normal;
+        }
+    }
+
+    void FindStickHandPosition()
+    {
+        int slices = 8;
+        RaycastHit[] raycastHits = new RaycastHit[slices];
+        List<RaycastHit> castPosition = new List<RaycastHit>();
+        float rotateAmount = 360f / slices;
+        float castDistance = characterController.radius * 2f;
+        
+        
+        
+        for (int i = 0; i < slices; i++)
+        {
+            Debug.Log($"Cast Hand position {i}");
+
+            if (Physics.Raycast(lookScript.GetHead(),  Quaternion.AngleAxis(rotateAmount*i,transform.up)* transform.forward, out raycastHits[i], castDistance,
+                jumpLayerMask))
+            {
+                castPosition.Add(raycastHits[i]);
+                
+                Debug.DrawLine(lookScript.GetHead(),raycastHits[i].point,Color.green,3f);
+            }
+        }
+
+        // if cast did not find a wall
+        if (castPosition.Count == 0)
+        {
+            stickPoint = new Vector3();
+            return;
+        }
+        
+        //find closest point
+        RaycastHit currentHit = castPosition[0];
+        foreach (var v in castPosition)
+        {
+            if (Vector3.Distance(lookScript.GetHead(), v.point) < Vector3.Distance(lookScript.GetHead(), currentHit.point))
+            {
+                currentHit = v;
+
+            }
+        }
+        
+        //Recasting for the last time
+        if (Physics.Raycast(lookScript.GetHead(), -currentHit.normal, out handStickHit, castDistance,
+            jumpLayerMask))
+        {
+            var transform1 = stickHandTransform.transform;
+
+            stickPoint = handStickHit.point;
+            //transform1.forward= Vector3.Cross(handStickHit.normal, transform1.up);;
+
+            //transform1.Rotate(transform1.right,180f);
+
+            HandController.left.AddPointer(stickHandPointer);
+
+        }
+        else
+        {
+            Debug.LogWarning("Failed to set stickPoint");
+        }
+
+    }
+
+    void UpdateStickHandPosition()
+    {
+        if (!stickHandPointer)
+        {
+            Debug.LogWarning("Missing stick hand pointer");
+            return;
+        }
+
+        if (stickPoint.magnitude > 0)
+        {
+            var transform1 = stickHandTransform.transform;
+            transform1.position = stickPoint;
+            //transform1.forward = lookScript.GetFaceForward();
+            Vector3 temp = Vector3.Cross(handStickHit.normal, transform1.up);
+            // temp = transform1.InverseTransformDirection(handStickHit.normal);
+            // temp = Quaternion.Euler()
+            //temp = Quaternion.AngleAxis(0f, temp) * temp;
+            
+            print(temp);
+            
+            transform1.rotation = Quaternion.LookRotation(temp);
+            //transform1.Rotate(temp,180f);
+
+            //transform1.right = -handStickHit.normal;
         }
     }
 
