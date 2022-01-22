@@ -5,8 +5,23 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
+
 public class PlayerController : MonoBehaviour
 {
+    // [Header("Movement Mode")]
+    // [SerializeField]
+    // PlayerMovementEnum playerMovementEnum = PlayerMovementEnum.Walk;
+    //
+    // enum PlayerMovementEnum
+    // {
+    //     Walk,
+    //     Slide,
+    //     Stick,
+    //     OnMantle
+    // }
+    //
+    //
+    // [Space(10f)]
     [Header("Mouse Sens")]
     [SerializeField]
     public float sensitivityX;
@@ -146,9 +161,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float stepLimit_Mantle = 1f;
 
+    [SerializeField]
+    private float mantleSpeed = 1f;
+
+    [SerializeField]
+    private float mantleEuler = 85f;
+
+    [SerializeField]
+    private Transform mantleHandCast;
+
+    [SerializeField]
+    private HandPositionPointer mantleHandPointer;
+
+
     private float slopLimit_Default = 35f;
 
     private float stepLimit_Default = 2f;
+    private bool isMantle = false;
+    private Vector3 mantleMoveDir = new Vector3();
+    private Vector3 mantleHandPos = new Vector3();
 
 
     [Header("Wall Stick/ Bounce")]
@@ -160,8 +191,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private TriggerDetector sideDetector;
+
     [SerializeField]
     private HandPositionPointer stickHandPointer;
+
     [SerializeField]
     private Transform stickHandTransform;
 
@@ -207,7 +240,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Transform playerHitBox;
-
 
 
     public PlayerGunDamageScript GunDamageScript
@@ -311,16 +343,18 @@ public class PlayerController : MonoBehaviour
 
 
         UpdatePlayerHeight();
-        
+
         UpdateUIControlPrompts();
 
-        if (isStick)
+        if (isMantle)
+        {
+            UpdateMantleHand();
+        }
+        else if (isStick)
         {
             UpdateStickHandPosition();
         }
-
-
-        if (isSlide)
+        else if (isSlide)
         {
             UpdateSlideHandPosition();
         }
@@ -367,6 +401,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (isStick)
         {
+        }
+        else if (isMantle)
+        {
+            characterController.Move(mantleMoveDir * mantleSpeed * Time.deltaTime);
         }
         else
         {
@@ -582,7 +620,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (CanMantle())
             {
-                Mantle();
+                OnMantle();
             }
 
             else if (!isGrounded && !isStick && IsBodySideTouch())
@@ -618,25 +656,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Mantle()
+    void OnMantle()
     {
-        Debug.Log("Mantle");
+        Debug.Log("OnMantle");
+
         StartCoroutine(MantleCoroutine());
     }
 
     IEnumerator MantleCoroutine()
     {
+        isMantle = true;
+
+        HandController.left.AddPointer(mantleHandPointer);
+        mantleMoveDir = (Quaternion.AngleAxis(-mantleEuler, transform.right) * transform.forward).normalized;
+        SetMantleHand();
         characterController.slopeLimit = slopLimit_Mantle;
         characterController.stepOffset = stepLimit_Mantle;
         jumpVelocity = 0;
         yield return new WaitForSeconds(mantleTime);
         characterController.slopeLimit = slopLimit_Default;
         characterController.stepOffset = stepLimit_Default;
+        HandController.left.RemovePointer(mantleHandPointer);
+        isMantle = false;
     }
 
     bool CanMantle()
     {
-        if (IsBodySideTouch() && !headVaultDetector.IsObstructed && frontWallDetector.IsObstructed)
+        if (!headVaultDetector.IsObstructed && frontWallDetector.IsObstructed)
         {
             return true;
             if (Physics.Raycast(GetPlayerCentre(), transform.forward, characterController.radius * 1.5f, jumpLayerMask))
@@ -827,19 +873,20 @@ public class PlayerController : MonoBehaviour
         List<RaycastHit> castPosition = new List<RaycastHit>();
         float rotateAmount = 360f / slices;
         float castDistance = characterController.radius * 2f;
-        
-        
-        
+
+
         for (int i = 0; i < slices; i++)
         {
             Debug.Log($"Cast Hand position {i}");
 
-            if (Physics.Raycast(lookScript.GetHead(),  Quaternion.AngleAxis(rotateAmount*i,transform.up)* transform.forward, out raycastHits[i], castDistance,
+            if (Physics.Raycast(lookScript.GetHead(),
+                Quaternion.AngleAxis(rotateAmount * i, transform.up) * transform.forward, out raycastHits[i],
+                castDistance,
                 jumpLayerMask))
             {
                 castPosition.Add(raycastHits[i]);
-                
-                Debug.DrawLine(lookScript.GetHead(),raycastHits[i].point,Color.green,3f);
+
+                Debug.DrawLine(lookScript.GetHead(), raycastHits[i].point, Color.green, 3f);
             }
         }
 
@@ -849,18 +896,18 @@ public class PlayerController : MonoBehaviour
             stickPoint = new Vector3();
             return;
         }
-        
+
         //find closest point
         RaycastHit currentHit = castPosition[0];
         foreach (var v in castPosition)
         {
-            if (Vector3.Distance(lookScript.GetHead(), v.point) < Vector3.Distance(lookScript.GetHead(), currentHit.point))
+            if (Vector3.Distance(lookScript.GetHead(), v.point) <
+                Vector3.Distance(lookScript.GetHead(), currentHit.point))
             {
                 currentHit = v;
-
             }
         }
-        
+
         //Recasting for the last time
         if (Physics.Raycast(lookScript.GetHead(), -currentHit.normal, out handStickHit, castDistance,
             jumpLayerMask))
@@ -873,13 +920,11 @@ public class PlayerController : MonoBehaviour
             //transform1.Rotate(transform1.right,180f);
 
             HandController.left.AddPointer(stickHandPointer);
-
         }
         else
         {
             Debug.LogWarning("Failed to set stickPoint");
         }
-
     }
 
     void UpdateStickHandPosition()
@@ -899,13 +944,37 @@ public class PlayerController : MonoBehaviour
             // temp = transform1.InverseTransformDirection(handStickHit.normal);
             // temp = Quaternion.Euler()
             //temp = Quaternion.AngleAxis(0f, temp) * temp;
-            
+
             print(temp);
-            
+
             transform1.rotation = Quaternion.LookRotation(temp);
             //transform1.Rotate(temp,180f);
 
             //transform1.right = -handStickHit.normal;
+        }
+    }
+
+    void SetMantleHand()
+    {
+        RaycastHit raycastHit;
+        if (Physics.Raycast(mantleHandCast.position, mantleHandCast.forward, out raycastHit, height_Original,
+            jumpLayerMask))
+        {
+            mantleHandPos = raycastHit.point;
+            //slideHandPointer.transform.forward = transform.forward;
+            //slideHandPointer.transform.right = -raycastHit.normal;
+        }
+        else
+        {
+            mantleHandPos = new Vector3();
+        }
+    }
+
+    void UpdateMantleHand()
+    {
+        if (mantleHandPos.magnitude > 0)
+        {
+            mantleHandPointer.transform.position = mantleHandPos;
         }
     }
 
@@ -1115,9 +1184,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!isGrounded && !isStick)
+        if (!isGrounded && !isStick&&!isMantle)
         {
             jumpVelocity += gravity * Time.deltaTime;
+        }else if (isMantle)
+        {
+            jumpVelocity = 0f;
         }
         else
         {
