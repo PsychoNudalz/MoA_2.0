@@ -4,23 +4,66 @@ using UnityEngine;
 
 public class PlayerMasterScript : MonoBehaviour
 {
-    [SerializeField] PlayerLifeSystemScript playerLifeSystemScript;
-    [SerializeField] PlayerGunDamageScript playerGunDamageScript;
-    [SerializeField] PlayerInventorySystemScript playerInventorySystemScript;
-    [SerializeField] PlayerController playerController;
-    [SerializeField] PlayerInterationScript playerInterationScript;
-    [SerializeField] PlayerUIScript playerUIScript;
-    [SerializeField] PlayerVolumeControllerScript playerVolumeControllerScript;
-    [SerializeField] PlayerSaveStats playerSaveStats;
-    [SerializeField] PlayerGetTargetHealthScript playerGetTargetHealth;
-    [SerializeField] PlayerSaveCollection playerSaveCollection;
-    [SerializeField] PlayerSoundScript playerSoundScript;
-    [SerializeField] UnityEngine.InputSystem.PlayerInput playerInput;
+    [SerializeField]
+    PlayerLifeSystemScript playerLifeSystemScript;
 
-    public PlayerUIScript PlayerUIScript { get => playerUIScript; set => playerUIScript = value; }
-    public PlayerSaveStats PlayerSaveStats { get => playerSaveStats; }
-    public PlayerSaveCollection PlayerSaveCollection { set => playerSaveCollection = value; }
-    public PlayerLifeSystemScript PlayerLifeSystemScript { get => playerLifeSystemScript; set => playerLifeSystemScript = value; }
+    [SerializeField]
+    PlayerGunDamageScript playerGunDamageScript;
+
+    [SerializeField]
+    PlayerInventorySystemScript playerInventorySystemScript;
+
+    [SerializeField]
+    PlayerController playerController;
+
+    [SerializeField]
+    PlayerInterationScript playerInterationScript;
+
+    [SerializeField]
+    PlayerUIScript playerUIScript;
+
+    [SerializeField]
+    PlayerVolumeControllerScript playerVolumeControllerScript;
+
+    [SerializeField]
+    PlayerSaveStats playerSaveStats;
+
+    [SerializeField]
+    PlayerGetTargetHealthScript playerGetTargetHealth;
+
+    [SerializeField]
+    private PlayerMelee playerMelee;
+
+    [SerializeField]
+    PlayerSaveCollection playerSaveCollection;
+
+    [SerializeField]
+    PlayerSoundScript playerSoundScript;
+
+    [SerializeField]
+    UnityEngine.InputSystem.PlayerInput playerInput;
+
+    public PlayerUIScript PlayerUIScript
+    {
+        get => playerUIScript;
+        set => playerUIScript = value;
+    }
+
+    public PlayerSaveStats PlayerSaveStats
+    {
+        get => playerSaveStats;
+    }
+
+    public PlayerSaveCollection PlayerSaveCollection
+    {
+        set => playerSaveCollection = value;
+    }
+
+    public PlayerLifeSystemScript PlayerLifeSystemScript
+    {
+        get => playerLifeSystemScript;
+        set => playerLifeSystemScript = value;
+    }
 
     private void Awake()
     {
@@ -28,8 +71,8 @@ public class PlayerMasterScript : MonoBehaviour
         {
             Initialize();
         }
-
     }
+
     [ContextMenu("Initialize")]
     void Initialize()
     {
@@ -39,22 +82,27 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerLifeSystemScript = GetComponent<PlayerLifeSystemScript>();
         }
+
         if (playerGunDamageScript == null)
         {
             playerGunDamageScript = GetComponentInChildren<PlayerGunDamageScript>();
         }
+
         if (playerInventorySystemScript == null)
         {
             playerInventorySystemScript = GetComponent<PlayerInventorySystemScript>();
         }
+
         if (playerController == null)
         {
             playerController = GetComponent<PlayerController>();
         }
+
         if (playerUIScript == null)
         {
             playerUIScript = GetComponentInChildren<PlayerUIScript>();
         }
+
         if (playerVolumeControllerScript == null)
         {
             playerVolumeControllerScript = GetComponentInChildren<PlayerVolumeControllerScript>();
@@ -64,17 +112,25 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerInterationScript = GetComponent<PlayerInterationScript>();
         }
+
         if (!playerSaveStats)
         {
             playerSaveStats = GetComponent<PlayerSaveStats>();
         }
+
         if (!playerGetTargetHealth)
         {
             playerGetTargetHealth = GetComponent<PlayerGetTargetHealthScript>();
         }
+
         if (!playerSoundScript)
         {
             playerSoundScript = GetComponentInChildren<PlayerSoundScript>();
+        }
+
+        if (!playerMelee)
+        {
+            playerMelee = GetComponentInChildren<PlayerMelee>();
         }
 
 
@@ -102,13 +158,20 @@ public class PlayerMasterScript : MonoBehaviour
         {
             playerInventorySystemScript.GunDamageScript = playerGunDamageScript;
         }
+
         if (!playerLifeSystemScript.PlayerSoundScript)
         {
             PlayerLifeSystemScript.PlayerSoundScript = playerSoundScript;
         }
+
         if (!playerController.PlayerSoundScript)
         {
             playerController.PlayerSoundScript = playerSoundScript;
+        }
+
+        if (!playerController.PlayerMelee)
+        {
+            playerController.PlayerMelee = playerMelee;
         }
 
         playerLifeSystemScript.PlayerMasterScript = this;
@@ -116,7 +179,6 @@ public class PlayerMasterScript : MonoBehaviour
         playerInventorySystemScript.playerUIScript = playerUIScript;
         playerLifeSystemScript.PlayerVolumeControllerScript = playerVolumeControllerScript;
         playerController.PlayerVolumeControllerScript = playerVolumeControllerScript;
-
     }
 
     public void SetControls(bool b)
@@ -147,11 +209,12 @@ public class PlayerMasterScript : MonoBehaviour
 
     public int AddCoins(int amount)
     {
-        int temp=  playerSaveStats.AddCoins(amount);
+        int temp = playerSaveStats.AddCoins(amount);
         if (playerUIScript != null)
         {
             playerUIScript.SetCoins(temp);
         }
+
         return temp;
     }
 
@@ -173,6 +236,7 @@ public class PlayerMasterScript : MonoBehaviour
             {
                 playerUIScript.SetCoins(temp);
             }
+
             return true;
         }
     }
@@ -183,6 +247,7 @@ public class PlayerMasterScript : MonoBehaviour
         playerSaveCollection = psc;
         playerSaveStats.Load(psc);
     }
+
     public void TeleportPlayer(Vector3 pos)
     {
         playerController.Teleport(pos);
@@ -198,6 +263,7 @@ public class PlayerMasterScript : MonoBehaviour
     {
         playerSaveStats.numberOfBossKills++;
     }
+
     public void IncreamentClears()
     {
         playerSaveStats.totalFullClears++;

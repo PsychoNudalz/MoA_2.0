@@ -136,6 +136,15 @@ public partial class @Controller : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""57ff4161-9116-4283-b85b-5eef908fad74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Gun1"",
                     ""type"": ""Button"",
                     ""id"": ""eb5ad711-53d4-4bd9-b8e9-3690807e52a7"",
@@ -869,6 +878,17 @@ public partial class @Controller : IInputActionCollection2, IDisposable
                     ""action"": ""Slide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e60dbd8-d47c-46c9-bc19-5a8117a6f338"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Melee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -917,6 +937,7 @@ public partial class @Controller : IInputActionCollection2, IDisposable
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
         m_Player_Gun1 = m_Player.FindAction("Gun1", throwIfNotFound: true);
         m_Player_Gun2 = m_Player.FindAction("Gun2", throwIfNotFound: true);
         m_Player_Gun3 = m_Player.FindAction("Gun3", throwIfNotFound: true);
@@ -1001,6 +1022,7 @@ public partial class @Controller : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Melee;
     private readonly InputAction m_Player_Gun1;
     private readonly InputAction m_Player_Gun2;
     private readonly InputAction m_Player_Gun3;
@@ -1030,6 +1052,7 @@ public partial class @Controller : IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Melee => m_Wrapper.m_Player_Melee;
         public InputAction @Gun1 => m_Wrapper.m_Player_Gun1;
         public InputAction @Gun2 => m_Wrapper.m_Player_Gun2;
         public InputAction @Gun3 => m_Wrapper.m_Player_Gun3;
@@ -1088,6 +1111,9 @@ public partial class @Controller : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Melee.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMelee;
+                @Melee.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMelee;
+                @Melee.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMelee;
                 @Gun1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
                 @Gun1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
                 @Gun1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGun1;
@@ -1167,6 +1193,9 @@ public partial class @Controller : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Melee.started += instance.OnMelee;
+                @Melee.performed += instance.OnMelee;
+                @Melee.canceled += instance.OnMelee;
                 @Gun1.started += instance.OnGun1;
                 @Gun1.performed += instance.OnGun1;
                 @Gun1.canceled += instance.OnGun1;
@@ -1242,6 +1271,7 @@ public partial class @Controller : IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnMelee(InputAction.CallbackContext context);
         void OnGun1(InputAction.CallbackContext context);
         void OnGun2(InputAction.CallbackContext context);
         void OnGun3(InputAction.CallbackContext context);

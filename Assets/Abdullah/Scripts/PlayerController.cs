@@ -233,6 +233,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     PlayerSoundScript playerSoundScript;
 
+    [SerializeField]
+    private PlayerMelee playerMelee;
+
+    public PlayerMelee PlayerMelee
+    {
+        get => playerMelee;
+        set => playerMelee = value;
+    }
+
     CharacterController characterController;
 
     [SerializeField]
@@ -240,6 +249,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Transform playerHitBox;
+    
+    
 
 
     public PlayerGunDamageScript GunDamageScript
@@ -720,6 +731,24 @@ public class PlayerController : MonoBehaviour
         isStick = true;
         jumpVelocity = 0f;
         FindStickHandPosition();
+    }
+
+    public void OnMelee(InputAction.CallbackContext callbackContext)
+    {
+        if (playerMelee)
+        {
+            if (callbackContext.performed)
+            {
+                if (playerMelee.CanMelee())
+                {
+                    playerMelee.Melee();
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Missing Player Melee");
+        }
     }
 
     void UpdateUIControlPrompts()
