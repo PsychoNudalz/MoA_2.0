@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerMelee : MonoBehaviour
 {
@@ -28,9 +29,13 @@ public class PlayerMelee : MonoBehaviour
     [SerializeField]
     private SphereCastDamageScript sphereCastDamageScript;
 
+    [SerializeField]
+    private VisualEffect meleeVFX;
+
     // Start is called before the first frame update
     void Start()
     {
+        meleeVFX?.Stop();
     }
 
     // Update is called once per frame
@@ -47,6 +52,7 @@ public class PlayerMelee : MonoBehaviour
         print("Melee");
         cooldownTime_Now = cooldownTime;
         sphereCastDamageScript.SphereCastDamageArea(meleeDamage, meleeRange, damageCurve, 1, damageElement, true);
+        
     }
 
     public bool CanMelee()

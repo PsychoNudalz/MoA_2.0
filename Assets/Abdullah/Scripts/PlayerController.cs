@@ -201,6 +201,13 @@ public class PlayerController : MonoBehaviour
     private bool isStick = false;
     private Vector3 stickPoint;
     private RaycastHit handStickHit;
+    
+    [Header("Melee")]
+    [SerializeField]
+    private PlayerMelee playerMelee;
+
+    [SerializeField]
+    private HandPositionPointer meleeHandPointer;
 
 
     [Space(10)]
@@ -233,8 +240,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     PlayerSoundScript playerSoundScript;
 
-    [SerializeField]
-    private PlayerMelee playerMelee;
+   
 
     public PlayerMelee PlayerMelee
     {
@@ -249,8 +255,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Transform playerHitBox;
-    
-    
 
 
     public PlayerGunDamageScript GunDamageScript
@@ -741,6 +745,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (playerMelee.CanMelee())
                 {
+                    gunDamageScript.PressFire(false);
+                    gunDamageScript.PressADS(false);
+                    animator.Play("Player_Melee");
                     playerMelee.Melee();
                 }
             }
@@ -1014,7 +1021,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (callbackContext.performed)
+        if (callbackContext.performed && playerMelee.CanMelee())
         {
             gunDamageScript.PressFire(true);
         }
@@ -1032,7 +1039,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (callbackContext.performed)
+        if (callbackContext.performed && playerMelee.CanMelee())
         {
             gunDamageScript.PressADS(true);
         }
@@ -1213,10 +1220,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!isGrounded && !isStick&&!isMantle)
+        if (!isGrounded && !isStick && !isMantle)
         {
             jumpVelocity += gravity * Time.deltaTime;
-        }else if (isMantle)
+        }
+        else if (isMantle)
         {
             jumpVelocity = 0f;
         }
@@ -1290,4 +1298,15 @@ public class PlayerController : MonoBehaviour
             characterController.radius = radius_Original;
         }
     }
+
+    public void AddMeleeHandPointer()
+    {
+        HandController.left.AddPointer(meleeHandPointer);
+    }
+    public void RemoveMeleeHandPointer()
+    {
+        HandController.left.RemovePointer(meleeHandPointer);
+
+    }
+    
 }
