@@ -184,6 +184,7 @@ public class GunEffectsController : MonoBehaviour
 
             bulletParticle.Play();
             muzzleEffect.Play();
+            PlayBulletTrails();
 
             if (mainGunStat.GunType != GunTypes.SHOTGUN)
             {
@@ -192,9 +193,6 @@ public class GunEffectsController : MonoBehaviour
                     bulletCaseParticle.Play();
                 }
             }
-
-
-            PlayBulletTrails();
         }
         catch (System.NullReferenceException e)
         {

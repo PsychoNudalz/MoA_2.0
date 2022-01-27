@@ -34,17 +34,17 @@ public class DamagePopUpUIManager : MonoBehaviour
 
     public DamagePopUpUIScript displayDamage(string dmg, Color colour,DamagePopUpScript damagePopUpScript)
     {
-        DamagePopUpUIScript currentDP = GetNextDP();
-        currentDP.SetText(dmg,colour,damagePopUpScript);
-        return currentDP;
+        DamagePopUpUIScript currentDPUI = GetNextDPUI();
+        currentDPUI.SetText(dmg,colour,damagePopUpScript);
+        return currentDPUI;
     }
 
 
 
-    DamagePopUpUIScript GetNextDP()
+    DamagePopUpUIScript GetNextDPUI()
     {
         int i = 0;
-        pointer = (pointer) % DPPool.Count;
+        pointer = (pointer+1) % DPPool.Count;
 
         DamagePopUpUIScript currentDP = DPPool[pointer];
         while (i < DPPool.Count && currentDP.gameObject.activeSelf)

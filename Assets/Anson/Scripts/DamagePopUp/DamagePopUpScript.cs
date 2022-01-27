@@ -12,6 +12,9 @@ public class DamagePopUpScript : MonoBehaviour
 {
     public GameObject text;
     public Animator animator;
+
+    [SerializeField]
+    private Vector2 animationSpeedRange = new Vector2(.5f, 2f);
     public string displayText;
     private DamagePopUpUIScript pairedUI;
 
@@ -59,7 +62,7 @@ public class DamagePopUpScript : MonoBehaviour
     /// <param name="dmg"></param>
     public virtual void displayDamage(float dmg, Color colour)
     {
-
+        animator.speed = Random.Range(animationSpeedRange.x, animationSpeedRange.y);
         animator.SetTrigger("Play");
         displayText = Mathf.RoundToInt(dmg).ToString();
         pairedUI = DamagePopUpUIManager.current.displayDamage(displayText, colour, this);

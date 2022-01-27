@@ -18,7 +18,7 @@ public class DamagePopUpUIScript : MonoBehaviour
         cam = Camera.main;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (pairedDamage)
         {
@@ -32,6 +32,10 @@ public class DamagePopUpUIScript : MonoBehaviour
                 EndUI();
             }
         }
+        else
+        {
+            EndUI();
+        }
     }
 
     public void SetText(string s, Color c, DamagePopUpScript damagePopUpScript)
@@ -44,15 +48,23 @@ public class DamagePopUpUIScript : MonoBehaviour
         text.color = c;
         pairedDamage = damagePopUpScript;
         gameObject.SetActive(true);
+        UpdateText(pairedDamage.transform.position);
+
     }
 
     public void UpdateText(Vector3 worldPosistion)
     {
         transform.position = cam.WorldToScreenPoint(worldPosistion);
+        if (!text.text.Equals(pairedDamage.displayText))
+        {
+            EndUI();
+            Debug.LogWarning($"Text mismatch from {this.name} & {pairedDamage.name}");
+        }
     }
 
     public void EndUI()
     {
+        text.text = "";
         gameObject.SetActive(false);
     }
 }

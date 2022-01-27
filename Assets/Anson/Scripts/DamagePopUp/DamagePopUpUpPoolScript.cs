@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DamagePopUpUpPoolScript : DamagePopUpScript
 {
@@ -32,21 +34,21 @@ public class DamagePopUpUpPoolScript : DamagePopUpScript
     public override void displayDamage(float dmg, Color colour)
     {
         DamagePopUpScript currentDP = GetNextDP();
-        currentDP.transform.localPosition = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange));
+        currentDP.transform.localPosition = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange)+(Time.time%spawnRange), Random.Range(-spawnRange, spawnRange));
         currentDP.displayDamage(dmg, colour);
     }
 
     public override void displayCriticalDamage(float dmg)
     {
         DamagePopUpScript currentDP = GetNextDP();
-        currentDP.transform.localPosition = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange));
+        currentDP.transform.localPosition = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange)+(Time.time%spawnRange), Random.Range(-spawnRange, spawnRange));
         currentDP.displayCriticalDamage(dmg);
     }
 
     DamagePopUpScript GetNextDP()
     {
         int i = 0;
-        pointer = (pointer) % DPPool.Count;
+        pointer = (pointer+1) % DPPool.Count;
 
         DamagePopUpScript currentDP = DPPool[pointer];
         while (i < DPPool.Count && currentDP.checkText())
@@ -57,7 +59,8 @@ public class DamagePopUpUpPoolScript : DamagePopUpScript
         }
         if (currentDP.checkText())
         {
-            currentDP = Instantiate(baseDP, transform);
+            Debug.Log($"{transform.parent} damage pool overflow");
+            currentDP = Instantiate(baseDP, new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange)),Quaternion.identity, transform);
             DPPool.Add(currentDP);
         }
         return currentDP;
