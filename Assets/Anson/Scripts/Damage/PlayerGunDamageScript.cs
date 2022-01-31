@@ -66,18 +66,20 @@ public class PlayerGunDamageScript : GunDamageScript
         }
     }
 
-    public override MainGunStatsScript TidyOldGun()
+    public override void UnequipOldGun()
     {
+        HandController.ResetHands();
         if (mainGunStatsScript&& mainGunStatsScript.GunComponentBody.GunHandController)
         {
             mainGunStatsScript.GunComponentBody.GunHandController.RemoveAllPoints_Left();
 
         }
-        MainGunStatsScript temp = base.TidyOldGun();
-        HandController.ResetHands();
-        
-        return temp;
+
+        base.UnequipOldGun();
+        return;
     }
+    
+    
     public override MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
     {
         bool wasADS = isADS;
@@ -239,7 +241,8 @@ public class PlayerGunDamageScript : GunDamageScript
 
         //reset firepoint and gun to not rotate left and right
         firePoint.transform.rotation = Quaternion.Euler(firePoint.transform.rotation.eulerAngles.x, firePoint.transform.rotation.eulerAngles.y, 0f);
-        mainGunStatsScript.transform.rotation = Quaternion.Euler(mainGunStatsScript.transform.rotation.eulerAngles.x, mainGunStatsScript.transform.rotation.eulerAngles.y, 0f);
+        //disabling this line doesnt change anything
+        //mainGunStatsScript.transform.rotation = Quaternion.Euler(mainGunStatsScript.transform.rotation.eulerAngles.x, mainGunStatsScript.transform.rotation.eulerAngles.y, 0f);
 
 
         //WHY IS IT DOING THIS?????

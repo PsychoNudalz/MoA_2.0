@@ -204,7 +204,18 @@ public class GunDamageScript : DamageScript
     }
 
 
-    public virtual MainGunStatsScript TidyOldGun()
+    public virtual void UnequipOldGun()
+    {
+        EndReload();
+        isFiring = false;
+        //currentRecoil = new Vector2(0, 0);
+        currentRecoilTime = 0f;
+
+        mainGunStatsScript = null;
+        return ;
+    }
+
+    public void ResetToWorldLoot()
     {
         if (mainGunStatsScript != null)
         {
@@ -215,12 +226,6 @@ public class GunDamageScript : DamageScript
             AnsonUtility.ConvertLayerMask(mainGunStatsScript.gameObject, "Gun", new List<int>(temp));
             //mainGunStatsScript.SetRarityEffect(true);
         }
-
-        EndReload();
-        isFiring = false;
-        //currentRecoil = new Vector2(0, 0);
-        currentRecoilTime = 0f;
-        return mainGunStatsScript;
     }
 
 
@@ -228,7 +233,7 @@ public class GunDamageScript : DamageScript
     {
         currentSlot = slot;
         isFiring = false;
-        MainGunStatsScript oldGunScript = TidyOldGun();
+        MainGunStatsScript oldGunScript = mainGunStatsScript;
         //Debug.Log("Weapon swap from " + mainGunStatsScript.name + " to " + g.name);
 
         if (g == null)

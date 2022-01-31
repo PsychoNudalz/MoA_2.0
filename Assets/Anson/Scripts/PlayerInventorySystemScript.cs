@@ -21,7 +21,6 @@ public class PlayerInventorySystemScript : MonoBehaviour
     public void SwapWeapon(MainGunStatsScript newGun, bool isReplace = false, int i = -1)
     {
         MainGunStatsScript currentGun = Weapons[pointer];
-        gunDamageScript.TidyOldGun();
 
         if (isReplace)
         {
@@ -30,7 +29,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
             if ((s >= 0) && (i == -1))
             {
                 i = s;
-                gunDamageScript.TidyOldGun();
+                gunDamageScript.UnequipOldGun();
                 stowCurrentGun(currentGun);
 
             }
@@ -56,6 +55,8 @@ public class PlayerInventorySystemScript : MonoBehaviour
             StowCurrentGun(currentGun);
         }
 
+        gunDamageScript.UnequipOldGun();
+        
         if (i == -1)
         {
             i = pointer;
@@ -124,7 +125,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
 
     void ThrowOldWeapon()
     {
-        gunDamageScript.TidyOldGun();
+        gunDamageScript.ResetToWorldLoot();
         MainGunStatsScript currentGun = Weapons[pointer];
 
         if (currentGun != null)
@@ -140,10 +141,11 @@ public class PlayerInventorySystemScript : MonoBehaviour
     {
         if (currentGun != null)
         {
-
-            currentGun.gameObject.transform.SetParent(inventoryTransform);
-            currentGun.gameObject.transform.localPosition = new Vector3();
-            currentGun.gameObject.transform.localRotation = Quaternion.identity;
+            gunDamageScript.ADS_Off();
+            GameObject o;
+            (o = currentGun.gameObject).transform.SetParent(inventoryTransform);
+            o.transform.localPosition = new Vector3();
+            o.transform.localRotation = Quaternion.identity;
             //currentGun.gameObject.SetActive(false);
         }
     }
