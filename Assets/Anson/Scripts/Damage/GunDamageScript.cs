@@ -217,9 +217,10 @@ public class GunDamageScript : DamageScript
 
     public void ResetToWorldLoot()
     {
-        if (mainGunStatsScript != null)
+        if (mainGunStatsScript)
         {
             mainGunStatsScript.CurrentMag = currentMag;
+            mainGunStatsScript.ResetToWorldLoot();
             gunEffectsController.PlayAnimationTrigger("Reset");
             int[] temp = {LayerMask.NameToLayer("Debug")};
 

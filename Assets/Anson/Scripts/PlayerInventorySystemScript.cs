@@ -22,6 +22,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
     {
         MainGunStatsScript currentGun = Weapons[pointer];
 
+        //gunDamageScript.UnequipOldGun();
         if (isReplace)
         {
             /*
@@ -39,24 +40,24 @@ public class PlayerInventorySystemScript : MonoBehaviour
                 throwOldWeapon();
             }
             */
-            ThrowOldWeapon();
+            ResetGunToWorldLoot();
+            gunDamageScript.UnequipOldGun();
 
             Weapons[pointer] = newGun;
         }else if (i != -1)
         {
+            gunDamageScript.UnequipOldGun();
             StowCurrentGun(currentGun);
 
             pointer = i;
             Weapons[pointer] = newGun;
-
         }
         else
         {
+            gunDamageScript.UnequipOldGun();
             StowCurrentGun(currentGun);
         }
 
-        gunDamageScript.UnequipOldGun();
-        
         if (i == -1)
         {
             i = pointer;
@@ -123,19 +124,11 @@ public class PlayerInventorySystemScript : MonoBehaviour
     }
 
 
-    void ThrowOldWeapon()
+    void ResetGunToWorldLoot()
     {
         gunDamageScript.ResetToWorldLoot();
-        MainGunStatsScript currentGun = Weapons[pointer];
+        //Weapons[pointer];
 
-        if (currentGun != null)
-        {
-            currentGun.transform.position += transform.forward;
-            currentGun.GetComponentInChildren<Rigidbody>().isKinematic = false;
-            currentGun.GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
-            currentGun.gameObject.transform.parent = null;
-            currentGun.SetRarityEffect(true);
-        }
     }
     void StowCurrentGun(MainGunStatsScript currentGun)
     {

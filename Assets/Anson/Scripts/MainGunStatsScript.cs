@@ -113,6 +113,15 @@ public class MainGunStatsScript : GunStatsScript
     [SerializeField]
     float currentMag;
 
+    [SerializeField]
+    private bool isEquiped = false;
+
+    public bool IsEquiped
+    {
+        get => isEquiped;
+        set => isEquiped = value;
+    }
+
     public VisualEffect RarityEffect => rarityEffect;
 
     public Sound SoundFire => soundFire;
@@ -462,5 +471,14 @@ public class MainGunStatsScript : GunStatsScript
         }
         */
         return dps;
+    }
+
+    public void ResetToWorldLoot()
+    {
+        transform.position += transform.forward;
+        GetComponentInChildren<Rigidbody>().isKinematic = false;
+        GetComponentInChildren<Rigidbody>().AddForce(transform.up * 1000f);
+        gameObject.transform.parent = null;
+        SetRarityEffect(true);
     }
 }

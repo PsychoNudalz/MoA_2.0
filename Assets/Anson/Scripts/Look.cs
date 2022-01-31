@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,7 +45,7 @@ public class Look : MonoBehaviour
     [SerializeField] float timeToRecenterRecoil_Little;
     [SerializeField] bool isRecenter = true;
     [SerializeField] float controllerXOriginal;
-    [SerializeField] float controllerXRemaing;
+    [SerializeField] float controllerXRemaing;//degrees between the original x and x after stop shooting 
 
 
     public float YRotation { get => yRotation; set => yRotation = value; }
@@ -63,6 +64,8 @@ public class Look : MonoBehaviour
         FOV = cameraLens.FieldOfView;
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
@@ -72,11 +75,37 @@ public class Look : MonoBehaviour
             UpdateRecoil();
             AdjustAim();
         }
+
+        if (float.IsNaN(yRotation))
+        {
+            yRotation = 0;
+        }
     }
 
     private void OnApplicationQuit()
     {
+        ResetCameraFOV();
+    }
+
+    [ContextMenu("ResetCameraFOV")]
+    private void ResetCameraFOV()
+    {
+        cameraLens = camera.m_Lens;
         cameraLens.FieldOfView = FOV;
+        camera.m_Lens = cameraLens;
+
+    }
+
+    private void OnDestroy()
+    {
+        ResetCameraFOV();
+
+    }
+
+    private void OnDisable()
+    {
+        ResetCameraFOV();
+
     }
 
     public void LookMouse(InputAction.CallbackContext callbackContext)
@@ -291,9 +320,12 @@ public class Look : MonoBehaviour
     }
 
 
-    public void SetIsRecenter(bool b)
+    public void SetIsRecenter(bool b, bool normaliseTargetRecoil = true)
     {
-        isRecenter = b;
+        if (isRecenter != b)
+        {
+            Debug.Log("Recenter changed");
+        }
         if (!b)
         {
             controllerXOriginal = yRotation;
@@ -303,9 +335,11 @@ public class Look : MonoBehaviour
         {
             controllerXRemaing = -(controllerXOriginal - XRotation_adjust(controllerLayer.localEulerAngles.x));
             //print($"{controllerXRemaing} {controllerLayer.localEulerAngles.x} {recoilLayer.localEulerAngles.x}");
-            RecoilControlControllerLayer();
+            RecoilControlControllerLayer(normaliseTargetRecoil);
 
         }
+
+        isRecenter = b;
     }
     void ReadjustRecoil()
     {
@@ -319,29 +353,33 @@ public class Look : MonoBehaviour
         recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
     }
 
-    private void RecoilControlControllerLayer()
+    private void RecoilControlControllerLayer(bool normaliseTargetRecoil = true)
     {
         //player looks higher
         if (controllerXRemaing <= 0f)
         {
-            //print("player looks higher");
+            print("player looks higher");
         }
+        
         //player recoil controls above the original point
         else if (controllerXOriginal > XRotation_adjust(controllerLayer.localEulerAngles.x) + XRotation_adjust(recoilLayer.localEulerAngles.x))
         {
-            //controllerLayer.localRotation = Quaternion.Euler(-controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;
+            print("player recoil controls above the original point");
+            controllerLayer.localRotation = Quaternion.Euler(-controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;
             yRotation = yRotation - controllerXRemaing;
 
             recoilLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * recoilLayer.localRotation;
             //controllerXRemaing = 0;
-            //print("player recoil controls above the original point");
-
         }
         //player recoil controls below
         else
         {
-            //print("player recoil controls below");
-            targetRecoil = targetRecoil.normalized;
+            print("player recoil controls below");
+            if (normaliseTargetRecoil)
+            {
+                targetRecoil = (targetRecoil.normalized)*Mathf.Min(targetRecoil.magnitude,1f);
+            }
+
             controllerXRemaing = XRotation_adjust(recoilLayer.localEulerAngles.x);
             //print(controllerXRemaing);
             //controllerLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;

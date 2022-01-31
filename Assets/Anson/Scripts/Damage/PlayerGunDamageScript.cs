@@ -35,28 +35,30 @@ public class PlayerGunDamageScript : GunDamageScript
 
         //CorrectRecoil();
 
-        if (isFiring)
+
+        if ( mainGunStatsScript&&mainGunStatsScript.IsEquiped)
         {
-            if (!Shoot())
+            if (isFiring)
             {
-                if (!isFullAuto)
+                if (!Shoot())
                 {
-                    CorrectRecoil();
+                    if (!isFullAuto)
+                    {
+                        CorrectRecoil();
+                    }
                 }
             }
-        }
-        else
-        {
-            CorrectRecoil();
-        }
+            else
+            {
+                CorrectRecoil();
+            }
 
-        if (mainGunStatsScript != null && !isAI)
-        {
-            SetWeaponRecoil();
-            SetWeaponLocation();
+            if (mainGunStatsScript != null && !isAI)
+            {
+                SetWeaponRecoil();
+                SetWeaponLocation();
+            }
         }
-
-
 
 
         if (displayFireRaycast)
@@ -75,52 +77,23 @@ public class PlayerGunDamageScript : GunDamageScript
 
         }
 
+        if (mainGunStatsScript)
+        {
+            mainGunStatsScript.IsEquiped = false;
+        }
+
         base.UnequipOldGun();
         return;
-    }
-    
-    
-    public override MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
-    {
-        bool wasADS = isADS;
-
-        MainGunStatsScript newGun = base.UpdateGunScript(g, slot);
-        int[] temp = { LayerMask.NameToLayer("Debug") };
-        AnsonUtility.ConvertLayerMask(g.gameObject, "PlayerGun", new List<int>(temp));
-
-
-        if (newGun != null)
-        {
-            //print("Updating UI");
-            UpdateAmmoCount();
-            UpdateGunStatText();
-            playerUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
-            //ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), mainGunStatsScript.ElementType, mainGunStatsScript.GunType, currentSlot);
-        }
-        if (wasADS)
-        {
-            lookScript.AimSight(wasADS, mainGunStatsScript.ComponentSight.ZoomMultiplier);
-        }
-
-        if (mainGunStatsScript&& mainGunStatsScript.GunComponentBody.GunHandController)
-        {
-            HandController.left.AddPointer(mainGunStatsScript.GunComponentBody.GunHandController.HandRest);
-        }
-        return newGun;
-
-    }
-
-    public void UpdateUI()
-    {
-        //print("Updating UI");
-        UpdateAmmoCount();
-        UpdateGunStatText();
-        playerUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
     }
 
     public override void Fire(bool b)
     {
         base.Fire(b);
+        if (isFullAuto)
+        {
+            lookScript.SetIsRecenter(!b,isFullAuto);
+        }
+        
         if (isFiring)
         {
             originalFireDirection_X = lookScript.YRotation_adjusted();
@@ -130,7 +103,47 @@ public class PlayerGunDamageScript : GunDamageScript
             currentRecoilTime = currentRecoilTime / 2;
             AdjustRecoil();
         }
-        lookScript.SetIsRecenter(!b);
+    }
+
+
+    public override MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
+    {
+        bool wasADS = isADS;
+
+        MainGunStatsScript oldGun = base.UpdateGunScript(g, slot);
+        int[] temp = { LayerMask.NameToLayer("Debug") };
+        AnsonUtility.ConvertLayerMask(g.gameObject, "PlayerGun", new List<int>(temp));
+
+
+        if (mainGunStatsScript)
+        {
+            //print("Updating UI");
+            UpdateAmmoCount();
+            UpdateGunStatText();
+            playerUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
+            mainGunStatsScript.IsEquiped = true;
+            //ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), mainGunStatsScript.ElementType, mainGunStatsScript.GunType, currentSlot);
+        }
+
+        if (wasADS)
+        {
+            lookScript.AimSight(wasADS, mainGunStatsScript.ComponentSight.ZoomMultiplier);
+        }
+
+        if (mainGunStatsScript&& mainGunStatsScript.GunComponentBody.GunHandController)
+        {
+            HandController.left.AddPointer(mainGunStatsScript.GunComponentBody.GunHandController.HandRest);
+        }
+        return oldGun;
+
+    }
+
+    public void UpdateUI()
+    {
+        //print("Updating UI");
+        UpdateAmmoCount();
+        UpdateGunStatText();
+        playerUIScript.SetGunName(mainGunStatsScript.GetName(), currentSlot);
     }
 
     public void PressFire(bool b)
