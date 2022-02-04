@@ -278,7 +278,7 @@ public class Look : MonoBehaviour
             targetEuler.y = 0;
             targetEuler.z = 0;
             targetRotation = Quaternion.Euler(targetEuler);
-            targetRecoil = new Vector2(Mathf.Min(targetRecoil.x, overRecoilMaxX), 0);
+            targetRecoil = new Vector2(Mathf.Min(targetRecoil.x, overRecoilMaxX), targetRecoil.y);
             recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, targetRotation, Time.deltaTime * 10f);
             float recoilX = -XRotation_adjust(recoilLayer.localEulerAngles.x);
             //yRotation = Mathf.Clamp(yRotation, -maxRotationDown + recoilX, maxRotationDown + recoilX);
