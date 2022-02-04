@@ -210,6 +210,7 @@ public class GunDamageScript : DamageScript
         isFiring = false;
         //currentRecoil = new Vector2(0, 0);
         currentRecoilTime = 0f;
+        
 
         mainGunStatsScript = null;
         return ;

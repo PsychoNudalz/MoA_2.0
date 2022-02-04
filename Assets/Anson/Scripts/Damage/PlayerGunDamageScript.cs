@@ -80,6 +80,8 @@ public class PlayerGunDamageScript : GunDamageScript
         if (mainGunStatsScript)
         {
             mainGunStatsScript.IsEquiped = false;
+            mainGunStatsScript.CurrentMag = currentMag;
+
         }
 
         base.UnequipOldGun();

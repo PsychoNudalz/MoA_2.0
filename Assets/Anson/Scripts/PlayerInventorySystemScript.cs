@@ -97,7 +97,7 @@ public class PlayerInventorySystemScript : MonoBehaviour
     {
         if (i < Weapons.Length && i > -1)
         {
-            if (force || Weapons[i] != null)
+            if (force || (Weapons[i] != null&&i!=pointer))
             {
 
                 SwapWeapon(Weapons[i], false, i);
