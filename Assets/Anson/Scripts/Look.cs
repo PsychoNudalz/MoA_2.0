@@ -370,13 +370,13 @@ public class Look : MonoBehaviour
         //player looks higher than recoil
         if (controllerXRemaing <= 0f)
         {
-            print("player looks higher than recoil");
+            // print("player looks higher than recoil");
         }
         
         //player recoil controls above the original point
         else if (controllerXOriginal > XRotation_adjust(controllerLayer.localEulerAngles.x) + XRotation_adjust(recoilLayer.localEulerAngles.x))
         {
-            print("player recoil controls above the original point");
+            // print("player recoil controls above the original point");
             controllerLayer.localRotation = Quaternion.Euler(-controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;
             yRotation = yRotation - controllerXRemaing;
             recoilLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * recoilLayer.localRotation;
@@ -389,7 +389,7 @@ public class Look : MonoBehaviour
         //player recoil controls below
         else
         {
-            print("player recoil controls below");
+            // print("player recoil controls below");
             if (normaliseTargetRecoil)
             {
                 targetRecoil = (targetRecoil.normalized)*Mathf.Min(targetRecoil.magnitude,1f);

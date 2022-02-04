@@ -9,8 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 379480470746228731}
-  - component: {fileID: 8798944463797176139}
   - component: {fileID: 1506049732202981844}
+  - component: {fileID: -2371069851511369313}
+  - component: {fileID: 6154906993925241752}
+  - component: {fileID: 666277428142966741}
+  - component: {fileID: -464424097138503485}
   m_Layer: 8
   m_Name: GunSound
   m_TagString: Untagged
@@ -32,27 +35,6 @@ Transform:
   m_Father: {fileID: 2289309973118316379}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8798944463797176139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 735122137283187870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  volume: 0.75
-  volumeVariance: 0.1
-  pitch: 1
-  pitchVariance: 0.1
-  audioMixer: {fileID: 0}
-  sourcePool: []
-  sourcePoolSize: 6
-  poolIndex: -1
 --- !u!82 &1506049732202981844
 AudioSource:
   m_ObjectHideFlags: 0
@@ -149,6 +131,90 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2371069851511369313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735122137283187870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  volume: 0.75
+  volumeVariance: 0.1
+  pitch: 1
+  pitchVariance: 0.1
+  audioMixer: {fileID: 0}
+  sourcePool: []
+  sourcePoolSize: 6
+  poolIndex: -1
+--- !u!114 &6154906993925241752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735122137283187870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  volume: 0.75
+  volumeVariance: 0.1
+  pitch: 1
+  pitchVariance: 0.1
+  audioMixer: {fileID: 0}
+  sourcePool: []
+  sourcePoolSize: 6
+  poolIndex: -1
+--- !u!114 &666277428142966741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735122137283187870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  volume: 0.75
+  volumeVariance: 0.1
+  pitch: 1
+  pitchVariance: 0.1
+  audioMixer: {fileID: 0}
+  sourcePool: []
+  sourcePoolSize: 6
+  poolIndex: -1
+--- !u!114 &-464424097138503485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735122137283187870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  volume: 0.75
+  volumeVariance: 0.1
+  pitch: 1
+  pitchVariance: 0.1
+  audioMixer: {fileID: 0}
+  sourcePool: []
+  sourcePoolSize: 6
+  poolIndex: -1
 --- !u!1 &3981304585147950232
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +383,7 @@ MonoBehaviour:
   shootAnimationLerp: 0.3
   gunHandController: {fileID: 0}
   ignoreBarrelHand: 0
-  sound_Fire: {fileID: 8798944463797176139}
+  sound_Fire: {fileID: 0}
   sound_StartReload: {fileID: 9121020277200989915}
   sound_EndReload: {fileID: 1935563670974081038}
 --- !u!65 &4601413827931001062
@@ -402,7 +468,7 @@ MonoBehaviour:
   bulletCaseParticle: {fileID: 6067912605738349628}
   bulletTrailControllerScript: {fileID: 0}
   bulletTrailCache_FireDir: []
-  sound_Fire: {fileID: 8798944463797176139}
+  sound_Fire: {fileID: -2371069851511369313}
   sound_StartReload: {fileID: 9121020277200989915}
   sound_EndReload: {fileID: 1935563670974081038}
   rarityEffect: {fileID: 0}
@@ -1652,6 +1718,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cebf9903e9e005d459af5a0b5dd03df9, type: 3}
+--- !u!4 &3261195163848648838 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1485273882304055838, guid: cebf9903e9e005d459af5a0b5dd03df9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4170006713154249368}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1998565144019833443 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2477687244036124923, guid: cebf9903e9e005d459af5a0b5dd03df9,
@@ -1664,12 +1736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f20f889fdf6c824aa2ac1f966d39a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3261195163848648838 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1485273882304055838, guid: cebf9903e9e005d459af5a0b5dd03df9,
-    type: 3}
-  m_PrefabInstance: {fileID: 4170006713154249368}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5069719557826608820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1739,12 +1805,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cebf9903e9e005d459af5a0b5dd03df9, type: 3}
---- !u!4 &5964880996837684394 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1485273882304055838, guid: cebf9903e9e005d459af5a0b5dd03df9,
-    type: 3}
-  m_PrefabInstance: {fileID: 5069719557826608820}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7222015099199868495 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2477687244036124923, guid: cebf9903e9e005d459af5a0b5dd03df9,
@@ -1757,6 +1817,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f20f889fdf6c824aa2ac1f966d39a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &5964880996837684394 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1485273882304055838, guid: cebf9903e9e005d459af5a0b5dd03df9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5069719557826608820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6231812448221094563
 PrefabInstance:
   m_ObjectHideFlags: 0

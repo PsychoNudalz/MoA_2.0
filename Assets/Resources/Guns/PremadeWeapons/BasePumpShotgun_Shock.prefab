@@ -482,7 +482,7 @@ MonoBehaviour:
   shootAnimationLerp: 1
   gunHandController: {fileID: 0}
   ignoreBarrelHand: 0
-  sound_Fire: {fileID: 3137619939919378189}
+  sound_Fire: {fileID: 0}
   sound_StartReload: {fileID: 1933520455605063607}
   sound_EndReload: {fileID: 2722122293214489880}
 --- !u!65 &1502539788311094424
@@ -567,7 +567,7 @@ MonoBehaviour:
   bulletCaseParticle: {fileID: 692692669285013447}
   bulletTrailControllerScript: {fileID: 8893569689119363670}
   bulletTrailCache_FireDir: []
-  sound_Fire: {fileID: 3137619939919378189}
+  sound_Fire: {fileID: 3035545100569459473}
   sound_StartReload: {fileID: 1933520455605063607}
   sound_EndReload: {fileID: 2722122293214489880}
   rarityEffect: {fileID: 0}
@@ -688,8 +688,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7322409040263484703}
-  - component: {fileID: 3137619939919378189}
   - component: {fileID: 2651186340028718834}
+  - component: {fileID: 3035545100569459473}
   m_Layer: 8
   m_Name: GunSound
   m_TagString: Untagged
@@ -711,24 +711,6 @@ Transform:
   m_Father: {fileID: 4767274703305473799}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3137619939919378189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712065324880432386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5d2998e6bad0e4fbee47d31d24b684, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  volume: 0.75
-  volumeVariance: 0.1
-  pitch: 1
-  pitchVariance: 0.1
-  audioMixer: {fileID: 0}
 --- !u!82 &2651186340028718834
 AudioSource:
   m_ObjectHideFlags: 0
@@ -825,6 +807,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3035545100569459473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6712065324880432386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  volume: 0.75
+  volumeVariance: 0.1
+  pitch: 1
+  pitchVariance: 0.1
+  audioMixer: {fileID: 0}
+  sourcePool: []
+  sourcePoolSize: 6
+  poolIndex: -1
 --- !u!1 &7626188430967779473
 GameObject:
   m_ObjectHideFlags: 0

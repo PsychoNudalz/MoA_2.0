@@ -272,6 +272,11 @@ public class GunEffectsController : MonoBehaviour
         }
     }
 
+    public void SetFireSound(Sound s)
+    {
+        sound_Fire = s;
+    }
+
     /// <summary>
     /// used for getting things from body components
     /// </summary>

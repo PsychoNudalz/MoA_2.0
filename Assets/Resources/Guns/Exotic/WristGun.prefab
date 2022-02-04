@@ -1182,8 +1182,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8496074688074596049}
-  - component: {fileID: 8496074688074590952}
   - component: {fileID: 8496074688074593114}
+  - component: {fileID: 5983839054590719335}
   m_Layer: 8
   m_Name: GunSound
   m_TagString: Untagged
@@ -1205,24 +1205,6 @@ Transform:
   m_Father: {fileID: 8496074688074580536}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8496074688074590952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8496074688074584573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5d2998e6bad0e4fbee47d31d24b684, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  volume: 0.75
-  volumeVariance: 0.1
-  pitch: 1
-  pitchVariance: 0.1
-  audioMixer: {fileID: 0}
 --- !u!82 &8496074688074593114
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1319,6 +1301,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5983839054590719335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496074688074584573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35206bbb8ffc549a0ff781fa0fc66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  volume: 0.75
+  volumeVariance: 0.1
+  pitch: 1
+  pitchVariance: 0.1
+  audioMixer: {fileID: 0}
+  sourcePool: []
+  sourcePoolSize: 6
+  poolIndex: -1
 --- !u!1 &8496074688074584756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,7 +1482,7 @@ MonoBehaviour:
   shootAnimationLerp: 1
   gunHandController: {fileID: 8496074688074591550}
   ignoreBarrelHand: 0
-  sound_Fire: {fileID: 8496074688074590952}
+  sound_Fire: {fileID: 0}
   sound_StartReload: {fileID: 8496074688074590819}
   sound_EndReload: {fileID: 8496074688074590913}
 --- !u!65 &8496074688074592888
@@ -1564,7 +1567,7 @@ MonoBehaviour:
   bulletCaseParticle: {fileID: 8968055241381480854}
   bulletTrailControllerScript: {fileID: 1046049426415258631}
   bulletTrailCache_FireDir: []
-  sound_Fire: {fileID: 8496074688074590952}
+  sound_Fire: {fileID: 5983839054590719335}
   sound_StartReload: {fileID: 8496074688074590819}
   sound_EndReload: {fileID: 8496074688074590913}
   rarityEffect: {fileID: 0}
