@@ -14,6 +14,8 @@ public class PlayerGunDamageScript : GunDamageScript
     public PlayerUIScript playerUIScript;
 
 
+
+
     private void Awake()
     {
         playerUIScript = FindObjectOfType<PlayerUIScript>();
@@ -210,7 +212,13 @@ public class PlayerGunDamageScript : GunDamageScript
     protected override float HandleWeapon(float newRecoilTime = -1)
     {
         float temp = base.HandleWeapon(newRecoilTime);
+        
         playerUIScript.FireCrossair();
+        if (PlayerMasterScript.INFINITEAMMO)
+        {
+            currentMag = magazineSize;
+        }
+
         UpdateAmmoCount();
         return temp;
     }

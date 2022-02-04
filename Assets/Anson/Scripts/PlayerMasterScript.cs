@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using QFSW.QC;
 using UnityEngine;
 
 public class PlayerMasterScript : MonoBehaviour
@@ -42,6 +43,10 @@ public class PlayerMasterScript : MonoBehaviour
 
     [SerializeField]
     UnityEngine.InputSystem.PlayerInput playerInput;
+    
+    
+    [Header("Cheats")]
+    public static bool INFINITEAMMO = false;
 
     public PlayerUIScript PlayerUIScript
     {
@@ -267,5 +272,21 @@ public class PlayerMasterScript : MonoBehaviour
     public void IncreamentClears()
     {
         playerSaveStats.totalFullClears++;
+    }
+    
+    
+    
+    
+    //Quantum console
+    [Command("Player_IA")]
+    public static void Player_InfiniteAmmo(bool b)
+    {
+        INFINITEAMMO = b;
+    }
+    
+    [Command("Player_IA")]
+    public static void Player_InfiniteAmmo()
+    {
+        INFINITEAMMO = !INFINITEAMMO;
     }
 }

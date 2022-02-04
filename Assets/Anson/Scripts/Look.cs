@@ -19,6 +19,7 @@ public class Look : MonoBehaviour
 
     public float maxRotationDown = 40f;
     public float maxRotationSide = 15f;
+    private float overRecoilMaxX = 20f;
 
     [SerializeField] float yRotation = 0f;
     [SerializeField] bool lookLock = false;
@@ -26,6 +27,7 @@ public class Look : MonoBehaviour
 
     [Header("ADS transition")]
     [SerializeField] CinemachineVirtualCamera camera;
+
     [SerializeField] LensSettings cameraLens;
     [SerializeField] float FOV = 0f;
     [SerializeField] AnimationCurve aimCurve;
@@ -36,11 +38,14 @@ public class Look : MonoBehaviour
 
     [Header("Head Layers")]
     [SerializeField] Transform controllerLayer;
+
     [SerializeField] Transform recoilLayer;
     [SerializeField] Transform weaponLayer;
 
+
     [Header("Camera Recoil")]
     [SerializeField] Vector2 targetRecoil = new Vector2();
+
     [SerializeField] float timeToRecenterRecoil;
     [SerializeField] float timeToRecenterRecoil_Little;
     [SerializeField] bool isRecenter = true;
@@ -273,7 +278,7 @@ public class Look : MonoBehaviour
             targetEuler.y = 0;
             targetEuler.z = 0;
             targetRotation = Quaternion.Euler(targetEuler);
-            targetRecoil = new Vector2(Mathf.Min(targetRecoil.x, 20f), 0);
+            targetRecoil = new Vector2(Mathf.Min(targetRecoil.x, overRecoilMaxX), 0);
             recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, targetRotation, Time.deltaTime * 10f);
             float recoilX = -XRotation_adjust(recoilLayer.localEulerAngles.x);
             //yRotation = Mathf.Clamp(yRotation, -maxRotationDown + recoilX, maxRotationDown + recoilX);
@@ -333,14 +338,19 @@ public class Look : MonoBehaviour
         }
         else
         {
-            controllerXRemaing = -(controllerXOriginal - XRotation_adjust(controllerLayer.localEulerAngles.x));
+            CalculateXRemaining();
             //print($"{controllerXRemaing} {controllerLayer.localEulerAngles.x} {recoilLayer.localEulerAngles.x}");
             RecoilControlControllerLayer(normaliseTargetRecoil);
-
         }
 
         isRecenter = b;
     }
+
+    private void CalculateXRemaining()
+    {
+        controllerXRemaing = -(controllerXOriginal - XRotation_adjust(controllerLayer.localEulerAngles.x));
+    }
+
     void ReadjustRecoil()
     {
         targetRecoil = Vector2.Lerp(targetRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenterRecoil);
@@ -350,15 +360,17 @@ public class Look : MonoBehaviour
         }
 
         recoilLayer.localRotation = Quaternion.Lerp(recoilLayer.localRotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 2 / timeToRecenterRecoil);
+        
+        //Lock recoil rotation
         recoilLayer.localEulerAngles = new Vector3(recoilLayer.localEulerAngles.x, recoilLayer.localEulerAngles.y, 0);
     }
 
     private void RecoilControlControllerLayer(bool normaliseTargetRecoil = true)
     {
-        //player looks higher
+        //player looks higher than recoil
         if (controllerXRemaing <= 0f)
         {
-            print("player looks higher");
+            print("player looks higher than recoil");
         }
         
         //player recoil controls above the original point
@@ -367,9 +379,12 @@ public class Look : MonoBehaviour
             print("player recoil controls above the original point");
             controllerLayer.localRotation = Quaternion.Euler(-controllerXRemaing, 0f, 0f) * controllerLayer.localRotation;
             yRotation = yRotation - controllerXRemaing;
-
             recoilLayer.localRotation = Quaternion.Euler(controllerXRemaing, 0f, 0f) * recoilLayer.localRotation;
+
             //controllerXRemaing = 0;
+            //targetRecoil.x -= controllerXRemaing;
+            targetRecoil.x = 0;
+            CalculateXRemaining();
         }
         //player recoil controls below
         else
