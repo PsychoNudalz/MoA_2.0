@@ -207,7 +207,7 @@ public class GunDamageScript : DamageScript
     public virtual void UnequipOldGun()
     {
         EndReload();
-        isFiring = false;
+        Fire(false);
         //currentRecoil = new Vector2(0, 0);
         currentRecoilTime = 0f;
         
