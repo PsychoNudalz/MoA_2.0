@@ -12,7 +12,7 @@ public class GunEffectConvertorWindow : EditorWindow
 
     private GunEffectsConvertor gunEffectsConvertor = new GunEffectsConvertor();
 
-    [MenuItem("Window/Card Effect Convertor")]
+    [MenuItem("Window/Gun Effect Convertor")]
     public static void ShowWindow()
     {
         GetWindow<GunEffectConvertorWindow>("Gun Effect Convertor Window");

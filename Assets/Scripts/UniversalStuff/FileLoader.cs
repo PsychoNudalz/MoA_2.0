@@ -151,7 +151,7 @@ public static class FileLoader
     /// <param name="path"> path to file</param>
     /// <param name="fileType">type of file, in regular expressions, eg *.prefab</param>
     /// <returns> list of components specified </returns>
-    public static List<T> GetAllFilesFromResources<T>(string path, string fileType = "*.prefab")
+    public static List<T> GetAllFilesFromResources<T>(string path, string fileType = "*.prefab", bool displayDebug = true)
     {
         List<T> fileList = new List<T>();
 
@@ -175,7 +175,10 @@ public static class FileLoader
             }
         }
 
-        Debug.Log($"Found all files of type {fileType}, containing: {fileList.Count} files return");
+        if (displayDebug)
+        {
+            Debug.Log($"Found all files of type {fileType}, containing: {fileList.Count} files return");
+        }
         return fileList;
     }
 

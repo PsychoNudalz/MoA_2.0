@@ -151,4 +151,14 @@ public class Sound : MonoBehaviour
     {
         transform.position = position;
     }
+
+    public void TansferSound(Sound other)
+    {
+        source = other.source;
+        volume = other.volume;
+        volumeVariance = other.volumeVariance;
+        pitch = other.pitch;
+        pitchVariance = other.pitchVariance;
+        audioMixer = other.audioMixer;
+    }
 }
