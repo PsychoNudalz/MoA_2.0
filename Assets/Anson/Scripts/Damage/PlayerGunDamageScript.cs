@@ -328,8 +328,8 @@ public class PlayerGunDamageScript : GunDamageScript
     protected override IEnumerator DelayReload(float offset = 0)
     {
 
-        isFiring = false;
-        gunEffectsController.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
+        Fire(false);
+        gunEffectsController.PlayAnimationTrigger("Reload");
         gunEffectsController.PlaySound_StartReload();
         currentRecoilTime = 0f;
         AdjustRecoil();

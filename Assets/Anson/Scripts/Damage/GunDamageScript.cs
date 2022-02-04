@@ -655,7 +655,7 @@ public class GunDamageScript : DamageScript
 
     protected virtual float HandleWeapon(float newRecoilTime = -1f)
     {
-        gunEffectsController.PlayAnimationTrigger("Shoot", 1 / timeUntilFire);
+        gunEffectsController.PlayAnimationTrigger("Shoot");
         gunEffectsController.PlaySound_Fire();
         Vector2 addRecoil = new Vector2();
         if (newRecoilTime < 0)
@@ -811,7 +811,7 @@ public class GunDamageScript : DamageScript
     protected virtual IEnumerator DelayReload(float offset = 0)
     {
         Fire(false);
-        gunEffectsController.PlayAnimationTrigger("Reload", 1 / reloadSpeed);
+        gunEffectsController.PlayAnimationTrigger("Reload");
         gunEffectsController.PlaySound_StartReload();
         currentRecoilTime = 0f;
         yield return new WaitForSeconds(reloadSpeed - offset);

@@ -16,6 +16,9 @@ public class GunEffectsController : MonoBehaviour
     [SerializeField]
     GunHandController gunHandController;
 
+    [SerializeField]
+    private Coroutine delayAnimationCoroutine;
+
     [Space(5)]
     [Header("Effects")]
     [SerializeField]
@@ -54,11 +57,10 @@ public class GunEffectsController : MonoBehaviour
     [Header("Gun Effects")]
     [SerializeField]
     VisualEffect rarityEffect;
-    
+
     [Header("Components")]
     [SerializeField]
     private MainGunStatsScript mainGunStat;
-
 
 
     public GunHandController GunHandController => gunHandController;
@@ -82,10 +84,6 @@ public class GunEffectsController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void Initialise(MainGunStatsScript gunStat)
     {
         this.mainGunStat = gunStat;
@@ -93,8 +91,23 @@ public class GunEffectsController : MonoBehaviour
         SetEffectsElement(60f / gunStat.GetRPM, gunStat.ElementType);
         rarityEffect.SetInt("Rarity", (int) gunStat.Rarity);
         rarityEffect.SetInt("Element", (int) gunStat.ElementType);
+        
+        animator.SetFloat("ReloadSpeed",1f/gunStat.ReloadSpeed);
+        if (gunStat.GunType.Equals(GunTypes.SHOTGUN))
+        {
+            animator.SetFloat("ShootSpeed",1f/((60f/gunStat.GetRPM)));
+
+        }
+        else
+        {
+            animator.SetFloat("ShootSpeed",1f/((60f/gunStat.GetRPM)/gunStat.ProjectilePerShot));
+        }
     }
-    
+
+    void Update()
+    {
+    }
+
     public void SetRarityEffect(bool b)
     {
         rarityEffect.gameObject.SetActive(b);
@@ -116,6 +129,15 @@ public class GunEffectsController : MonoBehaviour
             return;
         }
 
+        if (Math.Abs(animator.speed - animationSpeed) > 0.01f)
+        {
+            delayAnimationCoroutine = StartCoroutine(DelayReloadCoroutine(s));
+        }
+        else
+        {
+            animator.SetTrigger(s);
+        }
+
         if (s.Equals("Shoot"))
         {
             animator.speed = Mathf.Lerp(1, animationSpeed, shootAnimationLerp);
@@ -124,8 +146,6 @@ public class GunEffectsController : MonoBehaviour
         {
             animator.speed = animationSpeed;
         }
-
-        animator.SetTrigger(s);
     }
 
 
@@ -212,7 +232,8 @@ public class GunEffectsController : MonoBehaviour
         {
             bulletTrailControllerScript.PlayTrail(bulletTrailCache_RaycastHit);
         }
-         if (bulletTrailCache_FireDir.Count > 0)
+
+        if (bulletTrailCache_FireDir.Count > 0)
         {
             bulletTrailControllerScript.PlayTrail(bulletTrailCache_FireDir);
         }
@@ -242,7 +263,7 @@ public class GunEffectsController : MonoBehaviour
     public void WipeBulletTrailCache()
     {
         //Debug.Log($"Wiping trail cache {bulletTrailCache_FireDir.Count} {bulletTrailCache_RaycastHit.Count}");
-        
+
         bulletTrailCache_FireDir = new List<Vector3>();
         bulletTrailCache_RaycastHit = new List<RaycastHit>();
     }
@@ -277,6 +298,12 @@ public class GunEffectsController : MonoBehaviour
         sound_Fire = s;
     }
 
+    IEnumerator DelayReloadCoroutine(string s)
+    {
+        yield return new WaitForFixedUpdate();
+        animator.SetTrigger(s);
+    }
+
     /// <summary>
     /// used for getting things from body components
     /// </summary>
@@ -296,7 +323,6 @@ public class GunEffectsController : MonoBehaviour
         sound_Fire = b.Sound_Fire;
         sound_StartReload = b.Sound_StartReload;
         sound_EndReload = b.Sound_EndReload;
-
     }
 
     [ContextMenu("Transfer Body")]
@@ -304,9 +330,8 @@ public class GunEffectsController : MonoBehaviour
     {
         GunComponent_Body temp = GetComponent<GunComponent_Body>();
         GetBodyData(temp);
-        
     }
-    
+
     [ContextMenu("Transfer Gun State")]
     public void GetStateData()
     {
@@ -323,7 +348,5 @@ public class GunEffectsController : MonoBehaviour
         sound_StartReload = b.SoundStartReload;
         sound_EndReload = b.SoundEndReload;
         rarityEffect = b.RarityEffect;
-
     }
-    
 }
