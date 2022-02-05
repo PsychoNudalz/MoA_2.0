@@ -5,16 +5,33 @@ using Random = UnityEngine.Random;
 
 public class ShootingEnemyAgent : MonoBehaviour
 {
+    [SerializeField]
+    private float walkSpeed = 1f;
 
-    [SerializeField] private float walkSpeed = 1f;
-    [SerializeField] private float minAttackDelay = 1f;
-    [SerializeField] private float maxAttackDelay = 5f;
-    [SerializeField] private float attackDetectionRange = 50f;
-    [SerializeField] private float minCoverDelay = 1f;
-    [SerializeField] private float maxCoverDelay = 5f;
-    [SerializeField] private GameObject fireballPrefab;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject healthPickup;
+    [SerializeField]
+    private float minAttackDelay = 1f;
+
+    [SerializeField]
+    private float maxAttackDelay = 5f;
+
+    [SerializeField]
+    private float attackDetectionRange = 50f;
+
+    [SerializeField]
+    private float minCoverDelay = 1f;
+
+    [SerializeField]
+    private float maxCoverDelay = 5f;
+
+    [SerializeField]
+    private GameObject fireballPrefab;
+
+    [SerializeField]
+    private Transform firePoint;
+
+    [SerializeField]
+    private GameObject healthPickup;
+
     private NavMeshAgent shootingEnemyAgent;
     private Animator shootingEnemyAnimator;
     private float currentAttackTimer;
@@ -22,7 +39,10 @@ public class ShootingEnemyAgent : MonoBehaviour
     private bool isCrouching;
     private bool isShooting;
     private bool IsStaggering;
-    [SerializeField] private bool IsDead = false;
+
+    [SerializeField]
+    private bool IsDead = false;
+
     private Vector3 currentWaypoint;
     private bool waypointSet;
     private NavMeshPath path;
@@ -31,8 +51,11 @@ public class ShootingEnemyAgent : MonoBehaviour
     private bool deathHandled = false;
 
     [Header("Shooting")]
-    [SerializeField] GunDamageScript gunDamageScript;
-    [SerializeField] Vector3 aimOffset = new Vector3(0, 0.5f, 0);
+    [SerializeField]
+    GunDamageScript gunDamageScript;
+
+    [SerializeField]
+    Vector3 aimOffset = new Vector3(0, 0.5f, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -57,8 +80,7 @@ public class ShootingEnemyAgent : MonoBehaviour
      */
     private void ResetAttackTimer()
     {
-        currentAttackTimer = Mathf.Clamp(Random.Range(minAttackDelay, maxAttackDelay),1.5f,maxAttackDelay);
-        
+        currentAttackTimer = Mathf.Clamp(Random.Range(minAttackDelay, maxAttackDelay), 1.5f, maxAttackDelay);
     }
 
     // Update is called once per frame
@@ -66,12 +88,11 @@ public class ShootingEnemyAgent : MonoBehaviour
     {
         if (!IsStaggering && !IsDead)
         {
-            
             if (currentAttackTimer <= 0 && !isShooting)
             {
                 RaycastHit hit;
-                Vector3 playerDirection = player.transform.position - firePoint.transform.position+aimOffset;
-                Debug.DrawRay(firePoint.position, playerDirection, Color.red,2f);
+                Vector3 playerDirection = player.transform.position - firePoint.transform.position + aimOffset;
+                Debug.DrawRay(firePoint.position, playerDirection, Color.red, 2f);
                 if (Physics.Raycast(firePoint.transform.position, playerDirection, out hit, attackDetectionRange))
                 {
                     if (hit.collider.CompareTag("Player"))
@@ -80,13 +101,14 @@ public class ShootingEnemyAgent : MonoBehaviour
                     }
                 }
             }
+
             if (!isShooting && !isCrouching)
             {
                 currentAttackTimer -= Time.deltaTime;
                 Patrol();
             }
-            
         }
+
         if (IsDead & !deathHandled)
         {
             transform.parent.GetComponent<EnemySpawner>().RemoveFromSpawnedEnemies(this.gameObject);
@@ -120,10 +142,12 @@ public class ShootingEnemyAgent : MonoBehaviour
         {
             SearchWaypoint();
         }
+
         if (waypointSet)
         {
             shootingEnemyAgent.SetDestination(currentWaypoint);
         }
+
         Vector3 distanceToWaypoint = transform.position - currentWaypoint;
 
         if (distanceToWaypoint.magnitude < 1f)
@@ -132,17 +156,21 @@ public class ShootingEnemyAgent : MonoBehaviour
             StartCoroutine(Crouch(Random.Range(minCoverDelay, maxCoverDelay)));
         }
     }
-    
+
     private void SearchWaypoint()
     {
         bool pathValid = false;
         path = new NavMeshPath();
-        while (!pathValid)
+        int i = 0;
+        int MAXPATHSEARCHLIMIT = 20;
+        while (!pathValid && i < MAXPATHSEARCHLIMIT)
         {
+            i++;
             float randomZ = Random.Range(-walkPointRange, walkPointRange);
             float randomX = Random.Range(-walkPointRange, walkPointRange);
 
-            Vector3 castPoint = new Vector3(transform.position.x + randomX, transform.position.y + 10f, transform.position.z + randomZ);
+            Vector3 castPoint = new Vector3(transform.position.x + randomX, transform.position.y + 10f,
+                transform.position.z + randomZ);
             RaycastHit raycastHit;
             Physics.Raycast(castPoint, -transform.up, out raycastHit);
             if (raycastHit.point != null)
@@ -156,6 +184,11 @@ public class ShootingEnemyAgent : MonoBehaviour
                     pathValid = true;
                 }
             }
+        }
+
+        if (i >= MAXPATHSEARCHLIMIT)
+        {
+            Debug.LogWarning($"{name} can not find NavMesh");
         }
     }
 
@@ -182,7 +215,6 @@ public class ShootingEnemyAgent : MonoBehaviour
         ResetAttackTimer();
         isShooting = false;
         EndFire();
-        
     }
 
     public void DeathAnimation()
@@ -192,7 +224,6 @@ public class ShootingEnemyAgent : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = true;
         IsDead = true;
         shootingEnemyAnimator.SetBool("IsDead", true);
-
     }
 
     public void Stagger()
@@ -208,7 +239,6 @@ public class ShootingEnemyAgent : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         shootingEnemyAgent.enabled = true;
         IsStaggering = false;
-
     }
 
     public void Fire()
@@ -219,6 +249,5 @@ public class ShootingEnemyAgent : MonoBehaviour
     public void EndFire()
     {
         gunDamageScript.Fire(false);
-
     }
 }

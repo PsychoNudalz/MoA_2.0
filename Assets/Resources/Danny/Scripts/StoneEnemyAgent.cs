@@ -132,8 +132,11 @@ public class StoneEnemyAgent : MonoBehaviour
     {
         bool pathValid = false;
         path = new NavMeshPath();
-        while (!pathValid)
+        int i = 0;
+        int MAXPATHSEARCHLIMIT = 20;
+        while (!pathValid&&i<MAXPATHSEARCHLIMIT)
         {
+            i++;
             float randomZ = Random.Range(-walkPointRange, walkPointRange);
             float randomX = Random.Range(-walkPointRange, walkPointRange);
 
