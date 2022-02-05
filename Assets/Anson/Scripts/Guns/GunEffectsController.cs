@@ -83,6 +83,14 @@ public class GunEffectsController : MonoBehaviour
     {
     }
 
+    private void OnEnable()
+    {
+        if (mainGunStat)
+        {
+            Initialise(mainGunStat);
+        }
+    }
+
     // Update is called once per frame
     public void Initialise(MainGunStatsScript gunStat)
     {

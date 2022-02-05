@@ -329,7 +329,7 @@ public class Look : MonoBehaviour
     {
         if (isRecenter != b)
         {
-            Debug.Log("Recenter changed");
+            // Debug.Log("Recenter changed");
         }
         if (!b)
         {
