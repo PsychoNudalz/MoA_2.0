@@ -9,63 +9,77 @@ using UnityEngine;
 /// </summary>
 public class DamageScript : MonoBehaviour
 {
-
     [Header("Target")]
-    [SerializeField] protected LayerMask layerMask;
-    [SerializeField] protected List<string> tagList;
+    [SerializeField]
+    protected LayerMask layerMask;
+
+    [SerializeField]
+    protected List<string> tagList;
+
     [Header("Debug")]
-    [SerializeField] protected List<LifeSystemScript> attackedTargets = new List<LifeSystemScript>();
+    [SerializeField]
+    protected List<LifeSystemScript> attackedTargets = new List<LifeSystemScript>();
 
 
     /// <summary>
     /// deals damage to a single target that has a LifeSystemScript
     /// </summary>
     /// <param name="ls"></param>
-    public virtual void dealDamageToTarget(LifeSystemScript ls, float dmg, int level, ElementTypes element)
+    public virtual bool dealDamageToTarget(LifeSystemScript ls, float dmg, int level, ElementTypes element)
     {
         try
         {
-        ls.takeDamage(dmg, level, element);
-
-        }catch(System.NullReferenceException e)
-        {
-            Debug.LogError( e.StackTrace);
+            ls.takeDamage(dmg, level, element);
         }
+        catch (System.NullReferenceException e)
+        {
+            Debug.LogError(e.StackTrace);
+            return false;
+        }
+
+        return ls.IsDead;
     }
 
     /// <summary>
     /// deals damage to a single target that has a LifeSystemScript
     /// </summary>
     /// <param name="ls"></param>
-    public virtual void dealCriticalDamageToTarget(LifeSystemScript ls, float dmg, int level, ElementTypes element, float multiplier)
+    public virtual bool dealCriticalDamageToTarget(LifeSystemScript ls, float dmg, int level, ElementTypes element,
+        float multiplier)
     {
-        ls.takeDamageCritical(dmg, level, element,multiplier);
+         ls.takeDamageCritical(dmg, level, element, multiplier);
+        
+        return ls.IsDead;
+
     }
 
-    public virtual void ApplyElementEffect(LifeSystemScript ls, float elementDamage, float elementPotency, ElementTypes elementType)
+    public virtual void ApplyElementEffect(LifeSystemScript ls, float elementDamage, float elementPotency,
+        ElementTypes elementType)
     {
         switch (elementType)
         {
             case (ElementTypes.PHYSICAL):
-                dealCriticalDamageToTarget(ls, elementDamage*UniversalValues.GetDamageMultiplier(elementType), 1, elementType, 1);
+                dealCriticalDamageToTarget(ls, elementDamage * UniversalValues.GetDamageMultiplier(elementType), 1,
+                    elementType, 1);
                 break;
             case (ElementTypes.FIRE):
                 FireEffectScript newFireDebuff = new FireEffectScript();
-                newFireDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency, tagList, layerMask);
+                newFireDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency,
+                    tagList, layerMask);
                 ls.ApplyDebuff(newFireDebuff);
                 break;
             case (ElementTypes.ICE):
                 IceEffectScript newIceDebuff = new IceEffectScript();
-                newIceDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency, tagList, layerMask);
+                newIceDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency,
+                    tagList, layerMask);
                 ls.ApplyDebuff(newIceDebuff);
                 break;
             case (ElementTypes.SHOCK):
                 ShockEffectScript newShockDebuff = new ShockEffectScript();
-                newShockDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency, tagList, layerMask);
+                newShockDebuff.init(elementDamage * UniversalValues.GetDamageMultiplier(elementType), elementPotency,
+                    tagList, layerMask);
                 ls.ApplyDebuff(newShockDebuff);
                 break;
         }
     }
-
-
 }

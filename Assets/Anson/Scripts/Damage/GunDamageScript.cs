@@ -148,7 +148,7 @@ public class GunDamageScript : DamageScript
     protected Coroutine currentReloadCoroutine;
 
     protected Coroutine currentBurstCoroutine;
-    
+
 
     [Header("Debug")]
     public bool displayFireRaycast = true;
@@ -210,10 +210,10 @@ public class GunDamageScript : DamageScript
         Fire(false);
         //currentRecoil = new Vector2(0, 0);
         currentRecoilTime = 0f;
-        
+
 
         mainGunStatsScript = null;
-        return ;
+        return;
     }
 
     public void ResetToWorldLoot()
@@ -451,8 +451,13 @@ public class GunDamageScript : DamageScript
         }
     }
 
-    public bool Shoot()
+    public bool Shoot(ShotData shotData = null)
     {
+        if (shotData == null)
+        {
+            shotData = new ShotData(transform.position);
+        }
+
         //print("Shooting");
         if (canFire())
         {
@@ -461,7 +466,7 @@ public class GunDamageScript : DamageScript
             switch (fireType)
             {
                 case (FireTypes.HitScan):
-                    RaycastDamage();
+                    RaycastDamage(shotData);
                     break;
                 case (FireTypes.Projectile):
                     LaunchProjectile();
@@ -475,25 +480,26 @@ public class GunDamageScript : DamageScript
                 currentBurstCoroutine = StartCoroutine(BurstFire(currentRecoilTime));
             }
 
+            ShotDataManager.Add(shotData);
             return true;
         }
 
         return false;
     }
 
-    bool RaycastDamage()
+    bool RaycastDamage(ShotData shotData)
     {
         if (isADS)
         {
-            return Raycast_ADS();
+            return Raycast_ADS(shotData);
         }
         else
         {
-            return Raycast_HipFire();
+            return Raycast_HipFire(shotData);
         }
     }
 
-    bool Raycast_HipFire()
+    bool Raycast_HipFire(ShotData shotData)
     {
         bool hitTarget = false;
         float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0,
@@ -506,7 +512,7 @@ public class GunDamageScript : DamageScript
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
 
         //Vector3 fireDir = firePoint.transform.forward;
-        hitTarget = RayCastDealDamage(fireDir, hitTarget);
+        hitTarget = RayCastDealDamage(fireDir, hitTarget, shotData);
 
 
         if (gunType == GunTypes.SHOTGUN && projectilePerShot > 1)
@@ -519,7 +525,7 @@ public class GunDamageScript : DamageScript
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
                           Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
                           firePoint.transform.forward;
-                hitTarget = RayCastDealDamage(fireDir, hitTarget);
+                hitTarget = RayCastDealDamage(fireDir, hitTarget, shotData);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
             }
         }
@@ -527,13 +533,13 @@ public class GunDamageScript : DamageScript
         return hitTarget;
     }
 
-    bool Raycast_ADS()
+    bool Raycast_ADS(ShotData shotData)
     {
         bool hitTarget = false;
         //Vector3 fireDir = Quaternion.Euler(-currentRecoil.x, currentRecoil.y, 0) * firePoint.transform.forward;
         fireDir = firePoint.transform.forward;
         Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.red, 1f);
-        hitTarget = RayCastDealDamage(fireDir, hitTarget);
+        hitTarget = RayCastDealDamage(fireDir, hitTarget, shotData);
 
 
         if (gunType == GunTypes.SHOTGUN && projectilePerShot > 1)
@@ -545,7 +551,7 @@ public class GunDamageScript : DamageScript
                 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
                           Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
                           firePoint.transform.forward;
-                hitTarget = RayCastDealDamage(fireDir, hitTarget);
+                hitTarget = RayCastDealDamage(fireDir, hitTarget, shotData);
                 Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.blue, 1f);
             }
         }
@@ -553,24 +559,35 @@ public class GunDamageScript : DamageScript
         return hitTarget;
     }
 
-    bool RayCastDealDamage(Vector3 dir, bool hitTarget)
+    bool RayCastDealDamage(Vector3 dir, bool hitTarget, ShotData shotData)
     {
         if (Physics.Raycast(firePoint.transform.position, dir, out raycastHit, range * 1.5f, layerMask))
         {
+            shotData.IsHit = true;
+
             Instantiate(impactEffect, raycastHit.point, Quaternion.Euler(raycastHit.normal));
             if (tagList.Contains(raycastHit.collider.tag) &&
                 (raycastHit.collider.TryGetComponent(out LifeSystemScript ls) ||
                  raycastHit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
             {
+                shotData.IsTargetHit = true;
+                shotData.HitPos = raycastHit.point;
+
+
                 float dropOff =
                     rangeCurve.Evaluate((firePoint.transform.position - raycastHit.point).magnitude / range);
                 if (raycastHit.collider.TryGetComponent(out WeakPointScript wps))
                 {
                     ls = wps.Ls;
+                    shotData.SetLifeSystem(ls);
+
                     try
                     {
-                        dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType,
+                        shotData.IsCritical = true;
+                        shotData.IsKill = dealCriticalDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType,
                             UniversalValues.GetDamageMultiplier(gunType));
+                        shotData.ShotDamage +=
+                            damagePerProjectile * dropOff * UniversalValues.GetDamageMultiplier(gunType);
                     }
                     catch (System.Exception e)
                     {
@@ -580,20 +597,23 @@ public class GunDamageScript : DamageScript
                 }
                 else
                 {
-                    dealDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType);
+                    shotData.SetLifeSystem(ls);
+
+                    shotData.IsKill = dealDamageToTarget(ls, damagePerProjectile * dropOff, 1, elementType);
+                    shotData.ShotDamage += damagePerProjectile * dropOff;
                 }
 
                 if (Random.Range(0, 1f) <= elementChance)
                 {
+                    shotData.IsElementTrigger = true;
                     ApplyElementEffect(ls);
                 }
 
                 hitTarget = true;
             }
         }
-        
-        UpdateBulletTrailStuff();
 
+        UpdateBulletTrailStuff();
 
         return hitTarget;
     }
@@ -674,8 +694,6 @@ public class GunDamageScript : DamageScript
         {
             Fire(false);
         }
-
-
 
 
         return newRecoilTime;
@@ -785,11 +803,11 @@ public class GunDamageScript : DamageScript
     {
         //print("Bursting");
         yield return new WaitForSeconds(timeBetweenProjectile);
-
+        ShotData shotData = new ShotData(transform.position);
         switch (fireType)
         {
             case (FireTypes.HitScan):
-                RaycastDamage();
+                RaycastDamage(shotData);
                 break;
             case (FireTypes.Projectile):
                 LaunchProjectile();

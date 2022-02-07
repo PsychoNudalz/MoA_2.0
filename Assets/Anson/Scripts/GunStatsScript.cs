@@ -61,6 +61,33 @@ public class GunStatsScript : MonoBehaviour
         magazineSize = magazineSize * g.magazineSizeM ;
 
     }
+    
+    public virtual void AddStats(PerkGunStatsScript g)
+    {
+        AddStats(g as GunStatsScript);
+        damagePerProjectile = damagePerProjectile * g.damagePerProjectileM;
+        RPM = RPM * g.RPMM;
+        reloadSpeed = reloadSpeed * g.reloadSpeedM;
+        //recoil = recoil * g.recoilM;
+        recoil = new Vector2(recoil.x * g.recoilM.x, recoil.y * g.recoilM.y);
+        recoil_HipFire = new Vector2(recoil_HipFire.x * g.recoilM.x, recoil_HipFire.y * g.recoilM.y);
+        range = range * g.rangeM;
+        magazineSize = magazineSize * g.magazineSizeM ;
+
+    }
+    public virtual void RemoveStats(PerkGunStatsScript g)
+    {
+        AddStats(g as GunStatsScript);
+        damagePerProjectile = damagePerProjectile / g.damagePerProjectileM;
+        RPM = RPM / g.RPMM;
+        reloadSpeed = reloadSpeed / g.reloadSpeedM;
+        //recoil = recoil * g.recoilM;
+        recoil = new Vector2(recoil.x / g.recoilM.x, recoil.y / g.recoilM.y);
+        recoil_HipFire = new Vector2(recoil_HipFire.x / g.recoilM.x, recoil_HipFire.y / g.recoilM.y);
+        range = range / g.rangeM;
+        magazineSize = magazineSize / g.magazineSizeM ;
+
+    }
 
     public List<string> GetStatsStrings()
     {
