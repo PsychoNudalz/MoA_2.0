@@ -18,6 +18,7 @@ public class ShotDataManager : MonoBehaviour
 
     [SerializeField]
     private List<ShotData> currentMag;
+
     [SerializeField]
     private List<ShotData> previousMag;
 
@@ -39,13 +40,11 @@ public class ShotDataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public static void Add(ShotData sd)
@@ -54,23 +53,20 @@ public class ShotDataManager : MonoBehaviour
         {
             current?.currentMag.Add(sd);
             current.RecentShot = sd;
-
         }
         else
         {
             Debug.LogWarning("Missing ShowDataManager");
         }
-
     }
 
     public static void Reset()
     {
         if (current)
         {
-            current.previousMag = current.currentMag;
+            current.previousMag = new List<ShotData>(current.currentMag.ToArray());
+            
             current.currentMag = new List<ShotData>();
         }
     }
-    
-    
 }

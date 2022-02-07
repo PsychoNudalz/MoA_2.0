@@ -1050,6 +1050,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void Reload(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.performed)
+        {
+            gunDamageScript.Reload();
+        }
+    }
+
     public void SwapToWeapon1(InputAction.CallbackContext callbackContext)
     {
         if (disableControl)
@@ -1113,11 +1121,6 @@ public class PlayerController : MonoBehaviour
         {
             playerInventorySystemScript.CycleWeapon(false);
         }
-    }
-
-    public void Reload()
-    {
-        gunDamageScript.Reload();
     }
 
     public void Interact(InputAction.CallbackContext callbackContext)

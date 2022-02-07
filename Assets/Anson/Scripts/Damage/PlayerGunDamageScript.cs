@@ -73,6 +73,7 @@ public class PlayerGunDamageScript : GunDamageScript
     public override void UnequipOldGun()
     {
         HandController.ResetHands();
+        ShotDataManager.Reset();
         if (mainGunStatsScript&& mainGunStatsScript.GunComponentBody.GunHandController)
         {
             mainGunStatsScript.GunComponentBody.GunHandController.RemoveAllPoints_Left();
@@ -400,6 +401,7 @@ public class PlayerGunDamageScript : GunDamageScript
         base.Reload();
         Fire(false);
         ADS_Off();
+        ShotDataManager.Reset();
     }
 
 

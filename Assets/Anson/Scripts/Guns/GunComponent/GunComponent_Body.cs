@@ -309,14 +309,6 @@ public class GunComponent_Body : GunComponent
         }
     }
 
-
-    
-
-
-
-    
-
-
     public void PlayBulletCaseEffect()
     {
         try

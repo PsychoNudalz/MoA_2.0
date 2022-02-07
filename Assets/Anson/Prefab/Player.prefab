@@ -4601,9 +4601,9 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4112174735619620036}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: Reload
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5296,6 +5296,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf8d8a6bf06e1146afc37c0f344e547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recentShot:
+    playerPos: {x: 0, y: 0, z: 0}
+    hitPos: {x: 0, y: 0, z: 0}
+    targetLS: {fileID: 0}
+    targetPos: {x: 0, y: 0, z: 0}
+    isHit: 0
+    isTargetHit: 0
+    isCritical: 0
+    isKill: 0
+    shotDamage: 0
+    isElementTrigger: 0
+  currentMag: []
+  previousMag: []
 --- !u!1 &4121049106335648593
 GameObject:
   m_ObjectHideFlags: 0
