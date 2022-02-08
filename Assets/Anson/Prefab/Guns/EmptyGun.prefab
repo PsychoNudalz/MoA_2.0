@@ -45,6 +45,7 @@ VisualEffect:
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
+  m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
       m_Array: []
@@ -70,6 +71,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &6061521711298743601
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -83,11 +85,9 @@ VFXRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 6267407867986552404}
   - component: {fileID: -2305272851387257634}
   - component: {fileID: 1022176115833111699}
+  - component: {fileID: 1450359925442423517}
   m_Layer: 8
   m_Name: EmptyGun
   m_TagString: Gun
@@ -169,7 +170,7 @@ MonoBehaviour:
   rarity: 0
   elementType: 0
   fireType: 0
-  projectileGO: {fileID: 0}
+  projectileGo: {fileID: 0}
   rangeCurve:
     serializedVersion: 2
     m_Curve: []
@@ -181,68 +182,36 @@ MonoBehaviour:
   timeBetweenProjectile: 0
   isFullReload: 1
   amountPerReload: 1
-  recoilPattern_X:
+  recoilPatternX:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  recoilPattern_Y:
+  recoilPatternY:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   timeToRecenter: 3
   sightLocation: {fileID: 0}
   sightOffset: {x: 0, y: 0, z: 0}
+  gunEffectsController: {fileID: 0}
   bulletParticle: {fileID: 0}
   impactEffect: {fileID: 0}
   muzzleEffect: {fileID: 0}
-  gunComponent_Body: {fileID: 0}
-  component_Sight: {fileID: 0}
+  gunPerkController: {fileID: 1450359925442423517}
+  gunComponentBody: {fileID: 0}
+  componentSight: {fileID: 0}
   components: []
   animator: {fileID: 0}
-  sound_Fire: {fileID: 0}
-  sound_StartReload: {fileID: 0}
-  sound_EndReload: {fileID: 0}
+  shootAnimationLerp: 1
+  soundFire: {fileID: 0}
+  soundStartReload: {fileID: 0}
+  soundEndReload: {fileID: 0}
   currentMag: 0
+  isEquiped: 0
 --- !u!54 &-2305272851387257634
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -275,3 +244,16 @@ MonoBehaviour:
   Sound_active: {fileID: 0}
   Sound_deactive: {fileID: 0}
   connectedGun: {fileID: 6267407867986552404}
+--- !u!114 &1450359925442423517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604659949824158936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ec3878d8d6f864397591f0dfb04e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perks: []

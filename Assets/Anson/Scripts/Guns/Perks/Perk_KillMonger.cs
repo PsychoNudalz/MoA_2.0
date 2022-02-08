@@ -1,51 +1,93 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.PlayerLoop;
+using Object = UnityEngine.Object;
 
 public class Perk_KillMonger : Perk
 {
-    public Perk_KillMonger(PlayerGunDamageScript playerGunDamageScript, MainGunStatsScript mainGunStatsScript, GunStatsScript originalGunStatsScript, PlayerController playerController) : base(playerGunDamageScript, mainGunStatsScript, originalGunStatsScript, playerController)
+    private void FixedUpdate()
     {
+        OnFixedUpdate();
     }
 
-    public override void OnShot()
+    public override void OnTargetHit(ShotData shotData)
     {
+        OnActivatePerk();
+
+    }
+
+    public override void OnShot(ShotData shotData)
+    {
+        
     }
 
     public override void OnHit(ShotData shotData)
     {
     }
 
-    public override void OnMiss()
+    public override void OnCritical(ShotData shotData)
     {
     }
 
-    public override void OnKill()
-    {
-        // OnActivate();
-    }
-
-    public override void OnReload()
+    public override void OnMiss(ShotData shotData)
     {
     }
 
-    public override void OnPerReload()
+    public override void OnKill(ShotData shotData)
+    {
+        OnActivatePerk();
+    }
+
+    public override void OnElementTrigger(ShotData shotData)
     {
     }
 
-    public override void OnActivatePerk(Object date = null)
+    public override void OnReload( )
     {
+    }
+
+    public override void OnPerReload( )
+    {
+    }
+
+    public override void OnActivatePerk(Object data = null)
+    {
+       base.OnActivatePerk(data);
+
+       if (CanStack())
+       {
+           gunDamageScript.AddPerkStats(perkStatsScript);
+           AddStacks(1);
+           print($"Activate Kill monger {stack_Current}");
+       }
+
+       ResetDuration();
     }
 
     public override void OnFixedUpdate()
     {
+        if (isActive&& duration_Current < 0)
+        {
+            duration_Current = 0;
+            OnDurationEnd();
+        }
     }
 
     public override void OnDurationEnd()
     {
+        OnDeactivatePerk();
     }
 
     public override void OnDeactivatePerk()
     {
+        for (int i = 0; i < stack_Current; i++)
+        {
+            gunDamageScript.RemovePerkStats(perkStatsScript);
+            
+        }
+        stack_Current = 0;
+
+       base.OnDeactivatePerk();
     }
 }

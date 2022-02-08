@@ -21,12 +21,16 @@ public abstract class GunComponent : MonoBehaviour
 
     private void Awake()
     {
+        AwakeBehaviour();
+        //AutoSetPotentialConnections();
+    }
+
+    protected virtual void AwakeBehaviour()
+    {
         if (componentGunStatsScript == null)
         {
             componentGunStatsScript = GetComponent<ComponentGunStatsScript>();
-
         }
-        //AutoSetPotentialConnections();
     }
 
 

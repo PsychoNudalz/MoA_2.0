@@ -161,6 +161,9 @@ public class GunDamageScript : DamageScript
     [SerializeField]
     protected GunEffectsController gunEffectsController;
 
+    [SerializeField]
+    protected GunPerkController gunPerkController;
+
 
     public GunTypes GunType => gunType;
 
@@ -283,6 +286,9 @@ public class GunDamageScript : DamageScript
 
         rangeCurve = g.RangeCurve;
         gunEffectsController = g.GunEffectsController;
+        gunPerkController = g.GunPerkController;
+        gunPerkController.InitialisePerks(g.gameObject.GetComponentsInChildren<GunComponent_Perk>(),this,g,g);
+
 
 
         g.GetComponentInChildren<Rigidbody>().isKinematic = true;
@@ -451,7 +457,7 @@ public class GunDamageScript : DamageScript
         }
     }
 
-    public bool Shoot(ShotData shotData = null)
+    public virtual bool Shoot(ShotData shotData = null)
     {
         if (shotData == null)
         {
@@ -480,7 +486,6 @@ public class GunDamageScript : DamageScript
                 currentBurstCoroutine = StartCoroutine(BurstFire(currentRecoilTime));
             }
 
-            ShotDataManager.Add(shotData);
             return true;
         }
 
@@ -833,6 +838,8 @@ public class GunDamageScript : DamageScript
         gunEffectsController.PlaySound_StartReload();
         currentRecoilTime = 0f;
         yield return new WaitForSeconds(reloadSpeed - offset);
+        gunPerkController.OnPerReload();
+
         if (Reload_Action())
         {
             currentReloadCoroutine = StartCoroutine(DelayReload(0.05f));
@@ -876,5 +883,55 @@ public class GunDamageScript : DamageScript
         }
 
         isReloading = false;
+    }
+    
+    public void AddPerkStats(PerkGunStatsScript g)
+    {
+        damagePerProjectile += g.DamagePerProjectile;
+        RPM += g.GetRPM;
+        reloadSpeed += g.ReloadSpeed;
+        recoil += g.Recoil;
+        recoil_HipFire += g.Recoil_HipFire;
+        range += g.Range;
+        magazineSize += g.MagazineSize;
+        elementDamage += g.ElementDamage;
+        elementPotency += g.ElementPotency;
+        elementChance += g.ElementChance;
+        
+        damagePerProjectile = damagePerProjectile * g.damagePerProjectileM;
+        RPM = RPM * g.RPMM;
+        reloadSpeed = reloadSpeed * g.reloadSpeedM;
+        //recoil = recoil * g.recoilM;
+        recoil = new Vector2(recoil.x * g.recoilM.x, recoil.y * g.recoilM.y);
+        recoil_HipFire = new Vector2(recoil_HipFire.x * g.recoilM.x, recoil_HipFire.y * g.recoilM.y);
+        range = range * g.rangeM;
+        magazineSize = magazineSize * g.magazineSizeM ;
+
+
+    }
+    
+    public void RemovePerkStats(PerkGunStatsScript g)
+    {
+        damagePerProjectile -= g.DamagePerProjectile;
+        RPM -= g.GetRPM;
+        reloadSpeed -= g.ReloadSpeed;
+        recoil -= g.Recoil;
+        recoil_HipFire -= g.Recoil_HipFire;
+        range -= g.Range;
+        magazineSize -= g.MagazineSize;
+        elementDamage -= g.ElementDamage;
+        elementPotency -= g.ElementPotency;
+        elementChance -= g.ElementChance;
+        
+        damagePerProjectile /= g.damagePerProjectileM;
+        RPM /= g.RPMM;
+        reloadSpeed /= g.reloadSpeedM;
+        //recoil = recoil * g.recoilM;
+        recoil = new Vector2(recoil.x / g.recoilM.x, recoil.y / g.recoilM.y);
+        recoil_HipFire = new Vector2(recoil_HipFire.x / g.recoilM.x, recoil_HipFire.y / g.recoilM.y);
+        range /= g.rangeM;
+        magazineSize /= g.magazineSizeM ;
+
+
     }
 }

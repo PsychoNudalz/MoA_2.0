@@ -5,12 +5,21 @@ using UnityEngine;
 public class PlayerGunDamageScript : GunDamageScript
 {
     [Header("Player Specific ")]
-    [SerializeField] protected bool pressedFire;
-    [SerializeField] protected bool pressedADS;
-    [SerializeField] protected Camera camera;
-    [SerializeField] Look lookScript;
+    [SerializeField]
+    protected bool pressedFire;
 
-    [SerializeField] float originalFireDirection_X;
+    [SerializeField]
+    protected bool pressedADS;
+
+    [SerializeField]
+    protected Camera camera;
+
+    [SerializeField]
+    Look lookScript;
+
+    [SerializeField]
+    float originalFireDirection_X;
+
     public PlayerUIScript playerUIScript;
 
 
@@ -30,6 +39,7 @@ public class PlayerGunDamageScript : GunDamageScript
     {
         UpdateBehaviour();
     }
+
     protected override void UpdateBehaviour()
     {
         //base.UpdateBehaviour();
@@ -38,17 +48,21 @@ public class PlayerGunDamageScript : GunDamageScript
         //CorrectRecoil();
 
 
-        if ( mainGunStatsScript&&mainGunStatsScript.IsEquiped)
+        if (mainGunStatsScript && mainGunStatsScript.IsEquiped)
         {
             if (isFiring)
             {
-                if (!Shoot())
+                ShotData shotData = new ShotData();
+                if (!Shoot(shotData))
                 {
                     if (!isFullAuto)
                     {
                         CorrectRecoil();
                     }
                 }
+
+                ShotDataManager.Add(shotData);
+
             }
             else
             {
@@ -70,11 +84,13 @@ public class PlayerGunDamageScript : GunDamageScript
         }
     }
 
+
+
     public override void UnequipOldGun()
     {
         HandController.ResetHands();
         ShotDataManager.Reset();
-        if (mainGunStatsScript&& mainGunStatsScript.GunComponentBody.GunHandController)
+        if (mainGunStatsScript && mainGunStatsScript.GunComponentBody.GunHandController)
         {
             mainGunStatsScript.GunComponentBody.GunHandController.RemoveAllPoints_Left();
 
@@ -91,14 +107,25 @@ public class PlayerGunDamageScript : GunDamageScript
         return;
     }
 
+    public override bool Shoot(ShotData shotData = null)
+    {
+        bool temp = base.Shoot(shotData);
+        if (shotData != null)
+        {
+            gunPerkController.OnShoot(shotData);
+        }
+
+        return temp;
+    }
+
     public override void Fire(bool b)
     {
         base.Fire(b);
         if (isFullAuto)
         {
-            lookScript.SetIsRecenter(!b,isFullAuto);
+            lookScript.SetIsRecenter(!b, isFullAuto);
         }
-        
+
         if (isFiring)
         {
             originalFireDirection_X = lookScript.YRotation_adjusted();
@@ -116,7 +143,7 @@ public class PlayerGunDamageScript : GunDamageScript
         bool wasADS = isADS;
 
         MainGunStatsScript oldGun = base.UpdateGunScript(g, slot);
-        int[] temp = { LayerMask.NameToLayer("Debug") };
+        int[] temp = {LayerMask.NameToLayer("Debug")};
         AnsonUtility.ConvertLayerMask(g.gameObject, "PlayerGun", new List<int>(temp));
 
 
@@ -135,10 +162,13 @@ public class PlayerGunDamageScript : GunDamageScript
             lookScript.AimSight(wasADS, mainGunStatsScript.ComponentSight.ZoomMultiplier);
         }
 
-        if (mainGunStatsScript&& mainGunStatsScript.GunComponentBody.GunHandController)
+        if (mainGunStatsScript && mainGunStatsScript.GunComponentBody.GunHandController)
         {
             HandController.left.AddPointer(mainGunStatsScript.GunComponentBody.GunHandController.HandRest);
         }
+        
+        
+
         return oldGun;
 
     }
@@ -213,7 +243,7 @@ public class PlayerGunDamageScript : GunDamageScript
     protected override float HandleWeapon(float newRecoilTime = -1)
     {
         float temp = base.HandleWeapon(newRecoilTime);
-        
+
         playerUIScript.FireCrossair();
         if (PlayerMasterScript.INFINITEAMMO)
         {
@@ -251,7 +281,8 @@ public class PlayerGunDamageScript : GunDamageScript
         else
         {
             targetPoint = Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0);
-            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation, Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0), Time.deltaTime);
+            mainGunStatsScript.transform.localRotation = Quaternion.Lerp(mainGunStatsScript.transform.localRotation,
+                Quaternion.Euler(-currentRecoil.x * .6f, currentRecoil.y * .2f, 0), Time.deltaTime);
         }
 
         UpdateSights();
@@ -264,7 +295,8 @@ public class PlayerGunDamageScript : GunDamageScript
         mainGunStatsScript.transform.forward = firePoint.forward;
 
         //reset firepoint and gun to not rotate left and right
-        firePoint.transform.rotation = Quaternion.Euler(firePoint.transform.rotation.eulerAngles.x, firePoint.transform.rotation.eulerAngles.y, 0f);
+        firePoint.transform.rotation = Quaternion.Euler(firePoint.transform.rotation.eulerAngles.x,
+            firePoint.transform.rotation.eulerAngles.y, 0f);
         //disabling this line doesnt change anything
         //mainGunStatsScript.transform.rotation = Quaternion.Euler(mainGunStatsScript.transform.rotation.eulerAngles.x, mainGunStatsScript.transform.rotation.eulerAngles.y, 0f);
 
@@ -294,7 +326,10 @@ public class PlayerGunDamageScript : GunDamageScript
 
     public void ADS_On()
     {
-        if (mainGunStatsScript == null) { return; }
+        if (mainGunStatsScript == null)
+        {
+            return;
+        }
 
         UpdateSights();
         currentRecoil = new Vector2(0, 0);
@@ -306,7 +341,10 @@ public class PlayerGunDamageScript : GunDamageScript
 
     public void ADS_Off()
     {
-        if (mainGunStatsScript == null) { return; }
+        if (mainGunStatsScript == null)
+        {
+            return;
+        }
 
         isADS = false;
         //transform.rotation = Quaternion.Euler(currentRecoil.x, currentRecoil.y, 0f) * transform.rotation;
@@ -335,6 +373,8 @@ public class PlayerGunDamageScript : GunDamageScript
         currentRecoilTime = 0f;
         AdjustRecoil();
         yield return new WaitForSeconds(reloadSpeed - offset);
+        gunPerkController.OnPerReload();
+
         if (isFullReload)
         {
             gunEffectsController.PlaySound_EndReload();
@@ -373,7 +413,9 @@ public class PlayerGunDamageScript : GunDamageScript
         {
             ADS_On();
         }
+
         PressFire(pressedFire);
+        gunPerkController?.OnReload();
     }
 
     void UpdateAmmoCount()
@@ -388,6 +430,7 @@ public class PlayerGunDamageScript : GunDamageScript
 
         }
     }
+
     void UpdateGunStatText()
     {
         if (playerUIScript != null)
@@ -403,6 +446,9 @@ public class PlayerGunDamageScript : GunDamageScript
         ADS_Off();
         ShotDataManager.Reset();
     }
+
+
+
 
 
 }

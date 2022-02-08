@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mono.CSharp;
 using UnityEngine;
 using UnityEngine.VFX;
 
 
+
+[RequireComponent(typeof(GunPerkController))]
+
 public class MainGunStatsScript : GunStatsScript
 {
+    
     [Header("Gun Effects")]
     [SerializeField]
     VisualEffect rarityEffect;
@@ -76,6 +81,11 @@ public class MainGunStatsScript : GunStatsScript
     VisualEffect muzzleEffect;
 
     [Header("Connected Components")]
+    [SerializeField]
+    private GunPerkController gunPerkController;
+
+    public GunPerkController GunPerkController => gunPerkController;
+
     [SerializeField]
     GunComponent_Body gunComponentBody;
 
@@ -262,6 +272,11 @@ public class MainGunStatsScript : GunStatsScript
         {
             SetBody(gunComponentBody);
         }
+
+        if (!gunPerkController)
+        {
+            gunPerkController = GetComponent<GunPerkController>();
+        }
     }
 
     public void SetBody(GunComponent_Body b)
@@ -331,10 +346,12 @@ public class MainGunStatsScript : GunStatsScript
             recoil.x = 0;
         }
 
+
         if (recoil.y < 0)
         {
             recoil.y = 0;
         }
+
 
         transform.position += transform.forward;
         GetComponentInChildren<Rigidbody>().isKinematic = false;
