@@ -5,6 +5,15 @@ using UnityEngine;
 public class GunPerkController : MonoBehaviour
 {
     [SerializeField]
+    private bool isPlayerPerk = false;
+
+    public bool IsPlayerPerk
+    {
+        get => isPlayerPerk;
+        set => isPlayerPerk = value;
+    }
+
+    [SerializeField]
     private Perk[] perks = new Perk[] { };
 
 
@@ -18,6 +27,7 @@ public class GunPerkController : MonoBehaviour
             gunComponentPerk.Perk.Initialise(gunDamageScript,mainGunStatsScript,originalGunStatsScript);
         }
 
+        
         perks = temp.ToArray();
     }
 
@@ -26,6 +36,15 @@ public class GunPerkController : MonoBehaviour
         foreach (Perk perk in perks)
         {
             perk.SetPlayerController(playerController);
+        }
+    }
+
+    public void SetPlayerPerk(bool b)
+    {
+        isPlayerPerk = b;
+        foreach (Perk perk in perks)
+        {
+            perk.IsPlayerPerk = b;
         }
     }
 
@@ -63,13 +82,19 @@ public class GunPerkController : MonoBehaviour
                 perk.OnTargetHit(shotData);
             }
         }
-    }
-
-    public void OnReload()
+    }    public void OnReloadStart()
     {
         foreach(Perk perk in perks)
         {
-            perk.OnReload();
+            perk.OnReloadStart();
+        }
+    }
+
+    public void OnReloadEnd()
+    {
+        foreach(Perk perk in perks)
+        {
+            perk.OnReloadEnd();
         }
     }
     
@@ -78,6 +103,14 @@ public class GunPerkController : MonoBehaviour
         foreach(Perk perk in perks)
         {
             perk.OnPerReload();
+        }
+    }
+
+    public void OnUnequip()
+    {
+        foreach (Perk perk in perks)
+        {
+            perk.OnUnequip();
         }
     }
 }

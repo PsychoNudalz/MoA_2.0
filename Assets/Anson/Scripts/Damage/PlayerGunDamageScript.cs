@@ -156,6 +156,7 @@ public class PlayerGunDamageScript : GunDamageScript
             mainGunStatsScript.IsEquiped = true;
             //ansonTempUIScript.SetGunName(mainGunStatsScript.GetName(), mainGunStatsScript.ElementType, mainGunStatsScript.GunType, currentSlot);
         }
+        gunPerkController.SetPlayerPerk(true);
 
         if (wasADS)
         {
@@ -415,7 +416,7 @@ public class PlayerGunDamageScript : GunDamageScript
         }
 
         PressFire(pressedFire);
-        gunPerkController?.OnReload();
+        gunPerkController?.OnReloadEnd();
     }
 
     void UpdateAmmoCount()

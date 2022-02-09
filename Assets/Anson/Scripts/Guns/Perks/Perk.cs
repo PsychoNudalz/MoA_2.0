@@ -11,8 +11,14 @@ public abstract class Perk : MonoBehaviour
     protected MainGunStatsScript mainGunStatsScript;
     protected GunStatsScript originalGunStatsScript;
     protected PlayerController playerController;
+    protected PerkEffectController perkEffectController;
 
     [Header("Stats")]
+    [SerializeField]
+    private Sprite perkSprite;
+
+    [SerializeField]
+    protected bool isPlayerPerk = false;
     [SerializeField]
     protected bool isActive = false;
     [SerializeField]
@@ -25,11 +31,21 @@ public abstract class Perk : MonoBehaviour
     protected float duration_Current = 0;
     [SerializeField]
     protected PerkGunStatsScript perkStatsScript;
-    
 
+    public Sprite PerkSprite => perkSprite;
 
+    public bool IsActive => isActive;
 
-    
+    public int StackCurrent => stack_Current;
+
+    public float Duration => duration;
+
+    public bool IsPlayerPerk
+    {
+        get => isPlayerPerk;
+        set => isPlayerPerk = value;
+    }
+
     public virtual void Initialise(GunDamageScript gunDamageScript, MainGunStatsScript mainGunStatsScript,
         GunStatsScript originalGunStatsScript)
     {
@@ -55,24 +71,54 @@ public abstract class Perk : MonoBehaviour
     public abstract void OnMiss(ShotData shotData);
     public abstract void OnKill(ShotData shotData);
     public abstract void OnElementTrigger(ShotData shotData);
-    public abstract void OnReload();
+    public abstract void OnReloadStart();
+    public abstract void OnReloadEnd();
     public abstract void OnPerReload();
+    public abstract void OnUnequip();
 
     public virtual void OnActivatePerk(Object data = null)
     {
         isActive = true;
+        if (isPlayerPerk)
+        {
+            PlayerUIScript.current.SetPerkDisplay(this,PerkDisplayCall.ADD);
+            perkEffectController?.PlayActivate();
+        }
+    }
+
+    public virtual void OnAwake()
+    {
+        if (!perkEffectController)
+        {
+            perkEffectController = GetComponent<PerkEffectController>();
+        }
     }
     public abstract void OnFixedUpdate();
     public abstract void OnDurationEnd();
 
     public virtual void OnDeactivatePerk()
     {
+        if (!isActive)
+        {
+            return;
+        }
         isActive = false;
+        if (isPlayerPerk)
+        {
+            PlayerUIScript.current.SetPerkDisplay(this,PerkDisplayCall.REMOVE);
+            perkEffectController?.PlayDeactivate();
+
+        }
     }
 
     protected virtual void ResetDuration()
     {
         duration_Current = duration;
+    }
+
+    private void Awake()
+    {
+        OnAwake();
     }
 
     private void Update()
@@ -86,12 +132,25 @@ public abstract class Perk : MonoBehaviour
     protected virtual bool AddStacks(int i)
     {
         stack_Current = Mathf.Min(stack_Current + i, stack_Max);
+        if (isPlayerPerk)
+        {
+            PlayerUIScript.current.SetPerkDisplay(this,PerkDisplayCall.UPDATE);
+        }
         return stack_Max == stack_Current;
     }
 
     protected bool CanStack()
     {
         return stack_Current < stack_Max;
+    }
+
+    public float GetDurationFraction()
+    {
+        if (duration == 0)
+        {
+            return 1;
+        }
+        return duration_Current / duration;
     }
 
 

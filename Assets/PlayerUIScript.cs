@@ -23,6 +23,7 @@ public enum ControlPromptType
 
 public class PlayerUIScript : MonoBehaviour
 {
+    public static PlayerUIScript current;
     [Header("Gun Stats")]
     public GameObject currentGun;
     public TextMeshProUGUI currentGunText;
@@ -54,6 +55,9 @@ public class PlayerUIScript : MonoBehaviour
     public GameObject gameOverScreen;
     //public GameObject crossAim;
     public Animator crossAimator;
+
+    [SerializeField]
+    private PerkDisplay perkDisplay;
     [Header("Inventory")]
     public WeaponAmmoPair gun1;
     public WeaponAmmoPair gun2;
@@ -97,6 +101,12 @@ public class PlayerUIScript : MonoBehaviour
     {
         coinText.gameObject.SetActive(true);
         SetCoins(FindObjectOfType<PlayerSaveStats>().coins);
+        if (current)
+        {
+            current = null;
+        }
+
+        current = this;
 
     }
 
@@ -371,5 +381,23 @@ public class PlayerUIScript : MonoBehaviour
         winScr.gameObject.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void SetPerkDisplay(Perk p, PerkDisplayCall pc)
+    {
+        switch (pc)
+        {
+            case PerkDisplayCall.ADD:
+                perkDisplay.AddPerk(p);
+                break;
+            case PerkDisplayCall.UPDATE:
+                perkDisplay.UpdatePerk(p);
+                break;
+            case PerkDisplayCall.REMOVE:
+                perkDisplay.RemovePerk(p);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(pc), pc, null);
+        }
     }
 }

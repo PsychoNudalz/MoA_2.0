@@ -213,8 +213,7 @@ public class GunDamageScript : DamageScript
         Fire(false);
         //currentRecoil = new Vector2(0, 0);
         currentRecoilTime = 0f;
-
-
+        gunPerkController?.OnUnequip();
         mainGunStatsScript = null;
         return;
     }
@@ -286,9 +285,11 @@ public class GunDamageScript : DamageScript
 
         rangeCurve = g.RangeCurve;
         gunEffectsController = g.GunEffectsController;
-        gunPerkController = g.GunPerkController;
-        gunPerkController.InitialisePerks(g.gameObject.GetComponentsInChildren<GunComponent_Perk>(),this,g,g);
-
+        if (g.GunPerkController)
+        {
+            gunPerkController = g.GunPerkController;
+            gunPerkController.InitialisePerks(g.gameObject.GetComponentsInChildren<GunComponent_Perk>(),this,g,g);
+        }
 
 
         g.GetComponentInChildren<Rigidbody>().isKinematic = true;
@@ -452,6 +453,7 @@ public class GunDamageScript : DamageScript
 
         if (currentMag < magazineSize && !isReloading)
         {
+            gunPerkController.OnReloadStart();
             isReloading = true;
             currentReloadCoroutine = StartCoroutine(DelayReload());
         }

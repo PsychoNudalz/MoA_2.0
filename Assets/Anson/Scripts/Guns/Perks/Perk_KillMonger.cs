@@ -13,7 +13,7 @@ public class Perk_KillMonger : Perk
 
     public override void OnTargetHit(ShotData shotData)
     {
-        OnActivatePerk();
+        // OnActivatePerk();
 
     }
 
@@ -42,8 +42,12 @@ public class Perk_KillMonger : Perk
     public override void OnElementTrigger(ShotData shotData)
     {
     }
+    public override void OnReloadStart()
+    {
+        
+    }
 
-    public override void OnReload( )
+    public override void OnReloadEnd( )
     {
     }
 
@@ -81,13 +85,18 @@ public class Perk_KillMonger : Perk
 
     public override void OnDeactivatePerk()
     {
+        base.OnDeactivatePerk();
         for (int i = 0; i < stack_Current; i++)
         {
             gunDamageScript.RemovePerkStats(perkStatsScript);
             
         }
-        stack_Current = 0;
 
-       base.OnDeactivatePerk();
+        stack_Current = 0;
+    }
+
+    public override void OnUnequip()
+    {
+        OnDeactivatePerk();
     }
 }
