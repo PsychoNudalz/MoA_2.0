@@ -53,13 +53,14 @@ public class DamageScript : MonoBehaviour
 
     }
 
-    public virtual void ApplyElementEffect(LifeSystemScript ls, float elementDamage, float elementPotency,
+    public virtual bool ApplyElementEffect(LifeSystemScript ls, float elementDamage, float elementPotency,
         ElementTypes elementType)
     {
+        bool isKill = false;
         switch (elementType)
         {
             case (ElementTypes.PHYSICAL):
-                dealCriticalDamageToTarget(ls, elementDamage * UniversalValues.GetDamageMultiplier(elementType), 1,
+                isKill = dealCriticalDamageToTarget(ls, elementDamage * UniversalValues.GetDamageMultiplier(elementType), 1,
                     elementType, 1);
                 break;
             case (ElementTypes.FIRE):
@@ -81,5 +82,7 @@ public class DamageScript : MonoBehaviour
                 ls.ApplyDebuff(newShockDebuff);
                 break;
         }
+
+        return isKill;
     }
 }

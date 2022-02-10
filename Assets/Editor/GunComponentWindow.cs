@@ -152,6 +152,11 @@ public class GunComponentMasterController
 
         MarkAllDirty();
     }
+
+    public void AddPerksToAllGuns()
+    {
+        
+    }
 }
 
 public class GunComponentWindowInspector : Editor

@@ -613,7 +613,7 @@ public class GunDamageScript : DamageScript
                 if (Random.Range(0, 1f) <= elementChance)
                 {
                     shotData.IsElementTrigger = true;
-                    ApplyElementEffect(ls);
+                    shotData.IsKill = shotData.IsKill|| ApplyElementEffect(ls);
                 }
 
                 hitTarget = true;
@@ -800,9 +800,9 @@ public class GunDamageScript : DamageScript
     }
 
 
-    void ApplyElementEffect(LifeSystemScript ls)
+    bool ApplyElementEffect(LifeSystemScript ls)
     {
-        base.ApplyElementEffect(ls, elementDamage, elementPotency, elementType);
+       return base.ApplyElementEffect(ls, elementDamage, elementPotency, elementType);
     }
 
 
