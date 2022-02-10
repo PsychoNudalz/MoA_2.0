@@ -22,6 +22,12 @@ public class PerkDisplayIcon : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI perkStackText;
+
+    [SerializeField]
+    private Animator spriteAnimator;
+
+    [SerializeField]
+    private string startAnimationName = "Start_1";
     
     // [Header("Update ")]
 
@@ -34,6 +40,11 @@ public class PerkDisplayIcon : MonoBehaviour
     private void Awake()
     {
         perkImage.material = new Material(perkImage.material);
+        if (!spriteAnimator)
+        {
+            spriteAnimator = GetComponentInChildren<Animator>();
+        }
+        
     }
 
     public void SetPerk(Perk p)
@@ -48,6 +59,13 @@ public class PerkDisplayIcon : MonoBehaviour
 
         perkSprite = s;
         perkImage.sprite = perkSprite;
+    }
+
+    public void SetSprite()
+    {
+        spriteAnimator.enabled = false;
+        perkImage.sprite = perkSprite;
+
     }
 
     public void SetStack(int i)
@@ -83,5 +101,11 @@ public class PerkDisplayIcon : MonoBehaviour
             perkImage.material.SetFloat("_TimeValue",connectedPerk.GetDurationFraction());
         }
     }
-    
+
+    private void OnEnable()
+    {
+        spriteAnimator.enabled = true;
+
+        spriteAnimator.Play(startAnimationName);
+    }
 }
