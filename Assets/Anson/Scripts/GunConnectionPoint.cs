@@ -11,6 +11,18 @@ public class GunConnectionPoint : MonoBehaviour
 
     public GunComponent ConnectedComponent { get => connectedComponent; set => connectedComponent = value; }
 
+    public List<GunComponents> CompatableComponents
+    {
+        get => compatableComponents;
+        set => compatableComponents = value;
+    }
+
+    public List<GunTypes> CompatableTypes
+    {
+        get => compatableTypes;
+        set => compatableTypes = value;
+    }
+
     public Vector3 GetPosition()
     {
         return transform.position;

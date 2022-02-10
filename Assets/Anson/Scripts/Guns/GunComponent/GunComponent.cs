@@ -138,4 +138,12 @@ public abstract class GunComponent : MonoBehaviour
         }
     }
 
+    public void AddGunConnectionPointToExtra(GunConnectionPoint gc)
+    {
+        if (!ExtraConnectionPoints.Contains(gc))
+        {
+            ExtraConnectionPoints.Add(gc);
+        }
+    }
+
 }

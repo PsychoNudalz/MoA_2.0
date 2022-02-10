@@ -2,13 +2,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mono.CSharp;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using Object = System.Object;
 
 public class GunComponentWindow : EditorWindow
 {
     Vector2 scrollPos;
+    private GameObject perkCP;
 
     //CardHandler cardHandler { get => FindObjectOfType<CardHandler>(); }
     private bool showConnectedEffectControllers;
@@ -42,6 +45,15 @@ public class GunComponentWindow : EditorWindow
         if (GUILayout.Button("Fix gun pool"))
         {
             gunComponentMasterController.FixGunSoundToPool();
+        }
+        GUILayout.Space(10f);
+        GUILayout.Label("Add Perk CP");
+        EditorGUILayout.BeginHorizontal();
+        perkCP = (GameObject) EditorGUILayout.ObjectField(perkCP,typeof(GameObject),true);
+        EditorGUILayout.EndHorizontal();
+        if (perkCP&&GUILayout.Button("Add Perk CP"))
+        {
+            gunComponentMasterController.AddPerksToAllGuns(perkCP);
         }
 
         GUILayout.Space(20f);
@@ -153,9 +165,26 @@ public class GunComponentMasterController
         MarkAllDirty();
     }
 
-    public void AddPerksToAllGuns()
+    public void AddPerksToAllGuns(GameObject perkCP)
     {
-        
+        GunConnectionPoint tempGO;
+        foreach (GunComponent_Body gunComponentBody in gunComponentBodies)
+        {
+            foreach (Transform t in gunComponentBody.transform.GetComponentsInChildren<Transform>())
+            {
+                if (t.name.Equals("Model"))
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        tempGO = ((GameObject)PrefabUtility.InstantiatePrefab(perkCP,t)).GetComponent<GunConnectionPoint>();
+                        tempGO.CompatableTypes = new List<GunTypes>(gunComponentBody.GetGunTypes());
+                        gunComponentBody.AddGunConnectionPointToExtra(tempGO);
+                    }
+                }
+            }
+        }
+        MarkAllDirty();
+
     }
 }
 
