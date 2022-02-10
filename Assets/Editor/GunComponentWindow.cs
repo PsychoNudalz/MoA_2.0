@@ -174,12 +174,23 @@ public class GunComponentMasterController
             {
                 if (t.name.Equals("Model"))
                 {
-                    for (int i = 0; i < 2; i++)
+                    foreach (GunConnectionPoint gunConnectionPoint in gunComponentBody.GetComponentsInChildren<GunConnectionPoint>())
                     {
-                        tempGO = ((GameObject)PrefabUtility.InstantiatePrefab(perkCP,t)).GetComponent<GunConnectionPoint>();
-                        tempGO.CompatableTypes = new List<GunTypes>(gunComponentBody.GetGunTypes());
-                        gunComponentBody.AddGunConnectionPointToExtra(tempGO);
+                        if (gunConnectionPoint.CompatableComponents.Contains(GunComponents.PERK))
+                        {
+                            tempGO = gunConnectionPoint;
+                            tempGO.CompatableTypes = new List<GunTypes>(gunComponentBody.GetGunTypes());
+                            gunComponentBody.AddGunConnectionPointToExtra(tempGO);
+                        }
                     }
+                    //
+                    // for (int i = 0; i < 2; i++)
+                    // {
+                    //     tempGO = ((GameObject)GameObject.Instantiate(perkCP)).GetComponent<GunConnectionPoint>();
+                    //     tempGO.transform.SetParent(t);
+                    //     tempGO.CompatableTypes = new List<GunTypes>(gunComponentBody.GetGunTypes());
+                    //     gunComponentBody.AddGunConnectionPointToExtra(tempGO);
+                    // }
                 }
             }
         }
