@@ -36,6 +36,11 @@ public class GunComponentWindow : EditorWindow
         GUILayout.Label("I have no idea what I am doing", EditorStyles.boldLabel);
 
         GUILayout.Space(10f);
+        if (GUILayout.Button("Clean Up connection points"))
+        {
+            gunComponentMasterController.CleanConnectionPoints();
+        }
+        GUILayout.Space(10f);
         GUILayout.Label("Sound Fix");
         if (GUILayout.Button("Fix gun sound naming"))
         {
@@ -196,6 +201,36 @@ public class GunComponentMasterController
         }
         MarkAllDirty();
 
+    }
+
+    public void CleanConnectionPoints()
+    {
+        List<GunConnectionPoint> temp;
+        foreach (GunComponent_Body gunComponentBody in gunComponentBodies)
+        {
+            temp = new List<GunConnectionPoint>();
+            foreach (GunConnectionPoint gunConnectionPoint in gunComponentBody.EssentialConnectionPoints)
+            {
+                if (gunConnectionPoint != null)
+                {
+                    temp.Add(gunConnectionPoint);
+                }
+            }
+
+            gunComponentBody.EssentialConnectionPoints = temp;
+            temp = new List<GunConnectionPoint>();
+
+            
+            foreach (GunConnectionPoint gunConnectionPoint in gunComponentBody.ExtraConnectionPoints)
+            {
+                if (gunConnectionPoint != null)
+                {
+                    temp.Add(gunConnectionPoint);
+                }
+            }
+
+            gunComponentBody.ExtraConnectionPoints = temp;
+        }
     }
 }
 
