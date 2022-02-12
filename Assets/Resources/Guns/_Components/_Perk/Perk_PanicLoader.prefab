@@ -65,12 +65,43 @@ PrefabInstance:
     - target: {fileID: 2739946097029442302, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
         type: 3}
       propertyPath: m_Name
-      value: PeekHunkerDown
+      value: Perk_PanicLoader
       objectReference: {fileID: 0}
     - target: {fileID: 5012690447822938297, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
         type: 3}
       propertyPath: componentName
       value: PERK_Hunker Down
       objectReference: {fileID: 0}
+    - target: {fileID: 7126830702667994893, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
+        type: 3}
+      propertyPath: damagePerProjectileM
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec6a918c3e1c8de468bef1df2a1a05b8, type: 3}
+--- !u!1 &6410231343582950786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2739946097029442302, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 9147805922343411580}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3364201538704181618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6410231343582950786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc263ca2ee10474fa0ffec4e8565862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perkSprite: {fileID: 21300000, guid: f531beeaa12ccaf41aab4e04df23234e, type: 3}
+  isPlayerPerk: 0
+  isActive: 0
+  stack_Current: 0
+  stack_Max: 1
+  duration: 0
+  duration_Current: 0
+  perkStatsScript: {fileID: 0}
