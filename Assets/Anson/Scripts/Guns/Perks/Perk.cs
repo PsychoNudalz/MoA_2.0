@@ -8,6 +8,7 @@ public abstract class Perk : MonoBehaviour
 {
     [Header("Componenets")]
     protected GunDamageScript gunDamageScript;
+
     protected MainGunStatsScript mainGunStatsScript;
     protected GunStatsScript originalGunStatsScript;
     protected PlayerController playerController;
@@ -19,16 +20,22 @@ public abstract class Perk : MonoBehaviour
 
     [SerializeField]
     protected bool isPlayerPerk = false;
+
     [SerializeField]
     protected bool isActive = false;
+
     [SerializeField]
     protected int stack_Current = 0;
+
     [SerializeField]
     protected int stack_Max = 1;
+
     [SerializeField]
     protected float duration = 0;
+
     [SerializeField]
     protected float duration_Current = 0;
+
     [SerializeField]
     protected PerkGunStatsScript perkStatsScript;
 
@@ -81,7 +88,7 @@ public abstract class Perk : MonoBehaviour
         isActive = true;
         if (isPlayerPerk)
         {
-            PlayerUIScript.current.SetPerkDisplay(this,PerkDisplayCall.ADD);
+            PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.ADD);
             perkEffectController?.PlayActivate();
         }
     }
@@ -92,7 +99,13 @@ public abstract class Perk : MonoBehaviour
         {
             perkEffectController = GetComponent<PerkEffectController>();
         }
+
+        if (perkEffectController)
+        {
+            perkEffectController.SetSprite(perkSprite);
+        }
     }
+
     public abstract void OnFixedUpdate();
     public abstract void OnDurationEnd();
 
@@ -102,12 +115,12 @@ public abstract class Perk : MonoBehaviour
         {
             return;
         }
+
         isActive = false;
         if (isPlayerPerk)
         {
-            PlayerUIScript.current.SetPerkDisplay(this,PerkDisplayCall.REMOVE);
+            PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.REMOVE);
             perkEffectController?.PlayDeactivate();
-
         }
     }
 
@@ -134,8 +147,9 @@ public abstract class Perk : MonoBehaviour
         stack_Current = Mathf.Min(stack_Current + i, stack_Max);
         if (isPlayerPerk)
         {
-            PlayerUIScript.current.SetPerkDisplay(this,PerkDisplayCall.UPDATE);
+            PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.UPDATE);
         }
+
         return stack_Max == stack_Current;
     }
 
@@ -150,8 +164,7 @@ public abstract class Perk : MonoBehaviour
         {
             return 1;
         }
+
         return duration_Current / duration;
     }
-
-
 }
