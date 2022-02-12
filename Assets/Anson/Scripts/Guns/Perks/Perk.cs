@@ -25,6 +25,9 @@ public abstract class Perk : MonoBehaviour
     protected bool isActive = false;
 
     [SerializeField]
+    protected bool isEquiped = false;
+
+    [SerializeField]
     protected int stack_Current = 0;
 
     [SerializeField]
@@ -81,7 +84,17 @@ public abstract class Perk : MonoBehaviour
     public abstract void OnReloadStart();
     public abstract void OnReloadEnd();
     public abstract void OnPerReload();
-    public abstract void OnUnequip();
+
+    public virtual void OnUnequip()
+    {
+        isEquiped = false;
+    }
+
+    public virtual void OnEquip()
+    {
+        isEquiped = true;
+
+    }
 
     public virtual void OnActivatePerk(Object data = null)
     {

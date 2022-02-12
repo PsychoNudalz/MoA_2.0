@@ -168,7 +168,7 @@ public class PlayerGunDamageScript : GunDamageScript
             HandController.left.AddPointer(mainGunStatsScript.GunComponentBody.GunHandController.HandRest);
         }
         
-        
+        gunPerkController.OnEquip();
 
         return oldGun;
 

@@ -113,4 +113,12 @@ public class GunPerkController : MonoBehaviour
             perk.OnUnequip();
         }
     }
+    
+    public void OnEquip()
+    {
+        foreach (Perk perk in perks)
+        {
+            perk.OnEquip();
+        }
+    }
 }
