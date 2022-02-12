@@ -36,6 +36,11 @@ public class PerkEffectController : MonoBehaviour
     }
     public void SetSprite(Sprite sprite)
     {
+        if (!sprite)
+        {
+            return;
+            
+        }
         
         var croppedTexture = new Texture2D( (int)sprite.rect.width, (int)sprite.rect.height );
         var pixels = sprite.texture.GetPixels(  (int)sprite.textureRect.x, 

@@ -165,6 +165,11 @@ public class GunDamageScript : DamageScript
     protected GunPerkController gunPerkController;
 
 
+    public float CurrentMag => currentMag;
+
+    public float MagazineSize => magazineSize;
+
+
     public GunTypes GunType => gunType;
 
     private void Awake()
@@ -935,5 +940,11 @@ public class GunDamageScript : DamageScript
         magazineSize /= g.magazineSizeM ;
 
 
+    }
+
+    public virtual void AddAmmoToCurrentMag(int ammo)
+    {
+        currentMag += ammo;
+        
     }
 }

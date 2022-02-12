@@ -448,8 +448,9 @@ public class PlayerGunDamageScript : GunDamageScript
         ShotDataManager.Reset();
     }
 
-
-
-
-
+    public override void AddAmmoToCurrentMag(int ammo)
+    {
+        base.AddAmmoToCurrentMag(ammo);
+        UpdateAmmoCount();
+    }
 }
