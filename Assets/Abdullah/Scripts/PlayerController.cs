@@ -71,7 +71,10 @@ public class PlayerController : MonoBehaviour
     float moveSpeed_Default;
 
     [SerializeField]
-    private float moveAcceleration = .3f;
+    private float moveSpeed_Multiplier = 1;
+
+    [SerializeField]
+    private float moveAcceleration = 24f;
 
     //float moveSpeed_Cap;
     private float moveSpeed_Current = 0f;
@@ -201,7 +204,7 @@ public class PlayerController : MonoBehaviour
     private bool isStick = false;
     private Vector3 stickPoint;
     private RaycastHit handStickHit;
-    
+
     [Header("Melee")]
     [SerializeField]
     private PlayerMelee playerMelee;
@@ -240,7 +243,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     PlayerSoundScript playerSoundScript;
 
-   
 
     public PlayerMelee PlayerMelee
     {
@@ -302,6 +304,8 @@ public class PlayerController : MonoBehaviour
         get => playerSoundScript;
         set => playerSoundScript = value;
     }
+
+    public float MoveSpeedCurrent => moveSpeed_Current;
 
 
     // Start is called before the first frame update
@@ -434,7 +438,7 @@ public class PlayerController : MonoBehaviour
         if (isSlide)
         {
             float slideToCrouchSpeedMultiplier = 0.85f;
-            if (moveSpeed_Current <= moveSpeed_Default * crouchSpeedMultiplier * slideToCrouchSpeedMultiplier)
+            if (moveSpeed_Current <= moveSpeed_Default*moveSpeed_Multiplier * crouchSpeedMultiplier * slideToCrouchSpeedMultiplier)
             {
                 OnSlide_End();
                 Crouch();
@@ -444,7 +448,7 @@ public class PlayerController : MonoBehaviour
 
             moveSpeed_Current =
                 slideCurve.Evaluate((Time.time - slideStartTime) / slideDuration) * slideSpeedMultiplier *
-                moveSpeed_Default;
+                moveSpeed_Default*moveSpeed_Multiplier;
         }
 
         else
@@ -528,14 +532,14 @@ public class PlayerController : MonoBehaviour
             // playerSoundScript.Set_Crouch(isCrouch);
             if (isCrouch)
             {
-                newMoveSpeed = crouchSpeedMultiplier * moveSpeed_Default;
+                newMoveSpeed = crouchSpeedMultiplier * moveSpeed_Default*moveSpeed_Multiplier;
             }
             else if (isSlide)
             {
             }
             else
             {
-                newMoveSpeed = moveSpeed_Default;
+                newMoveSpeed = moveSpeed_Default*moveSpeed_Multiplier;
             }
         }
         else
@@ -725,9 +729,9 @@ public class PlayerController : MonoBehaviour
     {
         print("Bounce");
         playerSoundScript.Play_Bounce();
-        SetMoveSpeed_Current(bounceSpeedMult * moveSpeed_Default);
+        SetMoveSpeed_Current(bounceSpeedMult * moveSpeed_Default*moveSpeed_Multiplier);
         ForceOverridesMoveDirection();
-        jumpVelocity = lookScript.GetFaceForward().y * bounceYMult * moveSpeed_Default;
+        jumpVelocity = lookScript.GetFaceForward().y * bounceYMult * moveSpeed_Default*moveSpeed_Multiplier;
     }
 
     void OnStick()
@@ -847,7 +851,7 @@ public class PlayerController : MonoBehaviour
         // print("UnCrouch");
         SetPlayerHeight(1);
         isCrouch = false;
-        SetMoveSpeed_Target(moveSpeed_Default);
+        SetMoveSpeed_Target(moveSpeed_Default*moveSpeed_Multiplier);
         playerSoundScript.Set_Crouch(isCrouch);
     }
 
@@ -856,13 +860,13 @@ public class PlayerController : MonoBehaviour
         // print("Crouch");
         SetPlayerHeight(crouchHeightMultiplier);
         isCrouch = true;
-        SetMoveSpeed_Target(moveSpeed_Default * crouchSpeedMultiplier);
+        SetMoveSpeed_Target(moveSpeed_Default * crouchSpeedMultiplier*moveSpeed_Multiplier);
         playerSoundScript.Set_Crouch(isCrouch);
     }
 
     public void OnSlide(InputAction.CallbackContext context)
     {
-        if (isGrounded && context.performed && inputDirection.z > 0.1f && moveSpeed_Current > moveSpeed_Default * .5f)
+        if (isGrounded && context.performed && inputDirection.z > 0.1f && moveSpeed_Current > moveSpeed_Default*moveSpeed_Multiplier * .5f)
         {
             // print("Slide pressed");
             OnSlide();
@@ -872,7 +876,7 @@ public class PlayerController : MonoBehaviour
     public void OnSlide()
     {
         SetPlayerHeight(slideHeightMultiplier);
-        SetMoveSpeed_Target(moveSpeed_Default * slideSpeedMultiplier);
+        SetMoveSpeed_Target(moveSpeed_Default*moveSpeed_Multiplier * slideSpeedMultiplier);
         isSlide = true;
         slideStartTime = Time.time;
         animator.SetBool("Slide", true);
@@ -1163,16 +1167,16 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DashCoroutine()
     {
-        moveSpeed_Target = moveSpeed_Default * dashMultiplier;
+        moveSpeed_Target = moveSpeed_Default*moveSpeed_Multiplier * dashMultiplier;
         moveSpeed_Current = moveSpeed_Target;
         yield return new WaitForSeconds(dashDuration);
-        moveSpeed_Target = moveSpeed_Default;
+        moveSpeed_Target = moveSpeed_Default*moveSpeed_Multiplier;
         moveSpeed_Current = moveSpeed_Target;
     }
 
     private void OnEnable()
     {
-        // moveSpeed_Cap = moveSpeed_Default;
+        // moveSpeed_Cap = moveSpeed_Default*moveSpeed_Multiplier;
     }
 
     /// <summary>
@@ -1306,10 +1310,16 @@ public class PlayerController : MonoBehaviour
     {
         HandController.left.AddPointer(meleeHandPointer);
     }
+
     public void RemoveMeleeHandPointer()
     {
         HandController.left.RemovePointer(meleeHandPointer);
-
     }
-    
+
+
+    public void BoostStatsMoveSpeedMultiplier(float f)
+    {
+        moveSpeed_Multiplier += f;
+        SetMoveSpeed_Target(moveSpeed_Default*moveSpeed_Multiplier*inputDirection.magnitude);
+    }
 }

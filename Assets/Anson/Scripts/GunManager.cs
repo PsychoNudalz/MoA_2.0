@@ -65,6 +65,7 @@ public class GunManager : MonoBehaviour
     [SerializeField] List<GCSelection> muzzle;
     [SerializeField] List<GCSelection> attachment;
     [SerializeField] List<GCSelection> statBoost;
+    [SerializeField] List<GCSelection> perk;
     [SerializeField] List<GCSelection> allGCSelections;
     [Space]
     [Header("Other Components")]
@@ -85,6 +86,9 @@ public class GunManager : MonoBehaviour
     public List<GCSelection> Muzzle { get => muzzle; }
     public List<GCSelection> Attachment { get => attachment; }
     public List<GCSelection> StatBoost { get => statBoost; }
+
+    public List<GCSelection> Perk => perk;
+
     public GCSSaveCollection GCSSaveCollection { get => gCSSaveCollection; set => gCSSaveCollection = value; }
 
     private void Awake()
@@ -151,6 +155,9 @@ public class GunManager : MonoBehaviour
                 break;
             case (GunComponents.STATBOOST):
                 statBoost.Add(gc);
+                break;
+            case (GunComponents.PERK):
+                perk.Add(gc);
                 break;
         }
         allGCSelections.Add(gc);

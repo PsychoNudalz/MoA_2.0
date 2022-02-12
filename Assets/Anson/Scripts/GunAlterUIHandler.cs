@@ -21,6 +21,7 @@ public class GunAlterUIHandler : MonoBehaviour
     [SerializeField] GunComponentUITypeSectionScript UI_Attachment;
     [SerializeField] GunComponentUITypeSectionScript UI_Muzzle;
     [SerializeField] GunComponentUITypeSectionScript UI_StatBoost;
+    [SerializeField] GunComponentUITypeSectionScript UI_Perk;
     [Header("Filter Control")]
     [SerializeField] List<GunTypes> currentGunTypes;
     [SerializeField] List<GameObject> currentGunTypesSprites;
@@ -98,6 +99,7 @@ public class GunAlterUIHandler : MonoBehaviour
         UI_Sight.Initialize(gunManager.Sight);
         UI_StatBoost.Initialize(gunManager.StatBoost);
         UI_Stock.Initialize(gunManager.Stock);
+        UI_Perk.Initialize(gunManager.Perk);
     }
 
     public void UpdateButtons()
@@ -115,6 +117,8 @@ public class GunAlterUIHandler : MonoBehaviour
         UI_Sight.UpdateButtons(currentGunTypes);
         UI_StatBoost.UpdateButtons(currentGunTypes);
         UI_Stock.UpdateButtons(currentGunTypes);
+        UI_Perk.UpdateButtons(currentGunTypes);
+
     }
     public void SetGunType(GunTypes g)
     {
@@ -318,6 +322,7 @@ public class GunAlterUIHandler : MonoBehaviour
         UI_Sight.SelectAll(true);
         UI_StatBoost.SelectAll(true);
         UI_Stock.SelectAll(true);
+        UI_Perk.SelectAll(true);
     }
     public void DeselectAll()
     {
@@ -330,6 +335,7 @@ public class GunAlterUIHandler : MonoBehaviour
         UI_Sight.SelectAll(false);
         UI_StatBoost.SelectAll(false);
         UI_Stock.SelectAll(false);
+        UI_Perk.SelectAll(false);
     }
 
     public void GodModeButton()
