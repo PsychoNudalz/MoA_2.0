@@ -46,7 +46,7 @@ public class TargetLifeSystem : LifeSystemScript
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
     {
         targetEffectController.StartDecay();
-        targetSoundScript.Play_Stagger();
+        targetSoundScript?.Play_Stagger();
         return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }
     public override void RemoveDebuff(FireEffectScript debuff = null)

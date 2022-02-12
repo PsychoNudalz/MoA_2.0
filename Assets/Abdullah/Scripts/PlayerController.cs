@@ -851,7 +851,7 @@ public class PlayerController : MonoBehaviour
         // print("UnCrouch");
         SetPlayerHeight(1);
         isCrouch = false;
-        SetMoveSpeed_Target(moveSpeed_Default*moveSpeed_Multiplier);
+        SetMoveSpeed_Target(moveSpeed_Default*moveSpeed_Multiplier*inputDirection.magnitude);
         playerSoundScript.Set_Crouch(isCrouch);
     }
 

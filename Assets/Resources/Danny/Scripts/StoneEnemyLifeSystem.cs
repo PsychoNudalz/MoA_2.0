@@ -6,6 +6,7 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
 {
     [Header("Stone Enemy Agent")]
     StoneEnemyAgent stoneEnemyAgent;
+
     EnemySpawner spawner;
     bool displayDecremented = false;
 
@@ -14,18 +15,19 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
         stoneEnemyAgent = GetComponent<StoneEnemyAgent>();
         try
         {
-
-        spawner = transform.parent.GetComponent<EnemySpawner>();
-        }catch(System.NullReferenceException e)
+            spawner = transform.parent.GetComponent<EnemySpawner>();
+        }
+        catch (System.NullReferenceException e)
         {
             print(name + " can't find spawner");
         }
     }
 
-    public override int takeDamageCritical(float dmg, int level, ElementTypes element,float multiplier, bool displayTakeDamageEffect = true)
+    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier,
+        bool displayTakeDamageEffect = true)
     {
         StaggerAnimation();
-        return base.takeDamageCritical(dmg, level, element, multiplier,displayTakeDamageEffect);
+        return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }
 
     public override bool CheckDead()
@@ -35,6 +37,7 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
         {
             stoneEnemyAgent.DeathAnimation();
         }
+
         return retValue;
     }
 
@@ -42,6 +45,7 @@ public class StoneEnemyLifeSystem : TargetLifeSystem
     {
         stoneEnemyAgent.Stagger();
     }
+
     public override void DeathBehaviour()
     {
         base.DeathBehaviour();
