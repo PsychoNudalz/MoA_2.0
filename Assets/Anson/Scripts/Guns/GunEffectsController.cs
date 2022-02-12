@@ -112,6 +112,35 @@ public class GunEffectsController : MonoBehaviour
         }
     }
 
+    public void updateAnimatorSpeeds()
+    {
+        animator.SetFloat("ReloadSpeed",1f/mainGunStat.ReloadSpeed);
+        if (mainGunStat.GunType.Equals(GunTypes.SHOTGUN))
+        {
+            animator.SetFloat("ShootSpeed",1f/((60f/mainGunStat.GetRPM)));
+
+        }
+        else
+        {
+            animator.SetFloat("ShootSpeed",1f/((60f/mainGunStat.GetRPM)/mainGunStat.ProjectilePerShot));
+        }
+    }
+    
+    public void updateAnimatorSpeeds(float r, float s)
+    {
+        animator.SetFloat("ReloadSpeed",1f/r);
+        if (mainGunStat.GunType.Equals(GunTypes.SHOTGUN))
+        {
+            animator.SetFloat("ShootSpeed",1f/((60f/s)));
+
+        }
+        else
+        {
+            animator.SetFloat("ShootSpeed",1f/((60f/s)/mainGunStat.ProjectilePerShot));
+        }
+    }
+    
+
     void Update()
     {
     }

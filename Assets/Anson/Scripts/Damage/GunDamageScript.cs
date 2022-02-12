@@ -915,6 +915,7 @@ public class GunDamageScript : DamageScript
         magazineSize = magazineSize * g.magazineSizeM ;
 
         timeUntilFire = 60f / RPM;
+        gunEffectsController.updateAnimatorSpeeds(reloadSpeed,RPM);
  
     }
     
@@ -941,6 +942,8 @@ public class GunDamageScript : DamageScript
         magazineSize /= g.magazineSizeM ;
 
         timeUntilFire = 60f / RPM;
+        gunEffectsController.updateAnimatorSpeeds(reloadSpeed,RPM);
+
 
     }
 
