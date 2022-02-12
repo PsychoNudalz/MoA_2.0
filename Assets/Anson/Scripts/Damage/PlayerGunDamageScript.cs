@@ -453,4 +453,5 @@ public class PlayerGunDamageScript : GunDamageScript
         base.AddAmmoToCurrentMag(ammo);
         UpdateAmmoCount();
     }
+    
 }

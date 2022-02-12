@@ -127,6 +127,10 @@ public abstract class Perk : MonoBehaviour
     protected virtual void ResetDuration()
     {
         duration_Current = duration;
+        if (isPlayerPerk)
+        {
+            PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.UPDATE);
+        }
     }
 
     private void Awake()

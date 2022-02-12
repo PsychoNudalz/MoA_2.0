@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class Perk_HeatingUp : Perk
 {
-    // Start is called before the first frame update
-    void Start()
+    private void FixedUpdate()
     {
-        
+        OnFixedUpdate();
     }
 
-    // Update is called once per frame
+    public override void OnTargetHit(ShotData shotData)
+    {
+        // OnActivatePerk();
+    }
+
     public override void OnShot(ShotData shotData)
     {
     }
 
     public override void OnHit(ShotData shotData)
-    {
-    }
-
-    public override void OnTargetHit(ShotData shotData)
     {
     }
 
@@ -33,6 +32,7 @@ public class Perk_HeatingUp : Perk
 
     public override void OnKill(ShotData shotData)
     {
+        OnActivatePerk();
     }
 
     public override void OnElementTrigger(ShotData shotData)
@@ -51,20 +51,61 @@ public class Perk_HeatingUp : Perk
     {
     }
 
-    public override void OnUnequip()
+    public override void OnActivatePerk(Object data = null)
     {
+        base.OnActivatePerk(data);
+
+        if (CanStack())
+        {
+            gunDamageScript.AddPerkStats(perkStatsScript);
+            AddStacks(1);
+            print($"Activate Kill monger {stack_Current}");
+        }
+
+        ResetDuration();
     }
 
     public override void OnFixedUpdate()
     {
+        if (isActive && duration_Current < 0)
+        {
+            duration_Current = 0;
+            OnDurationEnd();
+        }
     }
 
     public override void OnDurationEnd()
     {
+        OnDeactivatePerk();
     }
 
-    void Update()
+    public override void OnDeactivatePerk()
     {
-        
+        if (stack_Current > 0)
+        {
+            AddStacks(-1);
+            gunDamageScript.RemovePerkStats(perkStatsScript);
+
+            if (stack_Current != 0)
+            {
+                ResetDuration();
+                if (isPlayerPerk)
+                {
+                    PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.UPDATE);
+                }
+            }
+            else
+            {
+                base.OnDeactivatePerk();
+            }
+
+        }
+
+        //RemoveAllStack();
+    }
+
+    public override void OnUnequip()
+    {
+        OnDeactivatePerk();
     }
 }

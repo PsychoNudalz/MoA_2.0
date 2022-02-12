@@ -914,7 +914,8 @@ public class GunDamageScript : DamageScript
         range = range * g.rangeM;
         magazineSize = magazineSize * g.magazineSizeM ;
 
-
+        timeUntilFire = 60f / RPM;
+ 
     }
     
     public void RemovePerkStats(PerkGunStatsScript g)
@@ -939,6 +940,7 @@ public class GunDamageScript : DamageScript
         range /= g.rangeM;
         magazineSize /= g.magazineSizeM ;
 
+        timeUntilFire = 60f / RPM;
 
     }
 
@@ -947,4 +949,6 @@ public class GunDamageScript : DamageScript
         currentMag += ammo;
         
     }
+    
+    
 }
