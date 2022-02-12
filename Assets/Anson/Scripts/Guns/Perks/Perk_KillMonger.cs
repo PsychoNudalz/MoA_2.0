@@ -86,13 +86,7 @@ public class Perk_KillMonger : Perk
     public override void OnDeactivatePerk()
     {
         base.OnDeactivatePerk();
-        for (int i = 0; i < stack_Current; i++)
-        {
-            gunDamageScript.RemovePerkStats(perkStatsScript);
-            
-        }
-
-        stack_Current = 0;
+        RemoveAllStack();
     }
 
     public override void OnUnequip()

@@ -153,6 +153,17 @@ public abstract class Perk : MonoBehaviour
         return stack_Max == stack_Current;
     }
 
+    protected virtual void RemoveAllStack()
+    {
+        for (int i = 0; i < stack_Current; i++)
+        {
+            gunDamageScript.RemovePerkStats(perkStatsScript);
+            
+        }
+
+        stack_Current = 0;
+    }
+
     protected bool CanStack()
     {
         return stack_Current < stack_Max;

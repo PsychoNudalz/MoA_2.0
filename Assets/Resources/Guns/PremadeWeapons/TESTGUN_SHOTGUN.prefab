@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 4564549015632180983}
   - component: {fileID: 7898974444707924861}
   m_Layer: 8
-  m_Name: BasePumpShotgun_Shock
+  m_Name: TESTGUN_SHOTGUN
   m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,19 +376,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentType: 0
   gunTypes: 02000000
-  essentialConnectionPoints: []
+  essentialConnectionPoints:
+  - {fileID: 6124145581121653953}
   potentialConnectionPoints:
   - {fileID: 2649164928465812746}
   - {fileID: 5979041118704199296}
   - {fileID: 3420935107492560174}
   - {fileID: 5166266553538169148}
-  - {fileID: 6124145581121653953}
   componentGunStatsScript: {fileID: 410502766861806266}
   componentName: 
   componentCost: 0
   isSetElement: 1
-  elementType: 3
-  rarity: 0
+  elementType: 0
+  rarity: 4
   rangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d30a5d08d3dd9e458534ddcfb65454c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerProjectile: 60
+  damagePerProjectile: 100
   RPM: 90
   reloadSpeed: 0.4
   recoil: {x: 12, y: 8}
@@ -520,7 +520,7 @@ MonoBehaviour:
   magazineSize: 5
   elementDamage: 2
   elementPotency: 9
-  elementChance: 1
+  elementChance: 0.2
   damagePerProjectileM: 1
   RPMM: 1
   reloadSpeedM: 1
@@ -1822,17 +1822,17 @@ PrefabInstance:
     - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.403
       objectReference: {fileID: 0}
     - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1508
       objectReference: {fileID: 0}
     - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.119
       objectReference: {fileID: 0}
     - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
         type: 3}
