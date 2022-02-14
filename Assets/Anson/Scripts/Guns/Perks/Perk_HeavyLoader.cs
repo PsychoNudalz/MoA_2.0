@@ -88,6 +88,10 @@ public class Perk_HeavyLoader : Perk
 
     public override void OnDeactivatePerk()
     {
+        if (isActive)
+        {
+            return;
+        }
         base.OnDeactivatePerk();
         gunDamageScript.RemovePerkStats(perkStatsScript);
 

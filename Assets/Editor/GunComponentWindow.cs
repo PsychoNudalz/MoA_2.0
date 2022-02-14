@@ -60,6 +60,12 @@ public class GunComponentWindow : EditorWindow
         {
             gunComponentMasterController.AddPerksToAllGuns(perkCP);
         }
+        
+        GUILayout.Space(10f);
+        if (GUILayout.Button("Auto Assign Sprites to perks"))
+        {
+            gunComponentMasterController.SetAllPerkSprite();
+        }
 
         GUILayout.Space(20f);
         showConnectedEffectControllers = GUILayout.Toggle(showConnectedEffectControllers,
@@ -230,6 +236,16 @@ public class GunComponentMasterController
             }
 
             gunComponentBody.ExtraConnectionPoints = temp;
+        }
+    }
+
+    public void SetAllPerkSprite()
+    {
+        foreach (GunComponent_Perk gunComponentPerk in FileLoader.GetAllFilesFromResources<GunComponent_Perk>("Guns", "*.prefab", true))
+        {
+            gunComponentPerk.GetComponent<PerkEffectController>().SetSprite();
+            
+            EditorUtility.SetDirty(gunComponentPerk);
         }
     }
 }

@@ -55,10 +55,17 @@ public class Perk_HunkerDown : Perk
 
     public override void OnUnequip()
     {
+        base.OnUnequip();
+        OnDeactivatePerk();
     }
 
     public override void OnFixedUpdate()
     {
+        if (!isEquiped)
+        {
+            return;
+        }
+
         if (playerController)
         {
             if (playerController.MoveSpeedCurrent <= minSpeed)
@@ -75,7 +82,6 @@ public class Perk_HunkerDown : Perk
             if (isPlayerPerk)
             {
                 SetPlayerController(GetComponentInParent<PlayerController>());
-
             }
         }
     }
@@ -90,6 +96,7 @@ public class Perk_HunkerDown : Perk
         {
             return;
         }
+
         base.OnActivatePerk(data);
         if (isPlayerPerk)
         {
@@ -98,6 +105,7 @@ public class Perk_HunkerDown : Perk
                 SetPlayerController(GetComponentInParent<PlayerController>());
             }
         }
+
         gunDamageScript.AddPerkStats(perkStatsScript);
     }
 
@@ -107,6 +115,7 @@ public class Perk_HunkerDown : Perk
         {
             return;
         }
+
         base.OnDeactivatePerk();
         gunDamageScript.RemovePerkStats(perkStatsScript);
     }
