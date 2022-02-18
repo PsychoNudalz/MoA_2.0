@@ -10,6 +10,8 @@ public class Perk_ReturnToSender : Perk
         AddStacks(1);
         if (stack_Current == stack_Max)
         {
+            gunDamageScript.AddAmmoToCurrentMag(1);
+
             OnDeactivatePerk();
         }
     }
@@ -18,7 +20,6 @@ public class Perk_ReturnToSender : Perk
     {
         base.OnDeactivatePerk();
         stack_Current = 0;
-        gunDamageScript.AddAmmoToCurrentMag(1);
     }
 
     // Start is called before the first frame update
@@ -71,6 +72,7 @@ public class Perk_ReturnToSender : Perk
 
     public override void OnUnequip()
     {
+        OnDeactivatePerk();
     }
 
     public override void OnFixedUpdate()

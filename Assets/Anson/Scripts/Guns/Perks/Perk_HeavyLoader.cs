@@ -88,7 +88,7 @@ public class Perk_HeavyLoader : Perk
 
     public override void OnDeactivatePerk()
     {
-        if (isActive)
+        if (!isActive)
         {
             return;
         }

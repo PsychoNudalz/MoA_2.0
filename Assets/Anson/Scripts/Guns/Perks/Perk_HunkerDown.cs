@@ -88,7 +88,7 @@ public class Perk_HunkerDown : Perk
 
     public override void OnDurationEnd()
     {
-    }
+    } 
 
     public override void OnActivatePerk(Object data = null)
     {

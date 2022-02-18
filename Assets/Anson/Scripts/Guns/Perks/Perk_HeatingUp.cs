@@ -100,12 +100,19 @@ public class Perk_HeatingUp : Perk
             }
 
         }
+        else
+        {
+            
+        }
 
         //RemoveAllStack();
     }
 
     public override void OnUnequip()
     {
-        OnDeactivatePerk();
+        while (stack_Current>0)
+        {
+            OnDeactivatePerk();
+        }
     }
 }
