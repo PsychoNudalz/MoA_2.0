@@ -77,7 +77,7 @@ public class PlayerInterationScript : MonoBehaviour
             //Debug.Log("Player found: " + i.name);
             if (b2 is WeaponPickUpInteractableScript)
             {
-                DisplayWeaponStats(true, (b2 as WeaponPickUpInteractableScript).ConnectedGun.ToString());
+                DisplayWeaponStats(true, (b2 as WeaponPickUpInteractableScript).ConnectedGun);
             }
         }
     }
@@ -108,7 +108,7 @@ public class PlayerInterationScript : MonoBehaviour
         }
     }
 
-    void DisplayWeaponStats(bool b, string s = "")
+    void DisplayWeaponStats(bool b, MainGunStatsScript s = null)
     {
         if (b)
         {

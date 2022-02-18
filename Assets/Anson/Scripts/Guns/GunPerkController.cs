@@ -16,6 +16,7 @@ public class GunPerkController : MonoBehaviour
     [SerializeField]
     private Perk[] perks = new Perk[] { };
 
+    public Perk[] Perks => perks;
 
     public void InitialisePerks(GunComponent_Perk[] gunComponentPerks,GunDamageScript gunDamageScript, MainGunStatsScript mainGunStatsScript,
         GunStatsScript originalGunStatsScript)

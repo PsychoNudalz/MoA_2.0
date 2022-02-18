@@ -25,10 +25,8 @@ public class PlayerUIScript : MonoBehaviour
 {
     public static PlayerUIScript current;
     [Header("Gun Stats")]
-    public GameObject currentGun;
-    public TextMeshProUGUI currentGunText;
-    public GameObject newGun;
-    public TextMeshProUGUI newGunText;
+    public GunDisplayStat currentGunText;
+    public GunDisplayStat newGunText;
     //public TextMeshProUGUI healthText;
     [Header("Enemy info")]
     public Image enemyHealthBar;
@@ -158,19 +156,22 @@ public class PlayerUIScript : MonoBehaviour
         }
     }
 
-    public void SetGunText(string s)
+    public void SetGunText(MainGunStatsScript mainGunStatsScript)
     {
-        currentGunText.text = s;
+        currentGunText.SetStats(mainGunStatsScript);
     }
 
-    public void DisplayNewGunText(bool b, string newGunS = "")
+    public void DisplayNewGunText(bool b, MainGunStatsScript newGunS = null)
     {
-        currentGun.SetActive(b);
-        newGun.SetActive(b);
+        currentGunText.gameObject.SetActive(b);
+        newGunText.gameObject.SetActive(b);
         if (b)
         {
             //currentGunText.text = currentGunS;
-            newGunText.text = newGunS;
+            if (newGunS != null)
+            {
+                newGunText.SetStats(newGunS);
+            }
         }
     }
 

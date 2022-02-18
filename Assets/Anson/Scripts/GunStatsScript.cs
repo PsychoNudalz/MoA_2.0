@@ -115,5 +115,15 @@ public class GunStatsScript : MonoBehaviour
 
     }
 
+    public Vector2 GetAccuracy()
+    {
+        return new Vector2(DegreeToAccuracy(recoil_HipFire.x),DegreeToAccuracy(recoil_HipFire.y));
+    }
+
+    float DegreeToAccuracy(float f)
+    {
+        return 1-(f/60f);
+    }
+
 
 }

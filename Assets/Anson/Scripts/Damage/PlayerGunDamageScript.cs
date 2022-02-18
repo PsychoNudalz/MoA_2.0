@@ -436,7 +436,7 @@ public class PlayerGunDamageScript : GunDamageScript
     {
         if (playerUIScript != null)
         {
-            playerUIScript.SetGunText(mainGunStatsScript.ToString());
+            playerUIScript.SetGunText(mainGunStatsScript);
         }
     }
 

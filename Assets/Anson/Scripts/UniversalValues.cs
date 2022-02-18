@@ -1,9 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class UniversalValues
 {
+    [Header("ElementalColours")]
+    private static Color fireColour = new Color(255,124,0);
+    private static Color iceColour = new Color(0,255,255);
+    private static Color shockColour = new Color(255,235,14);
+    private static Color normalColour = new Color(255,255,255);
+    
     //Weapon Handling Globals
     public static float HipFireRecoilMultiplier
     {
@@ -71,5 +78,28 @@ public static class UniversalValues
         }
 
         return temp;
+    }
+
+    public static Color GetColour(ElementTypes elementTypes)
+    {
+        switch (elementTypes)
+        {
+            case ElementTypes.PHYSICAL:
+                return normalColour;
+                break;
+            case ElementTypes.FIRE:
+                return fireColour;
+                break;
+            case ElementTypes.ICE:
+                return iceColour;
+                break;
+            case ElementTypes.SHOCK:
+                return shockColour;
+                break;
+            default:
+                return normalColour;
+        }
+
+        return normalColour;
     }
 }
