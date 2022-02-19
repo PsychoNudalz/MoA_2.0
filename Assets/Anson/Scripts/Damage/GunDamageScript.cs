@@ -579,8 +579,10 @@ public class GunDamageScript : DamageScript
             shotData.HitPos = raycastHit.point;
 
             Instantiate(impactEffect, raycastHit.point, Quaternion.Euler(raycastHit.normal));
+            LifeSystemScript ls = raycastHit.collider.GetComponentInParent<LifeSystemScript>();
+            
             if (tagList.Contains(raycastHit.collider.tag) &&
-                (raycastHit.collider.TryGetComponent(out LifeSystemScript ls) ||
+                (ls ||
                  raycastHit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
             {
                 shotData.IsTargetHit = true;

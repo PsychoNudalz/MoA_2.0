@@ -377,6 +377,11 @@ public class LifeSystemScript : MonoBehaviour
 
     private void OnEnable()
     {
+        OnEnableBehaviour();
+    }
+
+    protected virtual void OnEnableBehaviour()
+    {
         try
         {
             if (reatatchPopUps)
@@ -387,9 +392,7 @@ public class LifeSystemScript : MonoBehaviour
         }
         catch (System.Exception)
         {
-
         }
-
     }
 
     IEnumerator TickDebuffs()

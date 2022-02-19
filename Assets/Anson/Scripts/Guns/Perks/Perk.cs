@@ -153,6 +153,11 @@ public abstract class Perk : MonoBehaviour
 
     private void Update()
     {
+        OnUpdate();
+    }
+
+    protected virtual void OnUpdate()
+    {
         if (duration_Current > 0)
         {
             duration_Current -= Time.deltaTime;
