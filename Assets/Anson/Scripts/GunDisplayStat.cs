@@ -47,10 +47,18 @@ public class GunDisplayStat : MonoBehaviour
     [SerializeField]
     private List<Image> perkSprites;
 
-    
+    [Header("Colour")]
+    [SerializeField]
+    private Color betterColour = Color.green;
+    [SerializeField]
+    private Color worseColour = Color.red;
+
+    private MainGunStatsScript currentStats;
 
     public void SetStats(MainGunStatsScript mainGunStatsScript)
     {
+        currentStats = mainGunStatsScript;
+        
         nameText.text = mainGunStatsScript.GetName();
         DPSValueText.text = mainGunStatsScript.CalculateDps().ToString("0");
         DPSValueText.color = UniversalValues.GetColour(mainGunStatsScript.ElementType);
@@ -99,4 +107,42 @@ public class GunDisplayStat : MonoBehaviour
             perkSprites[i].color = temp;
         }
     }
+
+    public void CompareStats(MainGunStatsScript current, MainGunStatsScript other)
+    {
+        CompareStats(DPSValueText, current.CalculateDps()>=other.CalculateDps());
+        CompareStats(damageValueText, current.DamagePerProjectile*current.ProjectilePerShot>=other.DamagePerProjectile*other.ProjectilePerShot);
+        CompareStats(accValueText,current.Recoil_HipFire.magnitude<= other.Recoil_HipFire.magnitude);
+        CompareStats(recoilValueText,current.Recoil.magnitude<=other.Recoil.magnitude);
+        CompareStats(reloadValueText, current.ReloadSpeed<= other.ReloadSpeed);
+        CompareStats(fireRateValueText, current.GetRPM >= other.GetRPM);
+        CompareStats(magSizeValueText, current.MagazineSize>= other.MagazineSize);
+        CompareStats(rangeValueText, current.Range>= other.Range);
+        CompareStats(eleDmgValueText, current.ElementDamage>=other.ElementDamage);
+        CompareStats(eleChanceValueText, current.ElementChance>= other.ElementChance);
+        CompareStats(elePotencyValueText, current.ElementPotency>=other.ElementPotency);
+
+    }
+
+    public void CompareStats(MainGunStatsScript other)
+    {
+        if (currentStats)
+        {
+            CompareStats(currentStats,other);
+        }
+    }
+
+    void CompareStats(TextMeshProUGUI text, bool b)
+    {
+        if (b)
+        {
+            text.color = betterColour;
+        }
+        else
+        {
+            text.color = worseColour;
+        }
+    }
+    
+    
 }
