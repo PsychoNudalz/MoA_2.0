@@ -60,9 +60,10 @@ public class PlayerGunDamageScript : GunDamageScript
                         CorrectRecoil();
                     }
                 }
-
-                ShotDataManager.Add(shotData);
-
+                else
+                {
+                    ShotDataManager.Add(shotData);
+                }
             }
             else
             {

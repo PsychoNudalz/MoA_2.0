@@ -576,6 +576,7 @@ public class GunDamageScript : DamageScript
         if (Physics.Raycast(firePoint.transform.position, dir, out raycastHit, range * 1.5f, layerMask))
         {
             shotData.IsHit = true;
+            shotData.HitPos = raycastHit.point;
 
             Instantiate(impactEffect, raycastHit.point, Quaternion.Euler(raycastHit.normal));
             if (tagList.Contains(raycastHit.collider.tag) &&
@@ -583,7 +584,6 @@ public class GunDamageScript : DamageScript
                  raycastHit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
             {
                 shotData.IsTargetHit = true;
-                shotData.HitPos = raycastHit.point;
 
 
                 float dropOff =
