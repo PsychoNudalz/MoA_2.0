@@ -128,7 +128,9 @@ public class Perk_PointExplosion : Perk
         foreach (PointExplosionPoint pointExplosionPoint in pointExplosionPoints)
         {
             pointExplosionPoint.transform.parent = null;
+            pointExplosionPoint.gameObject.SetActive(false);
         }
+        pointExplosionSphere.gameObject.SetActive(false);
     }
 
     protected override void OnUpdate()
