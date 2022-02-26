@@ -108,7 +108,11 @@ public class Perk_PointExplosion : Perk
 
     public override void OnDurationEnd()
     {
-        
+        if (isPlayerPerk)
+        {
+            PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.REMOVE);
+            //perkEffectController?.PlayActivate();
+        }
     }
 
     public override void OnActivatePerk(Object data = null)
@@ -151,11 +155,7 @@ public class Perk_PointExplosion : Perk
         isActive = false;
         stack_Current = 1;
         ResetDuration();
-        lastHits = new List<Vector3>();
-        foreach (PointExplosionPoint pointExplosionPoint in pointExplosionPoints)
-        {
-            pointExplosionPoint.gameObject.SetActive(false);
-        }
+        ResetPoints();
     }
 
 
@@ -193,13 +193,19 @@ public class Perk_PointExplosion : Perk
     {
         if (lastHits.Count<stack_Max|| Vector3.Distance(averagePoint,lastHits[0])>maxRange)
         {
+            Vector3 temp = lastHits[lastHits.Count-1];
             pointExplosionSphere.gameObject.SetActive(false);
             duration_Current = 0;
             if (moveCoroutine!=null)
             {
                 StopCoroutine(moveCoroutine);
             }
-            
+
+            if (lastHits.Count > 1&&Vector3.Distance(averagePoint,lastHits[lastHits.Count-1])>maxRange)
+            {
+                ResetPoints();
+                AddNewPoint(temp);
+            }
         }
         else
         {
@@ -207,6 +213,15 @@ public class Perk_PointExplosion : Perk
         }
 
 
+    }
+
+    void ResetPoints()
+    {
+        lastHits = new List<Vector3>();
+        foreach (PointExplosionPoint pointExplosionPoint in pointExplosionPoints)
+        {
+            pointExplosionPoint.gameObject.SetActive(false);
+        }
     }
 
     Vector3 CalculateAveragePoint(Vector3[] posList)
@@ -227,6 +242,24 @@ public class Perk_PointExplosion : Perk
         pointExplosionSphere.gameObject.SetActive(true);
         pointExplosionSphere.transform.position = averagePoint;
     }
-    
-    
+
+    public override void OnUnequip()
+    {
+        base.OnUnequip();
+        if (isPlayerPerk)
+        {
+            PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.REMOVE);
+            //perkEffectController?.PlayActivate();
+        }
+    }
+
+    public override void OnEquip()
+    {
+        base.OnEquip();
+        if (isActive&&isPlayerPerk)
+        {
+            PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.ADD);
+            //perkEffectController?.PlayActivate();
+        }
+    }
 }
