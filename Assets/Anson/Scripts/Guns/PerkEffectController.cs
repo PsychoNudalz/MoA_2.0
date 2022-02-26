@@ -51,9 +51,9 @@ public class PerkEffectController : MonoBehaviour
         croppedTexture.Apply();
         foreach (VisualEffect visualEffect in GetComponentsInChildren<VisualEffect>())
         {
-            if (visualEffect.HasTexture("PerkSprite"))
+            if (visualEffect.HasTexture("_MainTex"))
             {
-                visualEffect.SetTexture("PerkSprite", croppedTexture);
+                visualEffect.SetTexture("_MainTex", croppedTexture);
             }
         }
     }

@@ -34,7 +34,7 @@ public class Perk_PointExplosion : Perk
     {
         //OnActivatePerk();
 
-        if (duration_Current > 0)
+        if ((duration_Current > 0&&duration_Current < duration)||(shotData.TargetLs&&shotData.TargetLs.Equals(pointExplosionSphere.PointExplosionLifeSystem)))
         {
             return;
         }
@@ -50,7 +50,6 @@ public class Perk_PointExplosion : Perk
             if (isPlayerPerk)
             {
                 PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.ADD);
-                perkEffectController?.PlayActivate();
             }
         }
         else
@@ -58,7 +57,6 @@ public class Perk_PointExplosion : Perk
             if (isPlayerPerk)
             {
                 PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.UPDATE);
-                perkEffectController?.PlayActivate();
             }
         }
     }
@@ -116,6 +114,11 @@ public class Perk_PointExplosion : Perk
     public override void OnActivatePerk(Object data = null)
     {
         base.OnActivatePerk(data);
+        if (isPlayerPerk)
+        {
+            PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.UPDATE);
+            perkEffectController?.PlayActivate();
+        }
         moveCoroutine = StartCoroutine(DelayMoveExplosiveSphere());
         pointExplosionSphere.SetPrime();
         ResetDuration();
@@ -146,6 +149,7 @@ public class Perk_PointExplosion : Perk
     {
         //base.OnDeactivatePerk();
         isActive = false;
+        stack_Current = 1;
         ResetDuration();
         lastHits = new List<Vector3>();
         foreach (PointExplosionPoint pointExplosionPoint in pointExplosionPoints)
@@ -190,10 +194,12 @@ public class Perk_PointExplosion : Perk
         if (lastHits.Count<stack_Max|| Vector3.Distance(averagePoint,lastHits[0])>maxRange)
         {
             pointExplosionSphere.gameObject.SetActive(false);
+            duration_Current = 0;
             if (moveCoroutine!=null)
             {
                 StopCoroutine(moveCoroutine);
             }
+            
         }
         else
         {

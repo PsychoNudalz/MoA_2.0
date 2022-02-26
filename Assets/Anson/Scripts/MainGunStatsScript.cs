@@ -351,6 +351,9 @@ public class MainGunStatsScript : GunStatsScript
         {
             recoil.y = 0;
         }
+        
+        
+        gunPerkController.InitialisePerks();
 
 
         transform.position += transform.forward;

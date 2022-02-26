@@ -87,6 +87,7 @@ public class ShotData
         get => isElementTrigger;
         set => isElementTrigger = value;
     }
+    
 
     public ShotData()
     {

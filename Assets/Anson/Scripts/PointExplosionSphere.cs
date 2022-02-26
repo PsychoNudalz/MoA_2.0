@@ -38,6 +38,8 @@ public class PointExplosionSphere : MonoBehaviour
 
     public bool IsPrimed => isPrimed;
 
+    public PointExplosionLifeSystem PointExplosionLifeSystem => pointExplosionLifeSystem;
+
     private void Awake()
     {
         if (animator)
@@ -50,19 +52,22 @@ public class PointExplosionSphere : MonoBehaviour
     {
         if (isPrimed)
         {
+            isPrimed = false;
             StartCoroutine(delayExplode(dmg, level));
 
             if (perkParent)
             {
                 perkParent.OnDeactivatePerk();
             }
-
-            isPrimed = false;
         }
     }
 
     public void SetPrime()
     {
+        if (isPrimed)
+        {
+            return;
+        }
         isPrimed = true;
         animator.SetTrigger("Reset");
 

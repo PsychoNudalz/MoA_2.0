@@ -293,7 +293,7 @@ public class GunDamageScript : DamageScript
         if (g.GunPerkController)
         {
             gunPerkController = g.GunPerkController;
-            gunPerkController.InitialisePerks(g.gameObject.GetComponentsInChildren<GunComponent_Perk>(),this,g,g);
+            gunPerkController.InitialisePerks(this,g,g);
         }
 
 

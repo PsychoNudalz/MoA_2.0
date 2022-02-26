@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using QFSW.QC;
 using UnityEngine;
 
 [Serializable]
@@ -91,8 +92,15 @@ public class GunManager : MonoBehaviour
 
     public GCSSaveCollection GCSSaveCollection { get => gCSSaveCollection; set => gCSSaveCollection = value; }
 
+
+    public static GunManager current;
     private void Awake()
     {
+        if (current)
+        {
+            Destroy(current);
+        }
+        current = this;
         if (gCSSaveCollection == null)
         {
             AssignGCSelections();
@@ -290,5 +298,13 @@ public class GunManager : MonoBehaviour
             Destroy(g);
         }
 
+    }
+
+
+
+    [Command()]
+    public static void GenerateGuns(int numberOfGuns = 10, int minRarity= 6, int maxRarity = 6)
+    {
+        current.GenerateGun(numberOfGuns, minRarity, maxRarity);
     }
 }

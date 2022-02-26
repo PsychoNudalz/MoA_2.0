@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,18 +19,26 @@ public class GunPerkController : MonoBehaviour
 
     public Perk[] Perks => perks;
 
-    public void InitialisePerks(GunComponent_Perk[] gunComponentPerks,GunDamageScript gunDamageScript, MainGunStatsScript mainGunStatsScript,
-        GunStatsScript originalGunStatsScript)
+
+    public void InitialisePerks()
     {
         List<Perk> temp = new List<Perk>();
-        foreach (GunComponent_Perk gunComponentPerk in gunComponentPerks)
+
+        foreach (GunComponent_Perk gunComponentPerk in GetComponentsInChildren<GunComponent_Perk>())
         {
             temp.Add(gunComponentPerk.Perk);
-            gunComponentPerk.Perk.Initialise(gunDamageScript,mainGunStatsScript,originalGunStatsScript);
         }
-
-        
         perks = temp.ToArray();
+
+    }
+
+    public void InitialisePerks(GunDamageScript gunDamageScript, MainGunStatsScript mainGunStatsScript,
+        GunStatsScript originalGunStatsScript)
+    {
+        foreach (Perk perk in perks)
+        {
+            perk.Initialise(gunDamageScript,mainGunStatsScript,originalGunStatsScript);
+        }
     }
 
     public void InitialisePerkPlayerController(PlayerController playerController)

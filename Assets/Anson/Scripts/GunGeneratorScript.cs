@@ -232,7 +232,7 @@ public class GunGeneratorScript : MonoBehaviour
                     SetProjectile(newComponent.GetComponent<GunComponent_Magazine>().Projectile);
                 }else if (newComponent.GetGunComponentType().Equals(GunComponents.PERK))
                 {
-                    
+                    // Debug.Log($"{currentConnection.transform.parent} adding new perk: {newComponent.name}");
                 }
 
                 if (!isExtra)
