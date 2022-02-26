@@ -68,4 +68,9 @@ public class GunConnectionPoint : MonoBehaviour
         return new List<GunComponents>(compatableComponents);
     }
 
+    public bool HasComponent()
+    {
+        return connectedComponent != null;
+    }
+
 }

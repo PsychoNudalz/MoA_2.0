@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: -3762830182510449287}
   - component: {fileID: 9141042611115784029}
   m_Layer: 14
-  m_Name: StatBoost_Main
+  m_Name: StatBoost_Perk
   m_TagString: Gun
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -111,6 +111,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6670221811815623296}
+  - {fileID: 2383754090651003794}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -128,11 +129,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentType: 8
   gunTypes: 0000000001000000020000000300000004000000
-  essentialConnectionPoints: []
+  essentialConnectionPoints:
+  - {fileID: 4153415221432285989}
   potentialConnectionPoints: []
   componentGunStatsScript: {fileID: 9141042611115784029}
-  componentName: 
-  componentCost: 1
+  componentName: Extra Perk Slot
+  componentCost: 100
 --- !u!114 &9141042611115784029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +163,90 @@ MonoBehaviour:
   recoilM: {x: 1, y: 1}
   rangeM: 1
   magazineSizeM: 1
+--- !u!1001 &6909844561402398554
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8009985243808467278}
+    m_Modifications:
+    - target: {fileID: 5833226756283236716, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_Name
+      value: CP_Perk
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.158
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.028
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.135
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d5b942e0e1485a74880a4b32c3f4079a, type: 3}
+--- !u!4 &2383754090651003794 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9146943557589609672, guid: d5b942e0e1485a74880a4b32c3f4079a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6909844561402398554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4153415221432285989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7369954043296611455, guid: d5b942e0e1485a74880a4b32c3f4079a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6909844561402398554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aed2c6f2b93f3745b990e44238da0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

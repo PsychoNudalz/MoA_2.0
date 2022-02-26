@@ -166,81 +166,83 @@ public class GunGeneratorScript : MonoBehaviour
         return returnList;
     }
 
-    void AddRandomComponents(List<GunConnectionPoint> connectionList, bool isExtra = false,int infiniteLoopCounter = 0)
+    void AddRandomComponents(List<GunConnectionPoint> connectionList, bool isExtra = false, int infiniteLoopCounter = 0)
     {
         int infiniteLoopMax = 10;
         foreach (GunConnectionPoint currentConnection in connectionList)
         {
-            //Getting all compatable components
-            List<GunComponent> possibleComponents = new List<GunComponent>();
-            foreach (GunComponents compatableComp in currentConnection.GetGunComponents())
+            if (!currentConnection.HasComponent())
             {
-                possibleComponents.AddRange(GetComponentList(compatableComp));
-            }
-
-            if (debugMode)
-            {
-                Debug.Log("Found " + possibleComponents.Count + " possible components for " + currentConnection.name);
-            }
-
-            //Start assigning if possible
-            if (possibleComponents.Count > 0)
-            {
-                GunComponent newComponent;
-
-                GunComponent currentRandomComponent =
-                    possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
-                while (!currentConnection.IsCompatable(currentRandomComponent) && possibleComponents.Count > 1)
+                //Getting all compatable components
+                List<GunComponent> possibleComponents = new List<GunComponent>();
+                foreach (GunComponents compatableComp in currentConnection.GetGunComponents())
                 {
-                    if (debugMode)
-                    {
-                        print(currentRandomComponent.name + "  incompatable");
-                    }
-
-                    possibleComponents.Remove(currentRandomComponent);
-                    currentRandomComponent =
-                        possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
+                    possibleComponents.AddRange(GetComponentList(compatableComp));
                 }
-
-                newComponent = Instantiate(currentRandomComponent);
-                currentConnection.SetComponent(newComponent);
-                newComponent.transform.SetParent(currentConnection.transform);
-                newComponent.transform.position = currentConnection.GetPosition();
-                newComponent.transform.rotation = currentConnection.GetQuaternion();
 
                 if (debugMode)
                 {
-                    Debug.Log("Happened with: " + currentConnection + " and " + currentRandomComponent);
+                    Debug.Log(
+                        "Found " + possibleComponents.Count + " possible components for " + currentConnection.name);
                 }
 
-                currentMainGunStatsScript.AddStats(newComponent.GetComponent<ComponentGunStatsScript>());
-                if (newComponent.GetGunComponentType().Equals(GunComponents.SIGHT))
+                //Start assigning if possible
+                if (possibleComponents.Count > 0)
                 {
-                    SetSight(newComponent.GetComponent<GunComponent_Sight>());
-                }
-                else if (newComponent.GetGunComponentType().Equals(GunComponents.BARREL))
-                {
-                    SetMuzzlePoint(newComponent.GetComponent<GunComponent_Barrel>());
-                    SetBarrel(newComponent.GetComponent<GunComponent_Barrel>());
-                }
-                else if (newComponent.GetGunComponentType().Equals(GunComponents.MUZZLE))
-                {
-                    SetMuzzlePoint(newComponent.GetComponent<GunComponent_Muzzle>());
-                }
-                else if (newComponent.GetGunComponentType().Equals(GunComponents.MAGAZINE))
-                {
-                    SetProjectile(newComponent.GetComponent<GunComponent_Magazine>().Projectile);
-                }else if (newComponent.GetGunComponentType().Equals(GunComponents.PERK))
-                {
-                    // Debug.Log($"{currentConnection.transform.parent} adding new perk: {newComponent.name}");
-                }
+                    GunComponent newComponent;
 
-                if (!isExtra)
-                {
+                    GunComponent currentRandomComponent =
+                        possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
+                    while (!currentConnection.IsCompatable(currentRandomComponent) && possibleComponents.Count > 1)
+                    {
+                        if (debugMode)
+                        {
+                            print(currentRandomComponent.name + "  incompatable");
+                        }
+
+                        possibleComponents.Remove(currentRandomComponent);
+                        currentRandomComponent =
+                            possibleComponents[Mathf.RoundToInt(Random.Range(0, possibleComponents.Count))];
+                    }
+
+                    newComponent = Instantiate(currentRandomComponent);
+                    currentConnection.SetComponent(newComponent);
+                    newComponent.transform.SetParent(currentConnection.transform);
+                    newComponent.transform.position = currentConnection.GetPosition();
+                    newComponent.transform.rotation = currentConnection.GetQuaternion();
+
+                    if (debugMode)
+                    {
+                        Debug.Log("Happened with: " + currentConnection + " and " + currentRandomComponent);
+                    }
+
+                    currentMainGunStatsScript.AddStats(newComponent.GetComponent<ComponentGunStatsScript>());
+                    if (newComponent.GetGunComponentType().Equals(GunComponents.SIGHT))
+                    {
+                        SetSight(newComponent.GetComponent<GunComponent_Sight>());
+                    }
+                    else if (newComponent.GetGunComponentType().Equals(GunComponents.BARREL))
+                    {
+                        SetMuzzlePoint(newComponent.GetComponent<GunComponent_Barrel>());
+                        SetBarrel(newComponent.GetComponent<GunComponent_Barrel>());
+                    }
+                    else if (newComponent.GetGunComponentType().Equals(GunComponents.MUZZLE))
+                    {
+                        SetMuzzlePoint(newComponent.GetComponent<GunComponent_Muzzle>());
+                    }
+                    else if (newComponent.GetGunComponentType().Equals(GunComponents.MAGAZINE))
+                    {
+                        SetProjectile(newComponent.GetComponent<GunComponent_Magazine>().Projectile);
+                    }
+                    else if (newComponent.GetGunComponentType().Equals(GunComponents.PERK))
+                    {
+                        // Debug.Log($"{currentConnection.transform.parent} adding new perk: {newComponent.name}");
+                    }
+
                     if (infiniteLoopCounter < infiniteLoopMax)
                     {
-                        AddRandomComponents(newComponent.EssentialConnectionPoints,isExtra,infiniteLoopCounter+1);
-                        
+                        AddRandomComponents(newComponent.EssentialConnectionPoints, isExtra,
+                            infiniteLoopCounter + 1);
                     }
                     else
                     {
