@@ -293,7 +293,7 @@ public class GunDamageScript : DamageScript
         if (g.GunPerkController)
         {
             gunPerkController = g.GunPerkController;
-            gunPerkController.InitialisePerks(this,g,g);
+            gunPerkController.InitialisePerks(this, g, g);
         }
 
 
@@ -580,7 +580,7 @@ public class GunDamageScript : DamageScript
 
             Instantiate(impactEffect, raycastHit.point, Quaternion.Euler(raycastHit.normal));
             LifeSystemScript ls = raycastHit.collider.GetComponentInParent<LifeSystemScript>();
-            
+
             if (tagList.Contains(raycastHit.collider.tag) &&
                 (ls ||
                  raycastHit.collider.TryGetComponent(out WeakPointScript weakPointScript)))
@@ -620,7 +620,7 @@ public class GunDamageScript : DamageScript
                 if (Random.Range(0, 1f) <= elementChance)
                 {
                     shotData.IsElementTrigger = true;
-                    shotData.IsKill = shotData.IsKill|| ApplyElementEffect(ls);
+                    shotData.IsKill = shotData.IsKill || ApplyElementEffect(ls);
                 }
 
                 hitTarget = true;
@@ -809,7 +809,7 @@ public class GunDamageScript : DamageScript
 
     bool ApplyElementEffect(LifeSystemScript ls)
     {
-       return base.ApplyElementEffect(ls, elementDamage, elementPotency, elementType);
+        return base.ApplyElementEffect(ls, elementDamage, elementPotency, elementType);
     }
 
 
@@ -893,7 +893,7 @@ public class GunDamageScript : DamageScript
 
         isReloading = false;
     }
-    
+
     public void AddPerkStats(PerkGunStatsScript g)
     {
         damagePerProjectile += g.DamagePerProjectile;
@@ -906,21 +906,35 @@ public class GunDamageScript : DamageScript
         elementDamage += g.ElementDamage;
         elementPotency += g.ElementPotency;
         elementChance += g.ElementChance;
-        
-        damagePerProjectile = damagePerProjectile * g.damagePerProjectileM;
+
+        damagePerProjectile =  damagePerProjectile * g.damagePerProjectileM;
         RPM = RPM * g.RPMM;
         reloadSpeed = reloadSpeed * g.reloadSpeedM;
         //recoil = recoil * g.recoilM;
         recoil = new Vector2(recoil.x * g.recoilM.x, recoil.y * g.recoilM.y);
         recoil_HipFire = new Vector2(recoil_HipFire.x * g.recoilM.x, recoil_HipFire.y * g.recoilM.y);
         range = range * g.rangeM;
-        magazineSize = magazineSize * g.magazineSizeM ;
+        magazineSize = magazineSize * g.magazineSizeM;
 
         timeUntilFire = 60f / RPM;
-        gunEffectsController.updateAnimatorSpeeds(reloadSpeed,RPM);
- 
+        gunEffectsController.updateAnimatorSpeeds(reloadSpeed, RPM);
     }
-    
+
+    public void AddPerkStatsAdditive(PerkGunStatsScript g)
+    {
+        damagePerProjectile += mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM-1);
+        RPM += mainGunStatsScript.GetRPM * (g.RPMM-1);
+        reloadSpeed += mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM-1);
+        //recoil = recoil * g.recoilM;
+        recoil += new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x-1), mainGunStatsScript.Recoil.y * (g.recoilM.y-1));
+        recoil_HipFire += new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.recoilM.x-1), mainGunStatsScript.Recoil_HipFire.y * (g.recoilM.y-1));
+        range += mainGunStatsScript.Range * (g.rangeM-1);
+        magazineSize += mainGunStatsScript.MagazineSize * (g.magazineSizeM-1);
+
+        timeUntilFire = 60f / RPM;
+        gunEffectsController.updateAnimatorSpeeds(reloadSpeed, RPM);
+    }
+
     public void RemovePerkStats(PerkGunStatsScript g)
     {
         damagePerProjectile -= g.DamagePerProjectile;
@@ -933,7 +947,7 @@ public class GunDamageScript : DamageScript
         elementDamage -= g.ElementDamage;
         elementPotency -= g.ElementPotency;
         elementChance -= g.ElementChance;
-        
+
         damagePerProjectile /= g.damagePerProjectileM;
         RPM /= g.RPMM;
         reloadSpeed /= g.reloadSpeedM;
@@ -941,19 +955,30 @@ public class GunDamageScript : DamageScript
         recoil = new Vector2(recoil.x / g.recoilM.x, recoil.y / g.recoilM.y);
         recoil_HipFire = new Vector2(recoil_HipFire.x / g.recoilM.x, recoil_HipFire.y / g.recoilM.y);
         range /= g.rangeM;
-        magazineSize /= g.magazineSizeM ;
+        magazineSize /= g.magazineSizeM;
 
         timeUntilFire = 60f / RPM;
-        gunEffectsController.updateAnimatorSpeeds(reloadSpeed,RPM);
+        gunEffectsController.updateAnimatorSpeeds(reloadSpeed, RPM);
+    }
 
+    public void RemovePerkStatsAdditive(PerkGunStatsScript g)
+    {
+        damagePerProjectile -= mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM-1);
+        RPM -= mainGunStatsScript.GetRPM * (g.RPMM-1);
+        reloadSpeed -= mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM-1);
+        //recoil = recoil * g.recoilM;
+        recoil -= new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x-1), mainGunStatsScript.Recoil.y * (g.recoilM.y-1));
+        recoil_HipFire -= new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.recoilM.x-1), mainGunStatsScript.Recoil_HipFire.y * (g.recoilM.y-1));
+        range -= mainGunStatsScript.Range * (g.rangeM-1);
+        magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM-1);
+        magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM-1);
 
+        timeUntilFire = 60f / RPM;
+        gunEffectsController.updateAnimatorSpeeds(reloadSpeed, RPM);
     }
 
     public virtual void AddAmmoToCurrentMag(int ammo)
     {
         currentMag += ammo;
-        
     }
-    
-    
 }

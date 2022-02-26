@@ -83,7 +83,7 @@ public class Perk_HeavyLoader : Perk
         perkStatsScript.reloadSpeedM =
             (1 - perkBoostCurve.Evaluate(gunDamageScript.CurrentMag / gunDamageScript.MagazineSize) *
                 (1 - maxMultiplier));
-        gunDamageScript.AddPerkStats(perkStatsScript);
+        gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
     }
 
     public override void OnDeactivatePerk()
@@ -93,7 +93,7 @@ public class Perk_HeavyLoader : Perk
             return;
         }
         base.OnDeactivatePerk();
-        gunDamageScript.RemovePerkStats(perkStatsScript);
+        gunDamageScript.RemovePerkStatsAdditive(perkStatsScript);
 
     }
 }

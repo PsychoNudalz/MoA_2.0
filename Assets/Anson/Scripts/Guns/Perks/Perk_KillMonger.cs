@@ -61,7 +61,7 @@ public class Perk_KillMonger : Perk
 
        if (CanStack())
        {
-           gunDamageScript.AddPerkStats(perkStatsScript);
+           gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
            AddStacks(1);
            print($"Activate Kill monger {stack_Current}");
        }
@@ -86,7 +86,7 @@ public class Perk_KillMonger : Perk
     public override void OnDeactivatePerk()
     {
         base.OnDeactivatePerk();
-        RemoveAllStack();
+        RemoveAllStackedStats();
     }
 
     public override void OnUnequip()

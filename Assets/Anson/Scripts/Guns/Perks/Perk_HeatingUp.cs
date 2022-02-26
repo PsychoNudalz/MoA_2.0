@@ -57,7 +57,7 @@ public class Perk_HeatingUp : Perk
 
         if (CanStack())
         {
-            gunDamageScript.AddPerkStats(perkStatsScript);
+            gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
             AddStacks(1);
             print($"Activate Kill monger {stack_Current}");
         }
@@ -84,7 +84,7 @@ public class Perk_HeatingUp : Perk
         if (stack_Current > 0)
         {
             AddStacks(-1);
-            gunDamageScript.RemovePerkStats(perkStatsScript);
+            gunDamageScript.RemovePerkStatsAdditive(perkStatsScript);
 
             if (stack_Current != 0)
             {
@@ -105,7 +105,7 @@ public class Perk_HeatingUp : Perk
             
         }
 
-        //RemoveAllStack();
+        //RemoveAllStackedStats();
     }
 
     public override void OnUnequip()

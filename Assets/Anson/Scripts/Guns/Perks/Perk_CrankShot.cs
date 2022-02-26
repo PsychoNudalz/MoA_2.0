@@ -76,7 +76,7 @@ public class Perk_CrankShot : Perk
 
     public override void OnActivatePerk(Object data = null)
     {
-        gunDamageScript.AddPerkStats(perkStatsScript);
+        gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
         AddStacks(1);
         base.OnActivatePerk(data);
 
@@ -84,7 +84,7 @@ public class Perk_CrankShot : Perk
 
     public override void OnDeactivatePerk()
     {
-        RemoveAllStack();
+        RemoveAllStackedStats();
         base.OnDeactivatePerk();
     }
 
