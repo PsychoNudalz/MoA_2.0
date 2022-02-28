@@ -34,7 +34,7 @@ public abstract class Perk : MonoBehaviour
     protected int stack_Max = 1;
 
     [SerializeField]
-    protected float duration = 0;
+    protected float duration = 1;
 
     [SerializeField]
     protected float duration_Current = 0;

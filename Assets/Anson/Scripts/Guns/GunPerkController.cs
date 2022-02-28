@@ -28,8 +28,8 @@ public class GunPerkController : MonoBehaviour
         {
             temp.Add(gunComponentPerk.Perk);
         }
-        perks = temp.ToArray();
 
+        perks = temp.ToArray();
     }
 
     public void InitialisePerks(GunDamageScript gunDamageScript, MainGunStatsScript mainGunStatsScript,
@@ -37,7 +37,7 @@ public class GunPerkController : MonoBehaviour
     {
         foreach (Perk perk in perks)
         {
-            perk.Initialise(gunDamageScript,mainGunStatsScript,originalGunStatsScript);
+            perk.Initialise(gunDamageScript, mainGunStatsScript, originalGunStatsScript);
         }
     }
 
@@ -92,9 +92,11 @@ public class GunPerkController : MonoBehaviour
                 perk.OnTargetHit(shotData);
             }
         }
-    }    public void OnReloadStart()
+    }
+
+    public void OnReloadStart()
     {
-        foreach(Perk perk in perks)
+        foreach (Perk perk in perks)
         {
             perk.OnReloadStart();
         }
@@ -102,15 +104,15 @@ public class GunPerkController : MonoBehaviour
 
     public void OnReloadEnd()
     {
-        foreach(Perk perk in perks)
+        foreach (Perk perk in perks)
         {
             perk.OnReloadEnd();
         }
     }
-    
+
     public void OnPerReload()
     {
-        foreach(Perk perk in perks)
+        foreach (Perk perk in perks)
         {
             perk.OnPerReload();
         }
@@ -123,7 +125,7 @@ public class GunPerkController : MonoBehaviour
             perk.OnUnequip();
         }
     }
-    
+
     public void OnEquip()
     {
         foreach (Perk perk in perks)
