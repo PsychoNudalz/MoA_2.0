@@ -237,6 +237,7 @@ public class GunGeneratorScript : MonoBehaviour
                     else if (newComponent.GetGunComponentType().Equals(GunComponents.PERK))
                     {
                         // Debug.Log($"{currentConnection.transform.parent} adding new perk: {newComponent.name}");
+                        AddPerk(newComponent as GunComponent_Perk);
                     }
 
                     if (infiniteLoopCounter < infiniteLoopMax)
@@ -402,6 +403,12 @@ public class GunGeneratorScript : MonoBehaviour
     void SetProjectile(GameObject g)
     {
         newGun.SetProjectile(g);
+    }
+
+    void AddPerk(GunComponent_Perk p)
+    {
+        currentMainGunStatsScript.GunPerkController.AddPerk(p.Perk);
+
     }
 
     public void ResetLists()

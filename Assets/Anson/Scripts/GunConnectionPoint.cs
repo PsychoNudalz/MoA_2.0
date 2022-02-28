@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mono.CSharp;
 using UnityEngine;
 
 [System.Serializable]
@@ -36,6 +37,23 @@ public class GunConnectionPoint : MonoBehaviour
     public bool IsCompatable(GunComponent g)
     {
         bool compatable = false;
+        if (g is GunComponent_Perk)
+        {
+            GunComponent_Perk gp = g as GunComponent_Perk;
+            if (!gp.IsStackable)
+            {
+                Perk[] perks = GetComponentInParent<GunPerkController>().Perks;
+                foreach (Perk perk in perks)
+                {
+                    print($"{perk.GetType()} , {gp.Perk.GetType()}");
+                    if (perk.GetType().IsInstanceOfType(gp.Perk))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        
         if (compatableComponents.Contains(g.GetGunComponentType()))
         {
             //print(g.name + " Compatable component");

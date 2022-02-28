@@ -113,7 +113,7 @@ public class PlayerGunDamageScript : GunDamageScript
     public override bool Shoot(ShotData shotData = null)
     {
         bool temp = base.Shoot(shotData);
-        if (shotData != null)
+        if (temp&& shotData != null)
         {
             gunPerkController.OnShoot(shotData);
         }

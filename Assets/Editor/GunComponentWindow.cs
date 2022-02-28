@@ -243,8 +243,8 @@ public class GunComponentMasterController
     {
         foreach (GunComponent_Perk gunComponentPerk in FileLoader.GetAllFilesFromResources<GunComponent_Perk>("Guns", "*.prefab", true))
         {
+            gunComponentPerk.AssignPerk();
             gunComponentPerk.GetComponent<PerkEffectController>().SetSprite();
-            
             EditorUtility.SetDirty(gunComponentPerk);
         }
     }

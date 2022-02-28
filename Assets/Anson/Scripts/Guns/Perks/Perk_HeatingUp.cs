@@ -59,7 +59,6 @@ public class Perk_HeatingUp : Perk
         {
             gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
             AddStacks(1);
-            print($"Activate Kill monger {stack_Current}");
         }
 
         ResetDuration();
@@ -67,12 +66,10 @@ public class Perk_HeatingUp : Perk
 
     public override void OnFixedUpdate()
     {
-        if (isActive && duration_Current < 0)
-        {
-            duration_Current = 0;
-            OnDurationEnd();
-        }
+        IfDurationEnd();
     }
+
+
 
     public override void OnDurationEnd()
     {
@@ -81,32 +78,12 @@ public class Perk_HeatingUp : Perk
 
     public override void OnDeactivatePerk()
     {
-        if (stack_Current > 0)
-        {
-            AddStacks(-1);
-            gunDamageScript.RemovePerkStatsAdditive(perkStatsScript);
-
-            if (stack_Current != 0)
-            {
-                ResetDuration();
-                if (isPlayerPerk)
-                {
-                    PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.UPDATE);
-                }
-            }
-            else
-            {
-                base.OnDeactivatePerk();
-            }
-
-        }
-        else
-        {
-            
-        }
+        DeactivatePerStack();
 
         //RemoveAllStackedStats();
     }
+
+    
 
     public override void OnUnequip()
     {

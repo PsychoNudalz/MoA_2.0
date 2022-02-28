@@ -9,11 +9,22 @@ public class GunComponent_Perk : GunComponent
     [SerializeField]
     private Perk perk;
 
+    [SerializeField]
+    private bool isStackable = true;
+
     public Perk Perk => perk;
+
+    public bool IsStackable => isStackable;
 
     protected override void AwakeBehaviour()
     {
         base.AwakeBehaviour();
+        AssignPerk();
+    }
+
+    [ContextMenu("Assign Perk")]
+    public void AssignPerk()
+    {
         if (!perk)
         {
             perk = GetComponent<Perk>();

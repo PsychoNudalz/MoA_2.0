@@ -20,6 +20,13 @@ public class GunPerkController : MonoBehaviour
     public Perk[] Perks => perks;
 
 
+    public void AddPerk(Perk p)
+    {
+        List<Perk> temp = new List<Perk>(perks);
+        temp.Add(p);
+        perks = temp.ToArray();
+    }
+
     public void InitialisePerks()
     {
         List<Perk> temp = new List<Perk>();

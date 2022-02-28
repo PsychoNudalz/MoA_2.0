@@ -200,4 +200,47 @@ public abstract class Perk : MonoBehaviour
 
         return duration_Current / duration;
     }
+    
+    protected void DeactivatePerStack(bool isAdditive = true)
+    {
+        if (stack_Current > 0)
+        {
+            AddStacks(-1);
+            if (isAdditive)
+            {
+                gunDamageScript.RemovePerkStatsAdditive(perkStatsScript);
+            }
+
+            else
+            {
+                gunDamageScript.RemovePerkStats(perkStatsScript);
+            }
+
+            if (stack_Current != 0)
+            {
+                ResetDuration();
+                if (isPlayerPerk)
+                {
+                    PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.UPDATE);
+                }
+            }
+            else
+            {
+                OnDeactivatePerk();
+            }
+        }
+        else
+        {
+        }
+    }
+    protected void IfDurationEnd()
+    {
+        if (isActive && duration_Current < 0)
+        {
+            duration_Current = 0;
+            OnDurationEnd();
+        }
+    }
+    
+    
 }
