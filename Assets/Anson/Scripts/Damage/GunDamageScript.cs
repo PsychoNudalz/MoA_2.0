@@ -125,6 +125,9 @@ public class GunDamageScript : DamageScript
     [SerializeField]
     protected float currentRecoilTime = 0f;
 
+    [SerializeField]
+    protected float recoilDegree;
+
 
     [Header("Other Fields")]
     [SerializeField]
@@ -172,6 +175,8 @@ public class GunDamageScript : DamageScript
 
     public GunTypes GunType => gunType;
 
+    public float RecoilDegree => recoilDegree;
+
     private void Awake()
     {
         AwakeBehaviour();
@@ -209,6 +214,7 @@ public class GunDamageScript : DamageScript
             Vector3 fireDir = firePoint.transform.forward;
             Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.green, 0f);
         }
+        UpdateRecoilDegree();
     }
 
 
@@ -420,6 +426,7 @@ public class GunDamageScript : DamageScript
             currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenter);
         }
 
+       
 
         if (currentRecoilTime > 0)
         {
@@ -514,8 +521,9 @@ public class GunDamageScript : DamageScript
     bool Raycast_HipFire(ShotData shotData)
     {
         bool hitTarget = false;
-        float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0,
-            recoil_HipFire.y);
+        float randomX = Random.Range(0, currentRecoil.x * UniversalValues.HipFireRecoilMultiplier) +
+                        Random.Range(0, recoil_HipFire.x);
+        randomX = Mathf.Clamp(randomX, 0, recoil_HipFire.y);
 
         randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
 
@@ -907,7 +915,7 @@ public class GunDamageScript : DamageScript
         elementPotency += g.ElementPotency;
         elementChance += g.ElementChance;
 
-        damagePerProjectile =  damagePerProjectile * g.damagePerProjectileM;
+        damagePerProjectile = damagePerProjectile * g.damagePerProjectileM;
         RPM = RPM * g.RPMM;
         reloadSpeed = reloadSpeed * g.reloadSpeedM;
         //recoil = recoil * g.recoilM;
@@ -922,14 +930,16 @@ public class GunDamageScript : DamageScript
 
     public void AddPerkStatsAdditive(PerkGunStatsScript g)
     {
-        damagePerProjectile += mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM-1);
-        RPM += mainGunStatsScript.GetRPM * (g.RPMM-1);
-        reloadSpeed += mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM-1);
+        damagePerProjectile += mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM - 1);
+        RPM += mainGunStatsScript.GetRPM * (g.RPMM - 1);
+        reloadSpeed += mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM - 1);
         //recoil = recoil * g.recoilM;
-        recoil += new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x-1), mainGunStatsScript.Recoil.y * (g.recoilM.y-1));
-        recoil_HipFire += new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.recoilM.x-1), mainGunStatsScript.Recoil_HipFire.y * (g.recoilM.y-1));
-        range += mainGunStatsScript.Range * (g.rangeM-1);
-        magazineSize += mainGunStatsScript.MagazineSize * (g.magazineSizeM-1);
+        recoil += new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x - 1),
+            mainGunStatsScript.Recoil.y * (g.recoilM.y - 1));
+        recoil_HipFire += new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.recoilM.x - 1),
+            mainGunStatsScript.Recoil_HipFire.y * (g.recoilM.y - 1));
+        range += mainGunStatsScript.Range * (g.rangeM - 1);
+        magazineSize += mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
 
         timeUntilFire = 60f / RPM;
         gunEffectsController.updateAnimatorSpeeds(reloadSpeed, RPM);
@@ -963,15 +973,17 @@ public class GunDamageScript : DamageScript
 
     public void RemovePerkStatsAdditive(PerkGunStatsScript g)
     {
-        damagePerProjectile -= mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM-1);
-        RPM -= mainGunStatsScript.GetRPM * (g.RPMM-1);
-        reloadSpeed -= mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM-1);
+        damagePerProjectile -= mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM - 1);
+        RPM -= mainGunStatsScript.GetRPM * (g.RPMM - 1);
+        reloadSpeed -= mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM - 1);
         //recoil = recoil * g.recoilM;
-        recoil -= new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x-1), mainGunStatsScript.Recoil.y * (g.recoilM.y-1));
-        recoil_HipFire -= new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.recoilM.x-1), mainGunStatsScript.Recoil_HipFire.y * (g.recoilM.y-1));
-        range -= mainGunStatsScript.Range * (g.rangeM-1);
-        magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM-1);
-        magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM-1);
+        recoil -= new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x - 1),
+            mainGunStatsScript.Recoil.y * (g.recoilM.y - 1));
+        recoil_HipFire -= new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.recoilM.x - 1),
+            mainGunStatsScript.Recoil_HipFire.y * (g.recoilM.y - 1));
+        range -= mainGunStatsScript.Range * (g.rangeM - 1);
+        magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
+        magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
 
         timeUntilFire = 60f / RPM;
         gunEffectsController.updateAnimatorSpeeds(reloadSpeed, RPM);
@@ -980,5 +992,11 @@ public class GunDamageScript : DamageScript
     public virtual void AddAmmoToCurrentMag(int ammo)
     {
         currentMag += ammo;
+    }
+
+    protected virtual void UpdateRecoilDegree()
+    {
+        recoilDegree = Mathf.Clamp(currentRecoil.x * UniversalValues.HipFireRecoilMultiplier + recoil_HipFire.x, 0,
+            recoil_HipFire.y);
     }
 }

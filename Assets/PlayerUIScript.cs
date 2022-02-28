@@ -11,7 +11,6 @@ public struct WeaponAmmoPair
 {
     public TextMeshProUGUI gunName;
     public TextMeshProUGUI gunAmmo;
-
 }
 
 public enum ControlPromptType
@@ -24,18 +23,24 @@ public enum ControlPromptType
 public class PlayerUIScript : MonoBehaviour
 {
     public static PlayerUIScript current;
+
     [Header("Gun Stats")]
     public GunDisplayStat currentGunText;
+
     public GunDisplayStat newGunText;
 
     private MainGunStatsScript currentGunStat;
+
     //public TextMeshProUGUI healthText;
     [Header("Enemy info")]
     public Image enemyHealthBar;
+
     public TextMeshProUGUI enemyName;
     public GameObject enemyInfo;
+
     [Header("Player info")]
     public Image healthBar;
+
     public Image dash;
     public Image winScr;
     public TextMeshProUGUI dashChargeDisplay;
@@ -50,40 +55,66 @@ public class PlayerUIScript : MonoBehaviour
 
     [SerializeField]
     private GameObject bounceIcon;
-    
+
     [Header("UI Elements")]
     public GameObject gameOverScreen;
+
     //public GameObject crossAim;
-    public Animator crossAimator;
+    // public Animator crossAimator;
 
     [SerializeField]
+    private CrosshairController crosshairController;
+    
+    [SerializeField]
     private PerkDisplay perkDisplay;
+
     [Header("Inventory")]
     public WeaponAmmoPair gun1;
+
     public WeaponAmmoPair gun2;
+
     public WeaponAmmoPair gun3;
+
     // private WeaponAmmoPair activeGun;
     [Header("Level info")]
     private Sprite portalInactive;
+
     private Sprite portalActive;
+
     public Animator inventoryAnimator;
+
     // private Sprite weaponOnSlot1, weaponOnSlot2, weaponOnSlot3;
     // [SerializeField] private Image inventoryBackground;
-    [SerializeField] private TextMeshProUGUI enemiesRemainingText;
-    [SerializeField] private TextMeshProUGUI enemiesRemainingNumber;
-    [SerializeField] private Image portalIcon;
+    [SerializeField]
+    private TextMeshProUGUI enemiesRemainingText;
+
+    [SerializeField]
+    private TextMeshProUGUI enemiesRemainingNumber;
+
+    [SerializeField]
+    private Image portalIcon;
+
     [Header("Pause Menu")]
     [Tooltip("0:sensitivity 1:ADS 2:Master Volume")]
-    [SerializeField] List<Slider> pauseSlider;
+    [SerializeField]
+    List<Slider> pauseSlider;
 
     [Header("Debug")]
-    [SerializeField] TextMeshProUGUI coinText;
+    [SerializeField]
+    TextMeshProUGUI coinText;
 
-    [SerializeField] Material enemiesBehindObjectMaterial;
-    [SerializeField] int enemiesVisibleValue = 5;
-    
+    [SerializeField]
+    Material enemiesBehindObjectMaterial;
 
-    public List<Slider> PauseSlider { get => pauseSlider; set => pauseSlider = value; }
+    [SerializeField]
+    int enemiesVisibleValue = 5;
+
+
+    public List<Slider> PauseSlider
+    {
+        get => pauseSlider;
+        set => pauseSlider = value;
+    }
 
     private void Start()
     {
@@ -107,7 +138,6 @@ public class PlayerUIScript : MonoBehaviour
         }
 
         current = this;
-
     }
 
     public void SetEnemiesVisibleBehindObjects(bool areVisible)
@@ -122,7 +152,8 @@ public class PlayerUIScript : MonoBehaviour
         }
     }
 
-    public void UpdateActiveGun(int gunIndex) {
+    public void UpdateActiveGun(int gunIndex)
+    {
         inventoryAnimator.SetInteger("GunIndex", gunIndex);
         //     activeGun.gunAmmo.fontSize = 16;
         //     activeGun.gunName.fontSize = 16;
@@ -148,10 +179,12 @@ public class PlayerUIScript : MonoBehaviour
         {
             gun1.gunAmmo.text = s;
         }
+
         if (i == 1)
         {
             gun2.gunAmmo.text = s;
         }
+
         if (i == 2)
         {
             gun3.gunAmmo.text = s;
@@ -178,7 +211,6 @@ public class PlayerUIScript : MonoBehaviour
                     currentGunText.CompareStats(newGunS);
                     newGunText.CompareStats(currentGunStat);
                 }
-
             }
             //currentGunText.text = currentGunS;
         }
@@ -190,10 +222,12 @@ public class PlayerUIScript : MonoBehaviour
         {
             gun1.gunName.text = n;
         }
+
         if (i == 1)
         {
             gun2.gunName.text = n;
         }
+
         if (i == 2)
         {
             gun3.gunName.text = n;
@@ -291,8 +325,8 @@ public class PlayerUIScript : MonoBehaviour
             Debug.LogWarning("SceneLoader not found");
             SceneManager.LoadScene("Base");
         }
-
     }
+
     public void ExitGame()
     {
         Application.Quit();
@@ -300,7 +334,6 @@ public class PlayerUIScript : MonoBehaviour
 
     public void SetEnemiesRemainingText(int numberOfEnemies, bool roomClear)
     {
-        
         SetEnemiesVisibleBehindObjects(numberOfEnemies <= enemiesVisibleValue);
         if (roomClear)
         {
@@ -333,12 +366,13 @@ public class PlayerUIScript : MonoBehaviour
 
     public void SetCrossair(bool b)
     {
-        crossAimator.SetBool("ADS", b);
+        // crossAimator.SetBool("ADS", b);
+        crosshairController?.SetCrosshair(!b);
     }
 
     public void FireCrossair()
     {
-        crossAimator.SetTrigger("Shoot");
+        // crossAimator.SetTrigger("Shoot");
     }
 
     public void DisplayControlPrompt(ControlPromptType controlPromptType)
@@ -377,17 +411,17 @@ public class PlayerUIScript : MonoBehaviour
         {
             if (i is GunAlterInteractableScript)
             {
-                ((GunAlterInteractableScript)i).deactivate();
+                ((GunAlterInteractableScript) i).deactivate();
             }
             else
             {
-            i.deactivate();
-
+                i.deactivate();
             }
         }
     }
 
-    public void WinScreen() {
+    public void WinScreen()
+    {
         winScr.gameObject.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

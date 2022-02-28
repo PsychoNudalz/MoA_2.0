@@ -35,7 +35,10 @@ public class Perk_OverPack : Perk
 
     public override void OnReloadStart()
     {
-        OnActivatePerk();
+        if (gunDamageScript.CurrentMag > 0)
+        {
+            OnActivatePerk();
+        }
     }
 
     public override void OnReloadEnd()
