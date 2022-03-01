@@ -920,7 +920,7 @@ public class GunDamageScript : DamageScript
         reloadSpeed = reloadSpeed * g.reloadSpeedM;
         //recoil = recoil * g.recoilM;
         recoil = new Vector2(recoil.x * g.recoilM.x, recoil.y * g.recoilM.y);
-        recoil_HipFire = new Vector2(recoil_HipFire.x * g.recoilM.x, recoil_HipFire.y * g.recoilM.y);
+        recoil_HipFire = new Vector2(recoil_HipFire.x * g.hipfireM.x, recoil_HipFire.y * g.hipfireM.y);
         range = range * g.rangeM;
         magazineSize = magazineSize * g.magazineSizeM;
 
@@ -936,8 +936,8 @@ public class GunDamageScript : DamageScript
         //recoil = recoil * g.recoilM;
         recoil += new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x - 1),
             mainGunStatsScript.Recoil.y * (g.recoilM.y - 1));
-        recoil_HipFire += new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.recoilM.x - 1),
-            mainGunStatsScript.Recoil_HipFire.y * (g.recoilM.y - 1));
+        recoil_HipFire += new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.hipfireM.x - 1),
+            mainGunStatsScript.Recoil_HipFire.y * (g.hipfireM.y - 1));
         range += mainGunStatsScript.Range * (g.rangeM - 1);
         magazineSize += mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
 
@@ -963,7 +963,7 @@ public class GunDamageScript : DamageScript
         reloadSpeed /= g.reloadSpeedM;
         //recoil = recoil * g.recoilM;
         recoil = new Vector2(recoil.x / g.recoilM.x, recoil.y / g.recoilM.y);
-        recoil_HipFire = new Vector2(recoil_HipFire.x / g.recoilM.x, recoil_HipFire.y / g.recoilM.y);
+        recoil_HipFire = new Vector2(recoil_HipFire.x / g.hipfireM.x, recoil_HipFire.y / g.hipfireM.y);
         range /= g.rangeM;
         magazineSize /= g.magazineSizeM;
 
@@ -979,8 +979,8 @@ public class GunDamageScript : DamageScript
         //recoil = recoil * g.recoilM;
         recoil -= new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x - 1),
             mainGunStatsScript.Recoil.y * (g.recoilM.y - 1));
-        recoil_HipFire -= new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.recoilM.x - 1),
-            mainGunStatsScript.Recoil_HipFire.y * (g.recoilM.y - 1));
+        recoil_HipFire -= new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.hipfireM.x - 1),
+            mainGunStatsScript.Recoil_HipFire.y * (g.hipfireM.y - 1));
         range -= mainGunStatsScript.Range * (g.rangeM - 1);
         magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
         magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
