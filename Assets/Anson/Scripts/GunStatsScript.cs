@@ -20,17 +20,65 @@ public class GunStatsScript : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] protected float elementChance = 0;
 
-    public float DamagePerProjectile{ get => damagePerProjectile; }
-    public float GetRPM { get => RPM; }
-    public float ReloadSpeed { get => reloadSpeed; }
-    public Vector2 Recoil { get => recoil; }
-    public Vector2 Recoil_HipFire { get => recoil_HipFire; }
-    public float Range { get => range; }
-    public float MagazineSize { get => magazineSize; }
-    public float ElementDamage { get => elementDamage; }
-    public float ElementPotency { get => elementPotency; }
-    public float ElementChance { get => elementChance; }
+    public float DamagePerProjectile
+    {
+        get => damagePerProjectile;
+        set => damagePerProjectile = value;
+    }
 
+    public float GetRPM
+    {
+        get => RPM;
+        set => RPM = value;
+    }
+
+    public float ReloadSpeed
+    {
+        get => reloadSpeed;
+        set => reloadSpeed = value;
+    }
+
+    public Vector2 Recoil
+    {
+        get => recoil;
+        set => recoil = value;
+    }
+
+    public Vector2 Recoil_HipFire
+    {
+        get => recoil_HipFire;
+        set => recoil_HipFire = value;
+    }
+
+    public float Range
+    {
+        get => range;
+        set => range = value;
+    }
+
+    public float MagazineSize
+    {
+        get => magazineSize;
+        set => magazineSize = value;
+    }
+
+    public float ElementDamage
+    {
+        get => elementDamage;
+        set => elementDamage = value;
+    }
+
+    public float ElementPotency
+    {
+        get => elementPotency;
+        set => elementPotency = value;
+    }
+
+    public float ElementChance
+    {
+        get => elementChance;
+        set => elementChance = value;
+    }
 
     public virtual void AddStats(GunStatsScript g)
     {

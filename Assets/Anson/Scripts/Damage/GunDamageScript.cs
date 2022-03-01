@@ -173,6 +173,11 @@ public class GunDamageScript : DamageScript
     public float MagazineSize => magazineSize;
 
 
+    public Vector2 Recoil => recoil;
+
+    public Vector2 RecoilHipFire => recoil_HipFire;
+
+
     public GunTypes GunType => gunType;
 
     public float RecoilDegree => recoilDegree;
@@ -943,6 +948,11 @@ public class GunDamageScript : DamageScript
 
         timeUntilFire = 60f / RPM;
         gunEffectsController.updateAnimatorSpeeds(reloadSpeed, RPM);
+
+        if (GunType != GunTypes.SHOTGUN)
+        {
+            recoil_HipFire.y = Mathf.Max(recoil_HipFire.y, recoil_HipFire.x);
+        }
     }
 
     public void RemovePerkStats(PerkGunStatsScript g)

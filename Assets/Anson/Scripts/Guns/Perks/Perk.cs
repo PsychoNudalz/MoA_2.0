@@ -55,6 +55,8 @@ public abstract class Perk : MonoBehaviour
         get => isPlayerPerk;
         set => isPlayerPerk = value;
     }
+    
+    
 
     public virtual void Initialise(GunDamageScript gunDamageScript, MainGunStatsScript mainGunStatsScript,
         GunStatsScript originalGunStatsScript)

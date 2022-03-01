@@ -65,37 +65,22 @@ PrefabInstance:
     - target: {fileID: 2739946097029442302, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
         type: 3}
       propertyPath: m_Name
-      value: Perk_YoullHitEventually
+      value: Perk_IronGrip
       objectReference: {fileID: 0}
     - target: {fileID: 5012690447822938297, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
         type: 3}
       propertyPath: perk
       value: 
-      objectReference: {fileID: 1434959094587744165}
+      objectReference: {fileID: 8754802024340082228}
+    - target: {fileID: 5012690447822938297, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
+        type: 3}
+      propertyPath: isStackable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5012690447822938297, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
         type: 3}
       propertyPath: componentName
       value: Perk_YoullHitEventually
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126830702667994893, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
-        type: 3}
-      propertyPath: recoilM.x
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126830702667994893, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
-        type: 3}
-      propertyPath: recoilM.y
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126830702667994893, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
-        type: 3}
-      propertyPath: hipfireM.x
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7126830702667994893, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
-        type: 3}
-      propertyPath: hipfireM.y
-      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8408692598589311029, guid: ec6a918c3e1c8de468bef1df2a1a05b8,
         type: 3}
@@ -125,7 +110,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6341143127320818550}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1434959094587744165
+--- !u!114 &8754802024340082228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,15 +119,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 9081080279509342600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff56c1c98377bcb498c38fd1e5f8d215, type: 3}
+  m_Script: {fileID: 11500000, guid: c609615bb48e22347b8a41fc0683e4ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perkSprite: {fileID: 21300000, guid: 48b075187bd6f8d41bbde08ab0f402f9, type: 3}
+  perkSprite: {fileID: 21300000, guid: 3f442a2026e753a4bb7c7078aedda7ba, type: 3}
   isPlayerPerk: 0
   isActive: 0
   isEquiped: 0
-  stack_Current: 0
-  stack_Max: 10
-  duration: 1
+  stack_Current: 1
+  stack_Max: 1
+  duration: 0
   duration_Current: 0
   perkStatsScript: {fileID: 0}
