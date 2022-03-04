@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMasterScript : MonoBehaviour
 {
+    public static PlayerMasterScript current;
+    
     [SerializeField]
     PlayerLifeSystemScript playerLifeSystemScript;
 
@@ -81,6 +83,15 @@ public class PlayerMasterScript : MonoBehaviour
     [ContextMenu("Initialize")]
     void Initialize()
     {
+
+        if (current)
+        {
+            Destroy(current.gameObject);
+            current = null;
+        }
+
+        current = this;
+        
         //Set up
         print("Initialise player master");
         if (playerLifeSystemScript == null)
@@ -184,6 +195,8 @@ public class PlayerMasterScript : MonoBehaviour
         playerInventorySystemScript.playerUIScript = playerUIScript;
         playerLifeSystemScript.PlayerVolumeControllerScript = playerVolumeControllerScript;
         playerController.PlayerVolumeControllerScript = playerVolumeControllerScript;
+        
+        
     }
 
     public void SetControls(bool b)

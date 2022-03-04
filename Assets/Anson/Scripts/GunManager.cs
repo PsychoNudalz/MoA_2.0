@@ -305,6 +305,13 @@ public class GunManager : MonoBehaviour
     [Command()]
     public static void GenerateGuns(int numberOfGuns = 10, int minRarity= 6, int maxRarity = 6)
     {
-        current.GenerateGun(numberOfGuns, minRarity, maxRarity);
+        int i = 0;
+        
+        foreach (GameObject g in current.GenerateGun(numberOfGuns, minRarity, maxRarity))
+        {
+            g.transform.position = PlayerMasterScript.current.transform.position + new Vector3(i, 0, 2);
+        }
+
+        
     }
 }

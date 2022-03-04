@@ -38,7 +38,7 @@ public class ProjectileTriggerDetectionScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (tagList.Contains(other.tag) && !other.tag.Equals("Enviorment"))
+        if (tagList.Contains(other.tag) && !other.tag.Equals("Enviorment")&& !other.tag.Equals("Floor"))
         {
             if (canOverrideTarget || target == null)
             {
