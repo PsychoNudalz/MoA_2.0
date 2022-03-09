@@ -47,8 +47,10 @@ public class PlayerMasterScript : MonoBehaviour
     UnityEngine.InputSystem.PlayerInput playerInput;
     
     
+    
     [Header("Cheats")]
     public static bool INFINITEAMMO = false;
+    public static bool INVISABLE = false;
 
     public PlayerUIScript PlayerUIScript
     {
@@ -285,6 +287,11 @@ public class PlayerMasterScript : MonoBehaviour
     public void IncreamentClears()
     {
         playerSaveStats.totalFullClears++;
+    }
+
+    public Transform GetCentreOfMass()
+    {
+       return playerLifeSystemScript.GetCentreOfMass();
     }
     
     
