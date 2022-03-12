@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Mono.CSharp;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -62,7 +63,7 @@ public class PatrolZone : MonoBehaviour
     [Space(20f)]
     [Header("Points")]
     [SerializeField]
-    private List<Vector3> pointPositions;
+    private HashSet<Vector3> pointPositions;
 
     [SerializeField]
     private List<Vector3> pointPositions_Cover;
@@ -70,7 +71,7 @@ public class PatrolZone : MonoBehaviour
     [SerializeField]
     private List<Vector3> pointPositions_Open;
 
-    public List<Vector3> PointPositions => pointPositions;
+    public HashSet<Vector3> PointPositions => pointPositions;
 
     public List<Vector3> PointPositionsCover => pointPositions_Cover;
 
@@ -91,6 +92,27 @@ public class PatrolZone : MonoBehaviour
 
     [SerializeField]
     private bool debug_showSpacing;
+
+    [Space(10f)]
+    [SerializeField]
+    private bool debug_ShowGetPosition;
+
+
+    [SerializeField]
+    private Transform debug_GetPositionTransform;
+
+    [Space(10f)]
+    [SerializeField]
+    private bool debug_ShowTempList;
+
+    [SerializeField]
+    private List<Vector3> debug_TempList;
+
+    private Vector3 startingPoint;
+
+    [Space(10f)]
+    [SerializeField]
+    private bool debug_TestTime;
 
 
     // Start is called before the first frame update
@@ -121,28 +143,71 @@ public class PatrolZone : MonoBehaviour
                 }
             }
 
-            foreach (Vector3 pointPosition in pointPositions)
 
+            if (pointPositions != null)
             {
-                if (pointPositions_Cover.Contains(pointPosition))
-                {
-                    Gizmos.color = Color.cyan;
-                    Gizmos.DrawCube(pointPosition,
-                        new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
-                }
-                else
-                {
-                    Gizmos.color = Color.grey;
-                    Gizmos.DrawCube(pointPosition,
-                        new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
-                }
+                foreach (Vector3 pointPosition in pointPositions)
 
-                if (debug_showSpacing)
                 {
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawSphere(pointPosition, pointSpacing);
+                    if (pointPositions_Cover.Contains(pointPosition))
+                    {
+                        Gizmos.color = Color.cyan- new Color(0, 0, 0, .2f);
+                        Gizmos.DrawCube(pointPosition,
+                            new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.grey;
+                        Gizmos.DrawCube(pointPosition,
+                            new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                    }
+
+                    if (debug_showSpacing)
+                    {
+                        Gizmos.color = Color.blue;
+                        Gizmos.DrawSphere(pointPosition, pointSpacing);
+                    }
                 }
             }
+
+            if (debug_ShowGetPosition)
+            {
+                if (debug_GetPositionTransform)
+                {
+                    List<Vector3> temp = GetPoints(debug_GetPositionTransform.position,
+                        debug_GetPositionTransform.localScale.x / 2f);
+                    foreach (Vector3 getPoint in temp)
+                    {
+                        Gizmos.color = Color.green - new Color(0, 0, 0, .5f);
+                        Gizmos.DrawCube(getPoint,
+                            new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                    }
+                }
+            }
+
+
+            if (debug_ShowTempList)
+            {
+                foreach (Vector3 tempPoint in debug_TempList)
+                {
+                    Gizmos.color = Color.red - new Color(0, 0, 0, .5f);
+                    Gizmos.DrawCube(tempPoint,
+                        new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                }
+            }
+        }
+
+        if (debug_TestTime)
+        {
+            float startTime = Time.realtimeSinceStartup;
+            List<Vector3> temp = GetPoints(debug_GetPositionTransform.position,
+                debug_GetPositionTransform.localScale.x / 2f);
+            if (temp.Count > 0)
+            {
+                Vector3 pointPosition = temp[Random.Range(0, temp.Count)];
+            }
+
+            print($"Time:{Time.realtimeSinceStartup - startTime}.  Count: {temp.Count}");
         }
     }
 
@@ -171,9 +236,9 @@ public class PatrolZone : MonoBehaviour
     [ContextMenu("Generate Points")]
     public void GeneratePoints()
     {
-        pointPositions = new List<Vector3>();
+        pointPositions = new HashSet<Vector3>();
         var boxLocalScale = boxZone.localScale;
-        Vector3 startingPoint = boxZone.position;
+        startingPoint = boxZone.position;
         if (useWorldPositions)
         {
             startingPoint = new Vector3(Mathf.RoundToInt(startingPoint.x), Mathf.RoundToInt(startingPoint.y),
@@ -216,11 +281,12 @@ public class PatrolZone : MonoBehaviour
             for (int z = 0; z < Mathf.FloorToInt(boxLocalScale.z) / pointSpacing; z++)
             {
                 if (Physics.Raycast((startingPoint + new Vector3(x * pointSpacing, 0, z * pointSpacing)), downVector,
-                    out hit, boxLocalScale.y + pointSpacing, floorLayerMask))
+                        out hit, boxLocalScale.y + pointSpacing, floorLayerMask))
                 {
                     if (floorTags.Contains(hit.collider.tag))
                     {
-                        pointPositions.Add(hit.point + new Vector3(0, pointSpacing / 2f, 0));
+                        pointPositions.Add(ConvertPoint(hit.point + new Vector3(0, pointSpacing / 2f, 0), false));
+                        // pointPositions.Add(hit.point + new Vector3(0, pointSpacing / 2f, 0));
                     }
                 }
 
@@ -234,17 +300,27 @@ public class PatrolZone : MonoBehaviour
 
     private void GeneratePoints_Box(Vector3 startingPoint, Vector3 boxLocalScale)
     {
-        Vector3 newPoint;
-
         startingPoint -= new Vector3(boxLocalScale.x / 2, boxLocalScale.y / 2, boxLocalScale.z / 2);
-        for (int x = 0; x < Mathf.FloorToInt(boxLocalScale.x) / pointSpacing; x++)
+        foreach (Vector3 newPoint in ScanSurrounding(startingPoint, boxLocalScale.x, boxLocalScale.y, boxLocalScale.z))
         {
-            for (int y = 0; y < Mathf.FloorToInt(boxLocalScale.y) / pointSpacing; y++)
+            pointPositions.Add(newPoint);
+        }
+    }
+
+    private List<Vector3> ScanSurrounding(Vector3 startingPoint, float xSize, float ySize, float zSize)
+    {
+        Vector3 newPoint;
+        List<Vector3> tempList = new List<Vector3>();
+
+        for (int x = 0; x < Mathf.FloorToInt(xSize) / pointSpacing; x++)
+        {
+            for (int y = 0; y < Mathf.FloorToInt(ySize) / pointSpacing; y++)
             {
-                for (int z = 0; z < Mathf.FloorToInt(boxLocalScale.z) / pointSpacing; z++)
+                for (int z = 0; z < Mathf.FloorToInt(zSize) / pointSpacing; z++)
                 {
                     newPoint = startingPoint + new Vector3(x * pointSpacing, y * pointSpacing, z * pointSpacing);
-                    pointPositions.Add(newPoint);
+                    // pointPositions.Add(newPoint);
+                    tempList.Add(newPoint);
                     // if (showDebug)
                     // {
                     //     print($"point index {x}, {y},{z}: {newPoint}");
@@ -252,6 +328,8 @@ public class PatrolZone : MonoBehaviour
                 }
             }
         }
+
+        return tempList;
     }
 
     public void RemoveInvalidPoints()
@@ -267,13 +345,13 @@ public class PatrolZone : MonoBehaviour
                 if (detectedCollider.bounds.Contains(pointPosition))
                 {
                     pointsToRemove.Add(pointPosition);
-                }
+                } 
                 else
                 {
                     hits =
                         Physics.SphereCastAll(pointPosition, invalidPointSpacing, Vector3.down, invalidPointSpacing,
                             invalidLayerMask);
-
+                
                     foreach (RaycastHit raycastHit in hits)
                     {
                         if (invalidTags.Contains(raycastHit.collider.tag))
@@ -306,7 +384,7 @@ public class PatrolZone : MonoBehaviour
 
     public Vector3 GetRandomPoint()
     {
-        return pointPositions[Random.Range(0, pointPositions.Count)];
+        return pointPositions.ElementAt(Random.Range(0, pointPositions.Count));
     }
 
     [ContextMenu("Sort Points")]
@@ -341,5 +419,66 @@ public class PatrolZone : MonoBehaviour
                 pointPositions_Open.Add(pointPosition);
             }
         }
+    }
+
+    public List<Vector3> GetPoints(Vector3 position, float range)
+    {
+        List<Vector3> finalPoints = new List<Vector3>();
+
+        position = ConvertPoint(position);
+
+        // finalPoints.Add(position);
+        if (debug_ShowTempList)
+        {
+            debug_TempList = new List<Vector3>();
+        }
+
+        int count = 0;
+        Vector3 offset = new Vector3(range - pointSpacing / 2f, range - pointSpacing / 2f, range - pointSpacing / 2f);
+        foreach (Vector3 p in ScanSurrounding(position - offset, range * 2, range * 2,
+                     range * 2))
+        {
+            if (pointPositions.Contains(p))
+            {
+                finalPoints.Add(p);
+            }
+
+            if (debug_ShowTempList)
+            {
+                debug_TempList.Add(p);
+            }
+
+            count++;
+        }
+
+        // print(count);
+
+
+        return finalPoints;
+    }
+
+    public Vector3 ConvertPoint(Vector3 point, bool halfSpacing = true)
+    {
+        point /= pointSpacing/2f;
+        Vector3 temp = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y), Mathf.Round(point.z));
+
+        if (useWorldPositions)
+        {
+            if (halfSpacing)
+            {
+                temp += new Vector3(pointSpacing / 2f, 0, pointSpacing / 2f);
+            }
+        }
+
+        temp *= pointSpacing/2f;
+        if (!useWorldPositions)
+        {
+            Vector3 offset = startingPoint - new Vector3(Mathf.Round(startingPoint.x),
+                Mathf.Round(startingPoint.y) + pointSpacing / 2f, Mathf.Round(startingPoint.z));
+            temp += offset;
+        }
+
+
+        return temp;
     }
 }
