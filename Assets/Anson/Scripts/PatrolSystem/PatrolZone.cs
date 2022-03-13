@@ -366,7 +366,7 @@ public class PatrolZone : MonoBehaviour
                     if (floorTags.Contains(hit.collider.tag))
                     {
                         pointPositions.Add(
-                            new PatrolPoint(ConvertPoint(hit.point + new Vector3(0, pointSpacing / 2f, 0), false)));
+                            new PatrolPoint(ConvertPoint(hit.point + new Vector3(0, 0, 0), false)));
                         // pointPositions.Add(hit.point + new Vector3(0, pointSpacing / 2f, 0));
                     }
                 }
@@ -381,7 +381,7 @@ public class PatrolZone : MonoBehaviour
 
     private void GeneratePoints_Box(Vector3 startingPoint, Vector3 boxLocalScale)
     {
-        startingPoint -= new Vector3(boxLocalScale.x / 2, boxLocalScale.y / 2, boxLocalScale.z / 2);
+        startingPoint -= new Vector3(boxLocalScale.x / 2f, boxLocalScale.y / 2f, boxLocalScale.z / 2f);
         foreach (Vector3 newPoint in ScanSurrounding(startingPoint, boxLocalScale.x, boxLocalScale.y, boxLocalScale.z))
         {
             pointPositions.Add(new PatrolPoint(newPoint));
@@ -529,7 +529,6 @@ public class PatrolZone : MonoBehaviour
     {
         List<PatrolPoint> finalPoints = new List<PatrolPoint>();
 
-        position = ConvertPoint(position);
 
         // finalPoints.Add(position);
         if (debug_ShowTempList)
@@ -538,8 +537,9 @@ public class PatrolZone : MonoBehaviour
         }
 
         int count = 0;
-        Vector3 offset = new Vector3(range - pointSpacing, range - pointSpacing / 2f, range - pointSpacing);
-        foreach (Vector3 p in ScanSurrounding(position - offset, range * 2, range * 2,
+        Vector3 offset = new Vector3(range - pointSpacing, range - pointSpacing, range - pointSpacing);
+        position = ConvertPoint(position);
+        foreach (Vector3 p in ScanSurrounding(position-offset, range * 2, range * 2,
             range * 2, true, position))
         {
             PatrolPoint pp = new PatrolPoint(p);
@@ -556,7 +556,7 @@ public class PatrolZone : MonoBehaviour
             count++;
         }
 
-        print($"Found {finalPoints.Count} Matching Points");
+        // print($"Found {finalPoints.Count} Matching Points");
 
 
         return finalPoints;
@@ -564,22 +564,22 @@ public class PatrolZone : MonoBehaviour
 
     public Vector3 ConvertPoint(Vector3 point, bool halfSpacing = true)
     {
-        point /= pointSpacing;
+        point *= pointSpacing;
         Vector3 temp = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y), Mathf.Round(point.z));
 
         if (useWorldPositions)
         {
             if (halfSpacing)
             {
-                temp += new Vector3(pointSpacing / 2f, 0, pointSpacing / 2f);
+                temp += new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f);
             }
         }
 
-        temp *= pointSpacing;
+        temp /= pointSpacing;
         if (!useWorldPositions)
         {
             Vector3 offset = startingPoint - new Vector3(Mathf.Round(startingPoint.x),
-                Mathf.Round(startingPoint.y) + pointSpacing / 2f, Mathf.Round(startingPoint.z));
+                Mathf.Round(startingPoint.y) , Mathf.Round(startingPoint.z));
             temp += offset;
         }
 
