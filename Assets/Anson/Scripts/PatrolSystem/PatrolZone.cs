@@ -129,7 +129,7 @@ public class PatrolZone : MonoBehaviour
     {
         if (showDebug)
         {
-            if (debug_autoRegenerate)
+            if (pointSpacing >= .5f && debug_autoRegenerate)
             {
                 var boxLocalScale = boxZone.localScale;
 
@@ -151,7 +151,7 @@ public class PatrolZone : MonoBehaviour
                 {
                     if (pointPositions_Cover.Contains(pointPosition))
                     {
-                        Gizmos.color = Color.cyan- new Color(0, 0, 0, .2f);
+                        Gizmos.color = Color.cyan - new Color(0, 0, 0, .2f);
                         Gizmos.DrawCube(pointPosition,
                             new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
                     }
@@ -172,7 +172,7 @@ public class PatrolZone : MonoBehaviour
 
             if (debug_ShowGetPosition)
             {
-                if (debug_GetPositionTransform)
+                if (debug_GetPositionTransform&&pointPositions!=null)
                 {
                     List<Vector3> temp = GetPoints(debug_GetPositionTransform.position,
                         debug_GetPositionTransform.localScale.x / 2f);
@@ -281,7 +281,7 @@ public class PatrolZone : MonoBehaviour
             for (int z = 0; z < Mathf.FloorToInt(boxLocalScale.z) / pointSpacing; z++)
             {
                 if (Physics.Raycast((startingPoint + new Vector3(x * pointSpacing, 0, z * pointSpacing)), downVector,
-                        out hit, boxLocalScale.y + pointSpacing, floorLayerMask))
+                    out hit, boxLocalScale.y + pointSpacing, floorLayerMask))
                 {
                     if (floorTags.Contains(hit.collider.tag))
                     {
@@ -307,9 +307,11 @@ public class PatrolZone : MonoBehaviour
         }
     }
 
-    private List<Vector3> ScanSurrounding(Vector3 startingPoint, float xSize, float ySize, float zSize)
+    private List<Vector3> ScanSurrounding(Vector3 startingPoint, float xSize, float ySize, float zSize,
+        bool isShpere = false, Vector3 centre = new Vector3())
     {
         Vector3 newPoint;
+        Vector3 temp;
         List<Vector3> tempList = new List<Vector3>();
 
         for (int x = 0; x < Mathf.FloorToInt(xSize) / pointSpacing; x++)
@@ -318,9 +320,22 @@ public class PatrolZone : MonoBehaviour
             {
                 for (int z = 0; z < Mathf.FloorToInt(zSize) / pointSpacing; z++)
                 {
-                    newPoint = startingPoint + new Vector3(x * pointSpacing, y * pointSpacing, z * pointSpacing);
-                    // pointPositions.Add(newPoint);
-                    tempList.Add(newPoint);
+                    newPoint = startingPoint +
+                               new Vector3(x * pointSpacing, y * pointSpacing, z * pointSpacing);
+                    if (isShpere)
+                    {
+                        if (Vector3.Distance(newPoint,centre)<xSize/2f)
+                        {
+                            // pointPositions.Add(newPoint);
+                            tempList.Add(newPoint);
+                        }
+                    }
+                    else
+                    {
+                        // pointPositions.Add(newPoint);
+                        tempList.Add(newPoint);
+                    }
+
                     // if (showDebug)
                     // {
                     //     print($"point index {x}, {y},{z}: {newPoint}");
@@ -345,13 +360,13 @@ public class PatrolZone : MonoBehaviour
                 if (detectedCollider.bounds.Contains(pointPosition))
                 {
                     pointsToRemove.Add(pointPosition);
-                } 
+                }
                 else
                 {
                     hits =
                         Physics.SphereCastAll(pointPosition, invalidPointSpacing, Vector3.down, invalidPointSpacing,
                             invalidLayerMask);
-                
+
                     foreach (RaycastHit raycastHit in hits)
                     {
                         if (invalidTags.Contains(raycastHit.collider.tag))
@@ -434,9 +449,9 @@ public class PatrolZone : MonoBehaviour
         }
 
         int count = 0;
-        Vector3 offset = new Vector3(range - pointSpacing / 2f, range - pointSpacing / 2f, range - pointSpacing / 2f);
+        Vector3 offset = new Vector3(range - pointSpacing , range - pointSpacing , range - pointSpacing );
         foreach (Vector3 p in ScanSurrounding(position - offset, range * 2, range * 2,
-                     range * 2))
+            range * 2, true, position))
         {
             if (pointPositions.Contains(p))
             {
@@ -459,7 +474,7 @@ public class PatrolZone : MonoBehaviour
 
     public Vector3 ConvertPoint(Vector3 point, bool halfSpacing = true)
     {
-        point /= pointSpacing/2f;
+        point /= pointSpacing;
         Vector3 temp = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y), Mathf.Round(point.z));
 
         if (useWorldPositions)
@@ -470,7 +485,7 @@ public class PatrolZone : MonoBehaviour
             }
         }
 
-        temp *= pointSpacing/2f;
+        temp *= pointSpacing;
         if (!useWorldPositions)
         {
             Vector3 offset = startingPoint - new Vector3(Mathf.Round(startingPoint.x),
