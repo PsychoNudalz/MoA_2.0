@@ -191,15 +191,17 @@ public class PatrolZone : MonoBehaviour
     }
 
     // Update is called once per frame
+
     void Update()
     {
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (showDebug)
         {
-            if (pointSpacing >= .5f && debug_autoRegenerate)
+            double CRASHTHRESSHOLD = .1d;
+            if (pointSpacing >= CRASHTHRESSHOLD && debug_autoRegenerate)
             {
                 var boxLocalScale = boxZone.localScale;
 
@@ -240,7 +242,18 @@ public class PatrolZone : MonoBehaviour
                 }
             }
 
-            if (debug_ShowGetPosition)
+
+            if (debug_ShowTempList)
+            {
+                foreach (Vector3 tempPoint in debug_TempList)
+                {
+                    Gizmos.color = Color.red - new Color(0, 0, 0, .5f);
+                    Gizmos.DrawCube(tempPoint,
+                        new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                }
+            }
+
+            if (pointSpacing >= CRASHTHRESSHOLD && debug_autoRegenerate && debug_ShowGetPosition)
             {
                 if (debug_GetPositionTransform && pointPositions != null)
                 {
@@ -255,29 +268,18 @@ public class PatrolZone : MonoBehaviour
                 }
             }
 
-
-            if (debug_ShowTempList)
+            if (pointPositions != null && pointSpacing >= CRASHTHRESSHOLD && debug_TestTime)
             {
-                foreach (Vector3 tempPoint in debug_TempList)
+                float startTime = Time.realtimeSinceStartup;
+                List<PatrolPoint> temp = GetPoints(debug_GetPositionTransform.position,
+                    debug_GetPositionTransform.localScale.x / 2f);
+                if (temp.Count > 0)
                 {
-                    Gizmos.color = Color.red - new Color(0, 0, 0, .5f);
-                    Gizmos.DrawCube(tempPoint,
-                        new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                    PatrolPoint pointPosition = temp[Random.Range(0, temp.Count)];
                 }
-            }
-        }
 
-        if (debug_TestTime)
-        {
-            float startTime = Time.realtimeSinceStartup;
-            List<PatrolPoint> temp = GetPoints(debug_GetPositionTransform.position,
-                debug_GetPositionTransform.localScale.x / 2f);
-            if (temp.Count > 0)
-            {
-                PatrolPoint pointPosition = temp[Random.Range(0, temp.Count)];
+                print($"Time:{Time.realtimeSinceStartup - startTime}.  Count: {temp.Count}");
             }
-
-            print($"Time:{Time.realtimeSinceStartup - startTime}.  Count: {temp.Count}");
         }
 
         // if (pointPositions != null)
@@ -321,11 +323,10 @@ public class PatrolZone : MonoBehaviour
         startingPoint = boxZone.position;
         if (useWorldPositions)
         {
-            startingPoint = new Vector3(Mathf.RoundToInt(startingPoint.x), Mathf.RoundToInt(startingPoint.y),
-                Mathf.RoundToInt(startingPoint.z));
+            startingPoint = ConvertPoint(startingPoint);
         }
 
-        startingPoint += new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f);
+        // startingPoint += new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f);
 
         if (isFloored)
         {
@@ -366,7 +367,7 @@ public class PatrolZone : MonoBehaviour
                     if (floorTags.Contains(hit.collider.tag))
                     {
                         pointPositions.Add(
-                            new PatrolPoint(ConvertPoint(hit.point + new Vector3(0, 0, 0), false)));
+                            new PatrolPoint(ConvertPoint(hit.point)));
                         // pointPositions.Add(hit.point + new Vector3(0, pointSpacing / 2f, 0));
                     }
                 }
@@ -381,28 +382,35 @@ public class PatrolZone : MonoBehaviour
 
     private void GeneratePoints_Box(Vector3 startingPoint, Vector3 boxLocalScale)
     {
-        startingPoint -= new Vector3(boxLocalScale.x / 2f, boxLocalScale.y / 2f, boxLocalScale.z / 2f);
+        // startingPoint -= new Vector3(boxLocalScale.x / 2f, boxLocalScale.y / 2f, boxLocalScale.z / 2f);
         foreach (Vector3 newPoint in ScanSurrounding(startingPoint, boxLocalScale.x, boxLocalScale.y, boxLocalScale.z))
         {
             pointPositions.Add(new PatrolPoint(newPoint));
         }
     }
 
-    private List<Vector3> ScanSurrounding(Vector3 startingPoint, float xSize, float ySize, float zSize,
-        bool isShpere = false, Vector3 centre = new Vector3())
+    private List<Vector3> ScanSurrounding(Vector3 centrePoint, float xSize, float ySize, float zSize,
+        bool isShpere = false, Vector3 centre = new Vector3(), float pointSpacing = 0)
     {
+        if (pointSpacing == 0)
+        {
+            pointSpacing = this.pointSpacing;
+        }
+
         Vector3 newPoint;
         Vector3 temp;
         List<Vector3> tempList = new List<Vector3>();
 
-        for (int x = 0; x < Mathf.FloorToInt(xSize) / pointSpacing; x++)
+        for (int x = 0; x <= xSize / pointSpacing; x++)
         {
-            for (int y = 0; y < Mathf.FloorToInt(ySize) / pointSpacing; y++)
+            for (int y = 0; y <= ySize / pointSpacing; y++)
             {
-                for (int z = 0; z < Mathf.FloorToInt(zSize) / pointSpacing; z++)
+                for (int z = 0; z <= zSize / pointSpacing; z++)
                 {
-                    newPoint = startingPoint +
-                               new Vector3(x * pointSpacing, y * pointSpacing, z * pointSpacing);
+                    newPoint = centrePoint +
+                               new Vector3(((int) x / 2) * pointSpacing * IsEvenFlip(x),
+                                   ((int) y / 2) * pointSpacing * IsEvenFlip(y),
+                                   ((int) z / 2) * pointSpacing * IsEvenFlip(z));
                     if (isShpere)
                     {
                         if (Vector3.Distance(newPoint, centre) < xSize / 2f)
@@ -537,9 +545,9 @@ public class PatrolZone : MonoBehaviour
         }
 
         int count = 0;
-        Vector3 offset = new Vector3(range - pointSpacing, range - pointSpacing, range - pointSpacing);
+        // Vector3 offset = new Vector3(range - pointSpacing, range - pointSpacing, range - pointSpacing);
         position = ConvertPoint(position);
-        foreach (Vector3 p in ScanSurrounding(position-offset, range * 2, range * 2,
+        foreach (Vector3 p in ScanSurrounding((position), range * 2, range * 2,
             range * 2, true, position))
         {
             PatrolPoint pp = new PatrolPoint(p);
@@ -562,28 +570,37 @@ public class PatrolZone : MonoBehaviour
         return finalPoints;
     }
 
-    public Vector3 ConvertPoint(Vector3 point, bool halfSpacing = true)
+    public Vector3 ConvertPoint(Vector3 point)
     {
-        point *= pointSpacing;
+        point /= pointSpacing;
         Vector3 temp = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y), Mathf.Round(point.z));
 
         if (useWorldPositions)
         {
-            if (halfSpacing)
-            {
-                temp += new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f);
-            }
         }
 
-        temp /= pointSpacing;
+        temp *= pointSpacing;
         if (!useWorldPositions)
         {
             Vector3 offset = startingPoint - new Vector3(Mathf.Round(startingPoint.x),
-                Mathf.Round(startingPoint.y) , Mathf.Round(startingPoint.z));
+                Mathf.Round(startingPoint.y), Mathf.Round(startingPoint.z));
             temp += offset;
         }
 
 
         return temp;
+    }
+
+
+    float IsEvenFlip(float x)
+    {
+        if (x % 2 == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
     }
 }
