@@ -110,9 +110,6 @@ public class PatrolZone : MonoBehaviour
     private bool isFloored;
 
     [SerializeField]
-    private bool useVolume;
-
-    [SerializeField]
     private bool useWorldPositions;
 
     [SerializeField]
@@ -340,7 +337,7 @@ public class PatrolZone : MonoBehaviour
         RemoveInvalidPoints();
     }
 
-    private void GeneratePoints_Floor(Vector3 startingPoint, Vector3 boxLocalScale)
+    private void GeneratePoints_Floor(Vector3 centrePoint, Vector3 boxLocalScale)
     {
         Vector3 newPoint;
         Vector3 downVector;
@@ -356,28 +353,88 @@ public class PatrolZone : MonoBehaviour
             downVector = -boxZone.up;
         }
 
-        startingPoint -= new Vector3(boxLocalScale.x / 2, -boxLocalScale.y / 2, boxLocalScale.z / 2);
-        for (int x = 0; x < Mathf.FloorToInt(boxLocalScale.x) / pointSpacing; x++)
+        
+        GeneratePoints_Box(centrePoint,boxLocalScale);
+        using HashSet<PatrolPoint>.Enumerator enumerator = pointPositions.GetEnumerator();
+        List<PatrolPoint> removePoints = new List<PatrolPoint>();
+        for (int i = 0; i < pointPositions.Count; i++)
         {
-            for (int z = 0; z < Mathf.FloorToInt(boxLocalScale.z) / pointSpacing; z++)
+            if (enumerator.Current != null && Physics.Raycast(enumerator.Current.Position, downVector,
+                out hit, pointSpacing, floorLayerMask))
             {
-                if (Physics.Raycast((startingPoint + new Vector3(x * pointSpacing, 0, z * pointSpacing)), downVector,
-                    out hit, boxLocalScale.y + pointSpacing, floorLayerMask))
+                if (!floorTags.Contains(hit.collider.tag))
                 {
-                    if (floorTags.Contains(hit.collider.tag))
-                    {
-                        pointPositions.Add(
-                            new PatrolPoint(ConvertPoint(hit.point)));
-                        // pointPositions.Add(hit.point + new Vector3(0, pointSpacing / 2f, 0));
-                    }
+                    removePoints.Add(enumerator.Current);
                 }
-
-                // if (showDebug)
-                // {
-                //     print($"point index {x}, {y},{z}: {newPoint}");
-                // }
             }
+            else
+            {
+                removePoints.Add(enumerator.Current);
+            }
+
+            enumerator.MoveNext();
         }
+
+        foreach (PatrolPoint removePoint in removePoints)
+        {
+            pointPositions.Remove(removePoint);
+        }
+
+        //
+        // float xSize = boxLocalScale.x;
+        // float zSize = boxLocalScale.z;
+        //
+        // for (int x = 0; x <= xSize / pointSpacing; x++)
+        // {
+        //     for (int z = 0; z <= zSize / pointSpacing; z++)
+        //     {
+        //         newPoint = centrePoint +
+        //                    new Vector3(((int) x / 2) * pointSpacing * IsEvenFlip(x),
+        //                        boxLocalScale.y / 2,
+        //                        ((int) z / 2) * pointSpacing * IsEvenFlip(z));
+        //
+        //         print(newPoint);
+        //         // pointPositions.Add(newPoint);
+        //         if (Physics.Raycast(newPoint, downVector,
+        //             out hit, boxLocalScale.y +pointSpacing, floorLayerMask))
+        //         {
+        //             if (floorTags.Contains(hit.collider.tag))
+        //             {
+        //                 pointPositions.Add(
+        //                     new PatrolPoint(ConvertPoint(hit.point+new Vector3(0,pointSpacing,0))));
+        //                 // pointPositions.Add(hit.point + new Vector3(0, pointSpacing / 2f, 0));
+        //             }
+        //         }
+        //
+        //         // if (showDebug)
+        //         // {
+        //         //     print($"point index {x}, {y},{z}: {newPoint}");
+        //         // }
+        //     }
+        // }
+        //
+        // startingPoint -= new Vector3(boxLocalScale.x / 2, -boxLocalScale.y / 2, boxLocalScale.z / 2);
+        // for (int x = 0; x < Mathf.FloorToInt(boxLocalScale.x) / pointSpacing; x++)
+        // {
+        //     for (int z = 0; z < Mathf.FloorToInt(boxLocalScale.z) / pointSpacing; z++)
+        //     {
+        //         if (Physics.Raycast((startingPoint + new Vector3(x * pointSpacing, 0, z * pointSpacing)), downVector,
+        //             out hit, boxLocalScale.y + pointSpacing, floorLayerMask))
+        //         {
+        //             if (floorTags.Contains(hit.collider.tag))
+        //             {
+        //                 pointPositions.Add(
+        //                     new PatrolPoint(ConvertPoint(hit.point)));
+        //                 // pointPositions.Add(hit.point + new Vector3(0, pointSpacing / 2f, 0));
+        //             }
+        //         }
+        //
+        //         // if (showDebug)
+        //         // {
+        //         //     print($"point index {x}, {y},{z}: {newPoint}");
+        //         // }
+        //     }
+        // }
     }
 
     private void GeneratePoints_Box(Vector3 startingPoint, Vector3 boxLocalScale)
@@ -479,7 +536,7 @@ public class PatrolZone : MonoBehaviour
     {
         detectedColliders = new List<Collider>();
         RaycastHit[] allHits =
-            Physics.BoxCastAll(boxZone.position, boxZone.lossyScale, Vector3.up, quaternion.identity);
+            Physics.BoxCastAll(boxZone.position, boxZone.lossyScale, Vector3.up, quaternion.identity, boxZone.lossyScale.magnitude,invalidLayerMask);
         foreach (RaycastHit hit in allHits)
         {
             detectedColliders.Add(hit.collider);

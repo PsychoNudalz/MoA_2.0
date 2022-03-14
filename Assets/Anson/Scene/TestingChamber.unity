@@ -4764,7 +4764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &382188346
 Transform:
   m_ObjectHideFlags: 0
@@ -5083,7 +5083,7 @@ Transform:
   m_GameObject: {fileID: 435462255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 1, z: 7}
+  m_LocalScale: {x: 10, y: 10, z: 20}
   m_Children: []
   m_Father: {fileID: 900171335}
   m_RootOrder: 0
@@ -7740,7 +7740,7 @@ Transform:
   m_GameObject: {fileID: 858229351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 1, z: 7}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children: []
   m_Father: {fileID: 900171335}
   m_RootOrder: 1
@@ -7752,7 +7752,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858229351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -7890,7 +7890,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxZone: {fileID: 435462256}
-  detectedColliders: []
+  detectedColliders:
+  - {fileID: 1177422593}
+  - {fileID: 929259329}
+  - {fileID: 1971457543}
+  - {fileID: 382188348}
+  - {fileID: 1692392180}
+  - {fileID: 1770928384}
+  - {fileID: 1698216745}
+  - {fileID: 951177245}
   floorLayerMask:
     serializedVersion: 2
     m_Bits: 395264
@@ -7906,156 +7914,578 @@ MonoBehaviour:
     m_Bits: 395264
   coverTags:
   - Enviorment
-  isFloored: 0
-  useVolume: 1
+  isFloored: 1
   useWorldPositions: 1
   pointSpacing: 1
-  invalidPointSpacing: 0.8
+  invalidPointSpacing: 0
   coverSpacing: 2
-  pointPositions_Cover: []
+  pointPositions_Cover:
+  - position: {x: 5, y: 23, z: 41}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 42}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 44}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 35}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 34}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 47}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 33}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 23, z: 48}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 5, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 41}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 42}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 44}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 34}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 47}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 33}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 23, z: 48}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 6, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 41}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 42}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 44}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 35}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 34}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 47}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 23, z: 48}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 4, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 41}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 39}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 42}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 38}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 44}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 34}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 47}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 33}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 23, z: 48}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 7, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 23, z: 41}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 23, z: 42}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 23, z: 44}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 23, z: 46}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 23, z: 47}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 3, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 40}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 41}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 39}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 38}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 44}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 34}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 47}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 33}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 23, z: 48}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 8, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 41}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 42}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 46}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 40}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 44}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 34}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 47}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 33}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 48}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 41}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 42}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 37}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 44}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 36}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 45}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 34}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 47}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 33}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 48}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 25, z: 50}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
   pointPositions_Open:
-  - position: {x: 0, y: 27, z: 42}
+  - position: {x: 5, y: 23, z: 43}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 0, y: 27, z: 43}
+  - position: {x: 5, y: 23, z: 32}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 0, y: 27, z: 41}
+  - position: {x: 5, y: 23, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 0, y: 27, z: 44}
+  - position: {x: 5, y: 23, z: 31}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 0, y: 27, z: 40}
+  - position: {x: 5, y: 23, z: 50}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 0, y: 27, z: 45}
+  - position: {x: 5, y: 25, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 0, y: 27, z: 39}
+  - position: {x: 6, y: 23, z: 43}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 27, z: 42}
+  - position: {x: 6, y: 23, z: 32}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 27, z: 43}
+  - position: {x: 6, y: 23, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 27, z: 41}
+  - position: {x: 6, y: 23, z: 31}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 27, z: 44}
+  - position: {x: 6, y: 23, z: 50}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 27, z: 40}
+  - position: {x: 6, y: 25, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 27, z: 45}
+  - position: {x: 4, y: 23, z: 43}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 27, z: 39}
+  - position: {x: 4, y: 23, z: 33}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -1, y: 27, z: 42}
+  - position: {x: 4, y: 23, z: 32}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -1, y: 27, z: 43}
+  - position: {x: 4, y: 23, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -1, y: 27, z: 41}
+  - position: {x: 4, y: 23, z: 31}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -1, y: 27, z: 44}
+  - position: {x: 4, y: 23, z: 50}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -1, y: 27, z: 40}
+  - position: {x: 4, y: 25, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -1, y: 27, z: 45}
+  - position: {x: 7, y: 23, z: 43}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -1, y: 27, z: 39}
+  - position: {x: 7, y: 23, z: 32}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 27, z: 42}
+  - position: {x: 7, y: 23, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 27, z: 43}
+  - position: {x: 7, y: 23, z: 31}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 27, z: 41}
+  - position: {x: 7, y: 23, z: 50}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 27, z: 44}
+  - position: {x: 7, y: 25, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 27, z: 40}
+  - position: {x: 3, y: 23, z: 43}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 27, z: 45}
+  - position: {x: 3, y: 23, z: 35}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 27, z: 39}
+  - position: {x: 3, y: 23, z: 34}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -2, y: 27, z: 42}
+  - position: {x: 3, y: 23, z: 33}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -2, y: 27, z: 43}
+  - position: {x: 3, y: 23, z: 48}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -2, y: 27, z: 41}
+  - position: {x: 3, y: 23, z: 32}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -2, y: 27, z: 44}
+  - position: {x: 3, y: 23, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -2, y: 27, z: 40}
+  - position: {x: 3, y: 23, z: 31}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -2, y: 27, z: 45}
+  - position: {x: 3, y: 23, z: 50}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -2, y: 27, z: 39}
+  - position: {x: 3, y: 25, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 27, z: 42}
+  - position: {x: 8, y: 23, z: 42}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 27, z: 43}
+  - position: {x: 8, y: 23, z: 43}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 27, z: 41}
+  - position: {x: 8, y: 23, z: 32}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 27, z: 44}
+  - position: {x: 8, y: 23, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 27, z: 40}
+  - position: {x: 8, y: 23, z: 31}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 27, z: 45}
+  - position: {x: 8, y: 23, z: 50}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 27, z: 39}
+  - position: {x: 8, y: 25, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -3, y: 27, z: 42}
+  - position: {x: 2, y: 23, z: 43}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -3, y: 27, z: 43}
+  - position: {x: 2, y: 23, z: 44}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -3, y: 27, z: 41}
+  - position: {x: 2, y: 23, z: 35}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -3, y: 27, z: 44}
+  - position: {x: 2, y: 23, z: 34}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -3, y: 27, z: 40}
+  - position: {x: 2, y: 23, z: 47}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: -3, y: 27, z: 45}
+  - position: {x: 2, y: 23, z: 33}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 48}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 32}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 49}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 31}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 23, z: 50}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 2, y: 25, z: 49}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 41}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 39}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 42}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 38}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 43}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 32}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 49}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 31}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 23, z: 50}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 9, y: 25, z: 49}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 43}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 44}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 45}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 35}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 46}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 34}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 47}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 33}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 48}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 32}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 49}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 31}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 23, z: 50}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 1, y: 25, z: 49}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 40}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 41}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 39}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 42}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 38}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 43}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 32}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 49}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 31}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 23, z: 50}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 10, y: 25, z: 49}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
   showDebug: 1
@@ -8064,320 +8494,2376 @@ MonoBehaviour:
   debug_showSpacing: 0
   debug_ShowGetPosition: 1
   debug_GetPositionTransform: {fileID: 858229352}
-  debug_ShowTempList: 1
+  debug_ShowTempList: 0
   debug_TempList:
-  - {x: 0, y: 27, z: 42}
-  - {x: 0, y: 27, z: 42}
-  - {x: 0, y: 27, z: 43}
-  - {x: 0, y: 27, z: 41}
-  - {x: 0, y: 27, z: 44}
-  - {x: 0, y: 27, z: 40}
-  - {x: 0, y: 27, z: 45}
-  - {x: 0, y: 27, z: 39}
-  - {x: 0, y: 27, z: 42}
-  - {x: 0, y: 27, z: 42}
-  - {x: 0, y: 27, z: 43}
-  - {x: 0, y: 27, z: 41}
-  - {x: 0, y: 27, z: 44}
-  - {x: 0, y: 27, z: 40}
-  - {x: 0, y: 27, z: 45}
-  - {x: 0, y: 27, z: 39}
-  - {x: 0, y: 28, z: 42}
-  - {x: 0, y: 28, z: 42}
-  - {x: 0, y: 28, z: 43}
-  - {x: 0, y: 28, z: 41}
-  - {x: 0, y: 28, z: 44}
-  - {x: 0, y: 28, z: 40}
-  - {x: 0, y: 28, z: 45}
-  - {x: 0, y: 28, z: 39}
-  - {x: 0, y: 26, z: 42}
-  - {x: 0, y: 26, z: 42}
-  - {x: 0, y: 26, z: 43}
-  - {x: 0, y: 26, z: 41}
-  - {x: 0, y: 26, z: 44}
-  - {x: 0, y: 26, z: 40}
-  - {x: 0, y: 26, z: 45}
-  - {x: 0, y: 26, z: 39}
-  - {x: 0, y: 29, z: 42}
-  - {x: 0, y: 29, z: 42}
-  - {x: 0, y: 29, z: 43}
-  - {x: 0, y: 29, z: 41}
-  - {x: 0, y: 29, z: 44}
-  - {x: 0, y: 29, z: 40}
-  - {x: 0, y: 25, z: 42}
-  - {x: 0, y: 25, z: 42}
-  - {x: 0, y: 25, z: 43}
-  - {x: 0, y: 25, z: 41}
-  - {x: 0, y: 25, z: 44}
-  - {x: 0, y: 25, z: 40}
-  - {x: 0, y: 30, z: 42}
-  - {x: 0, y: 30, z: 42}
-  - {x: 0, y: 30, z: 43}
-  - {x: 0, y: 30, z: 41}
-  - {x: 0, y: 24, z: 42}
-  - {x: 0, y: 24, z: 42}
-  - {x: 0, y: 24, z: 43}
-  - {x: 0, y: 24, z: 41}
-  - {x: 0, y: 27, z: 42}
-  - {x: 0, y: 27, z: 42}
-  - {x: 0, y: 27, z: 43}
-  - {x: 0, y: 27, z: 41}
-  - {x: 0, y: 27, z: 44}
-  - {x: 0, y: 27, z: 40}
-  - {x: 0, y: 27, z: 45}
-  - {x: 0, y: 27, z: 39}
-  - {x: 0, y: 27, z: 42}
-  - {x: 0, y: 27, z: 42}
-  - {x: 0, y: 27, z: 43}
-  - {x: 0, y: 27, z: 41}
-  - {x: 0, y: 27, z: 44}
-  - {x: 0, y: 27, z: 40}
-  - {x: 0, y: 27, z: 45}
-  - {x: 0, y: 27, z: 39}
-  - {x: 0, y: 28, z: 42}
-  - {x: 0, y: 28, z: 42}
-  - {x: 0, y: 28, z: 43}
-  - {x: 0, y: 28, z: 41}
-  - {x: 0, y: 28, z: 44}
-  - {x: 0, y: 28, z: 40}
-  - {x: 0, y: 28, z: 45}
-  - {x: 0, y: 28, z: 39}
-  - {x: 0, y: 26, z: 42}
-  - {x: 0, y: 26, z: 42}
-  - {x: 0, y: 26, z: 43}
-  - {x: 0, y: 26, z: 41}
-  - {x: 0, y: 26, z: 44}
-  - {x: 0, y: 26, z: 40}
-  - {x: 0, y: 26, z: 45}
-  - {x: 0, y: 26, z: 39}
-  - {x: 0, y: 29, z: 42}
-  - {x: 0, y: 29, z: 42}
-  - {x: 0, y: 29, z: 43}
-  - {x: 0, y: 29, z: 41}
-  - {x: 0, y: 29, z: 44}
-  - {x: 0, y: 29, z: 40}
-  - {x: 0, y: 25, z: 42}
-  - {x: 0, y: 25, z: 42}
-  - {x: 0, y: 25, z: 43}
-  - {x: 0, y: 25, z: 41}
-  - {x: 0, y: 25, z: 44}
-  - {x: 0, y: 25, z: 40}
-  - {x: 0, y: 30, z: 42}
-  - {x: 0, y: 30, z: 42}
-  - {x: 0, y: 30, z: 43}
-  - {x: 0, y: 30, z: 41}
-  - {x: 0, y: 24, z: 42}
-  - {x: 0, y: 24, z: 42}
-  - {x: 0, y: 24, z: 43}
-  - {x: 0, y: 24, z: 41}
-  - {x: 1, y: 27, z: 42}
-  - {x: 1, y: 27, z: 42}
-  - {x: 1, y: 27, z: 43}
-  - {x: 1, y: 27, z: 41}
-  - {x: 1, y: 27, z: 44}
-  - {x: 1, y: 27, z: 40}
-  - {x: 1, y: 27, z: 45}
-  - {x: 1, y: 27, z: 39}
-  - {x: 1, y: 27, z: 42}
-  - {x: 1, y: 27, z: 42}
-  - {x: 1, y: 27, z: 43}
-  - {x: 1, y: 27, z: 41}
-  - {x: 1, y: 27, z: 44}
-  - {x: 1, y: 27, z: 40}
-  - {x: 1, y: 27, z: 45}
-  - {x: 1, y: 27, z: 39}
-  - {x: 1, y: 28, z: 42}
-  - {x: 1, y: 28, z: 42}
-  - {x: 1, y: 28, z: 43}
-  - {x: 1, y: 28, z: 41}
-  - {x: 1, y: 28, z: 44}
-  - {x: 1, y: 28, z: 40}
-  - {x: 1, y: 28, z: 45}
-  - {x: 1, y: 28, z: 39}
-  - {x: 1, y: 26, z: 42}
-  - {x: 1, y: 26, z: 42}
-  - {x: 1, y: 26, z: 43}
-  - {x: 1, y: 26, z: 41}
-  - {x: 1, y: 26, z: 44}
-  - {x: 1, y: 26, z: 40}
-  - {x: 1, y: 26, z: 45}
-  - {x: 1, y: 26, z: 39}
-  - {x: 1, y: 29, z: 42}
-  - {x: 1, y: 29, z: 42}
-  - {x: 1, y: 29, z: 43}
-  - {x: 1, y: 29, z: 41}
-  - {x: 1, y: 29, z: 44}
-  - {x: 1, y: 29, z: 40}
-  - {x: 1, y: 25, z: 42}
-  - {x: 1, y: 25, z: 42}
-  - {x: 1, y: 25, z: 43}
-  - {x: 1, y: 25, z: 41}
-  - {x: 1, y: 25, z: 44}
-  - {x: 1, y: 25, z: 40}
-  - {x: 1, y: 30, z: 42}
-  - {x: 1, y: 30, z: 42}
-  - {x: 1, y: 30, z: 43}
-  - {x: 1, y: 30, z: 41}
-  - {x: 1, y: 24, z: 42}
-  - {x: 1, y: 24, z: 42}
-  - {x: 1, y: 24, z: 43}
-  - {x: 1, y: 24, z: 41}
-  - {x: -1, y: 27, z: 42}
-  - {x: -1, y: 27, z: 42}
-  - {x: -1, y: 27, z: 43}
-  - {x: -1, y: 27, z: 41}
-  - {x: -1, y: 27, z: 44}
-  - {x: -1, y: 27, z: 40}
-  - {x: -1, y: 27, z: 45}
-  - {x: -1, y: 27, z: 39}
-  - {x: -1, y: 27, z: 42}
-  - {x: -1, y: 27, z: 42}
-  - {x: -1, y: 27, z: 43}
-  - {x: -1, y: 27, z: 41}
-  - {x: -1, y: 27, z: 44}
-  - {x: -1, y: 27, z: 40}
-  - {x: -1, y: 27, z: 45}
-  - {x: -1, y: 27, z: 39}
-  - {x: -1, y: 28, z: 42}
-  - {x: -1, y: 28, z: 42}
-  - {x: -1, y: 28, z: 43}
-  - {x: -1, y: 28, z: 41}
-  - {x: -1, y: 28, z: 44}
-  - {x: -1, y: 28, z: 40}
-  - {x: -1, y: 28, z: 45}
-  - {x: -1, y: 28, z: 39}
-  - {x: -1, y: 26, z: 42}
-  - {x: -1, y: 26, z: 42}
-  - {x: -1, y: 26, z: 43}
-  - {x: -1, y: 26, z: 41}
-  - {x: -1, y: 26, z: 44}
-  - {x: -1, y: 26, z: 40}
-  - {x: -1, y: 26, z: 45}
-  - {x: -1, y: 26, z: 39}
-  - {x: -1, y: 29, z: 42}
-  - {x: -1, y: 29, z: 42}
-  - {x: -1, y: 29, z: 43}
-  - {x: -1, y: 29, z: 41}
-  - {x: -1, y: 29, z: 44}
-  - {x: -1, y: 29, z: 40}
-  - {x: -1, y: 25, z: 42}
-  - {x: -1, y: 25, z: 42}
-  - {x: -1, y: 25, z: 43}
-  - {x: -1, y: 25, z: 41}
-  - {x: -1, y: 25, z: 44}
-  - {x: -1, y: 25, z: 40}
-  - {x: -1, y: 30, z: 42}
-  - {x: -1, y: 30, z: 42}
-  - {x: -1, y: 30, z: 43}
-  - {x: -1, y: 30, z: 41}
-  - {x: -1, y: 24, z: 42}
-  - {x: -1, y: 24, z: 42}
-  - {x: -1, y: 24, z: 43}
-  - {x: -1, y: 24, z: 41}
-  - {x: 2, y: 27, z: 42}
-  - {x: 2, y: 27, z: 42}
-  - {x: 2, y: 27, z: 43}
-  - {x: 2, y: 27, z: 41}
-  - {x: 2, y: 27, z: 44}
-  - {x: 2, y: 27, z: 40}
-  - {x: 2, y: 27, z: 42}
-  - {x: 2, y: 27, z: 42}
-  - {x: 2, y: 27, z: 43}
-  - {x: 2, y: 27, z: 41}
-  - {x: 2, y: 27, z: 44}
-  - {x: 2, y: 27, z: 40}
-  - {x: 2, y: 28, z: 42}
-  - {x: 2, y: 28, z: 42}
-  - {x: 2, y: 28, z: 43}
-  - {x: 2, y: 28, z: 41}
-  - {x: 2, y: 28, z: 44}
-  - {x: 2, y: 28, z: 40}
-  - {x: 2, y: 26, z: 42}
-  - {x: 2, y: 26, z: 42}
-  - {x: 2, y: 26, z: 43}
-  - {x: 2, y: 26, z: 41}
-  - {x: 2, y: 26, z: 44}
-  - {x: 2, y: 26, z: 40}
-  - {x: 2, y: 29, z: 42}
-  - {x: 2, y: 29, z: 42}
-  - {x: 2, y: 29, z: 43}
-  - {x: 2, y: 29, z: 41}
-  - {x: 2, y: 29, z: 44}
-  - {x: 2, y: 29, z: 40}
-  - {x: 2, y: 25, z: 42}
-  - {x: 2, y: 25, z: 42}
-  - {x: 2, y: 25, z: 43}
-  - {x: 2, y: 25, z: 41}
-  - {x: 2, y: 25, z: 44}
-  - {x: 2, y: 25, z: 40}
-  - {x: -2, y: 27, z: 42}
-  - {x: -2, y: 27, z: 42}
-  - {x: -2, y: 27, z: 43}
-  - {x: -2, y: 27, z: 41}
-  - {x: -2, y: 27, z: 44}
-  - {x: -2, y: 27, z: 40}
-  - {x: -2, y: 27, z: 42}
-  - {x: -2, y: 27, z: 42}
-  - {x: -2, y: 27, z: 43}
-  - {x: -2, y: 27, z: 41}
-  - {x: -2, y: 27, z: 44}
-  - {x: -2, y: 27, z: 40}
-  - {x: -2, y: 28, z: 42}
-  - {x: -2, y: 28, z: 42}
-  - {x: -2, y: 28, z: 43}
-  - {x: -2, y: 28, z: 41}
-  - {x: -2, y: 28, z: 44}
-  - {x: -2, y: 28, z: 40}
-  - {x: -2, y: 26, z: 42}
-  - {x: -2, y: 26, z: 42}
-  - {x: -2, y: 26, z: 43}
-  - {x: -2, y: 26, z: 41}
-  - {x: -2, y: 26, z: 44}
-  - {x: -2, y: 26, z: 40}
-  - {x: -2, y: 29, z: 42}
-  - {x: -2, y: 29, z: 42}
-  - {x: -2, y: 29, z: 43}
-  - {x: -2, y: 29, z: 41}
-  - {x: -2, y: 29, z: 44}
-  - {x: -2, y: 29, z: 40}
-  - {x: -2, y: 25, z: 42}
-  - {x: -2, y: 25, z: 42}
-  - {x: -2, y: 25, z: 43}
-  - {x: -2, y: 25, z: 41}
-  - {x: -2, y: 25, z: 44}
-  - {x: -2, y: 25, z: 40}
-  - {x: 3, y: 27, z: 42}
-  - {x: 3, y: 27, z: 42}
-  - {x: 3, y: 27, z: 43}
-  - {x: 3, y: 27, z: 41}
-  - {x: 3, y: 27, z: 42}
-  - {x: 3, y: 27, z: 42}
-  - {x: 3, y: 27, z: 43}
-  - {x: 3, y: 27, z: 41}
-  - {x: 3, y: 28, z: 42}
-  - {x: 3, y: 28, z: 42}
-  - {x: 3, y: 28, z: 43}
-  - {x: 3, y: 28, z: 41}
-  - {x: 3, y: 26, z: 42}
-  - {x: 3, y: 26, z: 42}
-  - {x: 3, y: 26, z: 43}
-  - {x: 3, y: 26, z: 41}
-  - {x: -3, y: 27, z: 42}
-  - {x: -3, y: 27, z: 42}
-  - {x: -3, y: 27, z: 43}
-  - {x: -3, y: 27, z: 41}
-  - {x: -3, y: 27, z: 42}
-  - {x: -3, y: 27, z: 42}
-  - {x: -3, y: 27, z: 43}
-  - {x: -3, y: 27, z: 41}
-  - {x: -3, y: 28, z: 42}
-  - {x: -3, y: 28, z: 42}
-  - {x: -3, y: 28, z: 43}
-  - {x: -3, y: 28, z: 41}
-  - {x: -3, y: 26, z: 42}
-  - {x: -3, y: 26, z: 42}
-  - {x: -3, y: 26, z: 43}
-  - {x: -3, y: 26, z: 41}
+  - {x: 5.47, y: 26.93, z: 38.6}
+  - {x: 5.47, y: 26.93, z: 38.6}
+  - {x: 5.47, y: 26.93, z: 39.6}
+  - {x: 5.47, y: 26.93, z: 37.6}
+  - {x: 5.47, y: 26.93, z: 40.6}
+  - {x: 5.47, y: 26.93, z: 36.6}
+  - {x: 5.47, y: 26.93, z: 41.6}
+  - {x: 5.47, y: 26.93, z: 35.6}
+  - {x: 5.47, y: 26.93, z: 42.6}
+  - {x: 5.47, y: 26.93, z: 34.6}
+  - {x: 5.47, y: 26.93, z: 43.6}
+  - {x: 5.47, y: 26.93, z: 33.6}
+  - {x: 5.47, y: 26.93, z: 44.6}
+  - {x: 5.47, y: 26.93, z: 32.6}
+  - {x: 5.47, y: 26.93, z: 45.6}
+  - {x: 5.47, y: 26.93, z: 31.599998}
+  - {x: 5.47, y: 26.93, z: 38.6}
+  - {x: 5.47, y: 26.93, z: 38.6}
+  - {x: 5.47, y: 26.93, z: 39.6}
+  - {x: 5.47, y: 26.93, z: 37.6}
+  - {x: 5.47, y: 26.93, z: 40.6}
+  - {x: 5.47, y: 26.93, z: 36.6}
+  - {x: 5.47, y: 26.93, z: 41.6}
+  - {x: 5.47, y: 26.93, z: 35.6}
+  - {x: 5.47, y: 26.93, z: 42.6}
+  - {x: 5.47, y: 26.93, z: 34.6}
+  - {x: 5.47, y: 26.93, z: 43.6}
+  - {x: 5.47, y: 26.93, z: 33.6}
+  - {x: 5.47, y: 26.93, z: 44.6}
+  - {x: 5.47, y: 26.93, z: 32.6}
+  - {x: 5.47, y: 26.93, z: 45.6}
+  - {x: 5.47, y: 26.93, z: 31.599998}
+  - {x: 5.47, y: 27.93, z: 38.6}
+  - {x: 5.47, y: 27.93, z: 38.6}
+  - {x: 5.47, y: 27.93, z: 39.6}
+  - {x: 5.47, y: 27.93, z: 37.6}
+  - {x: 5.47, y: 27.93, z: 40.6}
+  - {x: 5.47, y: 27.93, z: 36.6}
+  - {x: 5.47, y: 27.93, z: 41.6}
+  - {x: 5.47, y: 27.93, z: 35.6}
+  - {x: 5.47, y: 27.93, z: 42.6}
+  - {x: 5.47, y: 27.93, z: 34.6}
+  - {x: 5.47, y: 27.93, z: 43.6}
+  - {x: 5.47, y: 27.93, z: 33.6}
+  - {x: 5.47, y: 27.93, z: 44.6}
+  - {x: 5.47, y: 27.93, z: 32.6}
+  - {x: 5.47, y: 27.93, z: 45.6}
+  - {x: 5.47, y: 27.93, z: 31.599998}
+  - {x: 5.47, y: 25.93, z: 38.6}
+  - {x: 5.47, y: 25.93, z: 38.6}
+  - {x: 5.47, y: 25.93, z: 39.6}
+  - {x: 5.47, y: 25.93, z: 37.6}
+  - {x: 5.47, y: 25.93, z: 40.6}
+  - {x: 5.47, y: 25.93, z: 36.6}
+  - {x: 5.47, y: 25.93, z: 41.6}
+  - {x: 5.47, y: 25.93, z: 35.6}
+  - {x: 5.47, y: 25.93, z: 42.6}
+  - {x: 5.47, y: 25.93, z: 34.6}
+  - {x: 5.47, y: 25.93, z: 43.6}
+  - {x: 5.47, y: 25.93, z: 33.6}
+  - {x: 5.47, y: 25.93, z: 44.6}
+  - {x: 5.47, y: 25.93, z: 32.6}
+  - {x: 5.47, y: 25.93, z: 45.6}
+  - {x: 5.47, y: 25.93, z: 31.599998}
+  - {x: 5.47, y: 28.93, z: 38.6}
+  - {x: 5.47, y: 28.93, z: 38.6}
+  - {x: 5.47, y: 28.93, z: 39.6}
+  - {x: 5.47, y: 28.93, z: 37.6}
+  - {x: 5.47, y: 28.93, z: 40.6}
+  - {x: 5.47, y: 28.93, z: 36.6}
+  - {x: 5.47, y: 28.93, z: 41.6}
+  - {x: 5.47, y: 28.93, z: 35.6}
+  - {x: 5.47, y: 28.93, z: 42.6}
+  - {x: 5.47, y: 28.93, z: 34.6}
+  - {x: 5.47, y: 28.93, z: 43.6}
+  - {x: 5.47, y: 28.93, z: 33.6}
+  - {x: 5.47, y: 28.93, z: 44.6}
+  - {x: 5.47, y: 28.93, z: 32.6}
+  - {x: 5.47, y: 28.93, z: 45.6}
+  - {x: 5.47, y: 28.93, z: 31.599998}
+  - {x: 5.47, y: 24.93, z: 38.6}
+  - {x: 5.47, y: 24.93, z: 38.6}
+  - {x: 5.47, y: 24.93, z: 39.6}
+  - {x: 5.47, y: 24.93, z: 37.6}
+  - {x: 5.47, y: 24.93, z: 40.6}
+  - {x: 5.47, y: 24.93, z: 36.6}
+  - {x: 5.47, y: 24.93, z: 41.6}
+  - {x: 5.47, y: 24.93, z: 35.6}
+  - {x: 5.47, y: 24.93, z: 42.6}
+  - {x: 5.47, y: 24.93, z: 34.6}
+  - {x: 5.47, y: 24.93, z: 43.6}
+  - {x: 5.47, y: 24.93, z: 33.6}
+  - {x: 5.47, y: 24.93, z: 44.6}
+  - {x: 5.47, y: 24.93, z: 32.6}
+  - {x: 5.47, y: 24.93, z: 45.6}
+  - {x: 5.47, y: 24.93, z: 31.599998}
+  - {x: 5.47, y: 29.93, z: 38.6}
+  - {x: 5.47, y: 29.93, z: 38.6}
+  - {x: 5.47, y: 29.93, z: 39.6}
+  - {x: 5.47, y: 29.93, z: 37.6}
+  - {x: 5.47, y: 29.93, z: 40.6}
+  - {x: 5.47, y: 29.93, z: 36.6}
+  - {x: 5.47, y: 29.93, z: 41.6}
+  - {x: 5.47, y: 29.93, z: 35.6}
+  - {x: 5.47, y: 29.93, z: 42.6}
+  - {x: 5.47, y: 29.93, z: 34.6}
+  - {x: 5.47, y: 29.93, z: 43.6}
+  - {x: 5.47, y: 29.93, z: 33.6}
+  - {x: 5.47, y: 29.93, z: 44.6}
+  - {x: 5.47, y: 29.93, z: 32.6}
+  - {x: 5.47, y: 23.93, z: 38.6}
+  - {x: 5.47, y: 23.93, z: 38.6}
+  - {x: 5.47, y: 23.93, z: 39.6}
+  - {x: 5.47, y: 23.93, z: 37.6}
+  - {x: 5.47, y: 23.93, z: 40.6}
+  - {x: 5.47, y: 23.93, z: 36.6}
+  - {x: 5.47, y: 23.93, z: 41.6}
+  - {x: 5.47, y: 23.93, z: 35.6}
+  - {x: 5.47, y: 23.93, z: 42.6}
+  - {x: 5.47, y: 23.93, z: 34.6}
+  - {x: 5.47, y: 23.93, z: 43.6}
+  - {x: 5.47, y: 23.93, z: 33.6}
+  - {x: 5.47, y: 23.93, z: 44.6}
+  - {x: 5.47, y: 23.93, z: 32.6}
+  - {x: 5.47, y: 30.93, z: 38.6}
+  - {x: 5.47, y: 30.93, z: 38.6}
+  - {x: 5.47, y: 30.93, z: 39.6}
+  - {x: 5.47, y: 30.93, z: 37.6}
+  - {x: 5.47, y: 30.93, z: 40.6}
+  - {x: 5.47, y: 30.93, z: 36.6}
+  - {x: 5.47, y: 30.93, z: 41.6}
+  - {x: 5.47, y: 30.93, z: 35.6}
+  - {x: 5.47, y: 30.93, z: 42.6}
+  - {x: 5.47, y: 30.93, z: 34.6}
+  - {x: 5.47, y: 30.93, z: 43.6}
+  - {x: 5.47, y: 30.93, z: 33.6}
+  - {x: 5.47, y: 30.93, z: 44.6}
+  - {x: 5.47, y: 30.93, z: 32.6}
+  - {x: 5.47, y: 22.93, z: 38.6}
+  - {x: 5.47, y: 22.93, z: 38.6}
+  - {x: 5.47, y: 22.93, z: 39.6}
+  - {x: 5.47, y: 22.93, z: 37.6}
+  - {x: 5.47, y: 22.93, z: 40.6}
+  - {x: 5.47, y: 22.93, z: 36.6}
+  - {x: 5.47, y: 22.93, z: 41.6}
+  - {x: 5.47, y: 22.93, z: 35.6}
+  - {x: 5.47, y: 22.93, z: 42.6}
+  - {x: 5.47, y: 22.93, z: 34.6}
+  - {x: 5.47, y: 22.93, z: 43.6}
+  - {x: 5.47, y: 22.93, z: 33.6}
+  - {x: 5.47, y: 22.93, z: 44.6}
+  - {x: 5.47, y: 22.93, z: 32.6}
+  - {x: 5.47, y: 31.93, z: 38.6}
+  - {x: 5.47, y: 31.93, z: 38.6}
+  - {x: 5.47, y: 31.93, z: 39.6}
+  - {x: 5.47, y: 31.93, z: 37.6}
+  - {x: 5.47, y: 31.93, z: 40.6}
+  - {x: 5.47, y: 31.93, z: 36.6}
+  - {x: 5.47, y: 31.93, z: 41.6}
+  - {x: 5.47, y: 31.93, z: 35.6}
+  - {x: 5.47, y: 31.93, z: 42.6}
+  - {x: 5.47, y: 31.93, z: 34.6}
+  - {x: 5.47, y: 31.93, z: 43.6}
+  - {x: 5.47, y: 31.93, z: 33.6}
+  - {x: 5.47, y: 21.93, z: 38.6}
+  - {x: 5.47, y: 21.93, z: 38.6}
+  - {x: 5.47, y: 21.93, z: 39.6}
+  - {x: 5.47, y: 21.93, z: 37.6}
+  - {x: 5.47, y: 21.93, z: 40.6}
+  - {x: 5.47, y: 21.93, z: 36.6}
+  - {x: 5.47, y: 21.93, z: 41.6}
+  - {x: 5.47, y: 21.93, z: 35.6}
+  - {x: 5.47, y: 21.93, z: 42.6}
+  - {x: 5.47, y: 21.93, z: 34.6}
+  - {x: 5.47, y: 21.93, z: 43.6}
+  - {x: 5.47, y: 21.93, z: 33.6}
+  - {x: 5.47, y: 32.93, z: 38.6}
+  - {x: 5.47, y: 32.93, z: 38.6}
+  - {x: 5.47, y: 32.93, z: 39.6}
+  - {x: 5.47, y: 32.93, z: 37.6}
+  - {x: 5.47, y: 32.93, z: 40.6}
+  - {x: 5.47, y: 32.93, z: 36.6}
+  - {x: 5.47, y: 32.93, z: 41.6}
+  - {x: 5.47, y: 32.93, z: 35.6}
+  - {x: 5.47, y: 32.93, z: 42.6}
+  - {x: 5.47, y: 32.93, z: 34.6}
+  - {x: 5.47, y: 20.93, z: 38.6}
+  - {x: 5.47, y: 20.93, z: 38.6}
+  - {x: 5.47, y: 20.93, z: 39.6}
+  - {x: 5.47, y: 20.93, z: 37.6}
+  - {x: 5.47, y: 20.93, z: 40.6}
+  - {x: 5.47, y: 20.93, z: 36.6}
+  - {x: 5.47, y: 20.93, z: 41.6}
+  - {x: 5.47, y: 20.93, z: 35.6}
+  - {x: 5.47, y: 20.93, z: 42.6}
+  - {x: 5.47, y: 20.93, z: 34.6}
+  - {x: 5.47, y: 33.93, z: 38.6}
+  - {x: 5.47, y: 33.93, z: 38.6}
+  - {x: 5.47, y: 33.93, z: 39.6}
+  - {x: 5.47, y: 33.93, z: 37.6}
+  - {x: 5.47, y: 33.93, z: 40.6}
+  - {x: 5.47, y: 33.93, z: 36.6}
+  - {x: 5.47, y: 19.93, z: 38.6}
+  - {x: 5.47, y: 19.93, z: 38.6}
+  - {x: 5.47, y: 19.93, z: 39.6}
+  - {x: 5.47, y: 19.93, z: 37.6}
+  - {x: 5.47, y: 19.93, z: 40.6}
+  - {x: 5.47, y: 19.93, z: 36.6}
+  - {x: 5.47, y: 26.93, z: 38.6}
+  - {x: 5.47, y: 26.93, z: 38.6}
+  - {x: 5.47, y: 26.93, z: 39.6}
+  - {x: 5.47, y: 26.93, z: 37.6}
+  - {x: 5.47, y: 26.93, z: 40.6}
+  - {x: 5.47, y: 26.93, z: 36.6}
+  - {x: 5.47, y: 26.93, z: 41.6}
+  - {x: 5.47, y: 26.93, z: 35.6}
+  - {x: 5.47, y: 26.93, z: 42.6}
+  - {x: 5.47, y: 26.93, z: 34.6}
+  - {x: 5.47, y: 26.93, z: 43.6}
+  - {x: 5.47, y: 26.93, z: 33.6}
+  - {x: 5.47, y: 26.93, z: 44.6}
+  - {x: 5.47, y: 26.93, z: 32.6}
+  - {x: 5.47, y: 26.93, z: 45.6}
+  - {x: 5.47, y: 26.93, z: 31.599998}
+  - {x: 5.47, y: 26.93, z: 38.6}
+  - {x: 5.47, y: 26.93, z: 38.6}
+  - {x: 5.47, y: 26.93, z: 39.6}
+  - {x: 5.47, y: 26.93, z: 37.6}
+  - {x: 5.47, y: 26.93, z: 40.6}
+  - {x: 5.47, y: 26.93, z: 36.6}
+  - {x: 5.47, y: 26.93, z: 41.6}
+  - {x: 5.47, y: 26.93, z: 35.6}
+  - {x: 5.47, y: 26.93, z: 42.6}
+  - {x: 5.47, y: 26.93, z: 34.6}
+  - {x: 5.47, y: 26.93, z: 43.6}
+  - {x: 5.47, y: 26.93, z: 33.6}
+  - {x: 5.47, y: 26.93, z: 44.6}
+  - {x: 5.47, y: 26.93, z: 32.6}
+  - {x: 5.47, y: 26.93, z: 45.6}
+  - {x: 5.47, y: 26.93, z: 31.599998}
+  - {x: 5.47, y: 27.93, z: 38.6}
+  - {x: 5.47, y: 27.93, z: 38.6}
+  - {x: 5.47, y: 27.93, z: 39.6}
+  - {x: 5.47, y: 27.93, z: 37.6}
+  - {x: 5.47, y: 27.93, z: 40.6}
+  - {x: 5.47, y: 27.93, z: 36.6}
+  - {x: 5.47, y: 27.93, z: 41.6}
+  - {x: 5.47, y: 27.93, z: 35.6}
+  - {x: 5.47, y: 27.93, z: 42.6}
+  - {x: 5.47, y: 27.93, z: 34.6}
+  - {x: 5.47, y: 27.93, z: 43.6}
+  - {x: 5.47, y: 27.93, z: 33.6}
+  - {x: 5.47, y: 27.93, z: 44.6}
+  - {x: 5.47, y: 27.93, z: 32.6}
+  - {x: 5.47, y: 27.93, z: 45.6}
+  - {x: 5.47, y: 27.93, z: 31.599998}
+  - {x: 5.47, y: 25.93, z: 38.6}
+  - {x: 5.47, y: 25.93, z: 38.6}
+  - {x: 5.47, y: 25.93, z: 39.6}
+  - {x: 5.47, y: 25.93, z: 37.6}
+  - {x: 5.47, y: 25.93, z: 40.6}
+  - {x: 5.47, y: 25.93, z: 36.6}
+  - {x: 5.47, y: 25.93, z: 41.6}
+  - {x: 5.47, y: 25.93, z: 35.6}
+  - {x: 5.47, y: 25.93, z: 42.6}
+  - {x: 5.47, y: 25.93, z: 34.6}
+  - {x: 5.47, y: 25.93, z: 43.6}
+  - {x: 5.47, y: 25.93, z: 33.6}
+  - {x: 5.47, y: 25.93, z: 44.6}
+  - {x: 5.47, y: 25.93, z: 32.6}
+  - {x: 5.47, y: 25.93, z: 45.6}
+  - {x: 5.47, y: 25.93, z: 31.599998}
+  - {x: 5.47, y: 28.93, z: 38.6}
+  - {x: 5.47, y: 28.93, z: 38.6}
+  - {x: 5.47, y: 28.93, z: 39.6}
+  - {x: 5.47, y: 28.93, z: 37.6}
+  - {x: 5.47, y: 28.93, z: 40.6}
+  - {x: 5.47, y: 28.93, z: 36.6}
+  - {x: 5.47, y: 28.93, z: 41.6}
+  - {x: 5.47, y: 28.93, z: 35.6}
+  - {x: 5.47, y: 28.93, z: 42.6}
+  - {x: 5.47, y: 28.93, z: 34.6}
+  - {x: 5.47, y: 28.93, z: 43.6}
+  - {x: 5.47, y: 28.93, z: 33.6}
+  - {x: 5.47, y: 28.93, z: 44.6}
+  - {x: 5.47, y: 28.93, z: 32.6}
+  - {x: 5.47, y: 28.93, z: 45.6}
+  - {x: 5.47, y: 28.93, z: 31.599998}
+  - {x: 5.47, y: 24.93, z: 38.6}
+  - {x: 5.47, y: 24.93, z: 38.6}
+  - {x: 5.47, y: 24.93, z: 39.6}
+  - {x: 5.47, y: 24.93, z: 37.6}
+  - {x: 5.47, y: 24.93, z: 40.6}
+  - {x: 5.47, y: 24.93, z: 36.6}
+  - {x: 5.47, y: 24.93, z: 41.6}
+  - {x: 5.47, y: 24.93, z: 35.6}
+  - {x: 5.47, y: 24.93, z: 42.6}
+  - {x: 5.47, y: 24.93, z: 34.6}
+  - {x: 5.47, y: 24.93, z: 43.6}
+  - {x: 5.47, y: 24.93, z: 33.6}
+  - {x: 5.47, y: 24.93, z: 44.6}
+  - {x: 5.47, y: 24.93, z: 32.6}
+  - {x: 5.47, y: 24.93, z: 45.6}
+  - {x: 5.47, y: 24.93, z: 31.599998}
+  - {x: 5.47, y: 29.93, z: 38.6}
+  - {x: 5.47, y: 29.93, z: 38.6}
+  - {x: 5.47, y: 29.93, z: 39.6}
+  - {x: 5.47, y: 29.93, z: 37.6}
+  - {x: 5.47, y: 29.93, z: 40.6}
+  - {x: 5.47, y: 29.93, z: 36.6}
+  - {x: 5.47, y: 29.93, z: 41.6}
+  - {x: 5.47, y: 29.93, z: 35.6}
+  - {x: 5.47, y: 29.93, z: 42.6}
+  - {x: 5.47, y: 29.93, z: 34.6}
+  - {x: 5.47, y: 29.93, z: 43.6}
+  - {x: 5.47, y: 29.93, z: 33.6}
+  - {x: 5.47, y: 29.93, z: 44.6}
+  - {x: 5.47, y: 29.93, z: 32.6}
+  - {x: 5.47, y: 23.93, z: 38.6}
+  - {x: 5.47, y: 23.93, z: 38.6}
+  - {x: 5.47, y: 23.93, z: 39.6}
+  - {x: 5.47, y: 23.93, z: 37.6}
+  - {x: 5.47, y: 23.93, z: 40.6}
+  - {x: 5.47, y: 23.93, z: 36.6}
+  - {x: 5.47, y: 23.93, z: 41.6}
+  - {x: 5.47, y: 23.93, z: 35.6}
+  - {x: 5.47, y: 23.93, z: 42.6}
+  - {x: 5.47, y: 23.93, z: 34.6}
+  - {x: 5.47, y: 23.93, z: 43.6}
+  - {x: 5.47, y: 23.93, z: 33.6}
+  - {x: 5.47, y: 23.93, z: 44.6}
+  - {x: 5.47, y: 23.93, z: 32.6}
+  - {x: 5.47, y: 30.93, z: 38.6}
+  - {x: 5.47, y: 30.93, z: 38.6}
+  - {x: 5.47, y: 30.93, z: 39.6}
+  - {x: 5.47, y: 30.93, z: 37.6}
+  - {x: 5.47, y: 30.93, z: 40.6}
+  - {x: 5.47, y: 30.93, z: 36.6}
+  - {x: 5.47, y: 30.93, z: 41.6}
+  - {x: 5.47, y: 30.93, z: 35.6}
+  - {x: 5.47, y: 30.93, z: 42.6}
+  - {x: 5.47, y: 30.93, z: 34.6}
+  - {x: 5.47, y: 30.93, z: 43.6}
+  - {x: 5.47, y: 30.93, z: 33.6}
+  - {x: 5.47, y: 30.93, z: 44.6}
+  - {x: 5.47, y: 30.93, z: 32.6}
+  - {x: 5.47, y: 22.93, z: 38.6}
+  - {x: 5.47, y: 22.93, z: 38.6}
+  - {x: 5.47, y: 22.93, z: 39.6}
+  - {x: 5.47, y: 22.93, z: 37.6}
+  - {x: 5.47, y: 22.93, z: 40.6}
+  - {x: 5.47, y: 22.93, z: 36.6}
+  - {x: 5.47, y: 22.93, z: 41.6}
+  - {x: 5.47, y: 22.93, z: 35.6}
+  - {x: 5.47, y: 22.93, z: 42.6}
+  - {x: 5.47, y: 22.93, z: 34.6}
+  - {x: 5.47, y: 22.93, z: 43.6}
+  - {x: 5.47, y: 22.93, z: 33.6}
+  - {x: 5.47, y: 22.93, z: 44.6}
+  - {x: 5.47, y: 22.93, z: 32.6}
+  - {x: 5.47, y: 31.93, z: 38.6}
+  - {x: 5.47, y: 31.93, z: 38.6}
+  - {x: 5.47, y: 31.93, z: 39.6}
+  - {x: 5.47, y: 31.93, z: 37.6}
+  - {x: 5.47, y: 31.93, z: 40.6}
+  - {x: 5.47, y: 31.93, z: 36.6}
+  - {x: 5.47, y: 31.93, z: 41.6}
+  - {x: 5.47, y: 31.93, z: 35.6}
+  - {x: 5.47, y: 31.93, z: 42.6}
+  - {x: 5.47, y: 31.93, z: 34.6}
+  - {x: 5.47, y: 31.93, z: 43.6}
+  - {x: 5.47, y: 31.93, z: 33.6}
+  - {x: 5.47, y: 21.93, z: 38.6}
+  - {x: 5.47, y: 21.93, z: 38.6}
+  - {x: 5.47, y: 21.93, z: 39.6}
+  - {x: 5.47, y: 21.93, z: 37.6}
+  - {x: 5.47, y: 21.93, z: 40.6}
+  - {x: 5.47, y: 21.93, z: 36.6}
+  - {x: 5.47, y: 21.93, z: 41.6}
+  - {x: 5.47, y: 21.93, z: 35.6}
+  - {x: 5.47, y: 21.93, z: 42.6}
+  - {x: 5.47, y: 21.93, z: 34.6}
+  - {x: 5.47, y: 21.93, z: 43.6}
+  - {x: 5.47, y: 21.93, z: 33.6}
+  - {x: 5.47, y: 32.93, z: 38.6}
+  - {x: 5.47, y: 32.93, z: 38.6}
+  - {x: 5.47, y: 32.93, z: 39.6}
+  - {x: 5.47, y: 32.93, z: 37.6}
+  - {x: 5.47, y: 32.93, z: 40.6}
+  - {x: 5.47, y: 32.93, z: 36.6}
+  - {x: 5.47, y: 32.93, z: 41.6}
+  - {x: 5.47, y: 32.93, z: 35.6}
+  - {x: 5.47, y: 32.93, z: 42.6}
+  - {x: 5.47, y: 32.93, z: 34.6}
+  - {x: 5.47, y: 20.93, z: 38.6}
+  - {x: 5.47, y: 20.93, z: 38.6}
+  - {x: 5.47, y: 20.93, z: 39.6}
+  - {x: 5.47, y: 20.93, z: 37.6}
+  - {x: 5.47, y: 20.93, z: 40.6}
+  - {x: 5.47, y: 20.93, z: 36.6}
+  - {x: 5.47, y: 20.93, z: 41.6}
+  - {x: 5.47, y: 20.93, z: 35.6}
+  - {x: 5.47, y: 20.93, z: 42.6}
+  - {x: 5.47, y: 20.93, z: 34.6}
+  - {x: 5.47, y: 33.93, z: 38.6}
+  - {x: 5.47, y: 33.93, z: 38.6}
+  - {x: 5.47, y: 33.93, z: 39.6}
+  - {x: 5.47, y: 33.93, z: 37.6}
+  - {x: 5.47, y: 33.93, z: 40.6}
+  - {x: 5.47, y: 33.93, z: 36.6}
+  - {x: 5.47, y: 19.93, z: 38.6}
+  - {x: 5.47, y: 19.93, z: 38.6}
+  - {x: 5.47, y: 19.93, z: 39.6}
+  - {x: 5.47, y: 19.93, z: 37.6}
+  - {x: 5.47, y: 19.93, z: 40.6}
+  - {x: 5.47, y: 19.93, z: 36.6}
+  - {x: 6.47, y: 26.93, z: 38.6}
+  - {x: 6.47, y: 26.93, z: 38.6}
+  - {x: 6.47, y: 26.93, z: 39.6}
+  - {x: 6.47, y: 26.93, z: 37.6}
+  - {x: 6.47, y: 26.93, z: 40.6}
+  - {x: 6.47, y: 26.93, z: 36.6}
+  - {x: 6.47, y: 26.93, z: 41.6}
+  - {x: 6.47, y: 26.93, z: 35.6}
+  - {x: 6.47, y: 26.93, z: 42.6}
+  - {x: 6.47, y: 26.93, z: 34.6}
+  - {x: 6.47, y: 26.93, z: 43.6}
+  - {x: 6.47, y: 26.93, z: 33.6}
+  - {x: 6.47, y: 26.93, z: 44.6}
+  - {x: 6.47, y: 26.93, z: 32.6}
+  - {x: 6.47, y: 26.93, z: 45.6}
+  - {x: 6.47, y: 26.93, z: 31.599998}
+  - {x: 6.47, y: 26.93, z: 38.6}
+  - {x: 6.47, y: 26.93, z: 38.6}
+  - {x: 6.47, y: 26.93, z: 39.6}
+  - {x: 6.47, y: 26.93, z: 37.6}
+  - {x: 6.47, y: 26.93, z: 40.6}
+  - {x: 6.47, y: 26.93, z: 36.6}
+  - {x: 6.47, y: 26.93, z: 41.6}
+  - {x: 6.47, y: 26.93, z: 35.6}
+  - {x: 6.47, y: 26.93, z: 42.6}
+  - {x: 6.47, y: 26.93, z: 34.6}
+  - {x: 6.47, y: 26.93, z: 43.6}
+  - {x: 6.47, y: 26.93, z: 33.6}
+  - {x: 6.47, y: 26.93, z: 44.6}
+  - {x: 6.47, y: 26.93, z: 32.6}
+  - {x: 6.47, y: 26.93, z: 45.6}
+  - {x: 6.47, y: 26.93, z: 31.599998}
+  - {x: 6.47, y: 27.93, z: 38.6}
+  - {x: 6.47, y: 27.93, z: 38.6}
+  - {x: 6.47, y: 27.93, z: 39.6}
+  - {x: 6.47, y: 27.93, z: 37.6}
+  - {x: 6.47, y: 27.93, z: 40.6}
+  - {x: 6.47, y: 27.93, z: 36.6}
+  - {x: 6.47, y: 27.93, z: 41.6}
+  - {x: 6.47, y: 27.93, z: 35.6}
+  - {x: 6.47, y: 27.93, z: 42.6}
+  - {x: 6.47, y: 27.93, z: 34.6}
+  - {x: 6.47, y: 27.93, z: 43.6}
+  - {x: 6.47, y: 27.93, z: 33.6}
+  - {x: 6.47, y: 27.93, z: 44.6}
+  - {x: 6.47, y: 27.93, z: 32.6}
+  - {x: 6.47, y: 27.93, z: 45.6}
+  - {x: 6.47, y: 27.93, z: 31.599998}
+  - {x: 6.47, y: 25.93, z: 38.6}
+  - {x: 6.47, y: 25.93, z: 38.6}
+  - {x: 6.47, y: 25.93, z: 39.6}
+  - {x: 6.47, y: 25.93, z: 37.6}
+  - {x: 6.47, y: 25.93, z: 40.6}
+  - {x: 6.47, y: 25.93, z: 36.6}
+  - {x: 6.47, y: 25.93, z: 41.6}
+  - {x: 6.47, y: 25.93, z: 35.6}
+  - {x: 6.47, y: 25.93, z: 42.6}
+  - {x: 6.47, y: 25.93, z: 34.6}
+  - {x: 6.47, y: 25.93, z: 43.6}
+  - {x: 6.47, y: 25.93, z: 33.6}
+  - {x: 6.47, y: 25.93, z: 44.6}
+  - {x: 6.47, y: 25.93, z: 32.6}
+  - {x: 6.47, y: 25.93, z: 45.6}
+  - {x: 6.47, y: 25.93, z: 31.599998}
+  - {x: 6.47, y: 28.93, z: 38.6}
+  - {x: 6.47, y: 28.93, z: 38.6}
+  - {x: 6.47, y: 28.93, z: 39.6}
+  - {x: 6.47, y: 28.93, z: 37.6}
+  - {x: 6.47, y: 28.93, z: 40.6}
+  - {x: 6.47, y: 28.93, z: 36.6}
+  - {x: 6.47, y: 28.93, z: 41.6}
+  - {x: 6.47, y: 28.93, z: 35.6}
+  - {x: 6.47, y: 28.93, z: 42.6}
+  - {x: 6.47, y: 28.93, z: 34.6}
+  - {x: 6.47, y: 28.93, z: 43.6}
+  - {x: 6.47, y: 28.93, z: 33.6}
+  - {x: 6.47, y: 28.93, z: 44.6}
+  - {x: 6.47, y: 28.93, z: 32.6}
+  - {x: 6.47, y: 28.93, z: 45.6}
+  - {x: 6.47, y: 28.93, z: 31.599998}
+  - {x: 6.47, y: 24.93, z: 38.6}
+  - {x: 6.47, y: 24.93, z: 38.6}
+  - {x: 6.47, y: 24.93, z: 39.6}
+  - {x: 6.47, y: 24.93, z: 37.6}
+  - {x: 6.47, y: 24.93, z: 40.6}
+  - {x: 6.47, y: 24.93, z: 36.6}
+  - {x: 6.47, y: 24.93, z: 41.6}
+  - {x: 6.47, y: 24.93, z: 35.6}
+  - {x: 6.47, y: 24.93, z: 42.6}
+  - {x: 6.47, y: 24.93, z: 34.6}
+  - {x: 6.47, y: 24.93, z: 43.6}
+  - {x: 6.47, y: 24.93, z: 33.6}
+  - {x: 6.47, y: 24.93, z: 44.6}
+  - {x: 6.47, y: 24.93, z: 32.6}
+  - {x: 6.47, y: 24.93, z: 45.6}
+  - {x: 6.47, y: 24.93, z: 31.599998}
+  - {x: 6.47, y: 29.93, z: 38.6}
+  - {x: 6.47, y: 29.93, z: 38.6}
+  - {x: 6.47, y: 29.93, z: 39.6}
+  - {x: 6.47, y: 29.93, z: 37.6}
+  - {x: 6.47, y: 29.93, z: 40.6}
+  - {x: 6.47, y: 29.93, z: 36.6}
+  - {x: 6.47, y: 29.93, z: 41.6}
+  - {x: 6.47, y: 29.93, z: 35.6}
+  - {x: 6.47, y: 29.93, z: 42.6}
+  - {x: 6.47, y: 29.93, z: 34.6}
+  - {x: 6.47, y: 29.93, z: 43.6}
+  - {x: 6.47, y: 29.93, z: 33.6}
+  - {x: 6.47, y: 29.93, z: 44.6}
+  - {x: 6.47, y: 29.93, z: 32.6}
+  - {x: 6.47, y: 23.93, z: 38.6}
+  - {x: 6.47, y: 23.93, z: 38.6}
+  - {x: 6.47, y: 23.93, z: 39.6}
+  - {x: 6.47, y: 23.93, z: 37.6}
+  - {x: 6.47, y: 23.93, z: 40.6}
+  - {x: 6.47, y: 23.93, z: 36.6}
+  - {x: 6.47, y: 23.93, z: 41.6}
+  - {x: 6.47, y: 23.93, z: 35.6}
+  - {x: 6.47, y: 23.93, z: 42.6}
+  - {x: 6.47, y: 23.93, z: 34.6}
+  - {x: 6.47, y: 23.93, z: 43.6}
+  - {x: 6.47, y: 23.93, z: 33.6}
+  - {x: 6.47, y: 23.93, z: 44.6}
+  - {x: 6.47, y: 23.93, z: 32.6}
+  - {x: 6.47, y: 30.93, z: 38.6}
+  - {x: 6.47, y: 30.93, z: 38.6}
+  - {x: 6.47, y: 30.93, z: 39.6}
+  - {x: 6.47, y: 30.93, z: 37.6}
+  - {x: 6.47, y: 30.93, z: 40.6}
+  - {x: 6.47, y: 30.93, z: 36.6}
+  - {x: 6.47, y: 30.93, z: 41.6}
+  - {x: 6.47, y: 30.93, z: 35.6}
+  - {x: 6.47, y: 30.93, z: 42.6}
+  - {x: 6.47, y: 30.93, z: 34.6}
+  - {x: 6.47, y: 30.93, z: 43.6}
+  - {x: 6.47, y: 30.93, z: 33.6}
+  - {x: 6.47, y: 30.93, z: 44.6}
+  - {x: 6.47, y: 30.93, z: 32.6}
+  - {x: 6.47, y: 22.93, z: 38.6}
+  - {x: 6.47, y: 22.93, z: 38.6}
+  - {x: 6.47, y: 22.93, z: 39.6}
+  - {x: 6.47, y: 22.93, z: 37.6}
+  - {x: 6.47, y: 22.93, z: 40.6}
+  - {x: 6.47, y: 22.93, z: 36.6}
+  - {x: 6.47, y: 22.93, z: 41.6}
+  - {x: 6.47, y: 22.93, z: 35.6}
+  - {x: 6.47, y: 22.93, z: 42.6}
+  - {x: 6.47, y: 22.93, z: 34.6}
+  - {x: 6.47, y: 22.93, z: 43.6}
+  - {x: 6.47, y: 22.93, z: 33.6}
+  - {x: 6.47, y: 22.93, z: 44.6}
+  - {x: 6.47, y: 22.93, z: 32.6}
+  - {x: 6.47, y: 31.93, z: 38.6}
+  - {x: 6.47, y: 31.93, z: 38.6}
+  - {x: 6.47, y: 31.93, z: 39.6}
+  - {x: 6.47, y: 31.93, z: 37.6}
+  - {x: 6.47, y: 31.93, z: 40.6}
+  - {x: 6.47, y: 31.93, z: 36.6}
+  - {x: 6.47, y: 31.93, z: 41.6}
+  - {x: 6.47, y: 31.93, z: 35.6}
+  - {x: 6.47, y: 31.93, z: 42.6}
+  - {x: 6.47, y: 31.93, z: 34.6}
+  - {x: 6.47, y: 31.93, z: 43.6}
+  - {x: 6.47, y: 31.93, z: 33.6}
+  - {x: 6.47, y: 21.93, z: 38.6}
+  - {x: 6.47, y: 21.93, z: 38.6}
+  - {x: 6.47, y: 21.93, z: 39.6}
+  - {x: 6.47, y: 21.93, z: 37.6}
+  - {x: 6.47, y: 21.93, z: 40.6}
+  - {x: 6.47, y: 21.93, z: 36.6}
+  - {x: 6.47, y: 21.93, z: 41.6}
+  - {x: 6.47, y: 21.93, z: 35.6}
+  - {x: 6.47, y: 21.93, z: 42.6}
+  - {x: 6.47, y: 21.93, z: 34.6}
+  - {x: 6.47, y: 21.93, z: 43.6}
+  - {x: 6.47, y: 21.93, z: 33.6}
+  - {x: 6.47, y: 32.93, z: 38.6}
+  - {x: 6.47, y: 32.93, z: 38.6}
+  - {x: 6.47, y: 32.93, z: 39.6}
+  - {x: 6.47, y: 32.93, z: 37.6}
+  - {x: 6.47, y: 32.93, z: 40.6}
+  - {x: 6.47, y: 32.93, z: 36.6}
+  - {x: 6.47, y: 32.93, z: 41.6}
+  - {x: 6.47, y: 32.93, z: 35.6}
+  - {x: 6.47, y: 32.93, z: 42.6}
+  - {x: 6.47, y: 32.93, z: 34.6}
+  - {x: 6.47, y: 20.93, z: 38.6}
+  - {x: 6.47, y: 20.93, z: 38.6}
+  - {x: 6.47, y: 20.93, z: 39.6}
+  - {x: 6.47, y: 20.93, z: 37.6}
+  - {x: 6.47, y: 20.93, z: 40.6}
+  - {x: 6.47, y: 20.93, z: 36.6}
+  - {x: 6.47, y: 20.93, z: 41.6}
+  - {x: 6.47, y: 20.93, z: 35.6}
+  - {x: 6.47, y: 20.93, z: 42.6}
+  - {x: 6.47, y: 20.93, z: 34.6}
+  - {x: 6.47, y: 33.93, z: 38.6}
+  - {x: 6.47, y: 33.93, z: 38.6}
+  - {x: 6.47, y: 33.93, z: 39.6}
+  - {x: 6.47, y: 33.93, z: 37.6}
+  - {x: 6.47, y: 33.93, z: 40.6}
+  - {x: 6.47, y: 33.93, z: 36.6}
+  - {x: 6.47, y: 19.93, z: 38.6}
+  - {x: 6.47, y: 19.93, z: 38.6}
+  - {x: 6.47, y: 19.93, z: 39.6}
+  - {x: 6.47, y: 19.93, z: 37.6}
+  - {x: 6.47, y: 19.93, z: 40.6}
+  - {x: 6.47, y: 19.93, z: 36.6}
+  - {x: 4.47, y: 26.93, z: 38.6}
+  - {x: 4.47, y: 26.93, z: 38.6}
+  - {x: 4.47, y: 26.93, z: 39.6}
+  - {x: 4.47, y: 26.93, z: 37.6}
+  - {x: 4.47, y: 26.93, z: 40.6}
+  - {x: 4.47, y: 26.93, z: 36.6}
+  - {x: 4.47, y: 26.93, z: 41.6}
+  - {x: 4.47, y: 26.93, z: 35.6}
+  - {x: 4.47, y: 26.93, z: 42.6}
+  - {x: 4.47, y: 26.93, z: 34.6}
+  - {x: 4.47, y: 26.93, z: 43.6}
+  - {x: 4.47, y: 26.93, z: 33.6}
+  - {x: 4.47, y: 26.93, z: 44.6}
+  - {x: 4.47, y: 26.93, z: 32.6}
+  - {x: 4.47, y: 26.93, z: 45.6}
+  - {x: 4.47, y: 26.93, z: 31.599998}
+  - {x: 4.47, y: 26.93, z: 38.6}
+  - {x: 4.47, y: 26.93, z: 38.6}
+  - {x: 4.47, y: 26.93, z: 39.6}
+  - {x: 4.47, y: 26.93, z: 37.6}
+  - {x: 4.47, y: 26.93, z: 40.6}
+  - {x: 4.47, y: 26.93, z: 36.6}
+  - {x: 4.47, y: 26.93, z: 41.6}
+  - {x: 4.47, y: 26.93, z: 35.6}
+  - {x: 4.47, y: 26.93, z: 42.6}
+  - {x: 4.47, y: 26.93, z: 34.6}
+  - {x: 4.47, y: 26.93, z: 43.6}
+  - {x: 4.47, y: 26.93, z: 33.6}
+  - {x: 4.47, y: 26.93, z: 44.6}
+  - {x: 4.47, y: 26.93, z: 32.6}
+  - {x: 4.47, y: 26.93, z: 45.6}
+  - {x: 4.47, y: 26.93, z: 31.599998}
+  - {x: 4.47, y: 27.93, z: 38.6}
+  - {x: 4.47, y: 27.93, z: 38.6}
+  - {x: 4.47, y: 27.93, z: 39.6}
+  - {x: 4.47, y: 27.93, z: 37.6}
+  - {x: 4.47, y: 27.93, z: 40.6}
+  - {x: 4.47, y: 27.93, z: 36.6}
+  - {x: 4.47, y: 27.93, z: 41.6}
+  - {x: 4.47, y: 27.93, z: 35.6}
+  - {x: 4.47, y: 27.93, z: 42.6}
+  - {x: 4.47, y: 27.93, z: 34.6}
+  - {x: 4.47, y: 27.93, z: 43.6}
+  - {x: 4.47, y: 27.93, z: 33.6}
+  - {x: 4.47, y: 27.93, z: 44.6}
+  - {x: 4.47, y: 27.93, z: 32.6}
+  - {x: 4.47, y: 27.93, z: 45.6}
+  - {x: 4.47, y: 27.93, z: 31.599998}
+  - {x: 4.47, y: 25.93, z: 38.6}
+  - {x: 4.47, y: 25.93, z: 38.6}
+  - {x: 4.47, y: 25.93, z: 39.6}
+  - {x: 4.47, y: 25.93, z: 37.6}
+  - {x: 4.47, y: 25.93, z: 40.6}
+  - {x: 4.47, y: 25.93, z: 36.6}
+  - {x: 4.47, y: 25.93, z: 41.6}
+  - {x: 4.47, y: 25.93, z: 35.6}
+  - {x: 4.47, y: 25.93, z: 42.6}
+  - {x: 4.47, y: 25.93, z: 34.6}
+  - {x: 4.47, y: 25.93, z: 43.6}
+  - {x: 4.47, y: 25.93, z: 33.6}
+  - {x: 4.47, y: 25.93, z: 44.6}
+  - {x: 4.47, y: 25.93, z: 32.6}
+  - {x: 4.47, y: 25.93, z: 45.6}
+  - {x: 4.47, y: 25.93, z: 31.599998}
+  - {x: 4.47, y: 28.93, z: 38.6}
+  - {x: 4.47, y: 28.93, z: 38.6}
+  - {x: 4.47, y: 28.93, z: 39.6}
+  - {x: 4.47, y: 28.93, z: 37.6}
+  - {x: 4.47, y: 28.93, z: 40.6}
+  - {x: 4.47, y: 28.93, z: 36.6}
+  - {x: 4.47, y: 28.93, z: 41.6}
+  - {x: 4.47, y: 28.93, z: 35.6}
+  - {x: 4.47, y: 28.93, z: 42.6}
+  - {x: 4.47, y: 28.93, z: 34.6}
+  - {x: 4.47, y: 28.93, z: 43.6}
+  - {x: 4.47, y: 28.93, z: 33.6}
+  - {x: 4.47, y: 28.93, z: 44.6}
+  - {x: 4.47, y: 28.93, z: 32.6}
+  - {x: 4.47, y: 28.93, z: 45.6}
+  - {x: 4.47, y: 28.93, z: 31.599998}
+  - {x: 4.47, y: 24.93, z: 38.6}
+  - {x: 4.47, y: 24.93, z: 38.6}
+  - {x: 4.47, y: 24.93, z: 39.6}
+  - {x: 4.47, y: 24.93, z: 37.6}
+  - {x: 4.47, y: 24.93, z: 40.6}
+  - {x: 4.47, y: 24.93, z: 36.6}
+  - {x: 4.47, y: 24.93, z: 41.6}
+  - {x: 4.47, y: 24.93, z: 35.6}
+  - {x: 4.47, y: 24.93, z: 42.6}
+  - {x: 4.47, y: 24.93, z: 34.6}
+  - {x: 4.47, y: 24.93, z: 43.6}
+  - {x: 4.47, y: 24.93, z: 33.6}
+  - {x: 4.47, y: 24.93, z: 44.6}
+  - {x: 4.47, y: 24.93, z: 32.6}
+  - {x: 4.47, y: 24.93, z: 45.6}
+  - {x: 4.47, y: 24.93, z: 31.599998}
+  - {x: 4.47, y: 29.93, z: 38.6}
+  - {x: 4.47, y: 29.93, z: 38.6}
+  - {x: 4.47, y: 29.93, z: 39.6}
+  - {x: 4.47, y: 29.93, z: 37.6}
+  - {x: 4.47, y: 29.93, z: 40.6}
+  - {x: 4.47, y: 29.93, z: 36.6}
+  - {x: 4.47, y: 29.93, z: 41.6}
+  - {x: 4.47, y: 29.93, z: 35.6}
+  - {x: 4.47, y: 29.93, z: 42.6}
+  - {x: 4.47, y: 29.93, z: 34.6}
+  - {x: 4.47, y: 29.93, z: 43.6}
+  - {x: 4.47, y: 29.93, z: 33.6}
+  - {x: 4.47, y: 29.93, z: 44.6}
+  - {x: 4.47, y: 29.93, z: 32.6}
+  - {x: 4.47, y: 23.93, z: 38.6}
+  - {x: 4.47, y: 23.93, z: 38.6}
+  - {x: 4.47, y: 23.93, z: 39.6}
+  - {x: 4.47, y: 23.93, z: 37.6}
+  - {x: 4.47, y: 23.93, z: 40.6}
+  - {x: 4.47, y: 23.93, z: 36.6}
+  - {x: 4.47, y: 23.93, z: 41.6}
+  - {x: 4.47, y: 23.93, z: 35.6}
+  - {x: 4.47, y: 23.93, z: 42.6}
+  - {x: 4.47, y: 23.93, z: 34.6}
+  - {x: 4.47, y: 23.93, z: 43.6}
+  - {x: 4.47, y: 23.93, z: 33.6}
+  - {x: 4.47, y: 23.93, z: 44.6}
+  - {x: 4.47, y: 23.93, z: 32.6}
+  - {x: 4.47, y: 30.93, z: 38.6}
+  - {x: 4.47, y: 30.93, z: 38.6}
+  - {x: 4.47, y: 30.93, z: 39.6}
+  - {x: 4.47, y: 30.93, z: 37.6}
+  - {x: 4.47, y: 30.93, z: 40.6}
+  - {x: 4.47, y: 30.93, z: 36.6}
+  - {x: 4.47, y: 30.93, z: 41.6}
+  - {x: 4.47, y: 30.93, z: 35.6}
+  - {x: 4.47, y: 30.93, z: 42.6}
+  - {x: 4.47, y: 30.93, z: 34.6}
+  - {x: 4.47, y: 30.93, z: 43.6}
+  - {x: 4.47, y: 30.93, z: 33.6}
+  - {x: 4.47, y: 30.93, z: 44.6}
+  - {x: 4.47, y: 30.93, z: 32.6}
+  - {x: 4.47, y: 22.93, z: 38.6}
+  - {x: 4.47, y: 22.93, z: 38.6}
+  - {x: 4.47, y: 22.93, z: 39.6}
+  - {x: 4.47, y: 22.93, z: 37.6}
+  - {x: 4.47, y: 22.93, z: 40.6}
+  - {x: 4.47, y: 22.93, z: 36.6}
+  - {x: 4.47, y: 22.93, z: 41.6}
+  - {x: 4.47, y: 22.93, z: 35.6}
+  - {x: 4.47, y: 22.93, z: 42.6}
+  - {x: 4.47, y: 22.93, z: 34.6}
+  - {x: 4.47, y: 22.93, z: 43.6}
+  - {x: 4.47, y: 22.93, z: 33.6}
+  - {x: 4.47, y: 22.93, z: 44.6}
+  - {x: 4.47, y: 22.93, z: 32.6}
+  - {x: 4.47, y: 31.93, z: 38.6}
+  - {x: 4.47, y: 31.93, z: 38.6}
+  - {x: 4.47, y: 31.93, z: 39.6}
+  - {x: 4.47, y: 31.93, z: 37.6}
+  - {x: 4.47, y: 31.93, z: 40.6}
+  - {x: 4.47, y: 31.93, z: 36.6}
+  - {x: 4.47, y: 31.93, z: 41.6}
+  - {x: 4.47, y: 31.93, z: 35.6}
+  - {x: 4.47, y: 31.93, z: 42.6}
+  - {x: 4.47, y: 31.93, z: 34.6}
+  - {x: 4.47, y: 31.93, z: 43.6}
+  - {x: 4.47, y: 31.93, z: 33.6}
+  - {x: 4.47, y: 21.93, z: 38.6}
+  - {x: 4.47, y: 21.93, z: 38.6}
+  - {x: 4.47, y: 21.93, z: 39.6}
+  - {x: 4.47, y: 21.93, z: 37.6}
+  - {x: 4.47, y: 21.93, z: 40.6}
+  - {x: 4.47, y: 21.93, z: 36.6}
+  - {x: 4.47, y: 21.93, z: 41.6}
+  - {x: 4.47, y: 21.93, z: 35.6}
+  - {x: 4.47, y: 21.93, z: 42.6}
+  - {x: 4.47, y: 21.93, z: 34.6}
+  - {x: 4.47, y: 21.93, z: 43.6}
+  - {x: 4.47, y: 21.93, z: 33.6}
+  - {x: 4.47, y: 32.93, z: 38.6}
+  - {x: 4.47, y: 32.93, z: 38.6}
+  - {x: 4.47, y: 32.93, z: 39.6}
+  - {x: 4.47, y: 32.93, z: 37.6}
+  - {x: 4.47, y: 32.93, z: 40.6}
+  - {x: 4.47, y: 32.93, z: 36.6}
+  - {x: 4.47, y: 32.93, z: 41.6}
+  - {x: 4.47, y: 32.93, z: 35.6}
+  - {x: 4.47, y: 32.93, z: 42.6}
+  - {x: 4.47, y: 32.93, z: 34.6}
+  - {x: 4.47, y: 20.93, z: 38.6}
+  - {x: 4.47, y: 20.93, z: 38.6}
+  - {x: 4.47, y: 20.93, z: 39.6}
+  - {x: 4.47, y: 20.93, z: 37.6}
+  - {x: 4.47, y: 20.93, z: 40.6}
+  - {x: 4.47, y: 20.93, z: 36.6}
+  - {x: 4.47, y: 20.93, z: 41.6}
+  - {x: 4.47, y: 20.93, z: 35.6}
+  - {x: 4.47, y: 20.93, z: 42.6}
+  - {x: 4.47, y: 20.93, z: 34.6}
+  - {x: 4.47, y: 33.93, z: 38.6}
+  - {x: 4.47, y: 33.93, z: 38.6}
+  - {x: 4.47, y: 33.93, z: 39.6}
+  - {x: 4.47, y: 33.93, z: 37.6}
+  - {x: 4.47, y: 33.93, z: 40.6}
+  - {x: 4.47, y: 33.93, z: 36.6}
+  - {x: 4.47, y: 19.93, z: 38.6}
+  - {x: 4.47, y: 19.93, z: 38.6}
+  - {x: 4.47, y: 19.93, z: 39.6}
+  - {x: 4.47, y: 19.93, z: 37.6}
+  - {x: 4.47, y: 19.93, z: 40.6}
+  - {x: 4.47, y: 19.93, z: 36.6}
+  - {x: 7.47, y: 26.93, z: 38.6}
+  - {x: 7.47, y: 26.93, z: 38.6}
+  - {x: 7.47, y: 26.93, z: 39.6}
+  - {x: 7.47, y: 26.93, z: 37.6}
+  - {x: 7.47, y: 26.93, z: 40.6}
+  - {x: 7.47, y: 26.93, z: 36.6}
+  - {x: 7.47, y: 26.93, z: 41.6}
+  - {x: 7.47, y: 26.93, z: 35.6}
+  - {x: 7.47, y: 26.93, z: 42.6}
+  - {x: 7.47, y: 26.93, z: 34.6}
+  - {x: 7.47, y: 26.93, z: 43.6}
+  - {x: 7.47, y: 26.93, z: 33.6}
+  - {x: 7.47, y: 26.93, z: 44.6}
+  - {x: 7.47, y: 26.93, z: 32.6}
+  - {x: 7.47, y: 26.93, z: 45.6}
+  - {x: 7.47, y: 26.93, z: 31.599998}
+  - {x: 7.47, y: 26.93, z: 38.6}
+  - {x: 7.47, y: 26.93, z: 38.6}
+  - {x: 7.47, y: 26.93, z: 39.6}
+  - {x: 7.47, y: 26.93, z: 37.6}
+  - {x: 7.47, y: 26.93, z: 40.6}
+  - {x: 7.47, y: 26.93, z: 36.6}
+  - {x: 7.47, y: 26.93, z: 41.6}
+  - {x: 7.47, y: 26.93, z: 35.6}
+  - {x: 7.47, y: 26.93, z: 42.6}
+  - {x: 7.47, y: 26.93, z: 34.6}
+  - {x: 7.47, y: 26.93, z: 43.6}
+  - {x: 7.47, y: 26.93, z: 33.6}
+  - {x: 7.47, y: 26.93, z: 44.6}
+  - {x: 7.47, y: 26.93, z: 32.6}
+  - {x: 7.47, y: 26.93, z: 45.6}
+  - {x: 7.47, y: 26.93, z: 31.599998}
+  - {x: 7.47, y: 27.93, z: 38.6}
+  - {x: 7.47, y: 27.93, z: 38.6}
+  - {x: 7.47, y: 27.93, z: 39.6}
+  - {x: 7.47, y: 27.93, z: 37.6}
+  - {x: 7.47, y: 27.93, z: 40.6}
+  - {x: 7.47, y: 27.93, z: 36.6}
+  - {x: 7.47, y: 27.93, z: 41.6}
+  - {x: 7.47, y: 27.93, z: 35.6}
+  - {x: 7.47, y: 27.93, z: 42.6}
+  - {x: 7.47, y: 27.93, z: 34.6}
+  - {x: 7.47, y: 27.93, z: 43.6}
+  - {x: 7.47, y: 27.93, z: 33.6}
+  - {x: 7.47, y: 27.93, z: 44.6}
+  - {x: 7.47, y: 27.93, z: 32.6}
+  - {x: 7.47, y: 27.93, z: 45.6}
+  - {x: 7.47, y: 27.93, z: 31.599998}
+  - {x: 7.47, y: 25.93, z: 38.6}
+  - {x: 7.47, y: 25.93, z: 38.6}
+  - {x: 7.47, y: 25.93, z: 39.6}
+  - {x: 7.47, y: 25.93, z: 37.6}
+  - {x: 7.47, y: 25.93, z: 40.6}
+  - {x: 7.47, y: 25.93, z: 36.6}
+  - {x: 7.47, y: 25.93, z: 41.6}
+  - {x: 7.47, y: 25.93, z: 35.6}
+  - {x: 7.47, y: 25.93, z: 42.6}
+  - {x: 7.47, y: 25.93, z: 34.6}
+  - {x: 7.47, y: 25.93, z: 43.6}
+  - {x: 7.47, y: 25.93, z: 33.6}
+  - {x: 7.47, y: 25.93, z: 44.6}
+  - {x: 7.47, y: 25.93, z: 32.6}
+  - {x: 7.47, y: 25.93, z: 45.6}
+  - {x: 7.47, y: 25.93, z: 31.599998}
+  - {x: 7.47, y: 28.93, z: 38.6}
+  - {x: 7.47, y: 28.93, z: 38.6}
+  - {x: 7.47, y: 28.93, z: 39.6}
+  - {x: 7.47, y: 28.93, z: 37.6}
+  - {x: 7.47, y: 28.93, z: 40.6}
+  - {x: 7.47, y: 28.93, z: 36.6}
+  - {x: 7.47, y: 28.93, z: 41.6}
+  - {x: 7.47, y: 28.93, z: 35.6}
+  - {x: 7.47, y: 28.93, z: 42.6}
+  - {x: 7.47, y: 28.93, z: 34.6}
+  - {x: 7.47, y: 28.93, z: 43.6}
+  - {x: 7.47, y: 28.93, z: 33.6}
+  - {x: 7.47, y: 28.93, z: 44.6}
+  - {x: 7.47, y: 28.93, z: 32.6}
+  - {x: 7.47, y: 24.93, z: 38.6}
+  - {x: 7.47, y: 24.93, z: 38.6}
+  - {x: 7.47, y: 24.93, z: 39.6}
+  - {x: 7.47, y: 24.93, z: 37.6}
+  - {x: 7.47, y: 24.93, z: 40.6}
+  - {x: 7.47, y: 24.93, z: 36.6}
+  - {x: 7.47, y: 24.93, z: 41.6}
+  - {x: 7.47, y: 24.93, z: 35.6}
+  - {x: 7.47, y: 24.93, z: 42.6}
+  - {x: 7.47, y: 24.93, z: 34.6}
+  - {x: 7.47, y: 24.93, z: 43.6}
+  - {x: 7.47, y: 24.93, z: 33.6}
+  - {x: 7.47, y: 24.93, z: 44.6}
+  - {x: 7.47, y: 24.93, z: 32.6}
+  - {x: 7.47, y: 29.93, z: 38.6}
+  - {x: 7.47, y: 29.93, z: 38.6}
+  - {x: 7.47, y: 29.93, z: 39.6}
+  - {x: 7.47, y: 29.93, z: 37.6}
+  - {x: 7.47, y: 29.93, z: 40.6}
+  - {x: 7.47, y: 29.93, z: 36.6}
+  - {x: 7.47, y: 29.93, z: 41.6}
+  - {x: 7.47, y: 29.93, z: 35.6}
+  - {x: 7.47, y: 29.93, z: 42.6}
+  - {x: 7.47, y: 29.93, z: 34.6}
+  - {x: 7.47, y: 29.93, z: 43.6}
+  - {x: 7.47, y: 29.93, z: 33.6}
+  - {x: 7.47, y: 29.93, z: 44.6}
+  - {x: 7.47, y: 29.93, z: 32.6}
+  - {x: 7.47, y: 23.93, z: 38.6}
+  - {x: 7.47, y: 23.93, z: 38.6}
+  - {x: 7.47, y: 23.93, z: 39.6}
+  - {x: 7.47, y: 23.93, z: 37.6}
+  - {x: 7.47, y: 23.93, z: 40.6}
+  - {x: 7.47, y: 23.93, z: 36.6}
+  - {x: 7.47, y: 23.93, z: 41.6}
+  - {x: 7.47, y: 23.93, z: 35.6}
+  - {x: 7.47, y: 23.93, z: 42.6}
+  - {x: 7.47, y: 23.93, z: 34.6}
+  - {x: 7.47, y: 23.93, z: 43.6}
+  - {x: 7.47, y: 23.93, z: 33.6}
+  - {x: 7.47, y: 23.93, z: 44.6}
+  - {x: 7.47, y: 23.93, z: 32.6}
+  - {x: 7.47, y: 30.93, z: 38.6}
+  - {x: 7.47, y: 30.93, z: 38.6}
+  - {x: 7.47, y: 30.93, z: 39.6}
+  - {x: 7.47, y: 30.93, z: 37.6}
+  - {x: 7.47, y: 30.93, z: 40.6}
+  - {x: 7.47, y: 30.93, z: 36.6}
+  - {x: 7.47, y: 30.93, z: 41.6}
+  - {x: 7.47, y: 30.93, z: 35.6}
+  - {x: 7.47, y: 30.93, z: 42.6}
+  - {x: 7.47, y: 30.93, z: 34.6}
+  - {x: 7.47, y: 30.93, z: 43.6}
+  - {x: 7.47, y: 30.93, z: 33.6}
+  - {x: 7.47, y: 30.93, z: 44.6}
+  - {x: 7.47, y: 30.93, z: 32.6}
+  - {x: 7.47, y: 22.93, z: 38.6}
+  - {x: 7.47, y: 22.93, z: 38.6}
+  - {x: 7.47, y: 22.93, z: 39.6}
+  - {x: 7.47, y: 22.93, z: 37.6}
+  - {x: 7.47, y: 22.93, z: 40.6}
+  - {x: 7.47, y: 22.93, z: 36.6}
+  - {x: 7.47, y: 22.93, z: 41.6}
+  - {x: 7.47, y: 22.93, z: 35.6}
+  - {x: 7.47, y: 22.93, z: 42.6}
+  - {x: 7.47, y: 22.93, z: 34.6}
+  - {x: 7.47, y: 22.93, z: 43.6}
+  - {x: 7.47, y: 22.93, z: 33.6}
+  - {x: 7.47, y: 22.93, z: 44.6}
+  - {x: 7.47, y: 22.93, z: 32.6}
+  - {x: 7.47, y: 31.93, z: 38.6}
+  - {x: 7.47, y: 31.93, z: 38.6}
+  - {x: 7.47, y: 31.93, z: 39.6}
+  - {x: 7.47, y: 31.93, z: 37.6}
+  - {x: 7.47, y: 31.93, z: 40.6}
+  - {x: 7.47, y: 31.93, z: 36.6}
+  - {x: 7.47, y: 31.93, z: 41.6}
+  - {x: 7.47, y: 31.93, z: 35.6}
+  - {x: 7.47, y: 31.93, z: 42.6}
+  - {x: 7.47, y: 31.93, z: 34.6}
+  - {x: 7.47, y: 31.93, z: 43.6}
+  - {x: 7.47, y: 31.93, z: 33.6}
+  - {x: 7.47, y: 21.93, z: 38.6}
+  - {x: 7.47, y: 21.93, z: 38.6}
+  - {x: 7.47, y: 21.93, z: 39.6}
+  - {x: 7.47, y: 21.93, z: 37.6}
+  - {x: 7.47, y: 21.93, z: 40.6}
+  - {x: 7.47, y: 21.93, z: 36.6}
+  - {x: 7.47, y: 21.93, z: 41.6}
+  - {x: 7.47, y: 21.93, z: 35.6}
+  - {x: 7.47, y: 21.93, z: 42.6}
+  - {x: 7.47, y: 21.93, z: 34.6}
+  - {x: 7.47, y: 21.93, z: 43.6}
+  - {x: 7.47, y: 21.93, z: 33.6}
+  - {x: 7.47, y: 32.93, z: 38.6}
+  - {x: 7.47, y: 32.93, z: 38.6}
+  - {x: 7.47, y: 32.93, z: 39.6}
+  - {x: 7.47, y: 32.93, z: 37.6}
+  - {x: 7.47, y: 32.93, z: 40.6}
+  - {x: 7.47, y: 32.93, z: 36.6}
+  - {x: 7.47, y: 32.93, z: 41.6}
+  - {x: 7.47, y: 32.93, z: 35.6}
+  - {x: 7.47, y: 32.93, z: 42.6}
+  - {x: 7.47, y: 32.93, z: 34.6}
+  - {x: 7.47, y: 20.93, z: 38.6}
+  - {x: 7.47, y: 20.93, z: 38.6}
+  - {x: 7.47, y: 20.93, z: 39.6}
+  - {x: 7.47, y: 20.93, z: 37.6}
+  - {x: 7.47, y: 20.93, z: 40.6}
+  - {x: 7.47, y: 20.93, z: 36.6}
+  - {x: 7.47, y: 20.93, z: 41.6}
+  - {x: 7.47, y: 20.93, z: 35.6}
+  - {x: 7.47, y: 20.93, z: 42.6}
+  - {x: 7.47, y: 20.93, z: 34.6}
+  - {x: 7.47, y: 33.93, z: 38.6}
+  - {x: 7.47, y: 33.93, z: 38.6}
+  - {x: 7.47, y: 33.93, z: 39.6}
+  - {x: 7.47, y: 33.93, z: 37.6}
+  - {x: 7.47, y: 19.93, z: 38.6}
+  - {x: 7.47, y: 19.93, z: 38.6}
+  - {x: 7.47, y: 19.93, z: 39.6}
+  - {x: 7.47, y: 19.93, z: 37.6}
+  - {x: 3.4699998, y: 26.93, z: 38.6}
+  - {x: 3.4699998, y: 26.93, z: 38.6}
+  - {x: 3.4699998, y: 26.93, z: 39.6}
+  - {x: 3.4699998, y: 26.93, z: 37.6}
+  - {x: 3.4699998, y: 26.93, z: 40.6}
+  - {x: 3.4699998, y: 26.93, z: 36.6}
+  - {x: 3.4699998, y: 26.93, z: 41.6}
+  - {x: 3.4699998, y: 26.93, z: 35.6}
+  - {x: 3.4699998, y: 26.93, z: 42.6}
+  - {x: 3.4699998, y: 26.93, z: 34.6}
+  - {x: 3.4699998, y: 26.93, z: 43.6}
+  - {x: 3.4699998, y: 26.93, z: 33.6}
+  - {x: 3.4699998, y: 26.93, z: 44.6}
+  - {x: 3.4699998, y: 26.93, z: 32.6}
+  - {x: 3.4699998, y: 26.93, z: 45.6}
+  - {x: 3.4699998, y: 26.93, z: 31.599998}
+  - {x: 3.4699998, y: 26.93, z: 38.6}
+  - {x: 3.4699998, y: 26.93, z: 38.6}
+  - {x: 3.4699998, y: 26.93, z: 39.6}
+  - {x: 3.4699998, y: 26.93, z: 37.6}
+  - {x: 3.4699998, y: 26.93, z: 40.6}
+  - {x: 3.4699998, y: 26.93, z: 36.6}
+  - {x: 3.4699998, y: 26.93, z: 41.6}
+  - {x: 3.4699998, y: 26.93, z: 35.6}
+  - {x: 3.4699998, y: 26.93, z: 42.6}
+  - {x: 3.4699998, y: 26.93, z: 34.6}
+  - {x: 3.4699998, y: 26.93, z: 43.6}
+  - {x: 3.4699998, y: 26.93, z: 33.6}
+  - {x: 3.4699998, y: 26.93, z: 44.6}
+  - {x: 3.4699998, y: 26.93, z: 32.6}
+  - {x: 3.4699998, y: 26.93, z: 45.6}
+  - {x: 3.4699998, y: 26.93, z: 31.599998}
+  - {x: 3.4699998, y: 27.93, z: 38.6}
+  - {x: 3.4699998, y: 27.93, z: 38.6}
+  - {x: 3.4699998, y: 27.93, z: 39.6}
+  - {x: 3.4699998, y: 27.93, z: 37.6}
+  - {x: 3.4699998, y: 27.93, z: 40.6}
+  - {x: 3.4699998, y: 27.93, z: 36.6}
+  - {x: 3.4699998, y: 27.93, z: 41.6}
+  - {x: 3.4699998, y: 27.93, z: 35.6}
+  - {x: 3.4699998, y: 27.93, z: 42.6}
+  - {x: 3.4699998, y: 27.93, z: 34.6}
+  - {x: 3.4699998, y: 27.93, z: 43.6}
+  - {x: 3.4699998, y: 27.93, z: 33.6}
+  - {x: 3.4699998, y: 27.93, z: 44.6}
+  - {x: 3.4699998, y: 27.93, z: 32.6}
+  - {x: 3.4699998, y: 27.93, z: 45.6}
+  - {x: 3.4699998, y: 27.93, z: 31.599998}
+  - {x: 3.4699998, y: 25.93, z: 38.6}
+  - {x: 3.4699998, y: 25.93, z: 38.6}
+  - {x: 3.4699998, y: 25.93, z: 39.6}
+  - {x: 3.4699998, y: 25.93, z: 37.6}
+  - {x: 3.4699998, y: 25.93, z: 40.6}
+  - {x: 3.4699998, y: 25.93, z: 36.6}
+  - {x: 3.4699998, y: 25.93, z: 41.6}
+  - {x: 3.4699998, y: 25.93, z: 35.6}
+  - {x: 3.4699998, y: 25.93, z: 42.6}
+  - {x: 3.4699998, y: 25.93, z: 34.6}
+  - {x: 3.4699998, y: 25.93, z: 43.6}
+  - {x: 3.4699998, y: 25.93, z: 33.6}
+  - {x: 3.4699998, y: 25.93, z: 44.6}
+  - {x: 3.4699998, y: 25.93, z: 32.6}
+  - {x: 3.4699998, y: 25.93, z: 45.6}
+  - {x: 3.4699998, y: 25.93, z: 31.599998}
+  - {x: 3.4699998, y: 28.93, z: 38.6}
+  - {x: 3.4699998, y: 28.93, z: 38.6}
+  - {x: 3.4699998, y: 28.93, z: 39.6}
+  - {x: 3.4699998, y: 28.93, z: 37.6}
+  - {x: 3.4699998, y: 28.93, z: 40.6}
+  - {x: 3.4699998, y: 28.93, z: 36.6}
+  - {x: 3.4699998, y: 28.93, z: 41.6}
+  - {x: 3.4699998, y: 28.93, z: 35.6}
+  - {x: 3.4699998, y: 28.93, z: 42.6}
+  - {x: 3.4699998, y: 28.93, z: 34.6}
+  - {x: 3.4699998, y: 28.93, z: 43.6}
+  - {x: 3.4699998, y: 28.93, z: 33.6}
+  - {x: 3.4699998, y: 28.93, z: 44.6}
+  - {x: 3.4699998, y: 28.93, z: 32.6}
+  - {x: 3.4699998, y: 24.93, z: 38.6}
+  - {x: 3.4699998, y: 24.93, z: 38.6}
+  - {x: 3.4699998, y: 24.93, z: 39.6}
+  - {x: 3.4699998, y: 24.93, z: 37.6}
+  - {x: 3.4699998, y: 24.93, z: 40.6}
+  - {x: 3.4699998, y: 24.93, z: 36.6}
+  - {x: 3.4699998, y: 24.93, z: 41.6}
+  - {x: 3.4699998, y: 24.93, z: 35.6}
+  - {x: 3.4699998, y: 24.93, z: 42.6}
+  - {x: 3.4699998, y: 24.93, z: 34.6}
+  - {x: 3.4699998, y: 24.93, z: 43.6}
+  - {x: 3.4699998, y: 24.93, z: 33.6}
+  - {x: 3.4699998, y: 24.93, z: 44.6}
+  - {x: 3.4699998, y: 24.93, z: 32.6}
+  - {x: 3.4699998, y: 29.93, z: 38.6}
+  - {x: 3.4699998, y: 29.93, z: 38.6}
+  - {x: 3.4699998, y: 29.93, z: 39.6}
+  - {x: 3.4699998, y: 29.93, z: 37.6}
+  - {x: 3.4699998, y: 29.93, z: 40.6}
+  - {x: 3.4699998, y: 29.93, z: 36.6}
+  - {x: 3.4699998, y: 29.93, z: 41.6}
+  - {x: 3.4699998, y: 29.93, z: 35.6}
+  - {x: 3.4699998, y: 29.93, z: 42.6}
+  - {x: 3.4699998, y: 29.93, z: 34.6}
+  - {x: 3.4699998, y: 29.93, z: 43.6}
+  - {x: 3.4699998, y: 29.93, z: 33.6}
+  - {x: 3.4699998, y: 29.93, z: 44.6}
+  - {x: 3.4699998, y: 29.93, z: 32.6}
+  - {x: 3.4699998, y: 23.93, z: 38.6}
+  - {x: 3.4699998, y: 23.93, z: 38.6}
+  - {x: 3.4699998, y: 23.93, z: 39.6}
+  - {x: 3.4699998, y: 23.93, z: 37.6}
+  - {x: 3.4699998, y: 23.93, z: 40.6}
+  - {x: 3.4699998, y: 23.93, z: 36.6}
+  - {x: 3.4699998, y: 23.93, z: 41.6}
+  - {x: 3.4699998, y: 23.93, z: 35.6}
+  - {x: 3.4699998, y: 23.93, z: 42.6}
+  - {x: 3.4699998, y: 23.93, z: 34.6}
+  - {x: 3.4699998, y: 23.93, z: 43.6}
+  - {x: 3.4699998, y: 23.93, z: 33.6}
+  - {x: 3.4699998, y: 23.93, z: 44.6}
+  - {x: 3.4699998, y: 23.93, z: 32.6}
+  - {x: 3.4699998, y: 30.93, z: 38.6}
+  - {x: 3.4699998, y: 30.93, z: 38.6}
+  - {x: 3.4699998, y: 30.93, z: 39.6}
+  - {x: 3.4699998, y: 30.93, z: 37.6}
+  - {x: 3.4699998, y: 30.93, z: 40.6}
+  - {x: 3.4699998, y: 30.93, z: 36.6}
+  - {x: 3.4699998, y: 30.93, z: 41.6}
+  - {x: 3.4699998, y: 30.93, z: 35.6}
+  - {x: 3.4699998, y: 30.93, z: 42.6}
+  - {x: 3.4699998, y: 30.93, z: 34.6}
+  - {x: 3.4699998, y: 30.93, z: 43.6}
+  - {x: 3.4699998, y: 30.93, z: 33.6}
+  - {x: 3.4699998, y: 30.93, z: 44.6}
+  - {x: 3.4699998, y: 30.93, z: 32.6}
+  - {x: 3.4699998, y: 22.93, z: 38.6}
+  - {x: 3.4699998, y: 22.93, z: 38.6}
+  - {x: 3.4699998, y: 22.93, z: 39.6}
+  - {x: 3.4699998, y: 22.93, z: 37.6}
+  - {x: 3.4699998, y: 22.93, z: 40.6}
+  - {x: 3.4699998, y: 22.93, z: 36.6}
+  - {x: 3.4699998, y: 22.93, z: 41.6}
+  - {x: 3.4699998, y: 22.93, z: 35.6}
+  - {x: 3.4699998, y: 22.93, z: 42.6}
+  - {x: 3.4699998, y: 22.93, z: 34.6}
+  - {x: 3.4699998, y: 22.93, z: 43.6}
+  - {x: 3.4699998, y: 22.93, z: 33.6}
+  - {x: 3.4699998, y: 22.93, z: 44.6}
+  - {x: 3.4699998, y: 22.93, z: 32.6}
+  - {x: 3.4699998, y: 31.93, z: 38.6}
+  - {x: 3.4699998, y: 31.93, z: 38.6}
+  - {x: 3.4699998, y: 31.93, z: 39.6}
+  - {x: 3.4699998, y: 31.93, z: 37.6}
+  - {x: 3.4699998, y: 31.93, z: 40.6}
+  - {x: 3.4699998, y: 31.93, z: 36.6}
+  - {x: 3.4699998, y: 31.93, z: 41.6}
+  - {x: 3.4699998, y: 31.93, z: 35.6}
+  - {x: 3.4699998, y: 31.93, z: 42.6}
+  - {x: 3.4699998, y: 31.93, z: 34.6}
+  - {x: 3.4699998, y: 31.93, z: 43.6}
+  - {x: 3.4699998, y: 31.93, z: 33.6}
+  - {x: 3.4699998, y: 21.93, z: 38.6}
+  - {x: 3.4699998, y: 21.93, z: 38.6}
+  - {x: 3.4699998, y: 21.93, z: 39.6}
+  - {x: 3.4699998, y: 21.93, z: 37.6}
+  - {x: 3.4699998, y: 21.93, z: 40.6}
+  - {x: 3.4699998, y: 21.93, z: 36.6}
+  - {x: 3.4699998, y: 21.93, z: 41.6}
+  - {x: 3.4699998, y: 21.93, z: 35.6}
+  - {x: 3.4699998, y: 21.93, z: 42.6}
+  - {x: 3.4699998, y: 21.93, z: 34.6}
+  - {x: 3.4699998, y: 21.93, z: 43.6}
+  - {x: 3.4699998, y: 21.93, z: 33.6}
+  - {x: 3.4699998, y: 32.93, z: 38.6}
+  - {x: 3.4699998, y: 32.93, z: 38.6}
+  - {x: 3.4699998, y: 32.93, z: 39.6}
+  - {x: 3.4699998, y: 32.93, z: 37.6}
+  - {x: 3.4699998, y: 32.93, z: 40.6}
+  - {x: 3.4699998, y: 32.93, z: 36.6}
+  - {x: 3.4699998, y: 32.93, z: 41.6}
+  - {x: 3.4699998, y: 32.93, z: 35.6}
+  - {x: 3.4699998, y: 32.93, z: 42.6}
+  - {x: 3.4699998, y: 32.93, z: 34.6}
+  - {x: 3.4699998, y: 20.93, z: 38.6}
+  - {x: 3.4699998, y: 20.93, z: 38.6}
+  - {x: 3.4699998, y: 20.93, z: 39.6}
+  - {x: 3.4699998, y: 20.93, z: 37.6}
+  - {x: 3.4699998, y: 20.93, z: 40.6}
+  - {x: 3.4699998, y: 20.93, z: 36.6}
+  - {x: 3.4699998, y: 20.93, z: 41.6}
+  - {x: 3.4699998, y: 20.93, z: 35.6}
+  - {x: 3.4699998, y: 20.93, z: 42.6}
+  - {x: 3.4699998, y: 20.93, z: 34.6}
+  - {x: 3.4699998, y: 33.93, z: 38.6}
+  - {x: 3.4699998, y: 33.93, z: 38.6}
+  - {x: 3.4699998, y: 33.93, z: 39.6}
+  - {x: 3.4699998, y: 33.93, z: 37.6}
+  - {x: 3.4699998, y: 19.93, z: 38.6}
+  - {x: 3.4699998, y: 19.93, z: 38.6}
+  - {x: 3.4699998, y: 19.93, z: 39.6}
+  - {x: 3.4699998, y: 19.93, z: 37.6}
+  - {x: 8.469999, y: 26.93, z: 38.6}
+  - {x: 8.469999, y: 26.93, z: 38.6}
+  - {x: 8.469999, y: 26.93, z: 39.6}
+  - {x: 8.469999, y: 26.93, z: 37.6}
+  - {x: 8.469999, y: 26.93, z: 40.6}
+  - {x: 8.469999, y: 26.93, z: 36.6}
+  - {x: 8.469999, y: 26.93, z: 41.6}
+  - {x: 8.469999, y: 26.93, z: 35.6}
+  - {x: 8.469999, y: 26.93, z: 42.6}
+  - {x: 8.469999, y: 26.93, z: 34.6}
+  - {x: 8.469999, y: 26.93, z: 43.6}
+  - {x: 8.469999, y: 26.93, z: 33.6}
+  - {x: 8.469999, y: 26.93, z: 44.6}
+  - {x: 8.469999, y: 26.93, z: 32.6}
+  - {x: 8.469999, y: 26.93, z: 38.6}
+  - {x: 8.469999, y: 26.93, z: 38.6}
+  - {x: 8.469999, y: 26.93, z: 39.6}
+  - {x: 8.469999, y: 26.93, z: 37.6}
+  - {x: 8.469999, y: 26.93, z: 40.6}
+  - {x: 8.469999, y: 26.93, z: 36.6}
+  - {x: 8.469999, y: 26.93, z: 41.6}
+  - {x: 8.469999, y: 26.93, z: 35.6}
+  - {x: 8.469999, y: 26.93, z: 42.6}
+  - {x: 8.469999, y: 26.93, z: 34.6}
+  - {x: 8.469999, y: 26.93, z: 43.6}
+  - {x: 8.469999, y: 26.93, z: 33.6}
+  - {x: 8.469999, y: 26.93, z: 44.6}
+  - {x: 8.469999, y: 26.93, z: 32.6}
+  - {x: 8.469999, y: 27.93, z: 38.6}
+  - {x: 8.469999, y: 27.93, z: 38.6}
+  - {x: 8.469999, y: 27.93, z: 39.6}
+  - {x: 8.469999, y: 27.93, z: 37.6}
+  - {x: 8.469999, y: 27.93, z: 40.6}
+  - {x: 8.469999, y: 27.93, z: 36.6}
+  - {x: 8.469999, y: 27.93, z: 41.6}
+  - {x: 8.469999, y: 27.93, z: 35.6}
+  - {x: 8.469999, y: 27.93, z: 42.6}
+  - {x: 8.469999, y: 27.93, z: 34.6}
+  - {x: 8.469999, y: 27.93, z: 43.6}
+  - {x: 8.469999, y: 27.93, z: 33.6}
+  - {x: 8.469999, y: 27.93, z: 44.6}
+  - {x: 8.469999, y: 27.93, z: 32.6}
+  - {x: 8.469999, y: 25.93, z: 38.6}
+  - {x: 8.469999, y: 25.93, z: 38.6}
+  - {x: 8.469999, y: 25.93, z: 39.6}
+  - {x: 8.469999, y: 25.93, z: 37.6}
+  - {x: 8.469999, y: 25.93, z: 40.6}
+  - {x: 8.469999, y: 25.93, z: 36.6}
+  - {x: 8.469999, y: 25.93, z: 41.6}
+  - {x: 8.469999, y: 25.93, z: 35.6}
+  - {x: 8.469999, y: 25.93, z: 42.6}
+  - {x: 8.469999, y: 25.93, z: 34.6}
+  - {x: 8.469999, y: 25.93, z: 43.6}
+  - {x: 8.469999, y: 25.93, z: 33.6}
+  - {x: 8.469999, y: 25.93, z: 44.6}
+  - {x: 8.469999, y: 25.93, z: 32.6}
+  - {x: 8.469999, y: 28.93, z: 38.6}
+  - {x: 8.469999, y: 28.93, z: 38.6}
+  - {x: 8.469999, y: 28.93, z: 39.6}
+  - {x: 8.469999, y: 28.93, z: 37.6}
+  - {x: 8.469999, y: 28.93, z: 40.6}
+  - {x: 8.469999, y: 28.93, z: 36.6}
+  - {x: 8.469999, y: 28.93, z: 41.6}
+  - {x: 8.469999, y: 28.93, z: 35.6}
+  - {x: 8.469999, y: 28.93, z: 42.6}
+  - {x: 8.469999, y: 28.93, z: 34.6}
+  - {x: 8.469999, y: 28.93, z: 43.6}
+  - {x: 8.469999, y: 28.93, z: 33.6}
+  - {x: 8.469999, y: 28.93, z: 44.6}
+  - {x: 8.469999, y: 28.93, z: 32.6}
+  - {x: 8.469999, y: 24.93, z: 38.6}
+  - {x: 8.469999, y: 24.93, z: 38.6}
+  - {x: 8.469999, y: 24.93, z: 39.6}
+  - {x: 8.469999, y: 24.93, z: 37.6}
+  - {x: 8.469999, y: 24.93, z: 40.6}
+  - {x: 8.469999, y: 24.93, z: 36.6}
+  - {x: 8.469999, y: 24.93, z: 41.6}
+  - {x: 8.469999, y: 24.93, z: 35.6}
+  - {x: 8.469999, y: 24.93, z: 42.6}
+  - {x: 8.469999, y: 24.93, z: 34.6}
+  - {x: 8.469999, y: 24.93, z: 43.6}
+  - {x: 8.469999, y: 24.93, z: 33.6}
+  - {x: 8.469999, y: 24.93, z: 44.6}
+  - {x: 8.469999, y: 24.93, z: 32.6}
+  - {x: 8.469999, y: 29.93, z: 38.6}
+  - {x: 8.469999, y: 29.93, z: 38.6}
+  - {x: 8.469999, y: 29.93, z: 39.6}
+  - {x: 8.469999, y: 29.93, z: 37.6}
+  - {x: 8.469999, y: 29.93, z: 40.6}
+  - {x: 8.469999, y: 29.93, z: 36.6}
+  - {x: 8.469999, y: 29.93, z: 41.6}
+  - {x: 8.469999, y: 29.93, z: 35.6}
+  - {x: 8.469999, y: 29.93, z: 42.6}
+  - {x: 8.469999, y: 29.93, z: 34.6}
+  - {x: 8.469999, y: 29.93, z: 43.6}
+  - {x: 8.469999, y: 29.93, z: 33.6}
+  - {x: 8.469999, y: 29.93, z: 44.6}
+  - {x: 8.469999, y: 29.93, z: 32.6}
+  - {x: 8.469999, y: 23.93, z: 38.6}
+  - {x: 8.469999, y: 23.93, z: 38.6}
+  - {x: 8.469999, y: 23.93, z: 39.6}
+  - {x: 8.469999, y: 23.93, z: 37.6}
+  - {x: 8.469999, y: 23.93, z: 40.6}
+  - {x: 8.469999, y: 23.93, z: 36.6}
+  - {x: 8.469999, y: 23.93, z: 41.6}
+  - {x: 8.469999, y: 23.93, z: 35.6}
+  - {x: 8.469999, y: 23.93, z: 42.6}
+  - {x: 8.469999, y: 23.93, z: 34.6}
+  - {x: 8.469999, y: 23.93, z: 43.6}
+  - {x: 8.469999, y: 23.93, z: 33.6}
+  - {x: 8.469999, y: 23.93, z: 44.6}
+  - {x: 8.469999, y: 23.93, z: 32.6}
+  - {x: 8.469999, y: 30.93, z: 38.6}
+  - {x: 8.469999, y: 30.93, z: 38.6}
+  - {x: 8.469999, y: 30.93, z: 39.6}
+  - {x: 8.469999, y: 30.93, z: 37.6}
+  - {x: 8.469999, y: 30.93, z: 40.6}
+  - {x: 8.469999, y: 30.93, z: 36.6}
+  - {x: 8.469999, y: 30.93, z: 41.6}
+  - {x: 8.469999, y: 30.93, z: 35.6}
+  - {x: 8.469999, y: 30.93, z: 42.6}
+  - {x: 8.469999, y: 30.93, z: 34.6}
+  - {x: 8.469999, y: 30.93, z: 43.6}
+  - {x: 8.469999, y: 30.93, z: 33.6}
+  - {x: 8.469999, y: 22.93, z: 38.6}
+  - {x: 8.469999, y: 22.93, z: 38.6}
+  - {x: 8.469999, y: 22.93, z: 39.6}
+  - {x: 8.469999, y: 22.93, z: 37.6}
+  - {x: 8.469999, y: 22.93, z: 40.6}
+  - {x: 8.469999, y: 22.93, z: 36.6}
+  - {x: 8.469999, y: 22.93, z: 41.6}
+  - {x: 8.469999, y: 22.93, z: 35.6}
+  - {x: 8.469999, y: 22.93, z: 42.6}
+  - {x: 8.469999, y: 22.93, z: 34.6}
+  - {x: 8.469999, y: 22.93, z: 43.6}
+  - {x: 8.469999, y: 22.93, z: 33.6}
+  - {x: 8.469999, y: 31.93, z: 38.6}
+  - {x: 8.469999, y: 31.93, z: 38.6}
+  - {x: 8.469999, y: 31.93, z: 39.6}
+  - {x: 8.469999, y: 31.93, z: 37.6}
+  - {x: 8.469999, y: 31.93, z: 40.6}
+  - {x: 8.469999, y: 31.93, z: 36.6}
+  - {x: 8.469999, y: 31.93, z: 41.6}
+  - {x: 8.469999, y: 31.93, z: 35.6}
+  - {x: 8.469999, y: 31.93, z: 42.6}
+  - {x: 8.469999, y: 31.93, z: 34.6}
+  - {x: 8.469999, y: 21.93, z: 38.6}
+  - {x: 8.469999, y: 21.93, z: 38.6}
+  - {x: 8.469999, y: 21.93, z: 39.6}
+  - {x: 8.469999, y: 21.93, z: 37.6}
+  - {x: 8.469999, y: 21.93, z: 40.6}
+  - {x: 8.469999, y: 21.93, z: 36.6}
+  - {x: 8.469999, y: 21.93, z: 41.6}
+  - {x: 8.469999, y: 21.93, z: 35.6}
+  - {x: 8.469999, y: 21.93, z: 42.6}
+  - {x: 8.469999, y: 21.93, z: 34.6}
+  - {x: 8.469999, y: 32.93, z: 38.6}
+  - {x: 8.469999, y: 32.93, z: 38.6}
+  - {x: 8.469999, y: 32.93, z: 39.6}
+  - {x: 8.469999, y: 32.93, z: 37.6}
+  - {x: 8.469999, y: 32.93, z: 40.6}
+  - {x: 8.469999, y: 32.93, z: 36.6}
+  - {x: 8.469999, y: 32.93, z: 41.6}
+  - {x: 8.469999, y: 32.93, z: 35.6}
+  - {x: 8.469999, y: 20.93, z: 38.6}
+  - {x: 8.469999, y: 20.93, z: 38.6}
+  - {x: 8.469999, y: 20.93, z: 39.6}
+  - {x: 8.469999, y: 20.93, z: 37.6}
+  - {x: 8.469999, y: 20.93, z: 40.6}
+  - {x: 8.469999, y: 20.93, z: 36.6}
+  - {x: 8.469999, y: 20.93, z: 41.6}
+  - {x: 8.469999, y: 20.93, z: 35.6}
+  - {x: 2.4699998, y: 26.93, z: 38.6}
+  - {x: 2.4699998, y: 26.93, z: 38.6}
+  - {x: 2.4699998, y: 26.93, z: 39.6}
+  - {x: 2.4699998, y: 26.93, z: 37.6}
+  - {x: 2.4699998, y: 26.93, z: 40.6}
+  - {x: 2.4699998, y: 26.93, z: 36.6}
+  - {x: 2.4699998, y: 26.93, z: 41.6}
+  - {x: 2.4699998, y: 26.93, z: 35.6}
+  - {x: 2.4699998, y: 26.93, z: 42.6}
+  - {x: 2.4699998, y: 26.93, z: 34.6}
+  - {x: 2.4699998, y: 26.93, z: 43.6}
+  - {x: 2.4699998, y: 26.93, z: 33.6}
+  - {x: 2.4699998, y: 26.93, z: 44.6}
+  - {x: 2.4699998, y: 26.93, z: 32.6}
+  - {x: 2.4699998, y: 26.93, z: 38.6}
+  - {x: 2.4699998, y: 26.93, z: 38.6}
+  - {x: 2.4699998, y: 26.93, z: 39.6}
+  - {x: 2.4699998, y: 26.93, z: 37.6}
+  - {x: 2.4699998, y: 26.93, z: 40.6}
+  - {x: 2.4699998, y: 26.93, z: 36.6}
+  - {x: 2.4699998, y: 26.93, z: 41.6}
+  - {x: 2.4699998, y: 26.93, z: 35.6}
+  - {x: 2.4699998, y: 26.93, z: 42.6}
+  - {x: 2.4699998, y: 26.93, z: 34.6}
+  - {x: 2.4699998, y: 26.93, z: 43.6}
+  - {x: 2.4699998, y: 26.93, z: 33.6}
+  - {x: 2.4699998, y: 26.93, z: 44.6}
+  - {x: 2.4699998, y: 26.93, z: 32.6}
+  - {x: 2.4699998, y: 27.93, z: 38.6}
+  - {x: 2.4699998, y: 27.93, z: 38.6}
+  - {x: 2.4699998, y: 27.93, z: 39.6}
+  - {x: 2.4699998, y: 27.93, z: 37.6}
+  - {x: 2.4699998, y: 27.93, z: 40.6}
+  - {x: 2.4699998, y: 27.93, z: 36.6}
+  - {x: 2.4699998, y: 27.93, z: 41.6}
+  - {x: 2.4699998, y: 27.93, z: 35.6}
+  - {x: 2.4699998, y: 27.93, z: 42.6}
+  - {x: 2.4699998, y: 27.93, z: 34.6}
+  - {x: 2.4699998, y: 27.93, z: 43.6}
+  - {x: 2.4699998, y: 27.93, z: 33.6}
+  - {x: 2.4699998, y: 27.93, z: 44.6}
+  - {x: 2.4699998, y: 27.93, z: 32.6}
+  - {x: 2.4699998, y: 25.93, z: 38.6}
+  - {x: 2.4699998, y: 25.93, z: 38.6}
+  - {x: 2.4699998, y: 25.93, z: 39.6}
+  - {x: 2.4699998, y: 25.93, z: 37.6}
+  - {x: 2.4699998, y: 25.93, z: 40.6}
+  - {x: 2.4699998, y: 25.93, z: 36.6}
+  - {x: 2.4699998, y: 25.93, z: 41.6}
+  - {x: 2.4699998, y: 25.93, z: 35.6}
+  - {x: 2.4699998, y: 25.93, z: 42.6}
+  - {x: 2.4699998, y: 25.93, z: 34.6}
+  - {x: 2.4699998, y: 25.93, z: 43.6}
+  - {x: 2.4699998, y: 25.93, z: 33.6}
+  - {x: 2.4699998, y: 25.93, z: 44.6}
+  - {x: 2.4699998, y: 25.93, z: 32.6}
+  - {x: 2.4699998, y: 28.93, z: 38.6}
+  - {x: 2.4699998, y: 28.93, z: 38.6}
+  - {x: 2.4699998, y: 28.93, z: 39.6}
+  - {x: 2.4699998, y: 28.93, z: 37.6}
+  - {x: 2.4699998, y: 28.93, z: 40.6}
+  - {x: 2.4699998, y: 28.93, z: 36.6}
+  - {x: 2.4699998, y: 28.93, z: 41.6}
+  - {x: 2.4699998, y: 28.93, z: 35.6}
+  - {x: 2.4699998, y: 28.93, z: 42.6}
+  - {x: 2.4699998, y: 28.93, z: 34.6}
+  - {x: 2.4699998, y: 28.93, z: 43.6}
+  - {x: 2.4699998, y: 28.93, z: 33.6}
+  - {x: 2.4699998, y: 28.93, z: 44.6}
+  - {x: 2.4699998, y: 28.93, z: 32.6}
+  - {x: 2.4699998, y: 24.93, z: 38.6}
+  - {x: 2.4699998, y: 24.93, z: 38.6}
+  - {x: 2.4699998, y: 24.93, z: 39.6}
+  - {x: 2.4699998, y: 24.93, z: 37.6}
+  - {x: 2.4699998, y: 24.93, z: 40.6}
+  - {x: 2.4699998, y: 24.93, z: 36.6}
+  - {x: 2.4699998, y: 24.93, z: 41.6}
+  - {x: 2.4699998, y: 24.93, z: 35.6}
+  - {x: 2.4699998, y: 24.93, z: 42.6}
+  - {x: 2.4699998, y: 24.93, z: 34.6}
+  - {x: 2.4699998, y: 24.93, z: 43.6}
+  - {x: 2.4699998, y: 24.93, z: 33.6}
+  - {x: 2.4699998, y: 24.93, z: 44.6}
+  - {x: 2.4699998, y: 24.93, z: 32.6}
+  - {x: 2.4699998, y: 29.93, z: 38.6}
+  - {x: 2.4699998, y: 29.93, z: 38.6}
+  - {x: 2.4699998, y: 29.93, z: 39.6}
+  - {x: 2.4699998, y: 29.93, z: 37.6}
+  - {x: 2.4699998, y: 29.93, z: 40.6}
+  - {x: 2.4699998, y: 29.93, z: 36.6}
+  - {x: 2.4699998, y: 29.93, z: 41.6}
+  - {x: 2.4699998, y: 29.93, z: 35.6}
+  - {x: 2.4699998, y: 29.93, z: 42.6}
+  - {x: 2.4699998, y: 29.93, z: 34.6}
+  - {x: 2.4699998, y: 29.93, z: 43.6}
+  - {x: 2.4699998, y: 29.93, z: 33.6}
+  - {x: 2.4699998, y: 29.93, z: 44.6}
+  - {x: 2.4699998, y: 29.93, z: 32.6}
+  - {x: 2.4699998, y: 23.93, z: 38.6}
+  - {x: 2.4699998, y: 23.93, z: 38.6}
+  - {x: 2.4699998, y: 23.93, z: 39.6}
+  - {x: 2.4699998, y: 23.93, z: 37.6}
+  - {x: 2.4699998, y: 23.93, z: 40.6}
+  - {x: 2.4699998, y: 23.93, z: 36.6}
+  - {x: 2.4699998, y: 23.93, z: 41.6}
+  - {x: 2.4699998, y: 23.93, z: 35.6}
+  - {x: 2.4699998, y: 23.93, z: 42.6}
+  - {x: 2.4699998, y: 23.93, z: 34.6}
+  - {x: 2.4699998, y: 23.93, z: 43.6}
+  - {x: 2.4699998, y: 23.93, z: 33.6}
+  - {x: 2.4699998, y: 23.93, z: 44.6}
+  - {x: 2.4699998, y: 23.93, z: 32.6}
+  - {x: 2.4699998, y: 30.93, z: 38.6}
+  - {x: 2.4699998, y: 30.93, z: 38.6}
+  - {x: 2.4699998, y: 30.93, z: 39.6}
+  - {x: 2.4699998, y: 30.93, z: 37.6}
+  - {x: 2.4699998, y: 30.93, z: 40.6}
+  - {x: 2.4699998, y: 30.93, z: 36.6}
+  - {x: 2.4699998, y: 30.93, z: 41.6}
+  - {x: 2.4699998, y: 30.93, z: 35.6}
+  - {x: 2.4699998, y: 30.93, z: 42.6}
+  - {x: 2.4699998, y: 30.93, z: 34.6}
+  - {x: 2.4699998, y: 30.93, z: 43.6}
+  - {x: 2.4699998, y: 30.93, z: 33.6}
+  - {x: 2.4699998, y: 22.93, z: 38.6}
+  - {x: 2.4699998, y: 22.93, z: 38.6}
+  - {x: 2.4699998, y: 22.93, z: 39.6}
+  - {x: 2.4699998, y: 22.93, z: 37.6}
+  - {x: 2.4699998, y: 22.93, z: 40.6}
+  - {x: 2.4699998, y: 22.93, z: 36.6}
+  - {x: 2.4699998, y: 22.93, z: 41.6}
+  - {x: 2.4699998, y: 22.93, z: 35.6}
+  - {x: 2.4699998, y: 22.93, z: 42.6}
+  - {x: 2.4699998, y: 22.93, z: 34.6}
+  - {x: 2.4699998, y: 22.93, z: 43.6}
+  - {x: 2.4699998, y: 22.93, z: 33.6}
+  - {x: 2.4699998, y: 31.93, z: 38.6}
+  - {x: 2.4699998, y: 31.93, z: 38.6}
+  - {x: 2.4699998, y: 31.93, z: 39.6}
+  - {x: 2.4699998, y: 31.93, z: 37.6}
+  - {x: 2.4699998, y: 31.93, z: 40.6}
+  - {x: 2.4699998, y: 31.93, z: 36.6}
+  - {x: 2.4699998, y: 31.93, z: 41.6}
+  - {x: 2.4699998, y: 31.93, z: 35.6}
+  - {x: 2.4699998, y: 31.93, z: 42.6}
+  - {x: 2.4699998, y: 31.93, z: 34.6}
+  - {x: 2.4699998, y: 21.93, z: 38.6}
+  - {x: 2.4699998, y: 21.93, z: 38.6}
+  - {x: 2.4699998, y: 21.93, z: 39.6}
+  - {x: 2.4699998, y: 21.93, z: 37.6}
+  - {x: 2.4699998, y: 21.93, z: 40.6}
+  - {x: 2.4699998, y: 21.93, z: 36.6}
+  - {x: 2.4699998, y: 21.93, z: 41.6}
+  - {x: 2.4699998, y: 21.93, z: 35.6}
+  - {x: 2.4699998, y: 21.93, z: 42.6}
+  - {x: 2.4699998, y: 21.93, z: 34.6}
+  - {x: 2.4699998, y: 32.93, z: 38.6}
+  - {x: 2.4699998, y: 32.93, z: 38.6}
+  - {x: 2.4699998, y: 32.93, z: 39.6}
+  - {x: 2.4699998, y: 32.93, z: 37.6}
+  - {x: 2.4699998, y: 32.93, z: 40.6}
+  - {x: 2.4699998, y: 32.93, z: 36.6}
+  - {x: 2.4699998, y: 32.93, z: 41.6}
+  - {x: 2.4699998, y: 32.93, z: 35.6}
+  - {x: 2.4699998, y: 20.93, z: 38.6}
+  - {x: 2.4699998, y: 20.93, z: 38.6}
+  - {x: 2.4699998, y: 20.93, z: 39.6}
+  - {x: 2.4699998, y: 20.93, z: 37.6}
+  - {x: 2.4699998, y: 20.93, z: 40.6}
+  - {x: 2.4699998, y: 20.93, z: 36.6}
+  - {x: 2.4699998, y: 20.93, z: 41.6}
+  - {x: 2.4699998, y: 20.93, z: 35.6}
+  - {x: 9.469999, y: 26.93, z: 38.6}
+  - {x: 9.469999, y: 26.93, z: 38.6}
+  - {x: 9.469999, y: 26.93, z: 39.6}
+  - {x: 9.469999, y: 26.93, z: 37.6}
+  - {x: 9.469999, y: 26.93, z: 40.6}
+  - {x: 9.469999, y: 26.93, z: 36.6}
+  - {x: 9.469999, y: 26.93, z: 41.6}
+  - {x: 9.469999, y: 26.93, z: 35.6}
+  - {x: 9.469999, y: 26.93, z: 42.6}
+  - {x: 9.469999, y: 26.93, z: 34.6}
+  - {x: 9.469999, y: 26.93, z: 43.6}
+  - {x: 9.469999, y: 26.93, z: 33.6}
+  - {x: 9.469999, y: 26.93, z: 44.6}
+  - {x: 9.469999, y: 26.93, z: 32.6}
+  - {x: 9.469999, y: 26.93, z: 38.6}
+  - {x: 9.469999, y: 26.93, z: 38.6}
+  - {x: 9.469999, y: 26.93, z: 39.6}
+  - {x: 9.469999, y: 26.93, z: 37.6}
+  - {x: 9.469999, y: 26.93, z: 40.6}
+  - {x: 9.469999, y: 26.93, z: 36.6}
+  - {x: 9.469999, y: 26.93, z: 41.6}
+  - {x: 9.469999, y: 26.93, z: 35.6}
+  - {x: 9.469999, y: 26.93, z: 42.6}
+  - {x: 9.469999, y: 26.93, z: 34.6}
+  - {x: 9.469999, y: 26.93, z: 43.6}
+  - {x: 9.469999, y: 26.93, z: 33.6}
+  - {x: 9.469999, y: 26.93, z: 44.6}
+  - {x: 9.469999, y: 26.93, z: 32.6}
+  - {x: 9.469999, y: 27.93, z: 38.6}
+  - {x: 9.469999, y: 27.93, z: 38.6}
+  - {x: 9.469999, y: 27.93, z: 39.6}
+  - {x: 9.469999, y: 27.93, z: 37.6}
+  - {x: 9.469999, y: 27.93, z: 40.6}
+  - {x: 9.469999, y: 27.93, z: 36.6}
+  - {x: 9.469999, y: 27.93, z: 41.6}
+  - {x: 9.469999, y: 27.93, z: 35.6}
+  - {x: 9.469999, y: 27.93, z: 42.6}
+  - {x: 9.469999, y: 27.93, z: 34.6}
+  - {x: 9.469999, y: 27.93, z: 43.6}
+  - {x: 9.469999, y: 27.93, z: 33.6}
+  - {x: 9.469999, y: 27.93, z: 44.6}
+  - {x: 9.469999, y: 27.93, z: 32.6}
+  - {x: 9.469999, y: 25.93, z: 38.6}
+  - {x: 9.469999, y: 25.93, z: 38.6}
+  - {x: 9.469999, y: 25.93, z: 39.6}
+  - {x: 9.469999, y: 25.93, z: 37.6}
+  - {x: 9.469999, y: 25.93, z: 40.6}
+  - {x: 9.469999, y: 25.93, z: 36.6}
+  - {x: 9.469999, y: 25.93, z: 41.6}
+  - {x: 9.469999, y: 25.93, z: 35.6}
+  - {x: 9.469999, y: 25.93, z: 42.6}
+  - {x: 9.469999, y: 25.93, z: 34.6}
+  - {x: 9.469999, y: 25.93, z: 43.6}
+  - {x: 9.469999, y: 25.93, z: 33.6}
+  - {x: 9.469999, y: 25.93, z: 44.6}
+  - {x: 9.469999, y: 25.93, z: 32.6}
+  - {x: 9.469999, y: 28.93, z: 38.6}
+  - {x: 9.469999, y: 28.93, z: 38.6}
+  - {x: 9.469999, y: 28.93, z: 39.6}
+  - {x: 9.469999, y: 28.93, z: 37.6}
+  - {x: 9.469999, y: 28.93, z: 40.6}
+  - {x: 9.469999, y: 28.93, z: 36.6}
+  - {x: 9.469999, y: 28.93, z: 41.6}
+  - {x: 9.469999, y: 28.93, z: 35.6}
+  - {x: 9.469999, y: 28.93, z: 42.6}
+  - {x: 9.469999, y: 28.93, z: 34.6}
+  - {x: 9.469999, y: 28.93, z: 43.6}
+  - {x: 9.469999, y: 28.93, z: 33.6}
+  - {x: 9.469999, y: 28.93, z: 44.6}
+  - {x: 9.469999, y: 28.93, z: 32.6}
+  - {x: 9.469999, y: 24.93, z: 38.6}
+  - {x: 9.469999, y: 24.93, z: 38.6}
+  - {x: 9.469999, y: 24.93, z: 39.6}
+  - {x: 9.469999, y: 24.93, z: 37.6}
+  - {x: 9.469999, y: 24.93, z: 40.6}
+  - {x: 9.469999, y: 24.93, z: 36.6}
+  - {x: 9.469999, y: 24.93, z: 41.6}
+  - {x: 9.469999, y: 24.93, z: 35.6}
+  - {x: 9.469999, y: 24.93, z: 42.6}
+  - {x: 9.469999, y: 24.93, z: 34.6}
+  - {x: 9.469999, y: 24.93, z: 43.6}
+  - {x: 9.469999, y: 24.93, z: 33.6}
+  - {x: 9.469999, y: 24.93, z: 44.6}
+  - {x: 9.469999, y: 24.93, z: 32.6}
+  - {x: 9.469999, y: 29.93, z: 38.6}
+  - {x: 9.469999, y: 29.93, z: 38.6}
+  - {x: 9.469999, y: 29.93, z: 39.6}
+  - {x: 9.469999, y: 29.93, z: 37.6}
+  - {x: 9.469999, y: 29.93, z: 40.6}
+  - {x: 9.469999, y: 29.93, z: 36.6}
+  - {x: 9.469999, y: 29.93, z: 41.6}
+  - {x: 9.469999, y: 29.93, z: 35.6}
+  - {x: 9.469999, y: 29.93, z: 42.6}
+  - {x: 9.469999, y: 29.93, z: 34.6}
+  - {x: 9.469999, y: 29.93, z: 43.6}
+  - {x: 9.469999, y: 29.93, z: 33.6}
+  - {x: 9.469999, y: 23.93, z: 38.6}
+  - {x: 9.469999, y: 23.93, z: 38.6}
+  - {x: 9.469999, y: 23.93, z: 39.6}
+  - {x: 9.469999, y: 23.93, z: 37.6}
+  - {x: 9.469999, y: 23.93, z: 40.6}
+  - {x: 9.469999, y: 23.93, z: 36.6}
+  - {x: 9.469999, y: 23.93, z: 41.6}
+  - {x: 9.469999, y: 23.93, z: 35.6}
+  - {x: 9.469999, y: 23.93, z: 42.6}
+  - {x: 9.469999, y: 23.93, z: 34.6}
+  - {x: 9.469999, y: 23.93, z: 43.6}
+  - {x: 9.469999, y: 23.93, z: 33.6}
+  - {x: 9.469999, y: 30.93, z: 38.6}
+  - {x: 9.469999, y: 30.93, z: 38.6}
+  - {x: 9.469999, y: 30.93, z: 39.6}
+  - {x: 9.469999, y: 30.93, z: 37.6}
+  - {x: 9.469999, y: 30.93, z: 40.6}
+  - {x: 9.469999, y: 30.93, z: 36.6}
+  - {x: 9.469999, y: 30.93, z: 41.6}
+  - {x: 9.469999, y: 30.93, z: 35.6}
+  - {x: 9.469999, y: 30.93, z: 42.6}
+  - {x: 9.469999, y: 30.93, z: 34.6}
+  - {x: 9.469999, y: 22.93, z: 38.6}
+  - {x: 9.469999, y: 22.93, z: 38.6}
+  - {x: 9.469999, y: 22.93, z: 39.6}
+  - {x: 9.469999, y: 22.93, z: 37.6}
+  - {x: 9.469999, y: 22.93, z: 40.6}
+  - {x: 9.469999, y: 22.93, z: 36.6}
+  - {x: 9.469999, y: 22.93, z: 41.6}
+  - {x: 9.469999, y: 22.93, z: 35.6}
+  - {x: 9.469999, y: 22.93, z: 42.6}
+  - {x: 9.469999, y: 22.93, z: 34.6}
+  - {x: 9.469999, y: 31.93, z: 38.6}
+  - {x: 9.469999, y: 31.93, z: 38.6}
+  - {x: 9.469999, y: 31.93, z: 39.6}
+  - {x: 9.469999, y: 31.93, z: 37.6}
+  - {x: 9.469999, y: 31.93, z: 40.6}
+  - {x: 9.469999, y: 31.93, z: 36.6}
+  - {x: 9.469999, y: 31.93, z: 41.6}
+  - {x: 9.469999, y: 31.93, z: 35.6}
+  - {x: 9.469999, y: 21.93, z: 38.6}
+  - {x: 9.469999, y: 21.93, z: 38.6}
+  - {x: 9.469999, y: 21.93, z: 39.6}
+  - {x: 9.469999, y: 21.93, z: 37.6}
+  - {x: 9.469999, y: 21.93, z: 40.6}
+  - {x: 9.469999, y: 21.93, z: 36.6}
+  - {x: 9.469999, y: 21.93, z: 41.6}
+  - {x: 9.469999, y: 21.93, z: 35.6}
+  - {x: 9.469999, y: 32.93, z: 38.6}
+  - {x: 9.469999, y: 32.93, z: 38.6}
+  - {x: 9.469999, y: 32.93, z: 39.6}
+  - {x: 9.469999, y: 32.93, z: 37.6}
+  - {x: 9.469999, y: 32.93, z: 40.6}
+  - {x: 9.469999, y: 32.93, z: 36.6}
+  - {x: 9.469999, y: 20.93, z: 38.6}
+  - {x: 9.469999, y: 20.93, z: 38.6}
+  - {x: 9.469999, y: 20.93, z: 39.6}
+  - {x: 9.469999, y: 20.93, z: 37.6}
+  - {x: 9.469999, y: 20.93, z: 40.6}
+  - {x: 9.469999, y: 20.93, z: 36.6}
+  - {x: 1.4699998, y: 26.93, z: 38.6}
+  - {x: 1.4699998, y: 26.93, z: 38.6}
+  - {x: 1.4699998, y: 26.93, z: 39.6}
+  - {x: 1.4699998, y: 26.93, z: 37.6}
+  - {x: 1.4699998, y: 26.93, z: 40.6}
+  - {x: 1.4699998, y: 26.93, z: 36.6}
+  - {x: 1.4699998, y: 26.93, z: 41.6}
+  - {x: 1.4699998, y: 26.93, z: 35.6}
+  - {x: 1.4699998, y: 26.93, z: 42.6}
+  - {x: 1.4699998, y: 26.93, z: 34.6}
+  - {x: 1.4699998, y: 26.93, z: 43.6}
+  - {x: 1.4699998, y: 26.93, z: 33.6}
+  - {x: 1.4699998, y: 26.93, z: 44.6}
+  - {x: 1.4699998, y: 26.93, z: 32.6}
+  - {x: 1.4699998, y: 26.93, z: 38.6}
+  - {x: 1.4699998, y: 26.93, z: 38.6}
+  - {x: 1.4699998, y: 26.93, z: 39.6}
+  - {x: 1.4699998, y: 26.93, z: 37.6}
+  - {x: 1.4699998, y: 26.93, z: 40.6}
+  - {x: 1.4699998, y: 26.93, z: 36.6}
+  - {x: 1.4699998, y: 26.93, z: 41.6}
+  - {x: 1.4699998, y: 26.93, z: 35.6}
+  - {x: 1.4699998, y: 26.93, z: 42.6}
+  - {x: 1.4699998, y: 26.93, z: 34.6}
+  - {x: 1.4699998, y: 26.93, z: 43.6}
+  - {x: 1.4699998, y: 26.93, z: 33.6}
+  - {x: 1.4699998, y: 26.93, z: 44.6}
+  - {x: 1.4699998, y: 26.93, z: 32.6}
+  - {x: 1.4699998, y: 27.93, z: 38.6}
+  - {x: 1.4699998, y: 27.93, z: 38.6}
+  - {x: 1.4699998, y: 27.93, z: 39.6}
+  - {x: 1.4699998, y: 27.93, z: 37.6}
+  - {x: 1.4699998, y: 27.93, z: 40.6}
+  - {x: 1.4699998, y: 27.93, z: 36.6}
+  - {x: 1.4699998, y: 27.93, z: 41.6}
+  - {x: 1.4699998, y: 27.93, z: 35.6}
+  - {x: 1.4699998, y: 27.93, z: 42.6}
+  - {x: 1.4699998, y: 27.93, z: 34.6}
+  - {x: 1.4699998, y: 27.93, z: 43.6}
+  - {x: 1.4699998, y: 27.93, z: 33.6}
+  - {x: 1.4699998, y: 27.93, z: 44.6}
+  - {x: 1.4699998, y: 27.93, z: 32.6}
+  - {x: 1.4699998, y: 25.93, z: 38.6}
+  - {x: 1.4699998, y: 25.93, z: 38.6}
+  - {x: 1.4699998, y: 25.93, z: 39.6}
+  - {x: 1.4699998, y: 25.93, z: 37.6}
+  - {x: 1.4699998, y: 25.93, z: 40.6}
+  - {x: 1.4699998, y: 25.93, z: 36.6}
+  - {x: 1.4699998, y: 25.93, z: 41.6}
+  - {x: 1.4699998, y: 25.93, z: 35.6}
+  - {x: 1.4699998, y: 25.93, z: 42.6}
+  - {x: 1.4699998, y: 25.93, z: 34.6}
+  - {x: 1.4699998, y: 25.93, z: 43.6}
+  - {x: 1.4699998, y: 25.93, z: 33.6}
+  - {x: 1.4699998, y: 25.93, z: 44.6}
+  - {x: 1.4699998, y: 25.93, z: 32.6}
+  - {x: 1.4699998, y: 28.93, z: 38.6}
+  - {x: 1.4699998, y: 28.93, z: 38.6}
+  - {x: 1.4699998, y: 28.93, z: 39.6}
+  - {x: 1.4699998, y: 28.93, z: 37.6}
+  - {x: 1.4699998, y: 28.93, z: 40.6}
+  - {x: 1.4699998, y: 28.93, z: 36.6}
+  - {x: 1.4699998, y: 28.93, z: 41.6}
+  - {x: 1.4699998, y: 28.93, z: 35.6}
+  - {x: 1.4699998, y: 28.93, z: 42.6}
+  - {x: 1.4699998, y: 28.93, z: 34.6}
+  - {x: 1.4699998, y: 28.93, z: 43.6}
+  - {x: 1.4699998, y: 28.93, z: 33.6}
+  - {x: 1.4699998, y: 28.93, z: 44.6}
+  - {x: 1.4699998, y: 28.93, z: 32.6}
+  - {x: 1.4699998, y: 24.93, z: 38.6}
+  - {x: 1.4699998, y: 24.93, z: 38.6}
+  - {x: 1.4699998, y: 24.93, z: 39.6}
+  - {x: 1.4699998, y: 24.93, z: 37.6}
+  - {x: 1.4699998, y: 24.93, z: 40.6}
+  - {x: 1.4699998, y: 24.93, z: 36.6}
+  - {x: 1.4699998, y: 24.93, z: 41.6}
+  - {x: 1.4699998, y: 24.93, z: 35.6}
+  - {x: 1.4699998, y: 24.93, z: 42.6}
+  - {x: 1.4699998, y: 24.93, z: 34.6}
+  - {x: 1.4699998, y: 24.93, z: 43.6}
+  - {x: 1.4699998, y: 24.93, z: 33.6}
+  - {x: 1.4699998, y: 24.93, z: 44.6}
+  - {x: 1.4699998, y: 24.93, z: 32.6}
+  - {x: 1.4699998, y: 29.93, z: 38.6}
+  - {x: 1.4699998, y: 29.93, z: 38.6}
+  - {x: 1.4699998, y: 29.93, z: 39.6}
+  - {x: 1.4699998, y: 29.93, z: 37.6}
+  - {x: 1.4699998, y: 29.93, z: 40.6}
+  - {x: 1.4699998, y: 29.93, z: 36.6}
+  - {x: 1.4699998, y: 29.93, z: 41.6}
+  - {x: 1.4699998, y: 29.93, z: 35.6}
+  - {x: 1.4699998, y: 29.93, z: 42.6}
+  - {x: 1.4699998, y: 29.93, z: 34.6}
+  - {x: 1.4699998, y: 29.93, z: 43.6}
+  - {x: 1.4699998, y: 29.93, z: 33.6}
+  - {x: 1.4699998, y: 23.93, z: 38.6}
+  - {x: 1.4699998, y: 23.93, z: 38.6}
+  - {x: 1.4699998, y: 23.93, z: 39.6}
+  - {x: 1.4699998, y: 23.93, z: 37.6}
+  - {x: 1.4699998, y: 23.93, z: 40.6}
+  - {x: 1.4699998, y: 23.93, z: 36.6}
+  - {x: 1.4699998, y: 23.93, z: 41.6}
+  - {x: 1.4699998, y: 23.93, z: 35.6}
+  - {x: 1.4699998, y: 23.93, z: 42.6}
+  - {x: 1.4699998, y: 23.93, z: 34.6}
+  - {x: 1.4699998, y: 23.93, z: 43.6}
+  - {x: 1.4699998, y: 23.93, z: 33.6}
+  - {x: 1.4699998, y: 30.93, z: 38.6}
+  - {x: 1.4699998, y: 30.93, z: 38.6}
+  - {x: 1.4699998, y: 30.93, z: 39.6}
+  - {x: 1.4699998, y: 30.93, z: 37.6}
+  - {x: 1.4699998, y: 30.93, z: 40.6}
+  - {x: 1.4699998, y: 30.93, z: 36.6}
+  - {x: 1.4699998, y: 30.93, z: 41.6}
+  - {x: 1.4699998, y: 30.93, z: 35.6}
+  - {x: 1.4699998, y: 30.93, z: 42.6}
+  - {x: 1.4699998, y: 30.93, z: 34.6}
+  - {x: 1.4699998, y: 22.93, z: 38.6}
+  - {x: 1.4699998, y: 22.93, z: 38.6}
+  - {x: 1.4699998, y: 22.93, z: 39.6}
+  - {x: 1.4699998, y: 22.93, z: 37.6}
+  - {x: 1.4699998, y: 22.93, z: 40.6}
+  - {x: 1.4699998, y: 22.93, z: 36.6}
+  - {x: 1.4699998, y: 22.93, z: 41.6}
+  - {x: 1.4699998, y: 22.93, z: 35.6}
+  - {x: 1.4699998, y: 22.93, z: 42.6}
+  - {x: 1.4699998, y: 22.93, z: 34.6}
+  - {x: 1.4699998, y: 31.93, z: 38.6}
+  - {x: 1.4699998, y: 31.93, z: 38.6}
+  - {x: 1.4699998, y: 31.93, z: 39.6}
+  - {x: 1.4699998, y: 31.93, z: 37.6}
+  - {x: 1.4699998, y: 31.93, z: 40.6}
+  - {x: 1.4699998, y: 31.93, z: 36.6}
+  - {x: 1.4699998, y: 31.93, z: 41.6}
+  - {x: 1.4699998, y: 31.93, z: 35.6}
+  - {x: 1.4699998, y: 21.93, z: 38.6}
+  - {x: 1.4699998, y: 21.93, z: 38.6}
+  - {x: 1.4699998, y: 21.93, z: 39.6}
+  - {x: 1.4699998, y: 21.93, z: 37.6}
+  - {x: 1.4699998, y: 21.93, z: 40.6}
+  - {x: 1.4699998, y: 21.93, z: 36.6}
+  - {x: 1.4699998, y: 21.93, z: 41.6}
+  - {x: 1.4699998, y: 21.93, z: 35.6}
+  - {x: 1.4699998, y: 32.93, z: 38.6}
+  - {x: 1.4699998, y: 32.93, z: 38.6}
+  - {x: 1.4699998, y: 32.93, z: 39.6}
+  - {x: 1.4699998, y: 32.93, z: 37.6}
+  - {x: 1.4699998, y: 32.93, z: 40.6}
+  - {x: 1.4699998, y: 32.93, z: 36.6}
+  - {x: 1.4699998, y: 20.93, z: 38.6}
+  - {x: 1.4699998, y: 20.93, z: 38.6}
+  - {x: 1.4699998, y: 20.93, z: 39.6}
+  - {x: 1.4699998, y: 20.93, z: 37.6}
+  - {x: 1.4699998, y: 20.93, z: 40.6}
+  - {x: 1.4699998, y: 20.93, z: 36.6}
+  - {x: 10.469999, y: 26.93, z: 38.6}
+  - {x: 10.469999, y: 26.93, z: 38.6}
+  - {x: 10.469999, y: 26.93, z: 39.6}
+  - {x: 10.469999, y: 26.93, z: 37.6}
+  - {x: 10.469999, y: 26.93, z: 40.6}
+  - {x: 10.469999, y: 26.93, z: 36.6}
+  - {x: 10.469999, y: 26.93, z: 41.6}
+  - {x: 10.469999, y: 26.93, z: 35.6}
+  - {x: 10.469999, y: 26.93, z: 42.6}
+  - {x: 10.469999, y: 26.93, z: 34.6}
+  - {x: 10.469999, y: 26.93, z: 43.6}
+  - {x: 10.469999, y: 26.93, z: 33.6}
+  - {x: 10.469999, y: 26.93, z: 38.6}
+  - {x: 10.469999, y: 26.93, z: 38.6}
+  - {x: 10.469999, y: 26.93, z: 39.6}
+  - {x: 10.469999, y: 26.93, z: 37.6}
+  - {x: 10.469999, y: 26.93, z: 40.6}
+  - {x: 10.469999, y: 26.93, z: 36.6}
+  - {x: 10.469999, y: 26.93, z: 41.6}
+  - {x: 10.469999, y: 26.93, z: 35.6}
+  - {x: 10.469999, y: 26.93, z: 42.6}
+  - {x: 10.469999, y: 26.93, z: 34.6}
+  - {x: 10.469999, y: 26.93, z: 43.6}
+  - {x: 10.469999, y: 26.93, z: 33.6}
+  - {x: 10.469999, y: 27.93, z: 38.6}
+  - {x: 10.469999, y: 27.93, z: 38.6}
+  - {x: 10.469999, y: 27.93, z: 39.6}
+  - {x: 10.469999, y: 27.93, z: 37.6}
+  - {x: 10.469999, y: 27.93, z: 40.6}
+  - {x: 10.469999, y: 27.93, z: 36.6}
+  - {x: 10.469999, y: 27.93, z: 41.6}
+  - {x: 10.469999, y: 27.93, z: 35.6}
+  - {x: 10.469999, y: 27.93, z: 42.6}
+  - {x: 10.469999, y: 27.93, z: 34.6}
+  - {x: 10.469999, y: 27.93, z: 43.6}
+  - {x: 10.469999, y: 27.93, z: 33.6}
+  - {x: 10.469999, y: 25.93, z: 38.6}
+  - {x: 10.469999, y: 25.93, z: 38.6}
+  - {x: 10.469999, y: 25.93, z: 39.6}
+  - {x: 10.469999, y: 25.93, z: 37.6}
+  - {x: 10.469999, y: 25.93, z: 40.6}
+  - {x: 10.469999, y: 25.93, z: 36.6}
+  - {x: 10.469999, y: 25.93, z: 41.6}
+  - {x: 10.469999, y: 25.93, z: 35.6}
+  - {x: 10.469999, y: 25.93, z: 42.6}
+  - {x: 10.469999, y: 25.93, z: 34.6}
+  - {x: 10.469999, y: 25.93, z: 43.6}
+  - {x: 10.469999, y: 25.93, z: 33.6}
+  - {x: 10.469999, y: 28.93, z: 38.6}
+  - {x: 10.469999, y: 28.93, z: 38.6}
+  - {x: 10.469999, y: 28.93, z: 39.6}
+  - {x: 10.469999, y: 28.93, z: 37.6}
+  - {x: 10.469999, y: 28.93, z: 40.6}
+  - {x: 10.469999, y: 28.93, z: 36.6}
+  - {x: 10.469999, y: 28.93, z: 41.6}
+  - {x: 10.469999, y: 28.93, z: 35.6}
+  - {x: 10.469999, y: 28.93, z: 42.6}
+  - {x: 10.469999, y: 28.93, z: 34.6}
+  - {x: 10.469999, y: 28.93, z: 43.6}
+  - {x: 10.469999, y: 28.93, z: 33.6}
+  - {x: 10.469999, y: 24.93, z: 38.6}
+  - {x: 10.469999, y: 24.93, z: 38.6}
+  - {x: 10.469999, y: 24.93, z: 39.6}
+  - {x: 10.469999, y: 24.93, z: 37.6}
+  - {x: 10.469999, y: 24.93, z: 40.6}
+  - {x: 10.469999, y: 24.93, z: 36.6}
+  - {x: 10.469999, y: 24.93, z: 41.6}
+  - {x: 10.469999, y: 24.93, z: 35.6}
+  - {x: 10.469999, y: 24.93, z: 42.6}
+  - {x: 10.469999, y: 24.93, z: 34.6}
+  - {x: 10.469999, y: 24.93, z: 43.6}
+  - {x: 10.469999, y: 24.93, z: 33.6}
+  - {x: 10.469999, y: 29.93, z: 38.6}
+  - {x: 10.469999, y: 29.93, z: 38.6}
+  - {x: 10.469999, y: 29.93, z: 39.6}
+  - {x: 10.469999, y: 29.93, z: 37.6}
+  - {x: 10.469999, y: 29.93, z: 40.6}
+  - {x: 10.469999, y: 29.93, z: 36.6}
+  - {x: 10.469999, y: 29.93, z: 41.6}
+  - {x: 10.469999, y: 29.93, z: 35.6}
+  - {x: 10.469999, y: 29.93, z: 42.6}
+  - {x: 10.469999, y: 29.93, z: 34.6}
+  - {x: 10.469999, y: 23.93, z: 38.6}
+  - {x: 10.469999, y: 23.93, z: 38.6}
+  - {x: 10.469999, y: 23.93, z: 39.6}
+  - {x: 10.469999, y: 23.93, z: 37.6}
+  - {x: 10.469999, y: 23.93, z: 40.6}
+  - {x: 10.469999, y: 23.93, z: 36.6}
+  - {x: 10.469999, y: 23.93, z: 41.6}
+  - {x: 10.469999, y: 23.93, z: 35.6}
+  - {x: 10.469999, y: 23.93, z: 42.6}
+  - {x: 10.469999, y: 23.93, z: 34.6}
+  - {x: 10.469999, y: 30.93, z: 38.6}
+  - {x: 10.469999, y: 30.93, z: 38.6}
+  - {x: 10.469999, y: 30.93, z: 39.6}
+  - {x: 10.469999, y: 30.93, z: 37.6}
+  - {x: 10.469999, y: 30.93, z: 40.6}
+  - {x: 10.469999, y: 30.93, z: 36.6}
+  - {x: 10.469999, y: 30.93, z: 41.6}
+  - {x: 10.469999, y: 30.93, z: 35.6}
+  - {x: 10.469999, y: 22.93, z: 38.6}
+  - {x: 10.469999, y: 22.93, z: 38.6}
+  - {x: 10.469999, y: 22.93, z: 39.6}
+  - {x: 10.469999, y: 22.93, z: 37.6}
+  - {x: 10.469999, y: 22.93, z: 40.6}
+  - {x: 10.469999, y: 22.93, z: 36.6}
+  - {x: 10.469999, y: 22.93, z: 41.6}
+  - {x: 10.469999, y: 22.93, z: 35.6}
+  - {x: 10.469999, y: 31.93, z: 38.6}
+  - {x: 10.469999, y: 31.93, z: 38.6}
+  - {x: 10.469999, y: 31.93, z: 39.6}
+  - {x: 10.469999, y: 31.93, z: 37.6}
+  - {x: 10.469999, y: 31.93, z: 40.6}
+  - {x: 10.469999, y: 31.93, z: 36.6}
+  - {x: 10.469999, y: 21.93, z: 38.6}
+  - {x: 10.469999, y: 21.93, z: 38.6}
+  - {x: 10.469999, y: 21.93, z: 39.6}
+  - {x: 10.469999, y: 21.93, z: 37.6}
+  - {x: 10.469999, y: 21.93, z: 40.6}
+  - {x: 10.469999, y: 21.93, z: 36.6}
+  - {x: 0.4699998, y: 26.93, z: 38.6}
+  - {x: 0.4699998, y: 26.93, z: 38.6}
+  - {x: 0.4699998, y: 26.93, z: 39.6}
+  - {x: 0.4699998, y: 26.93, z: 37.6}
+  - {x: 0.4699998, y: 26.93, z: 40.6}
+  - {x: 0.4699998, y: 26.93, z: 36.6}
+  - {x: 0.4699998, y: 26.93, z: 41.6}
+  - {x: 0.4699998, y: 26.93, z: 35.6}
+  - {x: 0.4699998, y: 26.93, z: 42.6}
+  - {x: 0.4699998, y: 26.93, z: 34.6}
+  - {x: 0.4699998, y: 26.93, z: 43.6}
+  - {x: 0.4699998, y: 26.93, z: 33.6}
+  - {x: 0.4699998, y: 26.93, z: 38.6}
+  - {x: 0.4699998, y: 26.93, z: 38.6}
+  - {x: 0.4699998, y: 26.93, z: 39.6}
+  - {x: 0.4699998, y: 26.93, z: 37.6}
+  - {x: 0.4699998, y: 26.93, z: 40.6}
+  - {x: 0.4699998, y: 26.93, z: 36.6}
+  - {x: 0.4699998, y: 26.93, z: 41.6}
+  - {x: 0.4699998, y: 26.93, z: 35.6}
+  - {x: 0.4699998, y: 26.93, z: 42.6}
+  - {x: 0.4699998, y: 26.93, z: 34.6}
+  - {x: 0.4699998, y: 26.93, z: 43.6}
+  - {x: 0.4699998, y: 26.93, z: 33.6}
+  - {x: 0.4699998, y: 27.93, z: 38.6}
+  - {x: 0.4699998, y: 27.93, z: 38.6}
+  - {x: 0.4699998, y: 27.93, z: 39.6}
+  - {x: 0.4699998, y: 27.93, z: 37.6}
+  - {x: 0.4699998, y: 27.93, z: 40.6}
+  - {x: 0.4699998, y: 27.93, z: 36.6}
+  - {x: 0.4699998, y: 27.93, z: 41.6}
+  - {x: 0.4699998, y: 27.93, z: 35.6}
+  - {x: 0.4699998, y: 27.93, z: 42.6}
+  - {x: 0.4699998, y: 27.93, z: 34.6}
+  - {x: 0.4699998, y: 27.93, z: 43.6}
+  - {x: 0.4699998, y: 27.93, z: 33.6}
+  - {x: 0.4699998, y: 25.93, z: 38.6}
+  - {x: 0.4699998, y: 25.93, z: 38.6}
+  - {x: 0.4699998, y: 25.93, z: 39.6}
+  - {x: 0.4699998, y: 25.93, z: 37.6}
+  - {x: 0.4699998, y: 25.93, z: 40.6}
+  - {x: 0.4699998, y: 25.93, z: 36.6}
+  - {x: 0.4699998, y: 25.93, z: 41.6}
+  - {x: 0.4699998, y: 25.93, z: 35.6}
+  - {x: 0.4699998, y: 25.93, z: 42.6}
+  - {x: 0.4699998, y: 25.93, z: 34.6}
+  - {x: 0.4699998, y: 25.93, z: 43.6}
+  - {x: 0.4699998, y: 25.93, z: 33.6}
+  - {x: 0.4699998, y: 28.93, z: 38.6}
+  - {x: 0.4699998, y: 28.93, z: 38.6}
+  - {x: 0.4699998, y: 28.93, z: 39.6}
+  - {x: 0.4699998, y: 28.93, z: 37.6}
+  - {x: 0.4699998, y: 28.93, z: 40.6}
+  - {x: 0.4699998, y: 28.93, z: 36.6}
+  - {x: 0.4699998, y: 28.93, z: 41.6}
+  - {x: 0.4699998, y: 28.93, z: 35.6}
+  - {x: 0.4699998, y: 28.93, z: 42.6}
+  - {x: 0.4699998, y: 28.93, z: 34.6}
+  - {x: 0.4699998, y: 28.93, z: 43.6}
+  - {x: 0.4699998, y: 28.93, z: 33.6}
+  - {x: 0.4699998, y: 24.93, z: 38.6}
+  - {x: 0.4699998, y: 24.93, z: 38.6}
+  - {x: 0.4699998, y: 24.93, z: 39.6}
+  - {x: 0.4699998, y: 24.93, z: 37.6}
+  - {x: 0.4699998, y: 24.93, z: 40.6}
+  - {x: 0.4699998, y: 24.93, z: 36.6}
+  - {x: 0.4699998, y: 24.93, z: 41.6}
+  - {x: 0.4699998, y: 24.93, z: 35.6}
+  - {x: 0.4699998, y: 24.93, z: 42.6}
+  - {x: 0.4699998, y: 24.93, z: 34.6}
+  - {x: 0.4699998, y: 24.93, z: 43.6}
+  - {x: 0.4699998, y: 24.93, z: 33.6}
+  - {x: 0.4699998, y: 29.93, z: 38.6}
+  - {x: 0.4699998, y: 29.93, z: 38.6}
+  - {x: 0.4699998, y: 29.93, z: 39.6}
+  - {x: 0.4699998, y: 29.93, z: 37.6}
+  - {x: 0.4699998, y: 29.93, z: 40.6}
+  - {x: 0.4699998, y: 29.93, z: 36.6}
+  - {x: 0.4699998, y: 29.93, z: 41.6}
+  - {x: 0.4699998, y: 29.93, z: 35.6}
+  - {x: 0.4699998, y: 29.93, z: 42.6}
+  - {x: 0.4699998, y: 29.93, z: 34.6}
+  - {x: 0.4699998, y: 23.93, z: 38.6}
+  - {x: 0.4699998, y: 23.93, z: 38.6}
+  - {x: 0.4699998, y: 23.93, z: 39.6}
+  - {x: 0.4699998, y: 23.93, z: 37.6}
+  - {x: 0.4699998, y: 23.93, z: 40.6}
+  - {x: 0.4699998, y: 23.93, z: 36.6}
+  - {x: 0.4699998, y: 23.93, z: 41.6}
+  - {x: 0.4699998, y: 23.93, z: 35.6}
+  - {x: 0.4699998, y: 23.93, z: 42.6}
+  - {x: 0.4699998, y: 23.93, z: 34.6}
+  - {x: 0.4699998, y: 30.93, z: 38.6}
+  - {x: 0.4699998, y: 30.93, z: 38.6}
+  - {x: 0.4699998, y: 30.93, z: 39.6}
+  - {x: 0.4699998, y: 30.93, z: 37.6}
+  - {x: 0.4699998, y: 30.93, z: 40.6}
+  - {x: 0.4699998, y: 30.93, z: 36.6}
+  - {x: 0.4699998, y: 30.93, z: 41.6}
+  - {x: 0.4699998, y: 30.93, z: 35.6}
+  - {x: 0.4699998, y: 22.93, z: 38.6}
+  - {x: 0.4699998, y: 22.93, z: 38.6}
+  - {x: 0.4699998, y: 22.93, z: 39.6}
+  - {x: 0.4699998, y: 22.93, z: 37.6}
+  - {x: 0.4699998, y: 22.93, z: 40.6}
+  - {x: 0.4699998, y: 22.93, z: 36.6}
+  - {x: 0.4699998, y: 22.93, z: 41.6}
+  - {x: 0.4699998, y: 22.93, z: 35.6}
+  - {x: 0.4699998, y: 31.93, z: 38.6}
+  - {x: 0.4699998, y: 31.93, z: 38.6}
+  - {x: 0.4699998, y: 31.93, z: 39.6}
+  - {x: 0.4699998, y: 31.93, z: 37.6}
+  - {x: 0.4699998, y: 31.93, z: 40.6}
+  - {x: 0.4699998, y: 31.93, z: 36.6}
+  - {x: 0.4699998, y: 21.93, z: 38.6}
+  - {x: 0.4699998, y: 21.93, z: 38.6}
+  - {x: 0.4699998, y: 21.93, z: 39.6}
+  - {x: 0.4699998, y: 21.93, z: 37.6}
+  - {x: 0.4699998, y: 21.93, z: 40.6}
+  - {x: 0.4699998, y: 21.93, z: 36.6}
+  - {x: 11.469999, y: 26.93, z: 38.6}
+  - {x: 11.469999, y: 26.93, z: 38.6}
+  - {x: 11.469999, y: 26.93, z: 39.6}
+  - {x: 11.469999, y: 26.93, z: 37.6}
+  - {x: 11.469999, y: 26.93, z: 40.6}
+  - {x: 11.469999, y: 26.93, z: 36.6}
+  - {x: 11.469999, y: 26.93, z: 41.6}
+  - {x: 11.469999, y: 26.93, z: 35.6}
+  - {x: 11.469999, y: 26.93, z: 42.6}
+  - {x: 11.469999, y: 26.93, z: 34.6}
+  - {x: 11.469999, y: 26.93, z: 38.6}
+  - {x: 11.469999, y: 26.93, z: 38.6}
+  - {x: 11.469999, y: 26.93, z: 39.6}
+  - {x: 11.469999, y: 26.93, z: 37.6}
+  - {x: 11.469999, y: 26.93, z: 40.6}
+  - {x: 11.469999, y: 26.93, z: 36.6}
+  - {x: 11.469999, y: 26.93, z: 41.6}
+  - {x: 11.469999, y: 26.93, z: 35.6}
+  - {x: 11.469999, y: 26.93, z: 42.6}
+  - {x: 11.469999, y: 26.93, z: 34.6}
+  - {x: 11.469999, y: 27.93, z: 38.6}
+  - {x: 11.469999, y: 27.93, z: 38.6}
+  - {x: 11.469999, y: 27.93, z: 39.6}
+  - {x: 11.469999, y: 27.93, z: 37.6}
+  - {x: 11.469999, y: 27.93, z: 40.6}
+  - {x: 11.469999, y: 27.93, z: 36.6}
+  - {x: 11.469999, y: 27.93, z: 41.6}
+  - {x: 11.469999, y: 27.93, z: 35.6}
+  - {x: 11.469999, y: 27.93, z: 42.6}
+  - {x: 11.469999, y: 27.93, z: 34.6}
+  - {x: 11.469999, y: 25.93, z: 38.6}
+  - {x: 11.469999, y: 25.93, z: 38.6}
+  - {x: 11.469999, y: 25.93, z: 39.6}
+  - {x: 11.469999, y: 25.93, z: 37.6}
+  - {x: 11.469999, y: 25.93, z: 40.6}
+  - {x: 11.469999, y: 25.93, z: 36.6}
+  - {x: 11.469999, y: 25.93, z: 41.6}
+  - {x: 11.469999, y: 25.93, z: 35.6}
+  - {x: 11.469999, y: 25.93, z: 42.6}
+  - {x: 11.469999, y: 25.93, z: 34.6}
+  - {x: 11.469999, y: 28.93, z: 38.6}
+  - {x: 11.469999, y: 28.93, z: 38.6}
+  - {x: 11.469999, y: 28.93, z: 39.6}
+  - {x: 11.469999, y: 28.93, z: 37.6}
+  - {x: 11.469999, y: 28.93, z: 40.6}
+  - {x: 11.469999, y: 28.93, z: 36.6}
+  - {x: 11.469999, y: 28.93, z: 41.6}
+  - {x: 11.469999, y: 28.93, z: 35.6}
+  - {x: 11.469999, y: 28.93, z: 42.6}
+  - {x: 11.469999, y: 28.93, z: 34.6}
+  - {x: 11.469999, y: 24.93, z: 38.6}
+  - {x: 11.469999, y: 24.93, z: 38.6}
+  - {x: 11.469999, y: 24.93, z: 39.6}
+  - {x: 11.469999, y: 24.93, z: 37.6}
+  - {x: 11.469999, y: 24.93, z: 40.6}
+  - {x: 11.469999, y: 24.93, z: 36.6}
+  - {x: 11.469999, y: 24.93, z: 41.6}
+  - {x: 11.469999, y: 24.93, z: 35.6}
+  - {x: 11.469999, y: 24.93, z: 42.6}
+  - {x: 11.469999, y: 24.93, z: 34.6}
+  - {x: 11.469999, y: 29.93, z: 38.6}
+  - {x: 11.469999, y: 29.93, z: 38.6}
+  - {x: 11.469999, y: 29.93, z: 39.6}
+  - {x: 11.469999, y: 29.93, z: 37.6}
+  - {x: 11.469999, y: 29.93, z: 40.6}
+  - {x: 11.469999, y: 29.93, z: 36.6}
+  - {x: 11.469999, y: 29.93, z: 41.6}
+  - {x: 11.469999, y: 29.93, z: 35.6}
+  - {x: 11.469999, y: 23.93, z: 38.6}
+  - {x: 11.469999, y: 23.93, z: 38.6}
+  - {x: 11.469999, y: 23.93, z: 39.6}
+  - {x: 11.469999, y: 23.93, z: 37.6}
+  - {x: 11.469999, y: 23.93, z: 40.6}
+  - {x: 11.469999, y: 23.93, z: 36.6}
+  - {x: 11.469999, y: 23.93, z: 41.6}
+  - {x: 11.469999, y: 23.93, z: 35.6}
+  - {x: 11.469999, y: 30.93, z: 38.6}
+  - {x: 11.469999, y: 30.93, z: 38.6}
+  - {x: 11.469999, y: 30.93, z: 39.6}
+  - {x: 11.469999, y: 30.93, z: 37.6}
+  - {x: 11.469999, y: 30.93, z: 40.6}
+  - {x: 11.469999, y: 30.93, z: 36.6}
+  - {x: 11.469999, y: 22.93, z: 38.6}
+  - {x: 11.469999, y: 22.93, z: 38.6}
+  - {x: 11.469999, y: 22.93, z: 39.6}
+  - {x: 11.469999, y: 22.93, z: 37.6}
+  - {x: 11.469999, y: 22.93, z: 40.6}
+  - {x: 11.469999, y: 22.93, z: 36.6}
+  - {x: -0.5300002, y: 26.93, z: 38.6}
+  - {x: -0.5300002, y: 26.93, z: 38.6}
+  - {x: -0.5300002, y: 26.93, z: 39.6}
+  - {x: -0.5300002, y: 26.93, z: 37.6}
+  - {x: -0.5300002, y: 26.93, z: 40.6}
+  - {x: -0.5300002, y: 26.93, z: 36.6}
+  - {x: -0.5300002, y: 26.93, z: 41.6}
+  - {x: -0.5300002, y: 26.93, z: 35.6}
+  - {x: -0.5300002, y: 26.93, z: 42.6}
+  - {x: -0.5300002, y: 26.93, z: 34.6}
+  - {x: -0.5300002, y: 26.93, z: 38.6}
+  - {x: -0.5300002, y: 26.93, z: 38.6}
+  - {x: -0.5300002, y: 26.93, z: 39.6}
+  - {x: -0.5300002, y: 26.93, z: 37.6}
+  - {x: -0.5300002, y: 26.93, z: 40.6}
+  - {x: -0.5300002, y: 26.93, z: 36.6}
+  - {x: -0.5300002, y: 26.93, z: 41.6}
+  - {x: -0.5300002, y: 26.93, z: 35.6}
+  - {x: -0.5300002, y: 26.93, z: 42.6}
+  - {x: -0.5300002, y: 26.93, z: 34.6}
+  - {x: -0.5300002, y: 27.93, z: 38.6}
+  - {x: -0.5300002, y: 27.93, z: 38.6}
+  - {x: -0.5300002, y: 27.93, z: 39.6}
+  - {x: -0.5300002, y: 27.93, z: 37.6}
+  - {x: -0.5300002, y: 27.93, z: 40.6}
+  - {x: -0.5300002, y: 27.93, z: 36.6}
+  - {x: -0.5300002, y: 27.93, z: 41.6}
+  - {x: -0.5300002, y: 27.93, z: 35.6}
+  - {x: -0.5300002, y: 27.93, z: 42.6}
+  - {x: -0.5300002, y: 27.93, z: 34.6}
+  - {x: -0.5300002, y: 25.93, z: 38.6}
+  - {x: -0.5300002, y: 25.93, z: 38.6}
+  - {x: -0.5300002, y: 25.93, z: 39.6}
+  - {x: -0.5300002, y: 25.93, z: 37.6}
+  - {x: -0.5300002, y: 25.93, z: 40.6}
+  - {x: -0.5300002, y: 25.93, z: 36.6}
+  - {x: -0.5300002, y: 25.93, z: 41.6}
+  - {x: -0.5300002, y: 25.93, z: 35.6}
+  - {x: -0.5300002, y: 25.93, z: 42.6}
+  - {x: -0.5300002, y: 25.93, z: 34.6}
+  - {x: -0.5300002, y: 28.93, z: 38.6}
+  - {x: -0.5300002, y: 28.93, z: 38.6}
+  - {x: -0.5300002, y: 28.93, z: 39.6}
+  - {x: -0.5300002, y: 28.93, z: 37.6}
+  - {x: -0.5300002, y: 28.93, z: 40.6}
+  - {x: -0.5300002, y: 28.93, z: 36.6}
+  - {x: -0.5300002, y: 28.93, z: 41.6}
+  - {x: -0.5300002, y: 28.93, z: 35.6}
+  - {x: -0.5300002, y: 28.93, z: 42.6}
+  - {x: -0.5300002, y: 28.93, z: 34.6}
+  - {x: -0.5300002, y: 24.93, z: 38.6}
+  - {x: -0.5300002, y: 24.93, z: 38.6}
+  - {x: -0.5300002, y: 24.93, z: 39.6}
+  - {x: -0.5300002, y: 24.93, z: 37.6}
+  - {x: -0.5300002, y: 24.93, z: 40.6}
+  - {x: -0.5300002, y: 24.93, z: 36.6}
+  - {x: -0.5300002, y: 24.93, z: 41.6}
+  - {x: -0.5300002, y: 24.93, z: 35.6}
+  - {x: -0.5300002, y: 24.93, z: 42.6}
+  - {x: -0.5300002, y: 24.93, z: 34.6}
+  - {x: -0.5300002, y: 29.93, z: 38.6}
+  - {x: -0.5300002, y: 29.93, z: 38.6}
+  - {x: -0.5300002, y: 29.93, z: 39.6}
+  - {x: -0.5300002, y: 29.93, z: 37.6}
+  - {x: -0.5300002, y: 29.93, z: 40.6}
+  - {x: -0.5300002, y: 29.93, z: 36.6}
+  - {x: -0.5300002, y: 29.93, z: 41.6}
+  - {x: -0.5300002, y: 29.93, z: 35.6}
+  - {x: -0.5300002, y: 23.93, z: 38.6}
+  - {x: -0.5300002, y: 23.93, z: 38.6}
+  - {x: -0.5300002, y: 23.93, z: 39.6}
+  - {x: -0.5300002, y: 23.93, z: 37.6}
+  - {x: -0.5300002, y: 23.93, z: 40.6}
+  - {x: -0.5300002, y: 23.93, z: 36.6}
+  - {x: -0.5300002, y: 23.93, z: 41.6}
+  - {x: -0.5300002, y: 23.93, z: 35.6}
+  - {x: -0.5300002, y: 30.93, z: 38.6}
+  - {x: -0.5300002, y: 30.93, z: 38.6}
+  - {x: -0.5300002, y: 30.93, z: 39.6}
+  - {x: -0.5300002, y: 30.93, z: 37.6}
+  - {x: -0.5300002, y: 30.93, z: 40.6}
+  - {x: -0.5300002, y: 30.93, z: 36.6}
+  - {x: -0.5300002, y: 22.93, z: 38.6}
+  - {x: -0.5300002, y: 22.93, z: 38.6}
+  - {x: -0.5300002, y: 22.93, z: 39.6}
+  - {x: -0.5300002, y: 22.93, z: 37.6}
+  - {x: -0.5300002, y: 22.93, z: 40.6}
+  - {x: -0.5300002, y: 22.93, z: 36.6}
+  - {x: 12.469999, y: 26.93, z: 38.6}
+  - {x: 12.469999, y: 26.93, z: 38.6}
+  - {x: 12.469999, y: 26.93, z: 39.6}
+  - {x: 12.469999, y: 26.93, z: 37.6}
+  - {x: 12.469999, y: 26.93, z: 40.6}
+  - {x: 12.469999, y: 26.93, z: 36.6}
+  - {x: 12.469999, y: 26.93, z: 38.6}
+  - {x: 12.469999, y: 26.93, z: 38.6}
+  - {x: 12.469999, y: 26.93, z: 39.6}
+  - {x: 12.469999, y: 26.93, z: 37.6}
+  - {x: 12.469999, y: 26.93, z: 40.6}
+  - {x: 12.469999, y: 26.93, z: 36.6}
+  - {x: 12.469999, y: 27.93, z: 38.6}
+  - {x: 12.469999, y: 27.93, z: 38.6}
+  - {x: 12.469999, y: 27.93, z: 39.6}
+  - {x: 12.469999, y: 27.93, z: 37.6}
+  - {x: 12.469999, y: 27.93, z: 40.6}
+  - {x: 12.469999, y: 27.93, z: 36.6}
+  - {x: 12.469999, y: 25.93, z: 38.6}
+  - {x: 12.469999, y: 25.93, z: 38.6}
+  - {x: 12.469999, y: 25.93, z: 39.6}
+  - {x: 12.469999, y: 25.93, z: 37.6}
+  - {x: 12.469999, y: 25.93, z: 40.6}
+  - {x: 12.469999, y: 25.93, z: 36.6}
+  - {x: 12.469999, y: 28.93, z: 38.6}
+  - {x: 12.469999, y: 28.93, z: 38.6}
+  - {x: 12.469999, y: 28.93, z: 39.6}
+  - {x: 12.469999, y: 28.93, z: 37.6}
+  - {x: 12.469999, y: 24.93, z: 38.6}
+  - {x: 12.469999, y: 24.93, z: 38.6}
+  - {x: 12.469999, y: 24.93, z: 39.6}
+  - {x: 12.469999, y: 24.93, z: 37.6}
+  - {x: -1.5300002, y: 26.93, z: 38.6}
+  - {x: -1.5300002, y: 26.93, z: 38.6}
+  - {x: -1.5300002, y: 26.93, z: 39.6}
+  - {x: -1.5300002, y: 26.93, z: 37.6}
+  - {x: -1.5300002, y: 26.93, z: 40.6}
+  - {x: -1.5300002, y: 26.93, z: 36.6}
+  - {x: -1.5300002, y: 26.93, z: 38.6}
+  - {x: -1.5300002, y: 26.93, z: 38.6}
+  - {x: -1.5300002, y: 26.93, z: 39.6}
+  - {x: -1.5300002, y: 26.93, z: 37.6}
+  - {x: -1.5300002, y: 26.93, z: 40.6}
+  - {x: -1.5300002, y: 26.93, z: 36.6}
+  - {x: -1.5300002, y: 27.93, z: 38.6}
+  - {x: -1.5300002, y: 27.93, z: 38.6}
+  - {x: -1.5300002, y: 27.93, z: 39.6}
+  - {x: -1.5300002, y: 27.93, z: 37.6}
+  - {x: -1.5300002, y: 27.93, z: 40.6}
+  - {x: -1.5300002, y: 27.93, z: 36.6}
+  - {x: -1.5300002, y: 25.93, z: 38.6}
+  - {x: -1.5300002, y: 25.93, z: 38.6}
+  - {x: -1.5300002, y: 25.93, z: 39.6}
+  - {x: -1.5300002, y: 25.93, z: 37.6}
+  - {x: -1.5300002, y: 25.93, z: 40.6}
+  - {x: -1.5300002, y: 25.93, z: 36.6}
+  - {x: -1.5300002, y: 28.93, z: 38.6}
+  - {x: -1.5300002, y: 28.93, z: 38.6}
+  - {x: -1.5300002, y: 28.93, z: 39.6}
+  - {x: -1.5300002, y: 28.93, z: 37.6}
+  - {x: -1.5300002, y: 24.93, z: 38.6}
+  - {x: -1.5300002, y: 24.93, z: 38.6}
+  - {x: -1.5300002, y: 24.93, z: 39.6}
+  - {x: -1.5300002, y: 24.93, z: 37.6}
   debug_TestTime: 0
 --- !u!4 &900171335
 Transform:
@@ -8387,7 +10873,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900171333}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 26.59, z: 42}
+  m_LocalPosition: {x: 5.08, y: 22.62, z: 39.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435462256}
@@ -8506,6 +10992,12 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &929259329 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4750686014206933667, guid: 9913562667c029d4683b2039d20832d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 929259326}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &930965532 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3638658461383792740, guid: 31a4d838e2238374c80c616878c96e4a,
@@ -8695,7 +11187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &951177243
 Transform:
   m_ObjectHideFlags: 0
@@ -14962,11 +17454,11 @@ GameObject:
   - component: {fileID: 1692392179}
   m_Layer: 11
   m_Name: Wall (24)
-  m_TagString: Enviorment
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1692392178
 Transform:
   m_ObjectHideFlags: 0
@@ -15084,7 +17576,7 @@ PrefabInstance:
     - target: {fileID: 9162123256095883983, guid: 043f62ebcf1232342add406114cb832e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9162123256095883983, guid: 043f62ebcf1232342add406114cb832e,
         type: 3}
@@ -15153,6 +17645,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 043f62ebcf1232342add406114cb832e, type: 3}
+--- !u!65 &1698216745 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 9162123256095884016, guid: 043f62ebcf1232342add406114cb832e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1698216744}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1700338998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15810,7 +18308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1770928382
 Transform:
   m_ObjectHideFlags: 0
