@@ -130,7 +130,7 @@ public class PatrolZone : MonoBehaviour
     [Space(20f)]
     [Header("Points")]
     [SerializeField]
-    private HashSet<PatrolPoint> pointPositions;
+    private Dictionary<Vector3, PatrolPoint> pointPositions;
 
     [SerializeField]
     private List<PatrolPoint> pointPositions_Cover;
@@ -138,7 +138,7 @@ public class PatrolZone : MonoBehaviour
     [SerializeField]
     private List<PatrolPoint> pointPositions_Open;
 
-    public HashSet<PatrolPoint> PointPositions => pointPositions;
+    public Dictionary<Vector3, PatrolPoint> PointPositions => pointPositions;
 
     public List<PatrolPoint> PointPositionsCover => pointPositions_Cover;
 
@@ -148,6 +148,9 @@ public class PatrolZone : MonoBehaviour
     [Header("Debug")]
     [SerializeField]
     private bool showDebug;
+
+    [SerializeField]
+    private bool showDebugSelectOnly = true;
 
     [SerializeField]
     private bool debug_showCover;
@@ -183,8 +186,12 @@ public class PatrolZone : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (pointPositions == null)
+        {
+            GenerateAll();
+        }
     }
 
     // Update is called once per frame
@@ -194,6 +201,22 @@ public class PatrolZone : MonoBehaviour
     }
 
     private void OnDrawGizmos()
+    {
+        if (!showDebugSelectOnly)
+        {
+            DrawDebug();
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (showDebugSelectOnly)
+        {
+            DrawDebug();
+        }
+    }
+
+    private void DrawDebug()
     {
         if (showDebug)
         {
@@ -215,7 +238,7 @@ public class PatrolZone : MonoBehaviour
 
             if (pointPositions != null)
             {
-                foreach (PatrolPoint pointPosition in pointPositions)
+                foreach (PatrolPoint pointPosition in pointPositions.Values)
 
                 {
                     if (pointPositions_Cover.Contains(pointPosition))
@@ -315,7 +338,7 @@ public class PatrolZone : MonoBehaviour
     [ContextMenu("Generate Points")]
     public void GeneratePoints()
     {
-        pointPositions = new HashSet<PatrolPoint>();
+        pointPositions = new Dictionary<Vector3, PatrolPoint>();
         var boxLocalScale = boxZone.localScale;
         startingPoint = boxZone.position;
         if (useWorldPositions)
@@ -353,31 +376,30 @@ public class PatrolZone : MonoBehaviour
             downVector = -boxZone.up;
         }
 
-        
-        GeneratePoints_Box(centrePoint,boxLocalScale);
-        using HashSet<PatrolPoint>.Enumerator enumerator = pointPositions.GetEnumerator();
+
+        GeneratePoints_Box(centrePoint, boxLocalScale);
+        // using Hashtable enumerator = pointPositions.GetEnumerator();
         List<PatrolPoint> removePoints = new List<PatrolPoint>();
-        for (int i = 0; i < pointPositions.Count; i++)
+
+        foreach (PatrolPoint currentPP in pointPositions.Values)
         {
-            if (enumerator.Current != null && Physics.Raycast(enumerator.Current.Position, downVector,
+            if (currentPP != null && Physics.Raycast(currentPP.Position, downVector,
                 out hit, pointSpacing, floorLayerMask))
             {
                 if (!floorTags.Contains(hit.collider.tag))
                 {
-                    removePoints.Add(enumerator.Current);
+                    removePoints.Add(currentPP);
                 }
             }
             else
             {
-                removePoints.Add(enumerator.Current);
+                removePoints.Add(currentPP);
             }
-
-            enumerator.MoveNext();
         }
 
         foreach (PatrolPoint removePoint in removePoints)
         {
-            pointPositions.Remove(removePoint);
+            pointPositions.Remove(removePoint.Position);
         }
 
         //
@@ -439,10 +461,19 @@ public class PatrolZone : MonoBehaviour
 
     private void GeneratePoints_Box(Vector3 startingPoint, Vector3 boxLocalScale)
     {
+        PatrolPoint currentPP;
         // startingPoint -= new Vector3(boxLocalScale.x / 2f, boxLocalScale.y / 2f, boxLocalScale.z / 2f);
         foreach (Vector3 newPoint in ScanSurrounding(startingPoint, boxLocalScale.x, boxLocalScale.y, boxLocalScale.z))
         {
-            pointPositions.Add(new PatrolPoint(newPoint));
+            currentPP = new PatrolPoint(newPoint);
+            if (pointPositions.ContainsKey(currentPP.Position))
+            {
+                Debug.LogWarning($"Same key found {newPoint}");
+            }
+            else
+            {
+                pointPositions.Add(currentPP.Position, currentPP);
+            }
         }
     }
 
@@ -456,7 +487,7 @@ public class PatrolZone : MonoBehaviour
 
         Vector3 newPoint;
         Vector3 temp;
-        List<Vector3> tempList = new List<Vector3>();
+        HashSet<Vector3> tempList = new HashSet<Vector3>();
 
         for (int x = 0; x <= xSize / pointSpacing; x++)
         {
@@ -468,18 +499,21 @@ public class PatrolZone : MonoBehaviour
                                new Vector3(((int) x / 2) * pointSpacing * IsEvenFlip(x),
                                    ((int) y / 2) * pointSpacing * IsEvenFlip(y),
                                    ((int) z / 2) * pointSpacing * IsEvenFlip(z));
-                    if (isShpere)
+                    if (!tempList.Contains(newPoint))
                     {
-                        if (Vector3.Distance(newPoint, centre) < xSize / 2f)
+                        if (isShpere)
+                        {
+                            if (Vector3.Distance(newPoint, centre) < xSize / 2f)
+                            {
+                                // pointPositions.Add(newPoint);
+                                tempList.Add(newPoint);
+                            }
+                        }
+                        else
                         {
                             // pointPositions.Add(newPoint);
                             tempList.Add(newPoint);
                         }
-                    }
-                    else
-                    {
-                        // pointPositions.Add(newPoint);
-                        tempList.Add(newPoint);
                     }
 
                     // if (showDebug)
@@ -490,7 +524,7 @@ public class PatrolZone : MonoBehaviour
             }
         }
 
-        return tempList;
+        return tempList.ToList();
     }
 
     public void RemoveInvalidPoints()
@@ -501,7 +535,7 @@ public class PatrolZone : MonoBehaviour
         foreach (Collider detectedCollider in detectedColliders)
         {
             pointsToRemove = new List<PatrolPoint>();
-            foreach (PatrolPoint pointPosition in pointPositions)
+            foreach (PatrolPoint pointPosition in pointPositions.Values)
             {
                 if (detectedCollider.bounds.Contains(pointPosition.Position))
                 {
@@ -525,9 +559,9 @@ public class PatrolZone : MonoBehaviour
                 }
             }
 
-            foreach (PatrolPoint vector3 in pointsToRemove)
+            foreach (PatrolPoint removePoint in pointsToRemove)
             {
-                pointPositions.Remove(vector3);
+                pointPositions.Remove(removePoint.Position);
             }
         }
     }
@@ -536,7 +570,8 @@ public class PatrolZone : MonoBehaviour
     {
         detectedColliders = new List<Collider>();
         RaycastHit[] allHits =
-            Physics.BoxCastAll(boxZone.position, boxZone.lossyScale, Vector3.up, quaternion.identity, boxZone.lossyScale.magnitude,invalidLayerMask);
+            Physics.BoxCastAll(boxZone.position, boxZone.lossyScale, Vector3.up, quaternion.identity,
+                boxZone.lossyScale.magnitude, invalidLayerMask);
         foreach (RaycastHit hit in allHits)
         {
             detectedColliders.Add(hit.collider);
@@ -546,7 +581,7 @@ public class PatrolZone : MonoBehaviour
 
     public Vector3 GetRandomPoint()
     {
-        return pointPositions.ElementAt(Random.Range(0, pointPositions.Count)).Position;
+        return pointPositions.ElementAt(Random.Range(0, pointPositions.Count)).Key;
     }
 
     [ContextMenu("Sort Points")]
@@ -556,13 +591,11 @@ public class PatrolZone : MonoBehaviour
 
         pointPositions_Cover = new List<PatrolPoint>();
         pointPositions_Open = new List<PatrolPoint>();
-        HashSet<PatrolPoint>.Enumerator e = pointPositions.GetEnumerator();
         int i;
-        for (int j = 0; j < pointPositions.Count; j++)
+        foreach (PatrolPoint pointPosition in pointPositions.Values)
         {
             i = 0;
             flag = false;
-            PatrolPoint pointPosition = e.Current;
             if (pointPosition != null)
             {
                 RaycastHit[] hits =
@@ -585,8 +618,6 @@ public class PatrolZone : MonoBehaviour
                     pointPositions_Open.Add(pointPosition);
                 }
             }
-
-            e.MoveNext();
         }
     }
 
@@ -607,10 +638,9 @@ public class PatrolZone : MonoBehaviour
         foreach (Vector3 p in ScanSurrounding((position), range * 2, range * 2,
             range * 2, true, position))
         {
-            PatrolPoint pp = new PatrolPoint(p);
-            if (pointPositions.Contains(pp))
+            if (pointPositions.ContainsKey(p))
             {
-                finalPoints.Add(pp);
+                finalPoints.Add(pointPositions[p]);
             }
 
             if (debug_ShowTempList)

@@ -15,7 +15,6 @@ public class AI_Grounded : AILogic
     public override void ChangeState(AIState newState, AttackSet attackSet = null)
     {
         base.ChangeState(newState, attackSet);
-
     }
 
     protected override void AIThink()
@@ -70,7 +69,7 @@ public class AI_Grounded : AILogic
 
         else
         {
-            ChangeState(AIState.Attack,temp);
+            ChangeState(AIState.Attack, temp);
         }
     }
 
@@ -92,7 +91,6 @@ public class AI_Grounded : AILogic
 
     protected override void AIThink_Move()
     {
-        
         if (Vector3.Distance(movePos, transform.position) < moveStopRange)
         {
             if (MoveWaitTime_Now <= 0)
@@ -111,8 +109,21 @@ public class AI_Grounded : AILogic
 
     private void SetNewPatrolPoint()
     {
-        SetNavAgent(currentPatrolZone.GetRandomPoint());
-        MoveWaitTime_Now = Random.Range(MoveWaitTime.x, MoveWaitTime.y);
+        List<PatrolPoint> points = new List<PatrolPoint>();
+        int i = 0;
+        while (points.Count == 0 && i < 720)
+        {
+            points = currentPatrolZone.GetPoints(
+                Quaternion.EulerAngles(0, i, 0) * transform.forward * Random.Range(3f, 5f) + transform.position,
+                Random.Range(1, 2f));
+            i++;
+        }
+
+        if (points.Count > 0)
+        {
+            SetNavAgent(points[Random.Range(0, points.Count)].Position);
+            MoveWaitTime_Now = Random.Range(MoveWaitTime.x, MoveWaitTime.y);
+        }
     }
 
     protected override void AIBehaviour_Move()
