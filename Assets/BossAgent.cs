@@ -197,7 +197,7 @@ public class BossAgent : MonoBehaviour
     }
 
     /// <summary>
-    /// Melee attack, set animation and change attack time
+    /// Melee attack, set animation and change attack cooldown
     /// </summary>
     private void Attack()
     {

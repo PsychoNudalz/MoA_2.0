@@ -7,26 +7,35 @@ using System;
 public class ShotData
 {
     [SerializeField]
-    private Vector3 playerPos= new Vector3();
+    private Vector3 playerPos = new Vector3();
+
     [SerializeField]
-    private Vector3 hitPos= new Vector3();
+    private Vector3 hitPos = new Vector3();
+
     [SerializeField]
     private LifeSystemScript targetLS = null;
+
     [SerializeField]
     private Vector3 targetPos = new Vector3();
+
     [SerializeField]
     private bool isHit = false;
+
     [SerializeField]
     private bool isTargetHit = false;
+
     [SerializeField]
     private bool isCritical = false;
+
     [SerializeField]
     private bool isKill = false;
+
     [SerializeField]
     private float shotDamage = 0f;
+
     [SerializeField]
     private bool isElementTrigger = false;
-    
+
 
     public Vector3 PlayerPos
     {
@@ -87,16 +96,19 @@ public class ShotData
         get => isElementTrigger;
         set => isElementTrigger = value;
     }
-    
+
 
     public ShotData()
     {
-    }   public ShotData(Vector3 pos)
+    }
+
+    public ShotData(Vector3 pos)
     {
         playerPos = pos;
     }
 
-    public ShotData(LifeSystemScript targetLs, bool isHit, bool isTargetHit, bool isCritical, bool isKill, float shotDamage, bool isElementTrigger)
+    public ShotData(LifeSystemScript targetLs, bool isHit, bool isTargetHit, bool isCritical, bool isKill,
+        float shotDamage, bool isElementTrigger)
     {
         targetLS = targetLs;
         this.isHit = isHit;
@@ -109,9 +121,10 @@ public class ShotData
 
     public void SetLifeSystem(LifeSystemScript ls)
     {
-        targetLS = ls;
-        targetPos = ls.transform.position;
+        if (ls)
+        {
+            targetLS = ls;
+            targetPos = ls.transform.position;
+        }
     }
 }
-
-

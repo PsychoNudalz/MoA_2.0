@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
 /// <summary>
-/// Playing sound(s) on repeat from a random time range
+/// Playing sound(s) on repeat from a random cooldown range
 /// added in Ver 10
 /// </summary>
 public class RepeatableSound : Sound

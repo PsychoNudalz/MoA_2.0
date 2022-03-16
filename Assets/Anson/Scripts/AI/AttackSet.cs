@@ -12,7 +12,8 @@ public class AttackSet
     [Serializable]
     public struct AttackCondition 
     {
-        public float time;
+        public float cooldown;
+        public float duration;
         public float range;
         public bool needsLineOfSight;
     }
@@ -21,14 +22,14 @@ public class AttackSet
 
     public UnityEvent OnAttack;
 
-    public int priority;
-    public float lastAttack;
+    public float lastAttackTime;
     public bool canMove;
+    public bool faceTarget = true;
 
 
     public void Attack()
     {
-        lastAttack = Time.time;
+        lastAttackTime = Time.time;
         OnAttack.Invoke();
     }
 
@@ -36,7 +37,7 @@ public class AttackSet
     {
         if (attackCondition.range > distance)
         {
-            if (attackCondition.time < Time.time - lastAttack)
+            if (attackCondition.cooldown < Time.time - lastAttackTime)
             {
 
                 if (attackCondition.needsLineOfSight)

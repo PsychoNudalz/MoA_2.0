@@ -307,7 +307,7 @@ public class LifeSystemScript : MonoBehaviour
     }
 
     /// <summary>
-    /// delay death behaviour by a certain time
+    /// delay death behaviour by a certain cooldown
     /// </summary>
     /// <returns></returns>
     public virtual IEnumerator delayDeathRoutine()

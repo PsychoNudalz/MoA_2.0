@@ -60,7 +60,7 @@ public class TutorialControllerScript : MonoBehaviour
             }
         }
 
-        //check if player killed the targets in time on step 10
+        //check if player killed the targets in cooldown on step 10
         if (timedKillSteps.Contains(stepValue))
         {
             if (shootingRange.IsWaveCleared())

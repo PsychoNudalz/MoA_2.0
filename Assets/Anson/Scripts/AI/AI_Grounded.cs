@@ -29,6 +29,7 @@ public class AI_Grounded : AILogic
                 AIThink_Move();
                 break;
             case AIState.Attack:
+                AIThink_Attack();
                 break;
         }
     }
@@ -61,6 +62,11 @@ public class AI_Grounded : AILogic
     protected override void AIThink_Idle()
     {
         base.AIThink_Idle();
+        if (!attackTarget)
+        {
+            ChangeState(AIState.Move);
+
+        }
         AttackSet temp = PickAttack();
         if (temp == null)
         {
@@ -101,7 +107,18 @@ public class AI_Grounded : AILogic
         }
         else
         {
-            if (movePos.magnitude == 0)
+            
+            if (attackTarget)
+            {
+                AttackSet temp = PickAttack();
+                if (temp != null)
+                {
+                    ChangeState(AIState.Attack, temp);
+
+                }
+            }
+
+            if (movePos.magnitude == 0||GetDistanceFromMovePosToTarget()<defensive_Distance*0.7f||GetDistanceToTarget()<defensive_Distance*0.7f)
             {
                 SetNewPatrolPoint();
             }
@@ -145,18 +162,48 @@ public class AI_Grounded : AILogic
         base.ChangeState_Attack(attackSet);
         if (attackSet != null)
         {
+            if (attackSet.faceTarget)
+            {
+                OrientateToTarget();
+            }
+
+            if (!attackSet.canMove)
+            {
+                SetNavAgent(transform.position);
+            }
             attackSet.Attack();
         }
     }
 
     protected override void AIThink_Attack()
     {
+        if (lastAttack != null)
+        {
+            if (lastAttack.canMove)
+            {
+                ChangeState(AIState.Move);
+            }
+            else if (Time.time - lastAttack.lastAttackTime > lastAttack.attackCondition.duration)
+            {
+                ChangeState(AIState.Idle);
+            }
+        }
+
+        else
+        {
+            ChangeState(AIState.Idle);
+        }
         base.AIThink_Attack();
     }
 
     protected override void AIBehaviour_Attack()
     {
         base.AIBehaviour_Attack();
+        if (lastAttack.canMove&& attributesStack.Contains(AIAttribute.OrientateToTarget))
+        {
+            OrientateToTarget();
+        }
+
     }
 
     protected override Vector3 SetMovePointByAttribute()

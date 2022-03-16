@@ -75,7 +75,7 @@ public class EnemySpawner : MonoBehaviour
         if (isSpawning)
         {
             /*
-             * If enemies left to spawn and delay time reached
+             * If enemies left to spawn and delay cooldown reached
              * spawn another enemy
              */
             if (spawnCountdown <= 0)

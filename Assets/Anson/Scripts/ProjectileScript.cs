@@ -158,7 +158,17 @@ public abstract class ProjectileScript : MonoBehaviour
     public virtual void SwirlProjectile()
     {
         swirlDirection = new Vector3(Mathf.Sin(Time.time * swirlFrequency + seedOffset.x), Mathf.Cos(Time.time * swirlFrequency + seedOffset.y), 1 / swirlAmount).normalized;
-        velocityValue = (Quaternion.LookRotation(originalDir) * swirlDirection * launchSpeed);
+        if (originalDir.magnitude.Equals(0))
+        {
+            velocityValue = swirlDirection * launchSpeed;
+
+        }
+        else
+        {
+            velocityValue = (Quaternion.LookRotation(originalDir) * swirlDirection * launchSpeed);
+
+        }
+        
         //velocityValue = Quaternion.LookRotation(originalDir) * Quaternion.LookRotation(swirlDirection) * rb.velocity;
         rb.velocity = velocityValue;
     }

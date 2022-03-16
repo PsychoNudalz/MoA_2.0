@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 856303293805654957}
   - component: {fileID: 8367082077529908160}
   - component: {fileID: 7637712263038484891}
+  - component: {fileID: 4260542618950302239}
   m_Layer: 8
   m_Name: EnemyGun
   m_TagString: Gun
@@ -50,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27449bc052b885a4b8a0054436bb6996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerProjectile: 15
-  RPM: 900
+  damagePerProjectile: 30
+  RPM: 360
   reloadSpeed: 1
   recoil: {x: 1, y: 1}
   recoil_HipFire: {x: 1, y: 1}
@@ -101,7 +102,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   isFullAuto: 0
-  projectilePerShot: 4
+  projectilePerShot: 1
   timeBetweenProjectile: 0.02
   isFullReload: 1
   amountPerReload: 1
@@ -125,6 +126,7 @@ MonoBehaviour:
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 2019334310894679319}
+  gunPerkController: {fileID: 0}
   gunComponentBody: {fileID: 0}
   componentSight: {fileID: 0}
   components: []
@@ -134,6 +136,7 @@ MonoBehaviour:
   soundStartReload: {fileID: 0}
   soundEndReload: {fileID: 0}
   currentMag: 5000
+  isEquiped: 0
 --- !u!54 &856303293805654957
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -194,7 +197,22 @@ MonoBehaviour:
   sound_Fire: {fileID: 5883440023913168756}
   sound_StartReload: {fileID: 1850871219637371324}
   sound_EndReload: {fileID: 335372932613819041}
+  rarityEffect: {fileID: 0}
   mainGunStat: {fileID: 0}
+--- !u!114 &4260542618950302239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173696654448604075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ec3878d8d6f864397591f0dfb04e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerPerk: 0
+  perks: []
 --- !u!1 &1077458394628910458
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,6 +641,7 @@ MonoBehaviour:
   isReloading: 0
   currentRecoil: {x: 0, y: 0}
   currentRecoilTime: 0
+  recoilDegree: 0
   firePoint: {fileID: 819984192438887480}
   gunPosition: {fileID: 819984192438887480}
   isADS: 0
@@ -631,6 +650,7 @@ MonoBehaviour:
   sightOffset: {x: 0, y: 0, z: 0}
   displayFireRaycast: 0
   gunEffectsController: {fileID: 7637712263038484891}
+  gunPerkController: {fileID: 0}
 --- !u!1 &6015416015015157880
 GameObject:
   m_ObjectHideFlags: 0

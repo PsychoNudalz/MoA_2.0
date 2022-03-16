@@ -26,6 +26,8 @@ public enum AIState
     Idle,
     Move,
     Attack,
+    Stagger,
+    Dead
 }
 
 /// <summary>
@@ -109,6 +111,9 @@ public abstract class AILogic : MonoBehaviour
     [Header("AI Attack")]
     [SerializeField]
     public List<AttackSet> attackSets;
+
+    [SerializeField]
+    protected AttackSet lastAttack;
 
     [SerializeField]
     protected Transform attackTarget;
@@ -306,6 +311,16 @@ public abstract class AILogic : MonoBehaviour
         float distanceToTarget = Vector3.Distance(transform.position, target);
 
         return distanceToTarget;
+    }protected virtual float GetDistanceFromMovePosToTarget(Vector3 target = new Vector3())
+    {
+        if (target.magnitude == 0)
+        {
+            target = attackTarget.position;
+        }
+
+        float distanceToTarget = Vector3.Distance(movePos, target);
+
+        return distanceToTarget;
     }
 
     protected virtual Vector3 GetDirectionToTarget(Vector3 target = new Vector3())
@@ -411,6 +426,7 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void ChangeState_Attack(AttackSet attackSet = null)
     {
+        lastAttack = attackSet;
     }
 
     protected virtual void AIThink_Attack()
@@ -504,7 +520,7 @@ public abstract class AILogic : MonoBehaviour
                 case AIAttribute.Aggressive:
                     if (attackTarget != null)
                     {
-                        returnPoint += attackTarget.position;
+                        returnPoint += attackTarget.position-transform.position;
                     }
 
                     break;
@@ -543,4 +559,41 @@ public abstract class AILogic : MonoBehaviour
     {
         attackTarget = PlayerMasterScript.current.transform;
     }
+    
+    
+    
+    protected virtual void EndState_Stagger()
+    {
+    }
+
+    protected virtual void ChangeState_Stagger()
+    {
+    }
+
+    protected virtual void AIThink_Stagger()
+    {
+    }
+
+    protected virtual void AIBehaviour_Stagger()
+    {
+    }
+    
+     protected virtual void EndState_Dead()
+    {
+    }
+
+    protected virtual void ChangeState_Dead()
+    {
+    }
+
+    protected virtual void AIThink_Dead()
+    {
+    }
+
+    protected virtual void AIBehaviour_Dead()
+    {
+    }
+    
+    
+
 }

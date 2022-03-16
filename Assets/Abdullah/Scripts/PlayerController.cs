@@ -948,7 +948,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //Recasting for the last time
+        //Recasting for the last cooldown
         if (Physics.Raycast(lookScript.GetHead(), -currentHit.normal, out handStickHit, castDistance,
             jumpLayerMask))
         {

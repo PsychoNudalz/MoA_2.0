@@ -37,7 +37,7 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadAsyncronously(sceneName));
         Debug.Log("Loading with loading screen");
 
-        //Anson: set time scale to 1
+        //Anson: set cooldown scale to 1
         Time.timeScale = 1f;
     }
 
