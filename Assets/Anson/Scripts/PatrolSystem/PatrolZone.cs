@@ -8,6 +8,12 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public enum CoverType
+{
+    None,
+    Half,
+    Full
+}
 
 [System.Serializable]
 public class PatrolPoint
@@ -16,7 +22,7 @@ public class PatrolPoint
     private Vector3 position;
 
     [SerializeField]
-    private bool isCover;
+    private CoverType coverType = CoverType.None;
 
     [SerializeField]
     private Vector3 coverDirection;
@@ -28,10 +34,10 @@ public class PatrolPoint
     }
 
 
-    public bool IsCover
+    public CoverType CoverType
     {
-        get => isCover;
-        set => isCover = value;
+        get => coverType;
+        set => coverType = value;
     }
 
     public Vector3 CoverDirection
@@ -40,17 +46,16 @@ public class PatrolPoint
         set => coverDirection = value;
     }
 
-    public PatrolPoint(Vector3 position, bool isCover, Vector3 coverDirection)
+    public PatrolPoint(Vector3 position, CoverType coverType, Vector3 coverDirection)
     {
         this.position = position;
-        this.isCover = isCover;
+        this.coverType = coverType;
         this.coverDirection = coverDirection;
     }
 
     public PatrolPoint(Vector3 position)
     {
         this.position = position;
-        isCover = false;
         coverDirection = new Vector3();
     }
 
@@ -243,9 +248,22 @@ public class PatrolZone : MonoBehaviour
                 {
                     if (pointPositions_Cover.Contains(pointPosition))
                     {
-                        Gizmos.color = Color.cyan - new Color(0, 0, 0, .2f);
-                        Gizmos.DrawCube(pointPosition.Position,
-                            new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                        Gizmos.color = Color.blue;
+                        Gizmos.DrawLine(pointPosition.Position,pointPosition.Position+pointPosition.CoverDirection*coverSpacing);
+                        if (pointPosition.CoverType.Equals(CoverType.Half))
+                        {
+                            Gizmos.color = Color.cyan - new Color(0, 0, 0, .2f);
+                            Gizmos.DrawCube(pointPosition.Position,
+                                new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                        }
+                        else if (pointPosition.CoverType.Equals(CoverType.Full))
+                        {
+                            Gizmos.color = Color.blue - new Color(0, 0, 0, .2f);
+                            Gizmos.DrawCube(pointPosition.Position,
+                                new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
+                        }
+
+                        
                     }
                     else
                     {
@@ -606,7 +624,7 @@ public class PatrolZone : MonoBehaviour
                     if (coverTags.Contains(hits[i].collider.tag))
                     {
                         pointPositions_Cover.Add(pointPosition);
-                        pointPosition.IsCover = true;
+                        EvaluateCover(pointPosition, hits[i].collider);
                         flag = true;
                     }
 
@@ -619,6 +637,48 @@ public class PatrolZone : MonoBehaviour
                 }
             }
         }
+    }
+
+    void EvaluateCover(PatrolPoint patrolPoint, Collider closestCollider)
+    {
+        float angle = 0f;
+        RaycastHit hit;
+        Physics.Raycast(patrolPoint.Position,
+            Quaternion.AngleAxis(angle, transform.up) *
+            (closestCollider.transform.position - patrolPoint.Position).normalized, out hit, coverSpacing* 2f,
+            coverLayerMask);
+        while (closestCollider && angle < 360f && !Physics.Raycast(patrolPoint.Position,
+            Quaternion.AngleAxis(angle, transform.up) *
+            (closestCollider.transform.position - patrolPoint.Position).normalized, out hit, coverSpacing* 2f,
+            coverLayerMask))
+        {
+            angle += 30f;
+        }
+
+        if (hit.collider != null)
+        {
+            patrolPoint.CoverDirection = -hit.normal;
+        }
+        else
+        {
+            patrolPoint.CoverDirection = (closestCollider.transform.position - patrolPoint.Position).normalized;
+        }
+
+
+        if (Physics.Raycast(patrolPoint.Position+transform.up,
+            patrolPoint.CoverDirection, out hit, coverSpacing* 2f,
+            coverLayerMask))
+        {
+            patrolPoint.CoverType = CoverType.Full;
+
+        }
+        else
+        {
+            patrolPoint.CoverType = CoverType.Half;
+
+        }
+
+
     }
 
     public List<PatrolPoint> GetPoints(Vector3 position, float range)
