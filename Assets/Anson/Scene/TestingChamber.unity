@@ -123,6 +123,118 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 224c142fc8783784a9539d8ef1f35313, type: 2}
+--- !u!1 &2397596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2397597}
+  - component: {fileID: 2397601}
+  - component: {fileID: 2397600}
+  - component: {fileID: 2397599}
+  - component: {fileID: 2397598}
+  m_Layer: 11
+  m_Name: Wall (1)
+  m_TagString: Enviorment
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2397597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2397596}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 20, y: 5, z: 19.999998}
+  m_LocalScale: {x: 10, y: 0.5, z: 40}
+  m_Children: []
+  m_Father: {fileID: 1505149393}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!54 &2397598
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2397596}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &2397599
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2397596}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2397600
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2397596}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7e538d1453cb37b409da656c5f4e075e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2397601
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2397596}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3755922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,8 +1472,14 @@ Transform:
   - {fileID: 2064411487}
   - {fileID: 1346514330}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &77844638 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4750686014206933667, guid: 9913562667c029d4683b2039d20832d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1974677980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &80191706
 Mesh:
   m_ObjectHideFlags: 0
@@ -1672,6 +1790,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &142551255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 142551256}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &142551256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142551255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6783098252377418754}
+  m_Father: {fileID: 1629552749}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &157452981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3898,7 +4047,7 @@ Transform:
   - {fileID: 1977412403}
   - {fileID: 1785665819}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &280729147
 Mesh:
@@ -4064,6 +4213,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!65 &308980554 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 9120880886885549980, guid: b621fb326135b234ca589d6841c4c7e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 9120880886858480444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &311410206
 Mesh:
   m_ObjectHideFlags: 0
@@ -4660,7 +4815,7 @@ PrefabInstance:
     - target: {fileID: 1169338362302325454, guid: 505f8c9135e1f0f499710396476dc168,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1169338362302325454, guid: 505f8c9135e1f0f499710396476dc168,
         type: 3}
@@ -5054,7 +5209,7 @@ Transform:
   - {fileID: 701469580}
   - {fileID: 1284531434}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &435462255
 GameObject:
@@ -5083,7 +5238,7 @@ Transform:
   m_GameObject: {fileID: 435462255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 20}
+  m_LocalScale: {x: 37, y: 5, z: 37}
   m_Children: []
   m_Father: {fileID: 900171335}
   m_RootOrder: 0
@@ -5513,7 +5668,7 @@ Transform:
   - {fileID: 893783384}
   - {fileID: 2080113233}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &511564457
 GameObject:
@@ -5781,7 +5936,7 @@ Transform:
   - {fileID: 579304400}
   - {fileID: 1983409435}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &614170697 stripped
 MonoBehaviour:
@@ -5872,7 +6027,40 @@ Transform:
   m_Children:
   - {fileID: 3755923}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &639841479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639841480}
+  m_Layer: 0
+  m_Name: LevelLayout
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &639841480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639841479}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 955963646}
+  - {fileID: 785800067}
+  - {fileID: 1016344502}
+  m_Father: {fileID: 1629552749}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &640611317 stripped
 Transform:
@@ -6541,7 +6729,7 @@ Transform:
   m_LocalScale: {x: 0.20000002, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &701469580 stripped
 Transform:
@@ -7168,6 +7356,87 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761189179}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &785800065
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 639841480}
+    m_Modifications:
+    - target: {fileID: 4750686014206933660, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_Name
+      value: WallCover (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000032782552
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9913562667c029d4683b2039d20832d9, type: 3}
+--- !u!65 &785800066 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4750686014206933667, guid: 9913562667c029d4683b2039d20832d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 785800065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &785800067 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 785800065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &810397396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7739,7 +8008,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858229351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.55, y: 0, z: 8.82}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 900171335}
@@ -7891,14 +8160,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxZone: {fileID: 435462256}
   detectedColliders:
+  - {fileID: 2146663182}
+  - {fileID: 953351791}
+  - {fileID: 308980554}
+  - {fileID: 732500266}
+  - {fileID: 682638327}
   - {fileID: 1177422593}
-  - {fileID: 382188348}
+  - {fileID: 1909054546}
+  - {fileID: 77844638}
+  - {fileID: 1079439326}
+  - {fileID: 2397599}
+  - {fileID: 1016344501}
+  - {fileID: 955963645}
+  - {fileID: 785800066}
+  - {fileID: 1114590094}
+  - {fileID: 254494495}
+  - {fileID: 356117120}
+  - {fileID: 63994031}
+  - {fileID: 686119227}
+  - {fileID: 761189182}
+  - {fileID: 1440960831}
+  - {fileID: 816372905}
+  - {fileID: 2142654333}
   - {fileID: 951177245}
-  - {fileID: 1770928384}
-  - {fileID: 929259329}
-  - {fileID: 1698216745}
-  - {fileID: 1692392180}
-  - {fileID: 1971457543}
   floorLayerMask:
     serializedVersion: 2
     m_Bits: 395264
@@ -7917,519 +8201,4041 @@ MonoBehaviour:
   isFloored: 1
   useWorldPositions: 1
   pointSpacing: 1
-  invalidPointSpacing: 0
+  invalidPointSpacing: 0.2
   coverSpacing: 2
   pointPositions_Cover:
-  - position: {x: 5, y: 23, z: 37}
+  - position: {x: 35, y: 0, z: -9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 36}
+  - position: {x: 35, y: 0, z: -8}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 35}
+  - position: {x: 35, y: 0, z: -10}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 34}
+  - position: {x: 35, y: 0, z: -7}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 41}
+  - position: {x: 35, y: 0, z: -6}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 33}
+  - position: {x: 35, y: 0, z: -5}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 42}
+  - position: {x: 35, y: 0, z: -4}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 44}
+  - position: {x: 35, y: 0, z: -1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 45}
+  - position: {x: 35, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 47}
+  - position: {x: 35, y: 1, z: 0}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 37}
+  - position: {x: 35, y: 1, z: 1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 36}
+  - position: {x: 35, y: 1, z: 2}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 34}
+  - position: {x: 35, y: 1, z: 3}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 41}
+  - position: {x: 35, y: 1, z: 4}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 33}
+  - position: {x: 35, y: 1, z: 5}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 42}
+  - position: {x: 35, y: 1, z: 6}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 44}
+  - position: {x: 35, y: 1, z: 7}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 45}
+  - position: {x: 35, y: 1, z: 8}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 47}
+  - position: {x: 35, y: 1, z: 9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 37}
+  - position: {x: 36, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 36}
+  - position: {x: 36, y: 1, z: 9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 35}
+  - position: {x: 34, y: 0, z: -9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 34}
+  - position: {x: 34, y: 0, z: -8}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 41}
+  - position: {x: 34, y: 0, z: -10}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 42}
+  - position: {x: 34, y: 0, z: -7}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 44}
+  - position: {x: 34, y: 0, z: -11}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 45}
+  - position: {x: 34, y: 0, z: -6}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 47}
+  - position: {x: 34, y: 0, z: -5}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 37}
+  - position: {x: 34, y: 0, z: -4}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 38}
+  - position: {x: 34, y: 0, z: -3}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 36}
+  - position: {x: 34, y: 0, z: -1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 39}
+  - position: {x: 34, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 34}
+  - position: {x: 34, y: 1, z: 0}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 41}
+  - position: {x: 34, y: 1, z: 1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 33}
+  - position: {x: 34, y: 1, z: 2}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 42}
+  - position: {x: 34, y: 1, z: 3}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 44}
+  - position: {x: 34, y: 1, z: 4}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 45}
+  - position: {x: 34, y: 1, z: 5}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 47}
+  - position: {x: 34, y: 1, z: 6}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 37}
+  - position: {x: 34, y: 1, z: 7}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 36}
+  - position: {x: 34, y: 1, z: 8}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 41}
+  - position: {x: 34, y: 1, z: 9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 42}
+  - position: {x: 37, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 44}
+  - position: {x: 37, y: 1, z: 9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 45}
+  - position: {x: 33, y: 0, z: -10}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 46}
+  - position: {x: 33, y: 0, z: -11}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 47}
+  - position: {x: 33, y: 0, z: -4}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 37}
+  - position: {x: 33, y: 0, z: -3}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 38}
+  - position: {x: 33, y: 0, z: -1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 36}
+  - position: {x: 33, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 39}
+  - position: {x: 38, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 40}
+  - position: {x: 38, y: 1, z: 9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 34}
+  - position: {x: 32, y: 0, z: -10}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 41}
+  - position: {x: 32, y: 0, z: -11}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 33}
+  - position: {x: 32, y: 0, z: -4}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 44}
+  - position: {x: 32, y: 0, z: -3}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 45}
+  - position: {x: 32, y: 0, z: -1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 47}
+  - position: {x: 32, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 37}
+  - position: {x: 32, y: 1, z: 0}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 36}
+  - position: {x: 32, y: 1, z: 1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 41}
+  - position: {x: 32, y: 1, z: 2}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 42}
+  - position: {x: 32, y: 1, z: 3}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 45}
+  - position: {x: 32, y: 1, z: 4}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 46}
+  - position: {x: 32, y: 1, z: 5}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 37}
+  - position: {x: 32, y: 1, z: 6}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 36}
+  - position: {x: 32, y: 1, z: 7}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 40}
+  - position: {x: 32, y: 1, z: 8}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 34}
+  - position: {x: 32, y: 1, z: 9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 33}
+  - position: {x: 39, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 44}
+  - position: {x: 39, y: 1, z: 9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 45}
+  - position: {x: 31, y: 0, z: -9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 47}
+  - position: {x: 31, y: 0, z: -8}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 37}
+  - position: {x: 31, y: 0, z: -10}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 36}
+  - position: {x: 31, y: 0, z: -7}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 41}
+  - position: {x: 31, y: 0, z: -11}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 42}
+  - position: {x: 31, y: 0, z: -6}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 37}
+  - position: {x: 31, y: 0, z: -5}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 36}
+  - position: {x: 31, y: 0, z: -4}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 34}
+  - position: {x: 31, y: 0, z: -1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 33}
+  - position: {x: 31, y: 0, z: -27}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 44}
+  - position: {x: 31, y: 1, z: 0}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 45}
+  - position: {x: 31, y: 1, z: 1}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 47}
+  - position: {x: 31, y: 1, z: 2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 1, z: 3}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 1, z: 4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 1, z: 5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 1, z: 6}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 1, z: 7}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 1, z: 8}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -8}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -10}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -7}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -6}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -3}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -1}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -1}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -1}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -1}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -1}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -1}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -1}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -5}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -3}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -1}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -4}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -3}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -2}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 9}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -27}
+    isCover: 1
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 9}
     isCover: 1
     coverDirection: {x: 0, y: 0, z: 0}
   pointPositions_Open:
-  - position: {x: 5, y: 23, z: 32}
+  - position: {x: 35, y: 0, z: -11}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 43}
+  - position: {x: 35, y: 0, z: -12}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 31}
+  - position: {x: 35, y: 0, z: -13}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 30}
+  - position: {x: 35, y: 0, z: -14}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 29}
+  - position: {x: 35, y: 0, z: -3}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 5, y: 23, z: 28}
+  - position: {x: 35, y: 0, z: -15}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 32}
+  - position: {x: 35, y: 0, z: -2}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 43}
+  - position: {x: 35, y: 0, z: -16}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 31}
+  - position: {x: 35, y: 0, z: -17}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 30}
+  - position: {x: 35, y: 0, z: -18}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 29}
+  - position: {x: 35, y: 0, z: -19}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 6, y: 23, z: 28}
+  - position: {x: 35, y: 0, z: -20}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 33}
+  - position: {x: 35, y: 0, z: -21}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 32}
+  - position: {x: 35, y: 0, z: -22}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 43}
+  - position: {x: 35, y: 0, z: -23}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 31}
+  - position: {x: 35, y: 0, z: -24}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 30}
+  - position: {x: 35, y: 0, z: -25}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 29}
+  - position: {x: 35, y: 0, z: -26}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 4, y: 23, z: 28}
+  - position: {x: 36, y: 0, z: -9}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 32}
+  - position: {x: 36, y: 0, z: -8}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 43}
+  - position: {x: 36, y: 0, z: -10}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 31}
+  - position: {x: 36, y: 0, z: -7}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 30}
+  - position: {x: 36, y: 0, z: -11}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 29}
+  - position: {x: 36, y: 0, z: -6}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 7, y: 23, z: 28}
+  - position: {x: 36, y: 0, z: -12}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 35}
+  - position: {x: 36, y: 0, z: -5}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 34}
+  - position: {x: 36, y: 0, z: -13}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 33}
+  - position: {x: 36, y: 0, z: -4}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 32}
+  - position: {x: 36, y: 0, z: -14}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 43}
+  - position: {x: 36, y: 0, z: -3}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 31}
+  - position: {x: 36, y: 0, z: -15}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 30}
+  - position: {x: 36, y: 0, z: -2}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 29}
+  - position: {x: 36, y: 0, z: -16}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 3, y: 23, z: 28}
+  - position: {x: 36, y: 0, z: -1}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 42}
+  - position: {x: 36, y: 0, z: -17}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 32}
+  - position: {x: 36, y: 0, z: -18}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 43}
+  - position: {x: 36, y: 0, z: -19}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 31}
+  - position: {x: 36, y: 0, z: -20}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 30}
+  - position: {x: 36, y: 0, z: -21}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 29}
+  - position: {x: 36, y: 0, z: -22}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 8, y: 23, z: 28}
+  - position: {x: 36, y: 0, z: -23}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 35}
+  - position: {x: 36, y: 0, z: -24}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 34}
+  - position: {x: 36, y: 0, z: -25}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 33}
+  - position: {x: 36, y: 0, z: -26}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 32}
+  - position: {x: 36, y: 1, z: 0}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 43}
+  - position: {x: 36, y: 1, z: 1}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 31}
+  - position: {x: 36, y: 1, z: 2}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 44}
+  - position: {x: 36, y: 1, z: 3}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 30}
+  - position: {x: 36, y: 1, z: 4}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 29}
+  - position: {x: 36, y: 1, z: 5}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 28}
+  - position: {x: 36, y: 1, z: 6}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 2, y: 23, z: 47}
+  - position: {x: 36, y: 1, z: 7}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 38}
+  - position: {x: 36, y: 1, z: 8}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 39}
+  - position: {x: 34, y: 0, z: -12}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 41}
+  - position: {x: 34, y: 0, z: -13}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 42}
+  - position: {x: 34, y: 0, z: -14}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 32}
+  - position: {x: 34, y: 0, z: -15}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 43}
+  - position: {x: 34, y: 0, z: -2}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 31}
+  - position: {x: 34, y: 0, z: -16}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 30}
+  - position: {x: 34, y: 0, z: -17}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 29}
+  - position: {x: 34, y: 0, z: -18}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 9, y: 23, z: 28}
+  - position: {x: 34, y: 0, z: -19}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 35}
+  - position: {x: 34, y: 0, z: -20}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 34}
+  - position: {x: 34, y: 0, z: -21}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 33}
+  - position: {x: 34, y: 0, z: -22}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 32}
+  - position: {x: 34, y: 0, z: -23}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 43}
+  - position: {x: 34, y: 0, z: -24}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 31}
+  - position: {x: 34, y: 0, z: -25}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 44}
+  - position: {x: 34, y: 0, z: -26}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 30}
+  - position: {x: 37, y: 0, z: -9}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 45}
+  - position: {x: 37, y: 0, z: -8}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 29}
+  - position: {x: 37, y: 0, z: -10}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 46}
+  - position: {x: 37, y: 0, z: -7}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 28}
+  - position: {x: 37, y: 0, z: -11}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 1, y: 23, z: 47}
+  - position: {x: 37, y: 0, z: -6}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 38}
+  - position: {x: 37, y: 0, z: -12}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 39}
+  - position: {x: 37, y: 0, z: -5}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 40}
+  - position: {x: 37, y: 0, z: -13}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 41}
+  - position: {x: 37, y: 0, z: -4}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 42}
+  - position: {x: 37, y: 0, z: -14}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 32}
+  - position: {x: 37, y: 0, z: -3}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 43}
+  - position: {x: 37, y: 0, z: -15}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 31}
+  - position: {x: 37, y: 0, z: -2}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 30}
+  - position: {x: 37, y: 0, z: -16}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 29}
+  - position: {x: 37, y: 0, z: -1}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
-  - position: {x: 10, y: 23, z: 28}
+  - position: {x: 37, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 37, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 33, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 38, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 32, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 39, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 31, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 40, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 30, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 41, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 29, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 42, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 28, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 43, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 27, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 44, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 26, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 45, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 25, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 46, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 24, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 47, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 23, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 48, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 22, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 49, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 21, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 50, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 20, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 51, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 19, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 52, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 18, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 53, y: 1, z: 8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -9}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -8}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -10}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -11}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -12}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -13}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -14}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -15}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -16}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -17}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -18}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -19}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -20}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -21}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -22}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -23}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -24}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -25}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 0, z: -26}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 0}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 1}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 2}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 3}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 4}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 5}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 6}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 7}
+    isCover: 0
+    coverDirection: {x: 0, y: 0, z: 0}
+  - position: {x: 17, y: 1, z: 8}
     isCover: 0
     coverDirection: {x: 0, y: 0, z: 0}
   showDebug: 1
-  showDebugSelectOnly: 1
+  showDebugSelectOnly: 0
   debug_showCover: 1
   debug_autoRegenerate: 1
   debug_showSpacing: 0
@@ -8445,14 +12251,45 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900171333}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.29, y: 22.62, z: 37.38}
+  m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435462256}
   - {fileID: 858229352}
-  m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_Father: {fileID: 908161135}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &908161134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908161135}
+  m_Layer: 0
+  m_Name: PatrolZones
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &908161135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908161134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 900171335}
+  m_Father: {fileID: 1629552749}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &929259326
 PrefabInstance:
@@ -8479,7 +12316,7 @@ PrefabInstance:
     - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
         type: 3}
@@ -8565,12 +12402,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
---- !u!65 &929259329 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 4750686014206933667, guid: 9913562667c029d4683b2039d20832d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 929259326}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &930965532 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3638658461383792740, guid: 31a4d838e2238374c80c616878c96e4a,
@@ -8853,6 +12684,93 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951177242}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &953351791 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 9120880887912910607, guid: b621fb326135b234ca589d6841c4c7e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 9120880886858480444}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &955963644
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 639841480}
+    m_Modifications:
+    - target: {fileID: 4750686014206933660, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_Name
+      value: WallCover_Big
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f6c61748d0cce1d41af52b9e8096f0f1, type: 3}
+--- !u!65 &955963645 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4750686014206933667, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 955963644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &955963646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4750686014206933666, guid: f6c61748d0cce1d41af52b9e8096f0f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 955963644}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &981337659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9810,6 +13728,87 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 727356866628ab94bb80405d0681e250, type: 3}
+--- !u!1001 &1016344500
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 639841480}
+    m_Modifications:
+    - target: {fileID: 4750686014206933660, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_Name
+      value: WallCover (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9913562667c029d4683b2039d20832d9, type: 3}
+--- !u!65 &1016344501 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4750686014206933667, guid: 9913562667c029d4683b2039d20832d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1016344500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1016344502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1016344500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1035239587 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5240306055128977251, guid: 077f7cee1788ffb4e8180034a12adf3f,
@@ -10152,6 +14151,118 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 981337659}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1079439323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079439324}
+  - component: {fileID: 1079439328}
+  - component: {fileID: 1079439327}
+  - component: {fileID: 1079439326}
+  - component: {fileID: 1079439325}
+  m_Layer: 11
+  m_Name: Wall (2)
+  m_TagString: Enviorment
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1079439324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079439323}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 5, z: 40}
+  m_LocalScale: {x: 10, y: 40, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 1505149393}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!54 &1079439325
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079439323}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1079439326
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079439323}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1079439327
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079439323}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7e538d1453cb37b409da656c5f4e075e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1079439328
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079439323}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1092934023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10393,6 +14504,118 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1886994731}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1114590092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1114590097}
+  - component: {fileID: 1114590096}
+  - component: {fileID: 1114590095}
+  - component: {fileID: 1114590094}
+  - component: {fileID: 1114590093}
+  m_Layer: 11
+  m_Name: Wall
+  m_TagString: Enviorment
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!54 &1114590093
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114590092}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1114590094
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114590092}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1114590095
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114590092}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7e538d1453cb37b409da656c5f4e075e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1114590096
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114590092}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1114590097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114590092}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -20, y: 5, z: 20}
+  m_LocalScale: {x: 10, y: 0.5, z: 40}
+  m_Children: []
+  m_Father: {fileID: 1505149393}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &1149969577 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5577721377718806681, guid: 8893e653db0367d48b24ea270b76a4f5,
@@ -12301,7 +16524,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1346514329
 GameObject:
@@ -14191,6 +18414,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1007800677}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1505149392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1505149393}
+  m_Layer: 0
+  m_Name: SideWalls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1505149393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505149392}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1114590097}
+  - {fileID: 2397597}
+  - {fileID: 1079439324}
+  m_Father: {fileID: 1629552749}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1571354550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5240306055128977251, guid: 077f7cee1788ffb4e8180034a12adf3f,
@@ -14992,8 +19248,42 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1629552748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1629552749}
+  m_Layer: 0
+  m_Name: AI Test Range
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1629552749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629552748}
+  m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 15.33, y: 0, z: -8.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1505149393}
+  - {fileID: 639841480}
+  - {fileID: 142551256}
+  - {fileID: 908161135}
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1641602228 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3716740291169968883, guid: 727356866628ab94bb80405d0681e250,
@@ -15164,7 +19454,7 @@ PrefabInstance:
     - target: {fileID: 9162123256095884017, guid: 043f62ebcf1232342add406114cb832e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9162123256095884017, guid: 043f62ebcf1232342add406114cb832e,
         type: 3}
@@ -15218,12 +19508,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 043f62ebcf1232342add406114cb832e, type: 3}
---- !u!65 &1698216745 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 9162123256095884016, guid: 043f62ebcf1232342add406114cb832e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1698216744}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1700338998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16563,7 +20847,7 @@ Transform:
   - {fileID: 1956635896891846392}
   - {fileID: 662244222}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1848707560
 PrefabInstance:
@@ -18118,7 +22402,7 @@ PrefabInstance:
     - target: {fileID: 5577721377718806680, guid: 8893e653db0367d48b24ea270b76a4f5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5577721377718806680, guid: 8893e653db0367d48b24ea270b76a4f5,
         type: 3}
@@ -18988,7 +23272,7 @@ PrefabInstance:
     - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4750686014206933666, guid: 9913562667c029d4683b2039d20832d9,
         type: 3}
@@ -21733,85 +26017,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142654330}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &2142719646
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2263197249611855197, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_Name
-      value: MeleeEnemy_Type1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.260004
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 22.320797
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 32.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.70710677
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6783098253931979420, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7416213383664176553, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: currentPatrolZone
-      value: 
-      objectReference: {fileID: 900171334}
-    - target: {fileID: 7416213383664176553, guid: 9d99253ce0b71c84ebd217e416eff79e,
-        type: 3}
-      propertyPath: attackSets.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9d99253ce0b71c84ebd217e416eff79e, type: 3}
 --- !u!1001 &2143375828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22339,7 +26544,7 @@ PrefabInstance:
     - target: {fileID: 9079351734300076824, guid: 233b74b163a622045bc9520ba7818c34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9079351734300076824, guid: 233b74b163a622045bc9520ba7818c34,
         type: 3}
@@ -22500,7 +26705,7 @@ PrefabInstance:
     - target: {fileID: 3638658461383792740, guid: 31a4d838e2238374c80c616878c96e4a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3638658461383792740, guid: 31a4d838e2238374c80c616878c96e4a,
         type: 3}
@@ -23160,7 +27365,7 @@ PrefabInstance:
     - target: {fileID: 4112174735619620033, guid: 13e85e6e03c03214b973fde994bfe628,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4112174735619620033, guid: 13e85e6e03c03214b973fde994bfe628,
         type: 3}
@@ -23999,7 +28204,7 @@ PrefabInstance:
     - target: {fileID: 5169857968480829572, guid: 30915c65d595ef048b56eb194de3d91f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5169857968480829572, guid: 30915c65d595ef048b56eb194de3d91f,
         type: 3}
@@ -24968,7 +29173,7 @@ PrefabInstance:
     - target: {fileID: 5577721377718806680, guid: 8893e653db0367d48b24ea270b76a4f5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5577721377718806680, guid: 8893e653db0367d48b24ea270b76a4f5,
         type: 3}
@@ -25617,6 +29822,80 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8893e653db0367d48b24ea270b76a4f5, type: 3}
+--- !u!1001 &5870813001469229217
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 142551256}
+    m_Modifications:
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 23.939999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.00000008940697
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004544038650461078, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: currentPatrolZone
+      value: 
+      objectReference: {fileID: 900171334}
+    - target: {fileID: 5625326586118488930, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+        type: 3}
+      propertyPath: m_Name
+      value: RangeEnemy_Type1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b56d902bdfb090d4b85bfe0ef3a2ea51, type: 3}
 --- !u!4 &5979232704831267560
 Transform:
   m_ObjectHideFlags: 0
@@ -25656,7 +29935,7 @@ PrefabInstance:
     - target: {fileID: 6127791889017176042, guid: a3c9d6ddce0b13647b29f5cce1d4c003,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6127791889017176042, guid: a3c9d6ddce0b13647b29f5cce1d4c003,
         type: 3}
@@ -25720,6 +29999,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3c9d6ddce0b13647b29f5cce1d4c003, type: 3}
+--- !u!4 &6783098252377418754 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1106538322967532707, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+    type: 3}
+  m_PrefabInstance: {fileID: 5870813001469229217}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8469367368658178336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26610,7 +30895,7 @@ Transform:
   m_Children:
   - {fileID: 5979232704831267560}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8726736800851784092
 GameObject:
@@ -26696,7 +30981,7 @@ PrefabInstance:
     - target: {fileID: 9120880886885549986, guid: b621fb326135b234ca589d6841c4c7e6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9120880886885549986, guid: b621fb326135b234ca589d6841c4c7e6,
         type: 3}

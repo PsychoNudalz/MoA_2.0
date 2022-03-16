@@ -91,6 +91,7 @@ public class AI_Grounded : AILogic
 
     protected override void AIThink_Move()
     {
+
         if (Vector3.Distance(movePos, transform.position) < moveStopRange)
         {
             if (MoveWaitTime_Now <= 0)
@@ -109,25 +110,22 @@ public class AI_Grounded : AILogic
 
     private void SetNewPatrolPoint()
     {
-        List<PatrolPoint> points = new List<PatrolPoint>();
-        int i = 0;
-        while (points.Count == 0 && i < 720)
+        if (!attackTarget)
         {
-            points = currentPatrolZone.GetPoints(
-                Quaternion.EulerAngles(0, i, 0) * transform.forward * Random.Range(3f, 5f) + transform.position,
-                Random.Range(1, 2f));
-            i++;
+            SetTarget();
         }
 
-        if (points.Count > 0)
-        {
-            SetNavAgent(points[Random.Range(0, points.Count)].Position);
-            MoveWaitTime_Now = Random.Range(MoveWaitTime.x, MoveWaitTime.y);
-        }
+        SetNavAgent(SetMovePointByAttribute());
+        MoveWaitTime_Now = Random.Range(MoveWaitTime.x, MoveWaitTime.y);
     }
 
     protected override void AIBehaviour_Move()
     {
+        if (attributesStack.Contains(AIAttribute.OrientateToTarget))
+        {
+            OrientateToTarget();
+        }
+
         if (Vector3.Distance(movePos, transform.position) < moveStopRange)
         {
             if (MoveWaitTime_Now > 0)
@@ -159,5 +157,10 @@ public class AI_Grounded : AILogic
     protected override void AIBehaviour_Attack()
     {
         base.AIBehaviour_Attack();
+    }
+
+    protected override Vector3 SetMovePointByAttribute()
+    {
+        return base.SetMovePointByAttribute();
     }
 }

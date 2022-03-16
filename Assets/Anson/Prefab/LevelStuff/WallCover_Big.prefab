@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 4750686014206933666}
   - component: {fileID: 4750686014206933667}
   - component: {fileID: 3184213953280465093}
-  - component: {fileID: 2079319824436387974}
   m_Layer: 11
-  m_Name: WallCover
+  m_Name: WallCover_Big
   m_TagString: Enviorment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3166885, y: 1.7468643, z: 5.0282135}
-  m_Center: {x: 0.04314804, y: 0.87343216, z: -0.069107056}
+  m_Size: {x: 1.3166885, y: 3.5837097, z: 10.09}
+  m_Center: {x: 0.04314804, y: 1.7143211, z: -0.069107056}
 --- !u!54 &3184213953280465093
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -63,22 +62,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!208 &2079319824436387974
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4750686014206933660}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.945, z: 2.455}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.94, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1001 &4750686012531812765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93,13 +76,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e824eebfeaf8c5d44bf89d41960fb244,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 29.364702
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e824eebfeaf8c5d44bf89d41960fb244,
+        type: 3}
       propertyPath: m_LocalScale.y
-      value: 186.67914
+      value: 373.35828
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e824eebfeaf8c5d44bf89d41960fb244,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 69.0917
+      value: 138.1834
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e824eebfeaf8c5d44bf89d41960fb244,
         type: 3}

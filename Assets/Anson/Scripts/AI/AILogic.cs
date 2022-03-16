@@ -9,11 +9,22 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// AI State
 /// </summary>
+public enum AIAttribute
+{
+    Stationary,
+    Aggressive,
+    Defensive,
+    Stealthy,
+    OrientateToTarget
+}
+
+/// <summary>
+/// AI State
+/// </summary>
 public enum AIState
 {
     Idle,
     Move,
-
     Attack,
 }
 
@@ -29,6 +40,23 @@ public abstract class AILogic : MonoBehaviour
 
     [SerializeField]
     protected AIState previousState;
+
+
+    [Space(10f)]
+    [Header("AI Attributes")]
+    [Tooltip("The lower the list, the higher the priority")]
+    [SerializeField]
+    protected List<AIAttribute> attributesStack;
+
+    [Header("Defensive")]
+    [SerializeField]
+    protected float defensive_Distance = 5f;
+
+    [SerializeField]
+    protected float defensive_Space = 3f;
+
+    [SerializeField]
+    protected Vector2 defensive_TangentRange = new Vector2(2f, 4f);
 
     [Space(10f)]
     [Header("AI Decision Times")]
@@ -75,13 +103,15 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     protected float MoveWaitTime_Now = 0;
 
+    [SerializeField]
+    protected float turnSpeed = 10f;
 
     [Header("AI Attack")]
     [SerializeField]
     public List<AttackSet> attackSets;
 
     [SerializeField]
-    private Transform attackTarget;    
+    protected Transform attackTarget;
 
     [SerializeField]
     [Range(0f, 90f)]
@@ -103,6 +133,9 @@ public abstract class AILogic : MonoBehaviour
     [Header("Other Components")]
     [SerializeField]
     GameObject playerGO;
+
+    [SerializeField]
+    private Transform bodyModel;
 
     [SerializeField]
     protected NavMeshAgent navMeshAgent;
@@ -157,7 +190,7 @@ public abstract class AILogic : MonoBehaviour
     }
 
 
-    public virtual void ChangeState(AIState newState,AttackSet attackSet = null)
+    public virtual void ChangeState(AIState newState, AttackSet attackSet = null)
     {
         previousState = currentState;
         currentState = newState;
@@ -192,7 +225,6 @@ public abstract class AILogic : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
-        
     }
 
     /// <summary>
@@ -270,11 +302,34 @@ public abstract class AILogic : MonoBehaviour
         {
             target = attackTarget.position;
         }
+
         float distanceToTarget = Vector3.Distance(transform.position, target);
 
         return distanceToTarget;
     }
 
+    protected virtual Vector3 GetDirectionToTarget(Vector3 target = new Vector3())
+    {
+        if (target.magnitude == 0)
+        {
+            target = attackTarget.position;
+        }
+
+
+        return target - transform.position;
+    }
+
+    protected void OrientateToTarget()
+    {
+        if (attackTarget)
+        {
+            Vector3 temp = Quaternion.LookRotation(GetDirectionToTarget()).eulerAngles;
+
+            temp.x = bodyModel.transform.eulerAngles.x;
+            temp.z = bodyModel.transform.eulerAngles.z;
+            bodyModel.transform.eulerAngles = temp;
+        }
+    }
 
     //Idle
 
@@ -424,7 +479,6 @@ public abstract class AILogic : MonoBehaviour
                 {
                     return attackSet;
                 }
-
             }
             else
             {
@@ -436,5 +490,57 @@ public abstract class AILogic : MonoBehaviour
         }
 
         return selectedAttack;
+    }
+
+    protected virtual Vector3 SetMovePointByAttribute()
+    {
+        Vector3 returnPoint = transform.position;
+        foreach (AIAttribute currentAttribute in attributesStack)
+        {
+            switch (currentAttribute)
+            {
+                case AIAttribute.Stationary:
+                    break;
+                case AIAttribute.Aggressive:
+                    if (attackTarget != null)
+                    {
+                        returnPoint += attackTarget.position;
+                    }
+
+                    break;
+                case AIAttribute.Defensive:
+                    List<PatrolPoint> returnList = new List<PatrolPoint>();
+                    int i = 0;
+                    while (attackTarget && returnList.Count == 0 && i <= 360)
+                    {
+                        Vector3 direction = -GetDirectionToTarget().normalized;
+                        Vector3 moveTangent = Quaternion.AngleAxis((90f + i) * Random.Range(-1, 1), transform.up) *
+                                              direction;
+                        Vector3 temp = (direction * (defensive_Distance - GetDistanceToTarget()) +
+                                        moveTangent.normalized * Random.Range(defensive_TangentRange.x,
+                                            defensive_TangentRange.y));
+                        temp += returnPoint;
+
+                        returnList = currentPatrolZone.GetPoints(temp, defensive_Space);
+                        i += 30;
+                    }
+
+                    if (returnList.Count > 0)
+                    {
+                        returnPoint = returnList[Random.Range(0, returnList.Count)].Position;
+                    }
+
+                    break;
+                case AIAttribute.Stealthy:
+                    break;
+            }
+        }
+
+        return returnPoint;
+    }
+
+    protected virtual void SetTarget()
+    {
+        attackTarget = PlayerMasterScript.current.transform;
     }
 }
