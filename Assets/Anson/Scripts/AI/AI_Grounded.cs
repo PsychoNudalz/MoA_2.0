@@ -31,6 +31,11 @@ public class AI_Grounded : AILogic
             case AIState.Attack:
                 AIThink_Attack();
                 break;
+            case AIState.Stagger:
+                AIThink_Stagger();;
+                break;
+            case AIState.Dead:
+                break;
         }
     }
 
@@ -45,6 +50,11 @@ public class AI_Grounded : AILogic
                 break;
 
             case AIState.Attack:
+                break;
+            case AIState.Stagger:
+                AIBehaviour_Stagger();
+                break;
+            case AIState.Dead:
                 break;
         }
     }

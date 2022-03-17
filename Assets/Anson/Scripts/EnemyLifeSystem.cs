@@ -59,6 +59,7 @@ public class EnemyLifeSystem : LifeSystemScript
     {
         targetEffectController.StartDecay();
         targetSoundScript?.Play_Stagger();
+        enemyHandler.EnemyAI.AddStagger(dmg*multiplier);
         return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }
     public override void RemoveDebuff(FireEffectScript debuff = null)

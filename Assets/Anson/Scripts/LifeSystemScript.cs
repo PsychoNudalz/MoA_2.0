@@ -18,6 +18,9 @@ public class LifeSystemScript : MonoBehaviour
     [SerializeField] bool isDead = false;
     [SerializeField] protected Transform centreOfMass;
 
+    [SerializeField]
+    protected bool invincible = false;
+
     [Header("On Death")]
     public GameObject deathGameObject;
     public bool disableOnDeath = true;
@@ -40,6 +43,12 @@ public class LifeSystemScript : MonoBehaviour
     public int Health_Current { get => health_Current; }
     public int Health_Max { get => health_Max; }
     public bool IsDead { get => isDead; }
+
+    public bool Invincible
+    {
+        get => invincible;
+        set => invincible = value;
+    }
 
     public static LifeSystemScript GetLifeSystemScript(GameObject go)
     {
@@ -106,6 +115,10 @@ public class LifeSystemScript : MonoBehaviour
     /// <returns> health remaining </returns>
     public virtual int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
+        if (invincible)
+        {
+            return health_Current;
+        }
 
         health_Current -= Mathf.RoundToInt(dmg);
         if (!isDead)
@@ -135,6 +148,10 @@ public class LifeSystemScript : MonoBehaviour
     public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1, bool displayTakeDamageEffect = true)
     {
 
+        if (invincible)
+        {
+            return health_Current;
+        }
         health_Current -= Mathf.RoundToInt(dmg * multiplier);
         if (!isDead)
         {

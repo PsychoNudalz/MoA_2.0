@@ -51,6 +51,7 @@ public class PlayerMasterScript : MonoBehaviour
     [Header("Cheats")]
     public static bool INFINITEAMMO = false;
     public static bool INVISABLE = false;
+    public static bool INFINITEHEALTH = false;
 
     public PlayerUIScript PlayerUIScript
     {
@@ -309,4 +310,13 @@ public class PlayerMasterScript : MonoBehaviour
     {
         INFINITEAMMO = !INFINITEAMMO;
     }
+
+    [Command("Player_IH")]
+    public static void Player_InfiniteHealth()
+    {
+        INFINITEHEALTH = !INFINITEHEALTH;
+        current.playerLifeSystemScript.healHealth_Percentage(1);
+        current.playerLifeSystemScript.Invincible = INFINITEHEALTH;
+    }
+    
 }

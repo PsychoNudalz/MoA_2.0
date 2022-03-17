@@ -39,7 +39,11 @@ public class PlayerGetTargetHealthScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, detectionRange, layerMask))
         {
-            targetLS = hit.collider.GetComponentInParent<TargetLifeSystem>();
+            targetLS = hit.collider.GetComponentInParent<EnemyLifeSystem>();
+            if (!targetLS)
+            {
+                targetLS = hit.collider.GetComponentInParent<TargetLifeSystem>();
+            }
             lastStayOnTargetTime = Time.time;
         }
         else

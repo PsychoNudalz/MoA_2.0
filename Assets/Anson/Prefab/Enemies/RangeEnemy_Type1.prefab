@@ -495,8 +495,9 @@ MonoBehaviour:
   defensive_Distance: 8
   defensive_Space: 2
   defensive_TangentRange: {x: 8, y: 10}
-  coverSpace: 3
-  coverDot: 0.7
+  takeCover_CoverSpace: 5
+  takeCover_CoverDot: 0.7
+  takeCover_DefenceDistanceMultiplier: 0.5
   lastThinkTime: 0
   thinkRate: 0.5
   hostileLayerMaks:
@@ -520,7 +521,7 @@ MonoBehaviour:
   turnSpeed: 0
   attackSets:
   - attackCondition:
-      cooldown: 5
+      cooldown: 15
       duration: 2
       range: 1000
       needsLineOfSight: 0
@@ -543,7 +544,7 @@ MonoBehaviour:
     canMove: 0
     faceTarget: 1
   - attackCondition:
-      cooldown: 2
+      cooldown: 5
       duration: 0
       range: 1000
       needsLineOfSight: 0
@@ -582,6 +583,40 @@ MonoBehaviour:
   attackRange: 5
   attackDuration: 1
   attackCooldown: 2
+  staggerValue: 0
+  staggerDamageMultiplier: 0.002
+  staggerTime: 5
+  staggerTimeNow: 0
+  onStaggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1513160272953275784}
+        m_TargetAssemblyTypeName: RangeEnemyHandler, Assembly-CSharp
+        m_MethodName: Stagger
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  endStaggerEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1513160272953275784}
+        m_TargetAssemblyTypeName: RangeEnemyHandler, Assembly-CSharp
+        m_MethodName: Stagger
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   DrawDebug: 1
   playerGO: {fileID: 0}
   bodyModel: {fileID: 398494591231720430}
@@ -641,6 +676,7 @@ MonoBehaviour:
   health_Max: 1250
   isDead: 0
   centreOfMass: {fileID: 0}
+  invincible: 0
   deathGameObject: {fileID: 0}
   disableOnDeath: 0
   destroyOnDeath: 1
@@ -1539,6 +1575,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4501327666581360, guid: fc469b2d4ae90f6408eedaaa707d812f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605321103899328, guid: fc469b2d4ae90f6408eedaaa707d812f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820863658913512, guid: fc469b2d4ae90f6408eedaaa707d812f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820863658913512, guid: fc469b2d4ae90f6408eedaaa707d812f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8762761
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820863658913512, guid: fc469b2d4ae90f6408eedaaa707d812f, type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 95958629210040498, guid: fc469b2d4ae90f6408eedaaa707d812f,

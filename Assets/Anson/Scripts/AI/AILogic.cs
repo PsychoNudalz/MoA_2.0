@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -143,6 +144,26 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     float attackCooldown = 2;
 
+    [Header("AI Stagger")]
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float staggerValue = 0f;
+
+    [SerializeField]
+    private float staggerDamageMultiplier = 0.002f;
+
+    [SerializeField]
+    private float staggerTime;
+
+    [SerializeField]
+    private float staggerTimeNow;
+
+    [SerializeField]
+    private UnityEvent onStaggerEvent;
+
+    [SerializeField]
+    private UnityEvent endStaggerEvent;
+
     [Header("Debug")]
     [SerializeField]
     private bool DrawDebug;
@@ -224,8 +245,12 @@ public abstract class AILogic : MonoBehaviour
             case AIState.Attack:
                 EndState_Attack();
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            case AIState.Stagger:
+                EndState_Stagger();
+                break;
+            case AIState.Dead:
+                EndState_Dead();
+                break;
         }
 
         switch (newState)
@@ -238,6 +263,12 @@ public abstract class AILogic : MonoBehaviour
                 break;
             case AIState.Attack:
                 ChangeState_Attack(attackSet);
+                break;
+            case AIState.Stagger:
+                ChangeState_Stagger();
+                break;
+            case AIState.Dead:
+                ChangeState_Dead();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -546,13 +577,14 @@ public abstract class AILogic : MonoBehaviour
                     int startingSide = 0;
                     while (startingSide == 0)
                     {
-                        startingSide = Random.Range(-1,2);
+                        startingSide = Random.Range(-1, 2);
                     }
+
                     Debug.Log(startingSide);
                     while (attackTarget && returnList.Count == 0 && Mathf.Abs(i) <= 360)
                     {
                         Vector3 direction = -GetDirectionToTarget().normalized;
-                        Vector3 moveTangent = Quaternion.AngleAxis((90f* startingSide + i ) , transform.up) *
+                        Vector3 moveTangent = Quaternion.AngleAxis((90f * startingSide + i), transform.up) *
                                               direction;
                         Vector3 temp = (direction * (defensive_Distance - GetDistanceToTarget()) +
                                         moveTangent.normalized * Random.Range(defensive_TangentRange.x,
@@ -560,7 +592,7 @@ public abstract class AILogic : MonoBehaviour
                         temp += returnPoint;
 
                         returnList = currentPatrolZone.GetPoints(temp, defensive_Space);
-                        i -= 180*startingSide;
+                        i -= 180 * startingSide;
                     }
 
                     if (returnList.Count > 0)
@@ -573,7 +605,8 @@ public abstract class AILogic : MonoBehaviour
                     break;
                 case AIAttribute.AttackBehindCover:
                     bool foundPoint = false;
-                    List<PatrolPoint> coverReturnList = currentPatrolZone.GetCover(transform.position, takeCover_CoverSpace,
+                    List<PatrolPoint> coverReturnList = currentPatrolZone.GetCover(transform.position,
+                        takeCover_CoverSpace,
                         CoverType.Half, GetDirectionToTarget(), takeCover_CoverDot);
                     if (coverReturnList.Count > 0)
                     {
@@ -585,6 +618,7 @@ public abstract class AILogic : MonoBehaviour
                             foundPoint = true;
                         }
                     }
+
                     if (!foundPoint)
                     {
                         coverReturnList = currentPatrolZone.GetCover(returnPoint, takeCover_CoverSpace, CoverType.Half,
@@ -610,10 +644,14 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void EndState_Stagger()
     {
+        endStaggerEvent.Invoke();
+        staggerValue = 0f;
     }
 
     protected virtual void ChangeState_Stagger()
     {
+        onStaggerEvent.Invoke();
+        staggerTimeNow = staggerTime;
     }
 
     protected virtual void AIThink_Stagger()
@@ -622,6 +660,23 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void AIBehaviour_Stagger()
     {
+        staggerTimeNow -= Time.deltaTime;
+        if (staggerTimeNow <= 0f)
+        {
+            ChangeState(AIState.Idle);
+        }
+    }
+
+    public virtual void AddStagger(float dmg)
+    {
+        if (staggerValue < 1f)
+        {
+            staggerValue += dmg * staggerDamageMultiplier;
+            if (staggerValue >= 1f)
+            {
+                ChangeState(AIState.Stagger);
+            }
+        }
     }
 
     protected virtual void EndState_Dead()
