@@ -86,6 +86,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &916476385024703172
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,9 +103,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -190,8 +188,9 @@ MonoBehaviour:
   numberOfBounces: 0
   fuseTime: 20
   tagList:
-  - Enviorment
   - Player
+  - Enviorment
+  - Cover
   orientateProjectileToDirection: 1
   swirlAmount: 0.1
   swirlFrequency: 6

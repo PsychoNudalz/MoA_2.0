@@ -15,7 +15,8 @@ public enum AIAttribute
     Aggressive,
     Defensive,
     Stealthy,
-    OrientateToTarget
+    OrientateToTarget,
+    AttackBehindCover
 }
 
 /// <summary>
@@ -59,6 +60,17 @@ public abstract class AILogic : MonoBehaviour
 
     [SerializeField]
     protected Vector2 defensive_TangentRange = new Vector2(2f, 4f);
+
+
+    [Header("Take Cover")]
+    [SerializeField]
+    protected float takeCover_CoverSpace = 3f;
+
+    [SerializeField]
+    private float takeCover_CoverDot = 0.7f;
+
+    [SerializeField]
+    private float takeCover_DefenceDistanceMultiplier = .5f;
 
     [Space(10f)]
     [Header("AI Decision Times")]
@@ -311,7 +323,9 @@ public abstract class AILogic : MonoBehaviour
         float distanceToTarget = Vector3.Distance(transform.position, target);
 
         return distanceToTarget;
-    }protected virtual float GetDistanceFromMovePosToTarget(Vector3 target = new Vector3())
+    }
+
+    protected virtual float GetDistanceFromMovePosToTarget(Vector3 target = new Vector3())
     {
         if (target.magnitude == 0)
         {
@@ -520,17 +534,25 @@ public abstract class AILogic : MonoBehaviour
                 case AIAttribute.Aggressive:
                     if (attackTarget != null)
                     {
-                        returnPoint += attackTarget.position-transform.position;
+                        returnPoint += attackTarget.position - transform.position;
                     }
 
                     break;
                 case AIAttribute.Defensive:
+
+
                     List<PatrolPoint> returnList = new List<PatrolPoint>();
                     int i = 0;
-                    while (attackTarget && returnList.Count == 0 && i <= 360)
+                    int startingSide = 0;
+                    while (startingSide == 0)
+                    {
+                        startingSide = Random.Range(-1,2);
+                    }
+                    Debug.Log(startingSide);
+                    while (attackTarget && returnList.Count == 0 && Mathf.Abs(i) <= 360)
                     {
                         Vector3 direction = -GetDirectionToTarget().normalized;
-                        Vector3 moveTangent = Quaternion.AngleAxis((90f + i) * Random.Range(-1, 1), transform.up) *
+                        Vector3 moveTangent = Quaternion.AngleAxis((90f* startingSide + i ) , transform.up) *
                                               direction;
                         Vector3 temp = (direction * (defensive_Distance - GetDistanceToTarget()) +
                                         moveTangent.normalized * Random.Range(defensive_TangentRange.x,
@@ -538,7 +560,7 @@ public abstract class AILogic : MonoBehaviour
                         temp += returnPoint;
 
                         returnList = currentPatrolZone.GetPoints(temp, defensive_Space);
-                        i += 30;
+                        i -= 180*startingSide;
                     }
 
                     if (returnList.Count > 0)
@@ -548,6 +570,31 @@ public abstract class AILogic : MonoBehaviour
 
                     break;
                 case AIAttribute.Stealthy:
+                    break;
+                case AIAttribute.AttackBehindCover:
+                    bool foundPoint = false;
+                    List<PatrolPoint> coverReturnList = currentPatrolZone.GetCover(transform.position, takeCover_CoverSpace,
+                        CoverType.Half, GetDirectionToTarget(), takeCover_CoverDot);
+                    if (coverReturnList.Count > 0)
+                    {
+                        Vector3 proposedPoint = coverReturnList[Random.Range(0, coverReturnList.Count)].Position;
+                        if (Vector3.Distance(proposedPoint, attackTarget.position) >
+                            takeCover_DefenceDistanceMultiplier * defensive_Distance)
+                        {
+                            returnPoint = proposedPoint;
+                            foundPoint = true;
+                        }
+                    }
+                    if (!foundPoint)
+                    {
+                        coverReturnList = currentPatrolZone.GetCover(returnPoint, takeCover_CoverSpace, CoverType.Half,
+                            GetDirectionToTarget(), takeCover_CoverDot);
+                        if (coverReturnList.Count > 0)
+                        {
+                            returnPoint = coverReturnList[Random.Range(0, coverReturnList.Count)].Position;
+                        }
+                    }
+
                     break;
             }
         }
@@ -559,9 +606,8 @@ public abstract class AILogic : MonoBehaviour
     {
         attackTarget = PlayerMasterScript.current.transform;
     }
-    
-    
-    
+
+
     protected virtual void EndState_Stagger()
     {
     }
@@ -577,8 +623,8 @@ public abstract class AILogic : MonoBehaviour
     protected virtual void AIBehaviour_Stagger()
     {
     }
-    
-     protected virtual void EndState_Dead()
+
+    protected virtual void EndState_Dead()
     {
     }
 
@@ -593,7 +639,4 @@ public abstract class AILogic : MonoBehaviour
     protected virtual void AIBehaviour_Dead()
     {
     }
-    
-    
-
 }

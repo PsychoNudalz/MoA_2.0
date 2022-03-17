@@ -717,6 +717,25 @@ public class PatrolZone : MonoBehaviour
         return finalPoints;
     }
 
+    public List<PatrolPoint> GetCover(Vector3 position, float range, CoverType coverType, Vector3 direction,
+        float dotThreshold)
+    {
+        List<PatrolPoint> pointsInZone = GetPoints(position,range);
+        List<PatrolPoint> returnPoints = new List<PatrolPoint>();
+        foreach (PatrolPoint patrolPoint in pointsInZone)
+        {
+            if (patrolPoint.CoverType.Equals(coverType))
+            {
+                if (Vector3.Dot(direction.normalized, patrolPoint.CoverDirection.normalized) > dotThreshold)
+                {
+                    returnPoints.Add(patrolPoint);
+                }
+            }
+        }
+
+        return returnPoints;    
+    }
+
     public Vector3 ConvertPoint(Vector3 point)
     {
         point /= pointSpacing;
