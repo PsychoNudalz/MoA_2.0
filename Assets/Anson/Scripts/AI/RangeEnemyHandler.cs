@@ -27,4 +27,10 @@ public class RangeEnemyHandler : EnemyHandler
 
         }
     }
+
+    public void Death()
+    {
+        enemyAI.ChangeState(AIState.Dead);
+        animator.SetTrigger("Dead");
+    }
 }

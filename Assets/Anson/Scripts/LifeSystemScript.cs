@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 /// <summary>
@@ -22,6 +23,8 @@ public class LifeSystemScript : MonoBehaviour
     protected bool invincible = false;
 
     [Header("On Death")]
+    [SerializeField]
+    private UnityEvent onDeath;
     public GameObject deathGameObject;
     public bool disableOnDeath = true;
     public bool destroyOnDeath;
@@ -329,6 +332,8 @@ public class LifeSystemScript : MonoBehaviour
     /// <returns></returns>
     public virtual IEnumerator delayDeathRoutine()
     {
+        onDeath.Invoke();
+
         yield return new WaitForSeconds(delayDeath);
         DeathBehaviour();
     }

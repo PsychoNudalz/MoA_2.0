@@ -164,6 +164,10 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     private UnityEvent endStaggerEvent;
 
+    [Header("AI Death")]
+    [SerializeField]
+    private UnityEvent onDeath;
+
     [Header("Debug")]
     [SerializeField]
     private bool DrawDebug;
@@ -685,6 +689,7 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void ChangeState_Dead()
     {
+        
     }
 
     protected virtual void AIThink_Dead()

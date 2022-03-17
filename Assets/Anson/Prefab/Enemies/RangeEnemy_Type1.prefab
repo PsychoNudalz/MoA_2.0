@@ -617,6 +617,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   DrawDebug: 1
   playerGO: {fileID: 0}
   bodyModel: {fileID: 398494591231720430}
@@ -677,10 +680,25 @@ MonoBehaviour:
   isDead: 0
   centreOfMass: {fileID: 0}
   invincible: 0
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1513160272953275784}
+        m_TargetAssemblyTypeName: RangeEnemyHandler, Assembly-CSharp
+        m_MethodName: Death
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   deathGameObject: {fileID: 0}
   disableOnDeath: 0
   destroyOnDeath: 1
-  delayDeath: 0
+  delayDeath: 4
   detatchPopUps: 1
   reatatchPopUps: 1
   debuffList: []
