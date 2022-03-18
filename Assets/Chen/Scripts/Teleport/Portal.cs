@@ -171,7 +171,7 @@ public class Portal : InteractableScript
         if (nextRoomEnemySystem != null)
         {
 
-            nextRoomEnemySystem.StartRoomSpawners();
+             nextRoomEnemySystem.StartRoomSpawners(0);
         }
         else
         {

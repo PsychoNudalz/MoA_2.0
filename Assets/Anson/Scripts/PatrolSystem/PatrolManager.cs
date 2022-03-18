@@ -26,7 +26,9 @@ public class PatrolManager : MonoBehaviour
         
     }
 
-[ContextMenu("Initialise All")]
+    public PatrolZone[] PatrolZones => patrolZones;
+
+    [ContextMenu("Initialise All")]
     public void InitialiseAllZones()
     {
         if (patrolZones.Length == 0)

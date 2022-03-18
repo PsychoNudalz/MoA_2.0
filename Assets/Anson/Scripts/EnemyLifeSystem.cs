@@ -13,6 +13,9 @@ public class EnemyLifeSystem : LifeSystemScript
     [Header("Collider")]
     [SerializeField] Collider[] mainColliders;
 
+    private bool displayDecremented = false;
+    private RoomEnemySystem spawner;
+
     public TargetEffectController TargetMaterialHandler { get => targetEffectController; }
 
     public TargetEffectController TargetEffectController
@@ -25,6 +28,13 @@ public class EnemyLifeSystem : LifeSystemScript
     {
         get => targetSoundScript;
         set => targetSoundScript = value;
+    }
+
+
+    public RoomEnemySystem Spawner
+    {
+        get => spawner;
+        set => spawner = value;
     }
 
     private void Awake()
@@ -113,6 +123,11 @@ public class EnemyLifeSystem : LifeSystemScript
     public override void DeathBehaviour()
     {
         targetSoundScript.Play_Death();
+        if (!displayDecremented)
+        {
+            spawner.DecrementEnemies();
+            displayDecremented = true;
+        }
         base.DeathBehaviour();
     }
 

@@ -29,6 +29,8 @@ public class EnemyHandler : MonoBehaviour
     public TargetSoundScript SoundScript => soundScript;
 
     public Animator Animator => animator;
+    
+
     void Awake()
     {
         if (!enemyAI)
@@ -66,5 +68,20 @@ public class EnemyHandler : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public virtual void SetPatrolZone(PatrolZone patrolZone)
+    {
+        enemyAI.SetPatrolZone(patrolZone);
+    }
+
+    public void SetSpawner(RoomEnemySystem roomEnemySystem)
+    {
+        enemyLifeSystem.Spawner = roomEnemySystem;
+    }
+
+    public virtual void SpawnEnemy()
+    {
+        Debug.Log($"Spawn: {name} ");
     }
 }

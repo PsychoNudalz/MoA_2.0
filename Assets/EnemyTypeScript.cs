@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyTypeScript : MonoBehaviour
 {
-    [SerializeField] EnemyType enemyType;
+    [SerializeField] EnemyTypeOld enemyTypeOld;
 
-    internal EnemyType EnemyType { get => enemyType;}
+    internal EnemyTypeOld EnemyTypeOld { get => enemyTypeOld;}
 }

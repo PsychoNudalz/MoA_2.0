@@ -31,7 +31,7 @@ public class Room : MonoBehaviour
                 }
                 door.gameObject.SetActive(true);
             }
-            roomEnemySystem.StartRoomSpawners();
+            roomEnemySystem.StartRoomSpawners(0);
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
     }

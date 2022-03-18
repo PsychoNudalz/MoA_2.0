@@ -231,6 +231,13 @@ public abstract class AILogic : MonoBehaviour
         }
     }
 
+    public void SetPatrolZone(PatrolZone patrolZone)
+    {
+        
+        currentPatrolZone = patrolZone;
+        
+    }
+
 
     public virtual void ChangeState(AIState newState, AttackSet attackSet = null)
     {

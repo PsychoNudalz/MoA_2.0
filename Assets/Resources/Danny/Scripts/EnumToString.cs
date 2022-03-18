@@ -8,13 +8,13 @@ public static class EnumToString
     {
         switch (enumForString)
         {
-            case EnemyType.StoneEnemy:
+            case EnemyTypeOld.StoneEnemy:
                 return "Melee Enemy";
-            case EnemyType.ShootingEnemy:
+            case EnemyTypeOld.ShootingEnemy:
                 return "Ranged Enemy";
-            case EnemyType.TankEnemy:
+            case EnemyTypeOld.TankEnemy:
                 return "Tank Enemy";
-            case EnemyType.BossEnemy:
+            case EnemyTypeOld.BossEnemy:
                 return "Boss Enemy";
             default:
                 throw new System.Exception("Enemy type not found");

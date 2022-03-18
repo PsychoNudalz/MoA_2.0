@@ -7,10 +7,30 @@ using UnityEngine.UI;
 
 public class RoomEnemySystem : MonoBehaviour
 {
-    
     EnemySpawner[] roomSpawners;
-    private int enemyCount = 0;
+    private int enemyCountTotal = 0;
     PlayerUIScript UIScript;
+
+    [SerializeField]
+    private PatrolManager patrolManager;
+
+    [Header("Enemy Waves")]
+    [SerializeField]
+    private LevelSet[] levelSets;
+
+    [Space(5f)]
+    [SerializeField]
+    private int difficulty = 0;
+
+
+    [Space(10f)]
+    [SerializeField]
+    private int waveIndex = 0;
+
+    [SerializeField]
+    private int enemyCountCurrent;
+
+    public PatrolManager PatrolManager => patrolManager;
 
     private void Awake()
     {
@@ -20,29 +40,31 @@ public class RoomEnemySystem : MonoBehaviour
 
     private void UpdateEnemyNumberDisplay(bool start = false)
     {
-        
         if (start)
         {
-            UIScript.SetEnemiesRemainingText(enemyCount,false);
+            UIScript.SetEnemiesRemainingText(enemyCountTotal, false);
             UIScript.SetPortalIconActive(false);
         }
-        else if(enemyCount == 0)
+        else if (enemyCountTotal == 0)
         {
-            UIScript.SetEnemiesRemainingText(enemyCount, true);
+            UIScript.SetEnemiesRemainingText(enemyCountTotal, true);
         }
         else
         {
-            UIScript.SetEnemiesRemainingText(enemyCount, false);
+            UIScript.SetEnemiesRemainingText(enemyCountTotal, false);
         }
-        
-
     }
 
-    public void StartRoomSpawners()
+    /// <summary>
+    /// Start the Room Spawning
+    /// </summary>
+    /// <param name="difficulty"></param>
+    public void StartRoomSpawners(int difficulty)
     {
-        if(roomSpawners.Length > 0)
+        //OLD SYSTEM//
+        if (roomSpawners.Length > 0)
         {
-            foreach(EnemySpawner spawner in roomSpawners)
+            foreach (EnemySpawner spawner in roomSpawners)
             {
                 spawner.StartSpawning();
                 UpdateEnemyNumberDisplay(true);
@@ -51,6 +73,50 @@ public class RoomEnemySystem : MonoBehaviour
         else
         {
             Debug.LogWarning("No spawners found");
+        }
+
+        //NEW SYSTEM//
+    }
+
+    [ContextMenu("Initialise Spawn")]
+    public void InitialiseSpawns()
+    {
+        try
+        {
+            if (patrolManager.PatrolZones==null||patrolManager.PatrolZones.Length==0 || patrolManager.PatrolZones[0].PointPositions.Count == 0)
+            {
+                patrolManager.InitialiseAllZones();
+            }
+        }
+        catch (NullReferenceException e)
+        {
+            patrolManager.InitialiseAllZones();
+
+        }
+        
+
+        RemoveChildren();
+        int i = 1;
+        GameObject tempParent;
+        foreach (SpawnWave spawnWave in levelSets[difficulty].spawnWaves)
+        {
+            tempParent = Instantiate(new GameObject(), transform);
+            tempParent.name = $"----WAVE {i}----";
+            spawnWave.InitialiseSpawn(tempParent.transform, this);
+            i++;
+        }
+    }
+
+
+    [ContextMenu("Remove All Children")]
+    public void RemoveChildren()
+    {
+        foreach (Transform children in transform.GetComponentsInChildren<Transform>())
+        {
+            if (children && !children.transform.Equals(transform))
+            {
+                DestroyImmediate(children.gameObject);
+            }
         }
     }
 
@@ -62,12 +128,19 @@ public class RoomEnemySystem : MonoBehaviour
 
     internal void IncrementEnemies()
     {
-        enemyCount++;
+        IncrementEnemies(1);
+    }
+
+    internal void IncrementEnemies(int i)
+    {
+        enemyCountTotal += i;
+        enemyCountCurrent += i;
     }
 
     internal void DecrementEnemies()
     {
-            enemyCount--;
-            UpdateEnemyNumberDisplay();
+        enemyCountTotal--;
+        enemyCountCurrent--;
+        UpdateEnemyNumberDisplay();
     }
 }
