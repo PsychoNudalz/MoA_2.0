@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RangeEnemyAttacks : EnemyAttacks
 {
+
+    
     [Header("Light Attack")]
     [SerializeField]
     private string lightAttackAnimatorTrigger = "LightAttack";
@@ -15,11 +17,13 @@ public class RangeEnemyAttacks : EnemyAttacks
 
     public void LightAttack()
     {
+        soundScript.Play_Attack();
         animator.SetTrigger(lightAttackAnimatorTrigger);
     }
 
     public void HeavyAttack()
     {
+        soundScript.Play_Attack();
         animator.SetTrigger(heavyAttackAnimatorTrigger);
     }
 }

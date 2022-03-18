@@ -6,6 +6,13 @@ public class EnemyAttacks : MonoBehaviour
 {
     [SerializeField]
     protected Animator animator;
+    [SerializeField]
+    protected TargetSoundScript soundScript;
+    public TargetSoundScript SoundScript
+    {
+        get => soundScript;
+        set => soundScript = value;
+    }
 
     public Animator Animator
     {

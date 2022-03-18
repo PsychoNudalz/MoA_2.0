@@ -51,10 +51,6 @@ public class EnemyHandler : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         }
 
-        if (!enemyAttacks.Animator)
-        {
-            enemyAttacks.Animator = animator;
-        }
 
         if (!enemyLifeSystem)
         {
@@ -64,6 +60,17 @@ public class EnemyHandler : MonoBehaviour
         if (!enemyLifeSystem.TargetSoundScript)
         {
             enemyLifeSystem.TargetSoundScript = GetComponentInChildren<TargetSoundScript>();
+        }
+        
+        
+        if (!enemyAttacks.Animator)
+        {
+            enemyAttacks.Animator = animator;
+        }
+
+        if (!enemyAttacks.SoundScript)
+        {
+            enemyAttacks.SoundScript = soundScript;
         }
 
         if (!enemyEffectController)
