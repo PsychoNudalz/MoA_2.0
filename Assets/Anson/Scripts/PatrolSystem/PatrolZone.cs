@@ -150,6 +150,11 @@ public class PatrolZone : MonoBehaviour
     public List<PatrolPoint> PointPositionsOpen => pointPositions_Open;
 
     [Space(10f)]
+    [Header("Connected Zone")]
+    [SerializeField]
+    private List<PatrolZone> ConnectedZones;
+
+    [Space(10f)]
     [Header("Debug")]
     [SerializeField]
     private bool showDebug;
@@ -278,6 +283,12 @@ public class PatrolZone : MonoBehaviour
                         Gizmos.DrawSphere(pointPosition.Position, pointSpacing);
                     }
                 }
+            }
+
+            foreach (PatrolZone connectedZone in ConnectedZones)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(transform.position,connectedZone.transform.position);
             }
 
 

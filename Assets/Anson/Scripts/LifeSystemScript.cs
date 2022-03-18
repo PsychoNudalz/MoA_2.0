@@ -340,7 +340,7 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual IEnumerator reattach()
     {
-
+ 
         yield return new WaitForSeconds(3f);
         damagePopUpScript.transform.SetParent(transform);
         damagePopUpScript.transform.position = transform.position + popUpLocation;
