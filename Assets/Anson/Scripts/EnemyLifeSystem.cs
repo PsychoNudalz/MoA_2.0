@@ -68,7 +68,6 @@ public class EnemyLifeSystem : LifeSystemScript
     public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
     {
         targetEffectController.StartDecay();
-        targetSoundScript?.Play_Stagger();
         enemyHandler.EnemyAI.AddStagger(dmg*multiplier);
         return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }

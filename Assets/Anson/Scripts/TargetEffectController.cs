@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -28,12 +29,21 @@ public class TargetEffectController : MonoBehaviour
 
     [Header("Spawn Effect")]
     [SerializeField] VisualEffect spawnEffect;
+
+    [Header("Stagger Effect")]
+    [SerializeField]
+    private VisualEffect staggerEffect;
     // Start is called before the first frame update
     void Awake()
     {
         try
         {
-            material = render.materials[0];
+            if (!material)
+            {
+                material = render.materials[0];
+            }
+
+
             decayTime = material.GetFloat("_DecayTime");
             takeDamageEffect.SetVector4("Colour1", material.GetColor("_ShineColour1"));
             takeDamageEffect.SetVector4("Colour2", material.GetColor("_ShineColour2"));
@@ -46,6 +56,11 @@ public class TargetEffectController : MonoBehaviour
             Debug.LogWarning(this + " failed to initialise target material");
         }
         ExpandAllShock();
+    }
+
+    private void Start()
+    {
+        SetStagger(false);
     }
 
     // Update is called once per frame
@@ -297,5 +312,17 @@ public class TargetEffectController : MonoBehaviour
         yield return new WaitForSeconds(i);
         spawnEffect.SendEvent("OnSpawn_End");
 
+    }
+
+    public void SetStagger(bool b)
+    {
+        if (b)
+        {
+            staggerEffect.Play();
+        }
+        else
+        {
+            staggerEffect.Stop();
+        }
     }
 }

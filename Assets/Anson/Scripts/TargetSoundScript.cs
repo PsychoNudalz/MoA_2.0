@@ -29,13 +29,22 @@ public class TargetSoundScript : MonoBehaviour
         takeDamageSound.PlayF();
     }
 
-    public void Play_Stagger()
+    public void Play_Stagger(bool b = true)
     {
         if (!staggerSound)
         {
             return;
         }
-        staggerSound.PlayF();
+
+        if (b)
+        {
+            staggerSound.PlayF();
+        }
+
+        else
+        {
+            staggerSound.Stop();
+        }
     }
 
     public void Play_Death()

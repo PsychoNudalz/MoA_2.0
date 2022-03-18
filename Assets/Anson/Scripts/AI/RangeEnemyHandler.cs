@@ -14,23 +14,5 @@ public class RangeEnemyHandler : EnemyHandler
         
     }
 
-    public void Stagger(bool b = true)
-    {
-        if (b)
-        {
-            animator.SetTrigger("StaggerTrigger");
-            animator.SetBool("Stagger",true);
-        }
-        else
-        {
-            animator.SetBool("Stagger",false);
 
-        }
-    }
-
-    public void Death()
-    {
-        enemyAI.ChangeState(AIState.Dead);
-        animator.SetTrigger("Dead");
-    }
 }

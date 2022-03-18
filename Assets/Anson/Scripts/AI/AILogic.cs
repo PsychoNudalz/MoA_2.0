@@ -244,7 +244,7 @@ public abstract class AILogic : MonoBehaviour
         previousState = currentState;
         currentState = newState;
 
-        Debug.Log($"AI: {name}: Change State: {previousState} --> {currentState}");
+        // Debug.Log($"AI: {name}: Change State: {previousState} --> {currentState}");
         switch (previousState)
         {
             case AIState.Idle:
@@ -470,8 +470,11 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void SetNavAgent(Vector3 position)
     {
-        navMeshAgent.SetDestination(position);
-        movePos = navMeshAgent.destination;
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.SetDestination(position);
+            movePos = navMeshAgent.destination;
+        }
     }
 
 
@@ -591,7 +594,7 @@ public abstract class AILogic : MonoBehaviour
                         startingSide = Random.Range(-1, 2);
                     }
 
-                    Debug.Log(startingSide);
+                    // Debug.Log(startingSide);
                     while (attackTarget && returnList.Count == 0 && Mathf.Abs(i) <= 360)
                     {
                         Vector3 direction = -GetDirectionToTarget().normalized;
@@ -657,12 +660,15 @@ public abstract class AILogic : MonoBehaviour
     {
         endStaggerEvent.Invoke();
         staggerValue = 0f;
+        navMeshAgent.enabled = true;
     }
 
     protected virtual void ChangeState_Stagger()
     {
         onStaggerEvent.Invoke();
         staggerTimeNow = staggerTime;
+        SetNavAgent(transform.position);
+        navMeshAgent.enabled = false;
     }
 
     protected virtual void AIThink_Stagger()
@@ -696,7 +702,8 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void ChangeState_Dead()
     {
-        
+        SetNavAgent(transform.position);
+        navMeshAgent.enabled = false;
     }
 
     protected virtual void AIThink_Dead()

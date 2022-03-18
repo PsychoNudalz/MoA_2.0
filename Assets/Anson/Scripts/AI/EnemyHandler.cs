@@ -14,6 +14,9 @@ public class EnemyHandler : MonoBehaviour
     protected EnemyLifeSystem enemyLifeSystem;
 
     [SerializeField]
+    private TargetEffectController enemyEffectController;
+
+    [SerializeField]
     protected TargetSoundScript soundScript;
 
     [SerializeField]
@@ -62,6 +65,11 @@ public class EnemyHandler : MonoBehaviour
         {
             enemyLifeSystem.TargetSoundScript = GetComponentInChildren<TargetSoundScript>();
         }
+
+        if (!enemyEffectController)
+        {
+            enemyEffectController = GetComponentInChildren<TargetEffectController>();
+        }
         
     }
     // Update is called once per frame
@@ -83,5 +91,39 @@ public class EnemyHandler : MonoBehaviour
     public virtual void SpawnEnemy()
     {
         Debug.Log($"Spawn: {name} ");
+        enemyEffectController.SpawnEffect();
+        soundScript.Play_Spawn();
+    }
+    
+    public virtual void Stagger(bool b = true)
+    {
+        if (b)
+        {
+            animator.SetTrigger("StaggerTrigger");
+            animator.SetBool("Stagger",true);
+            enemyEffectController.SetStagger(true);
+            soundScript.Play_Stagger();
+
+        }
+        else
+        {
+            animator.SetBool("Stagger",false);
+            enemyEffectController.SetStagger(false);
+            soundScript.Play_Stagger(false);
+
+
+        }
+    }
+
+    public virtual void Death()
+    {
+        foreach (Collider collider in GetComponentsInChildren<Collider>())
+        {
+            collider.gameObject.SetActive(false);
+        }
+        enemyAI.ChangeState(AIState.Dead);
+        animator.SetTrigger("Dead");
+        soundScript.Play_Death();
+
     }
 }
