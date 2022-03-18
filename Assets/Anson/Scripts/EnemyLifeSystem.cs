@@ -125,6 +125,10 @@ public class EnemyLifeSystem : LifeSystemScript
         targetSoundScript.Play_Death();
         if (!displayDecremented)
         {
+            if (!spawner)
+            {
+                spawner = GetComponentInParent<RoomEnemySystem>();
+            }
             spawner.DecrementEnemies();
             displayDecremented = true;
         }

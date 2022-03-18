@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9014dd3d6c323364aacd7cf192c12139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolManager: {fileID: 0}
+  checkWaveTime: 2
   levelSets:
   - spawnWaves:
     - condition: 0
@@ -61,5 +63,6 @@ MonoBehaviour:
         patrolZone: {fileID: 0}
       spawnedEnemies: []
   difficulty: 0
-  waveIndex: 0
+  waveIndex: -1
   enemyCountCurrent: 0
+  enemyCountTotal: 0

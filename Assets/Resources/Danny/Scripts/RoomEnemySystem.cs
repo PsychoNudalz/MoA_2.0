@@ -7,12 +7,21 @@ using UnityEngine.UI;
 
 public class RoomEnemySystem : MonoBehaviour
 {
+    [SerializeField]
+    private bool isActivated = false;
+    
     EnemySpawner[] roomSpawners;
-    private int enemyCountTotal = 0;
+
     PlayerUIScript UIScript;
 
     [SerializeField]
     private PatrolManager patrolManager;
+
+    private float lastCheckTimeNow = 0f;
+
+    [SerializeField]
+    private float checkWaveTime = 2f;
+
 
     [Header("Enemy Waves")]
     [SerializeField]
@@ -25,10 +34,13 @@ public class RoomEnemySystem : MonoBehaviour
 
     [Space(10f)]
     [SerializeField]
-    private int waveIndex = 0;
+    private int waveIndex = -1;
 
     [SerializeField]
     private int enemyCountCurrent;
+
+    [SerializeField]
+    private int enemyCountTotal = 0;
 
     public PatrolManager PatrolManager => patrolManager;
 
@@ -36,6 +48,18 @@ public class RoomEnemySystem : MonoBehaviour
     {
         roomSpawners = GetComponentsInChildren<EnemySpawner>();
         UIScript = FindObjectOfType<PlayerUIScript>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (isActivated)
+        {
+            if (Time.time - lastCheckTimeNow > checkWaveTime)
+            {
+                lastCheckTimeNow = Time.time;
+                StartNextWave();
+            }
+        }
     }
 
     private void UpdateEnemyNumberDisplay(bool start = false)
@@ -76,6 +100,23 @@ public class RoomEnemySystem : MonoBehaviour
         }
 
         //NEW SYSTEM//
+        isActivated = true;
+    }
+    
+    
+
+    public void StartNextWave()
+    {
+        Debug.Log($"Spawning Wave: {waveIndex}");
+        if (waveIndex+1 < levelSets[difficulty].spawnWaves.Length)
+        {
+            SpawnWave nextWave = levelSets[difficulty].spawnWaves[waveIndex+1];
+            if (nextWave.ConditionMet(enemyCountCurrent))
+            {
+                IncrementEnemies(nextWave.StartWave());
+                waveIndex++;
+            }
+        }
     }
 
     [ContextMenu("Initialise Spawn")]
@@ -83,7 +124,8 @@ public class RoomEnemySystem : MonoBehaviour
     {
         try
         {
-            if (patrolManager.PatrolZones==null||patrolManager.PatrolZones.Length==0 || patrolManager.PatrolZones[0].PointPositions.Count == 0)
+            if (patrolManager.PatrolZones == null || patrolManager.PatrolZones.Length == 0 ||
+                patrolManager.PatrolZones[0].PointPositions.Count == 0)
             {
                 patrolManager.InitialiseAllZones();
             }
@@ -91,18 +133,20 @@ public class RoomEnemySystem : MonoBehaviour
         catch (NullReferenceException e)
         {
             patrolManager.InitialiseAllZones();
-
         }
-        
+
 
         RemoveChildren();
         int i = 1;
         GameObject tempParent;
+        enemyCountTotal = 0;
+
         foreach (SpawnWave spawnWave in levelSets[difficulty].spawnWaves)
         {
             tempParent = Instantiate(new GameObject(), transform);
             tempParent.name = $"----WAVE {i}----";
-            spawnWave.InitialiseSpawn(tempParent.transform, this);
+            enemyCountTotal
+                += spawnWave.InitialiseSpawn(tempParent.transform, this);
             i++;
         }
     }
@@ -123,7 +167,8 @@ public class RoomEnemySystem : MonoBehaviour
     public bool IsRoomClear()
     {
         int spawnersLeft = GetComponentsInChildren<EnemySpawner>().Length;
-        return spawnersLeft == 0;
+        bool temp = spawnersLeft == 0 && enemyCountTotal == 0;
+        return temp;
     }
 
     internal void IncrementEnemies()
@@ -133,7 +178,6 @@ public class RoomEnemySystem : MonoBehaviour
 
     internal void IncrementEnemies(int i)
     {
-        enemyCountTotal += i;
         enemyCountCurrent += i;
     }
 

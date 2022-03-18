@@ -41,10 +41,12 @@ public class SpawnWave
     [SerializeField]
     List<EnemyHandler> spawnedEnemies;
 
-    public void InitialiseSpawn(Transform parent, RoomEnemySystem roomEnemySystem)
+    public int InitialiseSpawn(Transform parent, RoomEnemySystem roomEnemySystem)
     {
         EnemyHandler enemyHandlerTemp;
         spawnedEnemies = new List<EnemyHandler>();
+        int totalEnemy = 0;
+
         for (int i = 0; i < spawnSets.Length; i++)
         {
             SpawnSet spawnSet = spawnSets[i];
@@ -63,21 +65,26 @@ public class SpawnWave
                 enemyHandlerTemp.SetPatrolZone(spawnSet.patrolZone);
                 enemyHandlerTemp.gameObject.SetActive(false);
                 enemyHandlerTemp.SetSpawner(roomEnemySystem);
+                totalEnemy++;
             }
         }
+
+        return totalEnemy;
+    }
+
+    public bool ConditionMet(int remainingEnemies)
+    {
+        return remainingEnemies <= condition;
     }
 
     public int StartWave()
     {
         int totalEnemy = 0;
-        foreach (SpawnSet spawnSet in spawnSets)
+        foreach (EnemyHandler spawnedEnemy in spawnedEnemies)
         {
-            foreach (EnemyHandler spawnedEnemy in spawnedEnemies)
-            {
-                spawnedEnemy.gameObject.SetActive(true);
-                spawnedEnemy.SpawnEnemy();
-                totalEnemy++;
-            }
+            spawnedEnemy.gameObject.SetActive(true);
+            spawnedEnemy.SpawnEnemy();
+            totalEnemy++;
         }
 
         return totalEnemy;
