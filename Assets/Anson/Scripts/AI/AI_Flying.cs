@@ -2,18 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(NavMeshAgent))]
-public class AI_Grounded : AILogic
+public class AI_Flying : AILogic
 {
 
+    [Header("AI Flying")]
+    [SerializeField]
+    private float moveSpeed = 5f;
 
     public override void ChangeState(AIState newState, AttackSet attackSet = null)
     {
         base.ChangeState(newState, attackSet);
     }
+
+ 
 
     protected override void AIThink()
     {
@@ -39,6 +42,8 @@ public class AI_Grounded : AILogic
 
     protected override void AIBehaviour()
     {
+        
+        FlyMove();
         switch (currentState)
         {
             case AIState.Idle:
@@ -118,10 +123,10 @@ public class AI_Grounded : AILogic
             
             if (attackTarget)
             {
-                AttackSet temp = PickAttack();
-                if (temp != null)
+                AttackSet pickedAttack = PickAttack();
+                if (pickedAttack != null)
                 {
-                    ChangeState(AIState.Attack, temp);
+                    ChangeState(AIState.Attack, pickedAttack);
 
                 }
             }
@@ -217,5 +222,39 @@ public class AI_Grounded : AILogic
     protected override Vector3 SetMovePointByAttribute()
     {
         return base.SetMovePointByAttribute();
+    }
+
+    protected override void SetNavAgent(Vector3 position)
+    {
+        movePos = position;
+    }
+
+    protected virtual void FlyMove()
+    {
+        Vector3 targetDir = (movePos -transform.position);
+        transform.position += targetDir.normalized * Mathf.Min(moveSpeed, targetDir.magnitude) * Time.deltaTime;
+    }
+
+    protected override void EndState_Stagger()
+    {
+        endStaggerEvent.Invoke();
+        staggerValue = 0f;
+    }
+
+    protected override void ChangeState_Stagger()
+    {
+        onStaggerEvent.Invoke();
+        staggerTimeNow = staggerTime;
+        SetNavAgent(transform.position);
+    }
+
+    protected override void AIThink_Stagger()
+    {
+        base.AIThink_Stagger();
+    }
+
+    protected override void AIBehaviour_Stagger()
+    {
+        base.AIBehaviour_Stagger();
     }
 }

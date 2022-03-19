@@ -10,7 +10,10 @@ public enum EnemyType
     Ground_Range_Mobile_T_IN,
     Ground_Floor_Mobile_T_IN,
     Ground_Range_Mobile_T_IH,
-    Ground_Floor_Mobile_T_IH
+    Ground_Floor_Mobile_T_IH,
+    Flying_Range_Mobile_T_IE,
+    Flying_Range_Mobile_T_IN,
+    Flying_Range_Mobile_T_IH
 }
 
 public class EnemyManager : MonoBehaviour
@@ -33,6 +36,15 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     EnemyHandler Ground_Floor_Mobile_T_IH;
 
+    [SerializeField]
+    EnemyHandler Flying_Range_Mobile_T_IE;
+
+    [SerializeField]
+    EnemyHandler Flying_Range_Mobile_T_IN;
+
+    [SerializeField]
+    EnemyHandler Flying_Range_Mobile_T_IH;
+
     public static EnemyManager current;
 
     public EnemyHandler GetEnemy(EnemyType enemyType)
@@ -51,14 +63,24 @@ public class EnemyManager : MonoBehaviour
             case EnemyType.Ground_Floor_Mobile_T_IN:
                 return Ground_Floor_Mobile_T_IN;
                 break;
-            
+
             case EnemyType.Ground_Range_Mobile_T_IH:
                 return Ground_Range_Mobile_T_IH;
                 break;
             case EnemyType.Ground_Floor_Mobile_T_IH:
                 return Ground_Floor_Mobile_T_IH;
                 break;
-            
+
+            case EnemyType.Flying_Range_Mobile_T_IE:
+                return Flying_Range_Mobile_T_IE;
+                
+                break;
+            case EnemyType.Flying_Range_Mobile_T_IN:
+                return Flying_Range_Mobile_T_IN;
+                break;
+            case EnemyType.Flying_Range_Mobile_T_IH:
+                return Flying_Range_Mobile_T_IH;
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null);
         }
@@ -78,6 +100,7 @@ public class EnemyManager : MonoBehaviour
         {
             current = FindObjectOfType<EnemyManager>();
         }
+
         return current.GetEnemy(enemyType);
     }
 }

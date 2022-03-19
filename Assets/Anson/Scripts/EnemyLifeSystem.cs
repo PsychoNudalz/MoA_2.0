@@ -128,7 +128,7 @@ public class EnemyLifeSystem : LifeSystemScript
             {
                 spawner = GetComponentInParent<RoomEnemySystem>();
             }
-            spawner.DecrementEnemies();
+            spawner?.DecrementEnemies();
             displayDecremented = true;
         }
         base.DeathBehaviour();

@@ -52,6 +52,10 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     protected List<AIAttribute> attributesStack;
 
+    [Header("Orientate To Target")]
+    [SerializeField]
+    private bool freezeY = true;
+    
     [Header("Defensive")]
     [SerializeField]
     protected float defensive_Distance = 5f;
@@ -147,22 +151,22 @@ public abstract class AILogic : MonoBehaviour
     [Header("AI Stagger")]
     [SerializeField]
     [Range(0f, 1f)]
-    private float staggerValue = 0f;
+    protected float staggerValue = 0f;
 
     [SerializeField]
     private float staggerDamageMultiplier = 0.002f;
 
     [SerializeField]
-    private float staggerTime;
+    protected float staggerTime;
 
     [SerializeField]
-    private float staggerTimeNow;
+    protected float staggerTimeNow;
 
     [SerializeField]
-    private UnityEvent onStaggerEvent;
+    protected UnityEvent onStaggerEvent;
 
     [SerializeField]
-    private UnityEvent endStaggerEvent;
+    protected UnityEvent endStaggerEvent;
 
     [Header("AI Death")]
     [SerializeField]
@@ -395,10 +399,19 @@ public abstract class AILogic : MonoBehaviour
         if (attackTarget)
         {
             Vector3 temp = Quaternion.LookRotation(GetDirectionToTarget()).eulerAngles;
+            if (freezeY)
+            {
+                temp.x = bodyModel.transform.eulerAngles.x;
+                temp.z = bodyModel.transform.eulerAngles.z;
+                bodyModel.transform.eulerAngles = temp;
+            }
+            else
+            {
+                temp.z = bodyModel.transform.eulerAngles.z;
 
-            temp.x = bodyModel.transform.eulerAngles.x;
-            temp.z = bodyModel.transform.eulerAngles.z;
-            bodyModel.transform.eulerAngles = temp;
+                bodyModel.transform.eulerAngles = temp;
+
+            }
         }
     }
 
