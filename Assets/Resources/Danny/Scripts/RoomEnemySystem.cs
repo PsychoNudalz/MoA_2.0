@@ -83,7 +83,8 @@ public class RoomEnemySystem : MonoBehaviour
     /// Start the Room Spawning
     /// </summary>
     /// <param name="difficulty"></param>
-    public void StartRoomSpawners(int difficulty)
+    [ContextMenu("Start Room Spawners")]
+    public void StartRoomSpawners(int difficulty = 0)
     {
         //OLD SYSTEM//
         if (roomSpawners.Length > 0)

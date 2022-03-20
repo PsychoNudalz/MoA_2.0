@@ -104,9 +104,6 @@ public abstract class AILogic : MonoBehaviour
     protected float detectionRange = 15f;
 
     [SerializeField]
-    protected Vector3 playerPos;
-
-    [SerializeField]
     protected LayerMask LOSLayer;
 
     [Header("AI Move")]
@@ -138,15 +135,7 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     [Range(0f, 90f)]
     private float visionConeDegree = 45f;
-
-    [SerializeField]
-    protected float attackRange = 5f;
-
-    [SerializeField]
-    float attackDuration = 1;
-
-    [SerializeField]
-    float attackCooldown = 2;
+    
 
     [Header("AI Stagger")]
     [SerializeField]
@@ -177,8 +166,7 @@ public abstract class AILogic : MonoBehaviour
     private bool DrawDebug;
 
     [Header("Other Components")]
-    [SerializeField]
-    GameObject playerGO;
+
 
     [SerializeField]
     private Transform bodyModel;
@@ -208,7 +196,6 @@ public abstract class AILogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerGO = GameObject.FindGameObjectWithTag("Player");
         navMeshAgent = GetComponent<NavMeshAgent>();
         SetNewPatrolPoint();
     }
@@ -522,11 +509,19 @@ public abstract class AILogic : MonoBehaviour
             return false;
         }
 
-        if (Physics.Raycast(head.position, playerGO.transform.position - head.position,
+        Vector3 target =attackTarget.transform.position+ new Vector3(0, .5f, 0);
+        if (attackTarget.tag.Equals("Player"))
+        {
+            target = PlayerMasterScript.current.GetCentreOfMass().position;
+        }
+
+        Vector3 dir = target - head.position;
+
+        if (Physics.Raycast(head.position,  dir.normalized,
             out RaycastHit hit, detectionRange, LOSLayer))
         {
             // print($"Enemy raycast hit something {hit.collider.name}");
-            if (hit.collider.CompareTag("Player"))
+            if (hostileTags.Contains(hit.collider.tag))
             {
                 if (PlayerMasterScript.INVISABLE)
                 {
@@ -537,6 +532,15 @@ public abstract class AILogic : MonoBehaviour
                     return true;
                 }
             }
+
+            if (DrawDebug)
+            {
+                Debug.DrawLine(head.position,head.position+dir,Color.green,thinkRate);
+            }
+        }
+        if (DrawDebug)
+        {
+            Debug.DrawLine(head.position,head.position+dir,Color.red,thinkRate);
         }
 
         return false;
@@ -545,9 +549,18 @@ public abstract class AILogic : MonoBehaviour
     protected virtual bool IsInCone()
     {
         // print($"{Vector3.Dot(head.forward, (playerGO.transform.position + head.position - playerOffset).normalized)}, {Math.Cos(visionConeDegree)}");
-        if (Vector3.Dot(head.forward,
-                (playerGO.transform.position + PlayerMasterScript.current.GetCentreOfMass().position - head.position)
-                .normalized) >
+        Vector3 target =attackTarget.transform.position+ new Vector3(0, .5f, 0);
+
+        
+        if (attackTarget.tag.Equals("Player"))
+        {
+            target = PlayerMasterScript.current.GetCentreOfMass().position;
+        }
+
+        float dotValue = Vector3.Dot(head.forward,
+                             (target - head.position)
+                             .normalized) ;
+        if (dotValue>
             Mathf.Abs(Mathf.Cos(visionConeDegree)))
         {
             return true;
