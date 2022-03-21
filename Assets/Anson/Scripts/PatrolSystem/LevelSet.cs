@@ -32,14 +32,24 @@ public struct SpawnSet
 [Serializable]
 public class SpawnWave
 {
+    
     [SerializeField]
     int condition;
 
+    [Space(15f)]
+    [SerializeField]
+    private int totalEnemyCount = 0;
     [SerializeField]
     SpawnSet[] spawnSets;
 
     [SerializeField]
     List<EnemyHandler> spawnedEnemies;
+
+    public int TotalEnemyCount
+    {
+        get => totalEnemyCount;
+        set => totalEnemyCount = value;
+    }
 
     public int InitialiseSpawn(Transform parent, RoomEnemySystem roomEnemySystem)
     {
@@ -88,5 +98,43 @@ public class SpawnWave
         }
 
         return totalEnemy;
+    }
+
+    public int GetEnemyCount()
+    {
+        int i = 0;
+        foreach (SpawnSet spawnSet in spawnSets)
+        {
+            i += spawnSet.number;
+        }
+
+        return i;
+    }
+
+    
+    public void AutoSetPatrolZone(PatrolManager patrolManager,bool toAll = false)
+    {
+        for (var i = 0; i < spawnSets.Length; i++)
+        {
+            SpawnSet spawnSet = spawnSets[i];
+            if (toAll || spawnSet.patrolZone == null)
+            {
+                spawnSet.patrolZone = patrolManager.GetZone(spawnSet.patrolIndex);
+            }
+
+            spawnSets[i] = spawnSet;
+        }
+    }public void AutoSetPatrolZoneIndex(PatrolManager patrolManager,bool toAll = false)
+    {
+        for (var i = 0; i < spawnSets.Length; i++)
+        {
+            SpawnSet spawnSet = spawnSets[i];
+            if (spawnSet.patrolZone != null&&(toAll || spawnSet.patrolIndex<0))
+            {
+                spawnSet.patrolIndex = patrolManager.GetZoneIndex(spawnSet.patrolZone);
+            }
+            spawnSets[i] = spawnSet;
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 
 public class PatrolManager : MonoBehaviour
@@ -40,5 +41,30 @@ public class PatrolManager : MonoBehaviour
         {
             patrolZone.GenerateAll();
         }
+    }
+
+    public PatrolZone GetZone(int i)
+    {
+        int temp = i;
+        i = Mathf.Min(Mathf.Max(0, i), patrolZones.Length-1);
+        if (temp != i)
+        {
+            Debug.LogWarning($"Patrol Manager Requested {temp} out of range.  Returned {i} instead.");
+        }
+        return patrolZones[i];
+    }
+
+    public int GetZoneIndex(PatrolZone patrolZone)
+    {
+        for (var i = 0; i < patrolZones.Length; i++)
+        {
+            PatrolZone zone = patrolZones[i];
+            if (patrolZone.Equals(zone))
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

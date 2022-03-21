@@ -17,7 +17,8 @@ public enum AIAttribute
     Defensive,
     Stealthy,
     OrientateToTarget,
-    AttackBehindCover
+    AttackBehindCover,
+    RandomMovement
 }
 
 /// <summary>
@@ -77,6 +78,11 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     private float takeCover_DefenceDistanceMultiplier = .5f;
 
+    [Header("Random Movement")]
+    [SerializeField]
+    private bool overrideMovementIfOutOfRange;
+    
+    
     [Space(10f)]
     [Header("AI Decision Times")]
     [SerializeField]
@@ -645,6 +651,7 @@ public abstract class AILogic : MonoBehaviour
                     break;
                 case AIAttribute.AttackBehindCover:
                     bool foundPoint = false;
+                    //Get points near enemy
                     List<PatrolPoint> coverReturnList = currentPatrolZone.GetCover(transform.position,
                         takeCover_CoverSpace,
                         CoverType.Half, GetDirectionToTarget(), takeCover_CoverDot);
@@ -658,7 +665,7 @@ public abstract class AILogic : MonoBehaviour
                             foundPoint = true;
                         }
                     }
-
+                    //Get points near return point
                     if (!foundPoint)
                     {
                         coverReturnList = currentPatrolZone.GetCover(returnPoint, takeCover_CoverSpace, CoverType.Half,
@@ -669,6 +676,20 @@ public abstract class AILogic : MonoBehaviour
                         }
                     }
 
+                    break;
+                case AIAttribute.RandomMovement:
+                    if (overrideMovementIfOutOfRange)
+                    {
+                        if (Vector3.Distance(attackTarget.position, transform.position) > defensive_Distance)
+                        {
+                            returnPoint = currentPatrolZone.GetRandomPoint();
+                        }
+                    }
+                    else
+                    {
+                        returnPoint = currentPatrolZone.GetRandomPoint();
+
+                    }
                     break;
             }
         }

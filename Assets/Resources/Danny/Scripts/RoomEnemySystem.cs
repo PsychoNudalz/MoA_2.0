@@ -62,6 +62,17 @@ public class RoomEnemySystem : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        foreach (var levelSet in levelSets)
+        {
+            foreach (var spawnWave in levelSet.spawnWaves)
+            {
+                spawnWave.TotalEnemyCount = spawnWave.GetEnemyCount();
+            }
+        }
+    }
+
     private void UpdateEnemyNumberDisplay(bool start = false)
     {
         if (start)
@@ -123,18 +134,7 @@ public class RoomEnemySystem : MonoBehaviour
     [ContextMenu("Initialise Spawn")]
     public void InitialiseSpawns()
     {
-        try
-        {
-            if (patrolManager.PatrolZones == null || patrolManager.PatrolZones.Length == 0 ||
-                patrolManager.PatrolZones[0].PointPositions.Count == 0)
-            {
-                patrolManager.InitialiseAllZones();
-            }
-        }
-        catch (NullReferenceException e)
-        {
-            patrolManager.InitialiseAllZones();
-        }
+        InitialisePatrolManager();
 
 
         RemoveChildren();
@@ -149,6 +149,22 @@ public class RoomEnemySystem : MonoBehaviour
             enemyCountTotal
                 += spawnWave.InitialiseSpawn(tempParent.transform, this);
             i++;
+        }
+    }
+
+    private void InitialisePatrolManager()
+    {
+        try
+        {
+            if (patrolManager.PatrolZones == null || patrolManager.PatrolZones.Length == 0 ||
+                patrolManager.PatrolZones[0].PointPositions.Count == 0)
+            {
+                patrolManager.InitialiseAllZones();
+            }
+        }
+        catch (NullReferenceException e)
+        {
+            patrolManager.InitialiseAllZones();
         }
     }
 
@@ -187,5 +203,71 @@ public class RoomEnemySystem : MonoBehaviour
         enemyCountTotal--;
         enemyCountCurrent--;
         UpdateEnemyNumberDisplay();
+    }
+
+    public int GetEnemyInWave(int i, int levelSet = -1)
+    {
+        if (levelSet < 0)
+        {
+            levelSet = difficulty;
+        }
+        
+        i = Mathf.Min(Mathf.Max(0, i), levelSets[levelSet].spawnWaves.Length-1);
+
+        SpawnWave currentWave = levelSets[difficulty].spawnWaves[i];
+        
+        return currentWave.GetEnemyCount();
+    }
+    
+    
+    
+    [ContextMenu("AutoSetPatrolZone")]
+    public void AutoSetPatrolZone()
+    {
+
+        foreach (LevelSet levelSet in levelSets)
+        {
+            foreach (SpawnWave spawnWave in levelSet.spawnWaves)
+            {
+                spawnWave.AutoSetPatrolZone(patrolManager);
+            }
+        }
+    }
+    
+    [ContextMenu("AutoSetPatrolZone_FORCE")]
+    public void AutoSetPatrolZone_FORCE()
+    {
+
+        foreach (LevelSet levelSet in levelSets)
+        {
+            foreach (SpawnWave spawnWave in levelSet.spawnWaves)
+            {
+                spawnWave.AutoSetPatrolZone(patrolManager,true);
+            }
+        }
+    }[ContextMenu("AutoSetPatrolZoneIndex")]
+    public void AutoSetPatrolZoneIndex()
+    {
+
+        foreach (LevelSet levelSet in levelSets)
+        {
+            foreach (SpawnWave spawnWave in levelSet.spawnWaves)
+            {
+                spawnWave.AutoSetPatrolZoneIndex(patrolManager);
+            }
+        }
+    }
+    
+    [ContextMenu("AutoSetPatrolZoneIndex_FORCE")]
+    public void AutoSetPatrolZoneIndex_FORCE()
+    {
+
+        foreach (LevelSet levelSet in levelSets)
+        {
+            foreach (SpawnWave spawnWave in levelSet.spawnWaves)
+            {
+                spawnWave.AutoSetPatrolZoneIndex(patrolManager,true);
+            }
+        }
     }
 }
