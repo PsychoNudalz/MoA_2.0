@@ -39,6 +39,8 @@ public class AI_Grounded : AILogic
 
     protected override void AIBehaviour()
     {
+        UpdateOrientation();
+
         switch (currentState)
         {
             case AIState.Idle:
@@ -148,7 +150,7 @@ public class AI_Grounded : AILogic
     {
         if (attributesStack.Contains(AIAttribute.OrientateToTarget))
         {
-            OrientateToTarget();
+            SetOrientateToTarget();
         }
 
         if (Vector3.Distance(movePos, transform.position) < moveStopRange)
@@ -172,7 +174,7 @@ public class AI_Grounded : AILogic
         {
             if (attackSet.faceTarget)
             {
-                OrientateToTarget();
+                SetOrientateToTarget();
             }
 
             if (!attackSet.canMove)
@@ -209,7 +211,7 @@ public class AI_Grounded : AILogic
         base.AIBehaviour_Attack();
         if (lastAttack.canMove&& attributesStack.Contains(AIAttribute.OrientateToTarget))
         {
-            OrientateToTarget();
+            SetOrientateToTarget();
         }
 
     }

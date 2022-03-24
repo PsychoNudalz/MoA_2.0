@@ -42,7 +42,7 @@ public class AI_Flying : AILogic
 
     protected override void AIBehaviour()
     {
-        
+        UpdateOrientation();
         FlyMove();
         switch (currentState)
         {
@@ -153,7 +153,7 @@ public class AI_Flying : AILogic
     {
         if (attributesStack.Contains(AIAttribute.OrientateToTarget))
         {
-            OrientateToTarget();
+            SetOrientateToTarget();
         }
 
         if (Vector3.Distance(movePos, transform.position) < moveStopRange)
@@ -177,7 +177,7 @@ public class AI_Flying : AILogic
         {
             if (attackSet.faceTarget)
             {
-                OrientateToTarget();
+                SetOrientateToTarget();
             }
 
             if (!attackSet.canMove)
@@ -214,7 +214,7 @@ public class AI_Flying : AILogic
         base.AIBehaviour_Attack();
         if (lastAttack.canMove&& attributesStack.Contains(AIAttribute.OrientateToTarget))
         {
-            OrientateToTarget();
+            SetOrientateToTarget();
         }
 
     }

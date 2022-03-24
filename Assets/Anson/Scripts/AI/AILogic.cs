@@ -36,7 +36,6 @@ public enum AIState
 /// <summary>
 /// Main Enemy AI super class from pass project
 /// </summary>
-[RequireComponent(typeof(NavMeshAgent))]
 public abstract class AILogic : MonoBehaviour
 {
     [Header("AI State")]
@@ -56,7 +55,7 @@ public abstract class AILogic : MonoBehaviour
     [Header("Orientate To Target")]
     [SerializeField]
     private bool freezeY = true;
-    
+
     [Header("Defensive")]
     [SerializeField]
     protected float defensive_Distance = 5f;
@@ -81,8 +80,8 @@ public abstract class AILogic : MonoBehaviour
     [Header("Random Movement")]
     [SerializeField]
     private bool overrideMovementIfOutOfRange;
-    
-    
+
+
     [Space(10f)]
     [Header("AI Decision Times")]
     [SerializeField]
@@ -126,7 +125,10 @@ public abstract class AILogic : MonoBehaviour
     protected float MoveWaitTime_Now = 0;
 
     [SerializeField]
-    protected float turnSpeed = 10f;
+    private Quaternion targetRotation;
+
+    [SerializeField]
+    protected float rotateSpeed = 10f;
 
     [Header("AI Attack")]
     [SerializeField]
@@ -141,7 +143,7 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     [Range(0f, 90f)]
     private float visionConeDegree = 45f;
-    
+
 
     [Header("AI Stagger")]
     [SerializeField]
@@ -172,8 +174,6 @@ public abstract class AILogic : MonoBehaviour
     private bool DrawDebug;
 
     [Header("Other Components")]
-
-
     [SerializeField]
     private Transform bodyModel;
 
@@ -189,6 +189,8 @@ public abstract class AILogic : MonoBehaviour
 
     [SerializeField]
     protected Transform head;
+
+    private static float SnapRotationThresshold;
 
 
     private void OnDrawGizmosSelected()
@@ -230,9 +232,7 @@ public abstract class AILogic : MonoBehaviour
 
     public void SetPatrolZone(PatrolZone patrolZone)
     {
-        
         currentPatrolZone = patrolZone;
-        
     }
 
 
@@ -387,23 +387,48 @@ public abstract class AILogic : MonoBehaviour
         return target - transform.position;
     }
 
-    protected void OrientateToTarget()
+    protected void SetOrientateToTarget()
     {
+        if (targetRotation == Quaternion.identity)
+        {
+            targetRotation = transform.rotation;
+        }
+
         if (attackTarget)
         {
-            Vector3 temp = Quaternion.LookRotation(GetDirectionToTarget()).eulerAngles;
+            targetRotation = Quaternion.LookRotation(GetDirectionToTarget());
+            Vector3 temp = targetRotation.eulerAngles;
             if (freezeY)
             {
                 temp.x = bodyModel.transform.eulerAngles.x;
                 temp.z = bodyModel.transform.eulerAngles.z;
-                bodyModel.transform.eulerAngles = temp;
             }
             else
             {
                 temp.z = bodyModel.transform.eulerAngles.z;
+            }
 
-                bodyModel.transform.eulerAngles = temp;
+            targetRotation.eulerAngles = temp;
+        }
+    }
 
+    protected void UpdateOrientation()
+    {
+        if (targetRotation == Quaternion.identity)
+        {
+            targetRotation = transform.rotation;
+        }
+        if (bodyModel.transform.rotation != targetRotation)
+        {
+            SnapRotationThresshold = 0.01f;
+            if (Quaternion.Angle(bodyModel.transform.rotation, targetRotation) > SnapRotationThresshold)
+            {
+                bodyModel.transform.rotation =
+                    Quaternion.Lerp(bodyModel.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            }
+            else
+            {
+                bodyModel.transform.rotation = targetRotation;
             }
         }
     }
@@ -515,7 +540,7 @@ public abstract class AILogic : MonoBehaviour
             return false;
         }
 
-        Vector3 target =attackTarget.transform.position+ new Vector3(0, .5f, 0);
+        Vector3 target = attackTarget.transform.position + new Vector3(0, .5f, 0);
         if (attackTarget.tag.Equals("Player"))
         {
             target = PlayerMasterScript.current.GetCentreOfMass().position;
@@ -523,8 +548,8 @@ public abstract class AILogic : MonoBehaviour
 
         Vector3 dir = target - head.position;
 
-        if (Physics.Raycast(head.position,  dir.normalized,
-            out RaycastHit hit, detectionRange, LOSLayer))
+        if (Physics.Raycast(head.position, dir.normalized,
+                out RaycastHit hit, detectionRange, LOSLayer))
         {
             // print($"Enemy raycast hit something {hit.collider.name}");
             if (hostileTags.Contains(hit.collider.tag))
@@ -541,12 +566,13 @@ public abstract class AILogic : MonoBehaviour
 
             if (DrawDebug)
             {
-                Debug.DrawLine(head.position,head.position+dir,Color.green,thinkRate);
+                Debug.DrawLine(head.position, head.position + dir, Color.green, thinkRate);
             }
         }
+
         if (DrawDebug)
         {
-            Debug.DrawLine(head.position,head.position+dir,Color.red,thinkRate);
+            Debug.DrawLine(head.position, head.position + dir, Color.red, thinkRate);
         }
 
         return false;
@@ -555,18 +581,18 @@ public abstract class AILogic : MonoBehaviour
     protected virtual bool IsInCone()
     {
         // print($"{Vector3.Dot(head.forward, (playerGO.transform.position + head.position - playerOffset).normalized)}, {Math.Cos(visionConeDegree)}");
-        Vector3 target =attackTarget.transform.position+ new Vector3(0, .5f, 0);
+        Vector3 target = attackTarget.transform.position + new Vector3(0, .5f, 0);
 
-        
+
         if (attackTarget.tag.Equals("Player"))
         {
             target = PlayerMasterScript.current.GetCentreOfMass().position;
         }
 
         float dotValue = Vector3.Dot(head.forward,
-                             (target - head.position)
-                             .normalized) ;
-        if (dotValue>
+            (target - head.position)
+            .normalized);
+        if (dotValue >
             Mathf.Abs(Mathf.Cos(visionConeDegree)))
         {
             return true;
@@ -665,6 +691,7 @@ public abstract class AILogic : MonoBehaviour
                             foundPoint = true;
                         }
                     }
+
                     //Get points near return point
                     if (!foundPoint)
                     {
@@ -688,8 +715,8 @@ public abstract class AILogic : MonoBehaviour
                     else
                     {
                         returnPoint = currentPatrolZone.GetRandomPoint();
-
                     }
+
                     break;
             }
         }
