@@ -6,11 +6,11 @@ using UnityEngine;
 public enum EnemyType
 {
     Ground_Range_Mobile_T_IE,
-    Ground_Floor_Mobile_T_IE,
+    Ground_Melee_Mobile_T_IE,
     Ground_Range_Mobile_T_IN,
-    Ground_Floor_Mobile_T_IN,
+    Ground_Melee_Mobile_T_IN,
     Ground_Range_Mobile_T_IH,
-    Ground_Floor_Mobile_T_IH,
+    Ground_Melee_Mobile_T_IH,
     Flying_Range_Mobile_T_IE,
     Flying_Range_Mobile_T_IN,
     Flying_Range_Mobile_T_IH
@@ -22,19 +22,19 @@ public class EnemyManager : MonoBehaviour
     EnemyHandler Ground_Range_Mobile_T_IE;
 
     [SerializeField]
-    EnemyHandler Ground_Floor_Mobile_T_IE;
+    EnemyHandler Ground_Melee_Mobile_T_IE;
 
     [SerializeField]
     EnemyHandler Ground_Range_Mobile_T_IN;
 
     [SerializeField]
-    EnemyHandler Ground_Floor_Mobile_T_IN;
+    EnemyHandler Ground_Melee_Mobile_T_IN;
 
     [SerializeField]
     EnemyHandler Ground_Range_Mobile_T_IH;
 
     [SerializeField]
-    EnemyHandler Ground_Floor_Mobile_T_IH;
+    EnemyHandler Ground_Melee_Mobile_T_IH;
 
     [SerializeField]
     EnemyHandler Flying_Range_Mobile_T_IE;
@@ -54,21 +54,21 @@ public class EnemyManager : MonoBehaviour
             case EnemyType.Ground_Range_Mobile_T_IE:
                 return Ground_Range_Mobile_T_IE;
                 break;
-            case EnemyType.Ground_Floor_Mobile_T_IE:
-                return Ground_Floor_Mobile_T_IE;
+            case EnemyType.Ground_Melee_Mobile_T_IE:
+                return Ground_Melee_Mobile_T_IE;
                 break;
             case EnemyType.Ground_Range_Mobile_T_IN:
                 return Ground_Range_Mobile_T_IN;
                 break;
-            case EnemyType.Ground_Floor_Mobile_T_IN:
-                return Ground_Floor_Mobile_T_IN;
+            case EnemyType.Ground_Melee_Mobile_T_IN:
+                return Ground_Melee_Mobile_T_IN;
                 break;
 
             case EnemyType.Ground_Range_Mobile_T_IH:
                 return Ground_Range_Mobile_T_IH;
                 break;
-            case EnemyType.Ground_Floor_Mobile_T_IH:
-                return Ground_Floor_Mobile_T_IH;
+            case EnemyType.Ground_Melee_Mobile_T_IH:
+                return Ground_Melee_Mobile_T_IH;
                 break;
 
             case EnemyType.Flying_Range_Mobile_T_IE:

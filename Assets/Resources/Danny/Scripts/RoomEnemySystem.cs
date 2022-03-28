@@ -119,12 +119,12 @@ public class RoomEnemySystem : MonoBehaviour
 
     public void StartNextWave()
     {
-        Debug.Log($"Spawning Wave: {waveIndex}");
         if (waveIndex+1 < levelSets[difficulty].spawnWaves.Length)
         {
             SpawnWave nextWave = levelSets[difficulty].spawnWaves[waveIndex+1];
             if (nextWave.ConditionMet(enemyCountCurrent))
             {
+                Debug.Log($"Spawning Wave: {waveIndex}");
                 IncrementEnemies(nextWave.StartWave());
                 waveIndex++;
             }

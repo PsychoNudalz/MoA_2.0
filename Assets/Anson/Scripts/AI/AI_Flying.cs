@@ -104,8 +104,8 @@ public class AI_Flying : AILogic
 
     protected override void ChangeState_Move()
     {
-        base.ChangeState_Move();
         SetNewPatrolPoint();
+        base.ChangeState_Move();
     }
 
     protected override void AIThink_Move()
@@ -163,6 +163,8 @@ public class AI_Flying : AILogic
                 MoveWaitTime_Now -= Time.deltaTime;
             }
         }
+        base.AIBehaviour_Move();
+
     }
 
     protected override void EndState_Attack()

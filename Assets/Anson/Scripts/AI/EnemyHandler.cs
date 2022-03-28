@@ -133,4 +133,9 @@ public class EnemyHandler : MonoBehaviour
         soundScript.Play_Death();
 
     }
+
+    public virtual void OnMove(Vector3 velocity)
+    {
+        animator.SetFloat("MoveSpeed",velocity.magnitude);
+    }
 }

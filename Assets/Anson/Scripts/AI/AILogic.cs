@@ -165,15 +165,15 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     protected UnityEvent endStaggerEvent;
 
-    [Header("AI Death")]
-    [SerializeField]
-    private UnityEvent onDeath;
 
     [Header("Debug")]
     [SerializeField]
     private bool DrawDebug;
 
     [Header("Other Components")]
+    [SerializeField]
+    private EnemyHandler enemyHandler;
+
     [SerializeField]
     private Transform bodyModel;
 
@@ -204,6 +204,11 @@ public abstract class AILogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!enemyHandler)
+        {
+            enemyHandler = GetComponent<EnemyHandler>();
+        }
+
         navMeshAgent = GetComponent<NavMeshAgent>();
         SetNewPatrolPoint();
     }
@@ -356,7 +361,14 @@ public abstract class AILogic : MonoBehaviour
     {
         if (target.magnitude == 0)
         {
-            target = attackTarget.position;
+            if (attackTarget)
+            {
+                target = attackTarget.position;
+            }
+            else
+            {
+                return Mathf.Infinity;
+            }
         }
 
         float distanceToTarget = Vector3.Distance(transform.position, target);
@@ -368,7 +380,14 @@ public abstract class AILogic : MonoBehaviour
     {
         if (target.magnitude == 0)
         {
-            target = attackTarget.position;
+            if (attackTarget)
+            {
+                target = attackTarget.position;
+            }
+            else
+            {
+                return Mathf.Infinity;
+            }
         }
 
         float distanceToTarget = Vector3.Distance(movePos, target);
@@ -418,13 +437,18 @@ public abstract class AILogic : MonoBehaviour
         {
             targetRotation = transform.rotation;
         }
+
         if (bodyModel.transform.rotation != targetRotation)
         {
             SnapRotationThresshold = 0.01f;
             if (Quaternion.Angle(bodyModel.transform.rotation, targetRotation) > SnapRotationThresshold)
             {
-                bodyModel.transform.rotation =
-                    Quaternion.Lerp(bodyModel.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+                if (bodyModel.transform.rotation.eulerAngles.magnitude != 0 &&
+                    targetRotation.eulerAngles.magnitude != 0)
+                {
+                    bodyModel.transform.rotation =
+                        Quaternion.Lerp(bodyModel.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+                }
             }
             else
             {
@@ -454,10 +478,12 @@ public abstract class AILogic : MonoBehaviour
     //Move
     protected virtual void EndState_Move()
     {
+        MoveAnimation();
     }
 
     protected virtual void ChangeState_Move()
     {
+        MoveAnimation();
     }
 
     protected virtual void AIThink_Move()
@@ -466,6 +492,19 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void AIBehaviour_Move()
     {
+        MoveAnimation();
+    }
+
+    protected virtual void MoveAnimation()
+    {
+            if (enemyHandler)
+            {
+                enemyHandler.OnMove(navMeshAgent.velocity);
+            }
+            else
+            {
+                SendMessage("OnMove");
+            }
     }
 
     protected virtual void SetNewPatrolPoint()
@@ -535,7 +574,7 @@ public abstract class AILogic : MonoBehaviour
     /// <returns></returns>
     protected virtual bool LineOfSight()
     {
-        if (!IsInCone())
+        if (!attackTarget || !IsInCone())
         {
             return false;
         }
@@ -726,7 +765,10 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void SetTarget()
     {
-        attackTarget = PlayerMasterScript.current.transform;
+        if (detectionRange > GetDistanceToPlayer())
+        {
+            attackTarget = PlayerMasterScript.current.transform;
+        }
     }
 
 

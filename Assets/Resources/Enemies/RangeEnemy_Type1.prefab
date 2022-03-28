@@ -574,15 +574,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5625326586118488930}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 8.4, y: 0, z: 23.939999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 398494591231720430}
   - {fileID: 6470999884217134747}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1513160272953275784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,7 +643,8 @@ MonoBehaviour:
   moveStopRange: 1
   MoveWaitTime: {x: 0.2, y: 0.5}
   MoveWaitTime_Now: 0
-  turnSpeed: 0
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  rotateSpeed: 10
   attackSets:
   - attackCondition:
       cooldown: 15
@@ -2942,11 +2943,6 @@ PrefabInstance:
       propertyPath: render
       value: 
       objectReference: {fileID: 640876410711532320}
-    - target: {fileID: 477143739817119438, guid: 3630b20189e9e4f4c84655103a2d92eb,
-        type: 3}
-      propertyPath: material
-      value: 
-      objectReference: {fileID: 2100000, guid: bc66e7f8d65f62c4d8aa7557e9898480, type: 2}
     - target: {fileID: 540480589932542168, guid: 3630b20189e9e4f4c84655103a2d92eb,
         type: 3}
       propertyPath: m_Layer

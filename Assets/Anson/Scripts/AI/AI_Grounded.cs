@@ -8,8 +8,6 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(NavMeshAgent))]
 public class AI_Grounded : AILogic
 {
-
-
     public override void ChangeState(AIState newState, AttackSet attackSet = null)
     {
         base.ChangeState(newState, attackSet);
@@ -30,7 +28,8 @@ public class AI_Grounded : AILogic
                 AIThink_Attack();
                 break;
             case AIState.Stagger:
-                AIThink_Stagger();;
+                AIThink_Stagger();
+                ;
                 break;
             case AIState.Dead:
                 break;
@@ -40,6 +39,8 @@ public class AI_Grounded : AILogic
     protected override void AIBehaviour()
     {
         UpdateOrientation();
+        MoveAnimation();
+
 
         switch (currentState)
         {
@@ -75,8 +76,8 @@ public class AI_Grounded : AILogic
         if (!attackTarget)
         {
             ChangeState(AIState.Move);
-
         }
+
         AttackSet pickedAttack = PickAttack();
         if (pickedAttack == null)
         {
@@ -96,18 +97,18 @@ public class AI_Grounded : AILogic
 
     protected override void EndState_Move()
     {
+        
         base.EndState_Move();
     }
 
     protected override void ChangeState_Move()
     {
-        base.ChangeState_Move();
         SetNewPatrolPoint();
+        base.ChangeState_Move();
     }
 
     protected override void AIThink_Move()
     {
-
         if (Vector3.Distance(movePos, transform.position) < moveStopRange)
         {
             if (MoveWaitTime_Now <= 0)
@@ -117,22 +118,24 @@ public class AI_Grounded : AILogic
         }
         else
         {
-            
+            MoveAnimation();
+
             if (attackTarget)
             {
                 AttackSet temp = PickAttack();
                 if (temp != null)
                 {
                     ChangeState(AIState.Attack, temp);
-
                 }
             }
 
-            if (movePos.magnitude == 0||GetDistanceFromMovePosToTarget()<defensive_Distance*0.7f||GetDistanceToTarget()<defensive_Distance*0.7f)
+            if (movePos.magnitude == 0 || GetDistanceFromMovePosToTarget() < defensive_Distance * 0.7f ||
+                GetDistanceToTarget() < defensive_Distance * 0.7f)
             {
                 SetNewPatrolPoint();
             }
         }
+
     }
 
     private void SetNewPatrolPoint()
@@ -160,6 +163,8 @@ public class AI_Grounded : AILogic
                 MoveWaitTime_Now -= Time.deltaTime;
             }
         }
+
+        base.AIBehaviour_Move();
     }
 
     protected override void EndState_Attack()
@@ -180,7 +185,10 @@ public class AI_Grounded : AILogic
             if (!attackSet.canMove)
             {
                 SetNavAgent(transform.position);
+                navMeshAgent.velocity = new Vector3();
+                MoveAnimation();
             }
+
             attackSet.Attack();
         }
     }
@@ -203,17 +211,17 @@ public class AI_Grounded : AILogic
         {
             ChangeState(AIState.Idle);
         }
+
         base.AIThink_Attack();
     }
 
     protected override void AIBehaviour_Attack()
     {
         base.AIBehaviour_Attack();
-        if (lastAttack.canMove&& attributesStack.Contains(AIAttribute.OrientateToTarget))
+        if (lastAttack.canMove && attributesStack.Contains(AIAttribute.OrientateToTarget))
         {
             SetOrientateToTarget();
         }
-
     }
 
     protected override Vector3 SetMovePointByAttribute()
