@@ -14,6 +14,9 @@
         },
         {
             "m_Id": "775ddede3d3e4d6aaf27ee5d6a4ab346"
+        },
+        {
+            "m_Id": "2ca5e603f825499e8bfb616184aeff24"
         }
     ],
     "m_Keywords": [],
@@ -128,6 +131,9 @@
         },
         {
             "m_Id": "cf3b313c985a4a1c835f75ecec23cb74"
+        },
+        {
+            "m_Id": "a77f39511da349c6bd079cafa1c5d74b"
         }
     ],
     "m_GroupDatas": [],
@@ -439,6 +445,20 @@
                     "m_Id": "c5c6696125d04112a8d1597296a631e6"
                 },
                 "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "a77f39511da349c6bd079cafa1c5d74b"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "d8e85db7f2b14580897074aa94f1a8d5"
+                },
+                "m_SlotId": 1
             }
         },
         {
@@ -1419,6 +1439,29 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "2ca5e603f825499e8bfb616184aeff24",
+    "m_Guid": {
+        "m_GuidSerialized": "ae8f008c-c266-4007-be5a-29bffb0237e4"
+    },
+    "m_Name": "NoiseTile",
+    "m_DefaultReferenceName": "Vector1_2ca5e603f825499e8bfb616184aeff24",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 10.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "2deab5fab49545d9ae50bcdf28e3cd3b",
@@ -1551,8 +1594,8 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "x": 16.0,
-        "y": 16.0,
+        "x": 32.0,
+        "y": 32.0,
         "z": 0.0,
         "w": 0.0
     }
@@ -2858,6 +2901,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "86a48fb946484ddfb93fc8c7dbe6595e",
+    "m_Id": 0,
+    "m_DisplayName": "NoiseTile",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "86cbaf3a979d4161b12664d97c2c9210",
     "m_Id": 2,
@@ -3246,6 +3304,41 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "VertexDescription.Normal"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "a77f39511da349c6bd079cafa1c5d74b",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1141.60009765625,
+            "y": 180.0,
+            "width": 126.40003204345703,
+            "height": 33.600006103515628
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "86a48fb946484ddfb93fc8c7dbe6595e"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "2ca5e603f825499e8bfb616184aeff24"
+    }
 }
 
 {
