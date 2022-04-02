@@ -968,14 +968,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17f55eccbaa0834a8a7d9d3f2e1d5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ground_Range_Mobile_T_IE: {fileID: 1513160272953275784, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+  Ground_Range_Mobile_T_IE: {fileID: 1513160272953275784, guid: 2e5efbe884d776c4a909a72a55d35ba6,
     type: 3}
   Ground_Melee_Mobile_T_IE: {fileID: 2793535264440325432, guid: c29d55f83f6c46846a45887f967105ab,
     type: 3}
-  Ground_Range_Mobile_T_IN: {fileID: 1513160272953275784, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+  Ground_Range_Mobile_T_IN: {fileID: 1513160272953275784, guid: 2e5efbe884d776c4a909a72a55d35ba6,
     type: 3}
   Ground_Melee_Mobile_T_IN: {fileID: 0}
-  Ground_Range_Mobile_T_IH: {fileID: 1513160272953275784, guid: b56d902bdfb090d4b85bfe0ef3a2ea51,
+  Ground_Range_Mobile_T_IH: {fileID: 1513160272953275784, guid: 2e5efbe884d776c4a909a72a55d35ba6,
     type: 3}
   Ground_Melee_Mobile_T_IH: {fileID: 0}
   Flying_Range_Mobile_T_IE: {fileID: 1247268652120128126, guid: 5b51c95c2488f414fb83758154542ed1,
@@ -1171,7 +1171,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 500
-  field of view: 67.38066
+  field of view: 66.66667
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1531,6 +1531,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quantum Console
       objectReference: {fileID: 0}
+    - target: {fileID: 1483687485715032, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114600693638766706, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: _initialiseOnStartup
@@ -1614,7 +1618,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
@@ -2466,6 +2470,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5743986881055784890, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
+      propertyPath: components_Perk.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5743986881055784890, guid: 02a443f5e3a464a4c8ccc17033693215,
+        type: 3}
       propertyPath: components_Sight.Array.size
       value: 7
       objectReference: {fileID: 0}
@@ -2544,6 +2553,24 @@ PrefabInstance:
       propertyPath: components_Grip.Array.data[9]
       value: 
       objectReference: {fileID: 5259721109822067223, guid: b4d6c2343e8bf93499843d9025a7d25b,
+        type: 3}
+    - target: {fileID: 5743986881055784890, guid: 02a443f5e3a464a4c8ccc17033693215,
+        type: 3}
+      propertyPath: components_Perk.Array.data[0]
+      value: 
+      objectReference: {fileID: 2130452714099250127, guid: 0907202644914e044ae0616d1eb8a1f4,
+        type: 3}
+    - target: {fileID: 5743986881055784890, guid: 02a443f5e3a464a4c8ccc17033693215,
+        type: 3}
+      propertyPath: components_Perk.Array.data[1]
+      value: 
+      objectReference: {fileID: 4279315076017864645, guid: 5575a4967b1a0964d8e07c15848f69f7,
+        type: 3}
+    - target: {fileID: 5743986881055784890, guid: 02a443f5e3a464a4c8ccc17033693215,
+        type: 3}
+      propertyPath: components_Perk.Array.data[2]
+      value: 
+      objectReference: {fileID: 5195640647264155130, guid: 88d874c974c25c14ca88e84aba2051a6,
         type: 3}
     - target: {fileID: 5743986881055784890, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
@@ -2727,7 +2754,7 @@ PrefabInstance:
         type: 3}
       propertyPath: components_StatBoost.Array.data[0]
       value: 
-      objectReference: {fileID: 1855835093306679272, guid: 2428a674ca30e88468bf975dd4b82750,
+      objectReference: {fileID: -3762830182510449287, guid: 900d2c00e697a414fac933a3bf08ea14,
         type: 3}
     - target: {fileID: 5743986881055784890, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
@@ -3104,13 +3131,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5743986882113735553, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
+      propertyPath: components_Body.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5743986882113735553, guid: 02a443f5e3a464a4c8ccc17033693215,
+        type: 3}
       propertyPath: components_Grip.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5743986882113735553, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
       propertyPath: components_Sight.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5743986882113735553, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
@@ -3126,13 +3158,13 @@ PrefabInstance:
         type: 3}
       propertyPath: components_Body.Array.data[0]
       value: 
-      objectReference: {fileID: 1729324159009687890, guid: 5576a74fc464761489d75ca51d4db539,
+      objectReference: {fileID: 5738499307827236703, guid: 7159318136fffcb4089c342c0580b52a,
         type: 3}
     - target: {fileID: 5743986882113735553, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
       propertyPath: components_Body.Array.data[1]
       value: 
-      objectReference: {fileID: 6160978440871474998, guid: eedac6dff43a16a4fb353496a33b99c6,
+      objectReference: {fileID: 654000207685968989, guid: e115190c1a990be44bfa13adc3cb47e2,
         type: 3}
     - target: {fileID: 5743986882113735553, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
@@ -3161,7 +3193,7 @@ PrefabInstance:
         type: 3}
       propertyPath: components_Sight.Array.data[0]
       value: 
-      objectReference: {fileID: 4714791182826449478, guid: 8f8a4fc3056267e439727ad142a477c6,
+      objectReference: {fileID: 5500820777514156575, guid: 30368782007a0f242a86e10e823ee9dc,
         type: 3}
     - target: {fileID: 5743986882113735553, guid: 02a443f5e3a464a4c8ccc17033693215,
         type: 3}
