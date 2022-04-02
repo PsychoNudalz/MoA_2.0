@@ -219,6 +219,7 @@ public class GunDamageScript : DamageScript
             Vector3 fireDir = firePoint.transform.forward;
             Debug.DrawRay(firePoint.transform.position, fireDir * range, Color.green, 0f);
         }
+
         UpdateRecoilDegree();
     }
 
@@ -431,7 +432,6 @@ public class GunDamageScript : DamageScript
             currentRecoil = Vector2.Lerp(currentRecoil, new Vector2(0, 0), Time.deltaTime * 2 / timeToRecenter);
         }
 
-       
 
         if (currentRecoilTime > 0)
         {
@@ -671,33 +671,41 @@ public class GunDamageScript : DamageScript
     {
         if (projectileGO.TryGetComponent(out ProjectileScript projectileScript))
         {
-            //for (int i = 0; i < projectilePerShot; i++)
-            //{
-            projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity)
-                .GetComponent<ProjectileScript>();
-            float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x), 0,
-                recoil_HipFire.y);
-
-            randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
-
-            Vector3 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
-                              Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
-                              firePoint.transform.forward;
-
-            /*s
-            if (Physics.Raycast(firePoint.transform.position, firePoint.forward, out hit, range * 1.5f, layerMask))
+            if (timeBetweenProjectile == 0)
             {
-                fireDir = hit.point - mainGunStatsScript.transform.position;
-            }
-            */
+                for (int i = 0; i < projectilePerShot; i++)
+                {
+                    SpawnLaunchProjectile();
+                }
 
-            projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized);
-            //}
+                currentProjectile++;
+            }
+            else
+            {
+                SpawnLaunchProjectile();
+            }
         }
         else
         {
             Debug.LogError("Failed to get Projectile " + projectileGO.name + " script");
         }
+    }
+
+    private void SpawnLaunchProjectile()
+    {
+        ProjectileScript projectileScript = Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity)
+            .GetComponent<ProjectileScript>();
+        float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x),
+            0,
+            recoil_HipFire.y);
+
+        randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
+
+        Vector3 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
+                          Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
+                          firePoint.transform.forward;
+
+        projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized);
     }
 
     protected virtual float HandleWeapon(float newRecoilTime = -1f)

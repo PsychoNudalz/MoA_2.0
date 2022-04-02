@@ -193,6 +193,8 @@ public abstract class AILogic : MonoBehaviour
     private static float SnapRotationThresshold;
 
 
+    public Transform AttackTarget => attackTarget;
+
     private void OnDrawGizmosSelected()
     {
         if (DrawDebug)
@@ -346,7 +348,7 @@ public abstract class AILogic : MonoBehaviour
     //         break;
     // }
 
-    protected virtual float GetDistanceToPlayer()
+    public virtual float GetDistanceToPlayer()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, PlayerMasterScript.current.transform.position);
         if (PlayerMasterScript.INVISABLE)
@@ -357,7 +359,7 @@ public abstract class AILogic : MonoBehaviour
         return distanceToPlayer;
     }
 
-    protected virtual float GetDistanceToTarget(Vector3 target = new Vector3())
+    public virtual float GetDistanceToTarget(Vector3 target = new Vector3())
     {
         if (target.magnitude == 0)
         {
@@ -376,7 +378,7 @@ public abstract class AILogic : MonoBehaviour
         return distanceToTarget;
     }
 
-    protected virtual float GetDistanceFromMovePosToTarget(Vector3 target = new Vector3())
+    public virtual float GetDistanceFromMovePosToTarget(Vector3 target = new Vector3())
     {
         if (target.magnitude == 0)
         {
@@ -395,7 +397,7 @@ public abstract class AILogic : MonoBehaviour
         return distanceToTarget;
     }
 
-    protected virtual Vector3 GetDirectionToTarget(Vector3 target = new Vector3())
+    public virtual Vector3 GetDirectionToTarget(Vector3 target = new Vector3())
     {
         if (target.magnitude == 0)
         {
@@ -438,15 +440,16 @@ public abstract class AILogic : MonoBehaviour
             targetRotation = transform.rotation;
         }
 
-        if (bodyModel.transform.rotation != targetRotation)
+        if (bodyModel.rotation != targetRotation)
         {
             SnapRotationThresshold = 0.01f;
-            if (Quaternion.Angle(bodyModel.transform.rotation, targetRotation) > SnapRotationThresshold)
+            if (bodyModel.eulerAngles.magnitude == 0 || Quaternion.Angle(bodyModel.transform.rotation, targetRotation) >
+                SnapRotationThresshold)
             {
-                if (bodyModel.transform.rotation.eulerAngles.magnitude != 0 &&
+                if (
                     targetRotation.eulerAngles.magnitude != 0)
                 {
-                    bodyModel.transform.rotation =
+                    bodyModel.rotation =
                         Quaternion.Lerp(bodyModel.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
                 }
             }
@@ -497,14 +500,14 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void MoveAnimation()
     {
-            if (enemyHandler)
-            {
-                enemyHandler.OnMove(navMeshAgent.velocity);
-            }
-            else
-            {
-                SendMessage("OnMove");
-            }
+        if (enemyHandler)
+        {
+            enemyHandler.OnMove(navMeshAgent.velocity);
+        }
+        else
+        {
+            SendMessage("OnMove");
+        }
     }
 
     protected virtual void SetNewPatrolPoint()
@@ -593,25 +596,24 @@ public abstract class AILogic : MonoBehaviour
             // print($"Enemy raycast hit something {hit.collider.name}");
             if (hostileTags.Contains(hit.collider.tag))
             {
+                if (DrawDebug)
+                {
+                    Debug.DrawLine(head.position, head.position + dir, Color.green, thinkRate);
+                }
+
                 if (PlayerMasterScript.INVISABLE)
                 {
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
-            }
 
-            if (DrawDebug)
-            {
-                Debug.DrawLine(head.position, head.position + dir, Color.green, thinkRate);
+                return true;
             }
         }
 
         if (DrawDebug)
         {
             Debug.DrawLine(head.position, head.position + dir, Color.red, thinkRate);
+            Debug.Log(hit.collider.name);
         }
 
         return false;

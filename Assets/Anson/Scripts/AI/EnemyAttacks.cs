@@ -8,6 +8,11 @@ public class EnemyAttacks : MonoBehaviour
     protected Animator animator;
     [SerializeField]
     protected TargetSoundScript soundScript;
+
+    [SerializeField]
+    protected AILogic aiLogic;
+    
+    //Getters and Setters
     public TargetSoundScript SoundScript
     {
         get => soundScript;
@@ -20,5 +25,9 @@ public class EnemyAttacks : MonoBehaviour
         set => animator = value;
     }
 
-   
+    public AILogic AILogic
+    {
+        get => aiLogic;
+        set => aiLogic = value;
+    }
 }

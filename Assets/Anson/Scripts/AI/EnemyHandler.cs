@@ -33,6 +33,7 @@ public class EnemyHandler : MonoBehaviour
 
     public Animator Animator => animator;
     
+    [ContextMenu("Awake")]
 
     void Awake()
     {
@@ -71,6 +72,11 @@ public class EnemyHandler : MonoBehaviour
         if (!enemyAttacks.SoundScript)
         {
             enemyAttacks.SoundScript = soundScript;
+        }
+
+        if (!enemyAttacks.AILogic)
+        {
+            enemyAttacks.AILogic = enemyAI;
         }
 
         if (!enemyEffectController)
