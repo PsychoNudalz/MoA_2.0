@@ -90,6 +90,9 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     float thinkRate = 0.5f;
 
+    [SerializeField]
+    private float offsetThinkTime = 0;
+
     [Header("AI Hostiles")]
     [SerializeField]
     private LayerMask hostileLayerMaks;
@@ -206,6 +209,7 @@ public abstract class AILogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        offsetThinkTime = Random.Range(0f, -thinkRate);
         if (!enemyHandler)
         {
             enemyHandler = GetComponent<EnemyHandler>();
@@ -218,7 +222,7 @@ public abstract class AILogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastThinkTime + thinkRate <= Time.time)
+        if (lastThinkTime + thinkRate+offsetThinkTime <= Time.time)
         {
             AIThink();
             lastThinkTime = Time.time;
@@ -401,7 +405,10 @@ public abstract class AILogic : MonoBehaviour
     {
         if (target.magnitude == 0)
         {
-            target = attackTarget.position;
+            if (attackTarget)
+            {
+                target = attackTarget.position;
+            }
         }
 
 
@@ -716,30 +723,34 @@ public abstract class AILogic : MonoBehaviour
                 case AIAttribute.Stealthy:
                     break;
                 case AIAttribute.AttackBehindCover:
-                    bool foundPoint = false;
-                    //Get points near enemy
-                    List<PatrolPoint> coverReturnList = currentPatrolZone.GetCover(transform.position,
-                        takeCover_CoverSpace,
-                        CoverType.Half, GetDirectionToTarget(), takeCover_CoverDot);
-                    if (coverReturnList.Count > 0)
+                    if (attackTarget)
                     {
-                        Vector3 proposedPoint = coverReturnList[Random.Range(0, coverReturnList.Count)].Position;
-                        if (Vector3.Distance(proposedPoint, attackTarget.position) >
-                            takeCover_DefenceDistanceMultiplier * defensive_Distance)
-                        {
-                            returnPoint = proposedPoint;
-                            foundPoint = true;
-                        }
-                    }
-
-                    //Get points near return point
-                    if (!foundPoint)
-                    {
-                        coverReturnList = currentPatrolZone.GetCover(returnPoint, takeCover_CoverSpace, CoverType.Half,
-                            GetDirectionToTarget(), takeCover_CoverDot);
+                        bool foundPoint = false;
+                        //Get points near enemy
+                        List<PatrolPoint> coverReturnList = currentPatrolZone.GetCover(transform.position,
+                            takeCover_CoverSpace,
+                            CoverType.Half, GetDirectionToTarget(), takeCover_CoverDot);
                         if (coverReturnList.Count > 0)
                         {
-                            returnPoint = coverReturnList[Random.Range(0, coverReturnList.Count)].Position;
+                            Vector3 proposedPoint = coverReturnList[Random.Range(0, coverReturnList.Count)].Position;
+                            if (Vector3.Distance(proposedPoint, attackTarget.position) >
+                                takeCover_DefenceDistanceMultiplier * defensive_Distance)
+                            {
+                                returnPoint = proposedPoint;
+                                foundPoint = true;
+                            }
+                        }
+
+                        //Get points near return point
+                        if (!foundPoint)
+                        {
+                            coverReturnList = currentPatrolZone.GetCover(returnPoint, takeCover_CoverSpace,
+                                CoverType.Half,
+                                GetDirectionToTarget(), takeCover_CoverDot);
+                            if (coverReturnList.Count > 0)
+                            {
+                                returnPoint = coverReturnList[Random.Range(0, coverReturnList.Count)].Position;
+                            }
                         }
                     }
 
@@ -747,7 +758,8 @@ public abstract class AILogic : MonoBehaviour
                 case AIAttribute.RandomMovement:
                     if (overrideMovementIfOutOfRange)
                     {
-                        if (!attackTarget||Vector3.Distance(attackTarget.position, transform.position) > defensive_Distance)
+                        if (!attackTarget || Vector3.Distance(attackTarget.position, transform.position) >
+                            defensive_Distance)
                         {
                             returnPoint = currentPatrolZone.GetRandomPoint();
                         }

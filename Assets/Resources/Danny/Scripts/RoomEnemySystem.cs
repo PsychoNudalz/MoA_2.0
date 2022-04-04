@@ -64,13 +64,13 @@ public class RoomEnemySystem : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        foreach (var levelSet in levelSets)
-        {
-            foreach (var spawnWave in levelSet.spawnWaves)
-            {
-                spawnWave.TotalEnemyCount = spawnWave.GetEnemyCount();
-            }
-        }
+        // foreach (var levelSet in levelSets)
+        // {
+        //     foreach (var spawnWave in levelSet.spawnWaves)
+        //     {
+        //         spawnWave.TotalEnemyCount = spawnWave.GetEnemyCount();
+        //     }
+        // }
     }
 
     private void UpdateEnemyNumberDisplay(bool start = false)

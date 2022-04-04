@@ -194,6 +194,15 @@ public class PatrolZone : MonoBehaviour
     [SerializeField]
     private bool debug_TestTime;
 
+    public bool IsFloored => isFloored;
+
+    public float PointSpacing => pointSpacing;
+
+    public bool ShowDebug
+    {
+        get => showDebug;
+        set => showDebug = value;
+    }
 
     // Start is called before the first frame update
     void Awake()

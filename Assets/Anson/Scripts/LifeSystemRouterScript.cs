@@ -108,7 +108,7 @@ public class LifeSystemRouterScript : LifeSystemScript
 
     public override int takeDamage(float dmg, int level, ElementTypes element, bool displayTakeDamageEffect = true)
     {
-        print($"Route damage to:{routedLS.name} ");
+        // print($"Route damage to:{routedLS.name} ");
         return routedLS.takeDamage(dmg, level, element, displayTakeDamageEffect);
     }
 

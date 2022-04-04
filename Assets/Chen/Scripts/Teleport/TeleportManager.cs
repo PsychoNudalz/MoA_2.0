@@ -18,11 +18,16 @@ public class TeleportManager : MonoBehaviour
             pt.isBoss = true;
             pt.percentageHealthReduced = percentageHealthReduced;
         }
-        end = bossPortals[bossPortals.Count - 1];
-        bossPortals.RemoveAt(bossPortals.Count - 1);
-        for (int j = 1; j <= portals.Count / 3; j++) {
-            if (bossPortals.Count >= j) portals.Insert(j*3 - 1, bossPortals[j - 1]);
+
+        if (bossPortals.Count != 0)
+        {
+            end = bossPortals[bossPortals.Count - 1];
+            bossPortals.RemoveAt(bossPortals.Count - 1);
+            for (int j = 1; j <= portals.Count / 3; j++) {
+                if (bossPortals.Count >= j) portals.Insert(j*3 - 1, bossPortals[j - 1]);
+            }
         }
+
         Portal prev = start;
         int i = 0;
         foreach (Portal pt in portals)
@@ -35,10 +40,14 @@ public class TeleportManager : MonoBehaviour
             prev = pt;
             i++;
         }
-        prev.portalTarget = end;
-        prev.Setup(end.CurrentRoomEnemySystem,i);
-        //end.GetComponent<BoxCollider>().enabled = false;
-        end.isWinning = true;
+
+        if (end)
+        {
+            prev.portalTarget = end;
+            prev.Setup(end.CurrentRoomEnemySystem,i);
+            //end.GetComponent<BoxCollider>().enabled = false;
+            end.isWinning = true;
+        }
 
         //Anson: incease player total run
         FindObjectOfType<PlayerMasterScript>().IncreamentRun();

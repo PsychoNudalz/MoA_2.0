@@ -10,32 +10,57 @@ public class Portal : InteractableScript
 
     [SerializeField]
     Transform targetSpawner;
+
     GameObject player;
 
 
     [SerializeField]
     RoomEnemySystem currentRoomEnemySystem;
+
     [SerializeField]
     RoomEnemySystem nextRoomEnemySystem;
-    [SerializeField] GunManager gunManager;
-    [SerializeField] List<GameObject> gunCache;
-    [SerializeField] int lootAmount = 6;
-    [SerializeField] int coinAmount = 5;
+
+    [SerializeField]
+    GunManager gunManager;
+
+    [SerializeField]
+    List<GameObject> gunCache;
+
+    [SerializeField]
+    int lootAmount = 6;
+
+    [SerializeField]
+    int coinAmount = 5;
+
     bool rewardLoot;
-    [SerializeField] Transform gunSpawnTransform;
-    [SerializeField] int spawnLevel = 0;
+
+    [SerializeField]
+    Transform gunSpawnTransform;
+
+    [SerializeField]
+    int spawnLevel = 0;
+
     public bool isBoss = false;
     public bool isWinning = false;
     public int percentageHealthReduced = 0;
-    [SerializeField] float checkRate = 1.5f;
+
+    [SerializeField]
+    float checkRate = 1.5f;
+
     float checkTime = -10f;
 
     [Header("Debug")]
-    [SerializeField] bool ignoreSpawner = false;
-    [SerializeField] GameObject VFXPane;
+    [SerializeField]
+    bool ignoreSpawner = false;
+
+    [SerializeField]
+    GameObject VFXPane;
 
 
-    public RoomEnemySystem CurrentRoomEnemySystem { get => currentRoomEnemySystem; }
+    public RoomEnemySystem CurrentRoomEnemySystem
+    {
+        get => currentRoomEnemySystem;
+    }
 
     void Awake()
     {
@@ -44,7 +69,6 @@ public class Portal : InteractableScript
         {
             gunManager = FindObjectOfType<GunManager>();
         }
-
     }
 
     // Update is called once per frame
@@ -52,16 +76,16 @@ public class Portal : InteractableScript
     {
         if (Time.time - checkTime > checkRate)
         {
-
             if ((ignoreSpawner || currentRoomEnemySystem.IsRoomClear()) && !rewardLoot)
             {
                 SpawnRewardLoot();
-
             }
+
             if (currentRoomEnemySystem != null)
             {
                 VFXPane.SetActive(currentRoomEnemySystem.IsRoomClear());
             }
+
             checkTime = Time.time;
         }
     }
@@ -73,8 +97,8 @@ public class Portal : InteractableScript
         for (int i = 0; i < gunCache.Count; i++)
         {
             gunCache[i].SetActive(true);
-            gunCache[i].GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(45 * i, Vector3.up) * (new Vector3(2000f, 4000f, 0)));
-
+            gunCache[i].GetComponent<Rigidbody>()
+                .AddForce(Quaternion.AngleAxis(45 * i, Vector3.up) * (new Vector3(2000f, 4000f, 0)));
         }
     }
 
@@ -88,7 +112,6 @@ public class Portal : InteractableScript
         List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1);
 
 
-
         GameObject newGun;
         float offset = 0.3f;
         for (int i = 0; i < gunList.Count; i++)
@@ -96,15 +119,19 @@ public class Portal : InteractableScript
             newGun = gunList[i];
             if (gunSpawnTransform != null)
             {
-                newGun.transform.position = gunSpawnTransform.position + new Vector3(i * offset - (lootAmount / 2f) * offset, 1, i * offset - (lootAmount / 2f)) * offset;
+                newGun.transform.position = gunSpawnTransform.position +
+                                            new Vector3(i * offset - (lootAmount / 2f) * offset, 1,
+                                                i * offset - (lootAmount / 2f)) * offset;
                 //newGun.transform.position = gunSpawnTransform.position;
-
             }
             else
             {
-                newGun.transform.position = player.transform.position + new Vector3(i * offset - (lootAmount / 2f) * offset, 1, i * offset - (lootAmount / 2f) * offset);
+                newGun.transform.position = player.transform.position +
+                                            new Vector3(i * offset - (lootAmount / 2f) * offset, 1,
+                                                i * offset - (lootAmount / 2f) * offset);
                 //newGun.transform.position = player.transform.position;
             }
+
             gunCache.Add(newGun);
             newGun.SetActive(false);
         }
@@ -116,8 +143,9 @@ public class Portal : InteractableScript
         nextRoomEnemySystem = r;
         spawnLevel = level;
         GenerateRewardLoot();
-
+        r.InitialiseSpawns();
     }
+
     // void OnTriggerEnter(Collider other)
     // {
     //     if (other.gameObject.CompareTag("Player"))
@@ -130,9 +158,8 @@ public class Portal : InteractableScript
     // }
     public override void activate()
     {
-        if (ignoreSpawner|| currentRoomEnemySystem.IsRoomClear())
+        if (ignoreSpawner || currentRoomEnemySystem.IsRoomClear())
         {
-
             base.activate();
             if (isWinning)
             {
@@ -145,8 +172,8 @@ public class Portal : InteractableScript
                 {
                     ReduceMaxHP(percentageHealthReduced);
                     player.GetComponent<PlayerMasterScript>().IncreamentBossKill();
-
                 }
+
                 TeleportPlayer();
             }
         }
@@ -170,8 +197,7 @@ public class Portal : InteractableScript
 
         if (nextRoomEnemySystem != null)
         {
-
-             nextRoomEnemySystem.StartRoomSpawners(0);
+            nextRoomEnemySystem.StartRoomSpawners(0);
         }
         else
         {

@@ -43,6 +43,23 @@ public class PatrolManager : MonoBehaviour
         }
     }
 
+    [ContextMenu("ShowDebug_Enable")]
+    public void ShowDebug_Enable()
+    {
+        foreach (PatrolZone patrolZone in patrolZones)
+        {
+            patrolZone.ShowDebug = true;
+        }
+    }
+    [ContextMenu("ShowDebug_Disable")]
+    public void ShowDebug_Disable()
+    {
+        foreach (PatrolZone patrolZone in patrolZones)
+        {
+            patrolZone.ShowDebug = false;
+        }
+    }
+
     public PatrolZone GetZone(int i)
     {
         int temp = i;

@@ -8,7 +8,6 @@ using UnityEditor.SceneManagement;
 public class GunEffectConvertorWindow : EditorWindow
 {
     Vector2 scrollPos;
-    //CardHandler cardHandler { get => FindObjectOfType<CardHandler>(); }
 
     private GunEffectsConvertor gunEffectsConvertor = new GunEffectsConvertor();
 

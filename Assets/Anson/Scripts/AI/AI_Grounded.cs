@@ -75,6 +75,7 @@ public class AI_Grounded : AILogic
         base.AIThink_Idle();
         if (!attackTarget)
         {
+            SetTarget();
             ChangeState(AIState.Move);
         }
 
@@ -199,7 +200,7 @@ public class AI_Grounded : AILogic
         {
             if (lastAttack.canMove)
             {
-                ChangeState(AIState.Move);
+                ChangeState(AIState.Idle);
             }
             else if (Time.time - lastAttack.lastAttackTime > lastAttack.attackCondition.duration)
             {
