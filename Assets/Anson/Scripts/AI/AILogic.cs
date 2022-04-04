@@ -747,7 +747,7 @@ public abstract class AILogic : MonoBehaviour
                 case AIAttribute.RandomMovement:
                     if (overrideMovementIfOutOfRange)
                     {
-                        if (Vector3.Distance(attackTarget.position, transform.position) > defensive_Distance)
+                        if (!attackTarget||Vector3.Distance(attackTarget.position, transform.position) > defensive_Distance)
                         {
                             returnPoint = currentPatrolZone.GetRandomPoint();
                         }
