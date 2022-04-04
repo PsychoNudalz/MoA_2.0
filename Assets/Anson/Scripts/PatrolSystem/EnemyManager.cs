@@ -5,45 +5,47 @@ using UnityEngine;
 
 public enum EnemyType
 {
-    Ground_Range_Mobile_T_IE,
-    Ground_Melee_Mobile_T_IE,
-    Ground_Range_Mobile_T_IN,
-    Ground_Melee_Mobile_T_IN,
-    Ground_Range_Mobile_T_IH,
-    Ground_Melee_Mobile_T_IH,
-    Flying_Range_Mobile_T_IE,
-    Flying_Range_Mobile_T_IN,
-    Flying_Range_Mobile_T_IH
+    Shooter_T1,
+    Shooter_T2,
+    Clower_T1,
+    Clower_T2,
+    Drone_T1,
+    Drone_T2,
+    Tank_T1,
+    Tank_T2,
+    Boss_T1
 }
 
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
-    EnemyHandler Ground_Range_Mobile_T_IE;
+    EnemyHandler Shooter_T1;
 
     [SerializeField]
-    EnemyHandler Ground_Melee_Mobile_T_IE;
+    EnemyHandler Shooter_T2;
 
     [SerializeField]
-    EnemyHandler Ground_Range_Mobile_T_IN;
+    EnemyHandler Clower_T1;
 
     [SerializeField]
-    EnemyHandler Ground_Melee_Mobile_T_IN;
+    EnemyHandler Clower_T2;
 
     [SerializeField]
-    EnemyHandler Ground_Range_Mobile_T_IH;
+    EnemyHandler Drone_T1;
 
     [SerializeField]
-    EnemyHandler Ground_Melee_Mobile_T_IH;
+    EnemyHandler Drone_T2;
 
     [SerializeField]
-    EnemyHandler Flying_Range_Mobile_T_IE;
+    EnemyHandler Tank_T1;
 
     [SerializeField]
-    EnemyHandler Flying_Range_Mobile_T_IN;
+    EnemyHandler Tank_T2;
 
+    [Space(10f)]
     [SerializeField]
-    EnemyHandler Flying_Range_Mobile_T_IH;
+    private EnemyHandler Boss_T1;
+
 
     public static EnemyManager current;
 
@@ -51,35 +53,36 @@ public class EnemyManager : MonoBehaviour
     {
         switch (enemyType)
         {
-            case EnemyType.Ground_Range_Mobile_T_IE:
-                return Ground_Range_Mobile_T_IE;
+            case EnemyType.Shooter_T1:
+                return Shooter_T1;
                 break;
-            case EnemyType.Ground_Melee_Mobile_T_IE:
-                return Ground_Melee_Mobile_T_IE;
+            case EnemyType.Clower_T1:
+                return Clower_T1;
                 break;
-            case EnemyType.Ground_Range_Mobile_T_IN:
-                return Ground_Range_Mobile_T_IN;
+            case EnemyType.Shooter_T2:
+                return Shooter_T2;
                 break;
-            case EnemyType.Ground_Melee_Mobile_T_IN:
-                return Ground_Melee_Mobile_T_IN;
-                break;
-
-            case EnemyType.Ground_Range_Mobile_T_IH:
-                return Ground_Range_Mobile_T_IH;
-                break;
-            case EnemyType.Ground_Melee_Mobile_T_IH:
-                return Ground_Melee_Mobile_T_IH;
+            case EnemyType.Clower_T2:
+                return Clower_T2;
                 break;
 
-            case EnemyType.Flying_Range_Mobile_T_IE:
-                return Flying_Range_Mobile_T_IE;
+            case EnemyType.Drone_T1:
+                return Drone_T1;
                 
                 break;
-            case EnemyType.Flying_Range_Mobile_T_IN:
-                return Flying_Range_Mobile_T_IN;
+            case EnemyType.Drone_T2:
+                return Drone_T2;
                 break;
-            case EnemyType.Flying_Range_Mobile_T_IH:
-                return Flying_Range_Mobile_T_IH;
+
+            case EnemyType.Tank_T1:
+                return Tank_T1;
+                break;
+            case EnemyType.Tank_T2:
+                return Tank_T2;
+
+                break;
+            case EnemyType.Boss_T1:
+                return Boss_T1;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(enemyType), enemyType, null);

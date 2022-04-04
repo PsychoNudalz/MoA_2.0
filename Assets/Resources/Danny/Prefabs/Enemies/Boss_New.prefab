@@ -494,6 +494,7 @@ GameObject:
   - component: {fileID: 459847289465956956}
   - component: {fileID: 8763546597313624625}
   - component: {fileID: 9194257342345130385}
+  - component: {fileID: 489955081735270081}
   m_Layer: 10
   m_Name: EnemyGun
   m_TagString: Gun
@@ -606,6 +607,7 @@ MonoBehaviour:
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 1262584836785286374}
+  gunPerkController: {fileID: 0}
   gunComponentBody: {fileID: 0}
   componentSight: {fileID: 0}
   components: []
@@ -615,6 +617,7 @@ MonoBehaviour:
   soundStartReload: {fileID: 0}
   soundEndReload: {fileID: 0}
   currentMag: 5000
+  isEquiped: 0
 --- !u!54 &459847289465956956
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -675,7 +678,22 @@ MonoBehaviour:
   sound_Fire: {fileID: 7792255594652824276}
   sound_StartReload: {fileID: 1453565856926259277}
   sound_EndReload: {fileID: 658928542556967760}
+  rarityEffect: {fileID: 0}
   mainGunStat: {fileID: 0}
+--- !u!114 &489955081735270081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146904756725623386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ec3878d8d6f864397591f0dfb04e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerPerk: 0
+  perks: []
 --- !u!1 &1298294631704070693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,6 +1778,7 @@ MonoBehaviour:
   isReloading: 0
   currentRecoil: {x: 0, y: 0}
   currentRecoilTime: 0
+  recoilDegree: 0
   firePoint: {fileID: 7764419507919789031}
   gunPosition: {fileID: 7764419507919789031}
   isADS: 0
@@ -1768,6 +1787,7 @@ MonoBehaviour:
   sightOffset: {x: 0, y: 0, z: 0}
   displayFireRaycast: 0
   gunEffectsController: {fileID: 9194257342345130385}
+  gunPerkController: {fileID: 0}
 --- !u!1 &4543812924829049762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,6 +1985,7 @@ GameObject:
   - component: {fileID: 5681091118239066811}
   - component: {fileID: 3542259069529717462}
   - component: {fileID: 3441958101604649912}
+  - component: {fileID: 8397409489116423937}
   m_Layer: 10
   m_Name: EnemyMissile
   m_TagString: Gun
@@ -2077,6 +2098,7 @@ MonoBehaviour:
   impactEffect: {fileID: 8315759867692007338, guid: 8cc04445128e60a43a7e93930f0bfe2c,
     type: 3}
   muzzleEffect: {fileID: 6427591945818663937}
+  gunPerkController: {fileID: 0}
   gunComponentBody: {fileID: 0}
   componentSight: {fileID: 0}
   components: []
@@ -2086,6 +2108,7 @@ MonoBehaviour:
   soundStartReload: {fileID: 0}
   soundEndReload: {fileID: 0}
   currentMag: 5000
+  isEquiped: 0
 --- !u!54 &5681091118239066811
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2146,7 +2169,22 @@ MonoBehaviour:
   sound_Fire: {fileID: 196932779210831165}
   sound_StartReload: {fileID: 6672897155955857578}
   sound_EndReload: {fileID: 4724842178071106487}
+  rarityEffect: {fileID: 0}
   mainGunStat: {fileID: 0}
+--- !u!114 &8397409489116423937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5142091687754558141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ec3878d8d6f864397591f0dfb04e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerPerk: 0
+  perks: []
 --- !u!1 &5145333429754003166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,6 +2323,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &4114861364667374394
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2301,10 +2340,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2396,6 +2431,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &6308542331490955648
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2412,8 +2448,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3047,6 +3081,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &8077332723118050762
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3063,9 +3098,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3404,6 +3436,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &1481322824830889849
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3420,9 +3453,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3688,6 +3718,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &7138608154443189124
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3704,9 +3735,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3819,6 +3847,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &8862208369797258924
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3835,9 +3864,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4335,6 +4361,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &2661139271821325480
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4351,9 +4378,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4573,6 +4597,7 @@ MonoBehaviour:
   isReloading: 0
   currentRecoil: {x: 0, y: 0}
   currentRecoilTime: 0
+  recoilDegree: 0
   firePoint: {fileID: 5342228321857715891}
   gunPosition: {fileID: 7764419507919789031}
   isADS: 0
@@ -4581,6 +4606,7 @@ MonoBehaviour:
   sightOffset: {x: 0, y: 0, z: 0}
   displayFireRaycast: 0
   gunEffectsController: {fileID: 3441958101604649912}
+  gunPerkController: {fileID: 0}
 --- !u!1 &8529882053667638554
 GameObject:
   m_ObjectHideFlags: 0
@@ -4844,6 +4870,10 @@ MonoBehaviour:
   health_Max: 50000
   isDead: 0
   centreOfMass: {fileID: 0}
+  invincible: 0
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   deathGameObject: {fileID: 0}
   disableOnDeath: 0
   destroyOnDeath: 1
@@ -4870,7 +4900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383adbd66f607c94b9625097fcfab177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 3
+  enemyTypeOld: 0
 --- !u!54 &1024425922519827623
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4993,6 +5023,7 @@ VisualEffect:
       m_Array: []
 --- !u!73398921 &4693737793928218456
 VFXRenderer:
+  serializedVersion: 1
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5009,9 +5040,6 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5103,6 +5131,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
         type: 3}
@@ -5303,6 +5336,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1c784d261821ed48af9e50201e23870, type: 3}
+--- !u!4 &7109082402823272368 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4599365054219386943, guid: b1c784d261821ed48af9e50201e23870,
+    type: 3}
+  m_PrefabInstance: {fileID: 6736455827887323023}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5312944749345051109 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1497427067538007658, guid: b1c784d261821ed48af9e50201e23870,
@@ -5315,12 +5354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f61ae190ad8dbb40a393809e9ffb018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &7109082402823272368 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4599365054219386943, guid: b1c784d261821ed48af9e50201e23870,
-    type: 3}
-  m_PrefabInstance: {fileID: 6736455827887323023}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6795622651587777519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5392,6 +5425,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 634545865914422147, guid: 4cdcaabd41925d44eb7720f80c3a3aa7,
         type: 3}
@@ -5705,15 +5743,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fc7deb162947004aaf7af26c1d2d274, type: 3}
---- !u!198 &8569081549638215270 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1994476989549923862, guid: 9fc7deb162947004aaf7af26c1d2d274,
-    type: 3}
-  m_PrefabInstance: {fileID: 7874174536228956272}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7084035319059424539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1083463785328528747, guid: 9fc7deb162947004aaf7af26c1d2d274,
+    type: 3}
+  m_PrefabInstance: {fileID: 7874174536228956272}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8569081549638215270 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1994476989549923862, guid: 9fc7deb162947004aaf7af26c1d2d274,
     type: 3}
   m_PrefabInstance: {fileID: 7874174536228956272}
   m_PrefabAsset: {fileID: 0}

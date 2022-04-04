@@ -619,7 +619,7 @@ public class GunDamageScript : DamageScript
                     catch (System.Exception e)
                     {
                         Debug.LogError("Failed to do damage");
-                        Debug.LogError(e);
+                        Debug.LogWarning(e);
                     }
                 }
                 else

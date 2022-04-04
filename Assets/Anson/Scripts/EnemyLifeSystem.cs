@@ -114,8 +114,10 @@ public class EnemyLifeSystem : LifeSystemScript
         targetEffectController.SetFire(false);
         foreach (Collider c in mainColliders)
         {
-            c.enabled = true;
-
+            if (c)
+            {
+                c.enabled = true;
+            }
         }
     }
 

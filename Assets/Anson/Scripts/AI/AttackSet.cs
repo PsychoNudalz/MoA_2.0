@@ -22,7 +22,7 @@ public class AttackSet
 
     public UnityEvent OnAttack;
 
-    public float lastAttackTime;
+    public float lastAttackTime = -100f;
     public bool canMove;
     public bool faceTarget = true;
 

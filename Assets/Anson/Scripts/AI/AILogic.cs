@@ -613,7 +613,6 @@ public abstract class AILogic : MonoBehaviour
         if (DrawDebug)
         {
             Debug.DrawLine(head.position, head.position + dir, Color.red, thinkRate);
-            Debug.Log(hit.collider.name);
         }
 
         return false;

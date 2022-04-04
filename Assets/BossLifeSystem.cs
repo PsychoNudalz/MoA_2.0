@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLifeSystem : TargetLifeSystem
+public class BossLifeSystem : EnemyLifeSystem
 {
     [Header("Boss Enemy Agent")]
     [SerializeField] Boss_AI bossAgent;
