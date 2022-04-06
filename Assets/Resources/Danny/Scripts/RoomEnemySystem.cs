@@ -64,13 +64,13 @@ public class RoomEnemySystem : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // foreach (var levelSet in levelSets)
-        // {
-        //     foreach (var spawnWave in levelSet.spawnWaves)
-        //     {
-        //         spawnWave.TotalEnemyCount = spawnWave.GetEnemyCount();
-        //     }
-        // }
+        foreach (var levelSet in levelSets)
+        {
+            foreach (var spawnWave in levelSet.spawnWaves)
+            {
+                spawnWave.TotalEnemyCount = spawnWave.GetEnemyCount();
+            }
+        }
     }
 
     private void UpdateEnemyNumberDisplay(bool start = false)
@@ -159,12 +159,12 @@ public class RoomEnemySystem : MonoBehaviour
             if (patrolManager.PatrolZones == null || patrolManager.PatrolZones.Length == 0 ||
                 patrolManager.PatrolZones[0].PointPositions.Count == 0)
             {
-                patrolManager.InitialiseAllZones();
+                patrolManager.InitialiseAllZonesFromLists();
             }
         }
         catch (NullReferenceException e)
         {
-            patrolManager.InitialiseAllZones();
+            patrolManager.InitialiseAllZonesFromLists();
         }
     }
 

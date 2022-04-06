@@ -69,6 +69,11 @@ public class Portal : InteractableScript
         {
             gunManager = FindObjectOfType<GunManager>();
         }
+
+        if (!currentRoomEnemySystem)
+        {
+            currentRoomEnemySystem = transform.parent.GetComponentInChildren<RoomEnemySystem>();
+        }
     }
 
     // Update is called once per frame

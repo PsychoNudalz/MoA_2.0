@@ -8,6 +8,7 @@ using UnityEditor.SceneManagement;
 public class CoverGeneratorWindow : EditorWindow
 {
     Vector2 scrollPos;
+    private PatrolManager currentPatrolManager;
     public CoverGenerator currentGenerator;
     public CoverGenerator[] coverGenerators;
     public CoverGeneratorController coverGeneratorController;
@@ -34,7 +35,7 @@ public class CoverGeneratorWindow : EditorWindow
     [MenuItem("Window/Cover Generator")]
     public static void ShowWindow()
     {
-        GetWindow<CoverGeneratorWindow>("Gun Effect Convertor Window");
+        GetWindow<CoverGeneratorWindow>("Cover Generator Window");
     }
 
     private void OnGUI()
@@ -43,6 +44,16 @@ public class CoverGeneratorWindow : EditorWindow
         GUILayout.BeginVertical();
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         GUILayout.Space(10f);
+        GUILayout.Label("Current Patrol Manager", EditorStyles.boldLabel);
+
+        currentPatrolManager =
+            (PatrolManager) EditorGUILayout.ObjectField(currentPatrolManager, typeof(PatrolManager), true);
+        if (GUILayout.Button("Initialise Current Patrol Points"))
+        {
+            currentPatrolManager.InitialiseAllZones();
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+        }
+
 
         if (GUILayout.Button("Initialise All Patrol Points"))
         {
@@ -50,8 +61,21 @@ public class CoverGeneratorWindow : EditorWindow
             {
                 patrolManager.InitialiseAllZones();
             }
+
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
-        
+
+        GUILayout.Space(20f);
+        if (GUILayout.Button("FORCE DISABLE PATROL DEBUG"))
+        {
+            foreach (PatrolManager patrolManager in FindObjectsOfType<PatrolManager>())
+            {
+                patrolManager.ShowDebug_Disable();
+            }
+
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+        }
+
         GUILayout.Space(20f);
 
         currentGenerator = (CoverGenerator) EditorGUILayout.ObjectField(currentGenerator, typeof(CoverGenerator), true);
@@ -68,7 +92,7 @@ public class CoverGeneratorWindow : EditorWindow
             Debug.Log("RUNNING COVER GENERATION");
             if (currentGenerator)
             {
-                int counterNumber= coverGeneratorController.GenerateCovers(currentGenerator);
+                int counterNumber = coverGeneratorController.GenerateCovers(currentGenerator);
                 Debug.Log($"Generated {counterNumber} Covers");
                 currentGenerator.PatrolManager.InitialiseAllZones();
             }
@@ -76,8 +100,9 @@ public class CoverGeneratorWindow : EditorWindow
             {
                 Debug.LogWarning("Missing Current Generator");
             }
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
-        
+
         if (GUILayout.Button("CLEAR ALL Cover"))
         {
             if (currentGenerator)
@@ -88,7 +113,9 @@ public class CoverGeneratorWindow : EditorWindow
             {
                 Debug.LogWarning("Missing Current Generator");
             }
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
+
         //
         GUILayout.Space(10f);
         GUILayout.Label("ALL Cover", EditorStyles.boldLabel);
@@ -102,7 +129,7 @@ public class CoverGeneratorWindow : EditorWindow
             {
                 if (coverGenerator)
                 {
-                    int counterNumber= coverGeneratorController.GenerateCovers(coverGenerator);
+                    int counterNumber = coverGeneratorController.GenerateCovers(coverGenerator);
                     Debug.Log($"Generated {counterNumber} Covers for {coverGenerator.transform.parent.name}");
                     currentGenerator.PatrolManager.InitialiseAllZones();
                 }
@@ -111,10 +138,9 @@ public class CoverGeneratorWindow : EditorWindow
                     Debug.LogWarning("Missing Cover Generator");
                 }
             }
-            
-            
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
-        
+
         if (GUILayout.Button("CLEAR Cover On Current "))
         {
             foreach (CoverGenerator coverGenerator in FindObjectsOfType<CoverGenerator>())
@@ -128,7 +154,9 @@ public class CoverGeneratorWindow : EditorWindow
                     Debug.LogWarning("Missing Cover Generator");
                 }
             }
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
+
         GUILayout.Space(10f);
 
         //
@@ -220,7 +248,7 @@ public class CoverGeneratorController
             }
         }
 
-        
+
         return i;
     }
 
@@ -342,7 +370,6 @@ public class CoverGeneratorController
 
         return rotation;
     }
-
 }
 
 public class CoverGeneratorWindowInspector : Editor

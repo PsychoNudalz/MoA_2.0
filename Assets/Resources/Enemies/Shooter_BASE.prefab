@@ -626,6 +626,7 @@ MonoBehaviour:
   overrideMovementIfOutOfRange: 1
   lastThinkTime: 0
   thinkRate: 0.5
+  offsetThinkTime: 0
   hostileLayerMaks:
     serializedVersion: 2
     m_Bits: 2621952
@@ -635,7 +636,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1049600
   friendlyTags: []
-  detectionRange: 50
+  detectionRange: 80
   LOSLayer:
     serializedVersion: 2
     m_Bits: 3017216
@@ -782,7 +783,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   soundScript: {fileID: 0}
+  aiLogic: {fileID: 0}
   lightAttackAnimatorTrigger: LightAttack
+  lightAttackTransforms: []
   heavyAttackAnimatorTrigger: HeavyAttack
 --- !u!114 &2089996745468908118
 MonoBehaviour:

@@ -65,36 +65,36 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        roomSystem = transform.parent.GetComponent<RoomEnemySystem>();
-        /*
-         * Save enemy prefabs to spawn in array
-         */
-        enemyPrefabs = new GameObject[2];
-        enemyPrefabs[0] = stoneEnemy;
-        enemyPrefabs[1] = shootingEnemy;
-        enemiesToSpawn = new Queue<GameObject>();
-        spawnedEnemies = new List<GameObject>();
-        if (spawnerEnemyTypeOld.Equals(EnemyTypeOld.BossEnemy) || spawnerEnemyTypeOld.Equals(EnemyTypeOld.TankEnemy))
-        {
-            numberOfEnemies = 1;
-        }
-
-        for (int i = 0; i < numberOfEnemies; i++)
-        {
-            CreateEnemy();
-        }
-
-        /*
-         * Set spawn countdown
-         */
-        ResetSpawnCountdown();
-        /*
-         * If spawning on start spawn first enemy
-         */
-        if (isSpawning)
-        {
-            SpawnEnemy();
-        }
+        // roomSystem = transform.parent.GetComponent<RoomEnemySystem>();
+        // /*
+        //  * Save enemy prefabs to spawn in array
+        //  */
+        // enemyPrefabs = new GameObject[2];
+        // enemyPrefabs[0] = stoneEnemy;
+        // enemyPrefabs[1] = shootingEnemy;
+        // enemiesToSpawn = new Queue<GameObject>();
+        // spawnedEnemies = new List<GameObject>();
+        // if (spawnerEnemyTypeOld.Equals(EnemyTypeOld.BossEnemy) || spawnerEnemyTypeOld.Equals(EnemyTypeOld.TankEnemy))
+        // {
+        //     numberOfEnemies = 1;
+        // }
+        //
+        // for (int i = 0; i < numberOfEnemies; i++)
+        // {
+        //     CreateEnemy();
+        // }
+        //
+        // /*
+        //  * Set spawn countdown
+        //  */
+        // ResetSpawnCountdown();
+        // /*
+        //  * If spawning on start spawn first enemy
+        //  */
+        // if (isSpawning)
+        // {
+        //     SpawnEnemy();
+        // }
     }
 
     // Update is called once per frame
