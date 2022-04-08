@@ -45,7 +45,7 @@ public class GunConnectionPoint : MonoBehaviour
                 Perk[] perks = GetComponentInParent<GunPerkController>().Perks;
                 foreach (Perk perk in perks)
                 {
-                    print($"{perk.GetType()} , {gp.Perk.GetType()}");
+                    // print($"{perk.GetType()} , {gp.Perk.GetType()}");
                     if (perk.GetType().IsInstanceOfType(gp.Perk))
                     {
                         return false;

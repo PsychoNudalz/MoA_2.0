@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum HealthPickupType { Large, Small, Regen };
+public enum HealthPickupType { Large, Small, Regen };
 public class HealthPickupScript : MonoBehaviour
 {
     [SerializeField] private HealthPickupType pickupType;
@@ -28,7 +28,7 @@ public class HealthPickupScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rotateTextToCamera();
+        RotateTextToCamera();
     }
 
     private void CollectPickup()
@@ -38,15 +38,15 @@ public class HealthPickupScript : MonoBehaviour
             switch (pickupType)
             {
                 case HealthPickupType.Small:
-                    print(String.Format("Small health pickup : {0}%", smallPercentageValue));
+                    print($"Small health pickup : {smallPercentageValue}%");
                     playerLifeSystem.healHealth_PercentageMissing(smallPercentageValue);
                     break;
                 case HealthPickupType.Large:
-                    print(String.Format("Large health pickup : {0}%", largePercentageValue));
+                    print($"Large health pickup : {largePercentageValue}%");
                     playerLifeSystem.healHealth_Percentage(largePercentageValue);
                     break;
                 case HealthPickupType.Regen:
-                    print(String.Format("Regen health pickup : {0} seconds", regenDuration));
+                    print($"Regen health pickup : {regenDuration} seconds");
                     //Start regen.
                     break;
             }
@@ -54,7 +54,7 @@ public class HealthPickupScript : MonoBehaviour
         }
     }
 
-    void rotateTextToCamera()
+    void RotateTextToCamera()
     {
         if (camera == null)
         {

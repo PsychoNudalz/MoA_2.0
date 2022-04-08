@@ -72,22 +72,30 @@ public class IceEffectScript : ElementDebuffScript
 
     void ActiveIceOnTarget()
     {
-        if (targetLS is TargetLifeSystem)
+        if (targetLS is TargetLifeSystem||targetLS is EnemyLifeSystem)
         {
             if (targetLS.TryGetComponent(out TargetHandlerScript targetHandler))
             {
                 targetHandler.TargetMaterialHandler.SetIceShard(effectPotency);
+            }
+            if (targetLS.TryGetComponent(out EnemyHandler enemyHandler))
+            {
+                enemyHandler.EnemyEffectController.SetIceShard(effectPotency);
             }
         }
 
     }
     void ShatterIceOnTarget()
     {
-        if (targetLS is TargetLifeSystem)
+        if (targetLS is TargetLifeSystem||targetLS is EnemyLifeSystem)
         {
             if (targetLS.TryGetComponent(out TargetHandlerScript targetHandler))
             {
                 targetHandler.TargetMaterialHandler.ShatterIceShards(StartDuration- duration);
+            }
+            if (targetLS.TryGetComponent(out EnemyHandler enemyHandler))
+            {
+                enemyHandler.EnemyEffectController.ShatterIceShards(StartDuration- duration);
             }
         }
     }

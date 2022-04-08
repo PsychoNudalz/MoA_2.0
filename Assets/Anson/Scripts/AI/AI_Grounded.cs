@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(NavMeshAgent))]
 public class AI_Grounded : AILogic
 {
+    private Vector3 lastThinkPos;
+
     public override void ChangeState(AIState newState, AttackSet attackSet = null)
     {
         base.ChangeState(newState, attackSet);
@@ -110,6 +112,14 @@ public class AI_Grounded : AILogic
 
     protected override void AIThink_Move()
     {
+        if (!attackTarget)
+        {
+            SetTarget();
+        }
+        if (lastThinkPos.Equals(transform.position))
+        {
+            ChangeState(AIState.Idle);
+        }
         if (Vector3.Distance(movePos, transform.position) < moveStopRange)
         {
             if (MoveWaitTime_Now <= 0)
@@ -137,6 +147,7 @@ public class AI_Grounded : AILogic
             }
         }
 
+        lastThinkPos = transform.position;
     }
 
     private void SetNewPatrolPoint()

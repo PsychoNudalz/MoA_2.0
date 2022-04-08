@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7996651654848253237}
   - component: {fileID: 7996651654848253238}
+  - component: {fileID: 1701741048}
   m_Layer: 0
   m_Name: TeleManager
   m_TagString: Untagged
@@ -43,9 +44,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d96fb814996fe4aab94b4a336eeae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portals: []
+  bossPortals:
+  - {fileID: 0}
+  start: {fileID: 0}
+  percentageHealthReduced: 10
+--- !u!114 &1701741048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7996651654848253239}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d96fb814996fe4aab94b4a336eeae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   portals:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bossPortals:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   start: {fileID: 0}
-  end: {fileID: 0}
+  percentageHealthReduced: 20

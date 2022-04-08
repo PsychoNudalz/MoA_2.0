@@ -22,6 +22,14 @@ public class EnemyHandler : MonoBehaviour
     [SerializeField]
     protected Animator animator;
 
+    [Space]
+    [Header("Death")]
+    [SerializeField]
+    private HealthPickupType healthPickupType;
+
+    [SerializeField]
+    private AnimationCurve healthSpawnChance;
+
 
     public AILogic EnemyAI => enemyAI;
 
@@ -30,6 +38,8 @@ public class EnemyHandler : MonoBehaviour
     public EnemyLifeSystem EnemyLifeSystem => enemyLifeSystem;
 
     public TargetSoundScript SoundScript => soundScript;
+
+    public TargetEffectController EnemyEffectController => enemyEffectController;
 
     public Animator Animator => animator;
     
@@ -134,6 +144,7 @@ public class EnemyHandler : MonoBehaviour
         {
             collider.gameObject.SetActive(false);
         }
+        SpawnHealth();
         enemyAI.ChangeState(AIState.Dead);
         animator.SetTrigger("Dead");
         soundScript.Play_Death();
@@ -143,5 +154,14 @@ public class EnemyHandler : MonoBehaviour
     public virtual void OnMove(Vector3 velocity)
     {
         animator.SetFloat("MoveSpeed",velocity.magnitude);
+    }
+
+    public virtual void SpawnHealth()
+    {
+        if (Random.Range(0f, 1f) <
+            healthSpawnChance.Evaluate(PlayerMasterScript.current.PlayerLifeSystemScript.GetPercentageHealth()))
+        {
+            HealthManager.SpawnHealth(healthPickupType,transform.position);
+        }
     }
 }

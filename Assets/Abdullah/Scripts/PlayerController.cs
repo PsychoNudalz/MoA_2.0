@@ -488,7 +488,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetMoveSpeed_Current(float f)
     {
-        Debug.Log($"overriding from {moveSpeed_Current} to {f}");
+        // Debug.Log($"overriding from {moveSpeed_Current} to {f}");
         moveSpeed_Current = f;
     }
 
@@ -917,7 +917,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < slices; i++)
         {
-            Debug.Log($"Cast Hand position {i}");
+            // Debug.Log($"Cast Hand position {i}");
 
             if (Physics.Raycast(lookScript.GetHead(),
                 Quaternion.AngleAxis(rotateAmount * i, transform.up) * transform.forward, out raycastHits[i],

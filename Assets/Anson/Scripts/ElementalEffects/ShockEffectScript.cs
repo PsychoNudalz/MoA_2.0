@@ -107,28 +107,37 @@ public class ShockEffectScript : ElementDebuffScript
 
     void ActiveShockOnTarget(LifeSystemScript currentTarget, Transform nextTarget = null)
     {
-        if (currentTarget is TargetLifeSystem)
+        if (currentTarget is TargetLifeSystem||currentTarget is EnemyLifeSystem)
         {
             if (currentTarget.TryGetComponent(out TargetHandlerScript targetHandler))
             {
                 targetHandler.TargetMaterialHandler.SetShock(true, nextTarget);
             }
+
+            if (currentTarget.TryGetComponent(out EnemyHandler enemyHandler))
+            {
+                enemyHandler.EnemyEffectController.SetShock(true, nextTarget);
+            }
         }
     }
     void ActiveShockOnTarget(LifeSystemScript currentTarget, LifeSystemScript nextTarget)
     {
-        if (currentTarget is TargetLifeSystem)
+        if (currentTarget is TargetLifeSystem||currentTarget is EnemyLifeSystem)
         {
             if (currentTarget.TryGetComponent(out TargetHandlerScript targetHandler))
             {
                 targetHandler.TargetMaterialHandler.SetShock(true, nextTarget);
+            }
+            if (currentTarget.TryGetComponent(out EnemyHandler enemyHandler))
+            {
+                enemyHandler.EnemyEffectController.SetShock(true, nextTarget);
             }
         }
     }
 
     void UpdateShock(LifeSystemScript currentTarget)
     {
-        if (currentTarget is TargetLifeSystem)
+        if (currentTarget is TargetLifeSystem||currentTarget is EnemyLifeSystem)
         {
             if (currentTarget.TryGetComponent(out TargetHandlerScript targetHandler))
             {

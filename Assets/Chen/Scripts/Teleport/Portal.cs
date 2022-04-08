@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -72,7 +73,14 @@ public class Portal : InteractableScript
 
         if (!currentRoomEnemySystem)
         {
-            currentRoomEnemySystem = transform.parent.GetComponentInChildren<RoomEnemySystem>();
+            try
+            {
+                currentRoomEnemySystem = transform.parent.GetComponentInChildren<RoomEnemySystem>();
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.LogWarning($"{name} missing parent and current room enemy system");
+            }
         }
     }
 

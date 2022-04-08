@@ -15,8 +15,11 @@ public class TeleportManager : MonoBehaviour
         ShuffleList(portals);
         //ShuffleList(bossPortals);
         foreach (Portal pt in bossPortals) {
-            pt.isBoss = true;
-            pt.percentageHealthReduced = percentageHealthReduced;
+            if (pt)
+            {
+                pt.isBoss = true;
+                pt.percentageHealthReduced = percentageHealthReduced;
+            }
         }
 
         if (bossPortals.Count != 0)

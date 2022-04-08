@@ -226,7 +226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5625326586118488930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.4, y: 0, z: 23.939999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 398494591231720430}
@@ -253,6 +253,31 @@ MonoBehaviour:
   enemyEffectController: {fileID: 5562215294372058344}
   soundScript: {fileID: 8277136462502480078}
   animator: {fileID: 7631564071244883096}
+  healthPickupType: 1
+  healthSpawnChance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.2
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!195 &6969794082051177908
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -289,7 +314,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7631564071244883096}
   soundScript: {fileID: 8277136462502480078}
+  aiLogic: {fileID: 0}
   lightAttackAnimatorTrigger: LightAttack
+  lightAttackTransforms: []
   heavyAttackAnimatorTrigger: HeavyAttack
 --- !u!114 &2089996745468908118
 MonoBehaviour:
@@ -360,6 +387,7 @@ MonoBehaviour:
   overrideMovementIfOutOfRange: 1
   lastThinkTime: 0
   thinkRate: 0.5
+  offsetThinkTime: 0
   hostileLayerMaks:
     serializedVersion: 2
     m_Bits: 2621952
@@ -377,7 +405,8 @@ MonoBehaviour:
   moveStopRange: 1
   MoveWaitTime: {x: 0.5, y: 1}
   MoveWaitTime_Now: 0
-  turnSpeed: 10
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  rotateSpeed: 10
   attackSets:
   - attackCondition:
       cooldown: 30
@@ -473,10 +502,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
   DrawDebug: 0
+  enemyHandler: {fileID: 0}
   bodyModel: {fileID: 398494591231720430}
   navMeshAgent: {fileID: 0}
   currentPatrolZone: {fileID: 0}
@@ -1358,6 +1385,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4719760864264673898, guid: 3630b20189e9e4f4c84655103a2d92eb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4719760864264673898, guid: 3630b20189e9e4f4c84655103a2d92eb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4719760864264673903, guid: 3630b20189e9e4f4c84655103a2d92eb,
         type: 3}
       propertyPath: m_Layer
@@ -1396,7 +1433,7 @@ PrefabInstance:
     - target: {fileID: 7363170321320107780, guid: 3630b20189e9e4f4c84655103a2d92eb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.233
       objectReference: {fileID: 0}
     - target: {fileID: 7363170321320107780, guid: 3630b20189e9e4f4c84655103a2d92eb,
         type: 3}
@@ -1492,6 +1529,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Overridden
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539347585707102617, guid: 3630b20189e9e4f4c84655103a2d92eb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539347585707102617, guid: 3630b20189e9e4f4c84655103a2d92eb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539347585707102617, guid: 3630b20189e9e4f4c84655103a2d92eb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8551512288472459175, guid: 3630b20189e9e4f4c84655103a2d92eb,
         type: 3}
