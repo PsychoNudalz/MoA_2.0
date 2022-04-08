@@ -9,7 +9,7 @@ public class RoomEnemySystem : MonoBehaviour
 {
     [SerializeField]
     private bool isActivated = false;
-    
+
     EnemySpawner[] roomSpawners;
 
     PlayerUIScript UIScript;
@@ -44,6 +44,37 @@ public class RoomEnemySystem : MonoBehaviour
 
     public PatrolManager PatrolManager => patrolManager;
 
+    public LevelSet[] LevelSets => levelSets;
+
+    public RoomEnemySystemData GetData()
+    {
+        AutoSetPatrolZone();
+        AutoSetPatrolZoneIndex_FORCE();
+        LevelSetData[] levelSetDatas = new LevelSetData[levelSets.Length];
+        for (int i = 0; i < levelSets.Length; i++)
+        {
+            levelSetDatas[i] = levelSets[i].GetData();
+        }
+
+        return new RoomEnemySystemData(levelSetDatas);
+    }
+
+    public void LoadData(RoomEnemySystemData roomEnemySystemData)
+    {
+        if (roomEnemySystemData.Equals(null))
+        {
+            Debug.LogError("Failed to load roomEnemySystem");
+            return;
+        }
+
+        levelSets = new LevelSet[roomEnemySystemData.levelSetDatas.Length];
+        for (var index = 0; index < roomEnemySystemData.levelSetDatas.Length; index++)
+        {
+            LevelSetData levelSetData = roomEnemySystemData.levelSetDatas[index];
+            levelSets[index] = new LevelSet(levelSetData);
+        }
+    }
+
     private void Awake()
     {
         roomSpawners = GetComponentsInChildren<EnemySpawner>();
@@ -66,9 +97,12 @@ public class RoomEnemySystem : MonoBehaviour
     {
         foreach (var levelSet in levelSets)
         {
-            foreach (var spawnWave in levelSet.spawnWaves)
+            if (!levelSet.spawnWaves.Equals(null))
             {
-                spawnWave.TotalEnemyCount = spawnWave.GetEnemyCount();
+                foreach (var spawnWave in levelSet.spawnWaves)
+                {
+                    spawnWave.TotalEnemyCount = spawnWave.GetEnemyCount();
+                }
             }
         }
     }
@@ -114,14 +148,13 @@ public class RoomEnemySystem : MonoBehaviour
         //NEW SYSTEM//
         isActivated = true;
     }
-    
-    
+
 
     public void StartNextWave()
     {
-        if (waveIndex+1 < levelSets[difficulty].spawnWaves.Length)
+        if (waveIndex + 1 < levelSets[difficulty].spawnWaves.Length)
         {
-            SpawnWave nextWave = levelSets[difficulty].spawnWaves[waveIndex+1];
+            SpawnWave nextWave = levelSets[difficulty].spawnWaves[waveIndex + 1];
             if (nextWave.ConditionMet(enemyCountCurrent))
             {
                 Debug.Log($"Spawning Wave: {waveIndex}");
@@ -211,20 +244,18 @@ public class RoomEnemySystem : MonoBehaviour
         {
             levelSet = difficulty;
         }
-        
-        i = Mathf.Min(Mathf.Max(0, i), levelSets[levelSet].spawnWaves.Length-1);
+
+        i = Mathf.Min(Mathf.Max(0, i), levelSets[levelSet].spawnWaves.Length - 1);
 
         SpawnWave currentWave = levelSets[difficulty].spawnWaves[i];
-        
+
         return currentWave.GetEnemyCount();
     }
-    
-    
-    
+
+
     [ContextMenu("AutoSetPatrolZone")]
     public void AutoSetPatrolZone()
     {
-
         foreach (LevelSet levelSet in levelSets)
         {
             foreach (SpawnWave spawnWave in levelSet.spawnWaves)
@@ -233,22 +264,22 @@ public class RoomEnemySystem : MonoBehaviour
             }
         }
     }
-    
+
     [ContextMenu("AutoSetPatrolZone_FORCE")]
     public void AutoSetPatrolZone_FORCE()
     {
-
         foreach (LevelSet levelSet in levelSets)
         {
             foreach (SpawnWave spawnWave in levelSet.spawnWaves)
             {
-                spawnWave.AutoSetPatrolZone(patrolManager,true);
+                spawnWave.AutoSetPatrolZone(patrolManager, true);
             }
         }
-    }[ContextMenu("AutoSetPatrolZoneIndex")]
+    }
+
+    [ContextMenu("AutoSetPatrolZoneIndex")]
     public void AutoSetPatrolZoneIndex()
     {
-
         foreach (LevelSet levelSet in levelSets)
         {
             foreach (SpawnWave spawnWave in levelSet.spawnWaves)
@@ -257,16 +288,15 @@ public class RoomEnemySystem : MonoBehaviour
             }
         }
     }
-    
+
     [ContextMenu("AutoSetPatrolZoneIndex_FORCE")]
     public void AutoSetPatrolZoneIndex_FORCE()
     {
-
         foreach (LevelSet levelSet in levelSets)
         {
             foreach (SpawnWave spawnWave in levelSet.spawnWaves)
             {
-                spawnWave.AutoSetPatrolZoneIndex(patrolManager,true);
+                spawnWave.AutoSetPatrolZoneIndex(patrolManager, true);
             }
         }
     }
