@@ -56,6 +56,10 @@ public abstract class AILogic : MonoBehaviour
     [SerializeField]
     private bool freezeY = true;
 
+    [Header("Aggressive")]
+    [SerializeField]
+    protected float aggressive_distanceToTarget = 3f;
+    
     [Header("Defensive")]
     [SerializeField]
     protected float defensive_Distance = 5f;
@@ -128,7 +132,7 @@ public abstract class AILogic : MonoBehaviour
     protected float MoveWaitTime_Now = 0;
 
     [SerializeField]
-    private Quaternion targetRotation;
+    protected Quaternion targetRotation;
 
     [SerializeField]
     protected float rotateSpeed = 10f;
@@ -178,7 +182,7 @@ public abstract class AILogic : MonoBehaviour
     private EnemyHandler enemyHandler;
 
     [SerializeField]
-    private Transform bodyModel;
+    protected Transform bodyModel;
 
     [SerializeField]
     protected NavMeshAgent navMeshAgent;
@@ -415,7 +419,7 @@ public abstract class AILogic : MonoBehaviour
         return target - transform.position;
     }
 
-    protected void SetOrientateToTarget()
+    protected virtual void SetOrientateToTarget()
     {
         if (targetRotation == Quaternion.identity)
         {
@@ -440,7 +444,7 @@ public abstract class AILogic : MonoBehaviour
         }
     }
 
-    protected void UpdateOrientation()
+    protected virtual void UpdateOrientation()
     {
         if (targetRotation == Quaternion.identity)
         {
@@ -758,11 +762,21 @@ public abstract class AILogic : MonoBehaviour
                 case AIAttribute.RandomMovement:
                     if (overrideMovementIfOutOfRange)
                     {
-                        if (!attackTarget || Vector3.Distance(attackTarget.position, transform.position) >
-                            defensive_Distance)
+                        if (attributesStack.Contains(AIAttribute.Aggressive) && !attackTarget)
                         {
                             returnPoint = currentPatrolZone.GetRandomPoint();
+
                         }
+                        else if (attributesStack.Contains(AIAttribute.Defensive))
+                        {
+                            
+                            if (!attackTarget || Vector3.Distance(attackTarget.position, transform.position) >
+                                defensive_Distance)
+                            {
+                                returnPoint = currentPatrolZone.GetRandomPoint();
+                            }
+                        }
+                        
                     }
                     else
                     {

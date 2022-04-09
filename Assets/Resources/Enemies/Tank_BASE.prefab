@@ -236,7 +236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787756322417964072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.226, z: -0}
+  m_LocalPosition: {x: 0, y: 3.63, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6630907452229012056}
@@ -2448,7 +2448,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3730020036154193953}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.127, y: 3.22, z: 1.1}
+  m_LocalPosition: {x: -1.127, y: 4.624, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4518240546433868900}
@@ -4255,8 +4255,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   previousState: 0
-  attributesStack: 0000000004000000
+  attributesStack: 0100000004000000
   freezeY: 1
+  aggressive_distanceToTarget: 3
   defensive_Distance: 8
   defensive_Space: 2
   defensive_TangentRange: {x: 8, y: 10}
@@ -4265,7 +4266,7 @@ MonoBehaviour:
   takeCover_DefenceDistanceMultiplier: 0.5
   overrideMovementIfOutOfRange: 1
   lastThinkTime: 0
-  thinkRate: 0.5
+  thinkRate: 0.3
   offsetThinkTime: 0
   hostileLayerMaks:
     serializedVersion: 2
@@ -4281,7 +4282,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3017216
   movePos: {x: 0, y: 0, z: 0}
-  moveStopRange: 1
+  moveStopRange: 5
   MoveWaitTime: {x: 0.2, y: 0.5}
   MoveWaitTime_Now: 0
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -4314,7 +4315,7 @@ MonoBehaviour:
       cooldown: 15
       duration: 2
       range: 1000
-      needsLineOfSight: 1
+      needsLineOfSight: 0
     OnAttack:
       m_PersistentCalls:
         m_Calls:
@@ -4397,7 +4398,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -10043,15 +10044,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4526463827110206, guid: 5aed7f791a03c2a4ba0040d2fa161639, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4526463827110206, guid: 5aed7f791a03c2a4ba0040d2fa161639, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4526463827110206, guid: 5aed7f791a03c2a4ba0040d2fa161639, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4526463827110206, guid: 5aed7f791a03c2a4ba0040d2fa161639, type: 3}
       propertyPath: m_LocalPosition.x

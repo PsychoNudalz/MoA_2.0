@@ -10,7 +10,7 @@ public static class FileLoader
     public static void SaveToFile<T>(string path, string filename, T objectToBeSaved)
     {
         string saveString = JsonUtility.ToJson(objectToBeSaved);
-        Debug.Log("Saving all cards");
+        // Debug.Log("Saving all cards");
         Debug.Log(saveString);
         if (CreateFile(path, filename, saveString))
         {

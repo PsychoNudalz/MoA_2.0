@@ -100,7 +100,6 @@ public class AI_Grounded : AILogic
 
     protected override void EndState_Move()
     {
-        
         base.EndState_Move();
     }
 
@@ -116,10 +115,12 @@ public class AI_Grounded : AILogic
         {
             SetTarget();
         }
+
         if (lastThinkPos.Equals(transform.position))
         {
             ChangeState(AIState.Idle);
         }
+
         if (Vector3.Distance(movePos, transform.position) < moveStopRange)
         {
             if (MoveWaitTime_Now <= 0)
@@ -137,6 +138,14 @@ public class AI_Grounded : AILogic
                 if (temp != null)
                 {
                     ChangeState(AIState.Attack, temp);
+                }
+            }
+
+            if (attackTarget&&attributesStack.Contains(AIAttribute.Aggressive))
+            {
+                if (Vector3.Distance(movePos, attackTarget.position)<aggressive_distanceToTarget)
+                {
+                    SetNewPatrolPoint();
                 }
             }
 

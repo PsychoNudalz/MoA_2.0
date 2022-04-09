@@ -62,6 +62,14 @@ public class AI_Flying : AILogic
         }
     }
 
+    protected override void UpdateOrientation()
+    {
+        base.UpdateOrientation();
+        Vector3 t = bodyModel.localEulerAngles;
+        t.z = 0f;
+        bodyModel.localEulerAngles = t;
+    }
+
     protected override void EndState_Idle()
     {
         base.EndState_Idle();

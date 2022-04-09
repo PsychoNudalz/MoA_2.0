@@ -840,8 +840,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   previousState: 0
-  attributesStack: 0100000004000000
+  attributesStack: 01000000
   freezeY: 1
+  aggressive_distanceToTarget: 1
   defensive_Distance: 8
   defensive_Space: 2
   defensive_TangentRange: {x: 8, y: 10}
@@ -850,7 +851,7 @@ MonoBehaviour:
   takeCover_DefenceDistanceMultiplier: 0.5
   overrideMovementIfOutOfRange: 1
   lastThinkTime: 0
-  thinkRate: 0.2
+  thinkRate: 0.5
   offsetThinkTime: 0
   hostileLayerMaks:
     serializedVersion: 2
@@ -867,7 +868,7 @@ MonoBehaviour:
     m_Bits: 3017216
   movePos: {x: 0, y: 0, z: 0}
   moveStopRange: 1
-  MoveWaitTime: {x: 0.2, y: 0.5}
+  MoveWaitTime: {x: 0, y: 0.1}
   MoveWaitTime_Now: 0
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
   rotateSpeed: 10
@@ -894,7 +895,7 @@ MonoBehaviour:
           m_CallState: 2
     lastAttackTime: 0
     canMove: 0
-    faceTarget: 1
+    faceTarget: 0
   lastAttack:
     attackCondition:
       cooldown: 0
