@@ -73,6 +73,8 @@ public class RoomEnemySystem : MonoBehaviour
             LevelSetData levelSetData = roomEnemySystemData.levelSetDatas[index];
             levelSets[index] = new LevelSet(levelSetData);
         }
+        AutoSetPatrolZone();
+
     }
 
     private void Awake()

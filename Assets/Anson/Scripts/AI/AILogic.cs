@@ -145,6 +145,9 @@ public abstract class AILogic : MonoBehaviour
     protected AttackSet lastAttack;
 
     [SerializeField]
+    protected bool autoSetPlayerToTarget;
+    
+    [SerializeField]
     protected Transform attackTarget;
 
     [SerializeField]
