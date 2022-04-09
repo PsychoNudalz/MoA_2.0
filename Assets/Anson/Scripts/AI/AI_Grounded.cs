@@ -143,7 +143,7 @@ public class AI_Grounded : AILogic
 
             if (attackTarget&&attributesStack.Contains(AIAttribute.Aggressive))
             {
-                if (Vector3.Distance(movePos, attackTarget.position)<aggressive_distanceToTarget)
+                if (Vector3.Distance(movePos, attackTarget.position)> aggressive_distanceToTarget)
                 {
                     SetNewPatrolPoint();
                 }
