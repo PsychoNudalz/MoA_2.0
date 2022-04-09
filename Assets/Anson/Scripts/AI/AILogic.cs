@@ -222,8 +222,12 @@ public abstract class AILogic : MonoBehaviour
             enemyHandler = GetComponent<EnemyHandler>();
         }
 
+        RandomiseAttackTime();
+        
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
         SetNewPatrolPoint();
+        
     }
 
     // Update is called once per frame
@@ -681,6 +685,14 @@ public abstract class AILogic : MonoBehaviour
         }
 
         return selectedAttack;
+    }
+
+    protected virtual void RandomiseAttackTime()
+    {
+        foreach (AttackSet attackSet in attackSets)
+        {
+            attackSet.lastAttackTime = Random.Range(0f, attackSet.attackCondition.cooldown);
+        }
     }
 
     protected virtual Vector3 SetMovePointByAttribute()

@@ -51,7 +51,7 @@ public class PlayerMelee : MonoBehaviour
     {
         print("Melee");
         cooldownTime_Now = cooldownTime;
-        sphereCastDamageScript.SphereCastDamageArea(meleeDamage, meleeRange, damageCurve, 1, damageElement, true);
+        sphereCastDamageScript.SphereCastDamageArea(meleeDamage, meleeRange, damageCurve, 1, damageElement, false);
         
     }
 

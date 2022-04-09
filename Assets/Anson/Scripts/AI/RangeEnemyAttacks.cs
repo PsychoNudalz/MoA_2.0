@@ -26,10 +26,15 @@ public class RangeEnemyAttacks : EnemyAttacks
 
     public void LightAttack_Aimed()
     {
+        Vector3 attackPoint = aiLogic.AttackTarget.position;
+        if (aiLogic.AttackTarget.TryGetComponent(out LifeSystemScript temp))
+        {
+            attackPoint = temp.GetCentreOfMass().position;
+        }
         // Vector3 aimDir = aiLogic.GetDirectionToTarget();
         foreach (Transform lightAttackTransform in lightAttackTransforms)
         {
-            lightAttackTransform.LookAt(aiLogic.AttackTarget.position);
+            lightAttackTransform.LookAt(attackPoint);
         }
         LightAttack();
     }

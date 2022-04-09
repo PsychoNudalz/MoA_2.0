@@ -10,6 +10,7 @@ public class ProjectileTriggerDetectionScript : MonoBehaviour
     [SerializeField] float radius;
     [SerializeField] float deadZone;
     [SerializeField] List<string> tagList;
+    [SerializeField] List<string> ignoreTagList;
     [SerializeField] bool canOverrideTarget;
     [SerializeField] float checkRate = 0.5f;
     float lastCheck;
@@ -32,13 +33,21 @@ public class ProjectileTriggerDetectionScript : MonoBehaviour
         }
         if (projectileScript != null)
         {
-            tagList = projectileScript.TagList;
+            tagList = new List<string>(projectileScript.TagList);
+        }
+
+        foreach (string s in ignoreTagList)
+        {
+            if (tagList.Contains(s))
+            {
+                tagList.Remove(s);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (tagList.Contains(other.tag) && !other.tag.Equals("Enviorment")&& !other.tag.Equals("Floor"))
+        if (tagList.Contains(other.tag) )
         {
             if (canOverrideTarget || target == null)
             {
