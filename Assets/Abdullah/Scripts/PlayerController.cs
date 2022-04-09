@@ -1239,7 +1239,7 @@ public class PlayerController : MonoBehaviour
         {
             if (jumpVelocity < groundCheckRadius * gravity / 2f)
             {
-                jumpVelocity = groundCheckRadius * gravity / 2f;
+                jumpVelocity = groundCheckRadius * gravity;
             }
 
             coyoteJump = true;

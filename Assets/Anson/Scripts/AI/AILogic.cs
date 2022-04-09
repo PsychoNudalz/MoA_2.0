@@ -482,6 +482,10 @@ public abstract class AILogic : MonoBehaviour
 
     protected virtual void ChangeState_Idle()
     {
+        if (!attackTarget && autoSetPlayerToTarget)
+        {
+            attackTarget = PlayerMasterScript.current.transform;
+        }
     }
 
     protected virtual void AIThink_Idle()
