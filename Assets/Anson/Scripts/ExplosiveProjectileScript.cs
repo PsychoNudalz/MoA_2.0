@@ -13,6 +13,10 @@ public class ExplosiveProjectileScript : ProjectileScript
 
     public override void Explode()
     {
+        if (ElementType.Equals(ElementTypes.FIRE))
+        {
+            Debug.LogWarning(this.name+" called Fire");
+        }
         base.Explode();
         sphereCastDamageScript.SphereCastDamageArea(BaseDamage*damageMultiplier, maxRange, rangeFalloff, Level, ElementType, true);
         Destroy(gameObject);

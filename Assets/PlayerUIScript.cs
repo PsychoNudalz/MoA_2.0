@@ -144,11 +144,11 @@ public class PlayerUIScript : MonoBehaviour
     {
         if (areVisible)
         {
-            enemiesBehindObjectMaterial.SetFloat("_Alpha", 0.4f);
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 1f);
         }
         else
         {
-            enemiesBehindObjectMaterial.SetFloat("_Alpha", 1f);
+            enemiesBehindObjectMaterial.SetFloat("_Alpha", 0f);
         }
     }
 

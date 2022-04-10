@@ -7,6 +7,12 @@ public class SphereCastDamageScript : DamageScript
     [SerializeField] float lineOfSightOffset = 0f;
     public bool SphereCastDamageArea(float dmg, float range, AnimationCurve rangeCurve, int level, ElementTypes elementType, bool needLineOfSight = false)
     {
+        if (elementType.Equals(ElementTypes.FIRE))
+        {
+            Debug.LogWarning("Something called Fire");
+        }
+        
+        
         attackedTargets = new List<LifeSystemScript>();
         bool hitTarget = false;
         bool shockFlag = false;
