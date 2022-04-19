@@ -83,7 +83,6 @@ public class SpawnWave
     [SerializeField]
     SpawnSet[] spawnSets;
 
-    [SerializeField]
     List<EnemyHandler> spawnedEnemies;
     
     

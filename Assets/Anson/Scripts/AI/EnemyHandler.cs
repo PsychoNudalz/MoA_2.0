@@ -42,9 +42,8 @@ public class EnemyHandler : MonoBehaviour
     public TargetEffectController EnemyEffectController => enemyEffectController;
 
     public Animator Animator => animator;
-    
-    [ContextMenu("Awake")]
 
+    [ContextMenu("Awake")]
     void Awake()
     {
         if (!enemyAI)
@@ -72,8 +71,8 @@ public class EnemyHandler : MonoBehaviour
         {
             enemyLifeSystem.TargetSoundScript = GetComponentInChildren<TargetSoundScript>();
         }
-        
-        
+
+
         if (!enemyAttacks.Animator)
         {
             enemyAttacks.Animator = animator;
@@ -93,12 +92,11 @@ public class EnemyHandler : MonoBehaviour
         {
             enemyEffectController = GetComponentInChildren<TargetEffectController>();
         }
-        
     }
+
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public virtual void SetPatrolZone(PatrolZone patrolZone)
@@ -114,28 +112,26 @@ public class EnemyHandler : MonoBehaviour
     public virtual void SpawnEnemy()
     {
         gameObject.SetActive(true);
+        gameObject.name = gameObject.name.Replace("(Clone)", "");
         Debug.Log($"Spawn: {name} ");
         enemyEffectController.SpawnEffect();
         soundScript.Play_Spawn();
     }
-    
+
     public virtual void Stagger(bool b = true)
     {
         if (b)
         {
             animator.SetTrigger("StaggerTrigger");
-            animator.SetBool("Stagger",true);
+            animator.SetBool("Stagger", true);
             enemyEffectController.SetStagger(true);
             soundScript.Play_Stagger();
-
         }
         else
         {
-            animator.SetBool("Stagger",false);
+            animator.SetBool("Stagger", false);
             enemyEffectController.SetStagger(false);
             soundScript.Play_Stagger(false);
-
-
         }
     }
 
@@ -145,16 +141,16 @@ public class EnemyHandler : MonoBehaviour
         {
             collider.gameObject.SetActive(false);
         }
+
         SpawnHealth();
         enemyAI.ChangeState(AIState.Dead);
         animator.SetTrigger("Dead");
         soundScript.Play_Death();
-
     }
 
     public virtual void OnMove(Vector3 velocity)
     {
-        animator.SetFloat("MoveSpeed",velocity.magnitude);
+        animator.SetFloat("MoveSpeed", velocity.magnitude);
     }
 
     public virtual void SpawnHealth()
@@ -162,7 +158,7 @@ public class EnemyHandler : MonoBehaviour
         if (Random.Range(0f, 1f) <
             healthSpawnChance.Evaluate(PlayerMasterScript.current.PlayerLifeSystemScript.GetPercentageHealth()))
         {
-            HealthManager.SpawnHealth(healthPickupType,transform.position);
+            HealthManager.SpawnHealth(healthPickupType, transform.position);
         }
     }
 }
