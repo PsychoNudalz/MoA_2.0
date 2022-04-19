@@ -778,7 +778,9 @@ public class PatrolZone : MonoBehaviour
 
         if (hit.collider != null)
         {
-            patrolPoint.CoverDirection = -hit.normal;
+            Vector3 temp = (closestCollider.transform.position - patrolPoint.Position).normalized;
+            temp.y = 0;
+            patrolPoint.CoverDirection = Vector3.Lerp(-hit.normal,temp,.3f) ;
         }
         else
         {
