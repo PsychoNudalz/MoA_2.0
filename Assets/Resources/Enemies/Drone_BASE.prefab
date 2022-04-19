@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health_Current: 0
-  health_Max: 750
+  health_Max: 500
   isDead: 0
   centreOfMass: {fileID: 0}
   invincible: 0
@@ -530,7 +530,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 0
 --- !u!1 &5868742245100440721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,7 +1074,12 @@ PrefabInstance:
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
       propertyPath: projectilePerShot
-      value: 10
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
+        type: 3}
+      propertyPath: damagePerProjectile
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
@@ -1261,7 +1266,7 @@ PrefabInstance:
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
       propertyPath: projectilePerShot
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
@@ -1271,7 +1276,7 @@ PrefabInstance:
     - target: {fileID: 4402967919918463271, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
       propertyPath: timeBetweenProjectile
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4851381496675741153, guid: 351892ee07a8cd44dbb12a4756008584,
         type: 3}
