@@ -691,7 +691,8 @@ public abstract class AILogic : MonoBehaviour
     {
         foreach (AttackSet attackSet in attackSets)
         {
-            attackSet.lastAttackTime = Random.Range(0f, attackSet.attackCondition.cooldown);
+            float baseAttackStartTime = .5f;
+            attackSet.lastAttackTime = Random.Range(0f, attackSet.attackCondition.cooldown)+attackSet.attackCondition.cooldown*baseAttackStartTime;
         }
     }
 

@@ -113,6 +113,7 @@ public class EnemyHandler : MonoBehaviour
 
     public virtual void SpawnEnemy()
     {
+        gameObject.SetActive(true);
         Debug.Log($"Spawn: {name} ");
         enemyEffectController.SpawnEffect();
         soundScript.Play_Spawn();

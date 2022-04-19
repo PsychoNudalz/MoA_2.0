@@ -12,6 +12,7 @@ public class TeleportManager : MonoBehaviour
 
     void Start()
     {
+        int difficulty = 0;
         ShuffleList(portals);
         //ShuffleList(bossPortals);
         foreach (Portal pt in bossPortals) {
@@ -38,16 +39,20 @@ public class TeleportManager : MonoBehaviour
             prev.portalTarget = pt;
             if (pt.CurrentRoomEnemySystem != null)
             {
-                prev.Setup(pt.CurrentRoomEnemySystem,i);
+                prev.Setup(pt.CurrentRoomEnemySystem,i,difficulty);
             }
             prev = pt;
             i++;
+            if (bossPortals.Contains(pt))
+            {
+                difficulty++;
+            }
         }
 
         if (end)
         {
             prev.portalTarget = end;
-            prev.Setup(end.CurrentRoomEnemySystem,i);
+            prev.Setup(end.CurrentRoomEnemySystem,i,difficulty);
             //end.GetComponent<BoxCollider>().enabled = false;
             end.isWinning = true;
         }

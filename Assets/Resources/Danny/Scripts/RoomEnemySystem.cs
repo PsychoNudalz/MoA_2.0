@@ -22,6 +22,11 @@ public class RoomEnemySystem : MonoBehaviour
     [SerializeField]
     private float checkWaveTime = 2f;
 
+    [SerializeField]
+    private float timeBetweenSpawn = 0.5f;
+
+    private Coroutine spawnCoroutine;
+
 
     [Header("Enemy Waves")]
     [SerializeField]
@@ -41,6 +46,9 @@ public class RoomEnemySystem : MonoBehaviour
 
     [SerializeField]
     private int enemyCountTotal = 0;
+
+    [SerializeField]
+    private Queue<EnemyHandler> spawnQueue = new Queue<EnemyHandler>();
 
     public PatrolManager PatrolManager => patrolManager;
 
@@ -91,6 +99,11 @@ public class RoomEnemySystem : MonoBehaviour
             {
                 lastCheckTimeNow = Time.time;
                 StartNextWave();
+            }
+
+            if (spawnCoroutine == null && spawnQueue.Count > 0)
+            {
+                spawnCoroutine = StartCoroutine(StaggerSpawnQueue());
             }
         }
     }
@@ -160,15 +173,43 @@ public class RoomEnemySystem : MonoBehaviour
             if (nextWave.ConditionMet(enemyCountCurrent))
             {
                 Debug.Log($"Spawning Wave: {waveIndex}");
-                IncrementEnemies(nextWave.StartWave());
+                List<EnemyHandler> enemyToSpawn = nextWave.SpawnedEnemies;
+                // IncrementEnemies(nextWave.StartWave());
+                foreach (EnemyHandler enemyHandler in enemyToSpawn)
+                {
+                    spawnQueue.Enqueue(enemyHandler);
+                }
+                IncrementEnemies(enemyToSpawn.Count);
                 waveIndex++;
             }
         }
     }
 
-    [ContextMenu("Initialise Spawn")]
-    public void InitialiseSpawns()
+    IEnumerator StaggerSpawnQueue()
     {
+        yield return new WaitForSeconds(timeBetweenSpawn);
+        spawnQueue.Dequeue().SpawnEnemy();
+        if (spawnQueue.Count > 0)
+        {
+            spawnCoroutine = StartCoroutine(StaggerSpawnQueue());
+        }
+        else
+        {
+            spawnCoroutine = null;
+        }
+        
+    }
+
+    /// <summary>
+    /// Initialise spawning of enemies, but set to disabled
+    /// Set the difficulty of which level set is spawned
+    /// </summary>
+    /// <param name="difficulty"> level of difficulty</param>
+    [ContextMenu("Initialise Spawn")]
+    public void InitialiseSpawns(int difficulty = 0)
+    {
+        this.difficulty = difficulty;
+        
         InitialisePatrolManager();
 
 
@@ -177,7 +218,7 @@ public class RoomEnemySystem : MonoBehaviour
         GameObject tempParent;
         enemyCountTotal = 0;
 
-        foreach (SpawnWave spawnWave in levelSets[difficulty].spawnWaves)
+        foreach (SpawnWave spawnWave in levelSets[this.difficulty].spawnWaves)
         {
             tempParent = Instantiate(new GameObject(), transform);
             tempParent.name = $"----WAVE {i}----";

@@ -150,13 +150,13 @@ public class Portal : InteractableScript
         }
     }
 
-    public void Setup(RoomEnemySystem r, int level)
+    public void Setup(RoomEnemySystem r, int level, int difficulty = 0)
     {
         targetSpawner = portalTarget.transform.Find("SpawnPoint");
         nextRoomEnemySystem = r;
         spawnLevel = level;
         GenerateRewardLoot();
-        r.InitialiseSpawns();
+        r.InitialiseSpawns(difficulty);
     }
 
     // void OnTriggerEnter(Collider other)
