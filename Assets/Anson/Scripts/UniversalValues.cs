@@ -6,9 +6,9 @@ using UnityEngine;
 public static class UniversalValues
 {
     [Header("ElementalColours")]
-    private static Color fireColour = new Color(255,124,0);
+    private static Color shockColour = new Color(255,124,0);
     private static Color iceColour = new Color(0,255,255);
-    private static Color shockColour = new Color(255,235,14);
+    private static Color fireColour = new Color(255,235,14);
     private static Color normalColour = new Color(255,255,255);
     
     //Weapon Handling Globals

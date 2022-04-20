@@ -61,8 +61,7 @@ public class GunDisplayStat : MonoBehaviour
         
         nameText.text = mainGunStatsScript.GetName();
         DPSValueText.text = mainGunStatsScript.CalculateDps().ToString("0");
-        DPSValueText.color = UniversalValues.GetColour(mainGunStatsScript.ElementType);
-        
+
         if (mainGunStatsScript.ProjectilePerShot > 1)
         {
             damageValueText.text = mainGunStatsScript.DamagePerProjectile + " x" + mainGunStatsScript.ProjectilePerShot;
@@ -82,6 +81,11 @@ public class GunDisplayStat : MonoBehaviour
         eleDmgValueText.text = mainGunStatsScript.ElementDamage.ToString();
         eleChanceValueText.text = mainGunStatsScript.ElementChance.ToString();
         elePotencyValueText.text = mainGunStatsScript.ElementPotency.ToString();
+        //
+        // nameText.color = UniversalValues.GetColour(mainGunStatsScript.ElementType);
+        // damageValueText.color = UniversalValues.GetColour(mainGunStatsScript.ElementType);
+
+        // Debug.Log($"Colour: name {nameText.color} and element {mainGunStatsScript.ElementType}");
         
         DisplayPerks(mainGunStatsScript.GunPerkController);
     }
