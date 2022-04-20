@@ -21,7 +21,7 @@ public class PerkEffectController : MonoBehaviour
 
     private void Start()
     {
-        
+     SetSprite();   
     }
 
     [ContextMenu("Set Sprite")]
