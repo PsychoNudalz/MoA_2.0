@@ -106,14 +106,6 @@ public class Perk_YoullHitEventually : Perk
     public override void OnDeactivatePerk()
     {
         DeactivatePerStack(false);
-        if (stack_Current == 0)
-        {
-            isActive = false;
-            if (isPlayerPerk)
-            {
-                PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.REMOVE);
-                perkEffectController?.PlayDeactivate();
-            }
-        }
+
     }
 }

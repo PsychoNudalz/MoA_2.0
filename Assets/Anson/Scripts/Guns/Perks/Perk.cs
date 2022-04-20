@@ -229,6 +229,15 @@ public abstract class Perk : MonoBehaviour
             else
             {
                 OnDeactivatePerk();
+                if (stack_Current == 0)
+                {
+                    isActive = false;
+                    if (isPlayerPerk)
+                    {
+                        PlayerUIScript.current.SetPerkDisplay(this, PerkDisplayCall.REMOVE);
+                        perkEffectController?.PlayDeactivate();
+                    }
+                }
             }
         }
         else
