@@ -218,7 +218,7 @@ public class RoomEnemySystem : MonoBehaviour
         GameObject tempParent;
         enemyCountTotal = 0;
 
-        foreach (SpawnWave spawnWave in levelSets[this.difficulty].spawnWaves)
+        foreach (SpawnWave spawnWave in levelSets[Math.Min(levelSets.Length-1,this.difficulty)].spawnWaves)
         {
             tempParent = Instantiate(new GameObject(), transform);
             tempParent.name = $"----WAVE {i}----";

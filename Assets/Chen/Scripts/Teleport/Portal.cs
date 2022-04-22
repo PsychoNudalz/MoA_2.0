@@ -12,7 +12,7 @@ public class Portal : InteractableScript
     [SerializeField]
     Transform targetSpawner;
 
-    GameObject player;
+    PlayerMasterScript player;
 
 
     [SerializeField]
@@ -21,8 +21,6 @@ public class Portal : InteractableScript
     [SerializeField]
     RoomEnemySystem nextRoomEnemySystem;
 
-    [SerializeField]
-    GunManager gunManager;
 
     [SerializeField]
     List<GameObject> gunCache;
@@ -65,11 +63,6 @@ public class Portal : InteractableScript
 
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
-        if (gunManager == null)
-        {
-            gunManager = FindObjectOfType<GunManager>();
-        }
 
         if (!currentRoomEnemySystem)
         {
@@ -82,6 +75,12 @@ public class Portal : InteractableScript
                 Debug.LogWarning($"{name} missing parent and current room enemy system");
             }
         }
+    }
+
+    private void Start()
+    {
+        player = PlayerMasterScript.current;
+
     }
 
     // Update is called once per frame
@@ -106,7 +105,7 @@ public class Portal : InteractableScript
     private void SpawnRewardLoot()
     {
         rewardLoot = true;
-        player.GetComponent<PlayerMasterScript>().AddCoins(coinAmount);
+      PlayerMasterScript.current.AddCoins(coinAmount);
         for (int i = 0; i < gunCache.Count; i++)
         {
             gunCache[i].SetActive(true);
@@ -122,7 +121,7 @@ public class Portal : InteractableScript
     {
         print("Spawn weapon:" + spawnLevel);
         //List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1, spawnLevel + 1);
-        List<GameObject> gunList = gunManager.GenerateGun(lootAmount, spawnLevel - 1);
+        List<GameObject> gunList = GunManager.current.GenerateGun(lootAmount, spawnLevel - 1);
 
 
         GameObject newGun;
@@ -176,15 +175,15 @@ public class Portal : InteractableScript
             base.activate();
             if (isWinning)
             {
-                player.GetComponent<PlayerMasterScript>().IncreamentClears();
-                player.GetComponent<PlayerMasterScript>().PlayerUIScript.WinScreen();
+                player.IncreamentClears();
+                player.PlayerUIScript.WinScreen();
             }
             else
             {
                 if (isBoss)
                 {
                     ReduceMaxHP(percentageHealthReduced);
-                    player.GetComponent<PlayerMasterScript>().IncreamentBossKill();
+                    player.IncreamentBossKill();
                 }
 
                 TeleportPlayer();
@@ -204,9 +203,9 @@ public class Portal : InteractableScript
         player.transform.position = targetSpawner.transform.position;
         player.SetActive(true);
         */
-        player.GetComponent<PlayerMasterScript>().TeleportPlayer(targetSpawner.transform.position);
-        gunManager.ClearGunsOnGround(false);
-        player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.healHealth_PercentageMissing(.2f);
+        player.TeleportPlayer(targetSpawner.transform.position);
+        GunManager.current.ClearGunsOnGround(false);
+        player.PlayerLifeSystemScript.healHealth_PercentageMissing(.2f);
 
         if (nextRoomEnemySystem != null)
         {
@@ -220,8 +219,8 @@ public class Portal : InteractableScript
 
     void ReduceMaxHP(int percentage)
     {
-        int current_max = player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.Health_Max;
+        int current_max = player.PlayerLifeSystemScript.Health_Max;
         int reduced = Mathf.FloorToInt(current_max * percentage / 100f);
-        player.GetComponent<PlayerMasterScript>().PlayerLifeSystemScript.DrainMaxHealth(reduced);
+        player.PlayerLifeSystemScript.DrainMaxHealth(reduced);
     }
 }
