@@ -11,6 +11,9 @@ public class GunEffectsController : MonoBehaviour
     Animator animator;
 
     [SerializeField]
+    private bool RPMChangeAnimationSpeed = true;
+
+    [SerializeField]
     float shootAnimationLerp = 1;
 
     [SerializeField]
@@ -101,15 +104,19 @@ public class GunEffectsController : MonoBehaviour
         rarityEffect.SetInt("Element", (int) gunStat.ElementType);
         
         animator.SetFloat("ReloadSpeed",1f/gunStat.ReloadSpeed);
-        if (gunStat.GunType.Equals(GunTypes.SHOTGUN))
+        if (RPMChangeAnimationSpeed)
         {
-            animator.SetFloat("ShootSpeed",1f/((60f/gunStat.GetRPM)));
+            if (gunStat.GunType.Equals(GunTypes.SHOTGUN))
+            {
+                animator.SetFloat("ShootSpeed",1f/((60f/gunStat.GetRPM)));
 
+            }
+            else
+            {
+                animator.SetFloat("ShootSpeed",1f/((60f/gunStat.GetRPM)/gunStat.ProjectilePerShot));
+            }
         }
-        else
-        {
-            animator.SetFloat("ShootSpeed",1f/((60f/gunStat.GetRPM)/gunStat.ProjectilePerShot));
-        }
+
     }
 
     public void updateAnimatorSpeeds()
