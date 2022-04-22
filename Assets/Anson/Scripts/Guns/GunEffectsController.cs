@@ -102,51 +102,39 @@ public class GunEffectsController : MonoBehaviour
         SetEffectsElement(60f / gunStat.GetRPM, gunStat.ElementType);
         rarityEffect.SetInt("Rarity", (int) gunStat.Rarity);
         rarityEffect.SetInt("Element", (int) gunStat.ElementType);
-        
-        animator.SetFloat("ReloadSpeed",1f/gunStat.ReloadSpeed);
-        if (RPMChangeAnimationSpeed)
-        {
-            if (gunStat.GunType.Equals(GunTypes.SHOTGUN))
-            {
-                animator.SetFloat("ShootSpeed",1f/((60f/gunStat.GetRPM)));
 
-            }
-            else
-            {
-                animator.SetFloat("ShootSpeed",1f/((60f/gunStat.GetRPM)/gunStat.ProjectilePerShot));
-            }
-        }
-
+        updateAnimatorSpeeds();
     }
 
     public void updateAnimatorSpeeds()
     {
-        animator.SetFloat("ReloadSpeed",1f/mainGunStat.ReloadSpeed);
-        if (mainGunStat.GunType.Equals(GunTypes.SHOTGUN))
+        animator.SetFloat("ReloadSpeed", 1f / mainGunStat.ReloadSpeed);
+        if (RPMChangeAnimationSpeed)
         {
-            animator.SetFloat("ShootSpeed",1f/((60f/mainGunStat.GetRPM)));
-
-        }
-        else
-        {
-            animator.SetFloat("ShootSpeed",1f/((60f/mainGunStat.GetRPM)/mainGunStat.ProjectilePerShot));
+            if (mainGunStat.GunType.Equals(GunTypes.SHOTGUN))
+            {
+                animator.SetFloat("ShootSpeed", 1f / ((60f / mainGunStat.GetRPM)));
+            }
+            else
+            {
+                animator.SetFloat("ShootSpeed", 1f / ((60f / mainGunStat.GetRPM) / mainGunStat.ProjectilePerShot));
+            }
         }
     }
-    
+
     public void updateAnimatorSpeeds(float r, float s)
     {
-        animator.SetFloat("ReloadSpeed",1f/r);
+        animator.SetFloat("ReloadSpeed", 1f / r);
         if (mainGunStat.GunType.Equals(GunTypes.SHOTGUN))
         {
-            animator.SetFloat("ShootSpeed",1f/((60f/s)));
-
+            animator.SetFloat("ShootSpeed", 1f / ((60f / s)));
         }
         else
         {
-            animator.SetFloat("ShootSpeed",1f/((60f/s)/mainGunStat.ProjectilePerShot));
+            animator.SetFloat("ShootSpeed", 1f / ((60f / s) / mainGunStat.ProjectilePerShot));
         }
     }
-    
+
 
     void Update()
     {
