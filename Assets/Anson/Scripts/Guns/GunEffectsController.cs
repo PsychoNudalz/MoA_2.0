@@ -125,13 +125,16 @@ public class GunEffectsController : MonoBehaviour
     public void updateAnimatorSpeeds(float r, float s)
     {
         animator.SetFloat("ReloadSpeed", 1f / r);
-        if (mainGunStat.GunType.Equals(GunTypes.SHOTGUN))
+        if (RPMChangeAnimationSpeed)
         {
-            animator.SetFloat("ShootSpeed", 1f / ((60f / s)));
-        }
-        else
-        {
-            animator.SetFloat("ShootSpeed", 1f / ((60f / s) / mainGunStat.ProjectilePerShot));
+            if (mainGunStat.GunType.Equals(GunTypes.SHOTGUN))
+            {
+                animator.SetFloat("ShootSpeed", 1f / ((60f / s)));
+            }
+            else
+            {
+                animator.SetFloat("ShootSpeed", 1f / ((60f / s) / mainGunStat.ProjectilePerShot));
+            }
         }
     }
 

@@ -318,5 +318,10 @@ public class PlayerMasterScript : MonoBehaviour
         current.playerLifeSystemScript.healHealth_Percentage(1);
         current.playerLifeSystemScript.Invincible = INFINITEHEALTH;
     }
+    [Command("Player_ID")]
+    public static void Player_InfiniteDamage()
+    {
+        current.playerGunDamageScript.DamagePerProjectile = current.playerGunDamageScript.DamagePerProjectile*1000f;
+    }
     
 }

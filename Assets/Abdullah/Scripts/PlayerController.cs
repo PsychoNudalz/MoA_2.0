@@ -412,7 +412,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        UpdateMoveDirectionFlat(inputDirection);
+        UpdateMoveDirectionHorizontal(inputDirection);
         animator.SetFloat("Speed", moveDirection.magnitude);
         if (isSlide)
         {
@@ -561,7 +561,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UpdateMoveDirectionFlat(Vector3 newMoveDir)
+    void UpdateMoveDirectionHorizontal(Vector3 newMoveDir)
     {
         newMoveDir = RelativeToFacing(newMoveDir);
         newMoveDir.y = 0;

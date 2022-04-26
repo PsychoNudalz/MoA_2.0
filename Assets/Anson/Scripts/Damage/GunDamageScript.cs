@@ -172,6 +172,12 @@ public class GunDamageScript : DamageScript
 
     public float MagazineSize => magazineSize;
 
+    public float DamagePerProjectile
+    {
+        get => damagePerProjectile;
+        set => damagePerProjectile = value;
+    }
+
 
     public Vector2 Recoil => recoil;
 
