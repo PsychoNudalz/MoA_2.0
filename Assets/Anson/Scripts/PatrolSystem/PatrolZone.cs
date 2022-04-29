@@ -573,7 +573,7 @@ public class PatrolZone : MonoBehaviour
     }
 
     private List<Vector3> ScanSurrounding(Vector3 centrePoint, float xSize, float ySize, float zSize,
-        bool isShpere = false, Vector3 centre = new Vector3(), float pointSpacing = 0)
+        bool isSphere = false, Vector3 centre = new Vector3(), float pointSpacing = 0)
     {
         if (pointSpacing == 0)
         {
@@ -602,7 +602,7 @@ public class PatrolZone : MonoBehaviour
 
                     if (!tempList.Contains(newPoint))
                     {
-                        if (isShpere)
+                        if (isSphere)
                         {
                             if (Vector3.Distance(newPoint, centre) < xSize / 2f)
                             {
