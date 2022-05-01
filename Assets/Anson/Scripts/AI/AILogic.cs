@@ -34,6 +34,7 @@ public enum AIState
 }
 
 /// <summary>
+/// Version 2.0
 /// Main Enemy AI super class from pass project
 /// </summary>
 public abstract class AILogic : MonoBehaviour

@@ -208,7 +208,7 @@ public class RoomEnemySystem : MonoBehaviour
     [ContextMenu("Initialise Spawn")]
     public void InitialiseSpawns(int difficulty = 0)
     {
-        this.difficulty = Math.Min(levelSets.Length-1,this.difficulty);
+        this.difficulty = Math.Min(levelSets.Length-1,difficulty);
         
         InitialisePatrolManager();
 

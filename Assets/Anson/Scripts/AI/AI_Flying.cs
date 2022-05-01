@@ -222,7 +222,7 @@ public class AI_Flying : AILogic
     protected override void AIBehaviour_Attack()
     {
         base.AIBehaviour_Attack();
-        if (lastAttack.canMove&& attributesStack.Contains(AIAttribute.OrientateToTarget))
+        if (lastAttack.faceTarget&& attributesStack.Contains(AIAttribute.OrientateToTarget))
         {
             SetOrientateToTarget();
         }

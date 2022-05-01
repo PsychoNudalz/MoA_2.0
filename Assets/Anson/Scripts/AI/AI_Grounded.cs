@@ -53,6 +53,7 @@ public class AI_Grounded : AILogic
                 break;
 
             case AIState.Attack:
+                AIBehaviour_Attack();
                 break;
             case AIState.Stagger:
                 AIBehaviour_Stagger();
@@ -138,6 +139,7 @@ public class AI_Grounded : AILogic
                 if (temp != null)
                 {
                     ChangeState(AIState.Attack, temp);
+                    return;
                 }
             }
 
@@ -149,8 +151,8 @@ public class AI_Grounded : AILogic
                 }
             }
 
-            if (movePos.magnitude == 0 || GetDistanceFromMovePosToTarget() < defensive_Distance * 0.7f ||
-                GetDistanceToTarget() < defensive_Distance * 0.7f)
+            if (movePos.magnitude == 0 || (attributesStack.Contains(AIAttribute.Defensive)&&(GetDistanceFromMovePosToTarget() < defensive_Distance * 0.7f ||
+                GetDistanceToTarget() < defensive_Distance * 0.7f)))
             {
                 SetNewPatrolPoint();
             }
@@ -239,7 +241,7 @@ public class AI_Grounded : AILogic
     protected override void AIBehaviour_Attack()
     {
         base.AIBehaviour_Attack();
-        if (lastAttack.canMove && attributesStack.Contains(AIAttribute.OrientateToTarget))
+        if (lastAttack.faceTarget && attributesStack.Contains(AIAttribute.OrientateToTarget))
         {
             SetOrientateToTarget();
         }
