@@ -277,7 +277,7 @@ public class PatrolZone : MonoBehaviour
                 foreach (PatrolPoint pointPosition in pointPositions.Values)
 
                 {
-                    if (pointPositions_Cover.Contains(pointPosition))
+                    if (debug_showCover && pointPositions_Cover.Contains(pointPosition))
                     {
                         Gizmos.color = Color.blue;
                         Gizmos.DrawLine(pointPosition.Position,
@@ -301,6 +301,7 @@ public class PatrolZone : MonoBehaviour
                         Gizmos.DrawCube(pointPosition.Position,
                             new Vector3(pointSpacing / 2f, pointSpacing / 2f, pointSpacing / 2f));
                     }
+
 
                     if (debug_showSpacing)
                     {
@@ -395,6 +396,7 @@ public class PatrolZone : MonoBehaviour
         {
             return true;
         }
+
         pointPositions = new Dictionary<Vector3, PatrolPoint>();
 
         foreach (PatrolPoint patrolPoint in pointPositions_Cover)
@@ -408,7 +410,6 @@ public class PatrolZone : MonoBehaviour
         }
 
         return false;
-
     }
 
     [ContextMenu("Generate all")]
@@ -716,8 +717,8 @@ public class PatrolZone : MonoBehaviour
             {
                 returnPoint = pointPositions.ElementAt(Random.Range(0, pointPositions.Count)).Key;
             }
-            Debug.LogWarning($"{name} Can not Get Random Point");
 
+            Debug.LogWarning($"{name} Can not Get Random Point");
         }
 
         return returnPoint;
@@ -780,7 +781,7 @@ public class PatrolZone : MonoBehaviour
         {
             Vector3 temp = (closestCollider.transform.position - patrolPoint.Position).normalized;
             temp.y = 0;
-            patrolPoint.CoverDirection = Vector3.Lerp(-hit.normal,temp,.3f) ;
+            patrolPoint.CoverDirection = Vector3.Lerp(-hit.normal, temp, .3f);
         }
         else
         {
