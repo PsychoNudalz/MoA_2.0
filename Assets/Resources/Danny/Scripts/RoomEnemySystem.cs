@@ -208,6 +208,7 @@ public class RoomEnemySystem : MonoBehaviour
     [ContextMenu("Initialise Spawn")]
     public void InitialiseSpawns(int difficulty = 0)
     {
+        GameObject tempNewGO = new GameObject("Test");
         this.difficulty = Math.Min(levelSets.Length-1,difficulty);
         
         InitialisePatrolManager();
@@ -220,12 +221,13 @@ public class RoomEnemySystem : MonoBehaviour
 
         foreach (SpawnWave spawnWave in levelSets[this.difficulty].spawnWaves)
         {
-            tempParent = Instantiate(new GameObject(), transform);
+            tempParent = Instantiate(tempNewGO, transform);
             tempParent.name = $"----WAVE {i}----";
             enemyCountTotal
                 += spawnWave.InitialiseSpawn(tempParent.transform, this);
             i++;
         }
+        Destroy(tempNewGO);
     }
 
     private void InitialisePatrolManager()

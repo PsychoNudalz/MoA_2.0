@@ -1,22 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using QFSW.QC;
 using UnityEngine;
 
 public class EnemyLifeSystem : LifeSystemScript
 {
     [Header("Target Handler")]
-    [SerializeField] EnemyHandler enemyHandler;
+    [SerializeField]
+    EnemyHandler enemyHandler;
+
     [Header("Shader Effects")]
-    [SerializeField] TargetEffectController targetEffectController;
+    [SerializeField]
+    TargetEffectController targetEffectController;
+
     [Header("Sound")]
-    [SerializeField] TargetSoundScript targetSoundScript;
+    [SerializeField]
+    TargetSoundScript targetSoundScript;
+
     [Header("Collider")]
-    [SerializeField] Collider[] mainColliders;
+    [SerializeField]
+    Collider[] mainColliders;
 
     private bool displayDecremented = false;
     private RoomEnemySystem spawner;
 
-    public TargetEffectController TargetMaterialHandler { get => targetEffectController; }
+    public TargetEffectController TargetMaterialHandler
+    {
+        get => targetEffectController;
+    }
 
     public TargetEffectController TargetEffectController
     {
@@ -62,31 +73,34 @@ public class EnemyLifeSystem : LifeSystemScript
         {
             targetSoundScript.Play_TakeDamage();
         }
+
         return base.takeDamage(dmg, level, element, displayTakeDamageEffect);
     }
 
-    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier, bool displayTakeDamageEffect = true)
+    public override int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier,
+        bool displayTakeDamageEffect = true)
     {
         targetEffectController.StartDecay();
-        enemyHandler.EnemyAI.AddStagger(dmg*multiplier);
+        enemyHandler.EnemyAI.AddStagger(dmg * multiplier);
         return base.takeDamageCritical(dmg, level, element, multiplier, displayTakeDamageEffect);
     }
+
     public override void RemoveDebuff(FireEffectScript debuff = null)
     {
         base.RemoveDebuff(debuff as DebuffScript);
         targetEffectController.SetFire(CheckIsStillOnFire() != null);
     }
+
     public override void ApplyDebuff(FireEffectScript debuff)
     {
         base.ApplyDebuff(debuff as DebuffScript);
         targetEffectController.SetFire(true);
-
     }
+
     public override void ApplyDebuff(ShockEffectScript debuff)
     {
         base.ApplyDebuff(debuff as DebuffScript);
         targetEffectController.SetShock(true);
-
     }
 
     public override void RemoveDebuff(ShockEffectScript debuff)
@@ -101,11 +115,11 @@ public class EnemyLifeSystem : LifeSystemScript
         //print(name + " deactivate Ice");
         targetEffectController.SetIce(false);
     }
+
     public override void ApplyDebuff(IceEffectScript debuff)
     {
         targetEffectController.SetIce(true);
         base.ApplyDebuff(debuff as DebuffScript);
-
     }
 
     public override void ResetSystem()
@@ -130,9 +144,11 @@ public class EnemyLifeSystem : LifeSystemScript
             {
                 spawner = GetComponentInParent<RoomEnemySystem>();
             }
+
             spawner?.DecrementEnemies();
             displayDecremented = true;
         }
+
         base.DeathBehaviour();
     }
 
@@ -144,10 +160,9 @@ public class EnemyLifeSystem : LifeSystemScript
             foreach (Collider c in mainColliders)
             {
                 c.enabled = false;
-
             }
-
         }
+
         return b;
     }
 
@@ -156,5 +171,16 @@ public class EnemyLifeSystem : LifeSystemScript
         return targetEffectController.transform.position;
     }
 
-
+//Quantum Console
+    [Command("KillAllEnemies_Alive")]
+    public static void KillAllEnemies_Alive()
+    {
+        foreach (EnemyLifeSystem enemyLifeSystem in FindObjectsOfType<EnemyLifeSystem>())
+        {
+            if (enemyLifeSystem.gameObject.activeSelf)
+            {
+                enemyLifeSystem.takeDamageCritical(100000f, 1, ElementTypes.PHYSICAL, 20f, true);
+            }
+        }
+    }
 }
