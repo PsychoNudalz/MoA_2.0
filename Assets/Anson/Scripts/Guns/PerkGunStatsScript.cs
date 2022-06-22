@@ -13,8 +13,6 @@ public class PerkGunStatsScript : GunStatsScript
     [SerializeField]
     public float RPMM = 1;
 
- 
-
     [Range(0.0000001f, 10f)]
     [SerializeField]
     public float reloadSpeedM = 1;

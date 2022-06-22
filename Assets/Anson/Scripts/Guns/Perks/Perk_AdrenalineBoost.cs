@@ -74,9 +74,9 @@ public class Perk_AdrenalineBoost : Perk
 
 
     public override void Initialise(GunDamageScript gunDamageScript, MainGunStatsScript mainGunStatsScript,
-        GunStatsScript originalGunStatsScript)
+        GunStatsScript originalGunStatsScript, GunPerkController gunPerkController)
     {
-        base.Initialise(gunDamageScript, mainGunStatsScript, originalGunStatsScript);
+        base.Initialise(gunDamageScript, mainGunStatsScript, originalGunStatsScript, gunPerkController);
     }
 
     public override void SetPlayerController(PlayerController playerController)

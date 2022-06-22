@@ -61,7 +61,7 @@ public class Perk_KillMonger : Perk
 
        if (CanStack())
        {
-           gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
+           gunPerkController.AddPerkStatsAdditive(perkStatsScript);
            AddStacks(1);
            print($"Activate Kill monger {stack_Current}");
        }

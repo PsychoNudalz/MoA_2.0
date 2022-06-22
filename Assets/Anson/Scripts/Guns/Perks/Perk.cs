@@ -9,6 +9,8 @@ public abstract class Perk : MonoBehaviour
     [Header("Componenets")]
     protected GunDamageScript gunDamageScript;
 
+    protected GunPerkController gunPerkController;
+
     protected MainGunStatsScript mainGunStatsScript;
     protected GunStatsScript originalGunStatsScript;
     protected PlayerController playerController;
@@ -59,11 +61,12 @@ public abstract class Perk : MonoBehaviour
     
 
     public virtual void Initialise(GunDamageScript gunDamageScript, MainGunStatsScript mainGunStatsScript,
-        GunStatsScript originalGunStatsScript)
+        GunStatsScript originalGunStatsScript, GunPerkController gunPerkController)
     {
         this.gunDamageScript = gunDamageScript;
         this.mainGunStatsScript = mainGunStatsScript;
         this.originalGunStatsScript = originalGunStatsScript;
+        this.gunPerkController = gunPerkController;
         if (!perkStatsScript)
         {
             perkStatsScript = GetComponent<PerkGunStatsScript>();
@@ -181,7 +184,7 @@ public abstract class Perk : MonoBehaviour
     {
         for (int i = 0; i < stack_Current; i++)
         {
-            gunDamageScript.RemovePerkStatsAdditive(perkStatsScript);
+            gunPerkController.RemovePerkStatsAdditive(perkStatsScript);
             
         }
 
@@ -210,12 +213,12 @@ public abstract class Perk : MonoBehaviour
             AddStacks(-1);
             if (isAdditive)
             {
-                gunDamageScript.RemovePerkStatsAdditive(perkStatsScript);
+                gunPerkController.RemovePerkStatsAdditive(perkStatsScript);
             }
 
             else
             {
-                gunDamageScript.RemovePerkStats(perkStatsScript);
+                gunPerkController.RemovePerkStats(perkStatsScript);
             }
 
             if (stack_Current != 0)

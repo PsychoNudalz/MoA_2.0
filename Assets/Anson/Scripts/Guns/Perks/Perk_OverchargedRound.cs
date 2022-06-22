@@ -74,7 +74,7 @@ public class Perk_OverchargedRound : Perk
 
     public override void OnActivatePerk(Object data = null)
     {
-        gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
+        gunPerkController.AddPerkStatsAdditive(perkStatsScript);
         AddStacks(1);
         base.OnActivatePerk(data);
 
@@ -82,7 +82,7 @@ public class Perk_OverchargedRound : Perk
 
     public override void OnDeactivatePerk()
     {
-        gunDamageScript.RemovePerkStatsAdditive(perkStatsScript);
+        gunPerkController.RemovePerkStatsAdditive(perkStatsScript);
         base.OnDeactivatePerk();
     }
 

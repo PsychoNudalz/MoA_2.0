@@ -19,6 +19,149 @@ public class GunPerkController : MonoBehaviour
 
     public Perk[] Perks => perks;
 
+    [SerializeField]
+    private bool isChange = false;
+
+    [Space(20f)]
+    [Header("Gun Stats Flat")]
+    [SerializeField]
+    protected float damagePerProjectile = 0;
+
+    [SerializeField]
+    protected float RPM = 0;
+
+    [SerializeField]
+    protected float reloadSpeed = 0;
+
+    [SerializeField]
+    protected Vector2 recoil = new Vector2(0, 0);
+
+    [SerializeField]
+    protected Vector2 recoil_HipFire = new Vector2(0, 0);
+
+    [SerializeField]
+    protected float range = 0;
+
+    [SerializeField]
+    protected float magazineSize = 0;
+
+    [Space(5f)]
+    [Range(0f, 2f)]
+    [SerializeField]
+    protected float elementDamage = 0;
+
+    [SerializeField]
+    protected float elementPotency = 0; //effect duration or range
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    protected float elementChance = 0;
+
+    [Space(10f)]
+    [Header("Gun Stats Multi")]
+    [SerializeField]
+    public float damagePerProjectileM = 0;
+
+    [SerializeField]
+    private float RPMM = 0;
+
+    [SerializeField]
+    private float reloadSpeedM = 0;
+
+    [SerializeField]
+    private Vector2 recoilM = new Vector2(0, 0);
+
+    [SerializeField]
+    private Vector2 hipfireM = new Vector2(0, 0);
+
+    [SerializeField]
+    private float rangeM = 0;
+
+    [SerializeField]
+    private float magazineSizeM = 0;
+
+    [Space(10f)]
+    [Header("Components")]
+    [SerializeField]
+    private MainGunStatsScript mainGunStatsScript;
+
+    [SerializeField]
+    private GunDamageScript gunDamageScript;
+
+    public float DamagePerProjectile
+    {
+        get => damagePerProjectile;
+        set => damagePerProjectile = value;
+    }
+
+    public float GetRPM
+    {
+        get => RPM;
+        set => RPM = value;
+    }
+
+    public float ReloadSpeed
+    {
+        get => reloadSpeed;
+        set => reloadSpeed = value;
+    }
+
+    public Vector2 Recoil
+    {
+        get => recoil;
+        set => recoil = value;
+    }
+
+    public Vector2 Recoil_HipFire
+    {
+        get => recoil_HipFire;
+        set => recoil_HipFire = value;
+    }
+
+    public float Range
+    {
+        get => range;
+        set => range = value;
+    }
+
+    public float MagazineSize
+    {
+        get => magazineSize;
+        set => magazineSize = value;
+    }
+
+    public float ElementDamage
+    {
+        get => elementDamage;
+        set => elementDamage = value;
+    }
+
+    public float ElementPotency
+    {
+        get => elementPotency;
+        set => elementPotency = value;
+    }
+
+    public float ElementChance
+    {
+        get => elementChance;
+        set => elementChance = value;
+    }
+
+    public float DamagePerProjectileM => damagePerProjectileM;
+
+    public float Rpmm => RPMM;
+
+    public float ReloadSpeedM => reloadSpeedM;
+
+    public Vector2 RecoilM => recoilM;
+
+    public Vector2 HipfireM => hipfireM;
+
+    public float RangeM => rangeM;
+
+    public float MagazineSizeM => magazineSizeM;
+
 
     public void AddPerk(Perk p)
     {
@@ -44,8 +187,11 @@ public class GunPerkController : MonoBehaviour
     {
         foreach (Perk perk in perks)
         {
-            perk.Initialise(gunDamageScript, mainGunStatsScript, originalGunStatsScript);
+            perk.Initialise(gunDamageScript, mainGunStatsScript, originalGunStatsScript, this);
         }
+
+        this.gunDamageScript = gunDamageScript;
+        this.mainGunStatsScript = mainGunStatsScript;
     }
 
     public void InitialisePerkPlayerController(PlayerController playerController)
@@ -64,6 +210,117 @@ public class GunPerkController : MonoBehaviour
             perk.IsPlayerPerk = b;
         }
     }
+
+    //Stat Combinations
+    public void UndoStats()
+    {
+        //gunDamageScript.RemovePerkStats(this);
+        gunDamageScript.ResetMainStats();
+    }
+
+    public void ApplyStats()
+    {
+        gunDamageScript.AddPerkStats(this);
+    }
+
+    public void AddPerkStats(PerkGunStatsScript g)
+    {
+        UndoStats();
+        damagePerProjectile += g.DamagePerProjectile;
+        RPM += g.GetRPM;
+        reloadSpeed += g.ReloadSpeed;
+        recoil += g.Recoil;
+        recoil_HipFire += g.Recoil_HipFire;
+        range += g.Range;
+        magazineSize += g.MagazineSize;
+        elementDamage += g.ElementDamage;
+        elementPotency += g.ElementPotency;
+        elementChance += g.ElementChance;
+
+        damagePerProjectileM += g.damagePerProjectileM - 1f;
+        RPMM += g.RPMM - 1f;
+        reloadSpeedM += g.reloadSpeedM - 1f;
+        //recoil = recoil * g.recoilM;
+        recoilM += new Vector2(g.recoilM.x - 1f, g.recoilM.y - 1f);
+        hipfireM += new Vector2(g.hipfireM.x - 1f, g.hipfireM.y - 1f);
+        rangeM += g.rangeM - 1f;
+        magazineSizeM += g.magazineSizeM - 1f;
+        
+        ApplyStats();
+    }
+
+    /// <summary>
+    /// Increase state based on original state
+    /// </summary>
+    /// <param name="g"></param>
+    public void AddPerkStatsAdditive(PerkGunStatsScript g)
+    {
+        UndoStats();
+        damagePerProjectile += mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM - 1);
+        RPM += mainGunStatsScript.GetRPM * (g.RPMM - 1);
+        reloadSpeed += mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM - 1);
+        //recoil = recoil * g.recoilM;
+        recoil += new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x - 1),
+            mainGunStatsScript.Recoil.y * (g.recoilM.y - 1));
+        recoil_HipFire += new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.hipfireM.x - 1),
+            mainGunStatsScript.Recoil_HipFire.y * (g.hipfireM.y - 1));
+        range += mainGunStatsScript.Range * (g.rangeM - 1);
+        magazineSize += mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
+        //
+        // if (GunType != GunTypes.SHOTGUN)
+        // {
+        //     recoil_HipFire.y = Mathf.Max(recoil_HipFire.y, recoil_HipFire.x);
+        // }
+        ApplyStats();
+    }
+
+    public void RemovePerkStats(PerkGunStatsScript g)
+    {
+        UndoStats();
+        damagePerProjectile -= g.DamagePerProjectile;
+        RPM -= g.GetRPM;
+        reloadSpeed -= g.ReloadSpeed;
+        recoil -= g.Recoil;
+        recoil_HipFire -= g.Recoil_HipFire;
+        range -= g.Range;
+        magazineSize -= g.MagazineSize;
+        elementDamage -= g.ElementDamage;
+        elementPotency -= g.ElementPotency;
+        elementChance -= g.ElementChance;
+
+        damagePerProjectileM -= g.damagePerProjectileM - 1f;
+        RPMM -= g.RPMM - 1f;
+        reloadSpeedM -= g.reloadSpeedM - 1f;
+        //recoil = recoil * g.recoilM;
+        recoilM -= new Vector2(g.recoilM.x - 1f, g.recoilM.y - 1f);
+        hipfireM -= new Vector2(g.hipfireM.x - 1f, g.hipfireM.y - 1f);
+        rangeM -= g.rangeM - 1f;
+        magazineSizeM -= g.magazineSizeM - 1f;
+        ApplyStats();
+    }
+
+    /// <summary>
+    /// Decrease state based on original state
+    /// </summary>
+    /// <param name="g"></param>
+    public void RemovePerkStatsAdditive(PerkGunStatsScript g)
+    {
+        UndoStats();
+        damagePerProjectile -= mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM - 1);
+        RPM -= mainGunStatsScript.GetRPM * (g.RPMM - 1);
+        reloadSpeed -= mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM - 1);
+        //recoil = recoil * g.recoilM;
+        recoil -= new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x - 1),
+            mainGunStatsScript.Recoil.y * (g.recoilM.y - 1));
+        recoil_HipFire -= new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.hipfireM.x - 1),
+            mainGunStatsScript.Recoil_HipFire.y * (g.hipfireM.y - 1));
+        range -= mainGunStatsScript.Range * (g.rangeM - 1);
+        magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
+        ApplyStats();
+    }
+
+
+    //EVENTS
 
     public void OnShoot(ShotData shotData)
     {

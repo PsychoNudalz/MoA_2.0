@@ -114,7 +114,7 @@ public class Perk_FocusedShot : Perk
     {
         stack_Max = Mathf.Max(1, Mathf.FloorToInt(gunDamageScript.MagazineSize * stackPortion));
         stack_Current = stack_Max;
-        gunDamageScript.AddPerkStats(perkStatsScript);
+        gunPerkController.AddPerkStats(perkStatsScript);
 
         base.OnActivatePerk(data);
     }
@@ -139,7 +139,7 @@ public class Perk_FocusedShot : Perk
             }
             else
             {
-                gunDamageScript.RemovePerkStats(perkStatsScript);
+                gunPerkController.RemovePerkStats(perkStatsScript);
                 duration_Current = 0;
                 isActive = false;
 

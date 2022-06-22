@@ -57,7 +57,7 @@ public class Perk_HeatingUp : Perk
 
         if (CanStack())
         {
-            gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
+            gunPerkController.AddPerkStatsAdditive(perkStatsScript);
             AddStacks(1);
         }
 

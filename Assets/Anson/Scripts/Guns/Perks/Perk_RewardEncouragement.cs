@@ -107,14 +107,14 @@ public class Perk_RewardEncouragement : Perk
 
     private void OnActivate_Miss()
     {
-        gunDamageScript.AddPerkStatsAdditive(secondaryStats);
+        gunPerkController.AddPerkStatsAdditive(secondaryStats);
         addedSecondaryStats = true;
         duration_Current = 0;
     }
 
     private void OnActivate_Hit()
     {
-        gunDamageScript.AddPerkStatsAdditive(perkStatsScript);
+        gunPerkController.AddPerkStatsAdditive(perkStatsScript);
         addedSecondaryStats = false;
         ResetDuration();
     }
@@ -126,12 +126,12 @@ public class Perk_RewardEncouragement : Perk
             base.OnDeactivatePerk();
             if (secondaryStats)
             {
-                gunDamageScript.RemovePerkStatsAdditive(secondaryStats);
+                gunPerkController.RemovePerkStatsAdditive(secondaryStats);
 
             }
             else
             {
-                gunDamageScript.RemovePerkStatsAdditive(perkStatsScript);
+                gunPerkController.RemovePerkStatsAdditive(perkStatsScript);
 
             }
 

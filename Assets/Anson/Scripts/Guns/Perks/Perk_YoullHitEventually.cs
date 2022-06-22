@@ -95,7 +95,7 @@ public class Perk_YoullHitEventually : Perk
 
         if (CanStack())
         {
-            gunDamageScript.AddPerkStats(perkStatsScript);
+            gunPerkController.AddPerkStats(perkStatsScript);
             AddStacks(1);
             print($"Activate you'll hit {stack_Current}");
         }

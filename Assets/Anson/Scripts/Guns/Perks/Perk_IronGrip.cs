@@ -72,14 +72,14 @@ public class Perk_IronGrip : Perk
         }
         base.OnActivatePerk(data);
         CalculateHipFire();
-        gunDamageScript.AddPerkStats(perkStatsScript);
+        gunPerkController.AddPerkStats(perkStatsScript);
 
     }
 
     public override void OnDeactivatePerk()
     {
         base.OnDeactivatePerk();
-        gunDamageScript.RemovePerkStats(perkStatsScript);
+        gunPerkController.RemovePerkStats(perkStatsScript);
     }
 
     void CalculateHipFire()
