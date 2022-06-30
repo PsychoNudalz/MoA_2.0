@@ -76,7 +76,7 @@ public class Perk_CrankShot : Perk
 
     public override void OnActivatePerk(Object data = null)
     {
-        gunPerkController.AddPerkStatsAdditive(perkStatsScript);
+        gunPerkController.AddPerkStatsAdditive(perkStatsScript,perkStatsScript.ModifiedStats);
         AddStacks(1);
         base.OnActivatePerk(data);
 

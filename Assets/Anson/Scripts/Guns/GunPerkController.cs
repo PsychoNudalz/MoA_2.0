@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GunPerkController : MonoBehaviour
 {
     [SerializeField]
@@ -214,8 +215,8 @@ public class GunPerkController : MonoBehaviour
     //Stat Combinations
     public void UndoStats()
     {
-        //gunDamageScript.RemovePerkStats(this);
-        gunDamageScript.ResetMainStats();
+        gunDamageScript.RemovePerkStats(this);
+        //gunDamageScript.ResetMainStats();
     }
 
     public void ApplyStats()
@@ -223,8 +224,24 @@ public class GunPerkController : MonoBehaviour
         gunDamageScript.AddPerkStats(this);
     }
 
+    public void UndoStats(ModifiedStat[] modifiedStats)
+    {
+        gunDamageScript.RemovePerkStats(this,modifiedStats);
+        //gunDamageScript.ResetMainStats();
+    }
+
+    public void ApplyStats(ModifiedStat[] modifiedStats)
+    {
+        gunDamageScript.AddPerkStats(this,modifiedStats);
+    }
+
     public void AddPerkStats(PerkGunStatsScript g)
     {
+        if (g.ModifiedStats.Length > 0)
+        {
+            AddPerkStats(g,g.ModifiedStats);
+            return;
+        }
         UndoStats();
         damagePerProjectile += g.DamagePerProjectile;
         RPM += g.GetRPM;
@@ -245,7 +262,7 @@ public class GunPerkController : MonoBehaviour
         hipfireM += new Vector2(g.hipfireM.x - 1f, g.hipfireM.y - 1f);
         rangeM += g.rangeM - 1f;
         magazineSizeM += g.magazineSizeM - 1f;
-        
+
         ApplyStats();
     }
 
@@ -255,6 +272,11 @@ public class GunPerkController : MonoBehaviour
     /// <param name="g"></param>
     public void AddPerkStatsAdditive(PerkGunStatsScript g)
     {
+        if (g.ModifiedStats.Length > 0)
+        {
+            AddPerkStatsAdditive(g,g.ModifiedStats);
+            return;
+        }
         UndoStats();
         damagePerProjectile += mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM - 1);
         RPM += mainGunStatsScript.GetRPM * (g.RPMM - 1);
@@ -276,6 +298,11 @@ public class GunPerkController : MonoBehaviour
 
     public void RemovePerkStats(PerkGunStatsScript g)
     {
+        if (g.ModifiedStats.Length > 0)
+        {
+            RemovePerkStats(g,g.ModifiedStats);
+            return;
+        }
         UndoStats();
         damagePerProjectile -= g.DamagePerProjectile;
         RPM -= g.GetRPM;
@@ -305,6 +332,11 @@ public class GunPerkController : MonoBehaviour
     /// <param name="g"></param>
     public void RemovePerkStatsAdditive(PerkGunStatsScript g)
     {
+        if (g.ModifiedStats.Length > 0)
+        {
+            RemovePerkStatsAdditive(g,g.ModifiedStats);
+            return;
+        }
         UndoStats();
         damagePerProjectile -= mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM - 1);
         RPM -= mainGunStatsScript.GetRPM * (g.RPMM - 1);
@@ -317,6 +349,262 @@ public class GunPerkController : MonoBehaviour
         range -= mainGunStatsScript.Range * (g.rangeM - 1);
         magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
         ApplyStats();
+    }
+
+    public void AddPerkStats(PerkGunStatsScript g, ModifiedStat[] modifiedStats)
+    {
+        UndoStats(modifiedStats);
+
+        foreach (ModifiedStat modifiedStat in modifiedStats)
+        {
+            switch (modifiedStat)
+            {
+                case ModifiedStat.DAMAGE:
+                    damagePerProjectile += g.DamagePerProjectile;
+
+                    break;
+                case ModifiedStat.RPM:
+                    RPM += g.GetRPM;
+
+                    break;
+                case ModifiedStat.RELOAD:
+                    reloadSpeed += g.ReloadSpeed;
+
+                    break;
+                case ModifiedStat.RECOIL:
+                    recoil += g.Recoil;
+
+                    break;
+                case ModifiedStat.HIPFIRE:
+                    recoil_HipFire += g.Recoil_HipFire;
+
+                    break;
+                case ModifiedStat.RANGE:
+                    range += g.Range;
+
+                    break;
+                case ModifiedStat.MAGAZINE:
+                    magazineSize += g.MagazineSize;
+
+                    break;
+                case ModifiedStat.EDAMAGE:
+                    elementDamage += g.ElementDamage;
+
+                    break;
+                case ModifiedStat.EPOTENCY:
+                    elementPotency += g.ElementPotency;
+
+                    break;
+                case ModifiedStat.ECHANCE:
+                    elementChance += g.ElementChance;
+
+                    break;
+                case ModifiedStat.DAMAGE_M:
+                    damagePerProjectileM += g.damagePerProjectileM - 1f;
+
+                    break;
+                case ModifiedStat.RPM_M:
+                    RPMM += g.RPMM - 1f;
+
+                    break;
+                case ModifiedStat.RELOAD_M:
+                    reloadSpeedM += g.reloadSpeedM - 1f;
+
+                    break;
+                case ModifiedStat.RECOIL_M:
+                    recoilM += new Vector2(g.recoilM.x - 1f, g.recoilM.y - 1f);
+
+                    break;
+                case ModifiedStat.HIPFIRE_M:
+                    hipfireM += new Vector2(g.hipfireM.x - 1f, g.hipfireM.y - 1f);
+
+                    break;
+                case ModifiedStat.RANGE_M:
+                    rangeM += g.rangeM - 1f;
+
+                    break;
+                case ModifiedStat.MAGAZINE_M:
+                    magazineSizeM += g.magazineSizeM - 1f;
+
+                    break;
+            }
+        }
+
+
+        ApplyStats(modifiedStats);
+    }
+
+    /// <summary>
+    /// Increase state based on original state
+    /// </summary>
+    /// <param name="g"></param>
+    public void AddPerkStatsAdditive(PerkGunStatsScript g, ModifiedStat[] modifiedStats)
+    {
+        UndoStats(modifiedStats);
+        foreach (ModifiedStat modifiedStat in modifiedStats)
+        {
+            switch (modifiedStat)
+            {
+                case ModifiedStat.DAMAGE:
+                    damagePerProjectile += mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM - 1);
+
+                    break;
+                case ModifiedStat.RPM:
+                    RPM += mainGunStatsScript.GetRPM * (g.RPMM - 1);
+
+                    break;
+                case ModifiedStat.RELOAD:
+                    reloadSpeed += mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM - 1);
+
+                    break;
+                case ModifiedStat.RECOIL:
+                    recoil += new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x - 1),
+                        mainGunStatsScript.Recoil.y * (g.recoilM.y - 1));
+                    break;
+                case ModifiedStat.HIPFIRE:
+                    recoil_HipFire += new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.hipfireM.x - 1),
+                        mainGunStatsScript.Recoil_HipFire.y * (g.hipfireM.y - 1));
+                    break;
+                case ModifiedStat.RANGE:
+                    range += mainGunStatsScript.Range * (g.rangeM - 1);
+
+                    break;
+                case ModifiedStat.MAGAZINE:
+                    magazineSize += mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
+
+                    break;
+
+            }
+        }
+
+
+        ApplyStats(modifiedStats);
+    }
+
+    public void RemovePerkStats(PerkGunStatsScript g, ModifiedStat[] modifiedStats)
+    {
+        UndoStats(modifiedStats);
+        foreach (ModifiedStat modifiedStat in modifiedStats)
+        {
+            switch (modifiedStat)
+            {
+                case ModifiedStat.DAMAGE:
+                    damagePerProjectile -= g.DamagePerProjectile;
+
+                    break;
+                case ModifiedStat.RPM:
+                    RPM -= g.GetRPM;
+
+                    break;
+                case ModifiedStat.RELOAD:
+                    reloadSpeed -= g.ReloadSpeed;
+
+                    break;
+                case ModifiedStat.RECOIL:
+                    recoil -= g.Recoil;
+
+                    break;
+                case ModifiedStat.HIPFIRE:
+                    recoil_HipFire -= g.Recoil_HipFire;
+
+                    break;
+                case ModifiedStat.RANGE:
+                    range -= g.Range;
+
+                    break;
+                case ModifiedStat.MAGAZINE:
+                    magazineSize -= g.MagazineSize;
+
+                    break;
+                case ModifiedStat.EDAMAGE:
+                    elementDamage -= g.ElementDamage;
+
+                    break;
+                case ModifiedStat.EPOTENCY:
+                    elementPotency -= g.ElementPotency;
+
+                    break;
+                case ModifiedStat.ECHANCE:
+                    elementChance -= g.ElementChance;
+
+                    break;
+                case ModifiedStat.DAMAGE_M:
+                    damagePerProjectileM -= g.damagePerProjectileM - 1f;
+
+                    break;
+                case ModifiedStat.RPM_M:
+                    RPMM -= g.RPMM - 1f;
+
+                    break;
+                case ModifiedStat.RELOAD_M:
+                    reloadSpeedM -= g.reloadSpeedM - 1f;
+
+                    break;
+                case ModifiedStat.RECOIL_M:
+                    recoilM -= new Vector2(g.recoilM.x - 1f, g.recoilM.y - 1f);
+
+                    break;
+                case ModifiedStat.HIPFIRE_M:
+                    hipfireM -= new Vector2(g.hipfireM.x - 1f, g.hipfireM.y - 1f);
+
+                    break;
+                case ModifiedStat.RANGE_M:
+                    rangeM -= g.rangeM - 1f;
+
+                    break;
+                case ModifiedStat.MAGAZINE_M:
+                    magazineSizeM -= g.magazineSizeM - 1f;
+
+                    break;
+            }
+        }
+
+        ApplyStats(modifiedStats);
+    }
+
+    /// <summary>
+    /// Decrease state based on original state
+    /// </summary>
+    /// <param name="g"></param>
+    public void RemovePerkStatsAdditive(PerkGunStatsScript g, ModifiedStat[] modifiedStats)
+    {
+        UndoStats(modifiedStats);
+        foreach (ModifiedStat modifiedStat in modifiedStats)
+        {
+            switch (modifiedStat)
+            {
+                case ModifiedStat.DAMAGE:
+                    damagePerProjectile -= mainGunStatsScript.DamagePerProjectile * (g.damagePerProjectileM - 1);
+
+                    break;
+                case ModifiedStat.RPM:
+                    RPM -= mainGunStatsScript.GetRPM * (g.RPMM - 1);
+
+                    break;
+                case ModifiedStat.RELOAD:
+                    reloadSpeed -= mainGunStatsScript.ReloadSpeed * (g.reloadSpeedM - 1);
+
+                    break;
+                case ModifiedStat.RECOIL:
+                    recoil -= new Vector2(mainGunStatsScript.Recoil.x * (g.recoilM.x - 1),
+                        mainGunStatsScript.Recoil.y * (g.recoilM.y - 1));
+                    break;
+                case ModifiedStat.HIPFIRE:
+                    recoil_HipFire -= new Vector2(mainGunStatsScript.Recoil_HipFire.x * (g.hipfireM.x - 1),
+                        mainGunStatsScript.Recoil_HipFire.y * (g.hipfireM.y - 1));
+                    break;
+                case ModifiedStat.RANGE:
+                    range -= mainGunStatsScript.Range * (g.rangeM - 1);
+
+                    break;
+                case ModifiedStat.MAGAZINE:
+                    magazineSize -= mainGunStatsScript.MagazineSize * (g.magazineSizeM - 1);
+
+                    break;
+
+            }
+        }
+        ApplyStats(modifiedStats);
     }
 
 

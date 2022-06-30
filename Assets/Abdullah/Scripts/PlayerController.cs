@@ -985,7 +985,7 @@ public class PlayerController : MonoBehaviour
             // temp = Quaternion.Euler()
             //temp = Quaternion.AngleAxis(0f, temp) * temp;
 
-            print(temp);
+            // print(temp);
 
             transform1.rotation = Quaternion.LookRotation(temp);
             //transform1.Rotate(temp,180f);

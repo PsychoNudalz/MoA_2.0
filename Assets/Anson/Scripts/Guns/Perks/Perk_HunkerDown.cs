@@ -106,7 +106,7 @@ public class Perk_HunkerDown : Perk
             }
         }
 
-        gunPerkController.AddPerkStatsAdditive(perkStatsScript);
+        gunPerkController.AddPerkStatsAdditive(perkStatsScript,perkStatsScript.ModifiedStats);
     }
 
     public override void OnDeactivatePerk()
@@ -117,7 +117,7 @@ public class Perk_HunkerDown : Perk
         }
 
         base.OnDeactivatePerk();
-        gunPerkController.RemovePerkStatsAdditive(perkStatsScript);
+        gunPerkController.RemovePerkStatsAdditive(perkStatsScript,perkStatsScript.ModifiedStats);
     }
 
     void FixedUpdate()

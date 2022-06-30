@@ -124,7 +124,7 @@ public class Perk_RewardEncouragement : Perk
         if (isActive)
         {
             base.OnDeactivatePerk();
-            if (secondaryStats)
+            if (addedSecondaryStats)
             {
                 gunPerkController.RemovePerkStatsAdditive(secondaryStats);
 

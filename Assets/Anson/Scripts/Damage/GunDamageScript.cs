@@ -972,31 +972,198 @@ public class GunDamageScript : DamageScript
 
         RefreshValues();
     }
-    //
-    // public void RemovePerkStats(GunPerkController g)
-    // {
-    //     damagePerProjectile -= g.DamagePerProjectile;
-    //     RPM -= g.GetRPM;
-    //     reloadSpeed -= g.ReloadSpeed;
-    //     recoil -= g.Recoil;
-    //     recoil_HipFire -= g.Recoil_HipFire;
-    //     range -= g.Range;
-    //     magazineSize -= g.MagazineSize;
-    //     elementDamage -= g.ElementDamage;
-    //     elementPotency -= g.ElementPotency;
-    //     elementChance -= g.ElementChance;
-    //     
-    //     damagePerProjectile /= g.damagePerProjectileM + 1f;
-    //     RPM /= g.Rpmm + 1f;
-    //     reloadSpeed /= g.ReloadSpeedM + 1f;
-    //     //recoil = recoil * g.recoilM;
-    //     recoil = new Vector2(recoil.x / Mathf.Max((g.RecoilM.x + 1f),0), recoil.y / Mathf.Max((g.RecoilM.y + 1f),0));
-    //     recoil_HipFire = new Vector2(recoil_HipFire.x / Mathf.Max((g.HipfireM.x + 1f),0), recoil_HipFire.y / Mathf.Max((g.HipfireM.y + 1f),0));
-    //     range /= g.RangeM + 1f;
-    //     magazineSize /= g.MagazineSizeM + 1f;
-    //     
-    //     RefreshValues();
-    // }
+    
+    public void RemovePerkStats(GunPerkController g)
+    {
+        damagePerProjectile -= g.DamagePerProjectile;
+        RPM -= g.GetRPM;
+        reloadSpeed -= g.ReloadSpeed;
+        recoil -= g.Recoil;
+        recoil_HipFire -= g.Recoil_HipFire;
+        range -= g.Range;
+        magazineSize -= g.MagazineSize;
+        elementDamage -= g.ElementDamage;
+        elementPotency -= g.ElementPotency;
+        elementChance -= g.ElementChance;
+        
+        damagePerProjectile /= g.damagePerProjectileM + 1f;
+        RPM /= g.Rpmm + 1f;
+        reloadSpeed /= g.ReloadSpeedM + 1f;
+        //recoil = recoil * g.recoilM;
+        recoil = new Vector2(recoil.x / Mathf.Max((g.RecoilM.x + 1f),0), recoil.y / Mathf.Max((g.RecoilM.y + 1f),0));
+        recoil_HipFire = new Vector2(recoil_HipFire.x / Mathf.Max((g.HipfireM.x + 1f),0), recoil_HipFire.y / Mathf.Max((g.HipfireM.y + 1f),0));
+        range /= g.RangeM + 1f;
+        magazineSize /= g.MagazineSizeM + 1f;
+        
+        RefreshValues();
+    }
+    public void AddPerkStats(GunPerkController g, ModifiedStat[] modifiedStats)
+    {
+        foreach (ModifiedStat modifiedStat in modifiedStats)
+        {
+            switch (modifiedStat)
+            {
+                case ModifiedStat.DAMAGE:
+                    damagePerProjectile += g.DamagePerProjectile;
+
+                    break;
+                case ModifiedStat.RPM:
+                    RPM += g.GetRPM;
+
+                    break;
+                case ModifiedStat.RELOAD:
+                    reloadSpeed += g.ReloadSpeed;
+
+                    break;
+                case ModifiedStat.RECOIL:
+                    recoil += g.Recoil;
+
+                    break;
+                case ModifiedStat.HIPFIRE:
+                    recoil_HipFire += g.Recoil_HipFire;
+
+                    break;
+                case ModifiedStat.RANGE:
+                    range += g.Range;
+
+                    break;
+                case ModifiedStat.MAGAZINE:
+                    magazineSize += g.MagazineSize;
+
+                    break;
+                case ModifiedStat.EDAMAGE:
+                    elementDamage += g.ElementDamage;
+
+                    break;
+                case ModifiedStat.EPOTENCY:
+                    elementPotency += g.ElementPotency;
+
+                    break;
+                case ModifiedStat.ECHANCE:
+                    elementChance += g.ElementChance;
+
+                    break;
+                case ModifiedStat.DAMAGE_M:
+                    damagePerProjectile *= g.damagePerProjectileM + 1f;
+
+                    break;
+                case ModifiedStat.RPM_M:
+                    RPM *= g.Rpmm + 1f;
+
+                    break;
+                case ModifiedStat.RELOAD_M:
+                    reloadSpeed *= g.ReloadSpeedM + 1f;
+
+                    break;
+                case ModifiedStat.RECOIL_M:
+                    recoil = new Vector2(recoil.x * Mathf.Max((g.RecoilM.x + 1f),0), recoil.y * Mathf.Max((g.RecoilM.y + 1f),0));
+
+                    break;
+                case ModifiedStat.HIPFIRE_M:
+                    recoil_HipFire = new Vector2(recoil_HipFire.x * Mathf.Max((g.HipfireM.x + 1f),0), recoil_HipFire.y * Mathf.Max((g.HipfireM.y + 1f),0));
+
+                    break;
+                case ModifiedStat.RANGE_M:
+                    range *= g.RangeM + 1f;
+
+                    break;
+                case ModifiedStat.MAGAZINE_M:
+                    magazineSize *= g.MagazineSizeM + 1f;
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        recoil = new Vector2(Mathf.Max(recoil.x, 0), Mathf.Max(recoil.y, 0));
+        recoil_HipFire = new Vector2(Mathf.Max(recoil_HipFire.x, 0), Mathf.Max(recoil_HipFire.y, 0));
+
+        RefreshValues();
+    }
+    
+    public void RemovePerkStats(GunPerkController g, ModifiedStat[] modifiedStats)
+    {
+        foreach (ModifiedStat modifiedStat in modifiedStats)
+        {
+            switch (modifiedStat)
+            {
+                case ModifiedStat.DAMAGE:
+                    damagePerProjectile -= g.DamagePerProjectile;
+
+                    break;
+                case ModifiedStat.RPM:
+                    RPM -= g.GetRPM;
+
+                    break;
+                case ModifiedStat.RELOAD:
+                    reloadSpeed -= g.ReloadSpeed;
+
+                    break;
+                case ModifiedStat.RECOIL:
+                    recoil -= g.Recoil;
+
+                    break;
+                case ModifiedStat.HIPFIRE:
+                    recoil_HipFire -= g.Recoil_HipFire;
+
+                    break;
+                case ModifiedStat.RANGE:
+                    range -= g.Range;
+
+                    break;
+                case ModifiedStat.MAGAZINE:
+                    magazineSize -= g.MagazineSize;
+
+                    break;
+                case ModifiedStat.EDAMAGE:
+                    elementDamage -= g.ElementDamage;
+
+                    break;
+                case ModifiedStat.EPOTENCY:
+                    elementPotency -= g.ElementPotency;
+
+                    break;
+                case ModifiedStat.ECHANCE:
+                    elementChance -= g.ElementChance;
+
+                    break;
+                case ModifiedStat.DAMAGE_M:
+                    damagePerProjectile /= g.damagePerProjectileM + 1f;
+
+                    break;
+                case ModifiedStat.RPM_M:
+                    RPM /= g.Rpmm + 1f;
+
+                    break;
+                case ModifiedStat.RELOAD_M:
+                    reloadSpeed /= g.ReloadSpeedM + 1f;
+
+                    break;
+                case ModifiedStat.RECOIL_M:
+                    recoil = new Vector2(recoil.x / Mathf.Max((g.RecoilM.x + 1f),0), recoil.y / Mathf.Max((g.RecoilM.y + 1f),0));
+
+                    break;
+                case ModifiedStat.HIPFIRE_M:
+                    recoil_HipFire = new Vector2(recoil_HipFire.x / Mathf.Max((g.HipfireM.x + 1f),0), recoil_HipFire.y / Mathf.Max((g.HipfireM.y + 1f),0));
+
+                    break;
+                case ModifiedStat.RANGE_M:
+                    range /= g.RangeM + 1f;
+
+                    break;
+                case ModifiedStat.MAGAZINE_M:
+                    magazineSize /= g.MagazineSizeM + 1f;
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        
+        RefreshValues();
+    }
 
     public void AddPerkStats(PerkGunStatsScript g)
     {
