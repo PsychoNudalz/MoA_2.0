@@ -42,7 +42,7 @@ public class UIPopUpInteractableScript : InteractableScript
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player")&&toolTip)
         {
             toolTip.SetActive(true);
         }
@@ -50,7 +50,7 @@ public class UIPopUpInteractableScript : InteractableScript
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player")&&toolTip)
         {
             toolTip.SetActive(false);
         }
