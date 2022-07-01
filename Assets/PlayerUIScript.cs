@@ -94,6 +94,10 @@ public class PlayerUIScript : MonoBehaviour
     [SerializeField]
     private Image portalIcon;
 
+    [Header("Damage Numbers")]
+    [SerializeField]
+    private DamagePopUpUIManager damagePopUpUIManager;
+
     [Header("Pause Menu")]
     [Tooltip("0:sensitivity 1:ADS 2:Master Volume")]
     [SerializeField]
@@ -138,6 +142,7 @@ public class PlayerUIScript : MonoBehaviour
         }
 
         current = this;
+        damagePopUpUIManager = DamagePopUpUIManager.current;
     }
 
     public void SetEnemiesVisibleBehindObjects(bool areVisible)

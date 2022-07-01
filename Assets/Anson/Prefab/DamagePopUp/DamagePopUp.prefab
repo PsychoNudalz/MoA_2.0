@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6986850587494395985}
   - component: {fileID: 6986850587494395984}
-  - component: {fileID: 6986850587494395999}
   m_Layer: 0
   m_Name: DamagePopUp
   m_TagString: Untagged
@@ -28,8 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.8738914, y: 2.32, z: 0.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4100949859790046260}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45,60 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b6c24da25e9344b9ba2caab1512489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 6986850587776514196}
-  animator: {fileID: 6986850587494395999}
+  spawnRange: 0.2
   displayText: 
-  normalColour: {r: 1, g: 1, b: 1, a: 1}
-  critColour: {r: 1, g: 0, b: 0, a: 1}
-  fireColour: {r: 255, g: 235, b: 0, a: 1}
-  iceColour: {r: 0, g: 1, b: 1, a: 1}
-  shockColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
---- !u!95 &6986850587494395999
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6986850587494395998}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f15f6155398cfb4c9a8f3d38ce092a6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &6986850587776514196
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4100949859790046260}
-  m_Layer: 0
-  m_Name: Text (TMP)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4100949859790046260
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6986850587776514196}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.01, z: -0.81}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6986850587494395985}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

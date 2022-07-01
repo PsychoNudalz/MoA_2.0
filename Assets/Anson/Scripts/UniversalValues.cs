@@ -10,6 +10,7 @@ public static class UniversalValues
     private static Color iceColour = new Color(0,255,255);
     private static Color fireColour = new Color(255,235,14);
     private static Color normalColour = new Color(255,255,255);
+    private static Color criticalColor = new Color(255,0,0);
     
     //Weapon Handling Globals
     public static float HipFireRecoilMultiplier
@@ -96,6 +97,8 @@ public static class UniversalValues
             case ElementTypes.SHOCK:
                 return shockColour;
                 break;
+            case ElementTypes.CRIT:
+                return criticalColor;
             default:
                 return normalColour;
         }

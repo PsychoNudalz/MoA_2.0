@@ -7,11 +7,17 @@ using Camera = UnityEngine.Camera;
 
 public class DamagePopUpUIScript : MonoBehaviour
 {
+    [SerializeField]
+    private Vector3 worldPosition;
 
-    [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private DamagePopUpScript pairedDamage;
+    [SerializeField]
+    private TextMeshProUGUI text;
+
+    [SerializeField]
+    private Animation startAnimation;
 
     private Camera cam;
+    
 
     private void Awake()
     {
@@ -20,17 +26,9 @@ public class DamagePopUpUIScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (pairedDamage)
+        if (gameObject.activeSelf)
         {
-            if (pairedDamage.checkText())
-            {
-                UpdateText(pairedDamage.transform.position);
-
-            }
-            else
-            {
-                EndUI();
-            }
+            UpdateText();
         }
         else
         {
@@ -38,33 +36,35 @@ public class DamagePopUpUIScript : MonoBehaviour
         }
     }
 
-    public void SetText(string s, Color c, DamagePopUpScript damagePopUpScript)
+    public void SetText(string s, Color c, Vector3 worldPos)
     {
         if (!cam)
         {
             cam = Camera.main;
         }
+
         text.text = s;
         text.color = c;
-        pairedDamage = damagePopUpScript;
         gameObject.SetActive(true);
-        UpdateText(pairedDamage.transform.position);
-
+        worldPosition = worldPos;
+        UpdateText();
     }
 
-    public void UpdateText(Vector3 worldPosistion)
+
+
+    public void UpdateText()
     {
-        transform.position = cam.WorldToScreenPoint(worldPosistion);
-        if (!text.text.Equals(pairedDamage.displayText))
-        {
-            EndUI();
-            Debug.LogWarning($"Text mismatch from {this.name} & {pairedDamage.name}");
-        }
+        transform.position = cam.WorldToScreenPoint(worldPosition);
     }
 
     public void EndUI()
     {
         text.text = "";
         gameObject.SetActive(false);
+    }
+    
+    private void OnEnable()
+    {
+        startAnimation.Play();
     }
 }

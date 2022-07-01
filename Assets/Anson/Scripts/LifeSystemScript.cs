@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -9,15 +10,20 @@ using UnityEngine.Serialization;
 /// Anson:
 /// base Life system super class, handles heealth, taking damage, healing
 /// </summary>
-
 public class LifeSystemScript : MonoBehaviour
 {
-
     [Header("States")]
-    [SerializeField] protected int health_Current;
-    [SerializeField] protected int health_Max = 10;
-    [SerializeField] bool isDead = false;
-    [SerializeField] protected Transform centreOfMass;
+    [SerializeField]
+    protected int health_Current;
+
+    [SerializeField]
+    protected int health_Max = 10;
+
+    [SerializeField]
+    bool isDead = false;
+
+    [SerializeField]
+    protected Transform centreOfMass;
 
     [SerializeField]
     protected bool invincible = false;
@@ -25,6 +31,7 @@ public class LifeSystemScript : MonoBehaviour
     [Header("On Death")]
     [SerializeField]
     private UnityEvent onDeath;
+
     public GameObject deathGameObject;
     public bool disableOnDeath = true;
     public bool destroyOnDeath;
@@ -37,15 +44,28 @@ public class LifeSystemScript : MonoBehaviour
     Vector3 particleLocation;
 
     [Header("Debuffs")]
-    [SerializeField] protected List<DebuffScript> debuffList = new List<DebuffScript>();
+    [SerializeField]
+    protected List<DebuffScript> debuffList = new List<DebuffScript>();
     //[SerializeField] 
 
-    [FormerlySerializedAs("damagePopScript")] [Header("Components")]
-    public DamagePopUpScript damagePopUpScript;
+    [Header("Damage Pop Up")]
+    [SerializeField]
+    private DamagePopUpScript damagePopUpScript;
 
-    public int Health_Current { get => health_Current; }
-    public int Health_Max { get => health_Max; }
-    public bool IsDead { get => isDead; }
+    public int Health_Current
+    {
+        get => health_Current;
+    }
+
+    public int Health_Max
+    {
+        get => health_Max;
+    }
+
+    public bool IsDead
+    {
+        get => isDead;
+    }
 
     public bool Invincible
     {
@@ -60,22 +80,25 @@ public class LifeSystemScript : MonoBehaviour
         {
             ls = go.GetComponentInParent<LifeSystemScript>();
         }
+
         return ls;
     }
 
     protected void Awake()
     {
-
         AwakeBehaviour();
     }
 
+    [ContextMenu("Awake")]
     public virtual void AwakeBehaviour()
     {
         health_Current = health_Max;
         try
         {
-            // updateHealthBar();
-            popUpLocation = damagePopUpScript.transform.position - transform.position;
+            if (!damagePopUpScript)
+            {
+                damagePopUpScript = GetComponentInChildren<DamagePopUpScript>();
+            }
         }
         catch (System.Exception)
         {
@@ -131,14 +154,12 @@ public class LifeSystemScript : MonoBehaviour
             displayDamage(dmg, element);
             if (displayTakeDamageEffect)
             {
-
                 PlayTakeDamageEffect();
             }
         }
 
         CheckDead();
         return health_Current;
-
     }
 
     /// <summary>
@@ -148,13 +169,14 @@ public class LifeSystemScript : MonoBehaviour
     /// </summary>
     /// <param name="dmg"></param>
     /// <returns> health remaining </returns>
-    public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1, bool displayTakeDamageEffect = true)
+    public virtual int takeDamageCritical(float dmg, int level, ElementTypes element, float multiplier = 1,
+        bool displayTakeDamageEffect = true)
     {
-
         if (invincible)
         {
             return health_Current;
         }
+
         health_Current -= Mathf.RoundToInt(dmg * multiplier);
         if (!isDead)
         {
@@ -163,15 +185,14 @@ public class LifeSystemScript : MonoBehaviour
             displayDamageCritical(dmg * multiplier);
             if (displayTakeDamageEffect)
             {
-
                 PlayTakeDamageEffect();
             }
         }
 
         CheckDead();
         return health_Current;
-
     }
+
     /// <summary>
     /// heal gameobject
     /// amount rounded to the closest integer
@@ -191,6 +212,7 @@ public class LifeSystemScript : MonoBehaviour
             }
             //updateHealthBar();
         }
+
         return health_Current;
     }
 
@@ -208,10 +230,11 @@ public class LifeSystemScript : MonoBehaviour
         if (!isDead)
         {
             healHealth(amount * health_Max);
-
         }
+
         return health_Current;
     }
+
     /// <summary>
     /// heal gameobject
     /// amount based on missing health
@@ -224,9 +247,9 @@ public class LifeSystemScript : MonoBehaviour
         amount = Mathf.Clamp(amount, 0f, 1f);
         if (!isDead)
         {
-            healHealth( Mathf.RoundToInt(amount * (health_Max-health_Current)));
-
+            healHealth(Mathf.RoundToInt(amount * (health_Max - health_Current)));
         }
+
         return health_Current;
     }
 
@@ -248,33 +271,22 @@ public class LifeSystemScript : MonoBehaviour
             isDead = true;
             health_Current = 0;
         }
+
         return isDead;
     }
 
     public virtual void displayDamage(float dmg, ElementTypes e = ElementTypes.PHYSICAL)
     {
-        if (damagePopUpScript == null)
-        {
-            Debug.LogWarning(name + " missing damage numbers");
-            return;
-        }
         damagePopUpScript.displayDamage(dmg, e);
-
     }
 
     void displayDamageCritical(float dmg)
     {
-        if (damagePopUpScript == null)
-        {
-            Debug.LogWarning(name + " missing damage numbers");
-            return;
-        }
-        damagePopUpScript.displayCriticalDamage(dmg);
+        damagePopUpScript.displayDamage(dmg, ElementTypes.CRIT);
     }
 
     public virtual void PlayTakeDamageEffect()
     {
-
     }
 
     /*
@@ -296,37 +308,34 @@ public class LifeSystemScript : MonoBehaviour
     {
         if (deathGameObject != null)
         {
-            Instantiate(deathGameObject, deathGameObject.transform.position, deathGameObject.transform.rotation).SetActive(true);
+            Instantiate(deathGameObject, deathGameObject.transform.position, deathGameObject.transform.rotation)
+                .SetActive(true);
         }
 
         if (disableOnDeath)
         {
             if (detatchPopUps)
             {
-                damagePopUpScript.transform.SetParent(null);
-                //damagePopUpScript.transform.position = transform.position;
-                //groupParticleSystemScript.transform.position = transform.position;
                 if (reatatchPopUps)
                 {
                     StartCoroutine(reattach());
                 }
             }
+
             gameObject.SetActive(false);
         }
         else if (destroyOnDeath)
         {
             if (detatchPopUps)
             {
-                damagePopUpScript.transform.SetParent(null);
                 if (reatatchPopUps)
                 {
                     StartCoroutine(reattach());
                 }
             }
+
             Destroy(gameObject);
         }
-
-
     }
 
     /// <summary>
@@ -343,11 +352,7 @@ public class LifeSystemScript : MonoBehaviour
 
     public virtual IEnumerator reattach()
     {
- 
         yield return new WaitForSeconds(3f);
-        damagePopUpScript.transform.SetParent(transform);
-        damagePopUpScript.transform.position = transform.position + popUpLocation;
-
     }
 
 
@@ -382,21 +387,21 @@ public class LifeSystemScript : MonoBehaviour
     public virtual void RemoveDebuff(FireEffectScript debuff = null)
     {
         RemoveDebuff(debuff as DebuffScript);
-
     }
+
     public virtual void RemoveDebuff(ShockEffectScript debuff)
     {
         RemoveDebuff(debuff as DebuffScript);
     }
+
     public virtual void RemoveDebuff(IceEffectScript debuff)
     {
         RemoveDebuff(debuff as DebuffScript);
     }
+
     public virtual void RemoveDebuff(DebuffScript debuff = null)
     {
-
         debuffList.Remove(debuff);
-
     }
 
 
@@ -411,8 +416,6 @@ public class LifeSystemScript : MonoBehaviour
         {
             if (reatatchPopUps)
             {
-                damagePopUpScript.transform.SetParent(transform);
-                damagePopUpScript.transform.position = transform.position + popUpLocation;
             }
         }
         catch (System.Exception)
@@ -441,9 +444,10 @@ public class LifeSystemScript : MonoBehaviour
                 return d as FireEffectScript;
             }
         }
-        return null;
 
+        return null;
     }
+
     public IceEffectScript CheckIsStillOnIce(IceEffectScript iceComparedTo = null)
     {
         foreach (DebuffScript d in debuffList)
@@ -454,33 +458,32 @@ public class LifeSystemScript : MonoBehaviour
                 {
                     return d as IceEffectScript;
                 }
+
                 if (!d.Equals(iceComparedTo))
                 {
                     return d as IceEffectScript;
                 }
             }
         }
-        return null;
 
+        return null;
     }
 
     public float GetPercentageHealth()
     {
-        return Mathf.Clamp((float)health_Current / (float)health_Max, 0f, 1f);
+        return Mathf.Clamp((float) health_Current / (float) health_Max, 0f, 1f);
     }
 
     public float DrainMaxHealth(int amount)
     {
-
         health_Max -= amount;
         if (health_Max < 1)
         {
             health_Max = 1;
-
         }
+
         health_Current = Mathf.RoundToInt(Mathf.Clamp(health_Current, 0f, health_Max));
         return health_Max;
-
     }
 
     public virtual Vector3 GetEffectCenter()
@@ -498,7 +501,5 @@ public class LifeSystemScript : MonoBehaviour
         {
             return centreOfMass.transform;
         }
-
     }
-
 }

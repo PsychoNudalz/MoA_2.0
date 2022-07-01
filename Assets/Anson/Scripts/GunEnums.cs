@@ -32,7 +32,8 @@ public enum ElementTypes
     PHYSICAL,
     FIRE,
     ICE,
-    SHOCK
+    SHOCK,
+    CRIT
 }
 
 public enum FireTypes
