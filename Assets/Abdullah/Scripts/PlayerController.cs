@@ -1221,7 +1221,14 @@ public class PlayerController : MonoBehaviour
             //playerSoundScript.Play_Jump();
             if (isGrounded)
             {
-                //SetMoveSpeed_Target(moveSpeed_Default);
+                if (inputDirection.magnitude > 0.1f)
+                {
+                    SetMoveSpeed_Target(moveSpeed_Default);
+                }
+                else
+                {
+                    SetMoveSpeed_Target(0);
+                }
                 playerSoundScript.Set_Walk(inputDirection.magnitude > 0.1f);
             }
         }
