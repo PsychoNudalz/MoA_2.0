@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class DamagePopUpUIManager : MonoBehaviour
@@ -36,6 +37,13 @@ public class DamagePopUpUIManager : MonoBehaviour
     [SerializeField]
     Color shockColour = Color.yellow;
 
+    [Header("Screen Size")]
+    [SerializeField]
+    private Vector2 screenSize;
+
+    [SerializeField]
+    private float margin=.05f;
+
 
     float spawnRange = .2f;
 
@@ -44,10 +52,13 @@ public class DamagePopUpUIManager : MonoBehaviour
     private void Awake()
     {
         current = this;
+        screenSize = GetComponentInParent<CanvasScaler>().referenceResolution;
         DPPool = new List<DamagePopUpUIScript>();
+
         for (int i = 0; i < initialSize; i++)
         {
             DPPool.Add(Instantiate(baseDP, transform));
+            DPPool[i].Initialise(screenSize,margin);
         }
     }
 
