@@ -710,7 +710,7 @@ public class GunDamageScript : DamageScript
     private void SpawnLaunchProjectile()
     {
         ProjectileScript projectileScript =
-            Instantiate(projectileGO, mainGunStatsScript.transform.position, Quaternion.identity)
+            Instantiate(projectileGO, firePoint.position, Quaternion.identity)
                 .GetComponent<ProjectileScript>();
         float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x),
             0,

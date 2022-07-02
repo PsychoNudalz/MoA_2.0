@@ -10,6 +10,9 @@ public class GunConnectionPoint : MonoBehaviour
     [SerializeField] List<GunComponents> compatableComponents;
     [SerializeField] List<GunTypes> compatableTypes;
 
+    [SerializeField]
+    private bool showComponent = true;
+
     public GunComponent ConnectedComponent { get => connectedComponent; set => connectedComponent = value; }
 
     public List<GunComponents> CompatableComponents
@@ -75,6 +78,14 @@ public class GunConnectionPoint : MonoBehaviour
         if (IsCompatable(g))
         {
             connectedComponent = g;
+            if (!showComponent)
+            {
+                foreach (Renderer r in connectedComponent.GetComponentsInChildren<Renderer>())
+                {
+                    r.enabled = false;
+                }
+            }
+
             return true;
         }
         return false;

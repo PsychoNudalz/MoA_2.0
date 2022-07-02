@@ -402,7 +402,10 @@ public class GunGeneratorScript : MonoBehaviour
 
     void SetProjectile(GameObject g)
     {
-        newGun.SetProjectile(g);
+        if (g)
+        {
+            newGun.SetProjectile(g);
+        }
     }
 
     void AddPerk(GunComponent_Perk p)

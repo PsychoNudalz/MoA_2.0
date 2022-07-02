@@ -11,12 +11,6 @@ public class SphereCastDamageScript : DamageScript
         ElementTypes elementType, bool needLineOfSight = false, bool triggerElement = false, float elementDamage = 0f,
         float elementPotency = 0f, GunPerkController gunPerkController = null)
     {
-        if (elementType.Equals(ElementTypes.FIRE))
-        {
-            Debug.LogWarning("Something called Fire");
-        }
-
-
         attackedTargets = new List<LifeSystemScript>();
         bool hitTarget = false;
         bool shockFlag = false;

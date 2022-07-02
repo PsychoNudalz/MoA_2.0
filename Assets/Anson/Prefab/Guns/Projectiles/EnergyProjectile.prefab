@@ -4856,7 +4856,7 @@ GameObject:
   - component: {fileID: 7183683471440185746}
   - component: {fileID: 7183683471440185747}
   m_Layer: 13
-  m_Name: MinSquareProjectile
+  m_Name: EnergyProjectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4893,8 +4893,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f20cc6f7090c8428fb26223d1240bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchForce: 15
-  launchSpeed: 10
+  launchForce: 30
+  launchSpeed: 30
   launchSpin: 0
   baseDamage: 0
   level: 0
@@ -4916,7 +4916,7 @@ MonoBehaviour:
   - Floor
   - Cover
   orientateProjectileToDirection: 1
-  swirlAmount: 0.2
+  swirlAmount: 0.1
   swirlFrequency: 4
   swirlDirection: {x: 0, y: 0, z: 0}
   originalDir: {x: 0, y: 0, z: 0}
@@ -4940,27 +4940,27 @@ MonoBehaviour:
     isElementTrigger: 0
   gunPerkController: {fileID: 0}
   damageMultiplier: 1
-  maxRange: 2
+  maxRange: 1.5
   rangeFalloff:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.29853058
+      time: 0
       value: 1
-      inSlope: -0.021092163
-      outSlope: -0.021092163
-      tangentMode: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.25285715
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -2.5243332
-      outSlope: -2.5243332
-      tangentMode: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.07415438
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -5062,7 +5062,7 @@ MonoBehaviour:
   target: {fileID: 0}
   projectileScript: {fileID: 0}
   triggerArea: {fileID: 6088202927809539530}
-  radius: 15
+  radius: 3
   deadZone: 0
   tagList: []
   ignoreTagList:
@@ -5132,7 +5132,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.05
+        m_Name: Size
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -5149,8 +5152,17 @@ VisualEffect:
       - m_Value: {x: 0.6, y: 0.6, z: 0.6}
         m_Name: MaxScaleDisk
         m_Overridden: 1
+      - m_Value: {x: 0.05, y: 0.05, z: 0.05}
+        m_Name: ProjectilSpawnBox
+        m_Overridden: 1
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 0.29764143, y: 2.70712, z: 2.1457977, w: 1}
+        m_Name: Colour1
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 1.0015572, z: 5.1518326, w: 1}
+        m_Name: Colour2
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
