@@ -645,6 +645,41 @@ public class GunPerkController : MonoBehaviour
             }
         }
     }
+    public void OnExplode(ShotData shotData)
+    {
+        foreach (Perk perk in perks)
+        {
+            perk.OnShot(shotData);
+            if (shotData.IsHit)
+            {
+                perk.OnHit(shotData);
+            }
+            else
+            {
+                perk.OnMiss(shotData);
+            }
+
+            if (shotData.IsKill)
+            {
+                perk.OnKill(shotData);
+            }
+
+            if (shotData.IsCritical)
+            {
+                perk.OnCritical(shotData);
+            }
+
+            if (shotData.IsElementTrigger)
+            {
+                perk.OnElementTrigger(shotData);
+            }
+
+            if (shotData.IsTargetHit)
+            {
+                perk.OnTargetHit(shotData);
+            }
+        }
+    }
 
     public void OnReloadStart()
     {

@@ -49,6 +49,7 @@ public class GunDamageScript : DamageScript
 
     [SerializeField]
     protected float elementDamage = 0;
+    protected float elementDamageTotal = 0;
 
     [SerializeField]
     protected float elementPotency = 0; //effect duration or range
@@ -258,7 +259,6 @@ public class GunDamageScript : DamageScript
 
     public virtual void ResetMainStats()
     {
-        
         damagePerProjectile = mainGunStatsScript.DamagePerProjectile;
         RPM = mainGunStatsScript.GetRPM;
         reloadSpeed = mainGunStatsScript.ReloadSpeed;
@@ -266,9 +266,8 @@ public class GunDamageScript : DamageScript
         recoil_HipFire = mainGunStatsScript.Recoil_HipFire;
         range = mainGunStatsScript.Range;
         magazineSize = mainGunStatsScript.MagazineSize;
-        
-        RefreshValues();
 
+        RefreshValues();
     }
 
     public virtual MainGunStatsScript UpdateGunScript(MainGunStatsScript g, int slot = -1)
@@ -287,7 +286,7 @@ public class GunDamageScript : DamageScript
         mainGunStatsScript = g;
         gunType = g.GunType;
         rarity = g.Rarity;
-        
+
         damagePerProjectile = g.DamagePerProjectile;
         RPM = g.GetRPM;
         reloadSpeed = g.ReloadSpeed;
@@ -295,7 +294,7 @@ public class GunDamageScript : DamageScript
         recoil_HipFire = g.Recoil_HipFire;
         range = g.Range;
         magazineSize = g.MagazineSize;
-        
+
         projectilePerShot = g.ProjectilePerShot;
         timeBetweenProjectile = g.TimeBetweenProjectile;
         timeUntilFire = 60f / RPM;
@@ -357,7 +356,8 @@ public class GunDamageScript : DamageScript
 
 
         //HANDLE ELEMENTS.  Reduce main damage, change element damage
-        elementDamage = Mathf.RoundToInt(g.ElementDamage * damagePerProjectile);
+        elementDamage = g.ElementDamage;
+        elementDamageTotal = Mathf.RoundToInt(g.ElementDamage * damagePerProjectile);
         //damagePerProjectile = damagePerProjectile * 0.85f;
         elementPotency = g.ElementPotency;
         elementChance = g.ElementChance;
@@ -653,7 +653,7 @@ public class GunDamageScript : DamageScript
                     shotData.ShotDamage += damagePerProjectile * dropOff;
                 }
 
-                if (Random.Range(0, 1f) <= elementChance)
+                if (IsTriggerElement())
                 {
                     shotData.IsElementTrigger = true;
                     shotData.IsKill = shotData.IsKill || ApplyElementEffect(ls);
@@ -666,6 +666,11 @@ public class GunDamageScript : DamageScript
         UpdateBulletTrailStuff();
 
         return hitTarget;
+    }
+
+    private bool IsTriggerElement()
+    {
+        return Random.Range(0, 1f) <= elementChance;
     }
 
     private void UpdateBulletTrailStuff()
@@ -729,7 +734,8 @@ public class GunDamageScript : DamageScript
                           Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
                           firePoint.transform.forward;
 
-        projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized);
+        projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized, IsTriggerElement()
+            , elementDamage, elementPotency, gunPerkController);
     }
 
     protected virtual float HandleWeapon(float newRecoilTime = -1f)
@@ -854,7 +860,7 @@ public class GunDamageScript : DamageScript
 
     bool ApplyElementEffect(LifeSystemScript ls)
     {
-        return base.ApplyElementEffect(ls, elementDamage, elementPotency, elementType);
+        return base.ApplyElementEffect(ls, elementDamageTotal, elementPotency, elementType);
     }
 
 
@@ -943,6 +949,7 @@ public class GunDamageScript : DamageScript
     {
         timeUntilFire = 60f / RPM;
         gunEffectsController.updateAnimatorSpeeds(reloadSpeed, RPM);
+        elementDamageTotal = Mathf.RoundToInt(elementDamage * damagePerProjectile);
     }
 
     public void AddPerkStats(GunPerkController g)
@@ -957,13 +964,14 @@ public class GunDamageScript : DamageScript
         elementDamage += g.ElementDamage;
         elementPotency += g.ElementPotency;
         elementChance += g.ElementChance;
-        
+
         damagePerProjectile *= g.damagePerProjectileM + 1f;
         RPM *= g.Rpmm + 1f;
         reloadSpeed *= g.ReloadSpeedM + 1f;
         //recoil = recoil * g.recoilM;
-        recoil = new Vector2(recoil.x * Mathf.Max((g.RecoilM.x + 1f),0), recoil.y * Mathf.Max((g.RecoilM.y + 1f),0));
-        recoil_HipFire = new Vector2(recoil_HipFire.x * Mathf.Max((g.HipfireM.x + 1f),0), recoil_HipFire.y * Mathf.Max((g.HipfireM.y + 1f),0));
+        recoil = new Vector2(recoil.x * Mathf.Max((g.RecoilM.x + 1f), 0), recoil.y * Mathf.Max((g.RecoilM.y + 1f), 0));
+        recoil_HipFire = new Vector2(recoil_HipFire.x * Mathf.Max((g.HipfireM.x + 1f), 0),
+            recoil_HipFire.y * Mathf.Max((g.HipfireM.y + 1f), 0));
         range *= g.RangeM + 1f;
         magazineSize *= g.MagazineSizeM + 1f;
 
@@ -972,7 +980,7 @@ public class GunDamageScript : DamageScript
 
         RefreshValues();
     }
-    
+
     public void RemovePerkStats(GunPerkController g)
     {
         damagePerProjectile -= g.DamagePerProjectile;
@@ -985,18 +993,20 @@ public class GunDamageScript : DamageScript
         elementDamage -= g.ElementDamage;
         elementPotency -= g.ElementPotency;
         elementChance -= g.ElementChance;
-        
+
         damagePerProjectile /= g.damagePerProjectileM + 1f;
         RPM /= g.Rpmm + 1f;
         reloadSpeed /= g.ReloadSpeedM + 1f;
         //recoil = recoil * g.recoilM;
-        recoil = new Vector2(recoil.x / Mathf.Max((g.RecoilM.x + 1f),0), recoil.y / Mathf.Max((g.RecoilM.y + 1f),0));
-        recoil_HipFire = new Vector2(recoil_HipFire.x / Mathf.Max((g.HipfireM.x + 1f),0), recoil_HipFire.y / Mathf.Max((g.HipfireM.y + 1f),0));
+        recoil = new Vector2(recoil.x / Mathf.Max((g.RecoilM.x + 1f), 0), recoil.y / Mathf.Max((g.RecoilM.y + 1f), 0));
+        recoil_HipFire = new Vector2(recoil_HipFire.x / Mathf.Max((g.HipfireM.x + 1f), 0),
+            recoil_HipFire.y / Mathf.Max((g.HipfireM.y + 1f), 0));
         range /= g.RangeM + 1f;
         magazineSize /= g.MagazineSizeM + 1f;
-        
+
         RefreshValues();
     }
+
     public void AddPerkStats(GunPerkController g, ModifiedStat[] modifiedStats)
     {
         foreach (ModifiedStat modifiedStat in modifiedStats)
@@ -1056,11 +1066,13 @@ public class GunDamageScript : DamageScript
 
                     break;
                 case ModifiedStat.RECOIL_M:
-                    recoil = new Vector2(recoil.x * Mathf.Max((g.RecoilM.x + 1f),0), recoil.y * Mathf.Max((g.RecoilM.y + 1f),0));
+                    recoil = new Vector2(recoil.x * Mathf.Max((g.RecoilM.x + 1f), 0),
+                        recoil.y * Mathf.Max((g.RecoilM.y + 1f), 0));
 
                     break;
                 case ModifiedStat.HIPFIRE_M:
-                    recoil_HipFire = new Vector2(recoil_HipFire.x * Mathf.Max((g.HipfireM.x + 1f),0), recoil_HipFire.y * Mathf.Max((g.HipfireM.y + 1f),0));
+                    recoil_HipFire = new Vector2(recoil_HipFire.x * Mathf.Max((g.HipfireM.x + 1f), 0),
+                        recoil_HipFire.y * Mathf.Max((g.HipfireM.y + 1f), 0));
 
                     break;
                 case ModifiedStat.RANGE_M:
@@ -1081,7 +1093,7 @@ public class GunDamageScript : DamageScript
 
         RefreshValues();
     }
-    
+
     public void RemovePerkStats(GunPerkController g, ModifiedStat[] modifiedStats)
     {
         foreach (ModifiedStat modifiedStat in modifiedStats)
@@ -1141,11 +1153,13 @@ public class GunDamageScript : DamageScript
 
                     break;
                 case ModifiedStat.RECOIL_M:
-                    recoil = new Vector2(recoil.x / Mathf.Max((g.RecoilM.x + 1f),0), recoil.y / Mathf.Max((g.RecoilM.y + 1f),0));
+                    recoil = new Vector2(recoil.x / Mathf.Max((g.RecoilM.x + 1f), 0),
+                        recoil.y / Mathf.Max((g.RecoilM.y + 1f), 0));
 
                     break;
                 case ModifiedStat.HIPFIRE_M:
-                    recoil_HipFire = new Vector2(recoil_HipFire.x / Mathf.Max((g.HipfireM.x + 1f),0), recoil_HipFire.y / Mathf.Max((g.HipfireM.y + 1f),0));
+                    recoil_HipFire = new Vector2(recoil_HipFire.x / Mathf.Max((g.HipfireM.x + 1f), 0),
+                        recoil_HipFire.y / Mathf.Max((g.HipfireM.y + 1f), 0));
 
                     break;
                 case ModifiedStat.RANGE_M:
@@ -1160,8 +1174,8 @@ public class GunDamageScript : DamageScript
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
-        
+
+
         RefreshValues();
     }
 

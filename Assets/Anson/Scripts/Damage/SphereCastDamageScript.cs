@@ -8,7 +8,7 @@ public class SphereCastDamageScript : DamageScript
     float lineOfSightOffset = 0f;
 
     public bool SphereCastDamageArea(float dmg, float range, AnimationCurve rangeCurve, int level,
-        ElementTypes elementType, bool needLineOfSight = false)
+        ElementTypes elementType, bool needLineOfSight = false,bool triggerElement = false, float elementDamage = 0f, float elementPotency = 0f, GunPerkController gunPerkController = null)
     {
         if (elementType.Equals(ElementTypes.FIRE))
         {
@@ -19,6 +19,9 @@ public class SphereCastDamageScript : DamageScript
         attackedTargets = new List<LifeSystemScript>();
         bool hitTarget = false;
         bool shockFlag = false;
+        bool elementTrigger = false;
+        bool critTrigger = false;
+        bool killTrigger = false;
         int calculatedDamage;
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, range, transform.forward, range, layerMask);
         LifeSystemScript lss;
@@ -36,23 +39,35 @@ public class SphereCastDamageScript : DamageScript
                         hitTarget = true;
                         attackedTargets.Add(lss);
 
+                        critTrigger = c.TryGetComponent(out WeakPointScript _);
+                        
                         calculatedDamage = CalculateDamage(dmg, range, rangeCurve, lss.GetCentreOfMass().position);
-                        dealDamageToTarget(lss, calculatedDamage, level, elementType);
+                        killTrigger= dealDamageToTarget(lss, calculatedDamage, level, elementType);
 
                         if (!(lss is PlayerLifeSystemScript))
                         {
-                            if (elementType.Equals(ElementTypes.SHOCK))
+                            if (triggerElement)
                             {
-                                if (!shockFlag)
+                                if (elementType.Equals(ElementTypes.SHOCK))
                                 {
-                                    ApplyElementEffect(lss, calculatedDamage * .5f, range, elementType);
-                                    shockFlag = true;
+                                    if (!shockFlag)
+                                    {
+                                        ApplyElementEffect(lss, calculatedDamage * elementDamage, elementPotency, elementType);
+                                        shockFlag = true;
+                                        elementTrigger = true;
+                                    }
+                                }
+                                else
+                                {
+                                    ApplyElementEffect(lss, calculatedDamage* elementDamage, elementPotency, elementType);
+                                    elementTrigger = true;
                                 }
                             }
-                            else
-                            {
-                                ApplyElementEffect(lss, calculatedDamage * .5f, range, elementType);
-                            }
+                        }
+
+                        if (gunPerkController!=null)
+                        {
+                           gunPerkController.OnExplode(ProcessShotData(hitTarget,critTrigger,killTrigger,calculatedDamage,elementTrigger));
                         }
                     }
                 }
@@ -91,5 +106,24 @@ public class SphereCastDamageScript : DamageScript
         //print("no line of sight");
 
         return false;
+    }
+
+    ShotData ProcessShotData(bool isHit,bool isCrit, bool isKill,float dmg, bool isElementTrigger)
+    {
+        ShotData shotData = new ShotData();
+        if (isHit)
+        {
+            shotData.TargetLs = attackedTargets[0];
+            shotData.IsHit = true;
+            shotData.IsKill = isKill||shotData.IsKill;
+            shotData.IsCritical = isCrit||shotData.IsCritical;
+            if (dmg > shotData.ShotDamage)
+            {
+                shotData.ShotDamage = dmg;
+            }
+
+            shotData.IsElementTrigger = isElementTrigger;
+        }
+        return shotData;
     }
 }

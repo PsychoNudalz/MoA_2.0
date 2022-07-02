@@ -6,49 +6,154 @@ using UnityEngine.VFX;
 public abstract class ProjectileScript : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] float launchForce;
-    [SerializeField] float launchSpeed;
-    [SerializeField] float launchSpin;
-    [SerializeField] float baseDamage;
-    [SerializeField] private int level;
-    [SerializeField] private ElementTypes elementType;
+    [SerializeField]
+    float launchForce;
+
+    [SerializeField]
+    float launchSpeed;
+
+    [SerializeField]
+    float launchSpin;
+
+    [SerializeField]
+    float baseDamage;
+
+    [SerializeField]
+    private int level;
+
+    [SerializeField]
+    private ElementTypes elementType;
+
+    [Header("Element")]
+    [SerializeField]
+    private bool triggerElement;
+
+    [SerializeField]
+    private float elementDamage;
+
+    [SerializeField]
+    private float elementPotency;
 
     [Header("Effects")]
-    [SerializeField] ParticleSystem explodeEffect;
-    [SerializeField] GameObject[] delayDistroyGOs;
-    [SerializeField] float delayTime;
+    [SerializeField]
+    ParticleSystem explodeEffect;
+
+    [SerializeField]
+    GameObject[] delayDistroyGOs;
+
+    [SerializeField]
+    float delayTime;
 
     [Header("Projectile Behaviour")]
-    [SerializeField] Rigidbody rb;
-    [SerializeField] PhysicMaterial physicMateral;
-    [SerializeField] Collider mainCollider;
-    [SerializeField] int numberOfBounces = 0;
-    [SerializeField] float fuseTime = Mathf.Infinity;
-    [SerializeField] protected List<string> tagList;
-    [SerializeField] bool orientateProjectileToDirection;
+    [SerializeField]
+    Rigidbody rb;
+
+    [SerializeField]
+    PhysicMaterial physicMateral;
+
+    [SerializeField]
+    Collider mainCollider;
+
+    [SerializeField]
+    int numberOfBounces = 0;
+
+    [SerializeField]
+    float fuseTime = Mathf.Infinity;
+
+    [SerializeField]
+    protected List<string> tagList;
+
+    [SerializeField]
+    bool orientateProjectileToDirection;
 
     [Header("Swirl Behaviour")]
-    [SerializeField] float swirlAmount;
-    [SerializeField] float swirlFrequency = 1;
-    [SerializeField] Vector3 swirlDirection;
-    [SerializeField] Vector3 originalDir;
+    [SerializeField]
+    float swirlAmount;
+
+    [SerializeField]
+    float swirlFrequency = 1;
+
+    [SerializeField]
+    Vector3 swirlDirection;
+
+    [SerializeField]
+    Vector3 originalDir;
+
     Vector3 velocityValue;
     Vector2 seedOffset;
 
     [Header("Homing Behaviour")]
-    [SerializeField] bool isHoming;
-    [SerializeField] bool homingLock;
-    [SerializeField] bool omniHoming;
-    [SerializeField] ProjectileTriggerDetectionScript triggerDetectionScript;
-    [SerializeField] Transform targetTransform;
-    [SerializeField] Vector3 homingDir;
-    [SerializeField] float homingStrength = 50f;
+    [SerializeField]
+    bool isHoming;
 
-    protected int Level { get => level; set => level = value; }
-    protected ElementTypes ElementType { get => elementType; set => elementType = value; }
-    protected float BaseDamage { get => baseDamage; set => baseDamage = value; }
-    public ProjectileTriggerDetectionScript TriggerDetectionScript { get => triggerDetectionScript; set => triggerDetectionScript = value; }
-    public List<string> TagList { get => tagList; set => tagList = value; }
+    [SerializeField]
+    bool homingLock;
+
+    [SerializeField]
+    bool omniHoming;
+
+    [SerializeField]
+    ProjectileTriggerDetectionScript triggerDetectionScript;
+
+    [SerializeField]
+    Transform targetTransform;
+
+    [SerializeField]
+    Vector3 homingDir;
+
+    [SerializeField]
+    float homingStrength = 50f;
+
+    [Header("ShotData")]
+    [SerializeField]
+    private ShotData shotData;
+
+    [SerializeField]
+    private GunPerkController gunPerkController;
+
+    protected int Level
+    {
+        get => level;
+        set => level = value;
+    }
+
+    protected ElementTypes ElementType
+    {
+        get => elementType;
+        set => elementType = value;
+    }
+
+    protected float BaseDamage
+    {
+        get => baseDamage;
+        set => baseDamage = value;
+    }
+
+    public ProjectileTriggerDetectionScript TriggerDetectionScript
+    {
+        get => triggerDetectionScript;
+        set => triggerDetectionScript = value;
+    }
+
+    public List<string> TagList
+    {
+        get => tagList;
+        set => tagList = value;
+    }
+
+    public bool TriggerElement
+    {
+        get => triggerElement;
+        set => triggerElement = value;
+    }
+
+    public float ElementDamage => elementDamage;
+
+    public float ElementPotency => elementPotency;
+
+    protected ShotData ShotData => shotData;
+
+    protected GunPerkController GunPerkController => gunPerkController;
 
 
     // Start is called before the first frame update
@@ -58,14 +163,17 @@ public abstract class ProjectileScript : MonoBehaviour
         {
             rb = FindObjectOfType<Rigidbody>();
         }
+
         if (mainCollider == null)
         {
             mainCollider = FindObjectOfType<Collider>();
         }
+
         if (mainCollider.material == null)
         {
             mainCollider.material = physicMateral;
         }
+
         seedOffset = new Vector2(Random.Range(-180f, 180f), Random.Range(-180f, 180f));
     }
 
@@ -91,12 +199,12 @@ public abstract class ProjectileScript : MonoBehaviour
         {
             SwirlProjectile();
         }
+
         if (homingLock && isHoming)
         {
             HomingBehaviour();
         }
     }
-
 
 
     private void OnCollisionEnter(Collision collision)
@@ -110,46 +218,64 @@ public abstract class ProjectileScript : MonoBehaviour
             }
             else
             {
-
                 if (numberOfBounces == 0)
                 {
                     Explode();
                 }
+
                 numberOfBounces -= 1;
             }
         }
     }
 
-    public virtual void Launch(float damage, int level, ElementTypes elementType)
-    {
-        Launch(damage, level, elementType, transform.forward);
 
-    }
-
-    public virtual void Launch(float damage, int level, ElementTypes elementType, Vector3 LaunchDir)
+    public virtual ShotData Launch(float damage, int level, ElementTypes elementType, Vector3 LaunchDir = new Vector3(),
+        bool triggerElement = false, float elementDamage = 0f, float elementPotency = 0f,
+        GunPerkController gunPerkController = null)
     {
+        if (LaunchDir.magnitude == 0)
+        {
+            LaunchDir = transform.forward;
+        }
+
+        this.triggerElement = triggerElement;
         baseDamage = damage;
         this.level = level;
         this.elementType = elementType;
+        this.elementDamage = elementDamage;
+        this.elementPotency = elementPotency;
         transform.forward = LaunchDir;
         rb.velocity = LaunchDir * launchForce;
-        rb.AddTorque(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)) * launchSpin);
-        rb.AddForce(LaunchDir * launchForce * rb.mass);
+        if (launchSpin > 0)
+        {
+            rb.AddTorque(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)) * launchSpin);
+        }
+
+        rb.AddForce(LaunchDir * (launchForce * rb.mass));
         originalDir = LaunchDir;
+
+        if (gunPerkController)
+        {
+            this.gunPerkController = gunPerkController;
+        }
+
+        shotData = new ShotData();
+        return shotData;
     }
 
     public virtual void Explode()
     {
         //print(name + " go boom");
-        if (explodeEffect != null)
+        if (explodeEffect)
         {
             explodeEffect = Instantiate(explodeEffect, transform.position, transform.rotation);
             explodeEffect.Play();
             Destroy(explodeEffect.gameObject, 1f);
-
         }
-        DetattachEffects();
+
+        DetachEffects();
     }
+
     public void PointProjectileToDirection()
     {
         transform.forward = rb.velocity.normalized;
@@ -157,18 +283,17 @@ public abstract class ProjectileScript : MonoBehaviour
 
     public virtual void SwirlProjectile()
     {
-        swirlDirection = new Vector3(Mathf.Sin(Time.time * swirlFrequency + seedOffset.x), Mathf.Cos(Time.time * swirlFrequency + seedOffset.y), 1 / swirlAmount).normalized;
+        swirlDirection = new Vector3(Mathf.Sin(Time.time * swirlFrequency + seedOffset.x),
+            Mathf.Cos(Time.time * swirlFrequency + seedOffset.y), 1 / swirlAmount).normalized;
         if (originalDir.magnitude.Equals(0))
         {
             velocityValue = swirlDirection * launchSpeed;
-
         }
         else
         {
             velocityValue = (Quaternion.LookRotation(originalDir) * swirlDirection * launchSpeed);
-
         }
-        
+
         //velocityValue = Quaternion.LookRotation(originalDir) * Quaternion.LookRotation(swirlDirection) * rb.velocity;
         rb.velocity = velocityValue;
     }
@@ -181,10 +306,12 @@ public abstract class ProjectileScript : MonoBehaviour
             homingLock = false;
             return;
         }
+
         if (homingLock || !isHoming)
         {
             return;
         }
+
         homingDir = (target.position - transform.position).normalized;
 
         float dotResults = Vector3.Dot(homingDir, transform.forward);
@@ -192,37 +319,41 @@ public abstract class ProjectileScript : MonoBehaviour
         {
             return;
         }
+
         homingLock = true;
         targetTransform = target;
     }
 
     public virtual void HomingBehaviour()
     {
-        if (targetTransform == null)
+        if (!targetTransform)
         {
             homingLock = false;
             return;
         }
+
         homingDir = (targetTransform.position - transform.position).normalized;
         float dotResults = Vector3.Dot(homingDir, transform.forward);
-        if (dotResults <= 0f &&! omniHoming)
+        if (dotResults <= 0f && !omniHoming)
         {
-            resetHomingTarget();
+            ResetHomingTarget();
         }
         else
         {
-            rb.velocity = ((homingDir * Mathf.Abs(dotResults) * Time.deltaTime * homingStrength) + rb.velocity.normalized).normalized * launchSpeed;
+            rb.velocity =
+                ((homingDir * (Mathf.Abs(dotResults) * Time.deltaTime * homingStrength)) + rb.velocity.normalized)
+                .normalized * launchSpeed;
         }
     }
 
-    protected virtual void resetHomingTarget()
+    protected virtual void ResetHomingTarget()
     {
         originalDir = transform.forward;
         homingLock = false;
         return;
     }
 
-    protected virtual void DetattachEffects()
+    protected virtual void DetachEffects()
     {
         VisualEffect v;
         foreach (GameObject g in delayDistroyGOs)
@@ -231,9 +362,9 @@ public abstract class ProjectileScript : MonoBehaviour
             {
                 v.SendEvent("OnStop");
             }
+
             g.transform.SetParent(null);
             Destroy(g, delayTime);
         }
     }
-
 }

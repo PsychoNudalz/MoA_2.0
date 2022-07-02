@@ -5,20 +5,30 @@ using UnityEngine;
 public class ExplosiveProjectileScript : ProjectileScript
 {
     [Header("Explosive Stats")]
-    [SerializeField] float damageMultiplier;
-    [SerializeField] float maxRange;
-    [SerializeField] AnimationCurve rangeFalloff;
-    [SerializeField] SphereCastDamageScript sphereCastDamageScript;
+    [SerializeField]
+    float damageMultiplier;
+
+    [SerializeField]
+    float maxRange;
+
+    [SerializeField]
+    AnimationCurve rangeFalloff;
+
+    [SerializeField]
+    SphereCastDamageScript sphereCastDamageScript;
 
 
     public override void Explode()
     {
         if (ElementType.Equals(ElementTypes.FIRE))
         {
-            Debug.LogWarning(this.name+" called Fire");
+            Debug.LogWarning(this.name + " called Fire");
         }
+
         base.Explode();
-        sphereCastDamageScript.SphereCastDamageArea(BaseDamage*damageMultiplier, maxRange, rangeFalloff, Level, ElementType, true);
+        sphereCastDamageScript.SphereCastDamageArea(BaseDamage * damageMultiplier, maxRange, rangeFalloff, Level,
+            ElementType, true, TriggerElement,ElementDamage,ElementPotency, GunPerkController);
+        this.GunPerkController.OnExplode(this.ShotData);
         Destroy(gameObject);
     }
 }
