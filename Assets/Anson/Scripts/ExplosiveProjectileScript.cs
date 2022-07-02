@@ -20,15 +20,13 @@ public class ExplosiveProjectileScript : ProjectileScript
 
     public override void Explode()
     {
-        if (ElementType.Equals(ElementTypes.FIRE))
-        {
-            Debug.LogWarning(this.name + " called Fire");
-        }
-
-        base.Explode();
         sphereCastDamageScript.SphereCastDamageArea(BaseDamage * damageMultiplier, maxRange, rangeFalloff, Level,
             ElementType, true, TriggerElement,ElementDamage,ElementPotency, GunPerkController);
-        this.GunPerkController.OnExplode(this.ShotData);
-        Destroy(gameObject);
+        if (this.GunPerkController)
+        {
+            this.GunPerkController.OnProjectile_Explode(this.ShotData);
+        }
+        base.Explode();
+        Destroy(gameObject,Time.deltaTime);
     }
 }

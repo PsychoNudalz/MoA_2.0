@@ -8,7 +8,8 @@ public class SphereCastDamageScript : DamageScript
     float lineOfSightOffset = 0f;
 
     public bool SphereCastDamageArea(float dmg, float range, AnimationCurve rangeCurve, int level,
-        ElementTypes elementType, bool needLineOfSight = false,bool triggerElement = false, float elementDamage = 0f, float elementPotency = 0f, GunPerkController gunPerkController = null)
+        ElementTypes elementType, bool needLineOfSight = false, bool triggerElement = false, float elementDamage = 0f,
+        float elementPotency = 0f, GunPerkController gunPerkController = null)
     {
         if (elementType.Equals(ElementTypes.FIRE))
         {
@@ -30,7 +31,7 @@ public class SphereCastDamageScript : DamageScript
             Collider c = h.collider;
             if (!needLineOfSight || RayCastLineOfSight(c, range))
             {
-                 lss = c.GetComponentInParent<LifeSystemScript>();
+                lss = c.GetComponentInParent<LifeSystemScript>();
 
                 if (tagList.Contains(c.tag) && lss)
                 {
@@ -40,9 +41,9 @@ public class SphereCastDamageScript : DamageScript
                         attackedTargets.Add(lss);
 
                         critTrigger = c.TryGetComponent(out WeakPointScript _);
-                        
+
                         calculatedDamage = CalculateDamage(dmg, range, rangeCurve, lss.GetCentreOfMass().position);
-                        killTrigger= dealDamageToTarget(lss, calculatedDamage, level, elementType);
+                        killTrigger = dealDamageToTarget(lss, calculatedDamage, level, elementType);
 
                         if (!(lss is PlayerLifeSystemScript))
                         {
@@ -52,22 +53,25 @@ public class SphereCastDamageScript : DamageScript
                                 {
                                     if (!shockFlag)
                                     {
-                                        ApplyElementEffect(lss, calculatedDamage * elementDamage, elementPotency, elementType);
+                                        ApplyElementEffect(lss, calculatedDamage * elementDamage, elementPotency,
+                                            elementType);
                                         shockFlag = true;
                                         elementTrigger = true;
                                     }
                                 }
                                 else
                                 {
-                                    ApplyElementEffect(lss, calculatedDamage* elementDamage, elementPotency, elementType);
+                                    ApplyElementEffect(lss, calculatedDamage * elementDamage, elementPotency,
+                                        elementType);
                                     elementTrigger = true;
                                 }
                             }
                         }
 
-                        if (gunPerkController!=null)
+                        if (gunPerkController != null)
                         {
-                           gunPerkController.OnExplode(ProcessShotData(hitTarget,critTrigger,killTrigger,calculatedDamage,elementTrigger));
+                            gunPerkController.OnProjectile_Explode(ProcessShotData(lss,hitTarget, critTrigger, killTrigger,
+                                calculatedDamage, elementTrigger));
                         }
                     }
                 }
@@ -101,29 +105,25 @@ public class SphereCastDamageScript : DamageScript
         else
         {
             Debug.DrawRay(transform.position, dir * range, Color.red, 3f);
-
         }
         //print("no line of sight");
 
         return false;
     }
 
-    ShotData ProcessShotData(bool isHit,bool isCrit, bool isKill,float dmg, bool isElementTrigger)
+    ShotData ProcessShotData(LifeSystemScript lss, bool isHit, bool isCrit, bool isKill, float dmg, bool isElementTrigger)
     {
         ShotData shotData = new ShotData();
         if (isHit)
         {
-            shotData.TargetLs = attackedTargets[0];
-            shotData.IsHit = true;
-            shotData.IsKill = isKill||shotData.IsKill;
-            shotData.IsCritical = isCrit||shotData.IsCritical;
-            if (dmg > shotData.ShotDamage)
-            {
-                shotData.ShotDamage = dmg;
-            }
-
+            shotData.TargetLs = lss;
+            shotData.IsHit = isHit;
+            shotData.IsKill = isKill;
+            shotData.IsCritical = isCrit;
+            shotData.ShotDamage = dmg;
             shotData.IsElementTrigger = isElementTrigger;
         }
+
         return shotData;
     }
 }

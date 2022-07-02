@@ -375,18 +375,6 @@ public class GunDamageScript : DamageScript
 
     public virtual void Fire(bool b)
     {
-        //print(name + " Set Fire: " + b);
-        //if (!isFullAuto)
-        //{
-        //    if (timeNow_TimeUnitlFire <= 0)
-        //    {
-        //        isFiring = b;
-        //    }
-        //}
-        //else
-        //{
-        //    isFiring = b;
-        //}
         isFiring = b;
     }
 

@@ -645,11 +645,19 @@ public class GunPerkController : MonoBehaviour
             }
         }
     }
-    public void OnExplode(ShotData shotData)
+
+    public void OnProjectile_Shot(ShotData shotData)
     {
         foreach (Perk perk in perks)
         {
             perk.OnShot(shotData);
+        }    
+    }
+    
+    public void OnProjectile_Explode(ShotData shotData)
+    {
+        foreach (Perk perk in perks)
+        {
             if (shotData.IsHit)
             {
                 perk.OnHit(shotData);

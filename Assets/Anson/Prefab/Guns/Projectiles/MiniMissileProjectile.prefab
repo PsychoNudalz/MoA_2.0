@@ -5067,9 +5067,12 @@ MonoBehaviour:
   baseDamage: 0
   level: 0
   elementType: 3
-  explodeEffect: {fileID: 2573044334396453629}
-  delayDistroyGOs: []
-  delayTime: 0
+  triggerElement: 0
+  elementDamage: 0
+  elementPotency: 0
+  ExplodeEffects:
+  - {fileID: 2573044334381597017}
+  delayTime: 2
   rb: {fileID: 0}
   physicMateral: {fileID: 13400000, guid: d611a62dd81be9a4da06f686b599e616, type: 2}
   mainCollider: {fileID: 0}
@@ -5092,6 +5095,18 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   homingDir: {x: 0, y: 0, z: 0}
   homingStrength: 4
+  shotData:
+    playerPos: {x: 0, y: 0, z: 0}
+    hitPos: {x: 0, y: 0, z: 0}
+    targetLS: {fileID: 0}
+    targetPos: {x: 0, y: 0, z: 0}
+    isHit: 0
+    isTargetHit: 0
+    isCritical: 0
+    isKill: 0
+    shotDamage: 0
+    isElementTrigger: 0
+  gunPerkController: {fileID: 0}
   damageMultiplier: 1
   maxRange: 5
   rangeFalloff:

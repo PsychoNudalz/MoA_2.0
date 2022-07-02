@@ -260,8 +260,11 @@ MonoBehaviour:
   baseDamage: 0
   level: 1
   elementType: 0
-  explodeEffect: {fileID: 1154600234075092330}
-  delayDistroyGOs:
+  triggerElement: 0
+  elementDamage: 0
+  elementPotency: 0
+  ExplodeEffects:
+  - {fileID: 4880529790910983468}
   - {fileID: 1675555339506530334}
   delayTime: 2
   rb: {fileID: 2667038320215456807}
@@ -286,6 +289,18 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   homingDir: {x: 0, y: 0, z: 0}
   homingStrength: 10
+  shotData:
+    playerPos: {x: 0, y: 0, z: 0}
+    hitPos: {x: 0, y: 0, z: 0}
+    targetLS: {fileID: 0}
+    targetPos: {x: 0, y: 0, z: 0}
+    isHit: 0
+    isTargetHit: 0
+    isCritical: 0
+    isKill: 0
+    shotDamage: 0
+    isElementTrigger: 0
+  gunPerkController: {fileID: 0}
   damageMultiplier: 1
   maxRange: 3
   rangeFalloff:

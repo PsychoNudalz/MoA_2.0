@@ -36,10 +36,8 @@ public abstract class ProjectileScript : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField]
-    ParticleSystem explodeEffect;
-
-    [SerializeField]
-    GameObject[] delayDistroyGOs;
+    [Tooltip("can take particle system, visual effects and sounds")]
+    GameObject[] ExplodeEffects;
 
     [SerializeField]
     float delayTime;
@@ -111,6 +109,8 @@ public abstract class ProjectileScript : MonoBehaviour
     [SerializeField]
     private GunPerkController gunPerkController;
 
+
+    private bool canExplode = true;
     protected int Level
     {
         get => level;
@@ -185,7 +185,10 @@ public abstract class ProjectileScript : MonoBehaviour
     {
         if (fuseTime <= 0)
         {
-            Explode();
+            if (canExplode)
+            {
+                Explode();
+            }
         }
 
         fuseTime -= Time.deltaTime;
@@ -214,13 +217,19 @@ public abstract class ProjectileScript : MonoBehaviour
             //print(collision.collider.name);
             if (collision.collider.tag.Equals("Enemy") || collision.collider.tag.Equals("Player"))
             {
-                Explode();
+                if (canExplode)
+                {
+                    Explode();
+                }
             }
             else
             {
                 if (numberOfBounces == 0)
                 {
-                    Explode();
+                    if (canExplode)
+                    {
+                        Explode();
+                    }
                 }
 
                 numberOfBounces -= 1;
@@ -254,26 +263,48 @@ public abstract class ProjectileScript : MonoBehaviour
         rb.AddForce(LaunchDir * (launchForce * rb.mass));
         originalDir = LaunchDir;
 
+        shotData = new ShotData();
+        shotData.PlayerPos = transform.position;
+        
         if (gunPerkController)
         {
             this.gunPerkController = gunPerkController;
+            this.gunPerkController.OnProjectile_Shot(shotData);
         }
 
-        shotData = new ShotData();
         return shotData;
     }
 
     public virtual void Explode()
     {
-        //print(name + " go boom");
-        if (explodeEffect)
+        canExplode = false;
+        PlayExplodeEffect();
+    }
+
+    public virtual void PlayExplodeEffect()
+    {
+        VisualEffect v;
+        ParticleSystem p;
+        Sound s;
+        foreach (GameObject g in ExplodeEffects)
         {
-            explodeEffect = Instantiate(explodeEffect, transform.position, transform.rotation);
-            explodeEffect.Play();
-            Destroy(explodeEffect.gameObject, 1f);
+            if (g.TryGetComponent(out v))
+            {
+                v.Play();
+            }
+            else if(g.TryGetComponent(out p))
+            {
+                p.Play();
+            }
+            else if (g.TryGetComponent(out s))
+            {
+                s.Play();
+            }
+
+            g.transform.SetParent(null);
+            Destroy(g, delayTime);
         }
 
-        DetachEffects();
     }
 
     public void PointProjectileToDirection()
@@ -353,18 +384,4 @@ public abstract class ProjectileScript : MonoBehaviour
         return;
     }
 
-    protected virtual void DetachEffects()
-    {
-        VisualEffect v;
-        foreach (GameObject g in delayDistroyGOs)
-        {
-            if (g.TryGetComponent(out v))
-            {
-                v.SendEvent("OnStop");
-            }
-
-            g.transform.SetParent(null);
-            Destroy(g, delayTime);
-        }
-    }
 }
