@@ -64,6 +64,9 @@ public class GunDamageScript : DamageScript
     GameObject projectileGO;
 
     [SerializeField]
+    private Transform muzzleLocation;
+
+    [SerializeField]
     protected AnimationCurve rangeCurve;
 
     [SerializeField]
@@ -309,6 +312,12 @@ public class GunDamageScript : DamageScript
 
         fireType = g.FireType;
         projectileGO = g.ProjectileGo;
+        if (g.MuzzleLocation)
+        {
+            muzzleLocation = g.MuzzleLocation;
+
+        }
+
 
         currentMag = g.CurrentMag;
 
@@ -709,19 +718,39 @@ public class GunDamageScript : DamageScript
 
     private void SpawnLaunchProjectile()
     {
-        ProjectileScript projectileScript =
-            Instantiate(projectileGO, firePoint.position, Quaternion.identity)
-                .GetComponent<ProjectileScript>();
+        ProjectileScript projectileScript;
+        if (muzzleLocation)
+        {
+             projectileScript =
+                Instantiate(projectileGO, muzzleLocation.position, Quaternion.identity)
+                    .GetComponent<ProjectileScript>();
+        }
+
+        else
+        {
+             projectileScript =
+                Instantiate(projectileGO, firePoint.position, Quaternion.identity)
+                    .GetComponent<ProjectileScript>();
+        }
+
         float randomX = Mathf.Clamp(Random.Range(0, currentRecoil.x * .5f) + Random.Range(0, recoil_HipFire.x),
             0,
             recoil_HipFire.y);
 
         randomFireDir = new Vector2(randomX, Random.Range(-180f, 180f));
+        Vector3 fireDir;
+        if (!isADS)
+        {
+            fireDir= Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
+                     Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
+                     firePoint.transform.forward;
+        }
+        else
+        {
+            fireDir = firePoint.transform.forward;
+        }
 
-        Vector3 fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
-                          Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
-                          firePoint.transform.forward;
-
+        
         projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized, IsTriggerElement()
             , elementDamage, elementPotency, gunPerkController);
     }

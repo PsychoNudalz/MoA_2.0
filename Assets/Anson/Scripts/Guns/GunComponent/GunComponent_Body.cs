@@ -146,6 +146,8 @@ public class GunComponent_Body : GunComponent
         get => projectilePerShot;
     }
 
+    public Transform MuzzleLocation => muzzleLocation;
+
     public float TimeToRecenter
     {
         get => timeToRecenter;

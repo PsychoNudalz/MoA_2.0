@@ -33,6 +33,9 @@ public class MainGunStatsScript : GunStatsScript
     GameObject projectileGo;
 
     [SerializeField]
+    private Transform muzzleLocation;
+
+    [SerializeField]
     protected AnimationCurve rangeCurve;
 
     [SerializeField]
@@ -244,6 +247,8 @@ public class MainGunStatsScript : GunStatsScript
         set => projectileGo = value;
     }
 
+    public Transform MuzzleLocation => muzzleLocation;
+
     public AnimationCurve RangeCurve
     {
         get => rangeCurve;
@@ -300,6 +305,7 @@ public class MainGunStatsScript : GunStatsScript
         timeToRecenter = b.TimeToRecenter;
         isFullAuto = b.IsFullAuto;
         bulletParticle = b.BulletParticle;
+        muzzleLocation = b.MuzzleLocation;
         projectilePerShot = b.ProjectilePerShot;
         impactEffect = b.ImpactEffect;
         muzzleEffect = b.MuzzleEffect;

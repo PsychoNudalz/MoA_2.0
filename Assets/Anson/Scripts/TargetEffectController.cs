@@ -140,7 +140,10 @@ public class TargetEffectController : MonoBehaviour
         }
         iceEffect.SetBool("IsShatter", false);
         iceEffect.SetFloat("Lifetime", duration);
-        currentIceCoroutine = StartCoroutine(DelayIceEvent(duration / 2));
+        if (gameObject.activeSelf)
+        {
+            currentIceCoroutine = StartCoroutine(DelayIceEvent(duration / 2));
+        }
     }
 
     public void ShatterIceShards(float amount)
