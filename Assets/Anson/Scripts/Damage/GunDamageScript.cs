@@ -49,6 +49,7 @@ public class GunDamageScript : DamageScript
 
     [SerializeField]
     protected float elementDamage = 0;
+
     protected float elementDamageTotal = 0;
 
     [SerializeField]
@@ -315,7 +316,6 @@ public class GunDamageScript : DamageScript
         if (g.MuzzleLocation)
         {
             muzzleLocation = g.MuzzleLocation;
-
         }
 
 
@@ -333,6 +333,7 @@ public class GunDamageScript : DamageScript
 
         rangeCurve = g.RangeCurve;
         gunEffectsController = g.GunEffectsController;
+        gunEffectsController.SetGunDamage(this);
         if (g.GunPerkController)
         {
             gunPerkController = g.GunPerkController;
@@ -496,7 +497,7 @@ public class GunDamageScript : DamageScript
         }
     }
 
-    public virtual bool Shoot(ShotData shotData = null)
+    public virtual bool Shoot(ShotData shotData = null, bool forced = false)
     {
         if (shotData == null)
         {
@@ -504,18 +505,12 @@ public class GunDamageScript : DamageScript
         }
 
         //print("Shooting");
-        if (canFire())
+        if (forced||canFire())
         {
             currentProjectile = projectilePerShot;
-
-            switch (fireType)
+            if (!gunEffectsController.AnimationOnlyOnShoot)
             {
-                case (FireTypes.HitScan):
-                    RaycastDamage(shotData);
-                    break;
-                case (FireTypes.Projectile):
-                    LaunchProjectile();
-                    break;
+                ShootWeapon(shotData);
             }
 
             HandleWeapon();
@@ -529,6 +524,19 @@ public class GunDamageScript : DamageScript
         }
 
         return false;
+    }
+
+    public void ShootWeapon(ShotData shotData = null)
+    {
+        switch (fireType)
+        {
+            case (FireTypes.HitScan):
+                RaycastDamage(shotData);
+                break;
+            case (FireTypes.Projectile):
+                LaunchProjectile();
+                break;
+        }
     }
 
     bool RaycastDamage(ShotData shotData)
@@ -721,14 +729,14 @@ public class GunDamageScript : DamageScript
         ProjectileScript projectileScript;
         if (muzzleLocation)
         {
-             projectileScript =
+            projectileScript =
                 Instantiate(projectileGO, muzzleLocation.position, Quaternion.identity)
                     .GetComponent<ProjectileScript>();
         }
 
         else
         {
-             projectileScript =
+            projectileScript =
                 Instantiate(projectileGO, firePoint.position, Quaternion.identity)
                     .GetComponent<ProjectileScript>();
         }
@@ -741,24 +749,27 @@ public class GunDamageScript : DamageScript
         Vector3 fireDir;
         if (!isADS)
         {
-            fireDir= Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
-                     Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
-                     firePoint.transform.forward;
+            fireDir = Quaternion.AngleAxis(randomFireDir.y, firePoint.transform.forward) *
+                      Quaternion.AngleAxis(-randomFireDir.x, firePoint.transform.right) *
+                      firePoint.transform.forward;
         }
         else
         {
             fireDir = firePoint.transform.forward;
         }
 
-        
+
         projectileScript.Launch(damagePerProjectile, 1, elementType, fireDir.normalized, IsTriggerElement()
             , elementDamage, elementPotency, gunPerkController);
     }
 
-    protected virtual float HandleWeapon(float newRecoilTime = -1f)
+    protected virtual float HandleWeapon(float newRecoilTime = -1f, bool playShoot = true)
     {
-        gunEffectsController.PlayAnimationTrigger("Shoot");
-        gunEffectsController.PlaySound_Fire();
+        if (playShoot)
+        {
+            PlayShootEffects();
+        }
+
         Vector2 addRecoil = new Vector2();
         if (newRecoilTime < 0)
         {
@@ -779,6 +790,12 @@ public class GunDamageScript : DamageScript
 
 
         return newRecoilTime;
+    }
+
+    private void PlayShootEffects()
+    {
+        gunEffectsController.PlayAnimationTrigger("Shoot");
+        gunEffectsController.PlaySound_Fire();
     }
 
     protected virtual float RecoilWeapon(out Vector2 addRecoil)
@@ -896,7 +913,7 @@ public class GunDamageScript : DamageScript
                 break;
         }
 
-        newRecoilTime = HandleWeapon(newRecoilTime);
+        newRecoilTime = HandleWeapon(newRecoilTime, !gunEffectsController.NoAnimationOnBurst);
         if (currentProjectile > 0 && currentMag > 0)
         {
             if (currentBurstCoroutine != null)

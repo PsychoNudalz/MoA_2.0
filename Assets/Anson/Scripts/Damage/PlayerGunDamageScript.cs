@@ -110,9 +110,9 @@ public class PlayerGunDamageScript : GunDamageScript
         return;
     }
 
-    public override bool Shoot(ShotData shotData = null)
+    public override bool Shoot(ShotData shotData = null, bool forced = false)
     {
-        bool temp = base.Shoot(shotData);
+        bool temp = base.Shoot(shotData, forced);
         if (temp&& shotData != null)
         {
             gunPerkController.OnShoot(shotData);
@@ -244,9 +244,10 @@ public class PlayerGunDamageScript : GunDamageScript
         */
     }
 
-    protected override float HandleWeapon(float newRecoilTime = -1)
+
+    protected override float HandleWeapon(float newRecoilTime = -1, bool playShoot = true)
     {
-        float temp = base.HandleWeapon(newRecoilTime);
+        float temp = base.HandleWeapon(newRecoilTime, playShoot);
 
         playerUIScript.FireCrossair();
         if (PlayerMasterScript.INFINITEAMMO)

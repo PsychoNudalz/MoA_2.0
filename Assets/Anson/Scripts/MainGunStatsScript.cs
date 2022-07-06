@@ -109,7 +109,6 @@ public class MainGunStatsScript : GunStatsScript
     [SerializeField]
     float shootAnimationLerp = 1;
 
-
     [Header("Sound")]
     SoundManager soundManager;
 
@@ -270,6 +269,7 @@ public class MainGunStatsScript : GunStatsScript
     {
         get => gunEffectsController;
     }
+
 
     private void Start()
     {

@@ -22,6 +22,12 @@ public class GunEffectsController : MonoBehaviour
     [SerializeField]
     private Coroutine delayAnimationCoroutine;
 
+    [SerializeField]
+    private bool noAnimationOnBurst;
+    
+    [SerializeField]
+    private bool animationOnlyOnShoot = false;
+
     [Space(5)]
     [Header("Effects")]
     [SerializeField]
@@ -65,8 +71,18 @@ public class GunEffectsController : MonoBehaviour
     [SerializeField]
     private MainGunStatsScript mainGunStat;
 
+    [SerializeField]
+    private GunDamageScript gunDamageScript;
+
+    public Animator Animator => animator;
 
     public GunHandController GunHandController => gunHandController;
+
+    public float ShootAnimationLerp => shootAnimationLerp;
+
+    public bool AnimationOnlyOnShoot => animationOnlyOnShoot;
+
+    public bool NoAnimationOnBurst => noAnimationOnBurst;
 
     private void Awake()
     {
@@ -94,7 +110,6 @@ public class GunEffectsController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     public void Initialise(MainGunStatsScript gunStat)
     {
         this.mainGunStat = gunStat;
@@ -104,6 +119,12 @@ public class GunEffectsController : MonoBehaviour
         rarityEffect.SetInt("Element", (int) gunStat.ElementType);
 
         updateAnimatorSpeeds();
+    }
+
+    
+    public void SetGunDamage(GunDamageScript gunDamageScript)
+    {
+            this.gunDamageScript = gunDamageScript;
     }
 
     public void updateAnimatorSpeeds()
@@ -338,6 +359,18 @@ public class GunEffectsController : MonoBehaviour
         yield return new WaitForFixedUpdate();
         animator.SetTrigger(s);
     }
+
+    /// <summary>
+    /// allow animation to call fire from animation
+    /// </summary>
+    public void AnimationCallShoot()
+    {
+        if (gunDamageScript)
+        {
+            gunDamageScript.ShootWeapon();
+        }
+    }
+    
 
     /// <summary>
     /// used for getting things from body components

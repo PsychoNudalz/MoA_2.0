@@ -84,13 +84,8 @@ public class GunComponent_Body : GunComponent
     [SerializeField]
     Transform muzzleLocation;
 
-    [Header("Animator")]
-    [SerializeField]
-    Animator animator;
+    [Header("Animation")]
 
-    [Range(0f, 1f)]
-    [SerializeField]
-    float shootAnimationLerp = 1;
 
     [SerializeField]
     GunHandController gunHandController;
@@ -177,7 +172,7 @@ public class GunComponent_Body : GunComponent
 
     public Animator GetAnimator
     {
-        get => animator;
+        get => gunEffectsController.Animator;
     }
 
     public Sound Sound_Fire
@@ -246,8 +241,7 @@ public class GunComponent_Body : GunComponent
 
     public float ShootAnimationLerp
     {
-        get => shootAnimationLerp;
-        set => shootAnimationLerp = value;
+        get => gunEffectsController.ShootAnimationLerp;
     }
 
     public GunHandController GunHandController
@@ -266,10 +260,6 @@ public class GunComponent_Body : GunComponent
             gunEffectsController = GetComponent<GunEffectsController>();
         }
 
-        if (!animator)
-        {
-            animator = GetComponent<Animator>();
-        }
 
         if (component_Sight != null)
         {
