@@ -194,14 +194,7 @@ public class GunEffectsController : MonoBehaviour
             animator.SetTrigger(s);
         }
 
-        if (s.Equals("Shoot"))
-        {
-            animator.speed = Mathf.Lerp(1, animationSpeed, shootAnimationLerp);
-        }
-        else
-        {
-            animator.speed = animationSpeed;
-        }
+
     }
 
 

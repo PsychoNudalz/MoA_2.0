@@ -370,30 +370,6 @@ public class MainGunStatsScript : GunStatsScript
         gunEffectsController.SetEffectsElement(60f / RPM,elementType);
     }
 
-    /// <summary>
-    /// Depreciated 
-    /// </summary>
-    /// <param name="s"></param>
-    /// <param name="animationSpeed"></param>
-    [Obsolete("Moved to GunEffectController", true)]
-    public void PlayAnimationTrigger(string s, float animationSpeed = 1)
-    {
-        if (animator == null)
-        {
-            return;
-        }
-
-        if (s.Equals("Shoot"))
-        {
-            animator.speed = Mathf.Lerp(1, animationSpeed, shootAnimationLerp);
-        }
-        else
-        {
-            animator.speed = animationSpeed;
-        }
-
-        animator.SetTrigger(s);
-    }
 
     [Obsolete("Moved to GunEffectController", true)]
     public void Play_Fire()
