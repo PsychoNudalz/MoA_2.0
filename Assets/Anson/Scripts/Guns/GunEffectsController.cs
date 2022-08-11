@@ -326,6 +326,15 @@ public class GunEffectsController : MonoBehaviour
     {
         gunHandController.RemovePoint_Left(i);
     }
+    public void AddPointRight(int i)
+    {
+        gunHandController.AddPoint_Right(i);
+    }
+
+    public void RemovePointRight(int i)
+    {
+        gunHandController.RemovePoint_Right(i);
+    }
 
     public void SetHandOnBarrel(GunComponent_Barrel b, bool ignore)
     {

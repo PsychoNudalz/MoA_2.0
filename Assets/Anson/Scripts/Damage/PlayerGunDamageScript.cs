@@ -95,7 +95,7 @@ public class PlayerGunDamageScript : GunDamageScript
         ShotDataManager.Reset();
         if (mainGunStatsScript && mainGunStatsScript.GunComponentBody.GunHandController)
         {
-            mainGunStatsScript.GunComponentBody.GunHandController.RemoveAllPoints_Left();
+            mainGunStatsScript.GunComponentBody.GunHandController.RemoveAllPoints();
 
         }
 
@@ -169,6 +169,7 @@ public class PlayerGunDamageScript : GunDamageScript
         if (mainGunStatsScript && mainGunStatsScript.GunComponentBody.GunHandController)
         {
             HandController.left.AddPointer(mainGunStatsScript.GunComponentBody.GunHandController.HandRest);
+            HandController.right.AddPointer(mainGunStatsScript.GunComponentBody.GunHandController.RightHandRest);
         }
         
         gunPerkController.OnEquip();
