@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class GunHandController : MonoBehaviour
 
     [SerializeField]
     private HandPositionPointer rightHand_Rest;
+
 
     public HandPositionPointer HandRest
     {
@@ -77,7 +79,7 @@ public class GunHandController : MonoBehaviour
     {
         try
         {
-            HandController.left.AddPointer(handPositionPointers[i]);
+            HandController.right.AddPointer(handPositionPointers[i]);
         }
         catch (System.IndexOutOfRangeException)
         {
@@ -117,5 +119,34 @@ public class GunHandController : MonoBehaviour
         RemoveAllPoints_Left();
         RemoveAllPoints_Right();
     }
+    
+#if UNITY_EDITOR
+    [Header("Editor")]
+    [SerializeField]
+    private bool autoFindRightHandRest = true;
+
+    [ContextMenu("Find Right Hand Rest")]
+    public void FindRightHandRest()
+    {
+        foreach (HandPositionPointer hpp in GetComponentsInChildren<HandPositionPointer>())
+        {
+            if (hpp.name.Contains("_R"))
+            {
+                rightHand_Rest = hpp;
+                return;
+            }
+        }
+        
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (autoFindRightHandRest)
+        {
+            FindRightHandRest();
+        }
+    }
+#endif
+
 
 }
