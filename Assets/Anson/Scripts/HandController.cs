@@ -120,7 +120,7 @@ public class HandController : MonoBehaviour
 
     public void AddPointer(HandPositionPointer pp)
     {
-        if (pointers.Contains(pp))
+        if (!pp||pointers.Contains(pp))
         {
             return;
         }
